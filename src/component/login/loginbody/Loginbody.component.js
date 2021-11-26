@@ -1,11 +1,22 @@
 import { connect } from "react-redux"
 import { loginuser } from "../../../actions/User.ac"
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import { useFormik } from "formik"
 import { httpClient } from "../../../utils/httpClient"
 import { Link } from "react-router-dom"
+import { notify } from "../../../services/notify"
 
 const Loginbodycomponent = (props) => {
+    console.log(props)
+    useEffect(()=>{
+        const timeoutMsg=props.timeoutMsg
+        console.log(timeoutMsg)
+        if(timeoutMsg){
+            notify.error(timeoutMsg);
+        }
+        
+    },[])
+    console.log(props)
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -16,9 +27,11 @@ const Loginbodycomponent = (props) => {
                 .then(resp => {
                     let response=JSON.parse(resp)
                     console.log(response)
-                    let {access_token,refresh_token}=response
+                    let {access_token,refresh_token,expires_in}=response
                     localStorage.setItem("dm-access_token",access_token)
                     localStorage.setItem("dm-refresh_token",refresh_token)
+                    localStorage.setItem("timeout",expires_in)
+                    props.history.push(`/dashboard/${response.userid}`)
                 })
                 .catch(err => {
                     console.log(err)
