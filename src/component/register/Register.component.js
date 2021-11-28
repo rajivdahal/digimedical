@@ -66,8 +66,8 @@ const RegisterComponent = (props) => {
             httpClient.POST("create-user", values)
                 .then(resp => {
                     setTimeout(()=>{
-                        notify.success("Register Successful please Sign In to Continue")
-                        props.history.push('/login')
+                          notify.success("Register Successful please Sign In to Continue")
+                    props.history.push('/login')
                     },3000)
                   
                 })
