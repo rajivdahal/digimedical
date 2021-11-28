@@ -42,6 +42,7 @@
     border-radius: 50%;
     background: #3A94D8;
     color: #fff;
+    margin:5px;
 }
 .login-form input {
     padding: 15px;

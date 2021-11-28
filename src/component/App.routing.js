@@ -2,6 +2,7 @@ import { Redirect } from "react-router";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { notify } from "../services/notify";
 import { httpClient } from "../utils/httpClient";
+import Dashboard from "./dashboard/dashboard.component";
 import { Home } from "./home/home.component";
 import { Login } from "./login/login.component";
 import Register from "./register/Register.component";
@@ -63,7 +64,7 @@ export const Approuting = (props) => {
                 <PublicRoute exact path="/login" component={Login}></PublicRoute>
                 <PublicRoute exact path="/" component={Home}></PublicRoute>
                 <PublicRoute exact path="/register" component={Register}></PublicRoute>
-                <ProtectedRoute exact path="/dashboard/:id" component={Register}></ProtectedRoute>
+                <ProtectedRoute exact path="/dashboard/:id" component={Dashboard}></ProtectedRoute>
             </Switch>
         </BrowserRouter>
     )

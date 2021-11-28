@@ -1,12 +1,13 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { httpClient } from '../../utils/httpClient'
 import { Header } from '../common/Header/Header.component'
-import './Register.component.css'
 import { notify } from '../../services/notify'
 import { useFormik } from 'formik'
-
+import Submitbtn from '../common/Submitbtn/Submitbtn.component'
+import './Register.component.css'
 
 const RegisterComponent = (props) => {
+    const [isLoading,setisLoading]=useState(false)
 
     const formik = useFormik({
         initialValues: {
@@ -61,24 +62,23 @@ const RegisterComponent = (props) => {
             return errors
         },
         onSubmit: values => {
+            setisLoading(true)
             httpClient.POST("create-user", values)
                 .then(resp => {
-                    notify.success("Register Successful please Sign In to Continue")
-                    props.history.push('/login')
+                    setTimeout(()=>{
+                        notify.success("Register Successful please Sign In to Continue")
+                        props.history.push('/login')
+                    },3000)
+                  
                 })
                 .catch(err => {
-                    notify.error("something went wrong")
+                    notify.error(err.response.data.message)
                 })
         }
     })
-
-
-    // console.log(formik.values)
-    
     return (
         <>
             <Header></Header>
-
             <div className="banner-area banner-bg" style={{ background: "url(/images/healthcare.jpg)" }}>
                 <div className="container">
                     <div className="row">
@@ -98,7 +98,6 @@ const RegisterComponent = (props) => {
             <section className="login">
                 <div className="container">
                     <div className="row">
-
                         <div className="col-md-6">
                             <div className="register-img">
                                 <img src="images/login-bg.png" alt="" className="img-fluid" />
@@ -121,7 +120,6 @@ const RegisterComponent = (props) => {
                                             <label>Middle Name </label>
                                             <input type="text" className="form-control form-input" placeholder="Middle Name" id="middleName" name="middleName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.middleName && formik.touched.middleName ? <div style={{ color: "red" }}>{formik.errors.middleName}</div> : null}
-
 
                                         </div>
                                     </div>
@@ -167,9 +165,7 @@ const RegisterComponent = (props) => {
                                     </div>
                                     <div className="sign-btn text-center w-100 mt-4">
                                         <a href="register.html">
-                                            <button className="btn register-btn br-0 mt-0" type="submit">
-                                                Register new
-                                            </button>
+                                           <Submitbtn fieldName="Register" isSubmitting={isLoading} enabledLabel="Register"></Submitbtn>
                                         </a>
                                         <p className="text-center w-100 pt-3">OR</p>
                                         <div className="login-icons mt-3">
