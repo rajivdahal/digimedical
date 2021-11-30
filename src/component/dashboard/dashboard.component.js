@@ -1,5 +1,5 @@
 import AdminDashboard from "./adminDashboard/adminDashboard.component"
-import Userdashboard from "./userdashboard/userDashboard.component"
+// import Userdashboard from "./userdashboard/userDashboard.component"
 
 const Dashboard=(props)=>{
   const statusCode=props.location.state.status

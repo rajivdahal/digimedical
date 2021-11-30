@@ -37,12 +37,20 @@ const AdminDashboard = (props) => {
           <a className="navbar-brand brand-logo-mini" href="index.html"><img src="/images/dashboard/logo.png" alt="logo" /></a>
         </div>
         <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-
-
-
-
-          <h3 className="font-weight-bold">Welcome Shiva</h3>
+          <button className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span className="icon-menu"></span>
+          </button>
           <ul className="navbar-nav mr-lg-2">
+            <li className="nav-item nav-search d-none d-lg-block">
+              <div className="input-group">
+                <div className="input-group-prepend hover-cursor" id="navbar-search-icon">
+                  <span className="input-group-text" id="search">
+                    <i className="icon-search"></i>
+                  </span>
+                </div>
+                <input type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" />
+              </div>
+            </li>
           </ul>
           <ul className="navbar-nav navbar-nav-right">
 
@@ -105,25 +113,12 @@ const AdminDashboard = (props) => {
                   <i className="ti-settings text-primary"></i>
                   Settings
                 </a>
-                <a className="dropdown-item"  onClick={Logout}>
+                <a className="dropdown-item">
                   <i className="ti-power-off text-primary"></i>
                   Logout
                 </a>
               </div>
             </li>
-            {
-              logoutstate.logout ? <div className="logout-container">
-                <div className="logout">
-                  <p>Are you sure you want to Logout?</p>
-                  <div className="buttons">
-                    <button className="yes-logout" onClick={logoutyes}>Yes</button>
-                    <button className="no-logout" onClick={logoutno}>No</button>
-                  </div>
-                </div>
-              </div>
-                :
-                null
-            }
             <li className="nav-item nav-settings d-none d-lg-flex">
               <a className="nav-link" href="#">
                 <i className="icon-ellipsis"></i>
@@ -137,7 +132,6 @@ const AdminDashboard = (props) => {
       </nav>
 
       {/* nav ends */}
-
 
 
 
@@ -312,13 +306,21 @@ const AdminDashboard = (props) => {
         </div>
 
         <nav className="sidebar sidebar-offcanvas" id="sidebar">
+          <p className="centered mt-3"><a href="profile.html"><img  className="img-circle user-img-circle img-fluid" width="80" /></a></p>
+          <h5 className="centered">Sam Soffes</h5>
+          <p className="centered">Admin</p>
           <ul className="nav">
             <li className="nav-item">
               <a className="nav-link" data-toggle="collapse" href="#dash" aria-expanded="false" aria-controls="dash">
                 <i className="icon-grid menu-icon"></i>
-                <span className="menu-title"> Admin Dashboard</span>
+                <span className="menu-title">Dashboard</span>
               </a>
-
+              <div className="collapse" id="dash">
+                <ul className="nav flex-column sub-menu">
+                  <li className="nav-item"> <a className="nav-link" href="">Doctor Dashboard</a></li>
+                  <li className="nav-item"> <a className="nav-link" href="">Patient Dashboard</a></li>
+                </ul>
+              </div>
             </li>
             <li className="nav-item">
               <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
@@ -410,12 +412,24 @@ const AdminDashboard = (props) => {
               <div className="collapse" id="masterdata">
                 <ul className="nav flex-column sub-menu">
                   <Link to="/services">
-                    <li className="nav-item"> <a className="nav-link" href="">Services</a></li>
+                  <li className="nav-item"> <a className="nav-link" href="">Services</a></li>
                   </Link>
                   {/* <li className="nav-item"> <a className="nav-link" href="">Book Appointment</a></li> */}
                 </ul>
               </div>
 
+              {/* <div className="dropdown collapse" id="masterdata">
+                <a className="dropdown-toggle btn btn-primary " role="button" id="services" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Services
+                </a>
+                <div className="dropdown-menu" aria-labelledby="services">
+                  <li className="nav-item"><a className="dropdown-item nav-link" href="">Surgeon</a></li>
+                  <li className="nav-item"><a className="dropdown-item nav-link" href="">Neurology</a></li>
+                  <li className="nav-item"><a className="dropdown-item nav-link" href="">Physiotherapy</a></li>
+                  <li className="nav-item"><a className="dropdown-item nav-link" href="">Cardiology</a></li>
+                  <li className="nav-item"><a className="dropdown-item nav-link" href="">Anaesthesia</a></li>
+                </div>
+              </div> */}
             </li>
 
           </ul>
@@ -427,14 +441,14 @@ const AdminDashboard = (props) => {
               <div className="col-md-12 grid-margin">
                 <div className="row">
                   <div className="col-12 col-xl-8 mb-4 mb-xl-0">
-
-                    <h6 className="font-weight-normal mb-0">All systems are running smoothly! You have <span className="sec-color">3 unread alerts!</span></h6>
+                    <h3 className="font-weight-bold">Welcome Shiva</h3>
+                    <h6 className="font-weight-normal mb-0">All systems are running smoothly! You have <span className="text-primary">3 unread alerts!</span></h6>
                   </div>
                   <div className="col-12 col-xl-4">
                     <div className="justify-content-end d-flex">
                       <div className="dropdown flex-md-grow-1 flex-xl-grow-0">
                         <button className="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                          <i className="mdi mdi-calendar"></i>Today- {TimeandDate.today()}
+                          <i className="mdi mdi-calendar"></i> Today (24 Nov 2021)
                         </button>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
                           <a className="dropdown-item" href="#">November - December</a>
@@ -1135,7 +1149,7 @@ const AdminDashboard = (props) => {
                                 </td>
                               </tr>
                               <tr>
-                                <td className="pl-2 table-img"><img src="/images/dashboard/user1.jpg" alt="" className="user-img-circle" /></td>
+                                <td className="pl-2 table-img"><img src="/images/dashboard/user1.jpg" alt="" className="user-img-circle img-fluid" /></td>
                                 <td>Abil Ray</td>
                                 <td className="text-muted">Dr.Raj Manandhar</td>
                                 <td className="text-muted">25/04/2020</td>
