@@ -1,16 +1,24 @@
 import { Redirect } from "react-router";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { notify } from "../services/notify";
-import { httpClient } from "../utils/httpClient";
-import Dashboard from "./dashboard/dashboard.component";
-import { Forgotpassword } from "./forgotpassword/forgotpassword.component";
-import { Home } from "./home/home.component";
-import { Login } from "./login/login.component";
-import Service from "../component/Service/Service";
-import Register from "./register/Register.component";
-import Navbar from "./Navbar/Navbar";
-import Footer from "./Footer/Footer";
-import { Pagenotfound } from "./pagenotfound/Pagenotfound.component";
+
+// import { Forgotpassword } from "./forgotpassword/forgotpassword.component";
+// import { Home } from "./home/home.component";
+// import { Login } from "./login/login.component";
+// import Service from "../component/Service/Service";
+import Register from "../register/Register.component";
+// import Navbar from "./Navbar/Navbar";
+// import Footer from "./Footer/Footer";
+// import { Pagenotfound } from "./pagenotfound/Pagenotfound.component";
+import { notify } from "../../services/notify";
+import { httpClient } from "../../utils/httpClient";
+import Dashboard from "../dashboard/dashboard.component";
+import { Forgotpassword } from "../forgotpassword/forgotpassword.component";
+import { Home } from "../home/home.component";
+import { Login } from "../login/login.component";
+import Service from "../Service/Service";
+import { Pagenotfound } from "../pagenotfound/Pagenotfound.component";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
 
 export const Approuting = (props) => {
@@ -82,7 +90,7 @@ export const Approuting = (props) => {
   };
   return (
     <BrowserRouter>
-      <Navbar />
+     
       <Switch>
         <PublicRoute exact path="/login" component={Login}></PublicRoute>
         <PublicRoute exact path="/" component={Home}></PublicRoute>
@@ -92,7 +100,7 @@ export const Approuting = (props) => {
         <ProtectedRoute exact path="/dashboard/:id" component={Dashboard}></ProtectedRoute>
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
-      <Footer />
+     
     </BrowserRouter>
   );
 };

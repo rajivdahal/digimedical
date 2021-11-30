@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import { loginuser } from "../../../actions/User.ac"
-import React, { Component, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useFormik } from "formik"
 import { httpClient } from "../../../utils/httpClient"
 import { Link } from "react-router-dom"
@@ -17,7 +17,6 @@ const Loginbodycomponent = (props) => {
         if (timeoutMsg) {
             notify.error(timeoutMsg);
         }
-
     }, [])
     console.log(props)
     const formik = useFormik({
@@ -47,8 +46,13 @@ const Loginbodycomponent = (props) => {
                     }, 3000)
                 })
                 .catch(err => {
-                    let error = JSON.parse(err)
+                    console.log("inside err")
+                    if (!err) {
+                         notify.error("something went wrong")
+                         return setisLoading(false)
+                    }
                     // seterrMsg(error.message)
+                    let error = JSON.parse(err)
                     formik.errors.password = error.message
                     setisLoading(false)
                 })
@@ -82,8 +86,6 @@ const Loginbodycomponent = (props) => {
                             </div>
                         </div>
                         <div className="col-md-6">
-
-
                             <form className="login-form" onSubmit={formik.handleSubmit}>
                                 <h2 className="fs-title text-center">Login</h2>
                                 <h3 className="fs-subtitle text-center">Fill in your credentials</h3>

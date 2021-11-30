@@ -5,6 +5,8 @@ import { notify } from '../../services/notify'
 import { useFormik } from 'formik'
 import Submitbtn from '../common/Submitbtn/Submitbtn.component'
 import './Register.component.css'
+import Navbar from '../Navbar/Navbar'
+import Footer from '../Footer/Footer'
 
 const RegisterComponent = (props) => {
     const [isLoading,setisLoading]=useState(false)
@@ -22,42 +24,42 @@ const RegisterComponent = (props) => {
         validate: values => {
             let errors = {}
             if (!values.firstName) {
-                errors.firstName = "Firstname Required"
+                errors.firstName = "Firstname is required!"
             }
             if (!values.lastName) {
-                errors.lastName = "LastName Required"
+                errors.lastName = "LastName is required!"
             }
             if (!values.mobileNumber) {
-                errors.mobileNumber = "MobileNumber Required"
+                errors.mobileNumber = "MobileNumber  is required!"
             }
 
             if (("" + values.mobileNumber).length != 10) {
-                errors.mobileNumber = "Mobile Number must be of 10 digits"
+                errors.mobileNumber = "Mobile Number must be of 10 digits!"
             }
             if (("" + values.mobileNumber).includes('-')) {
-                errors.mobileNumber = "Phone Number can't be Negative"
+                errors.mobileNumber = "Phone Number can't be Negative!"
             }
             if (!values.email) {
-                errors.email = "Email Required"
+                errors.email = "Email is required!"
             }
             else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)) {
-                errors.email = "invalid email format"
+                errors.email = "invalid email format!"
             }
 
             if (values.password.length < 8) {
                 errors.password = "password must be greater than 8 digits"
             }
             if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(values.password)) {
-                errors.password = "password Should contain  minimum 8 characters of at least  one uppercase ,one lowercase, one special character "
+                errors.password = "Password should contain  minimum 8 characters of at least  one uppercase ,one lowercase, one special character "
             }
             if (!values.password) {
-                errors.password = "Password must not be Empty"
+                errors.password = "Password must not be empty"
             }
             if (!values.confrimpassword) {
                 errors.confrimpassword = "Please confirm your Password"
             }
             if (values.confrimpassword != values.password) {
-                errors.confrimpassword = "Password doesn't match"
+                errors.confrimpassword = "Password doesn't match!"
             }
             return errors
         },
@@ -73,12 +75,13 @@ const RegisterComponent = (props) => {
                 })
                 .catch(err => {
                     notify.error(err.response.data.message)
+                    setisLoading(false)
                 })
         }
     })
     return (
         <>
-            <Header></Header>
+         <Navbar></Navbar>
             <div className="banner-area banner-bg" style={{ background: "url(/images/healthcare.jpg)" }}>
                 <div className="container">
                     <div className="row">
@@ -189,6 +192,7 @@ const RegisterComponent = (props) => {
                     </div>
                 </div>
             </section>
+            <Footer></Footer>
         </>
     )
 }

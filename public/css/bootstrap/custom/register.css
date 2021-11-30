@@ -25,7 +25,7 @@
     width: 460px;
 }
 .register-img img {
-    height: 775px;
+    height: 980px;
 }
 .login-icons ul{
     list-style: none;
@@ -80,7 +80,7 @@
     padding: 12px 20px;
 }
 .register-img img {
-    height: 799px;
+    height: 980px;
 }
 @media only screen and (max-width: 1200px) {
    .login-img img{
