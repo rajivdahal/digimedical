@@ -4,9 +4,13 @@ import { data } from "./OurServicedata";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
 const OurServiceContainer = styled.div`
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  //  justify-content : center
   margin-top: 2.5rem;
-  padding-right: 130px;
-  padding-left: 130px;
+  padding-right: 140px;
+  padding-left: 140px;
   padding-top: 3rem;
 `;
 
@@ -28,7 +32,7 @@ const HeadingContainer = styled.div`
 const ServiceContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto auto;
-  grid-gap: 50px;
+  grid-gap: 40px 60px;
   margin-top: 2rem;
 `;
 const ServicesContainer = styled.div`

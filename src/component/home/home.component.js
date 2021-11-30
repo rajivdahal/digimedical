@@ -5,6 +5,9 @@ import Conection from "./Connection/Connection";
 import OurPartnar from "./Ourpartner/Ourpartner";
 import About from "./About/About";
 import OurServices from "./About/OurServices";
+import WhyChooseUs from "./WhyChooseUs/WhyChooseUs";
+import BookAnAppointment from "./BookAnAppointment/BookAnAppointment";
+import TheyTrustedUs from "./TheyTrustedUs/TheyTrustedUs";
 const Root = styled.div`
   background-color: red;
   height: 33.7rem;
@@ -96,7 +99,9 @@ export const Home = (props) => {
 
       <About />
       <OurServices />
-
+      <WhyChooseUs />
+      <BookAnAppointment />
+      <TheyTrustedUs />
       <OurPartnar />
     </>
   );
