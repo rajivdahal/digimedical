@@ -6,6 +6,7 @@ import Dashboard from "./dashboard/dashboard.component";
 import { Home } from "./home/home.component";
 import { Login } from "./login/login.component";
 import Register from "./register/Register.component";
+import Services from "./servicesData/services.component";
 
 export const Approuting = (props) => {
     console.log("inside app routing")
@@ -65,6 +66,8 @@ export const Approuting = (props) => {
                 <PublicRoute exact path="/" component={Home}></PublicRoute>
                 <PublicRoute exact path="/register" component={Register}></PublicRoute>
                 <ProtectedRoute exact path="/dashboard/:id" component={Dashboard}></ProtectedRoute>
+                <ProtectedRoute exact path="/services" component={Services}></ProtectedRoute>
+                
             </Switch>
         </BrowserRouter>
     )

@@ -1,11 +1,11 @@
 import AdminDashboard from "./adminDashboard/adminDashboard.component"
-import Userdashboard from "./userdashboard/userDashboard.component"
+// import Userdashboard from "./userdashboard/userDashboard.component"
 
 const Dashboard=(props)=>{
     return(
         <>      
-        <Userdashboard></Userdashboard>
-        {/* <AdminDashboard></AdminDashboard> */}
+        {/* <Userdashboard></Userdashboard> */}
+        <AdminDashboard></AdminDashboard>
         </>
     )
 }
