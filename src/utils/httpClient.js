@@ -25,6 +25,15 @@ const POST = (url, data,grant_type, params = {}) => {
         // }
     })
 }
+
+const GETSERVICE = (url, params = {}) => {
+    return http.get(REACT_APP_BASE_URL_SERVICE+url,{
+        headers:{
+            "Authorization":'Bearer '+localStorage.getItem('dm-access_token')
+    }
+    })
+}
+
 const POSTSERVICE = (url, data,grant_type, params = {}) => {
     return http.post(REACT_APP_BASE_URL_SERVICE+url, data,{
         headers:{
@@ -70,5 +79,6 @@ export const httpClient = {
     // PUT,
     // DELETE,
     UPLOAD,
-    POSTSERVICE
+    POSTSERVICE,
+    GETSERVICE
 }

@@ -1,10 +1,13 @@
+import React from "react";
 import { useDebugValue, useEffect, useState } from "react"
 import { httpClient } from "../../utils/httpClient"
 import { notify } from '../../services/notify'
 import MaterialTable from 'material-table'
 import Edit from '@material-ui/icons/Edit';
+import { RestoreOutlined } from "@material-ui/icons";
 
 const Services = (props) => {
+    const tableRef = React.createRef();
 
     const[services,setServices] = useState([]);
     const [service, setService] = useState(
@@ -15,17 +18,25 @@ const Services = (props) => {
         }
     )
 
+    const refreshData=()=>{
+        tableRef.current && tableRef.current.onQueryChange()
+    } 
+
     useEffect(()=>{
         const getServices=()=>{
-            httpClient.GET("/true")
+            httpClient.GETSERVICE("true")
             .then(resp => {
-                console.log(resp);
+                if(resp.data.status==true){
+                    // console.log(resp.data.status)
+                    let serviceData = resp.data.data
+                    setServices(serviceData)
+                }
             })
             .catch(err => {
-                console.log(err.response.data)
+                console.log(err.response)
             })
         }
-        // getServices();
+        getServices();
     })
 
     const handleChange = (e) => {
@@ -41,10 +52,7 @@ const Services = (props) => {
 
         httpClient.POSTSERVICE("create", serviceData)
             .then(resp => {
-                console.log("inside then block")
-                console.log(resp);
                 if(resp.data.status){
-                    console.log(resp.data.message);
                     setService({
                         serviceName: "",
                         serviceDescription: "",
@@ -53,7 +61,6 @@ const Services = (props) => {
 
             })
             .catch(err => {
-                console.log("inside catch block")
                 console.log(err.response)
                 notify.error(err.response.data.message)
             })
@@ -94,8 +101,9 @@ const Services = (props) => {
                 </form>
 
                 <MaterialTable
+                    tableRef={tableRef}
                     columns={columns}
-                    // data={service}
+                    data={services}
                     actions={[
                         {
                             icon: Edit,
@@ -115,7 +123,7 @@ const Services = (props) => {
                     title="Service Details"
                     options={{
                         actionsColumnIndex: -1,
-                        sorting: true,
+                        pageSize : 5,
                         headerStyle: {
                             backgroundColor: '#2745F0',
                             color: '#FFF'
