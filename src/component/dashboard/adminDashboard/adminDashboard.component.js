@@ -1,9 +1,33 @@
+import './adminDashboard.component.css'
+import { useState } from 'react'
+import { notify } from '../../../services/notify'
 import { Link } from "react-router-dom"
+import { TimeandDate } from '../../../services/timeanddate'
 
-const AdminDashboard = () => {
+const AdminDashboard = (props) => {
+
+  const [logoutstate, setlogoutstate] = useState({
+    logout: false,
+  })
+  const Logout = (e) => {
+    setlogoutstate({
+      logout: true
+    })
+  }
+  const logoutyes = () => {
+    console.log("inside logout yes")
+    localStorage.removeItem("dm-access_token")
+    localStorage.removeItem("timeout")
+    localStorage.removeItem("dm-refresh_token")
+    props.props.push('/login')
+    notify.success("Logout success! Please Login again")
+  }
+  const logoutno = () => {
+    setlogoutstate({
+      logoutno: true
+    })
+  }
   return (
-
-
     <>
 
       {/* nav starts*/}
@@ -108,7 +132,6 @@ const AdminDashboard = () => {
       </nav>
 
       {/* nav ends */}
-
 
 
 
@@ -283,7 +306,7 @@ const AdminDashboard = () => {
         </div>
 
         <nav className="sidebar sidebar-offcanvas" id="sidebar">
-          <p className="centered mt-3"><a href="profile.html"><img src="/images/dashboard/user1.jpg" className="img-circle user-img-circle" width="80" /></a></p>
+          <p className="centered mt-3"><a href="profile.html"><img  className="img-circle user-img-circle img-fluid" width="80" /></a></p>
           <h5 className="centered">Sam Soffes</h5>
           <p className="centered">Admin</p>
           <ul className="nav">
@@ -1126,7 +1149,7 @@ const AdminDashboard = () => {
                                 </td>
                               </tr>
                               <tr>
-                                <td className="pl-2 table-img"><img src="/images/dashboard/user1.jpg" alt="" className="user-img-circle" /></td>
+                                <td className="pl-2 table-img"><img src="/images/dashboard/user1.jpg" alt="" className="user-img-circle img-fluid" /></td>
                                 <td>Abil Ray</td>
                                 <td className="text-muted">Dr.Raj Manandhar</td>
                                 <td className="text-muted">25/04/2020</td>

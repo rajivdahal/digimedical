@@ -3,17 +3,18 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { notify } from "../services/notify";
 import { httpClient } from "../utils/httpClient";
 import Dashboard from "./dashboard/dashboard.component";
+import { Forgotpassword } from "./forgotpassword/forgotpassword.component";
 import { Home } from "./home/home.component";
 import { Login } from "./login/login.component";
+import { Pagenotfound } from "./pagenotfound/Pagenotfound.component";
 import Register from "./register/Register.component";
 import Services from "./servicesData/services.component";
 
 export const Approuting = (props) => {
+
     console.log("inside app routing")
     const ProtectedRoute = ({ component: Component, ...rest }) => {
-
         const expiry_time = localStorage.getItem("timeout")
-        console.log(expiry_time)
         setTimeout(() => {
             localStorage.removeItem("dm-access_token")
             const refresh_token = localStorage.getItem("dm-refresh_token")
@@ -36,7 +37,7 @@ export const Approuting = (props) => {
                 <Redirect  to={{ pathname: '/login', timeoutMsg: "session expired please Login again" }}></Redirect>
             }
         }, expiry_time)
-
+   
         return (
             <Route {...rest} render={(routeProps) => {
                 return localStorage.getItem('dm-access_token')
@@ -65,9 +66,10 @@ export const Approuting = (props) => {
                 <PublicRoute exact path="/login" component={Login}></PublicRoute>
                 <PublicRoute exact path="/" component={Home}></PublicRoute>
                 <PublicRoute exact path="/register" component={Register}></PublicRoute>
+                <PublicRoute exact path="/forgot-password" component={Forgotpassword}></PublicRoute>
                 <ProtectedRoute exact path="/dashboard/:id" component={Dashboard}></ProtectedRoute>
                 <ProtectedRoute exact path="/services" component={Services}></ProtectedRoute>
-                
+                <PublicRoute  path="/" component={Pagenotfound}></PublicRoute>
             </Switch>
         </BrowserRouter>
     )

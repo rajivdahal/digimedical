@@ -4,30 +4,34 @@ import { httpClient } from "../../utils/httpClient"
 import { notify } from '../../services/notify'
 import MaterialTable from 'material-table'
 import Edit from '@material-ui/icons/Edit';
-import { RestoreOutlined } from "@material-ui/icons";
+import tableIcons from "../../material.icons/icons";
 
 const Services = (props) => {
+
     const tableRef = React.createRef();
 
-    const[services,setServices] = useState([]);
-    const [service, setService] = useState(
-        {
-            serviceName: "",
-            serviceDescription: "",
-        
-        }
+    const [services, setServices] = useState([]);
+    const [service, setService] = useState({
+        serviceName: "",
+        serviceDescription: "",
+    }
     )
 
-    const refreshData=()=>{
+    const refreshData = () => {
         tableRef.current && tableRef.current.onQueryChange()
-    } 
+    }
 
-    useEffect(()=>{
-        const getServices=()=>{
-            httpClient.GETSERVICE("true")
+    const handleChange = (e) => {
+        let tempService = { ...service, ...{ [e.target.name]: e.target.value } }
+        setService(tempService);
+    }
+
+    const getServices = () => {
+        
+        httpClient.GET("services/true",)
             .then(resp => {
-                if(resp.data.status==true){
-                    // console.log(resp.data.status)
+                console.log(resp)
+                if (resp.data.status == true) {
                     let serviceData = resp.data.data
                     setServices(serviceData)
                 }
@@ -35,14 +39,13 @@ const Services = (props) => {
             .catch(err => {
                 console.log(err.response)
             })
-        }
-        getServices();
-    })
 
-    const handleChange = (e) => {
-        let tempService = { ...service, ...{ [e.target.name]: e.target.value } }
-        setService(tempService);
     }
+
+    useEffect(()=>{
+        getServices();
+
+    },[])
 
     const handleSubmit = () => {
         let serviceData = {
@@ -50,28 +53,49 @@ const Services = (props) => {
             serviceDescription: service.serviceDescription
         }
 
-        httpClient.POSTSERVICE("create", serviceData)
+        httpClient.POST("services/create", serviceData)
             .then(resp => {
-                if(resp.data.status){
+                if (resp.data.status) {
+                    console.log(resp.data)
                     setService({
                         serviceName: "",
                         serviceDescription: "",
                     })
+                    refreshData();
                 }
 
             })
             .catch(err => {
+                console.log("inside catch block")
                 console.log(err.response)
                 notify.error(err.response.data.message)
             })
+
         console.log(service);
+    }
+
+    const handleEditService = (e, data) => {
+        console.log(data);
+        httpClient.GET("services/")
+        .then(resp => {
+            console.log(resp)
+            if(resp.data.status){
+                console.log(resp.data.data)
+            }
+        })
+        .catch(err => {
+            console.log(err.response.data)
+
+        })
+
     }
 
     const columns = [
         { title: 'Service Name', field: 'serviceName' },
         { title: 'Service Description', field: 'serviceDescription' },
-        { title: 'Status', field: 'status' },
+        { title: 'Status', field: 'activeStatus' },
     ]
+
     return (
         <>
             <div className="container">
@@ -101,29 +125,22 @@ const Services = (props) => {
                 </form>
 
                 <MaterialTable
-                    tableRef={tableRef}
                     columns={columns}
                     data={services}
+                    title="Service Details"
+                    tableRef={tableRef}
+                    icons={tableIcons}
                     actions={[
                         {
                             icon: Edit,
                             tooltip: 'Edit User',
-                            onClick: (event, rowData) => {
-                            }
+                            onClick: (e, rowData) => { handleEditService(e, rowData) }
                         },
-
-                        {
-                            icon: 'add',
-                            tooltip: 'Add User',
-                            isFreeAction: false,
-                            onClick: (event) => alert("You want to add a new row")
-                        }
                     ]}
 
-                    title="Service Details"
                     options={{
                         actionsColumnIndex: -1,
-                        pageSize : 5,
+                        sorting: true,
                         headerStyle: {
                             backgroundColor: '#2745F0',
                             color: '#FFF'
@@ -131,8 +148,10 @@ const Services = (props) => {
 
                     }}
                 />
+
             </div>
         </>
     )
+
 }
 export default Services

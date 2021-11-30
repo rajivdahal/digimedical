@@ -12,35 +12,45 @@ const http = axios.create({
     timeoutErrorMessage: "request Timeout",
 })
 
-const GET = (url, params = {}) => {
-    return http.get(
-        url
-    )
-}
-
-const POST = (url, data,grant_type, params = {}) => {
-    return http.post(BASE_URL+url, data,{
-        // headers:{
-        //   'Authorization':'Bearer '+localStorage.getItem('tk')
-        // }
-    })
-}
-
-const GETSERVICE = (url, params = {}) => {
-    return http.get(REACT_APP_BASE_URL_SERVICE+url,{
+const GET = (url,grant_type, params = {}) => {
+    return http.get(BASE_URL+url,{
         headers:{
             "Authorization":'Bearer '+localStorage.getItem('dm-access_token')
     }
     })
 }
 
-const POSTSERVICE = (url, data,grant_type, params = {}) => {
-    return http.post(REACT_APP_BASE_URL_SERVICE+url, data,{
+const POST = (url, data,grant_type, params = {}) => {
+    return http.post(BASE_URL+url, data,{
         headers:{
-            "Authorization":'Bearer '+localStorage.getItem('dm-access_token')
+          'Authorization':'Bearer '+localStorage.getItem('dm-access_token')
         }
     })
 }
+
+const DELETE = (url,grant_type, params = {}) => {
+    return http.delete(BASE_URL+url,{
+        headers:{
+            "Authorization":'Bearer '+localStorage.getItem('dm-access_token')
+    }
+    })
+}
+
+// const GETSERVICE = (url, params = {}) => {
+//     return http.get(REACT_APP_BASE_URL_SERVICE+url,{
+//         headers:{
+//             "Authorization":'Bearer '+localStorage.getItem('dm-access_token')
+//     }
+//     })
+// }
+
+// const POSTSERVICE = (url, data,grant_type, params = {}) => {
+//     return http.post(REACT_APP_BASE_URL_SERVICE+url, data,{
+//         headers:{
+//             "Authorization":'Bearer '+localStorage.getItem('dm-access_token')
+//         }
+//     })
+// }
 const UPLOAD = (method, url, data = {}, grant_type, files = []) => {
     if (grant_type) {
         data.grant_type = grant_type
@@ -77,8 +87,8 @@ export const httpClient = {
     GET,
     POST,
     // PUT,
-    // DELETE,
+    DELETE,
     UPLOAD,
-    POSTSERVICE,
-    GETSERVICE
+    // POSTSERVICE,
+    // GETSERVICE
 }

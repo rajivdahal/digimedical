@@ -1,6 +1,29 @@
+import { notify } from "./../../../services/notify"
+import { useState } from "react"
+import { TimeandDate } from "../../../services/timeanddate"
 import "./userDashboard.component.css"
 const Userdashboard = (props) => {
-
+  const [logoutstate, setlogoutstate] = useState({
+    logout: false,
+  })
+  const Logout = (e) => {
+    setlogoutstate({
+      logout: true
+    })
+  }
+  const logoutyes = () => {
+    console.log("inside logout yes")
+    localStorage.removeItem("dm-access_token")
+    localStorage.removeItem("timeout")
+    localStorage.removeItem("dm-refresh_token")
+    props.props.push('/login')
+    notify.success("Logout success! Please Login again")
+  }
+  const logoutno = () => {
+    setlogoutstate({
+      logoutno: true
+    })
+  }
   return (
     <>
 
@@ -11,29 +34,17 @@ const Userdashboard = (props) => {
           <a className="navbar-brand brand-logo-mini" href="index.html"><img src="/images/dashboard/logo.png" alt="logo" /></a>
         </div>
         <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-          <button className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          {/* <button className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span className="icon-menu"></span>
-          </button>
-          <ul className="navbar-nav mr-lg-2">
-            <li className="nav-item nav-search d-none d-lg-block">
-              <div className="input-group">
-                <div className="input-group-prepend hover-cursor" id="navbar-search-icon">
-                  <span className="input-group-text" id="search">
-                    <i className="icon-search"></i>
-                  </span>
-                </div>
-                <input type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" />
-              </div>
-            </li>
-          </ul>
-          <ul className="navbar-nav navbar-nav-right">
+          </button> */}
+          <h3 className="font-weight-bold header-color">Welcome Shiva</h3>
 
+          <ul className="navbar-nav navbar-nav-right">
             <li className="nav-item dropdown">
               <a className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                 <i className="icon-bell mx-0"></i>
                 <span className="count"></span>
               </a>
-
               <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                 <p className="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
                 <a className="dropdown-item preview-item">
@@ -79,20 +90,35 @@ const Userdashboard = (props) => {
 
             </li>
             <li className="nav-item nav-profile dropdown">
-              <a className="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <a className="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
                 <img src="/images/dashboard/user1.jpg" alt="profile" />
               </a>
               <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                <a className="dropdown-item">
+                <div className="dropdown-item">
                   <i className="ti-settings text-primary"></i>
-                  Settings
-                </a>
-                <a className="dropdown-item">
+                  <span>Settings</span>
+                </div>
+                <div className="dropdown-item" onClick={Logout}>
                   <i className="ti-power-off text-primary"></i>
-                  Logout
-                </a>
+                  <span>Logout</span>
+                </div>
+
+
               </div>
             </li>
+            {
+              logoutstate.logout ? <div className="logout-container">
+                <div className="logout">
+                  <p>Are you sure you want to Logout?</p>
+                  <div className="buttons">
+                    <button className="yes-logout" onClick={logoutyes}>Yes</button>
+                    <button className="no-logout" onClick={logoutno}>No</button>
+                  </div>
+                </div>
+              </div>
+                :
+                null
+            }
             <li className="nav-item nav-settings d-none d-lg-flex">
               <a className="nav-link" href="#">
                 <i className="icon-ellipsis"></i>
@@ -112,24 +138,6 @@ const Userdashboard = (props) => {
 
 
       <div className="container-fluid page-body-wrapper">
-        <div className="theme-setting-wrapper">
-          <div id="settings-trigger"><i className="ti-settings"></i></div>
-          <div id="theme-settings" className="settings-panel">
-            <i className="settings-close ti-close"></i>
-            <p className="settings-heading">SIDEBAR SKINS</p>
-            <div className="sidebar-bg-options selected" id="sidebar-light-theme"><div className="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
-            <div className="sidebar-bg-options" id="sidebar-dark-theme"><div className="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
-            <p className="settings-heading mt-2">HEADER SKINS</p>
-            <div className="color-tiles mx-0 px-4">
-              <div className="tiles success"></div>
-              <div className="tiles warning"></div>
-              <div className="tiles danger"></div>
-              <div className="tiles info"></div>
-              <div className="tiles dark"></div>
-              <div className="tiles default"></div>
-            </div>
-          </div>
-        </div>
         <div id="right-sidebar" className="settings-panel">
           <i className="settings-close ti-close"></i>
           <ul className="nav nav-tabs border-top" id="setting-panel" role="tablist">
@@ -281,25 +289,10 @@ const Userdashboard = (props) => {
         </div>
 
         <nav className="sidebar sidebar-offcanvas" id="sidebar">
-          <p className="centered mt-3"><a href="profile.html"><img src="/images/dashboard/user1.jpg" className="img-circle user-img-circle" width="80" /></a></p>
-          <h5 className="centered">Sam Soffes</h5>
-          <p className="centered">Admin</p>
           <ul className="nav">
             <li className="nav-item">
-              <a className="nav-link" data-toggle="collapse" href="#dash" aria-expanded="false" aria-controls="dash">
-                <i className="icon-grid menu-icon"></i>
-                <span className="menu-title">Dashboard</span>
-              </a>
-              <div className="collapse" id="dash">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"> <a className="nav-link" href="">Doctor Dashboard</a></li>
-                  <li className="nav-item"> <a className="nav-link" href="">Patient Dashboard</a></li>
-                </ul>
-              </div>
-            </li>
-            <li className="nav-item">
               <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
-                <i className="icon-layout menu-icon"></i>
+                <i className="fas fa-user-clock menu-icon"></i>
                 <span className="menu-title">Appointments</span>
                 <i className="menu-arrow"></i>
               </a>
@@ -312,46 +305,15 @@ const Userdashboard = (props) => {
             </li>
             <li className="nav-item">
               <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
-                <i className="icon-columns menu-icon"></i>
+                <i className="fas fa-user-md  menu-icon"></i>
                 <span className="menu-title">Doctors</span>
-                <i className="menu-arrow"></i>
+
               </a>
-              <div className="collapse" id="doctors">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"><a className="nav-link" href="">All Doctors</a></li>
-                  <li className="nav-item"><a className="nav-link" href="">Add Doctors</a></li>
-                </ul>
-              </div>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="collapse" href="#staffs" aria-expanded="false" aria-controls="staffs">
-                <i className="icon-bar-graph menu-icon"></i>
-                <span className="menu-title">Staff</span>
-                <i className="menu-arrow"></i>
-              </a>
-              <div className="collapse" id="staff">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"><a className="nav-link" href="">All Staff</a></li>
-                  <li className="nav-item"><a className="nav-link" href="">Add Staff</a></li>
-                </ul>
-              </div>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="collapse" href="#patients" aria-expanded="false" aria-controls="patients">
-                <i className="icon-grid-2 menu-icon"></i>
-                <span className="menu-title">Patients</span>
-                <i className="menu-arrow"></i>
-              </a>
-              <div className="collapse" id="patients">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"> <a className="nav-link" href="">All Patients</a></li>
-                  <li className="nav-item"> <a className="nav-link" href="">Add Patients</a></li>
-                </ul>
-              </div>
+
             </li>
             <li className="nav-item">
               <a className="nav-link" data-toggle="collapse" href="#rooms" aria-expanded="false" aria-controls="rooms">
-                <i className="icon-contract menu-icon"></i>
+                <i className="fas fa-person-booth menu-icon"></i>
                 <span className="menu-title">Room Allotment</span>
                 <i className="menu-arrow"></i>
               </a>
@@ -364,7 +326,7 @@ const Userdashboard = (props) => {
             </li>
             <li className="nav-item">
               <a className="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <i className="icon-head menu-icon"></i>
+                <i className="fas fa-money-check-alt menu-icon"></i>
                 <span className="menu-title">Payments</span>
                 <i className="menu-arrow"></i>
               </a>
@@ -376,6 +338,22 @@ const Userdashboard = (props) => {
                 </ul>
               </div>
             </li>
+            <li className="nav-item">
+              <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
+                <i className="fas fa-pager menu-icon"></i>
+                <span className="menu-title">Lab reports</span>
+
+              </a>
+
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
+                <i className="fas fa-file-medical menu-icon"></i>
+                <span className="menu-title">Medical Reports</span>
+
+              </a>
+
+            </li>
 
           </ul>
         </nav>
@@ -385,19 +363,15 @@ const Userdashboard = (props) => {
               <div className="col-md-12 grid-margin">
                 <div className="row">
                   <div className="col-12 col-xl-8 mb-4 mb-xl-0">
-                    <h3 className="font-weight-bold">Welcome Shiva</h3>
-                    <h6 className="font-weight-normal mb-0">All systems are running smoothly! You have <span className="text-primary">3 unread alerts!</span></h6>
+                    <h6 className="font-weight-normal mb-0">All systems are running smoothly! You have <span className="sec-color">3 unread alerts!</span></h6>
                   </div>
                   <div className="col-12 col-xl-4">
                     <div className="justify-content-end d-flex">
                       <div className="dropdown flex-md-grow-1 flex-xl-grow-0">
                         <button className="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                          <i className="mdi mdi-calendar"></i> Today (24 Nov 2021)
+                          <i className="mdi mdi-calendar"></i>Today- {TimeandDate.today()}
                         </button>
-                        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuDate2">
-                          <a className="dropdown-item" href="#">November - December</a>
-                          <a className="dropdown-item" href="#">December - January</a>
-                        </div>
+                        
                       </div>
                     </div>
                   </div>
@@ -405,10 +379,69 @@ const Userdashboard = (props) => {
               </div>
             </div>
 
-
-
+            <div className="row">
+              <div className="col-md-6 grid-margin stretch-card">
+                <div className="card tale-bg">
+                  <div className="card-people mt-auto">
+                    <img src="/images/dashboard/people.svg" alt="people" />
+                    <div className="weather-info">
+                      <div className="d-flex">
+                        <div>
+                          <h2 className="mb-0 font-weight-normal"><i className="icon-sun mr-2"></i>20<sup>C</sup></h2>
+                        </div>
+                        <div className="ml-2">
+                          <h4 className="location font-weight-normal">Kathmandu</h4>
+                          <h6 className="font-weight-normal">Nepal</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6 grid-margin transparent">
+                <div className="row">
+                  <div className="col-md-6 mb-4 stretch-card transparent">
+                    <div className="card card-tale">
+                      <div className="card-body">
+                        <p className="mb-4">Appointments</p>
+                        <p className="fs-30 mb-2">4006</p>
+                        <p>10.00% (30 days)</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-4 stretch-card transparent">
+                    <div className="card card-dark-blue">
+                      <div className="card-body">
+                        <p className="mb-4">Total Operations</p>
+                        <p className="fs-30 mb-2">61344</p>
+                        <p>22.00% (30 days)</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
+                    <div className="card card-light-blue">
+                      <div className="card-body">
+                        <p className="mb-4">Number of Patients</p>
+                        <p className="fs-30 mb-2">34040</p>
+                        <p>2.00% (30 days)</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6 stretch-card transparent">
+                    <div className="card card-light-danger">
+                      <div className="card-body">
+                        <p className="mb-4">Expenditure</p>
+                        <p className="fs-30 mb-2">47033</p>
+                        <p>0.22% (30 days)</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="row" >
-
               <div className="col-md-8 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
@@ -420,17 +453,14 @@ const Userdashboard = (props) => {
                             <thead>
                               <tr>
                                 <th className="head_styling">Assigned Doctor</th>
-                                <th>Date Of Operation</th>
+                                <th>Date Of Appointment</th>
                                 <th>Diseases</th>
                                 <th>Actions</th>
-        
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
                                 <td className="pl-2 table-img"><img src="/images/dashboard/user1.jpg" alt="" className="user-img-circle" /><span className="text-muted">Dr.Raj Manandhar</span></td>
-
-
                                 <td className="text-muted">25/04/2020</td>
                                 <td className="text-muted">
                                   <div className=" badge badge-outline-success">
@@ -438,9 +468,9 @@ const Userdashboard = (props) => {
                                   </div>
                                 </td>
                                 <td className="action-img text-muted d-flex">
-                                  <img src="/images/dashboard/tick.svg" alt="" className="img-fluid" />
-                                  <img src="/images/dashboard/delete.svg" alt="" className="img-fluid" />
-                                  <img src="/images/dashboard/edit.svg" alt="" className="img-fluid" />
+                                  
+                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px" , marginRight: "10px" }} title="edit"></i>
+                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer"}} title="delete"></i>
                                 </td>
                               </tr>
                               <tr>
@@ -454,9 +484,9 @@ const Userdashboard = (props) => {
                                   </div>
                                 </td>
                                 <td className="action-img text-muted d-flex">
-                                  <img src="/images/dashboard/tick.svg" alt="" className="img-fluid" />
-                                  <img src="/images/dashboard/delete.svg" alt="" className="img-fluid" />
-                                  <img src="/images/dashboard/edit.svg" alt="" className="img-fluid" />
+                                  
+                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px" , marginRight: "10px" }} title="edit"></i>
+                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer"}} title="delete"></i>
                                 </td>
                               </tr>
                               <tr>
@@ -470,9 +500,9 @@ const Userdashboard = (props) => {
                                   </div>
                                 </td>
                                 <td className="action-img text-muted d-flex">
-                                  <img src="/images/dashboard/tick.svg" alt="" className="img-fluid" />
-                                  <img src="/images/dashboard/delete.svg" alt="" className="img-fluid" />
-                                  <img src="/images/dashboard/edit.svg" alt="" className="img-fluid" />
+                                  
+                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px" , marginRight: "10px" }} title="edit"></i>
+                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer"}} title="delete"></i>
                                 </td>
                               </tr>
                               <tr>
@@ -486,9 +516,9 @@ const Userdashboard = (props) => {
                                   </div>
                                 </td>
                                 <td className="action-img text-muted d-flex">
-                                  <img src="/images/dashboard/tick.svg" alt="" className="img-fluid" />
-                                  <img src="/images/dashboard/delete.svg" alt="" className="img-fluid" />
-                                  <img src="/images/dashboard/edit.svg" alt="" className="img-fluid" />
+                                  
+                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px" , marginRight: "10px" }} title="edit"></i>
+                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer"}} title="delete"></i>
                                 </td>
                               </tr>
                               <tr>
@@ -501,13 +531,11 @@ const Userdashboard = (props) => {
                                   </div>
                                 </td>
                                 <td className="action-img text-muted d-flex">
-                                  <img src="/images/dashboard/tick.svg" alt="" className="img-fluid" />
-                                  <img src="/images/dashboard/delete.svg" alt="" className="img-fluid" />
-                                  <img src="/images/dashboard/edit.svg" alt="" className="img-fluid" />
+                                  
+                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px" , marginRight: "10px" }} title="edit"></i>
+                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer"}} title="delete"></i>
                                 </td>
                               </tr>
-
-
                             </tbody>
                           </table>
                         </div>
@@ -587,7 +615,10 @@ const Userdashboard = (props) => {
 
         </div>
 
+
+
       </div>
+
 
     </>
   )
