@@ -1,7 +1,5 @@
 const AdminDashboard=()=>{
     return(
-
-    
         <>
             
 {/* nav starts*/}
@@ -17,9 +15,9 @@ const AdminDashboard=()=>{
                     <ul className="navbar-nav mr-lg-2">
                         <li className="nav-item nav-search d-none d-lg-block">
                             <div className="input-group">
-                                <div className="input-group-prepend hover-cursor" id="navbar-search-icon">
+                                <div className="input-group-prepend hover-cursor" id="navbar-search-icon" style={{margin:"2px"}}>
                                     <span className="input-group-text" id="search">
-                                        <i className="icon-search"></i>
+                                        <i className="icon-search" ></i>
                                     </span>
                                 </div>
                                 <input type="text" className="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search" />
@@ -385,7 +383,7 @@ const AdminDashboard=()=>{
             <div className="col-md-12 grid-margin">
               <div className="row">
                 <div className="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 className="font-weight-bold">Welcome Shiva</h3>
+                  <h3 className="font-weight-bold" >Welcome Shiva</h3>
                   <h6 className="font-weight-normal mb-0">All systems are running smoothly! You have <span className="text-primary">3 unread alerts!</span></h6>
                 </div>
                 <div className="col-12 col-xl-4">

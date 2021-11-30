@@ -10529,7 +10529,7 @@ pre code {
 .jsgrid .jsgrid-table .jsgrid-filter-row select::placeholder, .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number]::placeholder, .select2-container--default .select2-selection--single::placeholder, .select2-container--default .select2-selection--single .select2-search__field::placeholder, .typeahead::placeholder,
 .tt-query::placeholder,
 .tt-hint::placeholder {
-  color: #c9c8c8;
+  color: white;
   opacity: 1;
 }
 
@@ -10540,7 +10540,7 @@ pre code {
 .jsgrid .jsgrid-table .jsgrid-filter-row select[readonly], .jsgrid .jsgrid-table .jsgrid-filter-row input[readonly][type=number], .select2-container--default .select2-selection--single[readonly], .select2-container--default .select2-selection--single .select2-search__field[readonly], .typeahead[readonly],
 .tt-query[readonly],
 .tt-hint[readonly] {
-  background-color: #e9ecef;
+  background-color: white;
   opacity: 1;
 }
 
@@ -22073,12 +22073,12 @@ code {
 }
 
 .card.card-tale {
-  background: #7DA0FA;
+  background: #52B2E5;
   color: #ffffff;
 }
 
 .card.card-tale:hover {
-  background: #96b2fb;
+  background: #4aace0;
 }
 
 .card.card-dark-blue {
@@ -27828,7 +27828,7 @@ div.tagsinput span.tag a {
 }
 
 .wysi-editor textarea:focus {
-  color: black;
+  color: #2745F0;
   border: 1px solid #CED4DA;
 }
 
@@ -28446,7 +28446,7 @@ div.tagsinput span.tag a {
 }
 
 .content-wrapper {
-  background: #F5F7FF;
+  background: linear-gradient(177.28deg, rgba(82, 178, 229, 0.14) 2.16%, rgba(255, 255, 255, 0) 109.75%);
   padding: 2.375rem 2.375rem;
   width: 100%;
   -webkit-flex-grow: 1;
@@ -28487,7 +28487,7 @@ div.tagsinput span.tag a {
 .sidebar {
   position: fixed;
   min-height: calc(100vh - 60px);
-  background: #fff;
+  background: #ffffff4f;
   font-family: "Nunito", sans-serif;
   font-weight: 500;
   padding: 0;
@@ -28497,6 +28497,7 @@ div.tagsinput span.tag a {
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease;
+  box-shadow: 2px 24px 13px -1px #104a8b3b;
 }
 
 .sidebar .nav {
@@ -28554,6 +28555,9 @@ div.tagsinput span.tag a {
 
 .sidebar .nav .nav-item .nav-link i.menu-icon:before {
   vertical-align: middle;
+  color: #52B2E5;
+    font-weight: 900;
+    font-size: 20px;
 }
 
 .sidebar .nav .nav-item .nav-link i.menu-arrow {
@@ -28632,7 +28636,7 @@ div.tagsinput span.tag a {
 .sidebar .nav .nav-item:hover > .nav-link .menu-arrow {
   color: #fff;
 }
-
+ 
 .sidebar .nav:not(.sub-menu) {
   margin-top: 1.45rem;
   margin-left: 1rem;
@@ -28644,7 +28648,7 @@ div.tagsinput span.tag a {
 }
 
 .sidebar .nav:not(.sub-menu) > .nav-item:hover > .nav-link, .sidebar .nav:not(.sub-menu) > .nav-item:hover[aria-expanded="true"] {
-  background: #4B49AC;
+  background: #2745F0;
   color: #fff;
 }
 
@@ -28654,12 +28658,12 @@ div.tagsinput span.tag a {
 
 .sidebar .nav:not(.sub-menu) > .nav-item > .nav-link[aria-expanded="true"] {
   border-radius: 8px 8px 0 0;
-  background: #4B49AC;
+  background: #2745F0;
   color: #fff;
 }
 
 .sidebar .nav:not(.sub-menu) > .nav-item.active {
-  background: #4B49AC;
+  background: #2745F0;
 }
 
 .sidebar .nav.sub-menu {
@@ -28667,7 +28671,7 @@ div.tagsinput span.tag a {
   margin-top: 0;
   list-style: none;
   padding: 0.25rem 0 0 3.07rem;
-  background: #4B49AC;
+  background: #52B2E5;
   padding-bottom: 12px;
 }
 
@@ -28682,7 +28686,7 @@ div.tagsinput span.tag a {
   position: absolute;
   margin-top: 16px;
   border-radius: 50%;
-  background: #b2b2b2;
+  background: #52B2E5;
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link {
@@ -28858,12 +28862,12 @@ div.tagsinput span.tag a {
 }
 
 .navbar .navbar-menu-wrapper {
-  background: #ffffff;
+  background: #2745F0;
   transition: width 0.25s ease;
   -webkit-transition: width 0.25s ease;
   -moz-transition: width 0.25s ease;
   -ms-transition: width 0.25s ease;
-  color: #6C7383;
+  color: #fff;
   padding-right: 2.375rem;
   padding-left: 2.375rem;
   width: calc(100% - 235px);
@@ -28967,6 +28971,11 @@ div.tagsinput span.tag a {
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .tt-hint,
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap .tt-hint {
   margin-left: .7rem;
+  height: 2rem;
+  border: 0.16rem solid white;
+  border-radius: 2.4rem;
+  border-width: 1px;
+
 }
 
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .form-control::-webkit-input-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap .form-control::-webkit-input-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .asColorPicker-input::-webkit-input-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap .asColorPicker-input::-webkit-input-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .dataTables_wrapper select::-webkit-input-placeholder, .dataTables_wrapper .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group select::-webkit-input-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap .dataTables_wrapper select::-webkit-input-placeholder, .dataTables_wrapper .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap select::-webkit-input-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text]::-webkit-input-placeholder, .jsgrid .jsgrid-table .jsgrid-filter-row .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group input[type=text]::-webkit-input-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text]::-webkit-input-placeholder, .jsgrid .jsgrid-table .jsgrid-filter-row .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap input[type=text]::-webkit-input-placeholder,
@@ -28976,7 +28985,7 @@ div.tagsinput span.tag a {
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap .tt-query::-webkit-input-placeholder,
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .tt-hint::-webkit-input-placeholder,
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap .tt-hint::-webkit-input-placeholder {
-  color: #6c7383;
+  color: white;
 }
 
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .form-control:-moz-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap .form-control:-moz-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .asColorPicker-input:-moz-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap .asColorPicker-input:-moz-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .dataTables_wrapper select:-moz-placeholder, .dataTables_wrapper .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group select:-moz-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap .dataTables_wrapper select:-moz-placeholder, .dataTables_wrapper .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap select:-moz-placeholder, .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group .jsgrid .jsgrid-table .jsgrid-filter-row input:-moz-placeholder[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .input-group input:-moz-placeholder[type=text], .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap .jsgrid .jsgrid-table .jsgrid-filter-row input:-moz-placeholder[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-search .asColorPicker-wrap input:-moz-placeholder[type=text],
@@ -29126,9 +29135,9 @@ div.tagsinput span.tag a {
   width: 12px;
   height: 12px;
   border-radius: 100%;
-  background: #4B49AC;
+  background: #CC0033;
   top: 1px;
-  border: 1px solid #ffffff;
+ 
 }
 
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .count-indicator:after {
@@ -30043,7 +30052,7 @@ div.tagsinput span.tag a {
     display: flex;
     -webkit-align-items: center;
     align-items: center;
-    background: #4B49AC;
+    background: #2745F0;
     padding: 0.5rem 1.4rem;
     left: 70px;
     position: absolute;
@@ -30073,7 +30082,7 @@ div.tagsinput span.tag a {
     display: none;
   }
   .sidebar-icon-only .sidebar .nav .nav-item.hover-open .nav-link:hover .menu-title {
-    background: #4B49AC;
+    background: #2745F0;
   }
   .sidebar-dark.sidebar-icon-only .sidebar .nav .nav-item.hover-open .nav-link:hover .menu-title {
     background: #232227;
