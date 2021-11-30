@@ -5,8 +5,10 @@ import { httpClient } from "../utils/httpClient";
 import Dashboard from "./dashboard/dashboard.component";
 import { Home } from "./home/home.component";
 import { Login } from "./login/login.component";
-import { Service } from "./Service/Service";
+import Service from "../component/Service/Service";
 import Register from "./register/Register.component";
+import Navbar from "./Navbar/Navbar";
+import Footer from "./Footer/Footer";
 
 export const Approuting = (props) => {
   console.log("inside app routing");
@@ -77,17 +79,19 @@ export const Approuting = (props) => {
   };
   return (
     <BrowserRouter>
+      <Navbar />
       <Switch>
-        <PublicRoute exact path="/login" component={Login}></PublicRoute>
+        {/* <PublicRoute exact path="/login" component={Login}></PublicRoute> */}
         <PublicRoute exact path="/" component={Home}></PublicRoute>
-        {/* <PublicRoute exact path="/service" component={Service}></PublicRoute> */}
-        <PublicRoute exact path="/register" component={Register}></PublicRoute>
+        <PublicRoute path="/service" component={Service}></PublicRoute>
+        {/* <PublicRoute exact path="/register" component={Register}></PublicRoute> */}
         <ProtectedRoute
           exact
           path="/dashboard/:id"
           component={Dashboard}
         ></ProtectedRoute>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 };

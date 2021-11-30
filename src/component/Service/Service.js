@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import servicewall from "../../assets/servicewall.png";
-const Root = styled.div``;
+const Root = styled.div`
+  height: 70vh;
+`;
 
 const Service = () => {
   return (

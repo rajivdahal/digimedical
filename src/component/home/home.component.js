@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Navbar from "../Navbar/Navbar";
 import wallpaper from "../../assets/wallpaper.png";
 import Conection from "./Connection/Connection";
 import OurPartnar from "./Ourpartner/Ourpartner";
@@ -8,6 +7,7 @@ import OurServices from "./About/OurServices";
 import WhyChooseUs from "./WhyChooseUs/WhyChooseUs";
 import BookAnAppointment from "./BookAnAppointment/BookAnAppointment";
 import TheyTrustedUs from "./TheyTrustedUs/TheyTrustedUs";
+import Footer from "../Footer/Footer";
 const Root = styled.div`
   background-color: red;
   height: 33.7rem;
@@ -68,7 +68,6 @@ export const Home = (props) => {
   console.log("home");
   return (
     <>
-      <Navbar />
       <Root
         style={{
           backgroundImage: `url(${wallpaper})`,
