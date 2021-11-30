@@ -1,6 +1,8 @@
 import axios from "axios";
 const BASE_URL = process.env.REACT_APP_BASE_URL
 const REACT_APP_BASE_URL_LOGIN = process.env.REACT_APP_BASE_URL_LOGIN
+const REACT_APP_BASE_URL_SERVICE = process.env.REACT_APP_BASE_URL_SERVICE
+
 
 
 const http = axios.create({
@@ -21,6 +23,13 @@ const POST = (url, data,grant_type, params = {}) => {
         // headers:{
         //   'Authorization':'Bearer '+localStorage.getItem('tk')
         // }
+    })
+}
+const POSTSERVICE = (url, data,grant_type, params = {}) => {
+    return http.post(REACT_APP_BASE_URL_SERVICE+url, data,{
+        headers:{
+            "Authorization":'Bearer '+localStorage.getItem('dm-access_token')
+        }
     })
 }
 const UPLOAD = (method, url, data = {}, grant_type, files = []) => {
@@ -60,5 +69,6 @@ export const httpClient = {
     POST,
     // PUT,
     // DELETE,
-    UPLOAD
+    UPLOAD,
+    POSTSERVICE
 }
