@@ -5403,9 +5403,9 @@
         }
         return results;
       };
-      Expr.find.CLASS = support.getElementsByClassName && function (className, context) {
+      Expr.find.CLASS = support.getElementsByClassName && function (class, context) {
         if (documentIsHTML) {
-          return context.getElementsByClassName(className);
+          return context.getElementsByClassName(class);
         }
       };
       rbuggyMatches = [];
@@ -5608,10 +5608,10 @@
             return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;
           };
         },
-        CLASS: function (className) {
-          var pattern = classCache[className + ' '];
-          return pattern || (pattern = new RegExp('(^|' + whitespace + ')' + className + '(' + whitespace + '|$)')) && classCache(className, function (elem) {
-            return pattern.test(typeof elem.className === 'string' && elem.className || typeof elem.getAttribute !== strundefined && elem.getAttribute('class') || '');
+        CLASS: function (class) {
+          var pattern = classCache[class + ' '];
+          return pattern || (pattern = new RegExp('(^|' + whitespace + ')' + class + '(' + whitespace + '|$)')) && classCache(class, function (elem) {
+            return pattern.test(typeof elem.class === 'string' && elem.class || typeof elem.getAttribute !== strundefined && elem.getAttribute('class') || '');
           });
         },
         ATTR: function (name, operator, check) {
@@ -6234,8 +6234,8 @@
       }
       return targetNodes;
     };
-    var hasClass = function (node, className) {
-      return node && className && (' ' + node.className + ' ').indexOf(' ' + className + ' ') !== -1;
+    var hasClass = function (node, class) {
+      return node && class && (' ' + node.class + ' ').indexOf(' ' + class + ' ') !== -1;
     };
     var wrap$1 = function (elements, wrapper, all) {
       var lastParent, newWrapper;
@@ -6257,7 +6257,7 @@
     var booleanMap = Tools.makeMap('checked compact declare defer disabled ismap multiple nohref noshade nowrap readonly selected', ' ');
     var propFix = {
       for: 'htmlFor',
-      class: 'className',
+      class: 'class',
       readonly: 'readOnly'
     };
     var cssFix = { float: 'cssFloat' };
@@ -6655,38 +6655,38 @@
         });
         return DomQuery(result);
       },
-      addClass: function (className) {
-        return this.toggleClass(className, true);
+      addClass: function (class) {
+        return this.toggleClass(class, true);
       },
-      removeClass: function (className) {
-        return this.toggleClass(className, false);
+      removeClass: function (class) {
+        return this.toggleClass(class, false);
       },
-      toggleClass: function (className, state) {
+      toggleClass: function (class, state) {
         var self = this;
-        if (typeof className !== 'string') {
+        if (typeof class !== 'string') {
           return self;
         }
-        if (className.indexOf(' ') !== -1) {
-          each$4(className.split(' '), function () {
+        if (class.indexOf(' ') !== -1) {
+          each$4(class.split(' '), function () {
             self.toggleClass(this, state);
           });
         } else {
           self.each(function (index, node) {
-            var classState = hasClass(node, className);
+            var classState = hasClass(node, class);
             if (classState !== state) {
-              var existingClassName = node.className;
+              var existingClassName = node.class;
               if (classState) {
-                node.className = trim$3((' ' + existingClassName + ' ').replace(' ' + className + ' ', ' '));
+                node.class = trim$3((' ' + existingClassName + ' ').replace(' ' + class + ' ', ' '));
               } else {
-                node.className += existingClassName ? ' ' + className : className;
+                node.class += existingClassName ? ' ' + class : class;
               }
             }
           });
         }
         return self;
       },
-      hasClass: function (className) {
-        return hasClass(this[0], className);
+      hasClass: function (class) {
+        return hasClass(this[0], class);
       },
       each: function (callback) {
         return each$4(this, callback);
@@ -7474,7 +7474,7 @@
       };
       var toggleClass = function (elm, cls, state) {
         $$(elm).toggleClass(cls, state).each(function () {
-          if (this.className === '') {
+          if (this.class === '') {
             DomQuery(this).attr('class', null);
           }
         });
@@ -12620,8 +12620,8 @@
     };
 
     var isEditorUIElement = function (elm) {
-      var className = elm.className.toString();
-      return className.indexOf('tox-') !== -1 || className.indexOf('mce-') !== -1;
+      var class = elm.class.toString();
+      return class.indexOf('tox-') !== -1 || class.indexOf('mce-') !== -1;
     };
     var FocusManager = { isEditorUIElement: isEditorUIElement };
 
@@ -16037,7 +16037,7 @@
               }
             }
             if (name === 'class') {
-              elm.removeAttribute('className');
+              elm.removeAttribute('class');
             }
             if (MCE_ATTR_RE.test(name)) {
               elm.removeAttribute('data-mce-' + name);
@@ -18630,7 +18630,7 @@
       }
       if (settings.validate && schema.getValidClasses()) {
         parser.addAttributeFilter('class', function (nodes) {
-          var i = nodes.length, node, classList, ci, className, classValue;
+          var i = nodes.length, node, classList, ci, class, classValue;
           var validClasses = schema.getValidClasses();
           var validClassesMap, valid;
           while (i--) {
@@ -18638,21 +18638,21 @@
             classList = node.attr('class').split(' ');
             classValue = '';
             for (ci = 0; ci < classList.length; ci++) {
-              className = classList[ci];
+              class = classList[ci];
               valid = false;
               validClassesMap = validClasses['*'];
-              if (validClassesMap && validClassesMap[className]) {
+              if (validClassesMap && validClassesMap[class]) {
                 valid = true;
               }
               validClassesMap = validClasses[node.name];
-              if (!valid && validClassesMap && validClassesMap[className]) {
+              if (!valid && validClassesMap && validClassesMap[class]) {
                 valid = true;
               }
               if (valid) {
                 if (classValue) {
                   classValue += ' ';
                 }
-                classValue += className;
+                classValue += class;
               }
             }
             if (!classValue.length) {
@@ -24158,7 +24158,7 @@
       var attrClassesOpt = Optional.from(forcedRootBlockAttrs.class).map(function (attrClasses) {
         return attrClasses.split(/\s+/);
       });
-      var currentClassesOpt = Optional.from(node.className).map(function (currentClasses) {
+      var currentClassesOpt = Optional.from(node.class).map(function (currentClasses) {
         return filter(currentClasses.split(/\s+/), function (clazz) {
           return clazz !== '';
         });
@@ -28917,8 +28917,8 @@
           }
           return callback.apply(self, []);
         };
-        var hasClass = function (elm, className) {
-          return className.constructor === RegExp ? className.test(elm.className) : DOM$a.hasClass(elm, className);
+        var hasClass = function (elm, class) {
+          return class.constructor === RegExp ? class.test(elm.class) : DOM$a.hasClass(elm, class);
         };
         var findTargets = function (settings) {
           var targets = [];

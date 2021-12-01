@@ -137,7 +137,7 @@
     var global$1 = tinymce.util.Tools.resolve('tinymce.dom.DOMUtils');
 
     var isCodeSample = function (elm) {
-      return elm && elm.nodeName === 'PRE' && elm.className.indexOf('language-') !== -1;
+      return elm && elm.nodeName === 'PRE' && elm.class.indexOf('language-') !== -1;
     };
     var trimArg = function (predicateFn) {
       return function (arg1, arg2) {
@@ -355,11 +355,11 @@
                           }
                         },
                         getLanguage: function (element) {
-                          while (element && !lang.test(element.className)) {
+                          while (element && !lang.test(element.class)) {
                             element = element.parentElement;
                           }
                           if (element) {
-                            return (element.className.match(lang) || [
+                            return (element.class.match(lang) || [
                               ,
                               'none'
                             ])[1].toLowerCase();
@@ -388,11 +388,11 @@
                             return null;
                           }
                         },
-                        isActive: function (element, className, defaultActivation) {
-                          var no = 'no-' + className;
+                        isActive: function (element, class, defaultActivation) {
+                          var no = 'no-' + class;
                           while (element) {
                             var classList = element.classList;
-                            if (classList.contains(className)) {
+                            if (classList.contains(class)) {
                               return true;
                             }
                             if (classList.contains(no)) {
@@ -476,10 +476,10 @@
                       highlightElement: function (element, async, callback) {
                         var language = _.util.getLanguage(element);
                         var grammar = _.languages[language];
-                        element.className = element.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+                        element.class = element.class.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
                         var parent = element.parentElement;
                         if (parent && parent.nodeName.toLowerCase() === 'pre') {
-                          parent.className = parent.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+                          parent.class = parent.class.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
                         }
                         var code = element.textContent;
                         var env = {
@@ -1244,7 +1244,7 @@
               (function (Prism) {
                 var keywords = /\b(?:abstract|assert|boolean|break|byte|case|catch|char|class|const|continue|default|do|double|else|enum|exports|extends|final|finally|float|for|goto|if|implements|import|instanceof|int|interface|long|module|native|new|non-sealed|null|open|opens|package|permits|private|protected|provides|public|record|requires|return|sealed|short|static|strictfp|super|switch|synchronized|this|throw|throws|to|transient|transitive|try|uses|var|void|volatile|while|with|yield)\b/;
                 var classNamePrefix = /(^|[^\w.])(?:[a-z]\w*\s*\.\s*)*(?:[A-Z]\w*\s*\.\s*)*/.source;
-                var className = {
+                var class = {
                   pattern: RegExp(classNamePrefix + /[A-Z](?:[\d_A-Z]*[a-z]\w*)?\b/.source),
                   lookbehind: true,
                   inside: {
@@ -1257,11 +1257,11 @@
                 };
                 Prism.languages.java = Prism.languages.extend('clike', {
                   'class-name': [
-                    className,
+                    class,
                     {
                       pattern: RegExp(classNamePrefix + /[A-Z]\w*(?=\s+\w+\s*[;,=())])/.source),
                       lookbehind: true,
-                      inside: className.inside
+                      inside: class.inside
                     }
                   ],
                   'keyword': keywords,
@@ -1294,7 +1294,7 @@
                   'generics': {
                     pattern: /<(?:[\w\s,.&?]|<(?:[\w\s,.&?]|<(?:[\w\s,.&?]|<[\w\s,.&?]*>)*>)*>)*>/,
                     inside: {
-                      'class-name': className,
+                      'class-name': class,
                       'keyword': keywords,
                       'punctuation': /[<>(),.:]/,
                       'operator': /[?&|]/
@@ -2183,7 +2183,7 @@
       return node.fold(function () {
         return fallback;
       }, function (n) {
-        var matches = n.className.match(/language-(\w+)/);
+        var matches = n.class.match(/language-(\w+)/);
         return matches ? matches[1] : fallback;
       });
     };
@@ -2277,7 +2277,7 @@
               elm.contentEditable = 'false';
               elm.innerHTML = editor.dom.encode(elm.textContent);
               get$1(editor).highlightElement(elm);
-              elm.className = $.trim(elm.className);
+              elm.class = $.trim(elm.class);
             });
           });
         }

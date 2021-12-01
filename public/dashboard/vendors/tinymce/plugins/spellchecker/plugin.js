@@ -250,7 +250,7 @@
         parentNode.removeChild(element);
       };
       var hasClass = function (elm) {
-        return elm.className.indexOf('mce-spellchecker-word') !== -1;
+        return elm.class.indexOf('mce-spellchecker-word') !== -1;
       };
       var getWrappersByIndex = function (index) {
         var elements = node.getElementsByTagName('*'), wrappers = [];
@@ -695,7 +695,7 @@
     var setup = function (editor, pluginUrl, lastSuggestionsState, startedState, textMatcherState, currentLanguageState) {
       var update = function (element) {
         var target = element;
-        if (target.className === 'mce-spellchecker-word') {
+        if (target.class === 'mce-spellchecker-word') {
           var spans = findSpansByIndex(editor, getElmIndex(target));
           if (spans.length > 0) {
             var rng = editor.dom.createRng();

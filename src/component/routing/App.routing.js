@@ -15,21 +15,23 @@ import Dashboard from "../dashboard/dashboard.component";
 import { Forgotpassword } from "../forgotpassword/forgotpassword.component";
 import { Home } from "../home/home.component";
 import { Login } from "../login/login.component";
-import Service from "../Service/Service";
+// import Service from "../Service/Service";
 import { Pagenotfound } from "../pagenotfound/Pagenotfound.component";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import Services from "../servicesData/services.component";
 
 
 export const Approuting = (props) => {
   console.log("inside app routing");
   const ProtectedRoute = ({ component: Component, ...rest }) => {
+
+
     const expiry_time = localStorage.getItem("timeout");
     console.log(expiry_time);
     setTimeout(() => {
       localStorage.removeItem("dm-access_token");
       const refresh_token = localStorage.getItem("dm-refresh_token");
-      console.log("refresh_token", refresh_token);
       const data = {};
       data.refresh_token = refresh_token;
       if (refresh_token) {
@@ -40,6 +42,7 @@ export const Approuting = (props) => {
             localStorage.setItem("dm-access_token", response.access_token);
             localStorage.setItem("dm-refresh_token", response.refresh_token);
             localStorage.setItem("timeout", response.expires_in);
+            localStorage.setItem("status", response.status);
           })
           .catch((err) => {
             notify.error(err);
@@ -94,10 +97,11 @@ export const Approuting = (props) => {
       <Switch>
         <PublicRoute exact path="/login" component={Login}></PublicRoute>
         <PublicRoute exact path="/" component={Home}></PublicRoute>
-        <PublicRoute path="/services" component={Service}></PublicRoute>
+        <ProtectedRoute path="/services" component={Services}></ProtectedRoute>
         <PublicRoute exact path="/register" component={Register}></PublicRoute>
         <PublicRoute exact path="/forgot-password" component={Forgotpassword}></PublicRoute>
         <ProtectedRoute exact path="/dashboard/:id" component={Dashboard}></ProtectedRoute>
+        <ProtectedRoute exact path="/viewappointment" component={Dashboard}></ProtectedRoute>
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
      

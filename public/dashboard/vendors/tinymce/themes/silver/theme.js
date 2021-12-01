@@ -21226,14 +21226,14 @@
         },
         behaviours: derive$1([Unselecting.config({})])
       });
-      var makeIcon = function (className) {
-        var iconName = className === 'checked' ? 'selected' : 'unselected';
+      var makeIcon = function (class) {
+        var iconName = class === 'checked' ? 'selected' : 'unselected';
         return {
           dom: {
             tag: 'span',
             classes: [
               'tox-icon',
-              'tox-checkbox-icon__' + className
+              'tox-checkbox-icon__' + class
             ],
             innerHtml: get$e(iconName, providerBackstage.icons)
           }

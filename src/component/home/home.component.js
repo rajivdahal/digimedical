@@ -66,7 +66,7 @@ const ConnectionContainor = styled.div`
   }
 `;
 export const Home = (props) => {
-  console.log("home");
+  console.log("home",props);
   return (
     <>
     <Navbar></Navbar>
@@ -94,7 +94,7 @@ export const Home = (props) => {
       <About />
       <OurServices />
       <WhyChooseUs />
-      <BookAnAppointment />
+      <BookAnAppointment history={props.history}/>
       <TheyTrustedUs />
       <OurPartnar />
       <Footer></Footer>

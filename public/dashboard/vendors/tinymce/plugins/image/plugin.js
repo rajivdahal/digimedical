@@ -1598,8 +1598,8 @@
     };
 
     var hasImageClass = function (node) {
-      var className = node.attr('class');
-      return className && /\bimage\b/.test(className);
+      var class = node.attr('class');
+      return class && /\bimage\b/.test(class);
     };
     var toggleContentEditableState = function (state) {
       return function (nodes) {

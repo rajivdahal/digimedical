@@ -458,7 +458,7 @@
       return elements.length === 0;
     };
     var isImageFigure = function (elm) {
-      return elm && elm.nodeName === 'FIGURE' && /\bimage\b/i.test(elm.className);
+      return elm && elm.nodeName === 'FIGURE' && /\bimage\b/i.test(elm.class);
     };
     var getLinkAttrs = function (data) {
       return foldl([

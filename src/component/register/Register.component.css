@@ -87,3 +87,8 @@
        width: 100%!important;
    }
 }
+.errmsg
+{
+    position: absolute;
+   
+}

@@ -21,11 +21,7 @@ const GET = (url,grant_type, params = {}) => {
 }
 
 const POST = (url, data,grant_type, params = {}) => {
-    return http.post(BASE_URL+url, data,{
-        headers:{
-          'Authorization':'Bearer '+localStorage.getItem('dm-access_token')
-        }
-    })
+    return http.post(BASE_URL+url, data)
 }
 
 const DELETE = (url,grant_type, params = {}) => {

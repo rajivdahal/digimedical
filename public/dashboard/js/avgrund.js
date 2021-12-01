@@ -3,7 +3,7 @@
   $(function() {
     $('#show').avgrund({
       height: 500,
-      holderClass: 'custom',
+      holderclassName: 'custom',
       showClose: true,
       showCloseText: 'x',
       onBlurContainer: '.container-scroller',

@@ -113,33 +113,33 @@ const Navbar = () => {
             style={{ width: "1.8px", height: "2rem", marginLeft: "1rem" }}
           ></img>
           <Link to="/login">
-          <div>
-            {" "}
-            <img
-              src={login}
-              style={{
-                height: "13px",
-                marginLeft: "1rem",
-                marginRight: "0.5rem",
-              }}
-            ></img>
-            Login
-          </div>
+            <div>
+              {" "}
+              <img
+                src={login}
+                style={{
+                  height: "13px",
+                  marginLeft: "1rem",
+                  marginRight: "0.5rem",
+                }}
+              ></img>
+              Login
+            </div>
           </Link>
-         <Link to="/register">
-          <div>
-            {" "}
-            <img
-              src={user}
-              style={{
-                height: "13px",
-                marginLeft: "1rem",
-                marginRight: "0.5rem",
-              }}
-            ></img>
-            Sign up{" "}
-          </div>
-              </Link>
+          <Link to="/register">
+            <div>
+              {" "}
+              <img
+                src={user}
+                style={{
+                  height: "13px",
+                  marginLeft: "1rem",
+                  marginRight: "0.5rem",
+                }}
+              ></img>
+              Sign up{" "}
+            </div>
+          </Link>
         </div>
       </Heading>
       <NavbarMenuItems />

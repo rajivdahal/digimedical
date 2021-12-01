@@ -7,9 +7,7 @@ import Edit from '@material-ui/icons/Edit';
 import tableIcons from "../../material.icons/icons";
 
 const Services = (props) => {
-
     const tableRef = React.createRef();
-
     const [services, setServices] = useState([]);
     const [service, setService] = useState({
         serviceName: "",
@@ -22,15 +20,17 @@ const Services = (props) => {
     }
 
     const handleChange = (e) => {
-        let tempService = { ...service, ...{ [e.target.name]: e.target.value } }
+        let tempService = {
+             ...service, 
+             ...{ [e.target.name]: e.target.value } 
+            }
         setService(tempService);
     }
 
     const getServices = () => {
-        
         httpClient.GET("services/true",)
             .then(resp => {
-                console.log(resp)
+                console.log("service created and response is>",resp)
                 if (resp.data.status == true) {
                     let serviceData = resp.data.data
                     setServices(serviceData)
@@ -39,7 +39,6 @@ const Services = (props) => {
             .catch(err => {
                 console.log(err.response)
             })
-
     }
 
     useEffect(()=>{
@@ -126,7 +125,7 @@ const Services = (props) => {
 
                 <MaterialTable
                     columns={columns}
-                    data={services}
+                    data={services} 
                     title="Service Details"
                     tableRef={tableRef}
                     icons={tableIcons}

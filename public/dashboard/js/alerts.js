@@ -8,7 +8,7 @@
           text: "OK",
           value: true,
           visible: true,
-          className: "btn btn-primary"
+          class: "btn btn-primary"
         }
       })
 
@@ -20,7 +20,7 @@
           text: "OK",
           value: true,
           visible: true,
-          className: "btn btn-primary"
+          class: "btn btn-primary"
         }
       })
 
@@ -33,7 +33,7 @@
           text: "Continue",
           value: true,
           visible: true,
-          className: "btn btn-primary"
+          class: "btn btn-primary"
         }
       })
 
@@ -66,14 +66,14 @@
             text: "Cancel",
             value: null,
             visible: true,
-            className: "btn btn-danger",
+            class: "btn btn-danger",
             closeModal: true,
           },
           confirm: {
             text: "OK",
             value: true,
             visible: true,
-            className: "btn btn-primary",
+            class: "btn btn-primary",
             closeModal: true
           }
         }
@@ -93,7 +93,7 @@
           text: "OK",
           value: true,
           visible: true,
-          className: "btn btn-primary"
+          class: "btn btn-primary"
         }
       })
     }

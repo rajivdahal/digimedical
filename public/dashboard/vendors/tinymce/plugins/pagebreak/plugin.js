@@ -36,11 +36,11 @@
       });
       editor.on('PreInit', function () {
         editor.serializer.addNodeFilter('img', function (nodes) {
-          var i = nodes.length, node, className;
+          var i = nodes.length, node, class;
           while (i--) {
             node = nodes[i];
-            className = node.attr('class');
-            if (className && className.indexOf('mce-pagebreak') !== -1) {
+            class = node.attr('class');
+            if (class && class.indexOf('mce-pagebreak') !== -1) {
               var parentNode = node.parent;
               if (editor.schema.getBlockElements()[parentNode.name] && shouldSplitBlock(editor)) {
                 parentNode.type = 3;

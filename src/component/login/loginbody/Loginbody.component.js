@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 import { notify } from "../../../services/notify"
 import Submitbtn from "../../common/Submitbtn/Submitbtn.component"
 import { useState } from "react"
-
+import "./Loginbody.component.css"
 const Loginbodycomponent = (props) => {
     const [isLoading, setisLoading] = useState(false)
     const [errMsg, seterrMsg] = useState('')
@@ -30,17 +30,14 @@ const Loginbodycomponent = (props) => {
                 .then(resp => {
                     let response = JSON.parse(resp)
                     console.log(response)
-                    let { access_token, refresh_token, expires_in } = response
+                    let { access_token, refresh_token, expires_in,status } = response
                     localStorage.setItem("dm-access_token", access_token)
                     localStorage.setItem("dm-refresh_token", refresh_token)
                     localStorage.setItem("timeout", expires_in)
+                    localStorage.setItem("status",status)
                     setTimeout(() => {
                         props.history.push({
-                            pathname: `/dashboard/${response.userid}`,
-                            state:
-                            {
-                                status: response.status
-                            }
+                            pathname: `/dashboard/${response.userid}`
                         })
                         // notify.success("Successfully Loggedin")
                     }, 3000)
@@ -48,8 +45,8 @@ const Loginbodycomponent = (props) => {
                 .catch(err => {
                     console.log("inside err")
                     if (!err) {
-                         notify.error("something went wrong")
-                         return setisLoading(false)
+                        notify.error("something went wrong")
+                        return setisLoading(false)
                     }
                     // seterrMsg(error.message)
                     let error = JSON.parse(err)
@@ -72,6 +69,10 @@ const Loginbodycomponent = (props) => {
         },
     })
 
+
+
+
+                        
     // render() {
     const alert = props.usernameinfo ? props.usernameinfo : "not found"
 
@@ -79,14 +80,14 @@ const Loginbodycomponent = (props) => {
         <div>
             <section className="login">
                 <div className="container">
-                    <div className="row">
-                        <div className="col-md-6">
+                    <div className="row adjust-height">
+                        <div className="col-md-6 adj-height">
                             <div className="login-img">
-                                <img src="/images/login-bg.png" alt="" className="img-fluid" />
+                                <img src="/images/login-bg.png" alt="" className="img-fluid"  style={{height:700}}/>
                             </div>
                         </div>
-                        <div className="col-md-6">
-                            <form className="login-form" onSubmit={formik.handleSubmit}>
+                        <div className="col-md-6 adj-form">
+                            <form className="login-form " onSubmit={formik.handleSubmit}>
                                 <h2 className="fs-title text-center">Login</h2>
                                 <h3 className="fs-subtitle text-center">Fill in your credentials</h3>
                                 <div className="row">
@@ -94,15 +95,15 @@ const Loginbodycomponent = (props) => {
                                         <div className="form-group select-label">
                                             <label>Email address </label>
                                             <input type="username" className="form-control form-input" placeholder="username" id="username" {...formik.getFieldProps("username")} />
-                                            {formik.errors.username && formik.touched.username ? <div style={{ color: "red" }}>{formik.errors.username}  </div> : null}
+                                            {formik.errors.username && formik.touched.username ? <div style={{ color: "red" }} className="errmsg">{formik.errors.username}  </div> : null}
                                         </div>
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
                                             <label>Password </label>
                                             <input type="password" className="form-control form-input" placeholder="Enter Password" id="password" {...formik.getFieldProps("password")} />
-                                            {formik.errors.password && formik.touched.password ? <div style={{ color: "red" }}>{formik.errors.password}  </div> : null}
-                                            {errMsg ? <div style={{ color: "red" }}>{errMsg}  </div> : null}
+                                            {formik.errors.password && formik.touched.password ? <div style={{ color: "red" }} className="errmsg">{formik.errors.password}  </div> : null}
+                                            {errMsg ? <div style={{ color: "red" }} className="errmsg">{errMsg}  </div> : null}
                                         </div>
                                     </div>
                                     <div className="sign-btn text-center w-100 mt-2">

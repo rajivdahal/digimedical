@@ -1519,7 +1519,7 @@
     };
 
     var isCustomList = function (list) {
-      return /\btox\-/.test(list.className);
+      return /\btox\-/.test(list.class);
     };
     var listState = function (editor, listName, activate) {
       var nodeChangeHandler = function (e) {
@@ -1687,7 +1687,7 @@
       return targetStyle === style;
     };
     var hasSameClasses = function (elm1, elm2) {
-      return elm1.className === elm2.className;
+      return elm1.class === elm2.class;
     };
     var shouldMerge = function (dom, list1, list2) {
       return isValidLists(list1, list2) && hasSameListStyle(dom, list1, list2) && hasSameClasses(list1, list2);

@@ -157,7 +157,7 @@
       });
     };
     var hasClass = function (n, c) {
-      return new RegExp('\\b' + c + '\\b', 'g').test(n.className);
+      return new RegExp('\\b' + c + '\\b', 'g').test(n.class);
     };
     var insertTemplate = function (editor, _ui, html) {
       var el;

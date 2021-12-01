@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import Search from "../../assets/Search.png";
-
+import { Link } from "react-router-dom";
+import "./navbarmenu.component.css"
 const Root = styled.div`
   background-color: #2745f0;
 
@@ -43,20 +44,22 @@ const NavbarMenuItems = () => {
   return (
     <Root>
       <LogMenuItemsContainor>
-        <img
-          src={logo}
-          style={{
-            height: "3.5rem",
-          }}
-        ></img>
+        <Link to="/">
+          <img
+            src={logo}
+            style={{
+              height: "3.5rem",
+            }}
+          ></img>
+        </Link>
         <div className="menu">
-          <span className="menu-item">Home</span>
-          <span className="menu-item">About</span>
-          <span className="menu-item">Services</span>
-          <span className="menu-item">Lab Test</span>
-          <span className="menu-item">Health Pacakages</span>
-          <span className="menu-item">Special Pacakages</span>
-          <span className="menu-item">Contact</span>
+          <Link to="/" style={{textDecoration:"none",color:"white"}}><span className="menu-item">Home</span></Link>
+          <Link to="/about" style={{textDecoration:"none",color:"white"}}> <span className="menu-item">About</span></Link>
+          <Link to="/services" style={{textDecoration:"none",color:"white"}}> <span className="menu-item">Services</span></Link>
+          <Link to="/lab-test" style={{textDecoration:"none",color:"white"}}><span className="menu-item">Lab Test</span></Link>
+          <Link to="/health-packages" style={{textDecoration:"none",color:"white"}}><span className="menu-item">Health Pacakages</span></Link>
+          <Link to="/special-packages" style={{textDecoration:"none",color:"white"}}><span className="menu-item">Special Pacakages</span></Link>
+          <Link to="/contact" style={{textDecoration:"none",color:"white"}}> <span className="menu-item">Contact</span></Link>
         </div>
       </LogMenuItemsContainor>
 

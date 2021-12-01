@@ -2552,7 +2552,7 @@
                 template.style.textAlign = computedStyle.textAlign;
                 colorMask = document.createElement("div");
                 input.inputmask.colorMask = colorMask;
-                colorMask.className = "im-colormask";
+                colorMask.class = "im-colormask";
                 input.parentNode.insertBefore(colorMask, input);
                 input.parentNode.removeChild(input);
                 colorMask.appendChild(input);

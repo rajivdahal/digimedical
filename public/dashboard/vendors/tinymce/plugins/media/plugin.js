@@ -1264,7 +1264,7 @@
           var innerHtml;
           var innerNode;
           var realElmName;
-          var className;
+          var class;
           while (i--) {
             node = nodes[i];
             if (!node.parent) {
@@ -1273,8 +1273,8 @@
             realElmName = node.attr(name);
             realElm = new global$7(realElmName, 1);
             if (realElmName !== 'audio' && realElmName !== 'script') {
-              className = node.attr('class');
-              if (className && className.indexOf('mce-preview-object') !== -1) {
+              class = node.attr('class');
+              if (class && class.indexOf('mce-preview-object') !== -1) {
                 realElm.attr({
                   width: node.firstChild.attr('width'),
                   height: node.firstChild.attr('height')

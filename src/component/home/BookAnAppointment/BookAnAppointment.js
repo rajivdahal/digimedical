@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Appointment from "./bookanappointment.png";
 import FormComponent from "./FormComponent";
 
-function BookAnAppointment() {
+function BookAnAppointment(props) {
+  console.log("props are in book appointment",props)
   const Container = styled.div`
     background: rgba(245, 250, 255, 1);
     display: flex;
@@ -61,7 +62,7 @@ function BookAnAppointment() {
         </Header>
         <InnerContainer>
           <LeftSection>
-            <FormComponent />
+            <FormComponent history={props}/>
           </LeftSection>
           <RightSection>
             <img src={Appointment} style={{ width: "400px" }} />

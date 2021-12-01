@@ -3,10 +3,9 @@ import styled from "styled-components";
 import ConnectionWall from "../../../assets/ConnectionWall.png";
 import smile from "../../../assets/smile.png";
 import doctor from "../../../assets/doctor.png";
-
 import hospital from "../../../assets/hospital.png";
 import medical from "../../../assets/medical.png";
-
+import CountUp from 'react-countup';
 const Root = styled.div`
   position: absolute;
   // align-items: center;
@@ -144,6 +143,7 @@ const MedicalIndustries = styled.div`
   }
 `;
 const Conection = () => {
+ 
   return (
     <Root
       style={{
@@ -155,22 +155,22 @@ const Conection = () => {
     >
       <HappyClient>
         <img src={smile} className="icon"></img>
-        <span className="counter">1000 +</span>
+        <span className="counter"><CountUp end={1000} duration={3}/>+</span>
         <span className="subtitle">Happy clients</span>
       </HappyClient>
       <Doctor>
         <img src={doctor} className="icon"></img>
-        <span className="counter">50 +</span>
+        <span className="counter"><CountUp end={100} duration={2}/>+</span>
         <span className="subtitle">Doctors</span>
       </Doctor>
       <Hospital>
         <img src={hospital} className="icon"></img>
-        <span className="counter">100 +</span>
+        <span className="counter"><CountUp end={50} duration={1}/>+</span>
         <span className="subtitle">Hospitals</span>
       </Hospital>
       <MedicalIndustries>
         <img src={medical} className="icon"></img>
-        <span className="counter">50 +</span>
+        <span className="counter"> <CountUp end={300} duration={2}/>+</span>
         <span className="subtitle">Medical Industries</span>
       </MedicalIndustries>
     </Root>

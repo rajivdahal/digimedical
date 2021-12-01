@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-
+import { isInteger, useFormik } from "formik";
+import { httpClient } from "../../../utils/httpClient";
+import { useEffect, useState } from "react";
+import { Redirect } from "react-router";
 const FormSection = styled.div`
   height: auto;
   margin-top: 25px;
@@ -34,98 +37,234 @@ const FormSection = styled.div`
   }
 `;
 
-function FormComponent() {
+function FormComponent(props) {
+  console.log("props are",props)
+  const prop=props.history.history
+  const [appointmentsuccess, setappointmentsuccess] = useState(null)
+  const [appointmentfailed, setappointmentfailed] = useState(null)
+  const [services, setservices] = useState([])
+  const [dummy, setdummy] = useState(false)
+let servicearray=[]
+  useEffect(() => {
+    httpClient.GET("services/true")
+      .then(resp => {
+        console.log(resp.data.data)
+        setservices(resp.data.data)
+          // let dataarray=resp.data.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      .finally(()=>{
+        console.log(services)
+      })
+  },[])
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      email: '',
+      mobileNumber: '',
+      servicesId: '',
+      doctorId: '',
+      appointmentDate: '',
+      appointmentTime: ''
+    },
+    validate: values => {
+      let errors = {}
+      if (!values.firstName) {
+        errors.firstName = "Required!"
+      }
+      if (!values.lastName) {
+        errors.lastName = "Required!"
+      }
+      if (!values.email) {
+        errors.email = "Required!"
+      }
+      else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)) {
+        errors.email = "Invalid email format"
+      }
+      if (!values.mobileNumber) {
+        errors.mobileNumber = "Required!"
+      }
+      if (!values.servicesId) {
+        errors.servicesId = "Required!"
+      }
+      if (!values.doctorId) {
+        errors.doctorId = "Required!"
+      }
+      if (!values.appointmentDate) {
+        errors.appointmentDate = "Required!"
+      }
+      if (!values.appointmentTime) {
+        errors.appointmentTime = "Required!"
+      }
+
+      return errors
+    },
+    onSubmit: values => {
+      console.log(values)
+      httpClient.POST('create-external-user', values)
+        .then((res) => {
+          setappointmentsuccess(res.data.message)
+        })
+        .catch(err => {
+          if (!err) {
+            return setappointmentfailed("something went wrong")
+          }
+          console.log("inside error")
+          setappointmentfailed(err.response.data.message)
+          
+          setTimeout(()=>{
+            let token=localStorage.getItem("dm-access_token")
+
+            token?prop.push("/dashboard/1"):prop.push("/login")
+          },1000)
+        })
+    }
+  })
   return (
     <FormSection>
-      <form>
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <label for="fname">First Name</label>
+      <form onSubmit={formik.handleSubmit}>
+        <div className="form-row">
+          <div className="form-group col-md-4">
+            <label htmlFor="fname">First Name</label>
             <input
               type="text"
-              class="form-control"
-              id="fname"
+              className="form-control"
+              id="firstName"
               placeholder="First Name"
+              {...formik.getFieldProps("firstName")}
+
             />
+            {formik.errors.firstName && formik.touched.firstName ? <div style={{ color: "red" }} className="errmsg">{formik.errors.firstName}  </div> : null}
           </div>
-          <div class="form-group col-md-4">
-            <label for="mname">Middle Name</label>
+          <div className="form-group col-md-4">
+            <label htmlFor="mname">Middle Name</label>
             <input
               type="text"
-              class="form-control"
-              id="mname"
+              className="form-control"
+              id="middleName"
               placeholder="Middle Name"
+              {...formik.getFieldProps("middleName")}
+
             />
+
           </div>
-          <div class="form-group col-md-4">
-            <label for="lname">Last Name</label>
+          <div className="form-group col-md-4">
+            <label htmlFor="lname">Last Name</label>
             <input
               type="text"
-              class="form-control"
-              id="lname"
+              className="form-control"
+              id="lastName"
               placeholder="Last Name"
+              {...formik.getFieldProps("lastName")}
             />
+            {formik.errors.lastName && formik.touched.lastName ? <div style={{ color: "red" }} className="errmsg">{formik.errors.lastName}  </div> : null}
+
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="email">Email</label>
+        <div className="form-row">
+          <div className="form-group col-md-6">
+            <label htmlFor="email">Email</label>
             <input
               type="email"
-              class="form-control"
+              className="form-control"
               id="email"
               placeholder="Email"
+              {...formik.getFieldProps("email")}
             />
+            {formik.errors.email && formik.touched.email ? <div style={{ color: "red" }} className="errmsg">{formik.errors.email}  </div> : null}
+
           </div>
-          <div class="form-group col-md-6">
-            <label for="phoneno">Phone No.</label>
+          <div className="form-group col-md-6">
+            <label htmlFor="phoneno">Mobile No.</label>
             <input
               type="text"
-              class="form-control"
-              id="phoneno"
+              className="form-control"
+              id="mobileNumber"
               placeholder="PhoneNumber"
+              {...formik.getFieldProps("mobileNumber")}
             />
+            {formik.errors.mobileNumber && formik.touched.mobileNumber ? <div style={{ color: "red" }} className="errmsg">{formik.errors.mobileNumber}  </div> : null}
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="service">Select Service</label>
-            <select id="service" class="form-control">
-              <option selected>Choose...</option>
+        <div className="form-row">
+          <div className="form-group col-md-6">
+            <label htmlFor="service">Select Service</label>
+            <select id="servicesId" className="form-control" {...formik.getFieldProps("servicesId")}>
               <option>...</option>
+              {
+                services.map((item,index) => {
+                  return <option key={index}>{item.id}</option>
+                })
+
+              }
             </select>
+            {formik.errors.servicesId && formik.touched.servicesId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.servicesId}  </div> : null}
+
           </div>
-          <div class="form-group col-md-6">
-            <label for="doctor">Select Doctor</label>
-            <select id="doctor" class="form-control">
-              <option selected>Choose...</option>
+          <div className="form-group col-md-6">
+            <label htmlFor="doctor">Select Doctor</label>
+            <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")}>
+              <option >1</option>
+              <option >1</option>
+              <option >1</option>
               <option>...</option>
             </select>
+            {formik.errors.doctorId && formik.touched.doctorId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.doctorId}  </div> : null}
+
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="appointment">Appointment Date.</label>
+        <div className="form-row">
+          <div className="form-group col-md-6">
+            <label htmlFor="appointment">Appointment Date.</label>
             <input
-              type="text"
-              class="form-control"
-              id="appointment"
+              type="date"
+              className="form-control"
+              id="appointmentDate"
               placeholder="dd/mm/yyyy"
+              {...formik.getFieldProps("appointmentDate")}
             />
+            {formik.errors.appointmentDate && formik.touched.appointmentDate ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentDate}  </div> : null}
+
           </div>
 
-          <div class="form-group col-md-6">
-            <label for="time">Time</label>
-            <select id="time" class="form-control">
+          <div className="form-group col-md-6">
+            <label htmlFor="time">Time</label>
+            <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formik.getFieldProps("appointmentTime")}></input>
+            {/* <select id="time" className="form-control" {...formik.getFieldProps("time")}>
               <option selected>Select time</option>
-              <option>...</option>
-            </select>
+              
+            </select> */}
+            {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
+
           </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ">
-          <button type="button" class="btn btn-primary btn-block">
+        <div className="col-md-12 col-sm-12 col-xs-12 ">
+          <button type="submit" className="btn btn-primary btn-block">
             Make Appointment
           </button>
+          {
+            appointmentsuccess ? <div className="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success!</strong>
+              {appointmentsuccess}
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div> : null
+          }
+          {
+            appointmentfailed ? <div className="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error!</strong>
+              {appointmentfailed}
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div> : null
+          }
         </div>
         <div className="form-text">
           We value your privacy. Your details are safe with us.

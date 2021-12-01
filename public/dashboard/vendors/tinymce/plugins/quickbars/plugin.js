@@ -453,7 +453,7 @@
         return editor.dom.getContentEditableParent(node) !== 'false';
       };
       var isImage = function (node) {
-        return node.nodeName === 'IMG' || node.nodeName === 'FIGURE' && /image/i.test(node.className);
+        return node.nodeName === 'IMG' || node.nodeName === 'FIGURE' && /image/i.test(node.class);
       };
       var imageToolbarItems = getImageToolbarItems(editor);
       if (imageToolbarItems.trim().length > 0) {

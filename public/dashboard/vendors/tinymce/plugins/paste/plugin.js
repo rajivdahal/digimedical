@@ -772,11 +772,11 @@
         }
       });
       domParser.addAttributeFilter('class', function (nodes) {
-        var i = nodes.length, node, className;
+        var i = nodes.length, node, class;
         while (i--) {
           node = nodes[i];
-          className = node.attr('class');
-          if (/^(MsoCommentReference|MsoCommentText|msoDel)$/i.test(className)) {
+          class = node.attr('class');
+          if (/^(MsoCommentReference|MsoCommentText|msoDel)$/i.test(class)) {
             node.remove();
           }
           node.attr('class', null);

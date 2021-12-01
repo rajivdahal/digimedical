@@ -378,7 +378,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     if (type == "for") return cont(pushlex("form"), forspec, statement, poplex);
     if (type == "class" || (isTS && value == "interface")) {
       cx.marked = "keyword"
-      return cont(pushlex("form", type == "class" ? type : value), className, poplex)
+      return cont(pushlex("form", type == "class" ? type : value), class, poplex)
     }
     if (type == "variable") {
       if (isTS && value == "declare") {
@@ -744,10 +744,10 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   }
   function classExpression(type, value) {
     // Class expressions may have an optional name.
-    if (type == "variable") return className(type, value);
+    if (type == "variable") return class(type, value);
     return classNameAfter(type, value);
   }
-  function className(type, value) {
+  function class(type, value) {
     if (type == "variable") {register(value); return cont(classNameAfter);}
   }
   function classNameAfter(type, value) {

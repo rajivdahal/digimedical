@@ -640,7 +640,7 @@
         { "data": "Status" }, 
         { "data": "Updated" }, 
         {
-          "className":      'details-control',
+          "class":      'details-control',
           "orderable":      false,
           "data":           null,
           "defaultContent": ''
@@ -653,7 +653,7 @@
     "filter": false,
     columnDefs: [{
       orderable: false,
-      className: 'select-checkbox',
+      class: 'select-checkbox',
       targets: 0
     }],
     select: {

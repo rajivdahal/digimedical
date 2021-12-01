@@ -240,7 +240,7 @@ interface DomQuery<T extends Node = Node> extends ArrayLike<T> {
     length: number;
     selector: string;
     add(items: Array<string | T> | DomQuery<T>, sort?: boolean): this;
-    addClass(className: string): this;
+    addClass(class: string): this;
     after(content: DomQuerySelector<T>): this;
     append(content: DomQuerySelector<T>): this;
     appendTo(val: DomQuerySelector<T>): this;
@@ -261,7 +261,7 @@ interface DomQuery<T extends Node = Node> extends ArrayLike<T> {
     filter(selector: string | ((i: number, item: any) => boolean)): this;
     find(selector: string): this;
     first(): this;
-    hasClass(className: string): boolean;
+    hasClass(class: string): boolean;
     hide(): this;
     html(value: string): this;
     html(): string;
@@ -287,7 +287,7 @@ interface DomQuery<T extends Node = Node> extends ArrayLike<T> {
     push(...items: T[]): number;
     remove(): this;
     removeAttr(name: string): this;
-    removeClass(className: string): this;
+    removeClass(class: string): this;
     replaceWith(content: DomQuerySelector<T>): this;
     show(): this;
     slice(start: number, end?: number): this;
@@ -296,7 +296,7 @@ interface DomQuery<T extends Node = Node> extends ArrayLike<T> {
     text(value: string): DomQuery;
     text(): string;
     toArray(): T[];
-    toggleClass(className: string, state?: boolean): this;
+    toggleClass(class: string, state?: boolean): this;
     trigger(name: string | {
         type: string;
     }): this;

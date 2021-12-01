@@ -670,7 +670,7 @@
     };
     var markAllMatches = function (editor, currentSearchState, pattern, inSelection) {
       var marker = editor.dom.create('span', { 'data-mce-bogus': 1 });
-      marker.className = 'mce-match-marker';
+      marker.class = 'mce-match-marker';
       var node = editor.getBody();
       done(editor, currentSearchState, false);
       if (inSelection) {
