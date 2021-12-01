@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import Search from "../../assets/Search.png";
+import { Link } from "react-router-dom";
 
 const Root = styled.div`
   background-color: #2745f0;
@@ -50,13 +51,33 @@ const NavbarMenuItems = () => {
           }}
         ></img>
         <div className="menu">
-          <span className="menu-item">Home</span>
+          {" "}
+          <span className="menu-item">
+            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+              Home{" "}
+            </Link>
+          </span>
           <span className="menu-item">About</span>
-          <span className="menu-item">Services</span>
+          <span className="menu-item">
+            <Link
+              to="/service"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Services{" "}
+            </Link>
+          </span>
           <span className="menu-item">Lab Test</span>
           <span className="menu-item">Health Pacakages</span>
           <span className="menu-item">Special Pacakages</span>
-          <span className="menu-item">Contact</span>
+          <span className="menu-item">
+            {" "}
+            <Link
+              to="/contact"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Contact
+            </Link>
+          </span>
         </div>
       </LogMenuItemsContainor>
 

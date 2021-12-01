@@ -9,7 +9,7 @@ import Service from "../component/Service/Service";
 import Register from "./register/Register.component";
 import Navbar from "./Navbar/Navbar";
 import Footer from "./Footer/Footer";
-
+import Contact from "./Contact/ContactUs";
 export const Approuting = (props) => {
   console.log("inside app routing");
   const ProtectedRoute = ({ component: Component, ...rest }) => {
@@ -84,6 +84,8 @@ export const Approuting = (props) => {
         {/* <PublicRoute exact path="/login" component={Login}></PublicRoute> */}
         <PublicRoute exact path="/" component={Home}></PublicRoute>
         <PublicRoute path="/service" component={Service}></PublicRoute>
+        <PublicRoute path="/contact" component={Contact}></PublicRoute>
+
         {/* <PublicRoute exact path="/register" component={Register}></PublicRoute> */}
         <ProtectedRoute
           exact

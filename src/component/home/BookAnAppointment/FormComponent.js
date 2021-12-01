@@ -4,18 +4,18 @@ import styled from "styled-components";
 const FormSection = styled.div`
   height: auto;
   margin-top: 25px;
-  padding: 3rem;
+  padding: 1.5rem;
   background-color: white;
-  width: 500px;
+  width: 85%;
   border-radius: 15px;
   box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.06);
   box-shadow: -5px -5px 20px 0px rgba(0, 0, 0, 0.06);
 
   .col-md-6 {
-    padding: 0px 15px 0px 0px;
+    // padding: 0px 15px 0px 0px;
   }
   .form-control {
-    border-radius: 8px;
+    // border-radius: px;
   }
   label {
     color: #192638;
@@ -24,7 +24,17 @@ const FormSection = styled.div`
   }
   .btn-block {
     background-color: #2745f0;
-    // width: 100%;
+    border-radius: 0.5rem;
+    // height: 3rem;
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 500;
+
+    line-height: 17px;
+
+    letter-spacing: 0.01em;
   }
   .form-text {
     color: #8797a8;
@@ -122,11 +132,12 @@ function FormComponent() {
             </select>
           </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ">
-          <button type="button" class="btn btn-primary btn-block">
-            Make Appointment
-          </button>
-        </div>
+        {/* <div class="col-md-12 col-sm-12 col-xs-12 "> */}
+
+        <button type="submit" className="btn btn-primary btn-lg btn-block">
+          Make Appointment
+        </button>
+        {/* </div> */}
         <div className="form-text">
           We value your privacy. Your details are safe with us.
         </div>

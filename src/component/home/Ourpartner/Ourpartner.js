@@ -7,11 +7,12 @@ const Root = styled.div`
   justify-content: center;
   align-items: center;
   padding-top: 5rem;
+  padding-bottom: 5rem;
 `;
 const Heading = styled.div`
-  font-weight: bold;
-  font-size: 33px;
+  font-style: normal;
   line-height: 52px;
+  font-size: 38px;
 `;
 const SubHeading = styled.div`
   font-style: normal;

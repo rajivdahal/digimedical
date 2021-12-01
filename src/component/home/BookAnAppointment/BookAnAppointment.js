@@ -5,6 +5,10 @@ import FormComponent from "./FormComponent";
 
 function BookAnAppointment() {
   const Container = styled.div`
+    padding-left: 8.75rem;
+    padding-right: 8.75rem;
+    padding-bottom: 2rem;
+    // margin-bottom: 2rem;
     background: rgba(245, 250, 255, 1);
     display: flex;
     flex-direction: column;
@@ -39,10 +43,9 @@ function BookAnAppointment() {
   `;
   const BottomHeader = styled.div`
     color: #192638;
-    font-weight: 700;
-    font-size: 30px;
-    word-spacing: 0.02rem;
-    letter-spacing: 0.03rem;
+    font-style: normal;
+    line-height: 52px;
+    font-size: 38px;
   `;
 
   const LeftSection = styled.div`

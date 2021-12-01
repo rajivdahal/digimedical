@@ -13,9 +13,9 @@ const Root = styled.div`
     color: #596579;
   }
   h2 {
-    font-weight: bold;
-    font-size: 33px;
+    font-style: normal;
     line-height: 52px;
+    font-size: 38px;
   }
   p {
     line-height: 25px;

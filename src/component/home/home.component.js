@@ -7,9 +7,8 @@ import OurServices from "./About/OurServices";
 import WhyChooseUs from "./WhyChooseUs/WhyChooseUs";
 import BookAnAppointment from "./BookAnAppointment/BookAnAppointment";
 import TheyTrustedUs from "./TheyTrustedUs/TheyTrustedUs";
-import Footer from "../Footer/Footer";
 const Root = styled.div`
-  background-color: red;
+  // background-color: red;
   height: 33.7rem;
 `;
 const HeroSectionContent = styled.div`
