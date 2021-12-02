@@ -12,10 +12,12 @@ const http = axios.create({
     timeoutErrorMessage: "request Timeout",
 })
 
-const GET = (url,grant_type, params = {}) => {
+let token=localStorage.getItem("dm-access_token")?localStorage.getItem("dm-access_token"):"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ0ZXN0QGdtYWlsLmNvbSIsInNjb3BlIjpbIlJFQUQiLCJXUklURSJdLCJleHAiOjE2Mzg0NzY4MTQsInVzZXJpZCI6NiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6ImE5YWU3YzA3LTBlZDgtNDRhMS1iZjNkLWM3YWM3YmY4YWMzMCIsImNsaWVudF9pZCI6ImNsaWVudGlkIiwic3RhdHVzIjoyMDB9.ivfDfUbHtjJ80RrHQMV5bNPm8zKUOvOPHrIcIGeKQLNGtQO223Vyk6-BByKN6_dmeJHZHTZVcvshjzGn2xwRDlk2RVIMQtAjFAihH8Cd0thxJ4bHJhvOR665dekvJRn8f_FeNzTmwcySBIhj3V4LBPzEiDzXIMeDjSQZlsmt23SQ9qf2xwNK0pgqkoSIrJkJ9p35rvsghUN2_EgxKFejDqDeauVvGmsSUSLWjyzWcCRaNUdkzef6BY2sAootDRW9UlZjl4UDnh0n0ApevRnuS8srPU-wjs3MMnVDh4cY8mfn4YtgAO6J-FM0UogvQiomAWI8quvalL1hGHQqjCVnPQ"
+
+const GET = (url,grant_type,params = {}) => {
     return http.get(BASE_URL+url,{
         headers:{
-            "Authorization":'Bearer '+localStorage.getItem('dm-access_token')
+            "Authorization":'Bearer '+token
     }
     })
 }

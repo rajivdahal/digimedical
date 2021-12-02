@@ -2,6 +2,7 @@ import { notify } from "./../../../services/notify"
 import { useState } from "react"
 import { TimeandDate } from "../../../services/timeanddate"
 import "./userDashboard.component.css"
+import { Link } from "react-router-dom"
 const Userdashboard = (props) => {
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -298,7 +299,9 @@ const Userdashboard = (props) => {
               </a>
               <div className="collapse" id="appointment">
                 <ul className="nav flex-column sub-menu">
+                  <Link to="/dashboard/viewappointment">
                   <li className="nav-item"> <a className="nav-link" href="">View Appointment</a></li>
+                  </Link>
                   <li className="nav-item"> <a className="nav-link" href="">Book Appointment</a></li>
                 </ul>
               </div>

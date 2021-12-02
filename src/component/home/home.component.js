@@ -9,6 +9,7 @@ import BookAnAppointment from "./BookAnAppointment/BookAnAppointment";
 import TheyTrustedUs from "./TheyTrustedUs/TheyTrustedUs";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
+import { Link } from "react-router-dom";
 const Root = styled.div`
   background-color: red;
   height: 33.7rem;
@@ -78,9 +79,11 @@ export const Home = (props) => {
             dolor sapien eget. Mattis malesuada quam sed accumsan lectus{" "}
           </SubHeading>
           <ButtonContainor>
+            <Link to="/dashboard">
             <GetAppointment type="button" className="btn btn-primary">
               Get Appointment
             </GetAppointment>
+            </Link>
             <ReadMore type="button" className="btn btn-outline-primary">
               Read MOre
             </ReadMore>

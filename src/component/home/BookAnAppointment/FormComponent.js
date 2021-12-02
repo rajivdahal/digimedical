@@ -50,7 +50,7 @@ let servicearray=[]
       .then(resp => {
         console.log(resp.data.data)
         setservices(resp.data.data)
-          // let dataarray=resp.data.data
+          //let dataarray=resp.data.data
       })
       .catch(err => {
         console.log(err)
@@ -105,7 +105,7 @@ let servicearray=[]
       return errors
     },
     onSubmit: values => {
-      console.log(values)
+      console.log("values are",values)
       httpClient.POST('create-external-user', values)
         .then((res) => {
           setappointmentsuccess(res.data.message)
@@ -115,13 +115,14 @@ let servicearray=[]
             return setappointmentfailed("something went wrong")
           }
           console.log("inside error")
-          setappointmentfailed(err.response.data.message)
-          
+          setappointmentfailed(err.response.data.message+" redirecting to dashboard....")
           setTimeout(()=>{
             let token=localStorage.getItem("dm-access_token")
-
-            token?prop.push("/dashboard/1"):prop.push("/login")
-          },1000)
+            token?prop.push("/dashboard/1"):prop.push({
+              pathname:'/login',
+              timeoutMsg:"please login"
+            })
+          },2000)
         })
     }
   })
@@ -149,9 +150,7 @@ let servicearray=[]
               id="middleName"
               placeholder="Middle Name"
               {...formik.getFieldProps("middleName")}
-
             />
-
           </div>
           <div className="form-group col-md-4">
             <label htmlFor="lname">Last Name</label>
@@ -194,13 +193,12 @@ let servicearray=[]
         <div className="form-row">
           <div className="form-group col-md-6">
             <label htmlFor="service">Select Service</label>
-            <select id="servicesId" className="form-control" {...formik.getFieldProps("servicesId")}>
-              <option>...</option>
+            <select id="servicesId" className="form-control" {...formik.getFieldProps("servicesId")} style={{color:"black"}}>
+              <option value={null}></option>
               {
                 services.map((item,index) => {
-                  return <option key={index}>{item.id}</option>
+                  return <option key={index} value={item.id}>{item.serviceName}</option>
                 })
-
               }
             </select>
             {formik.errors.servicesId && formik.touched.servicesId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.servicesId}  </div> : null}
@@ -208,14 +206,13 @@ let servicearray=[]
           </div>
           <div className="form-group col-md-6">
             <label htmlFor="doctor">Select Doctor</label>
-            <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")}>
+            <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{color:"black"}}>
+            <option value={null}></option>
               <option >1</option>
               <option >1</option>
               <option >1</option>
-              <option>...</option>
             </select>
-            {formik.errors.doctorId && formik.touched.doctorId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.doctorId}  </div> : null}
-
+            {formik.errors.doctorId && formik.touched.doctorId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.doctorId}</div> : null}
           </div>
         </div>
         <div className="form-row">
@@ -229,7 +226,6 @@ let servicearray=[]
               {...formik.getFieldProps("appointmentDate")}
             />
             {formik.errors.appointmentDate && formik.touched.appointmentDate ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentDate}  </div> : null}
-
           </div>
 
           <div className="form-group col-md-6">
@@ -237,10 +233,8 @@ let servicearray=[]
             <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formik.getFieldProps("appointmentTime")}></input>
             {/* <select id="time" className="form-control" {...formik.getFieldProps("time")}>
               <option selected>Select time</option>
-              
             </select> */}
             {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
-
           </div>
         </div>
         <div className="col-md-12 col-sm-12 col-xs-12 ">

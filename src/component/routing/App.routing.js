@@ -1,25 +1,16 @@
 import { Redirect } from "react-router";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
-// import { Forgotpassword } from "./forgotpassword/forgotpassword.component";
-// import { Home } from "./home/home.component";
-// import { Login } from "./login/login.component";
-// import Service from "../component/Service/Service";
 import Register from "../register/Register.component";
-// import Navbar from "./Navbar/Navbar";
-// import Footer from "./Footer/Footer";
-// import { Pagenotfound } from "./pagenotfound/Pagenotfound.component";
 import { notify } from "../../services/notify";
 import { httpClient } from "../../utils/httpClient";
 import Dashboard from "../dashboard/dashboard.component";
 import { Forgotpassword } from "../forgotpassword/forgotpassword.component";
 import { Home } from "../home/home.component";
 import { Login } from "../login/login.component";
-// import Service from "../Service/Service";
 import { Pagenotfound } from "../pagenotfound/Pagenotfound.component";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
 import Services from "../servicesData/services.component";
+import {Viewappointment} from "./../dashboard/viewappointment/Viewappointment.component"
+import BookAnAppointment from "../home/BookAnAppointment/BookAnAppointment";
 
 
 export const Approuting = (props) => {
@@ -100,8 +91,9 @@ export const Approuting = (props) => {
         <ProtectedRoute path="/services" component={Services}></ProtectedRoute>
         <PublicRoute exact path="/register" component={Register}></PublicRoute>
         <PublicRoute exact path="/forgot-password" component={Forgotpassword}></PublicRoute>
-        <ProtectedRoute exact path="/dashboard/:id" component={Dashboard}></ProtectedRoute>
-        <ProtectedRoute exact path="/viewappointment" component={Dashboard}></ProtectedRoute>
+        <ProtectedRoute exact path="/dashboard" component={Dashboard}></ProtectedRoute>
+        <ProtectedRoute exact path="/dashboard/viewappointment" component={Viewappointment}></ProtectedRoute>
+        <ProtectedRoute exact path="/dashboard/bookappointment" component={BookAnAppointment}></ProtectedRoute>
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
      

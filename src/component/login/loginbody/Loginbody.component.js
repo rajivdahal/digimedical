@@ -37,7 +37,7 @@ const Loginbodycomponent = (props) => {
                     localStorage.setItem("status",status)
                     setTimeout(() => {
                         props.history.push({
-                            pathname: `/dashboard/${response.userid}`
+                            pathname: `/dashboard`
                         })
                         // notify.success("Successfully Loggedin")
                     }, 3000)
