@@ -10,7 +10,7 @@ import { Login } from "../login/login.component";
 import { Pagenotfound } from "../pagenotfound/Pagenotfound.component";
 import Services from "../servicesData/services.component";
 import {Viewappointment} from "./../dashboard/viewappointment/Viewappointment.component"
-import BookAnAppointment from "../home/BookAnAppointment/BookAnAppointment";
+import { Bookappointment } from "../dashboard/bookappointment/Bookappointment.component";
 
 
 export const Approuting = (props) => {
@@ -68,7 +68,7 @@ export const Approuting = (props) => {
       ></Route>
     );
   };
-  const PublicRoute = ({ component: Component, ...rest }) => {
+ const PublicRoute = ({ component: Component, ...rest }) => {
     return (
       <Route
         {...rest}
@@ -93,7 +93,7 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/forgot-password" component={Forgotpassword}></PublicRoute>
         <ProtectedRoute exact path="/dashboard" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/viewappointment" component={Viewappointment}></ProtectedRoute>
-        <ProtectedRoute exact path="/dashboard/bookappointment" component={BookAnAppointment}></ProtectedRoute>
+        <ProtectedRoute exact path="/dashboard/bookappointment" component={Bookappointment}></ProtectedRoute>
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
      

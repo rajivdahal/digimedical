@@ -1,143 +1,10 @@
-import { notify } from "./../../../services/notify"
-import { useState } from "react"
 import { TimeandDate } from "../../../services/timeanddate"
 import "./userDashboard.component.css"
 import { Link } from "react-router-dom"
+
 const Userdashboard = (props) => {
-  const [logoutstate, setlogoutstate] = useState({
-    logout: false,
-  })
-  const Logout = (e) => {
-    setlogoutstate({
-      logout: true
-    })
-  }
-  const logoutyes = () => {
-    console.log("inside logout yes")
-    localStorage.removeItem("dm-access_token")
-    localStorage.removeItem("timeout")
-    localStorage.removeItem("dm-refresh_token")
-    props.props.push('/login')
-    notify.success("Logout success! Please Login again")
-  }
-  const logoutno = () => {
-    setlogoutstate({
-      logoutno: true
-    })
-  }
   return (
     <>
-
-      {/* nav starts*/}
-      <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a className="navbar-brand brand-logo mr-5" href="index.html"><img src="/images/dashboard/logo.png" className="mr-2" alt="logo" /></a>
-          <a className="navbar-brand brand-logo-mini" href="index.html"><img src="/images/dashboard/logo.png" alt="logo" /></a>
-        </div>
-        <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-          {/* <button className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-            <span className="icon-menu"></span>
-          </button> */}
-          <h3 className="font-weight-bold header-color">Welcome Shiva</h3>
-
-          <ul className="navbar-nav navbar-nav-right">
-            <li className="nav-item dropdown">
-              <a className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                <i className="icon-bell mx-0"></i>
-                <span className="count"></span>
-              </a>
-              <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                <p className="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                <a className="dropdown-item preview-item">
-                  <div className="preview-thumbnail">
-                    <div className="preview-icon bg-success">
-                      <i className="ti-info-alt mx-0"></i>
-                    </div>
-                  </div>
-                  <div className="preview-item-content">
-                    <h6 className="preview-subject font-weight-normal">Application Error</h6>
-                    <p className="font-weight-light small-text mb-0 text-muted">
-                      Just now
-                    </p>
-                  </div>
-                </a>
-                <a className="dropdown-item preview-item">
-                  <div className="preview-thumbnail">
-                    <div className="preview-icon bg-warning">
-                      <i className="ti-settings mx-0"></i>
-                    </div>
-                  </div>
-                  <div className="preview-item-content">
-                    <h6 className="preview-subject font-weight-normal">Settings</h6>
-                    <p className="font-weight-light small-text mb-0 text-muted">
-                      Private message
-                    </p>
-                  </div>
-                </a>
-                <a className="dropdown-item preview-item">
-                  <div className="preview-thumbnail">
-                    <div className="preview-icon bg-info">
-                      <i className="ti-user mx-0"></i>
-                    </div>
-                  </div>
-                  <div className="preview-item-content">
-                    <h6 className="preview-subject font-weight-normal">New user registration</h6>
-                    <p className="font-weight-light small-text mb-0 text-muted">
-                      2 days ago
-                    </p>
-                  </div>
-                </a>
-              </div>
-
-            </li>
-            <li className="nav-item nav-profile dropdown">
-              <a className="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src="/images/dashboard/user1.jpg" alt="profile" />
-              </a>
-              <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                <div className="dropdown-item">
-                  <i className="ti-settings text-primary"></i>
-                  <span>Settings</span>
-                </div>
-                <div className="dropdown-item" onClick={Logout}>
-                  <i className="ti-power-off text-primary"></i>
-                  <span>Logout</span>
-                </div>
-
-
-              </div>
-            </li>
-            {
-              logoutstate.logout ? <div className="logout-container">
-                <div className="logout">
-                  <p>Are you sure you want to Logout?</p>
-                  <div className="buttons">
-                    <button className="yes-logout" onClick={logoutyes}>Yes</button>
-                    <button className="no-logout" onClick={logoutno}>No</button>
-                  </div>
-                </div>
-              </div>
-                :
-                null
-            }
-            <li className="nav-item nav-settings d-none d-lg-flex">
-              <a className="nav-link" href="#">
-                <i className="icon-ellipsis"></i>
-              </a>
-            </li>
-          </ul>
-          <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-            <span className="icon-menu"></span>
-          </button>
-        </div>
-      </nav>
-
-      {/* nav ends */}
-
-
-
-
-
       <div className="container-fluid page-body-wrapper">
         <div id="right-sidebar" className="settings-panel">
           <i className="settings-close ti-close"></i>
@@ -289,77 +156,7 @@ const Userdashboard = (props) => {
           </div>
         </div>
 
-        <nav className="sidebar sidebar-offcanvas" id="sidebar">
-          <ul className="nav">
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
-                <i className="fas fa-user-clock menu-icon"></i>
-                <span className="menu-title">Appointments</span>
-                <i className="menu-arrow"></i>
-              </a>
-              <div className="collapse" id="appointment">
-                <ul className="nav flex-column sub-menu">
-                  <Link to="/dashboard/viewappointment">
-                  <li className="nav-item"> <a className="nav-link" href="">View Appointment</a></li>
-                  </Link>
-                  <li className="nav-item"> <a className="nav-link" href="">Book Appointment</a></li>
-                </ul>
-              </div>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
-                <i className="fas fa-user-md  menu-icon"></i>
-                <span className="menu-title">Doctors</span>
-
-              </a>
-
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="collapse" href="#rooms" aria-expanded="false" aria-controls="rooms">
-                <i className="fas fa-person-booth menu-icon"></i>
-                <span className="menu-title">Room Allotment</span>
-                <i className="menu-arrow"></i>
-              </a>
-              <div className="collapse" id="rooms">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"> <a className="nav-link" href="">Alloted Rooms</a></li>
-                  <li className="nav-item"> <a className="nav-link" href="">New Rooms</a></li>
-                </ul>
-              </div>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <i className="fas fa-money-check-alt menu-icon"></i>
-                <span className="menu-title">Payments</span>
-                <i className="menu-arrow"></i>
-              </a>
-              <div className="collapse" id="auth">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"> <a className="nav-link" href=""> All Payments </a></li>
-                  <li className="nav-item"> <a className="nav-link" href=""> Add Payment </a></li>
-                  <li className="nav-item"> <a className="nav-link" href=""> INvoice </a></li>
-                </ul>
-              </div>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
-                <i className="fas fa-pager menu-icon"></i>
-                <span className="menu-title">Lab reports</span>
-
-              </a>
-
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
-                <i className="fas fa-file-medical menu-icon"></i>
-                <span className="menu-title">Medical Reports</span>
-
-              </a>
-
-            </li>
-
-          </ul>
-        </nav>
+        {/* <Usersidebar></Usersidebar> */}
         <div className="main-panel">
           <div className="content-wrapper">
             <div className="row">
@@ -374,7 +171,7 @@ const Userdashboard = (props) => {
                         <button className="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                           <i className="mdi mdi-calendar"></i>Today- {TimeandDate.today()}
                         </button>
-                        
+
                       </div>
                     </div>
                   </div>
@@ -471,9 +268,9 @@ const Userdashboard = (props) => {
                                   </div>
                                 </td>
                                 <td className="action-img text-muted d-flex">
-                                  
-                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px" , marginRight: "10px" }} title="edit"></i>
-                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer"}} title="delete"></i>
+
+                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px", marginRight: "10px" }} title="edit"></i>
+                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer" }} title="delete"></i>
                                 </td>
                               </tr>
                               <tr>
@@ -487,9 +284,9 @@ const Userdashboard = (props) => {
                                   </div>
                                 </td>
                                 <td className="action-img text-muted d-flex">
-                                  
-                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px" , marginRight: "10px" }} title="edit"></i>
-                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer"}} title="delete"></i>
+
+                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px", marginRight: "10px" }} title="edit"></i>
+                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer" }} title="delete"></i>
                                 </td>
                               </tr>
                               <tr>
@@ -503,9 +300,9 @@ const Userdashboard = (props) => {
                                   </div>
                                 </td>
                                 <td className="action-img text-muted d-flex">
-                                  
-                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px" , marginRight: "10px" }} title="edit"></i>
-                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer"}} title="delete"></i>
+
+                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px", marginRight: "10px" }} title="edit"></i>
+                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer" }} title="delete"></i>
                                 </td>
                               </tr>
                               <tr>
@@ -519,9 +316,9 @@ const Userdashboard = (props) => {
                                   </div>
                                 </td>
                                 <td className="action-img text-muted d-flex">
-                                  
-                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px" , marginRight: "10px" }} title="edit"></i>
-                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer"}} title="delete"></i>
+
+                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px", marginRight: "10px" }} title="edit"></i>
+                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer" }} title="delete"></i>
                                 </td>
                               </tr>
                               <tr>
@@ -534,9 +331,9 @@ const Userdashboard = (props) => {
                                   </div>
                                 </td>
                                 <td className="action-img text-muted d-flex">
-                                  
-                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px" , marginRight: "10px" }} title="edit"></i>
-                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer"}} title="delete"></i>
+
+                                  <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px", marginRight: "10px" }} title="edit"></i>
+                                  <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer" }} title="delete"></i>
                                 </td>
                               </tr>
                             </tbody>
@@ -548,69 +345,6 @@ const Userdashboard = (props) => {
                 </div>
               </div>
 
-
-
-
-
-              <div className="col-md-4 stretch-card grid-margin">
-                <div className="card">
-                  <div className="card-body">
-                    <p className="card-title">Notifications</p>
-                    <ul className="icon-data-list">
-                      <li>
-                        <div className="d-flex">
-                          <img src="/images/dashboard/user1.jpg" alt="user" />
-                          <div>
-                            <p className="text-info mb-1">Isabella Becker</p>
-                            <p className="mb-0">Admin dashboard have been created</p>
-                            <small>9:30 am</small>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="d-flex">
-                          <img src="/images/dashboard/user1.jpg" alt="user" />
-                          <div>
-                            <p className="text-info mb-1">Adam Warren</p>
-                            <p className="mb-0">You have done a great job</p>
-                            <small>10:30 am</small>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="d-flex">
-                          <img src="/images/dashboard/user1.jpg" alt="user" />
-                          <div>
-                            <p className="text-info mb-1">Leonard Thornton</p>
-                            <p className="mb-0">Booking dashboard have been created</p>
-                            <small>11:30 am</small>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="d-flex">
-                          <img src="/images/dashboard/user1.jpg" alt="user" />
-                          <div>
-                            <p className="text-info mb-1">George Morrison</p>
-                            <p className="mb-0">Booking dashboard have been created</p>
-                            <small>8:50 am</small>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="d-flex">
-                          <img src="/images/dashboard/user1.jpg" alt="user" />
-                          <div>
-                            <p className="text-info mb-1">Ryan Cortez</p>
-                            <p className="mb-0">Herbs are fun and easy to grow.</p>
-                            <small>9:00 am</small>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
             </div>
 
 

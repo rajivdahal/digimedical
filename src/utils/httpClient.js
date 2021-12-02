@@ -23,7 +23,11 @@ const GET = (url,grant_type,params = {}) => {
 }
 
 const POST = (url, data,grant_type, params = {}) => {
-    return http.post(BASE_URL+url, data)
+    return http.post(BASE_URL+url, data,{
+        headers:{
+            "Authorization":'Bearer '+token
+        }
+    })
 }
 
 const DELETE = (url,grant_type, params = {}) => {

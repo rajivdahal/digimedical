@@ -93,7 +93,6 @@ export const Home = (props) => {
           <Conection />
         </ConnectionContainor>
       </Root>
-
       <About />
       <OurServices />
       <WhyChooseUs />

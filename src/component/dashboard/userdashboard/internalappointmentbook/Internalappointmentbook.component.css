@@ -1,0 +1,14 @@
+.marginadj{
+    margin-top: 10%;
+    margin-left: 25%;
+    position: absolute;
+    display: flex;
+}
+.form-width-adjust{
+    width: 80%;
+
+}
+.errmsg{
+    font-size: small;
+    margin-top: 2px;
+}
