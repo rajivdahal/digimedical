@@ -8,7 +8,8 @@ import { Home } from "./home/home.component";
 import { Login } from "./login/login.component";
 import { Pagenotfound } from "./pagenotfound/Pagenotfound.component";
 import Register from "./register/Register.component";
-import Services from "./servicesData/services.component";
+import Services from "./admin/servicesData/services.component";
+import Doctor from "./admin/doctorData/doctor.component";
 
 export const Approuting = (props) => {
 
@@ -69,6 +70,7 @@ export const Approuting = (props) => {
                 <PublicRoute exact path="/forgot-password" component={Forgotpassword}></PublicRoute>
                 <ProtectedRoute exact path="/dashboard/:id" component={Dashboard}></ProtectedRoute>
                 <ProtectedRoute exact path="/services" component={Services}></ProtectedRoute>
+                <ProtectedRoute exact path="/doctor" component={Doctor}></ProtectedRoute>
                 <PublicRoute  path="/" component={Pagenotfound}></PublicRoute>
             </Switch>
         </BrowserRouter>
