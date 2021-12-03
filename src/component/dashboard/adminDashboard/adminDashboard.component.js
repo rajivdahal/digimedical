@@ -10,11 +10,11 @@ const AdminDashboard = (props) => {
 
   return (
     <>
-      <Nav />
+      <Nav {...props} />
       <div className="container-fluid page-body-wrapper">
-        <SideBar />
+        <SideBar {...props}/>
         <div className="main-panel">
-          <HomePage />
+          <HomePage {...props}/>
         </div>
       </div>
     </>

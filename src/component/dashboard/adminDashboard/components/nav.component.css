@@ -1,0 +1,15 @@
+.navbar-brand img{
+    width: 100%;
+}
+
+.navbar .navbar-brand-wrapper .navbar-brand img{
+    height: 50px;
+}
+
+.navbar .navbar-menu-wrapper {
+    background: #4453ab;
+}
+
+.welcome-shiva{
+    font-size: 22px;
+}
