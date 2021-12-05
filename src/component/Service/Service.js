@@ -5,7 +5,7 @@ import OurServices from "../home/About/OurServices";
 import BookAnAppointment from "../home/BookAnAppointment/BookAnAppointment";
 import EmergencyNumber from "./EmergencyNumber/EmergencyNumber";
 const Root = styled.div`
-  height: 33.7rem;
+  height: 25rem;
 `;
 const Content = styled.div`
   padding-top: 9rem;

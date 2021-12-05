@@ -12,6 +12,7 @@ const OurServiceContainer = styled.div`
   padding-right: 140px;
   padding-left: 140px;
   padding-top: 3rem;
+  padding-bottom: 3rem;
 `;
 
 const HeadingContainer = styled.div`

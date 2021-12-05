@@ -57,7 +57,14 @@ const NavbarMenuItems = () => {
               Home{" "}
             </Link>
           </span>
-          <span className="menu-item">About</span>
+          <span className="menu-item">
+            <Link
+              to="/about"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              About
+            </Link>
+          </span>
           <span className="menu-item">
             <Link
               to="/service"

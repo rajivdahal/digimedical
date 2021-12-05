@@ -48,7 +48,7 @@ const Button = styled.div`
   background: #2745f0;
   border-radius: 5px;
 `;
-const About = () => {
+const WhaiIsDegimediacal = () => {
   return (
     <>
       <AboutUsContainer>
@@ -81,4 +81,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default WhaiIsDegimediacal;

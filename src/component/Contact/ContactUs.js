@@ -6,7 +6,7 @@ import ContactData from "./ContactData";
 import LocationContact from "./LocationContact/LocationContact";
 
 const Root = styled.div`
-  height: 33.7rem;
+  height: 25rem;
 `;
 
 const Content = styled.div`
