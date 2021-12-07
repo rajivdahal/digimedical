@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Formik, isInteger, useFormik } from "formik";
+import {useFormik } from "formik";
 import { httpClient } from "../../../utils/httpClient";
 import { useEffect, useState } from "react";
-import { Redirect } from "react-router";
 import { notify } from "../../../services/notify";
 const FormSection = styled.div`
   height: auto;
@@ -44,11 +43,8 @@ function FormComponent(props) {
   const [appointmentfailed, setappointmentfailed] = useState(null)
   const [services, setservices] = useState([])
   const [doctors, setdoctors] = useState([])
-
-
-  let servicearray = []
   useEffect(() => {
-    httpClient.GET("services/get/true", false, false)
+    httpClient.GET("services/get/true")
       .then(resp => {
         setservices(resp.data.data)
       })
