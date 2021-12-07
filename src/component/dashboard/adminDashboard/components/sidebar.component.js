@@ -45,8 +45,12 @@ const SideBar =(props)=>{
               </a>
               <div className="collapse" id="doctors">
                 <ul className="nav flex-column sub-menu">
+                  <Link to="/doctor-table">
                   <li className="nav-item"><a className="nav-link" href="">All Doctors</a></li>
+                  </Link>
+                  <Link to="/doctor">
                   <li className="nav-item"><a className="nav-link" href="">Add Doctors</a></li>
+                  </Link>
                 </ul>
               </div>
             </li>

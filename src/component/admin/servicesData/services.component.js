@@ -7,18 +7,21 @@ import Edit from '@material-ui/icons/Edit';
 import tableIcons from "../../../material.icons/icons";
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import { Modal, Button } from 'react-bootstrap';
+import ClipLoader from "react-spinners/ClipLoader";
 import "./services.component.css"
-import Nav from "../../dashboard/adminDashboard/components/nav.component";
-const Services = (props) => {
 
-    const [serviceDeleteId, setServiceDeleteId] = useState(null);
+const Services = (props) => {
+    let [loading, setLoading] = useState(false);
+    let [color, setColor] = useState("#000");
+    const [serviceStatusId, setServiceStatusId] = useState(null);
     const [serviceEditId, setServiceEditId] = useState(null);
-    const [serviceStatus,setServiceStatus] = useState(true);
+    const [serviceStatus, setServiceStatus] = useState("");
     const [services, setServices] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [service, setService] = useState({
         serviceName: "",
         serviceDescription: "",
+        activeStatus : "",
     }
     )
 
@@ -32,21 +35,22 @@ const Services = (props) => {
             .then(resp => {
                 if (resp.data.status) {
                     let data = resp.data.data;
+                    console.log(data)
                     setServices(data);
                 }
             })
             .catch(err => {
-                console.log("inside catch block")
-                // console.log(err.response)
+                console.log(err.response)
             })
-        
+
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getServices();
-    },[])
+    }, [])
 
     const handleSubmit = () => {
+        setLoading(true)
         let serviceData = {
             serviceName: service.serviceName,
             serviceDescription: service.serviceDescription
@@ -68,6 +72,7 @@ const Services = (props) => {
                 // console.log(err.response)
                 notify.error(err.response.data.message)
             })
+            setLoading(false)
     }
 
     const handleEditService = (e, data) => {
@@ -76,7 +81,8 @@ const Services = (props) => {
         if (data) {
             setService({
                 serviceName: data.serviceName,
-                serviceDescription: data.serviceDescription
+                serviceDescription: data.serviceDescription,
+                activeStatus : data.activeStatus,
             })
         }
     }
@@ -93,7 +99,8 @@ const Services = (props) => {
                     setService({
                         serviceName: "",
                         serviceDescription: "",
-                    })                    
+                    })
+                    setServiceEditId(null);
                     getServices();
                     notify.success(resp.data.message)
 
@@ -108,32 +115,44 @@ const Services = (props) => {
         console.log(service);
     }
 
-    const handleCancelEdit=()=>{
+    const handleCancelEdit = () => {
         setServiceEditId(null);
         setService({
-            serviceName :"",
-            serviceDescription :""
+            serviceName: "",
+            serviceDescription: ""
         })
-    }
-    const handleCancelService = (e, id) => {
-        setServiceDeleteId(id);
-        setShowModal(true)
     }
 
     const handleClose = () => setShowModal(false)
 
-    const handleDeleteService = () => {
-        httpClient.DELETE("services/" + serviceDeleteId)
+    const handleCancelService = (e, data) => {
+        setServiceStatusId(data.id);
+        setShowModal(true);
+        setServiceStatus(data.activeStatus);
+    }
+
+    const changeServiceStatus = () => {
+    
+        let tempServiceStatus = {
+            id: serviceStatusId,
+            status: serviceStatus == true ? false : true 
+        }
+
+        console.log(tempServiceStatus)
+        httpClient.PUT("services/change-status", tempServiceStatus)
             .then(resp => {
-                notify.success(resp.data.message)
-                getServices();
-                handleClose();
+                console.log(resp)
+                if(resp.data.status){
+                    notify.success(resp.data.message)
+                    getServices();
+                    handleClose();
+                }
+
             })
             .catch(err => {
                 console.log(err.response.data)
             })
     }
-
     const columns = [
         { title: 'Service Name', field: 'serviceName', },
         { title: 'Service Description', field: 'serviceDescription', sorting: false },
@@ -158,6 +177,7 @@ const Services = (props) => {
                         <input type="text" className="form-control" placeholder="Enter Service Description" name="serviceDescription"
                             onChange={handleChange} value={service.serviceDescription} />
                     </div>
+                    <ClipLoader color={color} loading={loading} size={50} />
 
                     <div>
                         {serviceEditId ?
@@ -166,7 +186,7 @@ const Services = (props) => {
                                 <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} onClick={handleEdit}>
                                     Edit
                                 </button>
-                                <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff", marginLeft : '10px' }} onClick={handleCancelEdit}>
+                                <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff", marginLeft: '10px' }} onClick={handleCancelEdit}>
                                     Cancel
                                 </button>
                             </div>
@@ -185,12 +205,12 @@ const Services = (props) => {
                     <Modal.Header >
                         <Modal.Title><b>Service Status</b></Modal.Title>
                     </Modal.Header>
-                    <Modal.Body >Do you really want to delete this service ?</Modal.Body>
+                    <Modal.Body >Do you really want to deactivate this service ?</Modal.Body>
                     <Modal.Footer>
                         <Button variant="danger" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="info" onClick={handleDeleteService}>
+                        <Button variant="info" onClick={changeServiceStatus}>
                             Change Status
                         </Button>
                     </Modal.Footer>
@@ -210,7 +230,7 @@ const Services = (props) => {
                         {
                             icon: DeleteOutline,
                             tooltip: 'Change Status',
-                            onClick: (e, rowData) => { handleCancelService(e, rowData.id) }
+                            onClick: (e, rowData) => { handleCancelService(e, rowData) }
                         },
                     ]}
                     options={{

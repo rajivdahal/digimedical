@@ -7,7 +7,10 @@ const Dashboard=(props)=>{
     return(
         <>  
         {
-          statusCode==200?<Userdashboard props={props.history}></Userdashboard>: <AdminDashboard {...props}></AdminDashboard>
+          statusCode==200?
+          <Userdashboard props={props.history}></Userdashboard>
+          : 
+          <AdminDashboard {...props}></AdminDashboard>
         }    
         </>
     )

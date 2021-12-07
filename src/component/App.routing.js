@@ -10,6 +10,7 @@ import { Pagenotfound } from "./pagenotfound/Pagenotfound.component";
 import Register from "./register/Register.component";
 import Services from "./admin/servicesData/services.component";
 import Doctor from "./admin/doctorData/doctor.component";
+import DoctorTable from "./admin/doctorData/doctor.table";
 
 export const Approuting = (props) => {
 
@@ -71,6 +72,7 @@ export const Approuting = (props) => {
                 <ProtectedRoute exact path="/dashboard/:id" component={Dashboard}></ProtectedRoute>
                 <ProtectedRoute exact path="/services" component={Services}></ProtectedRoute>
                 <ProtectedRoute exact path="/doctor" component={Doctor}></ProtectedRoute>
+                <ProtectedRoute exact path="/doctor-table" component={DoctorTable}></ProtectedRoute>
                 <PublicRoute  path="/" component={Pagenotfound}></PublicRoute>
             </Switch>
         </BrowserRouter>
