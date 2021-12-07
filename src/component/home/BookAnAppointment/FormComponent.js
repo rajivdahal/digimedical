@@ -42,107 +42,128 @@ const FormSection = styled.div`
     font-size: 12px;
     margin-top: 4px;
   }
+  .name1 {
+    // background-color: red;
+    &:hover {
+      color: black;
+    }
+  }
+  .detail {
+    background-color: red;
+  }
 `;
-
+const Containor = styled.div`
+  display: flex;
+  align-items: center;
+  .detail {
+    background-color: red;
+  }
+`;
+const ViewDoctorInfoContainor = styled.div``;
 function FormComponent() {
   return (
-    <FormSection>
-      <form>
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <label for="fname">First Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="fname"
-              placeholder="First Name"
-            />
+    <Containor>
+      <FormSection>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="fname">First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="fname"
+                placeholder="First Name"
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="mname">Middle Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="mname"
+                placeholder="Middle Name"
+              />
+            </div>
+            <div class="form-group col-md-4">
+              <label for="lname">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="lname"
+                placeholder="Last Name"
+              />
+            </div>
           </div>
-          <div class="form-group col-md-4">
-            <label for="mname">Middle Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="mname"
-              placeholder="Middle Name"
-            />
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Email"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="phoneno">Phone No.</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneno"
+                placeholder="PhoneNumber"
+              />
+            </div>
           </div>
-          <div class="form-group col-md-4">
-            <label for="lname">Last Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="lname"
-              placeholder="Last Name"
-            />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="email">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              placeholder="Email"
-            />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="phoneno">Phone No.</label>
-            <input
-              type="text"
-              class="form-control"
-              id="phoneno"
-              placeholder="PhoneNumber"
-            />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="service">Select Service</label>
-            <select id="service" class="form-control">
-              <option selected>Choose...</option>
-              <option>...</option>
-            </select>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="doctor">Select Doctor</label>
-            <select id="doctor" class="form-control">
-              <option selected>Choose...</option>
-              <option>...</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="appointment">Appointment Date.</label>
-            <input
-              type="text"
-              class="form-control"
-              id="appointment"
-              placeholder="dd/mm/yyyy"
-            />
-          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="service">Select Service</label>
+              <select id="service" class="form-control">
+                <option selected>Choose...</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="doctor">Select Doctor</label>
+              <select id="doctor" class="form-control">
+                <option selected>Choose...</option>
+                <option className="name1">DR. Dipesh Shrestha</option>
 
-          <div class="form-group col-md-6">
-            <label for="time">Time</label>
-            <select id="time" class="form-control">
-              <option selected>Select time</option>
-              <option>...</option>
-            </select>
+                <option>DR. Ram Shrestha</option>
+                <option>DR. Hari Shrestha</option>
+              </select>
+            </div>
           </div>
-        </div>
-        {/* <div class="col-md-12 col-sm-12 col-xs-12 "> */}
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="appointment">Appointment Date.</label>
+              <input
+                type="text"
+                class="form-control"
+                id="appointment"
+                placeholder="dd/mm/yyyy"
+              />
+            </div>
 
-        <button type="submit" className="btn btn-primary btn-lg btn-block">
-          Make Appointment
-        </button>
-        {/* </div> */}
-        <div className="form-text">
-          We value your privacy. Your details are safe with us.
-        </div>
-      </form>
-    </FormSection>
+            <div class="form-group col-md-6">
+              <label for="time">Time</label>
+              <select id="time" class="form-control">
+                <option selected>Select time</option>
+                <option>...</option>
+              </select>
+            </div>
+          </div>
+          {/* <div class="col-md-12 col-sm-12 col-xs-12 "> */}
+
+          <button type="submit" className="btn btn-primary btn-lg btn-block">
+            Make Appointment
+          </button>
+          {/* </div> */}
+          <div className="form-text">
+            We value your privacy. Your details are safe with us.
+          </div>
+        </form>
+      </FormSection>
+      <div className="detail">hello</div>
+    </Containor>
   );
 }
 

@@ -81,13 +81,27 @@ export const Home = (props) => {
             Lorem ipsum dolor sit amet, consectetur adipisci elit. Netus eros
             dolor sapien eget. Mattis malesuada quam sed accumsan lectus{" "}
           </SubHeading>
+
           <ButtonContainor>
-            <GetAppointment type="button" className="btn btn-primary">
-              Get Appointment
-            </GetAppointment>
+            <a href="#BookanAppointment">
+              <GetAppointment type="button" className="btn btn-primary">
+                Get Appointment
+              </GetAppointment>
+            </a>
             <ReadMore type="button" className="btn btn-outline-primary">
               Read MOre
             </ReadMore>
+            {/* <div class="btn-group dropright">
+  <button type="button" class="btn btn-secondary">
+    Split dropright
+  </button>
+  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="sr-only">Toggle Dropright</span>
+  </button>
+  <div class="dropdown-menu">
+    hello
+  </div>
+</div> */}
           </ButtonContainor>
         </HeroSectionContent>
         <ConnectionContainor>

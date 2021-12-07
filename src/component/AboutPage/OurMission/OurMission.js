@@ -6,7 +6,7 @@ const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
   padding-top: 4.5rem;
-  padding-bottom: 4.5rem;
+  // padding-bottom: 4.5rem;
   display: flex;
 `;
 const ImageContainor = styled.div`

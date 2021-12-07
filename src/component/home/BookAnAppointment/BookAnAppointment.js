@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Appointment from "./bookanappointment.png";
 import FormComponent from "./FormComponent";
+import servicewall from "../../../assets/servicewall.png";
 
 function BookAnAppointment() {
   const Container = styled.div`
@@ -15,7 +16,7 @@ function BookAnAppointment() {
   `;
   const InnerContainer = styled.div`
     display: flex;
-    justify-content: center;
+    // justify-content: center;
     gap: 3rem;
     @media screen and (max-width: 799px) {
     display: flex;
@@ -49,15 +50,23 @@ function BookAnAppointment() {
   `;
 
   const LeftSection = styled.div`
-    height: auto;
-    margin-bottom: 20px;
+    width: 60%;
+    // height: auto;
+    // margin-bottom: 20px;
   `;
   const RightSection = styled.div`
-    height: auto;
+    // height: auto;
   `;
   return (
-    <div>
-      <Container>
+    <div id="BookanAppointment">
+      <Container
+      // style={{
+      //   backgroundImage: `url(${servicewall})`,
+      //   backgroundPosition: "center",
+      //   backgroundSize: "cover",
+      //   backgroundRepeat: "no-repeat",
+      // }}
+      >
         <Header>
           <TopHeader>We are here for you</TopHeader>
           <BottomHeader>Book an Appointment</BottomHeader>

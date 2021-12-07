@@ -1,12 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 // import Carousel from "react-bootstrap/Carousel";
+import Carousel from "react-elastic-carousel";
+
 import client1 from "../../../assets/client1.png";
+import Client2 from "../../../assets/Client2.png";
 const Root = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 5rem;
+  padding-bottom: 5rem;
   span {
     font-size: 0.9rem;
     line-height: 30px;
@@ -27,7 +31,7 @@ const Root = styled.div`
 `;
 const Featured = styled.div`
   padding-top: 3rem;
-  display: flex;
+  // display: flex;
   //   justify-content:;
   .email-img {
     height: 6rem;
@@ -66,93 +70,187 @@ const Featured = styled.div`
     color: #596579;
   }
 `;
+const Item = styled.div`
+  display: flex;
+`;
 const TheyTrustedUs = () => {
+  const items = [
+    { id: 1, title: "item #1" },
+    { id: 2, title: "item #2" },
+    { id: 3, title: "item #3" },
+    { id: 4, title: "item #4" },
+    { id: 5, title: "item #5" },
+  ];
   return (
     <Root>
       <span>About Us</span>
       <h2>They Trusted Us</h2>
       <p>Take a look at the recent testimonials submitted by our patients</p>
+
       <Featured>
-        {/* <Carousel>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="holder.js/800x400?text=First slide&bg=373940"
-              alt="First slide"
-            />
-            <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="holder.js/800x400?text=Second slide&bg=282c34"
-              alt="Second slide"
-            />
-
-            <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="holder.js/800x400?text=Third slide&bg=20232a"
-              alt="Third slide"
-            />
-
-            <Carousel.Caption>
-              <h3>Third slide label</h3>
-              <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel> */}
-        <div className="items-div">
-          <div className="image-name-div">
-            <img src={client1} className="email-img"></img>
-            <div>
-              <span className="client-name">Sammer Paudel</span>
-              <p className="client-info">Patient</p>
+        <div
+          id="carouselExampleControls"
+          class="carousel slide"
+          data-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <Item>
+                <div className="items-div">
+                  <div className="image-name-div">
+                    <img src={client1} className="email-img"></img>
+                    <div>
+                      <span className="client-name">Sammer Paudel</span>
+                      <p className="client-info">Patient</p>
+                    </div>
+                  </div>
+                  <div className="details-div">
+                    “Thank you so much for fitting us in today, don’t know what
+                    we’d have done without you. My daughter is quite timid, but
+                    you were brilliant with her..”
+                  </div>
+                </div>
+                <div className="items-div">
+                  <div className="image-name-div">
+                    <img src={client1} className="email-img"></img>
+                    <div>
+                      <span className="client-name">Hari Shrestha</span>
+                      <p className="client-info">Patient</p>
+                    </div>
+                  </div>
+                  <div className="details-div">
+                    “Thank you so much for fitting us in today, don’t know what
+                    we’d have done without you. My daughter is quite timid, but
+                    you were brilliant with her..”
+                  </div>
+                </div>
+                <div className="items-div">
+                  <div className="image-name-div">
+                    <img src={client1} className="email-img"></img>
+                    <div>
+                      <span className="client-name">Dipesh Shrestha</span>
+                      <p className="client-info">Patient</p>
+                    </div>
+                  </div>
+                  <div className="details-div">
+                    “Thank you so much for fitting us in today, don’t know what
+                    we’d have done without you. My daughter is quite timid, but
+                    you were brilliant with her..”
+                  </div>
+                </div>
+              </Item>{" "}
+            </div>
+            <div class="carousel-item">
+              <Item>
+                <div className="items-div">
+                  <div className="image-name-div">
+                    <img src={client1} className="email-img"></img>
+                    <div>
+                      <span className="client-name">Hari Shrestha</span>
+                      <p className="client-info">Patient</p>
+                    </div>
+                  </div>
+                  <div className="details-div">
+                    “Thank you so much for fitting us in today, don’t know what
+                    we’d have done without you. My daughter is quite timid, but
+                    you were brilliant with her..”
+                  </div>
+                </div>
+                <div className="items-div">
+                  <div className="image-name-div">
+                    <img src={client1} className="email-img"></img>
+                    <div>
+                      <span className="client-name">Dipesh Shrestha</span>
+                      <p className="client-info">Patient</p>
+                    </div>
+                  </div>
+                  <div className="details-div">
+                    “Thank you so much for fitting us in today, don’t know what
+                    we’d have done without you. My daughter is quite timid, but
+                    you were brilliant with her..”
+                  </div>
+                </div>
+                <div className="items-div">
+                  <div className="image-name-div">
+                    <img src={client1} className="email-img"></img>
+                    <div>
+                      <span className="client-name">Sammer Paudel</span>
+                      <p className="client-info">Patient</p>
+                    </div>
+                  </div>
+                  <div className="details-div">
+                    “Thank you so much for fitting us in today, don’t know what
+                    we’d have done without you. My daughter is quite timid, but
+                    you were brilliant with her..”
+                  </div>
+                </div>
+              </Item>
+            </div>
+            <div class="carousel-item">
+              <Item>
+                <div className="items-div">
+                  <div className="image-name-div">
+                    <img src={Client2} className="email-img"></img>
+                    <div>
+                      <span className="client-name">Sammer Paudel</span>
+                      <p className="client-info">Patient</p>
+                    </div>
+                  </div>
+                  <div className="details-div">
+                    “Thank you so much for fitting us in today, don’t know what
+                    we’d have done without you. My daughter is quite timid, but
+                    you were brilliant with her..”
+                  </div>
+                </div>
+                <div className="items-div">
+                  <div className="image-name-div">
+                    <img src={client1} className="email-img"></img>
+                    <div>
+                      <span className="client-name">Hari Shrestha</span>
+                      <p className="client-info">Patient</p>
+                    </div>
+                  </div>
+                  <div className="details-div">
+                    “Thank you so much for fitting us in today, don’t know what
+                    we’d have done without you. My daughter is quite timid, but
+                    you were brilliant with her..”
+                  </div>
+                </div>
+                <div className="items-div">
+                  <div className="image-name-div">
+                    <img src={client1} className="email-img"></img>
+                    <div>
+                      <span className="client-name">Dipesh Shrestha</span>
+                      <p className="client-info">Patient</p>
+                    </div>
+                  </div>
+                  <div className="details-div">
+                    “Thank you so much for fitting us in today, don’t know what
+                    we’d have done without you. My daughter is quite timid, but
+                    you were brilliant with her..”
+                  </div>
+                </div>
+              </Item>
             </div>
           </div>
-          <div className="details-div">
-            “Thank you so much for fitting us in today, don’t know what we’d
-            have done without you. My daughter is quite timid, but you were
-            brilliant with her..”
-          </div>
-        </div>
-        <div className="items-div">
-          <div className="image-name-div">
-            <img src={client1} className="email-img"></img>
-            <div>
-              <span className="client-name">Sammer Paudel</span>
-              <p className="client-info">Patient</p>
-            </div>
-          </div>
-          <div className="details-div">
-            “Thank you so much for fitting us in today, don’t know what we’d
-            have done without you. My daughter is quite timid, but you were
-            brilliant with her..”
-          </div>
-        </div>
-        <div className="items-div">
-          <div className="image-name-div">
-            <img src={client1} className="email-img"></img>
-            <div>
-              <span className="client-name">Sammer Paudel</span>
-              <p className="client-info">Patient</p>
-            </div>
-          </div>
-          <div className="details-div">
-            “Thank you so much for fitting us in today, don’t know what we’d
-            have done without you. My daughter is quite timid, but you were
-            brilliant with her..”
-          </div>
+          <a
+            class="carousel-control-prev"
+            href="#carouselExampleControls"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#carouselExampleControls"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
       </Featured>
     </Root>

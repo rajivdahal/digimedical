@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
-import Search from "../../assets/Search.png";
 import { Link } from "react-router-dom";
+import Search from "./Search/Search";
 
 const Root = styled.div`
   background-color: #2745f0;
@@ -25,21 +25,27 @@ const LogMenuItemsContainor = styled.div`
     margin-left: 5rem;
     color: #fff;
     .menu-item {
+      
       margin-left: 1rem;
       font-size: 13px;
       letter-spacing: 0.05em;
       line-height: 26px;
       font-weight: 500;
       font-style: normal;
+
+      &:hover {
+        border-bottom: 1px solid #fff;
+        // transition: 4s;
     }
+   
   }
 `;
 const Menuitems = styled.div``;
-const SearchContainor = styled.div`
-  background-color: #fff;
-  border-radius: 4px;
-  padding: 0.4rem;
-`;
+// const SearchContainor = styled.div`
+//   background-color: #fff;
+//   border-radius: 4px;
+//   padding: 0.4rem;
+// `;
 const NavbarMenuItems = () => {
   return (
     <Root>
@@ -87,15 +93,10 @@ const NavbarMenuItems = () => {
           </span>
         </div>
       </LogMenuItemsContainor>
-
-      <SearchContainor>
-        <img
-          src={Search}
-          style={{
-            height: "1rem",
-          }}
-        ></img>
-      </SearchContainor>
+      <Search />
+      {/* <SearchContainor>
+        
+      </SearchContainor> */}
     </Root>
   );
 };

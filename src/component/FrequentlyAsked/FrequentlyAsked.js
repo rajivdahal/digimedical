@@ -91,7 +91,7 @@ const FrequentlyAsked = () => {
     setIconOpen3(!iconOpen3);
   };
   const handleIcon4 = () => {
-    setIconOpen4(!iconOpen3);
+    setIconOpen4(!iconOpen4);
   };
   return (
     <Root>
@@ -170,7 +170,7 @@ const FrequentlyAsked = () => {
             </div>
             <div>
               {" "}
-              {iconOpen2 ? (
+              {iconOpen3 ? (
                 <BiMinusCircle style={{ color: "#2745F0" }} />
               ) : (
                 <BiPlusCircle style={{ color: "#2745F0" }} />
