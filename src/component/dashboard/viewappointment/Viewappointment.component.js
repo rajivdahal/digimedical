@@ -1,13 +1,11 @@
 import "./Viewappointment.component.css"
-import { Link } from "react-router-dom"
 import { TimeandDate } from "../../../services/timeanddate"
-import { Dashboardnavbar } from "../Navbar/Dashboardnavbar.component"
 import { Upcomingappointment } from "./upcomingappointment/upcomingappointment.component"
 import { useState } from "react"
-import { Bookedappointment } from "./bookedappointment/Bookedappointment.component"
 import { Cancelledappointment } from "./cancelledappointment/Cancelledappointment.component"
+import { Completedappointment } from "./completedappointment/completedappointment.component"
 export const Viewappointment = (props) => {
-    const [bookedappointment, setbookedappointment] = useState(false)
+    const [pendingappointment, setpendingappointment] = useState(false)
     const [cancelledappointment, setcancelledappointment] = useState(false)
     const [upcomingappointment, setupcomingappointment] = useState(true)
     const [isdynamicbookedclass,setisdynamicbookedclass]=useState(false)
@@ -19,7 +17,7 @@ export const Viewappointment = (props) => {
         setisdynamicCancelledclass(false)
         setcancelledappointment(false)
         setisdynamicbookedclass(false)
-        setbookedappointment(false)
+        setpendingappointment(false)
     }
     const handlebookedclass=(e)=>{
         setisdynamicupcomingclass(false)
@@ -27,7 +25,7 @@ export const Viewappointment = (props) => {
         setisdynamicCancelledclass(false)
         setcancelledappointment(false)
         setisdynamicbookedclass(true)
-        setbookedappointment(true)
+        setpendingappointment(true)
     }
     const handleCancelledclass=(e)=>{
         setisdynamicupcomingclass(false)
@@ -35,7 +33,7 @@ export const Viewappointment = (props) => {
         setisdynamicCancelledclass(true)
         setcancelledappointment(true)
         setisdynamicbookedclass(false)
-        setbookedappointment(false)
+        setpendingappointment(false)
     }
     return (
         <>
@@ -221,13 +219,13 @@ export const Viewappointment = (props) => {
                                     <div className="card-body ">
                                         <div className="title-header">
                                             <p className={`card-title ${isdynamicupcomingclass?"title-focus":null}`} onClick={handleupcomingclass}>Upcoming Appointment</p>
-                                            <p className={`card-title ${isdynamicbookedclass?"title-focus":null}`} onClick={handlebookedclass}>Booked Appointment</p>
+                                            <p className={`card-title ${isdynamicbookedclass?"title-focus":null}`} onClick={handlebookedclass}>Completed Appointment</p>
                                             <p className={`card-title ${isdynamicCancelledclass?"title-focus":null}`} onClick={handleCancelledclass}>Cancelled Appointment</p>
                                         </div>
                                         {
                                             upcomingappointment ?<Upcomingappointment></Upcomingappointment>
                                                 :
-                                                bookedappointment ? <Bookedappointment></Bookedappointment>
+                                                pendingappointment ? <Completedappointment></Completedappointment>
                                                 :cancelledappointment?<Cancelledappointment></Cancelledappointment>
                                                 :<h1>you don't have any appointment</h1>
                                                 
@@ -249,8 +247,6 @@ export const Viewappointment = (props) => {
                     </div>
 
                 </div>
-
-
 
             </div>
         </>

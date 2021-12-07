@@ -2,24 +2,19 @@ import React from 'react'
 import { httpClient } from '../../../../utils/httpClient'
 import "./Internalappointmentbook.component.css"
 import { useEffect, useState } from "react";
-import { Redirect } from "react-router";
-import styled from "styled-components";
-import { isInteger, useFormik } from "formik";
+import { useFormik } from "formik";
 import { notify } from '../../../../services/notify';
 export default function Internalappointmentbook(prop) {
-    console.log("props are",prop)
-    //   const prop=props.history.history
+    console.log("props are", prop)
     const [appointmentsuccess, setappointmentsuccess] = useState(null)
     const [appointmentfailed, setappointmentfailed] = useState(null)
     const [services, setservices] = useState([])
-    const [dummy, setdummy] = useState(false)
-    let servicearray = []
+    const [doctors, setdoctors] = useState([])
+    
     useEffect(() => {
-        httpClient.GET("services/true")
+        httpClient.GET("services/get/true", false, false)
             .then(resp => {
-                // console.log(resp.data.data)
                 setservices(resp.data.data)
-                //let dataarray=resp.data.data
             })
             .catch(err => {
                 notify.error("Something went wrong")
@@ -48,36 +43,50 @@ export default function Internalappointmentbook(prop) {
             if (!values.appointmentTime) {
                 errors.appointmentTime = "Appointment time is required!"
             }
-
             return errors
         },
         onSubmit: values => {
             console.log("values are", values)
-            httpClient.POST('create-appointment', values)
-               .then(resp=>{
-                   let message=resp.data.message
-                   setappointmentsuccess(resp.data.message)
-                   setTimeout(() => {
-                       prop.props.push("/dashboard/viewappointment")
-                   }, 2000);
-               })
-               .catch(err=>{
-                   console.log(err)
-                   setappointmentfailed("something went wrong")
-               })
-               
+            httpClient.POST('create-appointment', values, false, true)
+                .then(resp => {
+                    let message = resp.data.message
+                    setappointmentsuccess(resp.data.message)
+                    setTimeout(() => {
+                        prop.history.push("/dashboard/viewappointment")
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.log(err)
+                    setappointmentfailed("something went wrong")
+                })
+
         }
     })
+    const handleChange = (e) => {
+        let serviceid = e.target.value
+        httpClient.GET(`doctor/get-related-doctor/${serviceid}`, false, true)
+            .then(resp => {
+                setdoctors(resp.data.data)
+                // console.log(resp.data.data)
+            })
+            .catch(err => {
+                setdoctors([])
+                notify.error("No any doctors are available to this service")
+            })
+    }
     return (
         <>
             <div className="marginadj">
                 <form onSubmit={formik.handleSubmit} className="form-width-adjust">
-
-
                     <div className="form-row">
                         <div className="form-group col-md-6">
                             <label htmlFor="service">Select Service</label>
-                            <select id="servicesId" className="form-control" {...formik.getFieldProps("servicesId")} style={{ color: "black" }}>
+                            <select id="servicesId" className="form-control" {...formik.getFieldProps("servicesId")} style={{ color: "black" }}
+                                onChange={(e) => {
+                                    formik.handleChange(e)
+                                    handleChange(e)
+                                }}
+                            >
                                 <option value={null}></option>
                                 {
                                     services.map((item, index) => {
@@ -92,9 +101,13 @@ export default function Internalappointmentbook(prop) {
                             <label htmlFor="doctor">Select Doctor</label>
                             <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{ color: "black" }}>
                                 <option value={null}></option>
-                                <option >1</option>
-                                <option >1</option>
-                                <option >2</option>
+                                {
+                                    doctors.map((item, index) => {
+                                        if (item.firstname) {
+                                            return <option key={index} value={item.id}>{item.firstname + " " + item.lastname}</option>
+                                        }
+                                    })
+                                }
                             </select>
                             {formik.errors.doctorId && formik.touched.doctorId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.doctorId}</div> : null}
                         </div>
@@ -115,9 +128,6 @@ export default function Internalappointmentbook(prop) {
                         <div className="form-group col-md-12">
                             <label htmlFor="time">Time</label>
                             <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formik.getFieldProps("appointmentTime")}></input>
-                            {/* <select id="time" className="form-control" {...formik.getFieldProps("time")}>
-              <option selected>Select time</option>
-            </select> */}
                             {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
                         </div>
                     </div>

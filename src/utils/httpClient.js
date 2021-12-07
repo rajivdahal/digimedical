@@ -5,6 +5,7 @@ const REACT_APP_BASE_URL_SERVICE = process.env.REACT_APP_BASE_URL_SERVICE
 
 
 
+
 const http = axios.create({
     baseURL: BASE_URL,
     responseType: 'json',
@@ -12,29 +13,37 @@ const http = axios.create({
     timeoutErrorMessage: "request Timeout",
 })
 
-let token=localStorage.getItem("dm-access_token")?localStorage.getItem("dm-access_token"):"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ0ZXN0QGdtYWlsLmNvbSIsInNjb3BlIjpbIlJFQUQiLCJXUklURSJdLCJleHAiOjE2Mzg0NzY4MTQsInVzZXJpZCI6NiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImp0aSI6ImE5YWU3YzA3LTBlZDgtNDRhMS1iZjNkLWM3YWM3YmY4YWMzMCIsImNsaWVudF9pZCI6ImNsaWVudGlkIiwic3RhdHVzIjoyMDB9.ivfDfUbHtjJ80RrHQMV5bNPm8zKUOvOPHrIcIGeKQLNGtQO223Vyk6-BByKN6_dmeJHZHTZVcvshjzGn2xwRDlk2RVIMQtAjFAihH8Cd0thxJ4bHJhvOR665dekvJRn8f_FeNzTmwcySBIhj3V4LBPzEiDzXIMeDjSQZlsmt23SQ9qf2xwNK0pgqkoSIrJkJ9p35rvsghUN2_EgxKFejDqDeauVvGmsSUSLWjyzWcCRaNUdkzef6BY2sAootDRW9UlZjl4UDnh0n0ApevRnuS8srPU-wjs3MMnVDh4cY8mfn4YtgAO6J-FM0UogvQiomAWI8quvalL1hGHQqjCVnPQ"
 
-const GET = (url,grant_type,params = {}) => {
-    return http.get(BASE_URL+url,{
-        headers:{
-            "Authorization":'Bearer '+token
+const GET = (url, grant_type, getheaders, params = {}) => {
+    if (getheaders) {
+        const token = localStorage.getItem('dm-access_token')
+        return http.get(BASE_URL + url, {
+            headers:{
+                'Authorization':`Bearer ${token}`
+            }
+        })
     }
-    })
+    return http.get(BASE_URL + url)
 }
 
-const POST = (url, data,grant_type, params = {}) => {
-    return http.post(BASE_URL+url, data,{
-        headers:{
-            "Authorization":'Bearer '+token
+const POST = (url, data, grant_type, getheaders, params = {}) => {
+    if (getheaders) {
+        const token = localStorage.getItem('dm-access_token')
+        return http.post(BASE_URL + url, data,{
+            headers:{
+                'Authorization':`Bearer ${token}`
+            }
         }
-    })
+        )
+    }
+    return http.post(BASE_URL + url, data)
 }
 
-const DELETE = (url,grant_type, params = {}) => {
-    return http.delete(BASE_URL+url,{
-        headers:{
-            "Authorization":'Bearer '+localStorage.getItem('dm-access_token')
-    }
+const DELETE = (url, grant_type, params = {}) => {
+    return http.delete(BASE_URL + url, {
+        headers: {
+            "Authorization": 'Bearer ' + localStorage.getItem('dm-access_token')
+        }
     })
 }
 
@@ -65,7 +74,7 @@ const UPLOAD = (method, url, data = {}, grant_type, files = []) => {
             formData.append(key, data[key])
         }
         xhr.onreadystatechange = () => {
-           
+
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
                     // console.log("res:",xhr.response)
@@ -75,12 +84,12 @@ const UPLOAD = (method, url, data = {}, grant_type, files = []) => {
                 }
             }
         }
-        
-            xhr.open(method, REACT_APP_BASE_URL_LOGIN)
-            xhr.setRequestHeader("Authorization", `Basic Y2xpZW50aWQ6c2VjcmV0`);
-            xhr.send(formData)
-            
-    
+
+        xhr.open(method, REACT_APP_BASE_URL_LOGIN)
+        xhr.setRequestHeader("Authorization", `Basic Y2xpZW50aWQ6c2VjcmV0`);
+        xhr.send(formData)
+
+
 
     })
 }

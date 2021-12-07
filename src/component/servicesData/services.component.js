@@ -144,7 +144,6 @@ const Services = (props) => {
                             backgroundColor: '#2745F0',
                             color: '#FFF'
                         }
-
                     }}
                 />
 

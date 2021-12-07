@@ -79,11 +79,12 @@ export const Home = (props) => {
             dolor sapien eget. Mattis malesuada quam sed accumsan lectus{" "}
           </SubHeading>
           <ButtonContainor>
-            <Link to="/dashboard">
+            <a href="#bookappointment">
             <GetAppointment type="button" className="btn btn-primary">
               Get Appointment
             </GetAppointment>
-            </Link>
+            </a>
+         
             <ReadMore type="button" className="btn btn-outline-primary">
               Read MOre
             </ReadMore>
@@ -96,7 +97,9 @@ export const Home = (props) => {
       <About />
       <OurServices />
       <WhyChooseUs />
-      <BookAnAppointment history={props.history}/>
+      <div id="bookappointment">
+      <BookAnAppointment history={props.history} />
+      </div>
       <TheyTrustedUs />
       <OurPartnar />
       <Footer></Footer>
