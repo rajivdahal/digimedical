@@ -1,0 +1,19 @@
+.body-dashboard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 20%;
+    left: 40%;
+}
+.body img{
+    height: 200px;
+    width: 200px;
+}
+.span{
+    font-size: 25px;
+} .body-dashboard img{
+    height: 300px;
+    width: 300px;
+}

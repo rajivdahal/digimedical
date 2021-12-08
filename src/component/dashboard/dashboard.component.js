@@ -11,6 +11,11 @@ import Adminsidebar from "./adminDashboard/navbarandsidebar/sidebar.component"
 import DoctorTable from "./adminDashboard/doctorData/doctor.table"
 import Createdoctor from "./adminDashboard/doctorData/doctor.component"
 import Createservices from "./adminDashboard/servicesData/services.component"
+import { Dashboardpagenotfound } from "./dashboardpagenotfound/dashboardpagenotfound.component"
+import Doctornavbar from "./doctordashboard/navbarandsidebar/doctornavbar.component"
+import Doctorsidebar from "./doctordashboard/navbarandsidebar/doctorsidebar.component"
+import { Doctordashboard } from "./doctordashboard/doctordashboard/doctordashboard.component"
+import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappointment.component"
 
 
 const Dashboard = (props) => {
@@ -30,7 +35,7 @@ const Dashboard = (props) => {
                   <ProtectedRoute component={Viewappointment}></ProtectedRoute>
                   : props.match.path === "/dashboard/bookappointment" ?
                     <ProtectedRoute component={Internalappointmentbook}></ProtectedRoute>
-                    : null
+                    : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
             }
           </>
           : statusCode == 100 ?
@@ -41,17 +46,32 @@ const Dashboard = (props) => {
                 props.match.path == "/dashboard" ?
                   <ProtectedRoute component={AdminDashboard}></ProtectedRoute>
                   :
-                  props.match.path==="/dashboard/doctor-table"?
-                  <ProtectedRoute component={DoctorTable}></ProtectedRoute>
-                  :props.match.path==="/dashboard/create-doctor"?
-                  <ProtectedRoute component={Createdoctor}></ProtectedRoute>
-                  :props.match.path==="/dashboard/create-services"?
-                  <ProtectedRoute component={Createservices}></ProtectedRoute>
-                  :null
+                  props.match.path === "/dashboard/doctor-table" ?
+                    <ProtectedRoute component={DoctorTable}></ProtectedRoute>
+                    : props.match.path === "/dashboard/create-doctor" ?
+                      <ProtectedRoute component={Createdoctor}></ProtectedRoute>
+                      : props.match.path === "/dashboard/create-services" ?
+                        <ProtectedRoute component={Createservices}></ProtectedRoute>
+                        : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
 
               }
             </>
-            : <Redirect to="/login" timeoutMsg="Please login again"></Redirect>
+
+            :
+            statusCode == 300 ?
+              <>
+                <Doctornavbar props={props.history}></Doctornavbar>
+                <Doctorsidebar props={props.history}></Doctorsidebar>
+                {
+                  props.match.path == "/dashboard" ?
+                    <ProtectedRoute component={Doctordashboard} props={props}></ProtectedRoute>
+                    :
+                    props.match.path === "/dashboard/viewappointment" ?
+                      <ProtectedRoute component={Viewdoctorappointment}></ProtectedRoute>
+                      : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                }
+              </>
+              : <Redirect to="/login" timeoutMsg="Please login again"></Redirect>
       }
     </>
   )

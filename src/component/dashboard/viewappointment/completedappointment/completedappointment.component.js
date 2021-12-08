@@ -2,77 +2,188 @@ import { notify } from "../../../../services/notify";
 import { useState } from "react";
 import { useEffect } from "react";
 import { httpClient } from "../../../../utils/httpClient";
-import PropagateLoader from "react-spinners/PropagateLoader"
-export const Completedappointment = () => {
-    const [completedData, setcompletedData] = useState([])
-    const [isLoading, setisLoading] = useState(false)
-    let [color, setColor] = useState("blue");
+import { Delete } from "@material-ui/icons";
+import { formatDate } from "../../../../services/timeanddate";
+import { Modal, Button } from 'react-bootstrap';
+import MaterialTable from 'material-table'
+export const Completedappointment = (props) => {
+    // const userid = localStorage.getItem("userid")
+    const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
+    // console.log(userid,fromdoctorcomponent)
+    const [pendingData, setpendingData] = useState([])
+    const [showModal, setShowModal] = useState(false)
+    const [id, setid] = useState()
+    const [refresh, setrefresh] = useState()
+
     useEffect(() => {
-        setisLoading(true)
-        httpClient.GET("get-user-completed-appointments", false, true)
+        if (fromdoctorcomponent) {
+            httpClient.GET("getall-appointments-by/1", false, true)
+                .then(resp => {
+                    let data = resp.data.data
+                    data = data.map((item, index) => {
+                        item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
+                        item.appointmentTime = item.appointmentTime.slice(0, 5)
+                        return item
+                    })
+                    console.log(data)
+                    setpendingData(resp.data.data)
+                })
+                .catch(err => {
+                    notify.error("something went wrong")
+                })
+        }
+        else {
+            httpClient.GET("get-user-completed-appointments", false, true)
+                .then(resp => {
+                    let data = resp.data.data
+                    data = data.map((item, index) => {
+                        item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
+                        item.appointmentTime = item.appointmentTime.slice(0, 5)
+                        return item
+                    })
+                    console.log(data)
+                    setpendingData(resp.data.data)
+                })
+                .catch(err => {
+                    notify.error("something went wrong")
+                })
+
+        }
+
+
+    }, [])
+    useEffect(() => {
+        if(fromdoctorcomponent){
+            httpClient.GET("getall-appointments-by/1", false, true)
             .then(resp => {
-                setcompletedData(resp.data.data)
+                let data = resp.data.data
+                data = data.map((item, index) => {
+                    item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
+                    item.appointmentTime = item.appointmentTime.slice(0, 5)
+                    return item
+                })
+                console.log(data)
+                setpendingData(resp.data.data)
             })
-            .catch(err =>{
+            .catch(err => {
                 notify.error("something went wrong")
             })
-            .finally(() => {
-                setisLoading(false)
+        }
+        else{
+            httpClient.GET("get-user-completed-appointments", false, true)
+            .then(resp => {
+                let data = resp.data.data
+                data = data.map((item, index) => {
+                    item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
+                    item.appointmentTime = item.appointmentTime.slice(0, 5)
+                    return item
+                })
+                console.log(data)
+                setpendingData(resp.data.data)
             })
-    }, [])
+            .catch(err => {
+                notify.error("something went wrong")
+            })
+        }
+    }, [refresh])
+    const columns = !props.fromdoctorcomponent ? [
+        {
+            title: "Assigned Doctor", field: "doctorsName"
+        },
+        {
+            title: "Date Of Appointment", field: "appointmentDate"
+        },
+        {
+            title: "Time Of Appointment", field: "appointmentTime"
+        },
+        {
+            title: "Service", field: "serviceName"
+        }
+    ] : [
+        {
+
+            title: "Patient Name", field: "patientsName"
+        },
+        {
+            title: "Date Of Appointment", field: "appointmentDate"
+        },
+        {
+            title: "Time Of Appointment", field: "appointmentTime"
+        },
+        {
+            title: "Service", field: "serviceName"
+        }
+    ]
+    const handledelete = (e, data) => {
+        const appointmentid = data.id
+        setid(appointmentid)
+        setShowModal(true)
+    }
+    const handlecancel = () => {
+        setShowModal(false)
+    }
+    const deleteindeed = () => {
+        if (id) {
+            httpClient.PUT(`cancel-appointment/${id}`, null, false, true)
+                .then(resp => {
+                    setShowModal(false)
+                    setrefresh(true)
+
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
+        }
+    }
     return (
         <>
-            <div className="row">
-                <div className="col-12">
-                    <div className="table-responsive">
-                        <table className="display expandable-table book-table" style={{ width: "100%" }}>
-                            <thead>
-                                <tr>
-                                    <th className="head_styling">Assigned Doctor</th>
-                                    <th>Date Of Appointment</th>
-                                    <th>Time Of Appointment</th>
-                                    <th>Service</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    completedData.length ?
-                                        completedData.map((item, index) => {
-                                            return <tr key={index}>
-                                                <td className="pl-2 table-img"><img src="/images/dashboard/user1.jpg" alt="" className="user-img-circle" /><span className="text-muted">{item.doctorsName}</span></td>
-                                                <td className="text-muted">{item.appointmentDate}</td>
-                                                <td className="text-muted">{item.appointmentTime}</td>
-                                                <td className="text-muted">
-                                                    <div className=" badge badge-outline-success">
-                                                        {item.serviceName}
-                                                    </div>
-                                                </td>
-                                                <td className="action-img text-muted d-flex">
+            <MaterialTable
+                title="Completed Appointments"
+                columns={columns}
+                data={pendingData}
+                options={{
+                    paging: true,
+                    exportButton: true,
+                    searchFieldAlignment: "left",
+                    pageSizeOptions: [5, 10, 20, 25, 50],
+                    pageSize: 5,
+                    showFirstLastPageButtons: false,
+                    paginationType: "stepped",
+                    paginationPosition: "bottom",
+                    exportAllData: true,
+                    actionsColumnIndex: -1,
+                    headerStyle: {
+                        backgroundColor: '#2745F0',
+                        color: '#FFF'
+                    }
 
-                                                    <i className="fas fa-edit" style={{ fontSize: "22px", fontWidth: "600", color: "green", cursor: "pointer", marginTop: "2px", marginRight: "10px" }} title="edit"></i>
-                                                    <i className="fas fa-trash-alt" style={{ fontSize: "25px", fontWidth: "600", color: "red", cursor: "pointer" }} title="delete"></i>
-                                                </td>
-                                            </tr>
-                                        })
-                                        :<tr> 
-                                            <td>no data found</td>
-                                        </tr>
-                                }
+                }}
+                actions={[
+                    {
+                        icon: Delete,
+                        tooltip: 'Delete',
+                        onClick: (e, rowData) => { handledelete(e, rowData) }
+                    },
+                ]}
+            ></MaterialTable>
 
-                            </tbody>
-                        </table>
-                        {
-                            isLoading ?
-                                <div className="proploader">
-                                    Loading...
-                                    <PropagateLoader color={color}></PropagateLoader>
-                                </div>
-                                : null
-                        }
-                    </div>
-                </div>
-            </div>
+            <Modal show={showModal} onHide={handlecancel}>
+                <Modal.Header >
+                    <Modal.Title><b>Upcomming Appointment</b></Modal.Title>
+                </Modal.Header>
+                <Modal.Body >Do you really want to delete the appointment?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="info" onClick={handlecancel}>
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={deleteindeed}>
+                        Delete
+                    </Button>
+
+                </Modal.Footer>
+            </Modal>
+
+
         </>
     )
 }

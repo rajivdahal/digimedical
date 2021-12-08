@@ -5,13 +5,14 @@ import { useState } from "react"
 import { Cancelledappointment } from "./cancelledappointment/Cancelledappointment.component"
 import { Completedappointment } from "./completedappointment/completedappointment.component"
 export const Viewappointment = (props) => {
+    const fromdoctorcomponent=props.fromdoctorcomponent?props.fromdoctorcomponent:null
     const [pendingappointment, setpendingappointment] = useState(false)
     const [cancelledappointment, setcancelledappointment] = useState(false)
     const [upcomingappointment, setupcomingappointment] = useState(true)
-    const [isdynamicbookedclass,setisdynamicbookedclass]=useState(false)
-    const [isdynamicCancelledclass,setisdynamicCancelledclass]=useState(false)
-    const [isdynamicupcomingclass,setisdynamicupcomingclass]=useState(true)
-    const handleupcomingclass=(e)=>{
+    const [isdynamicbookedclass, setisdynamicbookedclass] = useState(false)
+    const [isdynamicCancelledclass, setisdynamicCancelledclass] = useState(false)
+    const [isdynamicupcomingclass, setisdynamicupcomingclass] = useState(true)
+    const handleupcomingclass = (e) => {
         setisdynamicupcomingclass(true)
         setupcomingappointment(true)
         setisdynamicCancelledclass(false)
@@ -19,7 +20,7 @@ export const Viewappointment = (props) => {
         setisdynamicbookedclass(false)
         setpendingappointment(false)
     }
-    const handlebookedclass=(e)=>{
+    const handlebookedclass = (e) => {
         setisdynamicupcomingclass(false)
         setupcomingappointment(false)
         setisdynamicCancelledclass(false)
@@ -27,7 +28,7 @@ export const Viewappointment = (props) => {
         setisdynamicbookedclass(true)
         setpendingappointment(true)
     }
-    const handleCancelledclass=(e)=>{
+    const handleCancelledclass = (e) => {
         setisdynamicupcomingclass(false)
         setupcomingappointment(false)
         setisdynamicCancelledclass(true)
@@ -193,7 +194,7 @@ export const Viewappointment = (props) => {
                             <div className="col-md-12 grid-margin">
                                 <div className="row">
                                     <div className="col-12 col-xl-8 mb-4 mb-xl-0">
-                                        <h6 className="font-weight-normal mb-0">All systems are running smoothly! You have <span className="sec-color">3 unread alerts!</span></h6>
+                                        <h6 className="font-weight-normal mb-0">All systems are running smoothly!</h6>
                                     </div>
                                     <div className="col-12 col-xl-4">
                                         <div className="justify-content-end d-flex">
@@ -218,18 +219,16 @@ export const Viewappointment = (props) => {
                                 <div className="card">
                                     <div className="card-body ">
                                         <div className="title-header">
-                                            <p className={`card-title ${isdynamicupcomingclass?"title-focus":null}`} onClick={handleupcomingclass}>Upcoming Appointment</p>
-                                            <p className={`card-title ${isdynamicbookedclass?"title-focus":null}`} onClick={handlebookedclass}>Completed Appointment</p>
-                                            <p className={`card-title ${isdynamicCancelledclass?"title-focus":null}`} onClick={handleCancelledclass}>Cancelled Appointment</p>
+                                            <p className={`card-title ${isdynamicupcomingclass ? "title-focus" : null}`} onClick={handleupcomingclass}>Upcoming Appointment</p>
+                                            <p className={`card-title ${isdynamicbookedclass ? "title-focus" : null}`} onClick={handlebookedclass}>Completed Appointment</p>
+                                            <p className={`card-title ${isdynamicCancelledclass ? "title-focus" : null}`} onClick={handleCancelledclass}>Cancelled Appointment</p>
                                         </div>
                                         {
-                                            upcomingappointment ?<Upcomingappointment></Upcomingappointment>
+                                            upcomingappointment ? <Upcomingappointment props={props.history} fromdoctorcomponent={fromdoctorcomponent}></Upcomingappointment>
                                                 :
-                                                pendingappointment ? <Completedappointment></Completedappointment>
-                                                :cancelledappointment?<Cancelledappointment></Cancelledappointment>
-                                                :<h1>you don't have any appointment</h1>
-                                                
-                                            
+                                                pendingappointment ? <Completedappointment fromdoctorcomponent={fromdoctorcomponent}></Completedappointment>
+                                                    : cancelledappointment ? <Cancelledappointment fromdoctorcomponent={fromdoctorcomponent}></Cancelledappointment>
+                                                        : <h1>you don't have any appointment</h1>
                                         }
 
                                     </div>

@@ -1,23 +1,24 @@
-import PropagateLoader from "react-spinners/PropagateLoader"
-import { notify } from "../../../../services/notify"
-import { httpClient } from "../../../../utils/httpClient"
-import { useState } from "react"
+import { httpClient } from "../../../../utils/httpClient";
 import { useEffect } from "react"
-import { Modal, Button } from 'react-bootstrap';
-import { formatDate } from "../../../../services/timeanddate"
+import { useState } from "react"
+import { notify } from "../../../../services/notify";
+import { Add, Edit, Delete, FlashOffRounded } from "@material-ui/icons";
+// import "./upcomingappointment.component.css"
+import { formatDate } from "../../../../services/timeanddate";
 import MaterialTable from 'material-table'
-import { Edit, Delete } from "@material-ui/icons";
+import { Modal, Button } from 'react-bootstrap';
 
-export const Cancelledappointment = (props) => {
+export const Commonupcomingappointment = (props) => {
+    const userid = localStorage.getItem("userid")
+    console.log("user id is", userid)
     const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
     const [pendingData, setpendingData] = useState([])
     const [showModal, setShowModal] = useState(false)
-    const [id, setid] = useState()
     const [refresh, setrefresh] = useState()
-
+    const [id, setid] = useState()
     useEffect(() => {
         if (fromdoctorcomponent) {
-            httpClient.GET("getall-appointments-by/2", false, true)
+            httpClient.GET(`getall-appointments-by/0`, false, true)
                 .then(resp => {
                     let data = resp.data.data
                     data = data.map((item, index) => {
@@ -33,7 +34,7 @@ export const Cancelledappointment = (props) => {
                 })
         }
         else {
-            httpClient.GET("get-user-canceled-appointments", false, true)
+            httpClient.GET("get-user-pending-appointments", false, true)
                 .then(resp => {
                     let data = resp.data.data
                     data = data.map((item, index) => {
@@ -47,13 +48,12 @@ export const Cancelledappointment = (props) => {
                 .catch(err => {
                     notify.error("something went wrong")
                 })
-
         }
 
     }, [])
     useEffect(() => {
         if (fromdoctorcomponent) {
-            httpClient.GET("getall-appointments-by/2", false, true)
+            httpClient.GET("getall-appointments-by/0", false, true)
                 .then(resp => {
                     let data = resp.data.data
                     data = data.map((item, index) => {
@@ -69,7 +69,7 @@ export const Cancelledappointment = (props) => {
                 })
         }
         else {
-            httpClient.GET("get-user-canceled-appointments", false, true)
+            httpClient.GET("get-user-pending-appointments", false, true)
                 .then(resp => {
                     let data = resp.data.data
                     data = data.map((item, index) => {
@@ -84,8 +84,8 @@ export const Cancelledappointment = (props) => {
                     notify.error("something went wrong")
                 })
         }
-
     }, [refresh])
+
     const columns = !props.fromdoctorcomponent ? [
         {
             title: "Assigned Doctor", field: "doctorsName"
@@ -114,7 +114,16 @@ export const Cancelledappointment = (props) => {
             title: "Service", field: "serviceName"
         }
     ]
+    const handleEdit = (e, data) => {
+        console.log("e is", e)
+        console.log("data is", data)
+        props.props.push({
+            pathname: "/dashboard/bookappointment",
+            data: data,
+        })
+    }
     const handledelete = (e, data) => {
+        console.log("delete triggered", data)
         const appointmentid = data.id
         setid(appointmentid)
         setShowModal(true)
@@ -138,12 +147,12 @@ export const Cancelledappointment = (props) => {
     return (
         <>
             <MaterialTable
-                title="Completed Appointments"
+                title="Upcoming appointments"
                 columns={columns}
                 data={pendingData}
                 options={{
                     paging: true,
-                    exportButton: true,
+                    exportButton: props.isexportavailable,
                     searchFieldAlignment: "left",
                     pageSizeOptions: [5, 10, 20, 25, 50],
                     pageSize: 5,
@@ -152,13 +161,25 @@ export const Cancelledappointment = (props) => {
                     paginationPosition: "bottom",
                     exportAllData: true,
                     actionsColumnIndex: -1,
+                    search: props.issearchavailable,
                     headerStyle: {
                         backgroundColor: '#2745F0',
                         color: '#FFF'
                     }
 
                 }}
-                actions={[
+                actions={props.isactionavailable && !fromdoctorcomponent ? [
+                    {
+                        icon: Edit,
+                        tooltip: 'Edit',
+                        onClick: (e, rowData) => { handleEdit(e, rowData) }
+                    },
+                    {
+                        icon: Delete,
+                        tooltip: 'Delete',
+                        onClick: (e, rowData) => { handledelete(e, rowData) }
+                    },
+                ] : [
                     {
                         icon: Delete,
                         tooltip: 'Delete',
@@ -166,8 +187,6 @@ export const Cancelledappointment = (props) => {
                     },
                 ]}
             ></MaterialTable>
-
-
             <Modal show={showModal} onHide={handlecancel}>
                 <Modal.Header >
                     <Modal.Title><b>Upcomming Appointment</b></Modal.Title>
@@ -183,7 +202,6 @@ export const Cancelledappointment = (props) => {
 
                 </Modal.Footer>
             </Modal>
-
         </>
     )
 }

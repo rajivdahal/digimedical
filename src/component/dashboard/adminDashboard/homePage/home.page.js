@@ -5,7 +5,7 @@ const HomePage=(props)=>{
               <div className="col-md-12 grid-margin">
                 <div className="row">
                   <div className="col-12 col-xl-8 mb-4 mb-xl-0">
-                    <h5 className="font-weight-normal mb-0">All systems are running smoothly! You have <span className="sec-color">3 unread alerts!</span></h5>
+                    <h5 className="font-weight-normal mb-0">All systems are running smoothly!</h5>
                   </div>
                   <div className="col-12 col-xl-4">
                     <div className="justify-content-end d-flex">

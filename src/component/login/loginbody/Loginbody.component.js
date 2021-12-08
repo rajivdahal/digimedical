@@ -30,11 +30,12 @@ const Loginbodycomponent = (props) => {
                 .then(resp => {
                     let response = JSON.parse(resp)
                     console.log(response)
-                    let { access_token, refresh_token, expires_in,status } = response
+                    let { access_token, refresh_token, expires_in,status,userid } = response
                     localStorage.setItem("dm-access_token", access_token)
                     localStorage.setItem("dm-refresh_token", refresh_token)
                     localStorage.setItem("timeout", expires_in)
                     localStorage.setItem("status",status)
+                    localStorage.setItem("userid",userid)
                     setTimeout(() => {
                         props.history.push({
                             pathname: `/dashboard`
