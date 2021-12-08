@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Nav } from "react-bootstrap";
 import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
-import ClipLoader from "react-spinners/ClipLoader";
-
+import Cliploader from "../../../../utils/clipLoader";
+// import "./doctor.component.css"
 
 const Createdoctor = (props) => {
     // const [loading, setLoading] = useState(false),
@@ -15,15 +15,16 @@ const Createdoctor = (props) => {
 
     // selectable services
     const [availableServices, setAvailableServices] = useState([]);
-
+    const [doctorInfo, setDoctorInfo] = useState("");
     const [doctorId, setDoctorId] = useState("");
+    const [loading, setLoading] = useState(false);
     const [doctorData, setDoctorData] = useState({
         firstName: "",
         lastName: "",
         middleName: "",
         email: "",
         contactNumber: "",
-        prefix: "md",
+        prefix: "MD",
         nmcNumber: "",
         specialist: "",
         description: "",
@@ -36,59 +37,46 @@ const Createdoctor = (props) => {
 
     })
 
+    const initialize = async () => {
+        let allServices = await getServices();
+        if (props.location.state && props.location.state.id != null) {
+            await getDoctorById(allServices);
+        }
+    }
+
+    useEffect(() => {
+        initialize();
+    }, [])
+
     const handleChange = (e) => {
         let tempDoctor = { ...doctorData, ...{ [e.target.name]: e.target.value } }
         setDoctorData(tempDoctor);
     }
 
-    const getServices = () => {
-        httpClient.GET("services/true")
+    const getServices = async () => {
+        let allServices = await httpClient.GET("services/true", false, true)
             .then(resp => {
                 if (resp.data.status) {
                     let data = resp.data.data;
-                    let tempData = { ...doctorData };
-                    tempData.serviceID = data[0].id;
-                    setServices(data);
-                    setAvailableServices(data);
-                    setDoctorData(tempData);
+                    return data;
                 }
             })
             .catch(err => {
                 console.log("inside catch block")
                 // console.log(err.response)
+                return [];
             })
 
+        let tempData = { ...doctorData };
+        tempData.serviceID = allServices[0].id;
+        setServices(allServices);
+        setAvailableServices(allServices);
+        setDoctorData(tempData);
+        return allServices;
     }
-
-    const getDoctorData = () => {
-        console.log(props)
-        let data = props.history.location.state;
-        setDoctorId(data.id)
-        console.log(data);
-        console.log(doctorId)
-        if (data) {
-            setDoctorData({
-                firstName: data.firstName,
-                lastName: data.lastName,
-                middleName: data.middleName,
-                nmcNumber: data.nmcNo,
-                description: data.description,
-            })
-        }
-
-    }
-
-    useEffect(() => {
-
-        getServices();
-        // if(props){
-        // getDoctorData();
-        // }
-    }, [])
 
     const handleCreateDoctor = () => {
-
-
+        setLoading(true)
         let selectedId = [];
         doctorData.doctorServices.forEach((service, index) => {
             selectedId.push(service.id)
@@ -112,7 +100,7 @@ const Createdoctor = (props) => {
         }
 
         console.log(doctorDetail);
-        httpClient.POST("doctor/create", doctorDetail)
+        httpClient.POST("doctor/create", doctorDetail, false, true)
             .then(resp => {
                 console.log(resp)
                 if (resp.data.status) {
@@ -133,15 +121,108 @@ const Createdoctor = (props) => {
                     //     serviceID: "",
                     // })
                     notify.success(resp.data.message)
-                    // setLoading(false)
-                    props.history.push("/doctor-table")
+                    setLoading(false)
+                    props.history.push("/dashboard/doctor-table")
                 }
             })
             .catch(err => {
                 if (err.response && err.response.data) {
                     notify.error(err.response.data.message)
+                    setLoading(false)
+
                 }
             })
+    }
+
+    const getDoctorById = (allServices) => {
+        // get doctor id
+        let id = props.location.state.id;
+        console.log(id);
+        if (id == null) return;
+        setDoctorId(id)
+
+        // get doctor details
+        httpClient.GET("doctor/basic-info/" + id, false, true)
+            .then(resp => {
+
+                // get docotr services + basic details
+                let responseData = resp.data.data;
+                let data = responseData.basicDetails;
+                let serviceData = responseData.services;
+
+                // get services details from service data
+                let savedServices = [], remainServices = [];
+                allServices.forEach((service) => {
+                    let found = serviceData.includes(service.id.toString());
+                    if (found) {
+                        savedServices.push(service);
+                    } else {
+                        remainServices.push(service)
+                    }
+                })
+
+                if (data) {
+                    setDoctorData({
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        middleName: data.middleName,
+                        email: data.email,
+                        prefix: data.prefix,
+                        nmcNumber: data.nmcNo,
+                        specialist: data.specialist,
+                        description: data.description,
+                        mobileNumber: data.mobileNumber,
+                        doctorServices: savedServices,
+                        serviceID: remainServices[0].id
+                    })
+                    setAvailableServices(remainServices);
+                }
+
+            })
+            .catch(err => {
+                console.log(err);
+                // console.log(err.response)
+            })
+
+    }
+
+    const editDoctorDetail = () => {
+        setLoading(true)
+        let selectedId = [];
+        doctorData.doctorServices.forEach((service, index) => {
+            selectedId.push(service.id)
+        })
+        let editedDoctorDetail = {
+            firstName: doctorData.firstName,
+            middleName: doctorData.middleName,
+            lastName: doctorData.lastName,
+            email: doctorData.email,
+            prefix: doctorData.prefix,
+            nmcNo: doctorData.nmcNumber,
+            specialist: doctorData.specialist,
+            description: doctorData.description,
+            mobileNumber: doctorData.mobileNumber,
+            liscenceDate: doctorData.licensedDate,
+            serviceId: selectedId
+        }
+
+        console.log(editedDoctorDetail);
+        httpClient.PUT("doctor/update/" + doctorId, editedDoctorDetail, false, true)
+            .then(resp => {
+                console.log(resp)
+                if (resp.data.status) {
+                    notify.success(resp.data.message);
+                    props.history.push("/dashboard/doctor-table")
+                    setLoading(false)
+
+                }
+            })
+            .catch(err => {
+                console.log(err.response)
+                setLoading(false)
+
+            })
+
     }
 
     const handleAddService = () => {
@@ -159,28 +240,20 @@ const Createdoctor = (props) => {
 
     }
 
-
-    // const handleUpload = () => {
-    //     // inputRef.current?.click();
-
-    // }
-
     return (
-        <div>
+        <div >
 
             <Container>
-                <Form className="mb-3 mt-5">
+                <Form >
                     <Row className="mb-3">
                         <Col md={2}>
                             <Form.Group>
                                 <Form.Label>Prefix</Form.Label>
                                 <select class="form-select" aria-label="Default select example" name="prefix" onChange={handleChange} value={doctorData.prefix} >
-                                    <option value="md">MD</option>
-                                    <option value="mbbs">MBBS</option>
-                                    <option value="both">Both</option>
+                                    <option value="MD">MD</option>
+                                    <option value="MBBS">MBBS</option>
+                                    <option value="Both">Both</option>
                                 </select>
-                                {/* <Form.Control type="text" placeholder="Enter Last Name" name="prefix"
-                                    onChange={handleChange} /> */}
                             </Form.Group>
                         </Col>
                         <Col md={3}>
@@ -253,9 +326,10 @@ const Createdoctor = (props) => {
                     </Row>
 
                     <Row className="mb-3">
-                        <Col md={4}>
+                        <Col md={6}>
                             {doctorData.doctorServices.map((service, index) => {
-                                return <div key={index} className="m"><p>{service.serviceName}</p>
+                                // console.log(doctorData.doctorServices)
+                                return <div className="serviceName" key={index}><p>{service.serviceName}</p>
                                 </div>
                             })}
 
@@ -314,23 +388,29 @@ const Createdoctor = (props) => {
                         </Col>
 
                     </Row> */}
-
-                    {doctorId ?
-                        <div>
-                            <Button variant="info" type="button" >
-                                Edit
-                            </Button>
-                            <Button variant="info" type="button">
-                                Cancel
-                            </Button>
-                        </div>
-
+                    {loading == true ?
+                        <Cliploader isLoading={loading}/>
                         :
+                        <div>
+                            {doctorId ?
+                                <div>
+                                    <Button variant="info" type="button" onClick={editDoctorDetail}>
+                                        Edit
+                                    </Button>
+                                    <Button variant="info" type="button" style={{ marginLeft: '10px' }}>
+                                        Cancel
+                                    </Button>
+                                </div>
 
-                        <Button variant="info" type="button" onClick={handleCreateDoctor}>
-                            Create
-                        </Button>
+                                :
+
+                                <Button variant="info" type="button" onClick={handleCreateDoctor}>
+                                    Create
+                                </Button>
+                            }
+                        </div>
                     }
+
                 </Form>
 
                 {/* <ClipLoader color={color} loading={loading} size={150} /> */}

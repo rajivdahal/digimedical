@@ -7,12 +7,11 @@ import Edit from '@material-ui/icons/Edit';
 import Tableicons from "../../../../utils/materialicons";
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import { Modal, Button } from 'react-bootstrap';
-import ClipLoader from "react-spinners/ClipLoader";
 import "./services.component.css"
+import ClipLoader from "../../../../utils/clipLoader";
 
 const Createservices = (props) => {
-    let [loading, setLoading] = useState(false);
-    let [color, setColor] = useState("#000");
+    const [loading, setLoading] = useState(false);
     const [serviceStatusId, setServiceStatusId] = useState(null);
     const [serviceEditId, setServiceEditId] = useState(null);
     const [serviceStatus, setServiceStatus] = useState("");
@@ -21,7 +20,7 @@ const Createservices = (props) => {
     const [service, setService] = useState({
         serviceName: "",
         serviceDescription: "",
-        activeStatus : "",
+        activeStatus: "",
     }
     )
 
@@ -31,11 +30,11 @@ const Createservices = (props) => {
     }
 
     const getServices = () => {
-        httpClient.GET("services/true")
+        httpClient.GET("services/get-all", false, true)
             .then(resp => {
                 if (resp.data.status) {
                     let data = resp.data.data;
-                    console.log(data)
+                    // console.log(data)
                     setServices(data);
                 }
             })
@@ -56,7 +55,7 @@ const Createservices = (props) => {
             serviceDescription: service.serviceDescription
         }
 
-        httpClient.POST("services/create", serviceData)
+        httpClient.POST("services/create", serviceData, false, true)
             .then(resp => {
                 if (resp.data.status) {
                     setService({
@@ -65,35 +64,38 @@ const Createservices = (props) => {
                     })
                     getServices();
                     notify.success(resp.data.message)
+                    setLoading(false)
+
                 }
             })
             .catch(err => {
                 // console.log("inside catch block")
                 // console.log(err.response)
                 notify.error(err.response.data.message)
+
             })
-            setLoading(false)
     }
 
     const handleEditService = (e, data) => {
         setServiceEditId(data.id)
-        console.log(data.id);
+        // console.log(data.id);
         if (data) {
             setService({
                 serviceName: data.serviceName,
                 serviceDescription: data.serviceDescription,
-                activeStatus : data.activeStatus,
+
             })
         }
     }
 
     const handleEdit = () => {
+        setLoading(true)
         let serviceData = {
             serviceName: service.serviceName,
             serviceDescription: service.serviceDescription
         }
 
-        httpClient.PUT("services/" + serviceEditId, serviceData)
+        httpClient.PUT("services/" + serviceEditId, serviceData, false, true)
             .then(resp => {
                 if (resp.data.status) {
                     setService({
@@ -103,16 +105,17 @@ const Createservices = (props) => {
                     setServiceEditId(null);
                     getServices();
                     notify.success(resp.data.message)
-
+                    setLoading(false)
                 }
             })
             .catch(err => {
                 // console.log("inside catch block")
                 console.log(err.response)
+                setLoading(false)
                 // notify.error(err.response.data.message)
             })
 
-        console.log(service);
+        // console.log(service);
     }
 
     const handleCancelEdit = () => {
@@ -132,20 +135,22 @@ const Createservices = (props) => {
     }
 
     const changeServiceStatus = () => {
-    
+        setLoading(true)
         let tempServiceStatus = {
             id: serviceStatusId,
-            status: serviceStatus == true ? false : true 
+            status: serviceStatus == true ? false : true
         }
 
         console.log(tempServiceStatus)
-        httpClient.PUT("services/change-status", tempServiceStatus)
+        httpClient.PUT("services/change-status", tempServiceStatus, false, true)
             .then(resp => {
-                console.log(resp)
-                if(resp.data.status){
+                // console.log(resp)
+                if (resp.data.status) {
                     notify.success(resp.data.message)
                     getServices();
                     handleClose();
+                    setLoading(false)
+
                 }
 
             })
@@ -161,10 +166,11 @@ const Createservices = (props) => {
 
     return (
         <>
+
             <div className="container">
                 <h3>Add Service</h3>
 
-                <form style={{ marginBottom: '30px' }}>
+                <form className="mb-4">
 
                     <div className=" form-group select-label">
                         <label >Service Name : </label>
@@ -177,25 +183,30 @@ const Createservices = (props) => {
                         <input type="text" className="form-control" placeholder="Enter Service Description" name="serviceDescription"
                             onChange={handleChange} value={service.serviceDescription} />
                     </div>
-                    <ClipLoader color={color} loading={loading} size={50} />
 
                     <div>
-                        {serviceEditId ?
-
-                            <div>
-                                <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} onClick={handleEdit}>
-                                    Edit
-                                </button>
-                                <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff", marginLeft: '10px' }} onClick={handleCancelEdit}>
-                                    Cancel
-                                </button>
-                            </div>
-
+                        { loading == true ?
+                            <ClipLoader isLoading={loading} />
                             :
+                            <div>
+                                {serviceEditId ?
 
-                            <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} onClick={handleSubmit}>
-                                Submit
-                            </button>
+                                    <div>
+                                        <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} onClick={handleEdit}>
+                                            Edit
+                                        </button>
+                                        <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff", marginLeft: '10px' }} onClick={handleCancelEdit}>
+                                            Cancel
+                                        </button>
+                                    </div>
+
+                                    :
+
+                                    <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} onClick={handleSubmit}>
+                                        Submit
+                                    </button>
+                                }
+                            </div>
                         }
                     </div>
 
@@ -207,12 +218,20 @@ const Createservices = (props) => {
                     </Modal.Header>
                     <Modal.Body >Do you really want to deactivate this service ?</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={handleClose}>
-                            Close
-                        </Button>
-                        <Button variant="info" onClick={changeServiceStatus}>
-                            Change Status
-                        </Button>
+                        {loading == true ?
+                            <ClipLoader isLoading={loading} />
+                            :
+                            <div>
+                                <Button variant="danger" onClick={handleClose}>
+                                    Close
+                                </Button>
+                                <Button variant="info" onClick={changeServiceStatus} style={{ marginLeft: '8px' }} >
+                                    Change Status
+                                </Button>
+                            </div>
+                        }
+
+
                     </Modal.Footer>
                 </Modal>
 
@@ -235,7 +254,7 @@ const Createservices = (props) => {
                     ]}
                     options={{
                         actionsColumnIndex: -1,
-                        pageSize: 10,
+                        pageSize: 15,
                         filtering: false,
                         sorting: true,
                         headerStyle: {

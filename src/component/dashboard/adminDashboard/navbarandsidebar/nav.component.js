@@ -25,6 +25,9 @@ const Nav = (props) => {
     }
 
     return (
+        <>
+        {/* <div className="container-fluid page-body-wrapper"> */}
+
         <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                 <a className="navbar-brand brand-logo" href="index.html">
@@ -36,7 +39,7 @@ const Nav = (props) => {
             </div>
             <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
 
-                <p className="font-weight-bold welcome-shiva">Welcome Shiva</p>
+                <h4 className="font-weight-bold welcome-shiva" style={{marginTop : '8px'}}>Welcome Shiva</h4>
 
                 <ul className="navbar-nav navbar-nav-right">
                     <li className="nav-item dropdown">
@@ -44,6 +47,7 @@ const Nav = (props) => {
                             <i className="icon-bell mx-0"></i>
                             <span className="count"></span>
                         </a>
+                        
                         <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                             <p className="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
                             <a className="dropdown-item preview-item">
@@ -125,6 +129,8 @@ const Nav = (props) => {
                 </button>
             </div>
         </nav>
+        {/* </div> */}
+        </>
     )
 }
 
