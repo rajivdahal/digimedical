@@ -1,0 +1,14 @@
+.added-css{
+    height: 100vh;
+    padding-top: 40px;
+}
+.bookappointment{
+    margin-left: 20px !important;
+}
+.bookappimage{
+    height: 35rem;
+    position: absolute;
+    left: 120%;
+    top: -20%;
+
+}

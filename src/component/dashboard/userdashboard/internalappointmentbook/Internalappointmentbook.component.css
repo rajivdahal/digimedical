@@ -1,0 +1,28 @@
+.marginadj{
+    margin-top: 10%;
+    margin-left: 30%;
+    position: absolute;
+    display: flex;
+}
+.form-width-adjust{
+    width: 80%;
+
+}
+.errmsg{
+    font-size: small;
+    margin-top: 2px;
+}
+.marginadj{
+    margin-top: 10%;
+    margin-left: 30%;
+    position: absolute;
+    display: flex;
+}
+.form-width-adjust{
+    width: 80%;
+
+}
+.errmsg{
+    font-size: small;
+    margin-top: 2px;
+}
