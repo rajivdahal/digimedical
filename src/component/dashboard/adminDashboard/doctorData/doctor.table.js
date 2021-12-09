@@ -59,7 +59,7 @@ const DoctorTable = (props) => {
 
 
         console.log(tempDoctorStatus)
-        httpClient.PUT("doctor/change-status", tempDoctorStatus)
+        httpClient.PUT("doctor/change-status", tempDoctorStatus,false,true)
             .then(resp => {
                 console.log(resp)
                 if (resp.data.status) {
@@ -76,16 +76,16 @@ const DoctorTable = (props) => {
     }
 
     const handleAddDoctor = () => {
-        props.history.push("/doctor")
+        props.history.push("/dashboard/create-doctor")
     }
 
     const handleEditDoctor = (e, data) => {
         console.log(data)
-        props.history.push("/doctor", data)
+        props.history.push("/dashboard/create-doctor", data)
     }
 
     return (
-        <div className="mt-5">
+        <div>
             <Container>
                 <MaterialTable
                     columns={columns}

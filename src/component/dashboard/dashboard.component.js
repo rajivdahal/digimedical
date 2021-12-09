@@ -17,6 +17,7 @@ import Doctorsidebar from "./doctordashboard/navbarandsidebar/doctorsidebar.comp
 import { Doctordashboard } from "./doctordashboard/doctordashboard/doctordashboard.component"
 import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappointment.component"
 
+import Appointment from "./adminDashboard/appointmentPage/appointment.component"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -42,19 +43,26 @@ const Dashboard = (props) => {
             <>
               <Nav props={props.history}></Nav>
               <Adminsidebar props={props.history}></Adminsidebar>
-              {
-                props.match.path == "/dashboard" ?
-                  <ProtectedRoute component={AdminDashboard}></ProtectedRoute>
-                  :
-                  props.match.path === "/dashboard/doctor-table" ?
-                    <ProtectedRoute component={DoctorTable}></ProtectedRoute>
-                    : props.match.path === "/dashboard/create-doctor" ?
-                      <ProtectedRoute component={Createdoctor}></ProtectedRoute>
-                      : props.match.path === "/dashboard/create-services" ?
-                        <ProtectedRoute component={Createservices}></ProtectedRoute>
-                        : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
-
-              }
+              <div className="container-fluid page-body-wrapper">
+                <div className="main-panel">
+                  <div className="content-wrapper">
+                    {
+                      props.match.path === "/dashboard" ?
+                        <ProtectedRoute component={AdminDashboard}></ProtectedRoute>
+                        :
+                        props.match.path === "/dashboard/doctor-table" ?
+                          <ProtectedRoute component={DoctorTable}></ProtectedRoute>
+                          : props.match.path === "/dashboard/create-doctor" ?
+                            <ProtectedRoute component={Createdoctor}></ProtectedRoute>
+                            : props.match.path === "/dashboard/create-services" ?
+                              <ProtectedRoute component={Createservices}></ProtectedRoute>
+                              : props.match.path === "/dashboard/appointment" ?
+                              <ProtectedRoute component={Appointment}/>
+                              : null
+                    }
+                  </div>
+                </div>
+              </div>
             </>
 
             :

@@ -121,10 +121,11 @@ function FormComponent(props) {
   console.log(formik.values)
   const handleChange = (e) => {
     let serviceid = e.target.value
-    httpClient.GET(`doctor/get-related-doctor/${serviceid}`, false, true)
+    httpClient.GET(`doctor/get-related-doctor/${serviceid}`, false, false)
       .then(resp => {
+    
         setdoctors(resp.data.data)
-        // console.log(resp.data.data)
+        console.log(resp.data.data)
       })
       .catch(err => {
         setdoctors([])
@@ -220,9 +221,9 @@ function FormComponent(props) {
               <option value={null}></option>
               {
                 doctors.map((item, index) => {
-                  if (item.firstname) {
-                    return <option key={index} value={item.id}>{item.firstname + " " + item.lastname}</option>
-                  }
+               
+                    return <option key={index} value={item.id}>{item.name}</option>
+                  
                 })
               }
             </select>

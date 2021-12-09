@@ -4,19 +4,21 @@ import "./Internalappointmentbook.component.css"
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { notify } from '../../../../services/notify';
+import { formatDate } from '../../../../services/timeanddate';
 export default function Internalappointmentbook(prop) {
-    const editdata=prop.location.data?prop.location.data:null
-    console.log("data are",editdata)
+    const editdata = prop.location.data ? prop.location.data : null
+    console.log("data are", editdata)
     const [appointmentsuccess, setappointmentsuccess] = useState(null)
     const [appointmentfailed, setappointmentfailed] = useState(null)
     const [services, setservices] = useState([])
     const [doctors, setdoctors] = useState([])
-    const [isparameterschanged,setisparameterschanged]=useState({
-        servicesId:true,
-        doctorId:true,
-        appointmentDate:true,
-        appointmentTime:true
+    const [isparameterschanged, setisparameterschanged] = useState({
+        servicesId: true,
+        doctorId: true,
+        appointmentDate: true,
+        appointmentTime: true
     })
+    const [toeditdata, settoeditdata] = useState(editdata)
 
     useEffect(() => {
 
@@ -29,8 +31,6 @@ export default function Internalappointmentbook(prop) {
             })
 
     }, [])
-    
-
     const formik = useFormik({
         initialValues: {
             servicesId: '',
@@ -61,9 +61,9 @@ export default function Internalappointmentbook(prop) {
                 .then(resp => {
                     let message = resp.data.message
                     setappointmentsuccess(resp.data.message)
-                    setTimeout(() => {
-                        prop.history.push("/dashboard/viewappointment")
-                    }, 2000);
+                    // setTimeout(() => {   
+                    //     prop.history.push("/dashboard/viewappointment")
+                    // }, 2000);
                 })
                 .catch(err => {
                     console.log(err)
@@ -73,7 +73,7 @@ export default function Internalappointmentbook(prop) {
         }
     })
     const handleChange = (e) => {
-        let{name,value}=e.target
+        let { name, value } = e.target
         httpClient.GET(`doctor/get-related-doctor/${value}`, false, true)
             .then(resp => {
                 setdoctors(resp.data.data)
@@ -84,101 +84,178 @@ export default function Internalappointmentbook(prop) {
                 notify.error("No any doctors are available to this service")
             })
     }
-    const changeparametersstatus=(e)=>{
-        let {name,value}=e.target
-        setisparameterschanged(prevvalue=>{
-            return{
+    const handleeditchange = (e) => {
+        let { name, value } = e.target
+        console.log("name and values are", name, value)
+        settoeditdata(prevvalue => {
+            return {
                 ...prevvalue,
-                [name]:false
+                [name]: value
             }
         })
-        console.log("name and value are",name,value)
+        // TODO
+        // if name is doctorId and serviceId than api call through the cvalue to get the name of doctor and service 
+        // make a new state and update there and show the name of that particular item in the description below 
+        // but when edit api is called send toeditdata or according to the demand 
     }
+    useEffect(() => {
+        console.log("toedit data are", toeditdata)
+    }, [toeditdata])
+    // const changeparametersstatus = (e) => {
+    //     let { name, value } = e.target
+    //     setisparameterschanged(prevvalue => {
+    //         return {
+    //             ...prevvalue,
+    //             [name]: false
+    //         }
+    //     })
+    //     console.log("name and value are", name, value)
+    // }
+    let formcontent = toeditdata ?
+        <div>
+            <div className="form-row">
+                <div className="form-group col-md-6">
+                    <label htmlFor="service">Select Service</label>
+                    <select id="servicesId" name="servicesId" className="form-control" style={{ color: "black" }}
+                        onChange={(e) => {
+                            handleChange(e)
+                            handleeditchange(e)
+                        }}
+                    >
+                        <option value={null}></option>
+                        {
+                            services.map((item, index) => {
+                                return <option key={index} value={item.id}>{item.serviceName}</option>
+                            })
+                        }
+                    </select>
+                    <h3>{toeditdata.servicesId}</h3>
+
+                </div>
+                <div className="form-group col-md-6">
+                    <label htmlFor="doctor">Select Doctor</label>
+                    <select id="doctorId" className="form-control" name="doctorId" style={{ color: "black" }}
+                        onChange={(e) => {
+                            handleeditchange(e)
+                        }}
+                    >
+                        <option value={null}></option>
+                        {
+                            doctors.map((item, index) => {
+                                if (item.name) {
+                                    return <option key={index} value={item.doctorId}>{item.name}</option>
+                                }
+                            })
+                        }
+                    </select>
+                    <h3>{toeditdata.id}</h3>
+
+                </div>
+            </div>
+            <div className="form-row">
+                <div className="form-group col-md-12">
+                    <label htmlFor="appointment">Appointment Date.</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="appointmentDate"
+                        name="appointmentDate"
+                        placeholder="dd/mm/yyyy"
+                        onChange={(e) => {
+                            handleeditchange(e)
+                        }}
+                    />
+                    <h3>{formatDate(toeditdata.appointmentDate) }</h3>
+                </div>
+                <div className="form-group col-md-12">
+                    <label htmlFor="time">Time</label>
+                    <input type="time" placeholder="select time" id="appointmentTime" name="appointmentTime" className="form-control"
+                        onChange={(e) => {
+                            handleeditchange(e)
+                        }}
+                    ></input>
+                    <h3>{toeditdata.appointmentTime}</h3>
+                </div>
+            </div>
+        </div> :
+        <div>
+            <div className="form-row">
+                <div className="form-group col-md-6">
+                    <label htmlFor="service">Select Service</label>
+                    <select id="servicesId" className="form-control" style={{ color: "black" }}
+                        onChange={(e) => {
+                            formik.handleChange(e)
+                            handleChange(e)
+                        }}
+                    >
+                        <option value={null}></option>
+                        {
+                            services.map((item, index) => {
+                                return <option key={index} value={item.id}>{item.serviceName}</option>
+                            })
+                        }
+                    </select>
+                    {formik.errors.servicesId && formik.touched.servicesId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.servicesId}  </div> : null}
+                </div>
+                <div className="form-group col-md-6">
+                    <label htmlFor="doctor">Select Doctor</label>
+                    <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{ color: "black" }}
+                        onChange={(e) => {
+                            formik.handleChange(e)
+                        }}
+                    >
+                        <option value={null}></option>
+                        {
+                            doctors.map((item, index) => {
+                                if (item.name) {
+                                    return <option key={index} value={item.id}>{item.name}</option>
+                                }
+                            })
+                        }
+                    </select>
+                    {formik.errors.doctorId && formik.touched.doctorId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.doctorId}</div> : null}
+                </div>
+            </div>
+            <div className="form-row">
+                <div className="form-group col-md-12">
+                    <label htmlFor="appointment">Appointment Date.</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="appointmentDate"
+                        placeholder="dd/mm/yyyy"
+                        {...formik.getFieldProps("appointmentDate")}
+                        onChange={(e) => {
+                            formik.handleChange(e)
+
+                        }}
+                    />
+                    {formik.errors.appointmentDate && formik.touched.appointmentDate ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentDate}  </div> : null}
+                </div>
+
+                <div className="form-group col-md-12">
+                    <label htmlFor="time">Time</label>
+                    <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formik.getFieldProps("appointmentTime")}
+                        onChange={(e) => {
+                            formik.handleChange(e)
+
+                        }}
+                    ></input>
+                    {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
+                </div>
+            </div>
+
+        </div>
     return (
         <>
             <div className="marginadj">
                 <form onSubmit={formik.handleSubmit} className="form-width-adjust">
-                    <div className="form-row">
-                        <div className="form-group col-md-6">
-                            <label htmlFor="service">Select Service</label>
-                            
-                            <select id="servicesId" className="form-control" style={{ color: "black" }}
-                                onChange={(e) => {
-                                    formik.handleChange(e)
-                                    handleChange(e)
-                                    changeparametersstatus(e)
-                                }}
-                                value="please select"
-                            >
-                               <option value={null}></option>
-                                {
-
-                                    services.map((item, index) => {
-                                        return <option key={index} value={item.id}>{item.serviceName}</option>
-                                    })
-                                }
-                            </select>
-                            <p>{editdata && isparameterschanged.servicesId?editdata.serviceName:null}</p>
-                            {formik.errors.servicesId && formik.touched.servicesId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.servicesId}  </div> : null}
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="doctor">Select Doctor</label>
-                            <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{ color: "black" }}
-                               onChange={(e) => {
-                                formik.handleChange(e)
-                                changeparametersstatus(e)
-                            }}
-                            >
-                                <option value={null}></option>
-                                {
-                                    doctors.map((item, index) => {
-                                        if (item.name) {
-                                            return <option key={index} value={item.id}>{item.name}</option>
-                                        }
-                                    })
-                                }
-                            </select>
-                            <p>{editdata && isparameterschanged.servicesId?editdata.doctorsName:null}</p>
-                            {formik.errors.doctorId && formik.touched.doctorId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.doctorId}</div> : null}
-                       
-                        </div>
-                    </div>
-                    <div className="form-row">
-                        <div className="form-group col-md-12">
-                            <label htmlFor="appointment">Appointment Date.</label>
-                            <input
-                                type="date"
-                                className="form-control"
-                                id="appointmentDate"
-                                placeholder="dd/mm/yyyy"
-                                {...formik.getFieldProps("appointmentDate")}
-                                onChange={(e) => {
-                                    formik.handleChange(e)
-                                    changeparametersstatus(e)
-                                }}
-                            />
-                            <p>{editdata ?editdata.appointmentDate:null}</p>
-                            {formik.errors.appointmentDate && formik.touched.appointmentDate ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentDate}  </div> : null}
-                        </div>
-
-                        <div className="form-group col-md-12">
-                            <label htmlFor="time">Time</label>
-                            <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formik.getFieldProps("appointmentTime")}
-                             onChange={(e) => {
-                                formik.handleChange(e)
-                                changeparametersstatus(e)
-                            }}
-                            ></input>
-                            <p>{editdata && isparameterschanged.appointmentTime?editdata.appointmentTime:null}</p>
-                            {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
-                        </div>
-                    </div>
+                    {formcontent}
                     <div className="col-md-12 col-sm-12 col-xs-12 ">
                         <button type="submit" className="btn btn-primary btn-block">
                             {
-                                editdata?"Save Changes":"Make Appointment"
+                                editdata ? "Save Changes" : "Make Appointment"
                             }
-                            
                         </button>
                         {
                             appointmentsuccess ? <div className="alert alert-success alert-dismissible fade show" role="alert">

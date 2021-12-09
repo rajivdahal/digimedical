@@ -179,13 +179,7 @@ export const Commonupcomingappointment = (props) => {
                         tooltip: 'Delete',
                         onClick: (e, rowData) => { handledelete(e, rowData) }
                     },
-                ] : [
-                    {
-                        icon: Delete,
-                        tooltip: 'Delete',
-                        onClick: (e, rowData) => { handledelete(e, rowData) }
-                    },
-                ]}
+                ] :null}
             ></MaterialTable>
             <Modal show={showModal} onHide={handlecancel}>
                 <Modal.Header >
