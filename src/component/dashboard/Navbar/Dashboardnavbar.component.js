@@ -1,9 +1,10 @@
 import { notify } from "./../../../services/notify"
-import { useState } from "react"
 import { Link } from "react-router-dom"
-
+import {useEffect,useState} from "react"
+import { httpClient } from "../../../utils/httpClient"
 export const Dashboardnavbar=(props)=>{
-    console.log("props in component",props)
+  
+  let [username,setusername]=useState("")
     const [logoutstate, setlogoutstate] = useState({
         logout: false,
       })
@@ -12,6 +13,7 @@ export const Dashboardnavbar=(props)=>{
           logout: true
         })
       }
+
       const logoutyes = () => {
         console.log("inside logout yes")
         localStorage.removeItem("dm-access_token")
@@ -25,19 +27,33 @@ export const Dashboardnavbar=(props)=>{
           logoutno: true
         })
       }
+     
+      useEffect(()=>{
+        httpClient.GET("user-profile",false,true)
+        .then(resp=>{
+          const name=resp.data.data.profileInfo.name
+          setusername(name)
+        })
+        .catch(err=>{
+          notify.error("something went wrong")
+        })
+      })
     return(
         <>
         <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-         <Link to="/"> <a className="navbar-brand brand-logo mr-5" href="index.html"><img src="/images/dashboard/logo.png" className="mr-2" alt="logo" /></a></Link>
-          <a className="navbar-brand brand-logo-mini" href="index.html"><img src="/images/dashboard/logo.png" alt="logo" /></a>
+         <Link to="/"> 
+         <a className="navbar-brand brand-logo mr-5" href="index.html">
+           <img src="/images/logo/logo4.png" className="" alt="logo" />
+           </a>
+           </Link>
+          
         </div>
         <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
           {/* <button className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span className="icon-menu"></span>
           </button> */}
-          <h3 className="font-weight-bold header-color">Welcome Shiva</h3>
-
+          <h3 className="font-weight-bold header-color">Welcome {username}</h3>
           <ul className="navbar-nav navbar-nav-right">
             <li className="nav-item dropdown">
               <a className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">

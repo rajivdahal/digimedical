@@ -7,15 +7,18 @@ import { Modal, Button } from 'react-bootstrap';
 import { formatDate } from "../../../../services/timeanddate"
 import MaterialTable from 'material-table'
 import { Edit, Delete } from "@material-ui/icons";
+import Cliploader from "../../../../utils/clipLoader"
 
 export const Cancelledappointment = (props) => {
     const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
+    const [isloading, setisloading] = useState(false)
     const [pendingData, setpendingData] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [id, setid] = useState()
     const [refresh, setrefresh] = useState()
 
     useEffect(() => {
+        setisloading(true)
         if (fromdoctorcomponent) {
             httpClient.GET("getall-appointments-by/2", false, true)
                 .then(resp => {
@@ -27,12 +30,15 @@ export const Cancelledappointment = (props) => {
                     })
                     console.log(data)
                     setpendingData(resp.data.data)
+                    setisloading(false)
                 })
                 .catch(err => {
                     notify.error("something went wrong")
+                    setisloading(false)
                 })
         }
         else {
+            setisloading(true)
             httpClient.GET("get-user-canceled-appointments", false, true)
                 .then(resp => {
                     let data = resp.data.data
@@ -43,15 +49,18 @@ export const Cancelledappointment = (props) => {
                     })
                     console.log(data)
                     setpendingData(resp.data.data)
+                    setisloading(false)
                 })
                 .catch(err => {
                     notify.error("something went wrong")
+                    setisloading(false)
                 })
 
         }
 
     }, [])
     useEffect(() => {
+        setisloading(true)
         if (fromdoctorcomponent) {
             httpClient.GET("getall-appointments-by/2", false, true)
                 .then(resp => {
@@ -63,12 +72,15 @@ export const Cancelledappointment = (props) => {
                     })
                     console.log(data)
                     setpendingData(resp.data.data)
+                    setisloading(false)
                 })
                 .catch(err => {
                     notify.error("something went wrong")
+                    setisloading(false)
                 })
         }
         else {
+            setisloading(true)
             httpClient.GET("get-user-canceled-appointments", false, true)
                 .then(resp => {
                     let data = resp.data.data
@@ -79,9 +91,11 @@ export const Cancelledappointment = (props) => {
                     })
                     console.log(data)
                     setpendingData(resp.data.data)
+                    setisloading(false)
                 })
                 .catch(err => {
                     notify.error("something went wrong")
+                    setisloading(false)
                 })
         }
 
@@ -137,35 +151,34 @@ export const Cancelledappointment = (props) => {
     }
     return (
         <>
-            <MaterialTable
-                title="Completed Appointments"
-                columns={columns}
-                data={pendingData}
-                options={{
-                    paging: true,
-                    exportButton: true,
-                    searchFieldAlignment: "left",
-                    pageSizeOptions: [5, 10, 20, 25, 50],
-                    pageSize: 5,
-                    showFirstLastPageButtons: false,
-                    paginationType: "stepped",
-                    paginationPosition: "bottom",
-                    exportAllData: true,
-                    actionsColumnIndex: -1,
-                    headerStyle: {
-                        backgroundColor: '#2745F0',
-                        color: '#FFF'
-                    }
+            {
+                isloading ? <Cliploader></Cliploader> :
+                    <MaterialTable
+                        title="Completed Appointments"
+                        columns={columns}
+                        data={pendingData}
+                        options={{
+                            paging: true,
+                            exportButton: true,
+                            searchFieldAlignment: "left",
+                            pageSizeOptions: [5, 10, 20, 25, 50],
+                            pageSize: 5,
+                            showFirstLastPageButtons: false,
+                            paginationType: "stepped",
+                            paginationPosition: "bottom",
+                            exportAllData: true,
+                            actionsColumnIndex: -1,
+                            headerStyle: {
+                                backgroundColor: '#2745F0',
+                                color: '#FFF'
+                            }
 
-                }}
-                actions={[
-                    {
-                        icon: Delete,
-                        tooltip: 'Delete',
-                        onClick: (e, rowData) => { handledelete(e, rowData) }
-                    },
-                ]}
-            ></MaterialTable>
+                        }}
+                       
+                    ></MaterialTable>
+
+
+            }
 
 
             <Modal show={showModal} onHide={handlecancel}>

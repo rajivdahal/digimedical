@@ -6,22 +6,26 @@ import { useFormik } from "formik";
 import { notify } from '../../../../services/notify';
 import { formatDate } from '../../../../services/timeanddate';
 export default function Internalappointmentbook(prop) {
+    console.log("props are", prop)
     const editdata = prop.location.data ? prop.location.data : null
-    console.log("data are", editdata)
+
     const [appointmentsuccess, setappointmentsuccess] = useState(null)
     const [appointmentfailed, setappointmentfailed] = useState(null)
     const [services, setservices] = useState([])
     const [doctors, setdoctors] = useState([])
-    const [isparameterschanged, setisparameterschanged] = useState({
-        servicesId: true,
-        doctorId: true,
-        appointmentDate: true,
-        appointmentTime: true
-    })
+    const [doctorname, setdoctorname] = useState(null)
+    const [service, setservicename] = useState(null)
+    // const [isparameterschanged, setisparameterschanged] = useState({
+    //     servicesId: true,
+    //     doctorId: true,
+    //     appointmentDate: true,
+    //     appointmentTime: true
+    // })
     const [toeditdata, settoeditdata] = useState(editdata)
-
+    if (toeditdata) {
+        toeditdata['serviceId'] = toeditdata['servicesId']
+    }
     useEffect(() => {
-
         httpClient.GET("services/get/true", false, true)
             .then(resp => {
                 setservices(resp.data.data)
@@ -29,7 +33,6 @@ export default function Internalappointmentbook(prop) {
             .catch(err => {
                 notify.error("Something went wrong")
             })
-
     }, [])
     const formik = useFormik({
         initialValues: {
@@ -40,7 +43,6 @@ export default function Internalappointmentbook(prop) {
         },
         validate: values => {
             let errors = {}
-
             if (!values.servicesId) {
                 errors.servicesId = "Service is required!"
             }
@@ -56,20 +58,18 @@ export default function Internalappointmentbook(prop) {
             return errors
         },
         onSubmit: values => {
-            console.log("values are", values)
+            console.log("inside submit")
             httpClient.POST('create-appointment', values, false, true)
                 .then(resp => {
                     let message = resp.data.message
                     setappointmentsuccess(resp.data.message)
-                    // setTimeout(() => {   
-                    //     prop.history.push("/dashboard/viewappointment")
-                    // }, 2000);
+                    setTimeout(() => {
+                        prop.history.push("/dashboard/viewappointment")
+                    }, 2000);
                 })
                 .catch(err => {
-                    console.log(err)
                     setappointmentfailed("something went wrong")
                 })
-
         }
     })
     const handleChange = (e) => {
@@ -77,7 +77,6 @@ export default function Internalappointmentbook(prop) {
         httpClient.GET(`doctor/get-related-doctor/${value}`, false, true)
             .then(resp => {
                 setdoctors(resp.data.data)
-                console.log(resp.data.data)
             })
             .catch(err => {
                 setdoctors([])
@@ -86,37 +85,72 @@ export default function Internalappointmentbook(prop) {
     }
     const handleeditchange = (e) => {
         let { name, value } = e.target
-        console.log("name and values are", name, value)
+        let servicesId
+        if (name === "servicesId") {
+            httpClient.GET(`services/get-name/${value}`)
+                .then(resp => {
+                    setservicename(resp.data.data.servicename)
+                    settoeditdata(prevvalue => {
+                        return {
+                            ...prevvalue,
+                            serviceName: null,
+
+                        }
+                    })
+                })
+                .catch(err => {
+                    notify.error("something went wrong")
+                })
+        }
+        if (name === "doctorId") {
+
+            httpClient.GET(`doctor/doctor-name/${value}`)
+                .then(resp => {
+                    let doctorname = resp.data.data.name
+                    setdoctorname(doctorname)
+                    settoeditdata(prevvalue => {
+                        return {
+                            ...prevvalue,
+                            doctorsName: null
+                        }
+                    })
+                })
+                .catch(err => {
+                    notify.error("something went wrong")
+                })
+        }
+
         settoeditdata(prevvalue => {
             return {
                 ...prevvalue,
                 [name]: value
             }
         })
-        // TODO
-        // if name is doctorId and serviceId than api call through the cvalue to get the name of doctor and service 
-        // make a new state and update there and show the name of that particular item in the description below 
-        // but when edit api is called send toeditdata or according to the demand 
+
     }
     useEffect(() => {
-        console.log("toedit data are", toeditdata)
+        console.log(toeditdata)
     }, [toeditdata])
-    // const changeparametersstatus = (e) => {
-    //     let { name, value } = e.target
-    //     setisparameterschanged(prevvalue => {
-    //         return {
-    //             ...prevvalue,
-    //             [name]: false
-    //         }
-    //     })
-    //     console.log("name and value are", name, value)
-    // }
+    const handlesubmit = (e) => {
+        if (toeditdata) {
+            httpClient.PUT(`update-appointment/${toeditdata.appointmentId}`, toeditdata, false, true)
+                .then(resp => {
+                    notify.success("Appointment updated successfully")
+                    prop.history.push("/dashboard/viewappointment")
+                })
+                .catch(err => {
+                    notify.error("Error in updating the appointment")
+                })
+        }
+
+
+    }
     let formcontent = toeditdata ?
         <div>
             <div className="form-row">
                 <div className="form-group col-md-6">
                     <label htmlFor="service">Select Service</label>
-                    <select id="servicesId" name="servicesId" className="form-control" style={{ color: "black" }}
+                    <select name="servicesId" className="form-control" style={{ color: "black" }}
                         onChange={(e) => {
                             handleChange(e)
                             handleeditchange(e)
@@ -129,7 +163,7 @@ export default function Internalappointmentbook(prop) {
                             })
                         }
                     </select>
-                    <h3>{toeditdata.servicesId}</h3>
+                    <h4>{toeditdata.serviceName ? toeditdata.serviceName : service}</h4>
 
                 </div>
                 <div className="form-group col-md-6">
@@ -143,12 +177,13 @@ export default function Internalappointmentbook(prop) {
                         {
                             doctors.map((item, index) => {
                                 if (item.name) {
-                                    return <option key={index} value={item.doctorId}>{item.name}</option>
+                                    return <option key={index} value={item.id}>{item.name}</option>
                                 }
                             })
                         }
                     </select>
-                    <h3>{toeditdata.id}</h3>
+                    <h4>{toeditdata.doctorsName ? toeditdata.doctorsName : doctorname}</h4>
+                    {/* <h4>{!doctorname && toeditdata.doctorsName ?toeditdata.doctorsName:doctorname}</h4> */}
 
                 </div>
             </div>
@@ -165,7 +200,7 @@ export default function Internalappointmentbook(prop) {
                             handleeditchange(e)
                         }}
                     />
-                    <h3>{formatDate(toeditdata.appointmentDate) }</h3>
+                    <h4>{formatDate(toeditdata.appointmentDate)}</h4>
                 </div>
                 <div className="form-group col-md-12">
                     <label htmlFor="time">Time</label>
@@ -174,7 +209,7 @@ export default function Internalappointmentbook(prop) {
                             handleeditchange(e)
                         }}
                     ></input>
-                    <h3>{toeditdata.appointmentTime}</h3>
+                    <h4>{toeditdata.appointmentTime}</h4>
                 </div>
             </div>
         </div> :
@@ -252,7 +287,7 @@ export default function Internalappointmentbook(prop) {
                 <form onSubmit={formik.handleSubmit} className="form-width-adjust">
                     {formcontent}
                     <div className="col-md-12 col-sm-12 col-xs-12 ">
-                        <button type="submit" className="btn btn-primary btn-block">
+                        <button type="submit" className="btn btn-primary btn-block" onClick={handlesubmit}>
                             {
                                 editdata ? "Save Changes" : "Make Appointment"
                             }

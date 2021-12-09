@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { notify } from '../../../../services/notify'
-
+import { useEffect } from 'react'
+import { httpClient } from '../../../../utils/httpClient'
 const Doctornavbar = (props) => {
-
+    let [username,setusername]=useState("")
     const [logoutstate, setlogoutstate] = useState({
         logout: false,
     })
@@ -23,7 +24,16 @@ const Doctornavbar = (props) => {
             logoutno: true
         })
     }
-
+    useEffect(() => {
+        httpClient.GET("user-profile", false, true)
+            .then(resp => {
+                const name = resp.data.data.profileInfo.name
+                setusername(name)
+            })
+            .catch(err => {
+                notify.error("something went wrong")
+            })
+    })
     return (
         <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -32,11 +42,11 @@ const Doctornavbar = (props) => {
                 </div>
                 <div className="navbar-brand brand-logo-mini" href="index.html">
                     <img src="/images/dashboard/logo.png" alt="logo" />
-                    </div>
+                </div>
             </div>
             <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
 
-                <p className="font-weight-bold welcome-shiva">Welcome Shiva</p>
+                <h3 className="font-weight-bold welcome-shiva">Welcome Dr. {username}</h3>
 
                 <ul className="navbar-nav navbar-nav-right">
                     <li className="nav-item dropdown">
@@ -118,7 +128,7 @@ const Doctornavbar = (props) => {
                             :
                             null
                     }
-                    
+
                 </ul>
                 <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                     <span className="icon-menu"></span>

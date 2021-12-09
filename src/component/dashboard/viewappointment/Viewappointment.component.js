@@ -224,7 +224,7 @@ export const Viewappointment = (props) => {
                                             <p className={`card-title ${isdynamicCancelledclass ? "title-focus" : null}`} onClick={handleCancelledclass}>Cancelled Appointment</p>
                                         </div>
                                         {
-                                            upcomingappointment ? <Upcomingappointment props={props.history} fromdoctorcomponent={fromdoctorcomponent}></Upcomingappointment>
+                                            upcomingappointment ?<Upcomingappointment props={props.history} fromdoctorcomponent={fromdoctorcomponent}></Upcomingappointment>
                                                 :
                                                 pendingappointment ? <Completedappointment fromdoctorcomponent={fromdoctorcomponent}></Completedappointment>
                                                     : cancelledappointment ? <Cancelledappointment fromdoctorcomponent={fromdoctorcomponent}></Cancelledappointment>

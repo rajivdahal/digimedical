@@ -56,7 +56,7 @@ export default function Usersidebar() {
                                 <Link to="/dashboard/all-payments">
                                     <li className="nav-item"> <a className="nav-link" href=""> All Payments </a></li>
                                 </Link>
-                                <Link to="/dashboard/add-payment">
+                                <Link to="/dashboard/add-payments">
                                     <li className="nav-item"> <a className="nav-link" href=""> Add Payment </a></li>
                                 </Link>
                                 <Link to="/dashboard/invoice">
@@ -65,6 +65,7 @@ export default function Usersidebar() {
                             </ul>
                         </div>
                     </li>
+                    <Link to="/dashboard/lab-reports">
                     <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
                             <i className="fas fa-pager menu-icon"></i>
@@ -73,6 +74,8 @@ export default function Usersidebar() {
                         </a>
 
                     </li>
+                    </Link>
+                    <Link to="/dashboard/medical-reports">
                     <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
                             <i className="fas fa-file-medical menu-icon"></i>
@@ -80,6 +83,7 @@ export default function Usersidebar() {
                         </a>
 
                     </li>
+                    </Link>
 
                 </ul>
             </nav>
