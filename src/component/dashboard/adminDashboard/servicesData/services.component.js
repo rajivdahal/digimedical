@@ -34,7 +34,7 @@ const Createservices = (props) => {
             .then(resp => {
                 if (resp.data.status) {
                     let data = resp.data.data;
-                    // console.log(data)
+                    console.log(data)
                     setServices(data);
                 }
             })
@@ -236,7 +236,11 @@ const Createservices = (props) => {
                 </Modal>
 
                 <MaterialTable
-                    columns={columns}
+                    columns={[
+                        { title: 'Service Name', field: 'serviceName', },
+                        { title: 'Service Description', field: 'serviceDescription', sorting: false },
+                        {title: 'Status', field: 'activeStatus'},
+                    ]}
                     data={services}
                     title="Service Details"
                     icons={Tableicons}
