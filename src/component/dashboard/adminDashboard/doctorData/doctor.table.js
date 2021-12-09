@@ -13,29 +13,22 @@ const DoctorTable = (props) => {
     const [showModal, setShowModal] = useState(false);
     const [doctorId, setDoctorId] = useState("");
     const [doctorStatus, setDoctorStatus] = useState("");
-
-    const columns = [
-        { title: 'ID', field: 'id' },
-        { title: 'Name', field: 'name' },
-        { title: 'Description', field: 'description' },
-        { title: 'NMC', field: 'nmcNo', },
-        { title: 'Prefix', field: 'prefix' },
-        { title: 'Status', field: 'status' },
-
-    ]
-
+    const [ loading,setLoading] = useState(false)
     const handleClose = () => setShowModal(false)
 
     const getDoctor = () => {
-        httpClient.GET("doctor/getall",false,true)
+        setLoading(true)
+        httpClient.GET("doctor/getall", false, true)
             .then(resp => {
                 console.log(resp)
                 if (resp.data.status) {
                     setDoctors(resp.data.data)
                 }
+                setLoading(false)
             })
             .catch(err => {
                 console.log(err.response)
+                setLoading(false)
             })
     }
 
@@ -59,7 +52,7 @@ const DoctorTable = (props) => {
 
 
         console.log(tempDoctorStatus)
-        httpClient.PUT("doctor/change-status", tempDoctorStatus,false,true)
+        httpClient.PUT("doctor/change-status", tempDoctorStatus, false, true)
             .then(resp => {
                 console.log(resp)
                 if (resp.data.status) {
@@ -88,7 +81,22 @@ const DoctorTable = (props) => {
         <div>
             <Container>
                 <MaterialTable
-                    columns={columns}
+                    columns={[
+                        { title: 'ID', field: 'id' },
+                        { title: 'Name', field: 'name' },
+                        { title: 'Description', field: 'description' },
+                        { title: 'NMC', field: 'nmcNo', },
+                        { title: 'Prefix', field: 'prefix' },
+                        {
+                            title: 'Status', field: 'status',
+                            // render: rowData => rowData.status.toString() == "true" ?
+                            //             <span style={{ color: '#18af69' }}>{rowData.status}</span>
+                            //             :
+                            //             <span style={{ color: 'red' }}>{rowData.status}</span>
+
+                        },
+                    ]}
+
                     data={doctors}
                     title="All Doctor Details"
                     icons={Tableicons}
@@ -112,7 +120,7 @@ const DoctorTable = (props) => {
                         },
 
                     ]}
-
+                    isLoading={loading}
                     options={{
                         actionsColumnIndex: -1,
                         pageSize: 20,

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { notify } from '../../../../services/notify'
-
+import "./nav.component.css"
 const Nav = (props) => {
 
     const [logoutstate, setlogoutstate] = useState({
@@ -23,17 +23,15 @@ const Nav = (props) => {
             logoutno: true
         })
     }
-
+    
     return (
         <>
-        {/* <div className="container-fluid page-body-wrapper"> */}
-
         <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-            <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a className="navbar-brand brand-logo" href="index.html">
-                    <img src="/images/dashboard/logo.png" alt="logo" />
+            <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center logo">
+                <a className="navbar-brand brand-logo logoHeight" href="">
+                    <img src="/images/dashboard/logo.png " alt="logo" />
                 </a>
-                <a className="navbar-brand brand-logo-mini" href="index.html">
+                <a className="navbar-brand brand-logo-mini" href="">
                     <img src="/images/dashboard/logo.png" alt="logo" />
                     </a>
             </div>

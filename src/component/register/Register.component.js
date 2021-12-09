@@ -18,7 +18,7 @@ const RegisterComponent = (props) => {
             mobileNumber: '',
             email: '',
             password: '',
-            confrimpassword: '',
+            confirmPassword: '',
         },
         validate: values => {
             let errors = {}
@@ -54,11 +54,11 @@ const RegisterComponent = (props) => {
             if (!values.password) {
                 errors.password = "Password must not be empty!"
             }
-            if (!values.confrimpassword) {
-                errors.confrimpassword = "Please confirm your Password!"
+            if (!values.confirmPassword) {
+                errors.confirmPassword = "Please confirm your Password!"
             }
-            if (values.confrimpassword != values.password) {
-                errors.confrimpassword = "Password doesn't match!"
+            if (values.confirmPassword != values.password) {
+                errors.confirmPassword = "Password doesn't match!"
             }
             return errors
         },
@@ -167,8 +167,8 @@ const RegisterComponent = (props) => {
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
                                             <label>Confirm Password </label>
-                                            <input type="password" className="form-control form-input" placeholder="" id="confrimpassword" name="confrimpassword" onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                            {formik.errors.confrimpassword && formik.touched.confrimpassword ? <div style={{ color: "red" }} className="errmsg">{formik.errors.confrimpassword}</div> : null}
+                                            <input type="password" className="form-control form-input" placeholder="" id="confirmPassword" name="confirmPassword" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            {formik.errors.confirmPassword && formik.touched.confirmPassword ? <div style={{ color: "red" }} className="errmsg">{formik.errors.confirmPassword}</div> : null}
                                         </div>
                                     </div>
                                     <div className="sign-btn text-center w-100 mt-4">

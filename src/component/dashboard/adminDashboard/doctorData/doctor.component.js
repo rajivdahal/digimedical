@@ -3,7 +3,7 @@ import { Form, Button, Container, Row, Col, Nav } from "react-bootstrap";
 import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
 import Cliploader from "../../../../utils/clipLoader";
-// import "./doctor.component.css"
+import "./doctor.component.css"
 
 const Createdoctor = (props) => {
     // const [loading, setLoading] = useState(false),
@@ -240,6 +240,29 @@ const Createdoctor = (props) => {
 
     }
 
+    const removeService=(e,id)=>{
+        console.log(id)
+        let remainingService = doctorData.doctorServices.filter((service)=>{
+            return (service.id != id)
+        })
+
+        console.log(remainingService);
+
+        if(remainingService.length > 0) {
+            let doctorServiceArr = { ...doctorData, ...{doctorServices : remainingService} }
+            let notSelected = [];
+            services.forEach((service)=>{
+            
+                let found = remainingService.includes(service);
+                if(!found){
+                    notSelected.push(service)
+                }
+            })
+            setDoctorData(doctorServiceArr)
+            setAvailableServices(notSelected)
+        }
+    }
+
     return (
         <div >
 
@@ -318,26 +341,22 @@ const Createdoctor = (props) => {
                         </Col>
 
                         <Col md={1}>
-                            <Button className="mt-4" onClick={handleAddService}>Add</Button>
+                            <Button variant="info" className="mt-4" onClick={handleAddService}>Add</Button>
                         </Col>
 
                         <Col md={1}></Col>
 
                     </Row>
 
-                    <Row className="mb-3">
-                        <Col md={6}>
+                    <div className="mb-3 clearfix">
+                        
                             {doctorData.doctorServices.map((service, index) => {
-                                // console.log(doctorData.doctorServices)
-                                return <div className="serviceName" key={index}><p>{service.serviceName}</p>
-                                </div>
+                                return <span className="service" key={index} onClick={(e)=>removeService(e,service.id)}>
+                                    <span>{service.serviceName}</span>
+                                </span>
                             })}
 
-                        </Col>
-
-                        <Col md={1}></Col>
-
-                    </Row>
+                    </div>
 
                     <Row className="mb-3">
 
