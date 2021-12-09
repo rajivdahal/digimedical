@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
-import Search from "../../assets/Search.png";
 import { Link } from "react-router-dom";
-import "./navbarmenu.component.css"
+import Search from "./Search/Search";
+
 const Root = styled.div`
   background-color: #2745f0;
 
@@ -25,21 +25,27 @@ const LogMenuItemsContainor = styled.div`
     margin-left: 5rem;
     color: #fff;
     .menu-item {
+      
       margin-left: 1rem;
       font-size: 13px;
       letter-spacing: 0.05em;
       line-height: 26px;
       font-weight: 500;
       font-style: normal;
+
+      &:hover {
+        border-bottom: 1px solid #fff;
+        // transition: 4s;
     }
+   
   }
 `;
 const Menuitems = styled.div``;
-const SearchContainor = styled.div`
-  background-color: #fff;
-  border-radius: 4px;
-  padding: 0.4rem;
-`;
+// const SearchContainor = styled.div`
+//   background-color: #fff;
+//   border-radius: 4px;
+//   padding: 0.4rem;
+// `;
 const NavbarMenuItems = () => {
   return (
     <Root>
@@ -53,24 +59,46 @@ const NavbarMenuItems = () => {
           ></img>
         </Link>
         <div className="menu">
-          <Link to="/" style={{textDecoration:"none",color:"white"}}><span className="menu-item">Home</span></Link>
-          <Link to="/about" style={{textDecoration:"none",color:"white"}}> <span className="menu-item">About</span></Link>
-          <Link to="/services" style={{textDecoration:"none",color:"white"}}> <span className="menu-item">Services</span></Link>
-          <Link to="/lab-test" style={{textDecoration:"none",color:"white"}}><span className="menu-item">Lab Test</span></Link>
-          <Link to="/health-packages" style={{textDecoration:"none",color:"white"}}><span className="menu-item">Health Pacakages</span></Link>
-          <Link to="/special-packages" style={{textDecoration:"none",color:"white"}}><span className="menu-item">Special Pacakages</span></Link>
-          <Link to="/contact" style={{textDecoration:"none",color:"white"}}> <span className="menu-item">Contact</span></Link>
+          {" "}
+          <span className="menu-item">
+            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+              Home{" "}
+            </Link>
+          </span>
+          <span className="menu-item">
+            <Link
+              to="/about"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              About
+            </Link>
+          </span>
+          <span className="menu-item">
+            <Link
+              to="/service"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Services{" "}
+            </Link>
+          </span>
+          <span className="menu-item">Lab Test</span>
+          <span className="menu-item">Health Pacakages</span>
+          <span className="menu-item">Special Pacakages</span>
+          <span className="menu-item">
+            {" "}
+            <Link
+              to="/contact"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Contact
+            </Link>
+          </span>
         </div>
       </LogMenuItemsContainor>
-
-      <SearchContainor>
-        <img
-          src={Search}
-          style={{
-            height: "1rem",
-          }}
-        ></img>
-      </SearchContainor>
+      <Search />
+      {/* <SearchContainor>
+        
+      </SearchContainor> */}
     </Root>
   );
 };

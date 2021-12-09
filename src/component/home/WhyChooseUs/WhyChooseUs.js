@@ -27,11 +27,11 @@ function WhyChooseUs() {
   `;
   const RightSection = styled.div``;
   const Main = styled.div`
-    font-weight: 700;
-    font-size: 40px;
+    font-style: normal;
+    line-height: 52px;
+    font-size: 38px;
     color: #192638;
     text-align: center;
-    line-height: 52px;
   `;
 
   const Sub = styled.div`

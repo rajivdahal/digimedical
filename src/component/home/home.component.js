@@ -7,11 +7,10 @@ import OurServices from "./About/OurServices";
 import WhyChooseUs from "./WhyChooseUs/WhyChooseUs";
 import BookAnAppointment from "./BookAnAppointment/BookAnAppointment";
 import TheyTrustedUs from "./TheyTrustedUs/TheyTrustedUs";
-import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
-import { Link } from "react-router-dom";
+import Footer from "../Footer/Footer";
 const Root = styled.div`
-  background-color: red;
+  // background-color: red;
   height: 33.7rem;
 `;
 const HeroSectionContent = styled.div`
@@ -78,16 +77,27 @@ export const Home = (props) => {
             Lorem ipsum dolor sit amet, consectetur adipisci elit. Netus eros
             dolor sapien eget. Mattis malesuada quam sed accumsan lectus{" "}
           </SubHeading>
+
           <ButtonContainor>
-            <a href="#bookappointment">
-            <GetAppointment type="button" className="btn btn-primary">
-              Get Appointment
-            </GetAppointment>
+            <a href="#BookanAppointment">
+              <GetAppointment type="button" className="btn btn-primary">
+                Get Appointment
+              </GetAppointment>
             </a>
-         
             <ReadMore type="button" className="btn btn-outline-primary">
               Read MOre
             </ReadMore>
+            {/* <div class="btn-group dropright">
+  <button type="button" class="btn btn-secondary">
+    Split dropright
+  </button>
+  <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="sr-only">Toggle Dropright</span>
+  </button>
+  <div class="dropdown-menu">
+    hello
+  </div>
+</div> */}
           </ButtonContainor>
         </HeroSectionContent>
         <ConnectionContainor>
