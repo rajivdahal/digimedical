@@ -2,6 +2,7 @@ import { notify } from "./../../../services/notify"
 import { Link } from "react-router-dom"
 import {useEffect,useState} from "react"
 import { httpClient } from "../../../utils/httpClient"
+import "./dashboardnavbar.component.css"
 export const Dashboardnavbar=(props)=>{
   
   let [username,setusername]=useState("")
@@ -43,8 +44,8 @@ export const Dashboardnavbar=(props)=>{
         <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
          <Link to="/"> 
-         <a className="navbar-brand brand-logo mr-5" href="index.html">
-           <img src="/images/logo/logo4.png" className="" alt="logo" />
+         <a className="navbar-brand" href="index.html">
+           <img src="/images/logo/logo4.png" className=" logoimg" alt="logo" />
            </a>
            </Link>
           

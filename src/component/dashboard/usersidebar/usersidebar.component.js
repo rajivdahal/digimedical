@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import "./usersidebar.component"
+import DashboardIcon from '@material-ui/icons/Dashboard';
 export default function Usersidebar() {
     return (
         <div >
@@ -9,16 +10,17 @@ export default function Usersidebar() {
                     <Link to="/dashboard" >
                         <li className="nav-item">
                             <div className="nav-link dashboard-styling" data-toggle="collapse" aria-expanded="false" aria-controls="doctors" style={{ cursor: "pointer" }}>
-
                                 <i className="fas fa-bars menu-icon"></i>
+                                {/* <DashboardIcon/>     */}
                                 <span className="menu-title" style={{ color: "grey" }}>Dashboard</span>
-
                             </div>
                         </li>
                     </Link>
                     <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
                             <i className="fas fa-user-clock menu-icon"></i>
+                            
+                            
                             <span className="menu-title">Appointments</span>
                             <i className="menu-arrow"></i>
                         </a>
@@ -34,16 +36,13 @@ export default function Usersidebar() {
                         </div>
                     </li>
                     <Link to="/dashboard/doctors">
-
                         <li className="nav-item">
                             <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
                                 <i className="fas fa-user-md  menu-icon"></i>
                                 <span className="menu-title" >Doctors</span>
                             </a>
                         </li>
-
                     </Link>
-
 
                     <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">

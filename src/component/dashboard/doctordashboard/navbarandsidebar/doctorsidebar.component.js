@@ -12,7 +12,7 @@ const Doctorsidebar =(props)=>{
             <li className="nav-item">
 
               <div className="nav-link" data-toggle="collapse" href="#dash" aria-expanded="false" aria-controls="dash">
-                <Link to="/dashboard">
+                <Link to="/dashboard/">
                 <i className="icon-grid menu-icon"></i>
                 <span className="menu-title">Dashboard</span>
                 </Link>

@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { notify } from '../../../../services/notify'
 import { useEffect } from 'react'
 import { httpClient } from '../../../../utils/httpClient'
+import "./doctornavbar.component.css"
+import { Link } from 'react-router-dom'
 const Doctornavbar = (props) => {
-    let [username,setusername]=useState("")
+    let [username, setusername] = useState("")
     const [logoutstate, setlogoutstate] = useState({
         logout: false,
     })
@@ -37,12 +39,11 @@ const Doctornavbar = (props) => {
     return (
         <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <div className="navbar-brand brand-logo" href="index.html">
-                    <img src="/images/dashboard/logo.png" alt="logo" />
-                </div>
-                <div className="navbar-brand brand-logo-mini" href="index.html">
-                    <img src="/images/dashboard/logo.png" alt="logo" />
-                </div>
+                <Link to="/">
+                    <a className="navbar-brand" href="index.html">
+                        <img src="/images/logo/logo4.png" className=" logoimg" alt="logo" />
+                    </a>
+                </Link>
             </div>
             <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
 
