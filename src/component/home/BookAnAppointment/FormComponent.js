@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import {useFormik } from "formik";
+import { useFormik } from "formik";
 import { httpClient } from "../../../utils/httpClient";
 import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
+import Cliploader from "../../../utils/clipLoader";
 const FormSection = styled.div`
   height: auto;
   margin-top: 25px;
@@ -43,6 +44,7 @@ function FormComponent(props) {
   const [appointmentfailed, setappointmentfailed] = useState(null)
   const [services, setservices] = useState([])
   const [doctors, setdoctors] = useState([])
+  const [isloading, setisloading] = useState(false)
   useEffect(() => {
     httpClient.GET("services/get/true")
       .then(resp => {
@@ -82,6 +84,9 @@ function FormComponent(props) {
       if (!values.mobileNumber) {
         errors.mobileNumber = "Required!"
       }
+      if (("" + values.mobileNumber).length != 10) {
+        errors.mobileNumber = "Mobile Number must be of 10 digits!"
+      }
       if (!values.servicesId) {
         errors.servicesId = "Required!"
       }
@@ -97,24 +102,31 @@ function FormComponent(props) {
       return errors
     },
     onSubmit: values => {
-      console.log("values are", values)
+      setisloading(true)
       httpClient.POST('create-external-user', values)
         .then((res) => {
           setappointmentsuccess(res.data.message)
         })
         .catch(err => {
+          console.log(err.response)
           if (!err) {
             return setappointmentfailed("something went wrong")
           }
           console.log("inside error")
-          setappointmentfailed(err.response.data.message + " redirecting to dashboard....")
-          setTimeout(() => {
-            let token = localStorage.getItem("dm-access_token")
-            token ? prop.push("/dashboard") : prop.push({
-              pathname: '/login',
-              timeoutMsg: "please login"
-            })
-          }, 2000)
+          if (err.response.data.message === "Email already exists") {
+            setappointmentfailed(err.response.data.message + " redirecting to dashboard....")
+            return setTimeout(() => {
+              let token = localStorage.getItem("dm-access_token")
+              token ? prop.push("/dashboard") : prop.push({
+                pathname: '/login',
+                timeoutMsg: "please login"
+              })
+            }, 2000)
+          }
+          notify.error("something went wrong ")
+        })
+        .finally(() => {
+          setisloading(false)
         })
     }
   })
@@ -123,7 +135,7 @@ function FormComponent(props) {
     let serviceid = e.target.value
     httpClient.GET(`doctor/get-related-doctor/${serviceid}`, false, false)
       .then(resp => {
-    
+
         setdoctors(resp.data.data)
         console.log(resp.data.data)
       })
@@ -221,9 +233,9 @@ function FormComponent(props) {
               <option value={null}></option>
               {
                 doctors.map((item, index) => {
-               
-                    return <option key={index} value={item.id}>{item.name}</option>
-                  
+
+                  return <option key={index} value={item.id}>{item.name}</option>
+
                 })
               }
             </select>
@@ -250,9 +262,14 @@ function FormComponent(props) {
           </div>
         </div>
         <div className="col-md-12 col-sm-12 col-xs-12 ">
-          <button type="submit" className="btn btn-primary btn-block">
-            Make Appointment
-          </button>
+          {
+            isloading ?
+              <Cliploader></Cliploader>
+              :
+              <button type="submit" className="btn btn-primary btn-block">
+                Make Appointment
+              </button>
+          }
           {
             appointmentsuccess ? <div className="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong>

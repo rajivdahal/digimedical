@@ -4,7 +4,6 @@ import {useEffect,useState} from "react"
 import { httpClient } from "../../../utils/httpClient"
 import "./dashboardnavbar.component.css"
 export const Dashboardnavbar=(props)=>{
-  
   let [username,setusername]=useState("")
     const [logoutstate, setlogoutstate] = useState({
         logout: false,
@@ -48,12 +47,8 @@ export const Dashboardnavbar=(props)=>{
            <img src="/images/logo/logo4.png" className=" logoimg" alt="logo" />
            </a>
            </Link>
-          
         </div>
         <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-          {/* <button className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-            <span className="icon-menu"></span>
-          </button> */}
           <h3 className="font-weight-bold header-color">Welcome {username}</h3>
           <ul className="navbar-nav navbar-nav-right">
             <li className="nav-item dropdown">
@@ -118,8 +113,6 @@ export const Dashboardnavbar=(props)=>{
                   <i className="ti-power-off text-primary"></i>
                   <span>Logout</span>
                 </div>
-
-
               </div>
             </li>
             {
@@ -135,11 +128,6 @@ export const Dashboardnavbar=(props)=>{
                 :
                 null
             }
-            <li className="nav-item nav-settings d-none d-lg-flex">
-              <a className="nav-link" href="#">
-                <i className="icon-ellipsis"></i>
-              </a>
-            </li>
           </ul>
           <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span className="icon-menu"></span>

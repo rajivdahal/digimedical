@@ -164,7 +164,7 @@ export const Commonupcomingappointment = (props) => {
             {
                 isloading ? <Cliploader></Cliploader> :
                     <MaterialTable
-                        title="Upcoming appointments"
+                        title="Appointments"
                         columns={columns}
                         data={pendingData}
                         options={{

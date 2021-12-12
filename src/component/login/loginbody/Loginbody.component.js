@@ -30,12 +30,12 @@ const Loginbodycomponent = (props) => {
                 .then(resp => {
                     let response = JSON.parse(resp)
                     console.log(response)
-                    let { access_token, refresh_token, expires_in,status,userid } = response
+                    let { access_token, refresh_token, expires_in, status, userid } = response
                     localStorage.setItem("dm-access_token", access_token)
                     localStorage.setItem("dm-refresh_token", refresh_token)
                     localStorage.setItem("timeout", expires_in)
-                    localStorage.setItem("status",status)
-                    localStorage.setItem("userid",userid)
+                    localStorage.setItem("status", status)
+                    localStorage.setItem("userid", userid)
                     setTimeout(() => {
                         props.history.push({
                             pathname: `/dashboard/`
@@ -73,7 +73,7 @@ const Loginbodycomponent = (props) => {
 
 
 
-                        
+
     // render() {
     const alert = props.usernameinfo ? props.usernameinfo : "not found"
 
@@ -84,7 +84,7 @@ const Loginbodycomponent = (props) => {
                     <div className="row adjust-height">
                         <div className="col-md-6 adj-height">
                             <div className="login-img">
-                                <img src="/images/login-bg.png" alt="" className="img-fluid"  style={{height:700}}/>
+                                <img src="/images/login-bg.png" alt="" className="img-fluid" style={{ height: 700 }} />
                             </div>
                         </div>
                         <div className="col-md-6 adj-form">
@@ -112,8 +112,9 @@ const Loginbodycomponent = (props) => {
                                             <Submitbtn enabledLabel="Login" disabledLabel="Logging in......" isSubmitting={isLoading}></Submitbtn>
                                         </a><br />
 
-                                        <a href="#" className="pt-3 text-center w-100">Forgot Password?
-                                            <br />(request a new one)</a>
+                                        <Link to="/forgot-password"><div className="pt-3 text-center w-100">Forgot Password?
+                                            <br />(request a new one)</div>
+                                        </Link>
                                         <p className="text-center w-100 pt-3">OR</p>
                                         <Link to="/register">
 
