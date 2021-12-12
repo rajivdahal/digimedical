@@ -38,6 +38,7 @@ const Createdoctor = (props) => {
     })
 
     const initialize = async () => {
+        console.log(props)
         let allServices = await getServices();
         if (props.location.state && props.location.state.id != null) {
             await getDoctorById(allServices);
@@ -219,6 +220,7 @@ const Createdoctor = (props) => {
             })
             .catch(err => {
                 console.log(err.response)
+                notify.error(err.response.data.message)
                 setLoading(false)
 
             })
@@ -240,21 +242,21 @@ const Createdoctor = (props) => {
 
     }
 
-    const removeService=(e,id)=>{
+    const removeService = (e, id) => {
         console.log(id)
-        let remainingService = doctorData.doctorServices.filter((service)=>{
+        let remainingService = doctorData.doctorServices.filter((service) => {
             return (service.id != id)
         })
 
         console.log(remainingService);
 
-        if(remainingService.length > 0) {
-            let doctorServiceArr = { ...doctorData, ...{doctorServices : remainingService} }
+        if (remainingService.length > 0) {
+            let doctorServiceArr = { ...doctorData, ...{ doctorServices: remainingService } }
             let notSelected = [];
-            services.forEach((service)=>{
-            
+            services.forEach((service) => {
+
                 let found = remainingService.includes(service);
-                if(!found){
+                if (!found) {
                     notSelected.push(service)
                 }
             })
@@ -349,12 +351,12 @@ const Createdoctor = (props) => {
                     </Row>
 
                     <div className="mb-3 clearfix">
-                        
-                            {doctorData.doctorServices.map((service, index) => {
-                                return <span className="service" key={index} onClick={(e)=>removeService(e,service.id)}>
-                                    <span>{service.serviceName}</span>
-                                </span>
-                            })}
+
+                        {doctorData.doctorServices.map((service, index) => {
+                            return <span className="service" key={index} onClick={(e) => removeService(e, service.id)}>
+                                <span>{service.serviceName}</span>
+                            </span>
+                        })}
 
                     </div>
 
@@ -375,6 +377,7 @@ const Createdoctor = (props) => {
                             </Form.Group>
                         </Col>
                     </Row>
+
                     <Row className="mb-3">
                         <Col md={4}>
                             <Form.Group>
@@ -383,20 +386,33 @@ const Createdoctor = (props) => {
                                     onChange={handleChange} value={doctorData.email} />
                             </Form.Group>
                         </Col>
-                        <Col md={4}>
-                            <Form.Group>
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Enter Last Name" name="password"
-                                    onChange={handleChange} />
-                            </Form.Group>
+
+                        <Col md={8}>
+                            {doctorId ?
+                                <></>
+                                :
+                                <Row>
+
+                                    <Col md={6}>
+                                        <Form.Group>
+                                            <Form.Label>Password</Form.Label>
+                                            <Form.Control type="password" placeholder="Enter Last Name" name="password"
+                                                onChange={handleChange} />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={6}>
+                                        <Form.Group>
+                                            <Form.Label>Confirm Password</Form.Label>
+                                            <Form.Control type="password" placeholder="Enter Last Name" name="confirmPassword"
+                                                onChange={handleChange} />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                            } 
+
+
                         </Col>
-                        <Col md={4}>
-                            <Form.Group>
-                                <Form.Label>Confirm Password</Form.Label>
-                                <Form.Control type="password" placeholder="Enter Last Name" name="confirmPassword"
-                                    onChange={handleChange} />
-                            </Form.Group>
-                        </Col>
+
                     </Row>
 
                     {/* <Row className="mb-3">
@@ -408,11 +424,11 @@ const Createdoctor = (props) => {
 
                     </Row> */}
                     {loading == true ?
-                        <Cliploader isLoading={loading}/>
+                        <Cliploader isLoading={loading} />
                         :
                         <div>
                             {doctorId ?
-                                <div>
+                                <div className="textAlign-right">
                                     <Button variant="info" type="button" onClick={editDoctorDetail}>
                                         Edit
                                     </Button>
@@ -422,17 +438,16 @@ const Createdoctor = (props) => {
                                 </div>
 
                                 :
-
+                                <div className="textAlign-right">
                                 <Button variant="info" type="button" onClick={handleCreateDoctor}>
                                     Create
                                 </Button>
+                                </div> 
                             }
                         </div>
                     }
 
                 </Form>
-
-                {/* <ClipLoader color={color} loading={loading} size={150} /> */}
 
             </Container>
         </div>

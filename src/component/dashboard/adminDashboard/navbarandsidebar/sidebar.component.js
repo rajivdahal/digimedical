@@ -7,7 +7,7 @@ const Adminsidebar = (props) => {
         <p className="centered mt-3"><a href="profile.html">
           {/* <img className="img-circle user-img-circle img-fluid" width="80" /> */}
         </a></p>
-        <h4 className="centered">Admin Dashboard</h4>
+        <h4 className="centered mt-5"><b>Admin Dashboard</b></h4>
         <h5 className="centered">Sam Soffes</h5>
 
         <ul className="nav">

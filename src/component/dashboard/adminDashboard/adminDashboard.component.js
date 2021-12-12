@@ -1,7 +1,25 @@
+import { useEffect, useState } from 'react'
+import { httpClient } from '../../../utils/httpClient';
 import './adminDashboard.component.css'
 
-const AdminDashboard = (props) => {
 
+const AdminDashboard = (props) => {
+  const[totalAppointments,setTotalAppointment] = useState("");
+
+  const getTotalAppointments=()=>{
+    httpClient.GET("total-appointments-admin",false,true)
+    .then(resp => {
+      console.log(resp)
+      setTotalAppointment(resp.data.data.totalAppointments)
+    })
+    .catch(err =>{
+      console.log(err.response)
+    })
+  }
+
+  useEffect(()=>{
+    getTotalAppointments();
+  },[])
   return (
     <>
 
@@ -43,13 +61,14 @@ const AdminDashboard = (props) => {
             </div>
           </div>
         </div>
+        
         <div className="col-md-6 grid-margin transparent">
           <div className="row">
             <div className="col-md-6 mb-4 stretch-card transparent">
               <div className="card card-tale">
                 <div className="card-body">
-                  <p className="mb-4">Appointments</p>
-                  <p className="fs-30 mb-2">4006</p>
+                  <p className="mb-4">Total Appointments</p>
+                  <p className="fs-30 mb-2">{totalAppointments}</p>
                   <p>10.00% (30 days)</p>
                 </div>
               </div>
@@ -86,6 +105,7 @@ const AdminDashboard = (props) => {
           </div>
         </div>
       </div>
+
       <div className="row">
         <div className="col-md-6 grid-margin stretch-card">
           <div className="card">
@@ -114,6 +134,7 @@ const AdminDashboard = (props) => {
             </div>
           </div>
         </div>
+
         <div className="col-md-6 grid-margin stretch-card">
           <div className="card">
             <div className="card-body">
@@ -128,6 +149,7 @@ const AdminDashboard = (props) => {
           </div>
         </div>
       </div>
+
       <div className="row">
         <div className="col-md-12 grid-margin stretch-card">
           <div className="card position-relative">
@@ -217,6 +239,7 @@ const AdminDashboard = (props) => {
                       </div>
                     </div>
                   </div>
+
                   <div className="carousel-item">
                     <div className="row">
                       <div className="col-md-12 col-xl-3 d-flex flex-column justify-content-start">
@@ -301,6 +324,7 @@ const AdminDashboard = (props) => {
                     </div>
                   </div>
                 </div>
+
                 <a className="carousel-control-prev" href="#detailedReports" role="button" data-slide="prev">
                   <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span className="sr-only">Previous</span>
@@ -314,6 +338,7 @@ const AdminDashboard = (props) => {
           </div>
         </div>
       </div>
+
       <div className="row">
         <div className="col-md-7 grid-margin stretch-card">
           <div className="card">
@@ -446,6 +471,7 @@ const AdminDashboard = (props) => {
           </div>
         </div>
       </div>
+
       <div className="row">
         <div className="col-md-4 stretch-card grid-margin">
           <div className="card">
