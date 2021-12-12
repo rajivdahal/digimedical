@@ -18,6 +18,7 @@ import { Doctordashboard } from "./doctordashboard/doctordashboard/doctordashboa
 import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappointment.component"
 
 import Appointment from "./adminDashboard/appointmentPage/appointment.component"
+import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -25,7 +26,10 @@ const Dashboard = (props) => {
   return (
     <>
       {
-        statusCode == 200 ?
+        statusCode == 200 && props.location.fromexternaluser ?
+          <Changepassword></Changepassword>
+          : statusCode == 200 ?
+
           <>
             <Dashboardnavbar props={props.history}></Dashboardnavbar>
             <Usersidebar props={props.history}></Usersidebar>
@@ -38,8 +42,8 @@ const Dashboard = (props) => {
                     <ProtectedRoute component={Internalappointmentbook}></ProtectedRoute>
                     : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
             }
-          </>
-          : statusCode == 100 ?
+          </>:
+          statusCode == 100 ?
             <>
               <Nav props={props.history}></Nav>
               <Adminsidebar props={props.history}></Adminsidebar>
@@ -57,15 +61,13 @@ const Dashboard = (props) => {
                             : props.match.path === "/dashboard/create-services" ?
                               <ProtectedRoute component={Createservices}></ProtectedRoute>
                               : props.match.path === "/dashboard/appointment" ?
-                              <ProtectedRoute component={Appointment}/>
-                              : null
+                                <ProtectedRoute component={Appointment} />
+                                : null
                     }
                   </div>
                 </div>
               </div>
-            </>
-
-            :
+            </> :
             statusCode == 300 ?
               <>
                 <Doctornavbar props={props.history}></Doctornavbar>
@@ -78,8 +80,9 @@ const Dashboard = (props) => {
                       <ProtectedRoute component={Viewdoctorappointment}></ProtectedRoute>
                       : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                 }
-              </>
-              : <Redirect to="/login" timeoutMsg="Please login again"></Redirect>
+              </> 
+                :
+                <Redirect to="/login" timeoutMsg="Please login again"></Redirect>
       }
     </>
   )

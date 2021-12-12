@@ -20,8 +20,8 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/register" component={Register}></PublicRoute>
         <PublicRoute exact path="/forgot-password" component={Forgotpassword}></PublicRoute>
         <PublicRoute exact path="/change-password" component={Changepassword}></PublicRoute>
-
         <PublicRoute exact path="/forgot-password/verify-password" component={Verifypassword}></PublicRoute>
+        <PublicRoute exact path="/verify-password" component={Verifypassword}></PublicRoute>
         <ProtectedRoute exact path="/dashboard" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/viewappointment" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/bookappointment" component={Dashboard}></ProtectedRoute>

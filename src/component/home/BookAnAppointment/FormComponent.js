@@ -106,6 +106,13 @@ function FormComponent(props) {
       httpClient.POST('create-external-user', values)
         .then((res) => {
           setappointmentsuccess(res.data.message)
+          setTimeout(() => {
+            prop.push({
+              pathname:"/login",
+              fromexternaluser:true,
+              email:values.email
+            })
+          },3000);
         })
         .catch(err => {
           console.log(err.response)
@@ -273,7 +280,7 @@ function FormComponent(props) {
           {
             appointmentsuccess ? <div className="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong>
-              {appointmentsuccess}
+              {appointmentsuccess},You are registered-please check your email to change the password
               <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>

@@ -45,11 +45,10 @@ export const Changepassword = (props) => {
             <Navbar></Navbar>
             <div className="container">
                 <div className="adjust-center adjust-margin">
-                    <h2 className="primary-color" >Change Password</h2>
-                    {/* <p>Please check your email and confirm the OTP provided!</p> */}
+                    <h2 className="primary-color" >{props.location.fromexternaluser?"Enter Password":"Change Password"}</h2>
                 </div>
                 <form className="forgotpassword" onSubmit={Formik.handleSubmit}>
-                    <label htmlFor="password">New Password</label>
+                    <label htmlFor="password">{props.location.fromexternaluser?"Password":"New Password"}</label>
                     <input type="password" id="password" className="form-control form-input"{...Formik.getFieldProps("password")} ></input>
                     {Formik.errors.password && Formik.touched.password ? <div style={{ color: "red" }} className="errmsg">{Formik.errors.password}</div> : null}
                     <label htmlFor="password" style={{ marginTop: "20px" }}>Confirm Password</label>
