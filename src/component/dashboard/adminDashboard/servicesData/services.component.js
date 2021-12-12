@@ -9,6 +9,7 @@ import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import { Modal, Button } from 'react-bootstrap';
 import "./services.component.css"
 import ClipLoader from "../../../../utils/clipLoader";
+import { Field, Form, Formik } from "formik";
 
 const Createservices = (props) => {
     const [loading, setLoading] = useState(false);
@@ -17,6 +18,7 @@ const Createservices = (props) => {
     const [serviceStatus, setServiceStatus] = useState("");
     const [services, setServices] = useState([]);
     const [showModal, setShowModal] = useState(false);
+
     const [service, setService] = useState({
         serviceName: "",
         serviceDescription: "",
@@ -24,18 +26,18 @@ const Createservices = (props) => {
     }
     )
 
-    const handleChange = (e) => {
-        let tempService = { ...service, ...{ [e.target.name]: e.target.value } }
-        setService(tempService);
-    }
+
+    // const handleChange = (e) => {
+    //     let tempService = { ...service, ...{ [e.target.name]: e.target.value } }
+    //     setService(tempService);
+    // }
 
     const getServices = () => {
         httpClient.GET("services/get-all", false, true)
             .then(resp => {
                 if (resp.data.status) {
-                    let data = resp.data.data;
-                    console.log(data)
-                    setServices(data);
+                    console.log(resp.data.data)
+                    setServices(resp.data.data);
                 }
             })
             .catch(err => {
@@ -48,20 +50,17 @@ const Createservices = (props) => {
         getServices();
     }, [])
 
-    const handleSubmit = () => {
+    const handleSubmit = async(values,resetForm) => {
         setLoading(true)
         let serviceData = {
-            serviceName: service.serviceName,
-            serviceDescription: service.serviceDescription
+            serviceName: values.serviceName,
+            serviceDescription: values.serviceDescription
         }
 
-        httpClient.POST("services/create", serviceData, false, true)
+        await httpClient.POST("services/create", serviceData, false, true)
             .then(resp => {
                 if (resp.data.status) {
-                    setService({
-                        serviceName: "",
-                        serviceDescription: "",
-                    })
+                    resetForm();
                     getServices();
                     notify.success(resp.data.message)
                     setLoading(false)
@@ -69,8 +68,7 @@ const Createservices = (props) => {
                 }
             })
             .catch(err => {
-                // console.log("inside catch block")
-                // console.log(err.response)
+                setLoading(false)
                 notify.error(err.response.data.message)
 
             })
@@ -88,11 +86,11 @@ const Createservices = (props) => {
         }
     }
 
-    const handleEdit = () => {
+    const handleEdit = (values,resetForm) => {
         setLoading(true)
         let serviceData = {
-            serviceName: service.serviceName,
-            serviceDescription: service.serviceDescription
+            serviceName: values.serviceName,
+            serviceDescription: values.serviceDescription
         }
 
         httpClient.PUT("services/" + serviceEditId, serviceData, false, true)
@@ -102,6 +100,7 @@ const Createservices = (props) => {
                         serviceName: "",
                         serviceDescription: "",
                     })
+                    resetForm();
                     setServiceEditId(null);
                     getServices();
                     notify.success(resp.data.message)
@@ -164,13 +163,95 @@ const Createservices = (props) => {
         { title: 'Status', field: 'activeStatus', filtering: false, sorting: false },
     ]
 
+
+    function validateName(value) {
+        let error;
+        if (!value) {
+            error = 'Required*';
+        }
+        return error;
+    }
+
+    function validateDescription(value) {
+        let error;
+        if (!value) {
+            error = 'Required*';
+        }
+        return error;
+    }
+
+
     return (
         <>
 
             <div className="container">
                 <h3>Add Service</h3>
 
-                <form className="mb-4">
+                <Formik enableReinitialize={true}
+                    initialValues={service}
+
+                    onSubmit={(values,{resetForm})=> {
+                        console.log(values);
+
+                        { serviceEditId ? 
+                            handleEdit(values,resetForm)
+                            :
+                            handleSubmit(values,resetForm)
+                        }
+                    }}
+                >
+
+                    {({ errors, touched }) => (
+                        <Form className="mb-4">
+                            <div className=" form-group select-label">
+                                <label >Service Name : </label>
+                                <Field name="serviceName" validate={validateName} className="form-control" />
+                                {errors.serviceName && touched.serviceName && <div className="error-message">{errors.serviceName}</div>}
+                            </div>
+
+                            <div className="form-group select-label">
+                                <label>Service Description : </label>
+                                <Field name="serviceDescription" validate={validateDescription}className="form-control" />
+                                {errors.serviceDescription && touched.serviceDescription && <div className="error-message">{errors.serviceDescription}</div>}
+                            </div>
+
+                            {serviceEditId ?
+
+                                <div>
+                                    {loading == true ?
+                                        <ClipLoader isLoading={loading} />
+                                        :
+
+                                        <div className="textAlign-right">
+                                            <button type="submit" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }}>
+                                                Edit
+                                            </button>
+                                            <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff", marginLeft: '10px' }} onClick={handleCancelEdit}>
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+
+                                :
+                                <div >
+                                    {loading == true ?
+                                        <ClipLoader isLoading={loading} />
+                                        :
+                                        <div className="textAlign-right">
+                                        <button type="Submit" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} >
+                                            Submit
+                                        </button>
+                                        </div>
+                                    }
+                                </div>
+
+                            }
+                        </Form>
+                    )}
+
+                </Formik>
+                {/* <form className="mb-4">
 
                     <div className=" form-group select-label">
                         <label >Service Name : </label>
@@ -185,11 +266,12 @@ const Createservices = (props) => {
                     </div>
 
                     <div>
-                        { loading == true ?
-                            <ClipLoader isLoading={loading} />
-                            :
+                        {serviceEditId ?
+
                             <div>
-                                {serviceEditId ?
+                                {loading == true ?
+                                    <ClipLoader isLoading={loading} />
+                                    :
 
                                     <div>
                                         <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} onClick={handleEdit}>
@@ -199,18 +281,24 @@ const Createservices = (props) => {
                                             Cancel
                                         </button>
                                     </div>
+                                }
+                            </div>
 
+                            :
+                            <div>
+                                {loading == true ?
+                                    <ClipLoader isLoading={loading} />
                                     :
-
                                     <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} onClick={handleSubmit}>
                                         Submit
                                     </button>
+
                                 }
                             </div>
+
                         }
                     </div>
-
-                </form>
+                </form> */}
 
                 <Modal show={showModal} onHide={handleClose}>
                     <Modal.Header >
@@ -239,7 +327,14 @@ const Createservices = (props) => {
                     columns={[
                         { title: 'Service Name', field: 'serviceName', },
                         { title: 'Service Description', field: 'serviceDescription', sorting: false },
-                        {title: 'Status', field: 'activeStatus'},
+                        {
+                            title: 'Status', field: 'activeStatus',
+                            render: rowData => rowData.activeStatus == true ?
+                                <span style={{ color: '#18af69' }}>Active</span>
+                                :
+                                <span style={{ color: 'red' }}>inActive</span>
+
+                        },
                     ]}
                     data={services}
                     title="Service Details"

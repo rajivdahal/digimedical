@@ -5,16 +5,21 @@ import Tableicons from "../../../../utils/materialicons";
 import { Add, Edit, Clear, DeleteOutline } from "@material-ui/icons";
 import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
-import { Modal, Button } from 'react-bootstrap';
-
+import { Modal, Button,Card } from 'react-bootstrap';
 const DoctorTable = (props) => {
 
     const [doctors, setDoctors] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [doctorInfoModal,setDoctorInfoModal] = useState(false)
     const [doctorId, setDoctorId] = useState("");
     const [doctorStatus, setDoctorStatus] = useState("");
-    const [ loading,setLoading] = useState(false)
-    const handleClose = () => setShowModal(false)
+    const [loading, setLoading] = useState(false)
+    const [doctorInfo , setDoctorInfo] =useState([]);
+
+    const handleClose = () => {
+        setShowModal(false);
+        setDoctorInfoModal(false)
+    }
 
     const getDoctor = () => {
         setLoading(true)
@@ -32,6 +37,17 @@ const DoctorTable = (props) => {
             })
     }
 
+     const getDoctorInfo=(id)=>{
+        httpClient.GET("doctor/basic-info/" + id, false, true)
+        .then(resp => {
+            let responseData = resp.data.data;
+            setDoctorInfo(responseData);
+        })
+        .catch(err => {
+            console.log(err.response)
+        })
+
+    }
     useEffect(() => {
         getDoctor();
     }, [])
@@ -50,7 +66,6 @@ const DoctorTable = (props) => {
             status: doctorStatus == "true" ? false : true
         }
 
-
         console.log(tempDoctorStatus)
         httpClient.PUT("doctor/change-status", tempDoctorStatus, false, true)
             .then(resp => {
@@ -68,11 +83,18 @@ const DoctorTable = (props) => {
 
     }
 
+    // const doctorModal = (data) => {
+    //     let doctorData = data;
+    //     setDoctorInfo(doctorData)
+    //     setDoctorInfoModal(true)
+    // }
+
     const handleAddDoctor = () => {
         props.history.push("/dashboard/create-doctor")
     }
 
     const handleEditDoctor = (e, data) => {
+        // setDoctorId(data.id)
         console.log(data)
         props.history.push("/dashboard/create-doctor", data)
     }
@@ -81,25 +103,28 @@ const DoctorTable = (props) => {
         <div>
             <Container>
                 <MaterialTable
+                 data={doctors}
+                 title="All Doctor Details"
+                 icons={Tableicons}
                     columns={[
                         { title: 'ID', field: 'id' },
-                        { title: 'Name', field: 'name' },
+                        {
+                            title: 'Name', field: 'name',
+                            // render: rowData => <span onClick={doctorModal(rowData)}>{rowData.name}</span>
+                        },
                         { title: 'Description', field: 'description' },
                         { title: 'NMC', field: 'nmcNo', },
                         { title: 'Prefix', field: 'prefix' },
                         {
                             title: 'Status', field: 'status',
-                            // render: rowData => rowData.status.toString() == "true" ?
-                            //             <span style={{ color: '#18af69' }}>{rowData.status}</span>
-                            //             :
-                            //             <span style={{ color: 'red' }}>{rowData.status}</span>
+                            render: rowData => rowData.status.toString() == "true" ?
+                                <span style={{ color: '#18af69' }}>Active</span>
+                                :
+                                <span style={{ color: 'red' }}>inActive</span>
 
                         },
                     ]}
 
-                    data={doctors}
-                    title="All Doctor Details"
-                    icons={Tableicons}
                     actions={[
 
                         {
@@ -132,6 +157,23 @@ const DoctorTable = (props) => {
                         }
                     }}
                 />
+
+                {/* <Modal show={doctorInfoModal} onHide={handleClose}>
+                    <Card style={{ width: '18rem' }}>
+                        {doctorInfo.map((doctor,index)=>{
+                            return <Card.Body>
+                            <Card.Title>{doctor.prefix}{doctor.name}</Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+                            <Card.Text>
+                                Some quick example text to build on the card title and make up the bulk of
+                                the card's content.
+                            </Card.Text>
+                        </Card.Body>
+                        })}
+                        
+                    </Card>
+                </Modal> */}
+
                 <Modal show={showModal} onHide={handleClose}>
                     <Modal.Header >
                         <Modal.Title><b>Doctor Status</b></Modal.Title>

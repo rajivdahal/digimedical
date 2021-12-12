@@ -9,3 +9,12 @@ padding: 15px 28px;
 .modal .modal-dialog .modal-content .modal-footer { 
     padding: 8px 31px;
 }
+
+.error-message{
+    color: red;
+    font-size: 14px;
+}
+
+.textAlign-right{
+    text-align: right;
+}
