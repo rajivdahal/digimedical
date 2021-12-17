@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import contactwall from "../../assets/contactwall.png";
+import Footer from "../Footer/Footer";
 import BookAnAppointment from "../home/BookAnAppointment/BookAnAppointment";
+import Navbar from "../Navbar/Navbar";
 import ContactData from "./ContactData";
 import LocationContact from "./LocationContact/LocationContact";
 
@@ -89,6 +91,7 @@ const Description = styled.div`
 const ContactUs = () => {
   return (
     <div>
+      <Navbar></Navbar>
       <Root
         style={{
           backgroundImage: `url(${contactwall})`,
@@ -127,6 +130,7 @@ const ContactUs = () => {
       </BottomSection>
       <LocationContact />
       <BookAnAppointment />
+      <Footer></Footer>
     </div>
   );
 };
