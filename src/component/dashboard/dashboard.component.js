@@ -19,6 +19,7 @@ import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappoint
 
 import Appointment from "./adminDashboard/appointmentPage/appointment.component"
 import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component"
+import Labtest from "./adminDashboard/labtestData/labtest.component"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -62,6 +63,8 @@ const Dashboard = (props) => {
                               <ProtectedRoute component={Createservices}></ProtectedRoute>
                               : props.match.path === "/dashboard/appointment" ?
                                 <ProtectedRoute component={Appointment} />
+                                : props.match.path === "/dashboard/lab-test" ?
+                                  <ProtectedRoute component={Labtest}/>
                                 : null
                     }
                   </div>

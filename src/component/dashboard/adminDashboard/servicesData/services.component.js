@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect, useState } from "react"
 import { httpClient } from "../../../../utils/httpClient";
 import { notify } from "../../../../services/notify";
@@ -18,19 +18,12 @@ const Createservices = (props) => {
     const [serviceStatus, setServiceStatus] = useState("");
     const [services, setServices] = useState([]);
     const [showModal, setShowModal] = useState(false);
-
     const [service, setService] = useState({
         serviceName: "",
         serviceDescription: "",
         activeStatus: "",
     }
     )
-
-
-    // const handleChange = (e) => {
-    //     let tempService = { ...service, ...{ [e.target.name]: e.target.value } }
-    //     setService(tempService);
-    // }
 
     const getServices = () => {
         httpClient.GET("services/get-all", false, true)
@@ -50,7 +43,7 @@ const Createservices = (props) => {
         getServices();
     }, [])
 
-    const handleSubmit = async(values,resetForm) => {
+    const handleSubmit = async (values, resetForm) => {
         setLoading(true)
         let serviceData = {
             serviceName: values.serviceName,
@@ -83,10 +76,11 @@ const Createservices = (props) => {
                 serviceDescription: data.serviceDescription,
 
             })
+            window.scrollTo(0,0)
         }
     }
 
-    const handleEdit = (values,resetForm) => {
+    const handleEdit = (values, resetForm) => {
         setLoading(true)
         let serviceData = {
             serviceName: values.serviceName,
@@ -108,13 +102,9 @@ const Createservices = (props) => {
                 }
             })
             .catch(err => {
-                // console.log("inside catch block")
                 console.log(err.response)
                 setLoading(false)
-                // notify.error(err.response.data.message)
             })
-
-        // console.log(service);
     }
 
     const handleCancelEdit = () => {
@@ -140,7 +130,6 @@ const Createservices = (props) => {
             status: serviceStatus == true ? false : true
         }
 
-        console.log(tempServiceStatus)
         httpClient.PUT("services/change-status", tempServiceStatus, false, true)
             .then(resp => {
                 // console.log(resp)
@@ -149,7 +138,6 @@ const Createservices = (props) => {
                     getServices();
                     handleClose();
                     setLoading(false)
-
                 }
 
             })
@@ -157,6 +145,7 @@ const Createservices = (props) => {
                 console.log(err.response.data)
             })
     }
+
     const columns = [
         { title: 'Service Name', field: 'serviceName', },
         { title: 'Service Description', field: 'serviceDescription', sorting: false },
@@ -167,7 +156,7 @@ const Createservices = (props) => {
     function validateName(value) {
         let error;
         if (!value) {
-            error = 'Required*';
+            error = 'Required!';
         }
         return error;
     }
@@ -175,7 +164,7 @@ const Createservices = (props) => {
     function validateDescription(value) {
         let error;
         if (!value) {
-            error = 'Required*';
+            error = 'Required!';
         }
         return error;
     }
@@ -184,19 +173,20 @@ const Createservices = (props) => {
     return (
         <>
 
-            <div className="container">
+            <div className="container" >
                 <h3>Add Service</h3>
 
                 <Formik enableReinitialize={true}
                     initialValues={service}
 
-                    onSubmit={(values,{resetForm})=> {
+                    onSubmit={(values, { resetForm }) => {
                         console.log(values);
 
-                        { serviceEditId ? 
-                            handleEdit(values,resetForm)
-                            :
-                            handleSubmit(values,resetForm)
+                        {
+                            serviceEditId ?
+                                handleEdit(values, resetForm)
+                                :
+                                handleSubmit(values, resetForm)
                         }
                     }}
                 >
@@ -211,7 +201,7 @@ const Createservices = (props) => {
 
                             <div className="form-group select-label">
                                 <label>Service Description : </label>
-                                <Field name="serviceDescription" validate={validateDescription}className="form-control" />
+                                <Field name="serviceDescription" validate={validateDescription} className="form-control" />
                                 {errors.serviceDescription && touched.serviceDescription && <div className="error-message">{errors.serviceDescription}</div>}
                             </div>
 
@@ -223,7 +213,7 @@ const Createservices = (props) => {
                                         :
 
                                         <div className="textAlign-right">
-                                            <button type="submit" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }}>
+                                            <button type="Submit" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }}>
                                                 Edit
                                             </button>
                                             <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff", marginLeft: '10px' }} onClick={handleCancelEdit}>
@@ -239,9 +229,9 @@ const Createservices = (props) => {
                                         <ClipLoader isLoading={loading} />
                                         :
                                         <div className="textAlign-right">
-                                        <button type="Submit" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} >
-                                            Submit
-                                        </button>
+                                            <button type="Submit" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} >
+                                                Submit
+                                            </button>
                                         </div>
                                     }
                                 </div>
@@ -251,54 +241,6 @@ const Createservices = (props) => {
                     )}
 
                 </Formik>
-                {/* <form className="mb-4">
-
-                    <div className=" form-group select-label">
-                        <label >Service Name : </label>
-                        <input type="text" className="form-control" placeholder="Enter Service Name" name="serviceName"
-                            onChange={handleChange} value={service.serviceName} />
-                    </div>
-
-                    <div className="form-group select-label">
-                        <label>Service Description : </label>
-                        <input type="text" className="form-control" placeholder="Enter Service Description" name="serviceDescription"
-                            onChange={handleChange} value={service.serviceDescription} />
-                    </div>
-
-                    <div>
-                        {serviceEditId ?
-
-                            <div>
-                                {loading == true ?
-                                    <ClipLoader isLoading={loading} />
-                                    :
-
-                                    <div>
-                                        <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} onClick={handleEdit}>
-                                            Edit
-                                        </button>
-                                        <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff", marginLeft: '10px' }} onClick={handleCancelEdit}>
-                                            Cancel
-                                        </button>
-                                    </div>
-                                }
-                            </div>
-
-                            :
-                            <div>
-                                {loading == true ?
-                                    <ClipLoader isLoading={loading} />
-                                    :
-                                    <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} onClick={handleSubmit}>
-                                        Submit
-                                    </button>
-
-                                }
-                            </div>
-
-                        }
-                    </div>
-                </form> */}
 
                 <Modal show={showModal} onHide={handleClose}>
                     <Modal.Header >
@@ -318,8 +260,6 @@ const Createservices = (props) => {
                                 </Button>
                             </div>
                         }
-
-
                     </Modal.Footer>
                 </Modal>
 

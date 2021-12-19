@@ -108,10 +108,7 @@ const DoctorTable = (props) => {
                  icons={Tableicons}
                     columns={[
                         { title: 'ID', field: 'id' },
-                        {
-                            title: 'Name', field: 'name',
-                            // render: rowData => <span onClick={doctorModal(rowData)}>{rowData.name}</span>
-                        },
+                        { title: 'Name', field: 'name' },
                         { title: 'Description', field: 'description' },
                         { title: 'NMC', field: 'nmcNo', },
                         { title: 'Prefix', field: 'prefix' },

@@ -80,7 +80,6 @@ export default function Usersidebar() {
                             <i className="fas fa-file-medical menu-icon"></i>
                             <span className="menu-title">Medical Reports</span>
                         </a>
-
                     </li>
                     </Link>
 

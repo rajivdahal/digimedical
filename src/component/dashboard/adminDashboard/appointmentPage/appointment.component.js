@@ -1,10 +1,8 @@
 import MaterialTable from 'material-table';
-import { Edit, DeleteOutline } from "@material-ui/icons";
 import Tableicons from '../../../../utils/materialicons';
 import { useEffect, useState } from 'react';
 import { httpClient } from '../../../../utils/httpClient';
-import { Col, Row, Container, Card } from 'react-bootstrap';
-import { formatDate } from '../../../../services/timeanddate';
+import { Col, Row, Container, Card, ButtonGroup,Button } from 'react-bootstrap';
 import "./appointment.component.css"
 const Appointment = (props) => {
 
@@ -39,10 +37,10 @@ const Appointment = (props) => {
     },[])
 
     const handleAppointment = (title, status) => {
-        getAppointment(status)
-        setTitle(title);
         setStatus(status);
 
+        getAppointment(status)
+        setTitle(title);
     }
 
     return (
@@ -52,14 +50,15 @@ const Appointment = (props) => {
                 <Card.Body>
                     <Card.Text>
                         <Row className="appointmentRow">
+
                             <Col md={4} className="appointment" >
-                                <div className='title-focus' onClick={() => handleAppointment("Upcoming Appointment", 0)}>Upcoming Appointment</div>
+                                <div className={status == 0 ? 'title-focus' : ''} onClick={() => handleAppointment("Upcoming Appointment", 0)}>Upcoming Appointment</div>
                             </Col>
                             <Col md={4} className="appointment" >
-                                <div className='title-focus' onClick={() => handleAppointment("Completed Appointment", 1)}>Completed Appointment</div>
+                                <div className={status == 1 ? 'title-focus' : ''} onClick={() => handleAppointment("Completed Appointment", 1)}>Completed Appointment</div>
                             </Col>
                             <Col md={4} className="appointment" >
-                                <div className='title-focus' onClick={() => handleAppointment("Cancelled Appointment", 2)} >Cancelled Appointment</div>
+                                <div className={status == 2 ? 'title-focus' : ''} onClick={() => handleAppointment("Cancelled Appointment", 2)} >Cancelled Appointment</div>
                             </Col>
                         </Row>
                     </Card.Text>
