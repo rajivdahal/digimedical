@@ -14,11 +14,10 @@ const Createdoctor = (props) => {
     const [services, setServices] = useState([]);
 
     // selectable services
-
+    const [availableServices, setAvailableServices] = useState([]);
     const imageSelectRef = useRef();
 
     // const [doctorInfo, setDoctorInfo] = useState("");
-    const [availableServices, setAvailableServices] = useState([]);
     const [doctorId, setDoctorId] = useState("");
     const [loading, setLoading] = useState(false);
     const [selectedImage, setImage] = useState("");
@@ -44,6 +43,7 @@ const Createdoctor = (props) => {
     const getServices = async () => {
         let allServices = await httpClient.GET("services/true", false, true)
             .then(resp => {
+                console.log(resp)
                 if (resp.data.status) {
                     let data = resp.data.data;
                     return data;
@@ -157,14 +157,19 @@ const Createdoctor = (props) => {
                     // get services details from service data
                     let savedServices = [], remainServices = [];
                     allServices.forEach((service) => {
-                        let found = serviceData.includes(service.id.toString());
-                        if (found) {
+                        // let found = serviceData.includes(service.id.toString());
+                        let found = serviceData.filter((item)=>{
+                            return (item.id.toString() == service.id.toString())
+                        })
+                        if (found.length > 0) {
+                            console.log(found)
                             savedServices.push(service);
                         } else {
                             remainServices.push(service)
                         }
                     })
 
+                    console.log(savedServices);
                     if (data) {
 
                         let url = "http://103.90.86.77:8082/api/doctor/download/" + id;
@@ -184,6 +189,7 @@ const Createdoctor = (props) => {
                             doctorServices: savedServices,
                             serviceID: remainServices[0].id
                         })
+                        console.log(doctorData.doctorServices)
                         setImgName(data.image);
                         setAvailableServices(remainServices);
                     }
@@ -246,6 +252,8 @@ const Createdoctor = (props) => {
         if (tempAvailable.length > 0) {
             let doctorServiceArr = { ...values }
             doctorServiceArr.doctorServices.push(selectedService[0]);
+            console.log(doctorServiceArr)
+            console.log(doctorServiceArr.doctorServices)
             doctorServiceArr.serviceID = tempAvailable[0].id;
             formik.setFieldValue('doctorServices', doctorServiceArr.doctorServices)
             formik.setFieldValue('serviceID', doctorServiceArr.serviceID)
@@ -297,6 +305,8 @@ const Createdoctor = (props) => {
         })
         setImage("");
         setImgName("");
+        props.history.replace('/dashboard/create-doctor', null);
+    
 
     }
 

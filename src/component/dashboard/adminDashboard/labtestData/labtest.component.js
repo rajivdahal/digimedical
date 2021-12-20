@@ -43,7 +43,6 @@ const Labtest = (props) => {
  
             .then(resp => {
                 resp.data.data.forEach((item)=>{
-        
                     let splitDesc = item.description.split(" ");
                     if(splitDesc.length < 10){
                         item.description = item.description
@@ -52,6 +51,8 @@ const Labtest = (props) => {
                         let joinDesc = sliceDesc.join(" ")+" ...";
                         item.description = joinDesc;
                     }  
+
+                    item.price ="Rs."+item.price;
                 })
                 console.log(resp)
 
@@ -188,7 +189,7 @@ const Labtest = (props) => {
             })
     }
 
-    const handleEditLabtest = (e, data) => {
+    const setLabtestData = (e, data) => {
         let  id = data.id;
         setlabtestStatusId(id)
         console.log(data);
@@ -339,7 +340,6 @@ const Labtest = (props) => {
                                 }
                             </div>
                             :
-
                             <div>
                                 {isLoading == true ?
                                     <Cliploader isLoading={isLoading} />
@@ -374,8 +374,6 @@ const Labtest = (props) => {
                                 </Button>
                             </div>
                         }
-
-
                     </Modal.Footer>
                 </Modal>
 
@@ -384,7 +382,7 @@ const Labtest = (props) => {
                     icons={Tableicons}
                     data={allLabtest}
                     columns={[
-                        // { title: "ID", field: "id" },
+                        { title: "ID", field: "id" },
                         { title: 'Name', field: 'name' },
                         { title: 'Description', field: 'description' },
                         { title: 'Price', field: 'price' },
@@ -403,7 +401,7 @@ const Labtest = (props) => {
                         {
                             icon: Edit,
                             tooltip: 'Edit Labtest',
-                            onClick: (e, rowData) => { handleEditLabtest(e, rowData) }
+                            onClick: (e, rowData) => { setLabtestData(e, rowData) }
                         },
                         {
                             icon: DeleteOutline,
