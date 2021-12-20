@@ -38,7 +38,7 @@ const Subheading = styled.div`
   letter-spacing: 0.03em;
 `;
 
-const Service = () => {
+const Service = (props) => {
   return (
     <>
     <Navbar></Navbar>
@@ -59,7 +59,7 @@ const Service = () => {
       </Root>
       <OurServices />
       <EmergencyNumber />
-      <BookAnAppointment />
+      <BookAnAppointment props={props} />
       <Footer></Footer>
     </>
   );

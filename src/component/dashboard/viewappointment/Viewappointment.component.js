@@ -5,6 +5,7 @@ import { useState } from "react"
 import { Cancelledappointment } from "./cancelledappointment/Cancelledappointment.component"
 import { Completedappointment } from "./completedappointment/completedappointment.component"
 export const Viewappointment = (props) => {
+    console.log("props in viewappointment is",props)
     const fromdoctorcomponent=props.fromdoctorcomponent?props.fromdoctorcomponent:null
     const [pendingappointment, setpendingappointment] = useState(false)
     const [cancelledappointment, setcancelledappointment] = useState(false)
@@ -224,22 +225,16 @@ export const Viewappointment = (props) => {
                                             <p className={`card-title ${isdynamicCancelledclass ? "title-focus" : null}`} onClick={handleCancelledclass}>Cancelled Appointment</p>
                                         </div>
                                         {
-                                            upcomingappointment ?<Upcomingappointment props={props.history} fromdoctorcomponent={fromdoctorcomponent}></Upcomingappointment>
+                                            upcomingappointment ?<Upcomingappointment props={props.history?props.history:props.props} fromdoctorcomponent={fromdoctorcomponent}></Upcomingappointment>
                                                 :
                                                 pendingappointment ? <Completedappointment fromdoctorcomponent={fromdoctorcomponent}></Completedappointment>
                                                     : cancelledappointment ? <Cancelledappointment fromdoctorcomponent={fromdoctorcomponent}></Cancelledappointment>
-                                                        : <h1>you don't have any appointment</h1>
+                                                        : <h1>You don't have any appointments</h1>
                                         }
 
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
-
                         </div>
 
 

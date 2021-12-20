@@ -88,7 +88,8 @@ const Description = styled.div`
   gap: 0.75rem;
 `;
 
-const ContactUs = () => {
+const ContactUs = (props) => {
+  console.log("props in contact us",props)
   return (
     <div>
       <Navbar></Navbar>
@@ -129,7 +130,7 @@ const ContactUs = () => {
         })}
       </BottomSection>
       <LocationContact />
-      <BookAnAppointment />
+      <BookAnAppointment props={props} />
       <Footer></Footer>
     </div>
   );

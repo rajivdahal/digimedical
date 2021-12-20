@@ -19,6 +19,8 @@ import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappoint
 
 import Appointment from "./adminDashboard/appointmentPage/appointment.component"
 import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component"
+import Usersettings from "./settings/usersettings/usersettings.component"
+import Prescribe from "./doctordashboard/prescribe/prescribe.component"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -30,57 +32,62 @@ const Dashboard = (props) => {
           <Changepassword></Changepassword>
           : statusCode == 200 ?
 
-          <>
-            <Dashboardnavbar props={props.history}></Dashboardnavbar>
-            <Usersidebar props={props.history}></Usersidebar>
-            {
-              props.match.path === "/dashboard" ?
-                <ProtectedRoute component={Userdashboard}></ProtectedRoute>
-                : props.match.path === "/dashboard/viewappointment" ?
-                  <ProtectedRoute component={Viewappointment}></ProtectedRoute>
-                  : props.match.path === "/dashboard/bookappointment" ?
-                    <ProtectedRoute component={Internalappointmentbook}></ProtectedRoute>
-                    : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
-            }
-          </>:
-          statusCode == 100 ?
             <>
-              <Nav props={props.history}></Nav>
-              <Adminsidebar props={props.history}></Adminsidebar>
-              <div className="container-fluid page-body-wrapper">
-                <div className="main-panel">
-                  <div className="content-wrapper">
-                    {
-                      props.match.path === "/dashboard" ?
-                        <ProtectedRoute component={AdminDashboard}></ProtectedRoute>
-                        :
-                        props.match.path === "/dashboard/doctor-table" ?
-                          <ProtectedRoute component={DoctorTable}></ProtectedRoute>
-                          : props.match.path === "/dashboard/create-doctor" ?
-                            <ProtectedRoute component={Createdoctor}></ProtectedRoute>
-                            : props.match.path === "/dashboard/create-services" ?
-                              <ProtectedRoute component={Createservices}></ProtectedRoute>
-                              : props.match.path === "/dashboard/appointment" ?
-                                <ProtectedRoute component={Appointment} />
-                                : null
-                    }
+              <Dashboardnavbar props={props.history}></Dashboardnavbar>
+              <Usersidebar props={props.history}></Usersidebar>
+              {
+                props.match.path === "/dashboard" ?
+                  <ProtectedRoute component={Userdashboard}></ProtectedRoute>
+                  : props.match.path === "/dashboard/viewappointment" ?
+                    <ProtectedRoute component={Viewappointment}></ProtectedRoute>
+                    : props.match.path === "/dashboard/bookappointment" ?
+                      <ProtectedRoute component={Internalappointmentbook}></ProtectedRoute>
+                      : props.match.path === "/dashboard/settings" ?
+                        <Usersettings></Usersettings>
+                         :
+                        <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+              }
+            </> :
+            statusCode == 100 ?
+              <>
+                <Nav props={props.history}></Nav>
+                <Adminsidebar props={props.history}></Adminsidebar>
+                <div className="container-fluid page-body-wrapper">
+                  <div className="main-panel">
+                    <div className="content-wrapper">
+                      {
+                        props.match.path === "/dashboard" ?
+                          <ProtectedRoute component={AdminDashboard}></ProtectedRoute>
+                          :
+                          props.match.path === "/dashboard/doctor-table" ?
+                            <ProtectedRoute component={DoctorTable}></ProtectedRoute>
+                            : props.match.path === "/dashboard/create-doctor" ?
+                              <ProtectedRoute component={Createdoctor}></ProtectedRoute>
+                              : props.match.path === "/dashboard/create-services" ?
+                                <ProtectedRoute component={Createservices}></ProtectedRoute>
+                                : props.match.path === "/dashboard/appointment" ?
+                                  <ProtectedRoute component={Appointment} />
+                                  : null
+                      }
+                    </div>
                   </div>
                 </div>
-              </div>
-            </> :
-            statusCode == 300 ?
-              <>
-                <Doctornavbar props={props.history}></Doctornavbar>
-                <Doctorsidebar props={props.history}></Doctorsidebar>
-                {
-                  props.match.path == "/dashboard" ?
-                    <ProtectedRoute component={Doctordashboard} props={props}></ProtectedRoute>
-                    :
-                    props.match.path === "/dashboard/viewappointment" ?
-                      <ProtectedRoute component={Viewdoctorappointment}></ProtectedRoute>
-                      : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
-                }
-              </> 
+              </> :
+              statusCode == 300 ?
+                <>
+                  <Doctornavbar props={props.history}></Doctornavbar>
+                  <Doctorsidebar props={props.history}></Doctorsidebar>
+                  {
+                    props.match.path == "/dashboard" ?
+                      <ProtectedRoute component={Doctordashboard} props={props}></ProtectedRoute>
+                      :
+                      props.match.path === "/dashboard/viewappointment" ?
+                        <ProtectedRoute component={Viewdoctorappointment} props={props}></ProtectedRoute>:
+                        props.match.path ==="/dashboard/prescribe/:id"?
+                        <ProtectedRoute component={Prescribe} props={props}></ProtectedRoute>
+                        : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                  }
+                </>
                 :
                 <Redirect to="/login" timeoutMsg="Please login again"></Redirect>
       }
