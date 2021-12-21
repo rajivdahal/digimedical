@@ -11,10 +11,16 @@ padding: 15px 28px;
 }
 
 .error-message{
+    margin-top: 3px;
     color: red;
     font-size: 14px;
 }
 
 .textAlign-right{
     text-align: right;
+}
+
+.submit-button{
+    background-color: '#2745F0';
+     color: "#fff";
 }

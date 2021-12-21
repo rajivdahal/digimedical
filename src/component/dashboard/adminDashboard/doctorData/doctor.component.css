@@ -12,3 +12,11 @@
     background-color: rgb(240, 99, 64);
     cursor: pointer;
 }
+.image{
+    max-height: 100px;
+}
+
+.submit-button{
+    background-color: '#2745F0';
+     color: "#fff";
+}

@@ -32,7 +32,7 @@ export default function Prescribe(props) {
         description: ''
     })
 
-    const [patientinfo, setpatientinfo] = useState({})
+    const [patientinfo, setpatientinfo] = useState(props.patient)
     const [services, setservices] = useState([])
     const [labtest, setlabtest] = useState(["", ""])
     const [medicine, setmedicine] = useState(["", ""])

@@ -95,20 +95,6 @@ const Adminsidebar = (props) => {
               </ul>
             </div>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i className="icon-head menu-icon"></i>
-              <span className="menu-title">Payments</span>
-              <i className="menu-arrow"></i>
-            </a>
-            <div className="collapse" id="auth">
-              <ul className="nav flex-column sub-menu">
-                <li className="nav-item"> <a className="nav-link" href=""> All Payments </a></li>
-                <li className="nav-item"> <a className="nav-link" href=""> Add Payment </a></li>
-                <li className="nav-item"> <a className="nav-link" href=""> INvoice </a></li>
-              </ul>
-            </div>
-          </li>
 
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
@@ -118,8 +104,11 @@ const Adminsidebar = (props) => {
             </a>
             <div className="collapse" id="doctors">
               <ul className="nav flex-column sub-menu">
-              <Link to="/dashboard/create-services">
+                <Link to="/dashboard/create-services">
                   <li className="nav-item"> <a className="nav-link" href="">Services</a></li>
+                </Link>
+                <Link to="/dashboard/lab-test">
+                  <li className="nav-item"> <a className="nav-link" href="">Lab Test</a></li>
                 </Link>
               </ul>
             </div>

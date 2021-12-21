@@ -15,7 +15,6 @@ export const Dashboardnavbar = (props) => {
   }
 
   const logoutyes = () => {
-    console.log("inside logout yes")
     localStorage.removeItem("dm-access_token")
     localStorage.removeItem("timeout")
     localStorage.removeItem("dm-refresh_token")
@@ -26,6 +25,12 @@ export const Dashboardnavbar = (props) => {
     setlogoutstate({
       logoutno: true
     })
+  }
+  const gotoProfile=()=>{
+    props.props.push('/dashboard/settings/userprofile')
+  }
+  const changepassword=()=>{
+    props.props.push('/dashboard/settings/change-password')
   }
 
   useEffect(() => {
@@ -105,12 +110,16 @@ export const Dashboardnavbar = (props) => {
                 <img src="/images/dashboard/user1.jpg" alt="profile" />
               </a>
               <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                <Link to="/dashboard/settings">
-                  <div className="dropdown-item">
-                    <i className="ti-settings text-primary"></i>
-                    <span>Settings</span>
+                
+                  <div className="dropdown-item" onClick={gotoProfile}>
+                    <i className="ti-user text-primary"></i>
+                    <span>Profile</span>
                   </div>
-                </Link>
+                
+                <div className="dropdown-item" onClick={changepassword}>
+                    <i className="ti-settings text-primary"></i>
+                    <span>Change Password</span>
+                  </div>
                 <div className="dropdown-item" onClick={Logout}>
                   <i className="ti-power-off text-primary"></i>
                   <span>Logout</span>

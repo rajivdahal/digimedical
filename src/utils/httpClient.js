@@ -24,19 +24,24 @@ const GET = (url, grant_type, getheaders, params = {}) => {
 }
 // current change
 
-const POST = (url, data, grant_type, getheaders, params = {}) => {
+const POST = (url, data, grant_type, getheaders, headerType = "json" , params = {}) => {
     if (getheaders) {
         const token = localStorage.getItem('dm-access_token')
-        return http.post(BASE_URL + url, data,{
-            headers:{
-                'Authorization':`Bearer ${token}`
-            }
+        let headers = {
+            'Authorization':`Bearer ${token}`,
+            'Content-Type': "application/json"
         }
-        )
+
+        if(headerType =='formdata'){
+            headers['Content-Type'] = 'multipart/form-data';
+        }
+
+
+        return http.post(BASE_URL + url, data,{headers})
     }
     return http.post(BASE_URL + url, data)
 }
-//current change
+
 const DELETE = (url, grant_type,getheaders, params = {}) => {
     if (getheaders) {
         const token = localStorage.getItem('dm-access_token')
@@ -49,17 +54,20 @@ const DELETE = (url, grant_type,getheaders, params = {}) => {
     }
     return http.delete(BASE_URL + url)
 }
-//current change
-//incoming change
-const PUT = (url, data,grant_type,getheaders,params = {}) => {
+const PUT = (url, data,grant_type,getheaders,headerType = "json",params = {}) => {
     if (getheaders) {
         const token = localStorage.getItem('dm-access_token')
-        return http.put(BASE_URL + url, data,{
-            headers:{
-                'Authorization':`Bearer ${token}`
-            }
+        let headers = {
+            'Authorization':`Bearer ${token}`,
+            'Content-Type': "application/json"
         }
-        )
+
+        if(headerType =='formdata'){
+            headers['Content-Type'] = 'multipart/form-data';
+        }
+
+
+        return http.put(BASE_URL + url, data,{headers})
     }
     return http.put(BASE_URL + url, data)
 }
