@@ -36,6 +36,12 @@ const Doctornavbar = (props) => {
                 notify.error("something went wrong")
             })
     })
+    const gotoProfile = () => {
+        props.props.push('/dashboard/settings/userprofile')
+    }
+    const changepassword = () => {
+        props.props.push('/dashboard/settings/change-password')
+    }
     return (
         <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -104,9 +110,14 @@ const Doctornavbar = (props) => {
                             <img src="/images/dashboard/user1.jpg" alt="profile" />
                         </div>
                         <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                            <div className="dropdown-item">
+                            <div className="dropdown-item" onClick={gotoProfile}>
+                                <i className="ti-user text-primary"></i>
+                                <span>Profile</span>
+                            </div>
+
+                            <div className="dropdown-item" onClick={changepassword}>
                                 <i className="ti-settings text-primary"></i>
-                                <span>Settings</span>
+                                <span>Change Password</span>
                             </div>
                             <div className="dropdown-item" onClick={Logout}>
                                 <i className="ti-power-off text-primary"></i>

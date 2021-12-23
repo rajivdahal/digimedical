@@ -5,40 +5,41 @@ import { useState, useEffect } from "react"
 import { Add } from "@material-ui/icons"
 import { httpClient } from "../../../../utils/httpClient";
 import { notify } from "../../../../services/notify";
-import { useFormik } from "formik";
+import { Field, Formik, useFormik, ErrorMessage, Form, FieldArray } from "formik";
+import Prescribefooter from "./prescribefooter.component";
 export default function Prescribe(props) {
-    console.log("props in prewscribe are", props)
+    const appointmentid=props.patient.id
+    // console.log("props in prescribe are", props.patient.id)
     const [lining, setlining] = useState({
         hitbasicinfo: true,
         hitlabtest: false,
-        hitprescription: false
+        hitprescription: false,
+        confirm: false
     })
-    const formik = useFormik({
-        initialValues: {
-            basicInfo: '',
-            labTestId: [],
-            appointmentId: null,
-            medicine: ""
-        },
-        validate: values => {
-            let errors = {}
-            if (!values.basicInfo) {
-                errors.basicInfo = "Required!"
-            }
-            return errors
-        }
-    })
+    const initialValues = {
+        basicInfo: '',
+        labTestId: [],
+        appointmentId: null,
+        medicine: []
+    }
     const [data, setdata] = useState({
         description: ''
     })
 
-    const [patientinfo, setpatientinfo] = useState(props.patient)
+    const [patientinfo, setpatientinfo] = useState({})
     const [services, setservices] = useState([])
     const [labtest, setlabtest] = useState(["", ""])
     const [medicine, setmedicine] = useState(["", ""])
     const [isdescriptionempty, setisdescriptionempty] = useState(true)
+    const [fade, setfade] = useState(false)
+    const [finaldata, setfinaldata] = useState({
+        basicInfo: '',
+        labTestId: [],
+        medicine: "",
+        appointmentId:null
+    })
+    const [refresh, setrefresh] = useState(false)
     useEffect(() => {
-        setpatientinfo(props.patient)
         httpClient.GET("lab-test/get-all", false, true)
             .then(resp => {
                 setservices(resp.data.data)
@@ -46,12 +47,19 @@ export default function Prescribe(props) {
             .catch(err => {
                 notify.error("something went wrong")
             })
+            setfinaldata((prevdata)=>{
+                return{
+                    ...prevdata,
+                    appointmentId:props.patient.id
+                }
+            })
     }, [])
+    useEffect(() => {
+        setpatientinfo(props.patient)
+    })
 
     const labTest = () => {
-        if (formik.errors.basicInfo) {
-            return
-        }
+
         setlining((prevstate) => {
             return {
                 hitbasicinfo: false,
@@ -82,51 +90,113 @@ export default function Prescribe(props) {
         console.log("cancel triggered")
         props.handlecancel()
     }
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        console.log(name, value)
-        if (name === "labTestId") {
-            formik.values.labTestId.push(value)
-        }
-        console.log(formik.values)
-    }
-    const addMore = (e) => {
-
-        setlabtest((prevstate) => {
-            return [...prevstate, ""]
-        })
-    }
-    const addMoreMedicine = () => {
-        setmedicine((prevstate) => {
-            return [...prevstate, ""]
-        })
-    }
-    const handleNext = () => {
-        console.log(formik.values)
-        if (lining.hitbasicinfo && !formik.errors.basicInfo) {
+    const handleNext = (values) => {
+        console.log("inisde next")
+        if (lining.hitbasicinfo) {
+            console.log("lining.hitbasicinfo triggered")
             setlining((prevstate) => {
                 return {
+                    ...prevstate,
                     hitbasicinfo: false,
-                    hitprescription: false,
-                    hitlabtest: true
+                    hitlabtest: true,
+                }
+            })
+            setfinaldata((prevstate) => {
+                return {
+                    ...prevstate,
+                    basicInfo: values.basicInfo
                 }
             })
         }
         if (lining.hitlabtest) {
+            console.log("lining.hitlabtest triggered")
+
             setlining((prevstate) => {
                 return {
-                    hitbasicinfo: false,
+                    ...prevstate,
+                    hitlabtest: false,
                     hitprescription: true,
-                    hitlabtest: false
                 }
             })
+            setfinaldata((prevstate) => {
+                return {
+                    ...prevstate,
+                    labTestId: values.labTestId
+                }
+            })
+        }
+        if (lining.hitprescription) {
+            console.log("lining.hitprescription triggered")
+            setfade(true)
+            let medicinenames = "" + values.medicine
+            console.log("medicine is", medicinenames)
+            setlining((prevstate) => {
+                return {
+                    ...prevstate,
+                    hitprescription: false,
+                    hitbasicinfo: true,
+                    confirm: true
+
+                }
+            })
+            setfinaldata((prevstate) => {
+                return {
+                    ...prevstate,
+                    medicine: medicinenames,
+                    appointmentId:appointmentid
+                }
+            })
+
+            console.log("final values are", finaldata)
+
+
+            // if(!finaldata.medicine){
+            //    return  console.log("medicine not inside")
+            // }
+            // console.log("final values are>>>",finaldata)
+            // // httpClient.POST("appointment-prescription/create",finaldata,false,true,{
+
+            // // })
+
+        }
+        if(lining.confirm) {
+            console.log("confirm triggered")
+            httpClient.POST("appointment-prescription/create",finaldata,false,true)
+            .then(resp=>{
+                notify.success("Prescription Created Successfully")
+                props.props.push("/dashboard/")
+            })
+            .catch(err=>{
+                notify.error("Prescription could not be saved")
+            })
+            .finally(()=>{
+                setlining(prev => {
+                    return {
+                        ...prev,
+                        confirm: false
+                    }
+                   
+                })
+            
+            })
+
+            console.log("finaldata are", finaldata)
         }
 
 
     }
+    const closeoverlappingmodel = () => {
+        console.log("cancel triggered")
+        setlining({
+            confirm: false,
+            hitbasicinfo: true
+        })
+        setfade(true)
+
+    }
     return (
         <>
-            <Modal show={props.showModal} onHide={props.handlecancel}>
+            <Modal show={props.showModal} onHide={props.handlecancel || fade}>
                 <div className='manage-positioning'>
                     <div className="prescription-container">
                         <div className="prescription-header">
@@ -140,87 +210,168 @@ export default function Prescribe(props) {
                             <div onClick={prescription} className={lining.hitprescription ? "prescription-item" : null}> Prescription</div>
                         </div>
                         <div>
-                            {lining.hitbasicinfo ? <form className="prescription-form">
-                                <div className="form-items">
-                                    <label htmlFor="name">Patient Name:</label>
-                                    <input name="name" className="prescription-input" value={patientinfo.patientsName} ></input>
-                                </div>
-                                <div className="form-items">
-                                    <label htmlFor="age">Age:</label>
-                                    <input name="age" className="prescription-input" value={patientinfo.id}></input>
-                                </div>
+                            <Formik initialValues={initialValues} onSubmit={handleNext} >
+                                {lining.hitbasicinfo ?
+                                    <div>
+                                        <Form className="prescription-form">
+                                            <div className="form-items">
+                                                <label htmlFor="name">Patient Name:</label>
+                                                <input name="name" className="prescription-input" value={patientinfo.patientsName} ></input>
+                                            </div>
+                                            <div className="form-items">
+                                                <label htmlFor="age">Age:</label>
+                                                <input name="age" className="prescription-input" value={patientinfo.id}></input>
+                                            </div>
+                                            {
+                                                patientinfo.weight ? <div className="form-items">
+                                                    <label htmlFor="bodyWeight">Body Weight:</label>
+                                                    <input name="bodyWeight" className="prescription-input" value={patientinfo.weight}></input>
+                                                </div> : null
+                                            }
+                                            <div className="form-items">
+                                                <label htmlFor="description" >Description:</label>
+                                                <Field className="textarea-input" as="textarea" rows="4" cols="50" name="basicInfo" id="basicInfo"></Field>
+                                                {/* <ErrorMessage name="basicInfo"></ErrorMessage> */}
+                                            </div>
+                                            <Prescribefooter handleCancel={handleCancel} label="Next"></Prescribefooter>
+
+                                            {/* {formik.errors.basicInfo && formik.touched.basicInfo?<div style={{ color: "red" }} className="errmsg" style={{ marginLeft: "30%", color: "red" }}>{formik.errors.basicInfo}</div> : null} */}
+                                        </Form>
+                                    </div>
+                                    : null}
+                            </Formik>
+                            <Formik initialValues={initialValues} onSubmit={handleNext}>
                                 {
-                                    patientinfo.weight ? <div className="form-items">
-                                        <label htmlFor="bodyWeight">Body Weight:</label>
-                                        <input name="bodyWeight" className="prescription-input" value={patientinfo.weight}></input>
-                                    </div> : null
+
+
+                                    lining.hitlabtest ?
+                                        <div className="prescription-form">
+                                            {
+
+                                                <Form>
+                                                    <FieldArray name="labTestId">
+                                                        {
+                                                            (fieldarrayprops) => {
+                                                                console.log("fieldarray", fieldarrayprops)
+                                                                const { push, remove, form } = fieldarrayprops
+                                                                const { values } = form
+                                                                const { labTestId } = values
+                                                                return <div>
+                                                                    {
+                                                                        labTestId.length ?
+                                                                            labTestId.map((item, index) => (
+                                                                                <div key={index}>
+                                                                                    <label>Lab Test {index + 1}:</label>
+                                                                                    <Field as="select" className="prescription-input" name={`labTestId[${index}]`}>
+                                                                                        {
+                                                                                            services.map((item, index) => {
+                                                                                                return <option value={item.id} key={index}>{item.name}</option>
+                                                                                            })
+                                                                                        }
+                                                                                    </Field >
+                                                                                    {
+                                                                                        <button type="button" onClick={() => remove(index)}>-</button>
+                                                                                    }
+                                                                                </div>
+                                                                            )) : <div>No any lab test</div>
+                                                                    }
+                                                                    <div className="form-items" onClick={() => push("")}>
+                                                                        <label htmlFor="addmore" style={{ color: "blue" }}>Add Lab Test <Add></Add></label>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </FieldArray>
+                                                    <Prescribefooter handleCancel={handleCancel} label="Next"></Prescribefooter>
+                                                </Form>
+                                            }
+                                        </div>
+                                        : null
                                 }
-                                <div className="form-items">
-                                    <label htmlFor="description" >Description:</label>
-                                    <textarea className="textarea-input" rows="4" cols="50" {...formik.getFieldProps("basicInfo")}></textarea>
+                            </Formik>
+                            <Formik initialValues={initialValues} onSubmit={handleNext}>
+                                {
+                                    lining.hitprescription ?
+                                        <div className="prescription-form">
+                                            {
+                                                <Form>
+                                                    <FieldArray name="medicine">
+                                                        {
+                                                            (fieldarrayprops) => {
+                                                                console.log("fieldarray", fieldarrayprops)
+                                                                const { push, remove, form } = fieldarrayprops
+                                                                const { values } = form
+                                                                const { medicine } = values
+                                                                return <div>
+                                                                    {
+                                                                        medicine.length ?
+                                                                            medicine.map((item, index) => (
+                                                                                <div key={index}>
+                                                                                    <label>Medicine{index + 1}:</label>
+                                                                                    <Field className="prescription-input" name={`medicine[${index}]`}></Field >
+                                                                                    {
+                                                                                        <button type="button" onClick={() => remove(index)}>-</button>
+                                                                                    }
+                                                                                </div>
+                                                                            )) : <div>No any medicine</div>
+                                                                    }
+                                                                    <div className="form-items" onClick={() => push("")}>
+                                                                        <label htmlFor="addmore" style={{ color: "blue" }}>Add Medicine <Add></Add></label>
+                                                                    </div>
 
-                                </div>
-                                {formik.errors.basicInfo && formik.touched.basicInfo ? <div style={{ color: "red" }} className="errmsg" style={{ marginLeft: "30%", color: "red" }}>{formik.errors.basicInfo}</div> : null}
-                            </form> : null}
-                            {
-                                lining.hitlabtest ?
-                                    <div className="prescription-form">
-                                        {
-                                            labtest.map((item, index) => {
-                                                return (
-                                                    <>
-                                                        <div className="form-items" key={index}>
-                                                            <label htmlFor="labtest1">Lab Test {index + 1}:</label>
-                                                            <select className="prescription-input" name="labTestId" onChange={handleChange}>
-                                                                <option value={null}></option>
-                                                                {
-                                                                    services.map((item, index) => {
-                                                                        return <option value={item.id} key={index}>{item.name}</option>
-                                                                    })
-                                                                }
-                                                            </select>
-                                                        </div>
-                                                    </>
-                                                )
-                                            })
-                                        }
-                                        <div className="form-items" onClick={addMore}>
-                                            <label htmlFor="addmore" style={{ color: "blue" }}>Add More <Add></Add></label>
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </FieldArray>
+                                                    <Prescribefooter handleCancel={handleCancel} label="Submit"></Prescribefooter>
+                                                </Form>
+                                            }
                                         </div>
-                                    </div>
-                                    : null
-                            }
-                            {
-                                lining.hitprescription ?
-                                    <div className="prescription-form">
-                                        {
-                                            medicine.map((item, index) => {
-                                                return <>
-                                                    <div className="form-items" key={index}>
-                                                        <label htmlFor="name">Medicine {index + 1}:</label>
-                                                        <input className="prescription-input"{...formik.getFieldProps("medicine")}></input>
-                                                    </div>
-                                                        </>
-                                            })
-                                        }
-                                        <div className="form-items" onClick={addMoreMedicine}>
-                                            <label htmlFor="addmore" style={{ color: "blue" }}>Add More <Add></Add></label>
-                                        </div>
+                                        : null
+                                }
+                            </Formik>
 
-                                    </div>
-                                    : null
+                        </div>
 
-                            }
-                        </div>
-                        <div className="prescription-footer">
-                            <div className="footer-wrapper">
-                                <div className="footer-button" onClick={handleCancel}> Cancel</div>
-                                <button className="footer-button next-button" onClick={handleNext}> Next</button>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
+            </Modal>
+5
+
+
+            <Modal show={lining.confirm} onHide={!lining.confirm} style={{ marginTop: "25%", height: "500px",marginLeft:"180px" }}>
+                <Modal.Header >
+                    <Modal.Title><b>Confirm Prescription?</b></Modal.Title>
+
+
+                </Modal.Header>
+                <Modal.Footer>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <Formik initialValues={initialValues} onSubmit={handleNext}>
+                        <Form>
+                            <Button variant="info" onClick={closeoverlappingmodel}>
+                                Cancel
+                            </Button>
+                            <Button variant="danger" type="submit">
+                                Confirm
+                            </Button>
+                        </Form>
+                    </Formik>
+                </Modal.Footer>
+                {/* <Formik initialValues={initialValues} onSubmit={handleNext}>
+                    <Form>
+                        {
+                            lining.confirm ? <div className="prescription-form">
+
+                                <Prescribefooter handleCancel={closeoverlappingmodel} label="Confirm"></Prescribefooter>
+                            </div> : null
+                        }
+                    </Form>
+                </Formik> */}
             </Modal>
         </>
     )

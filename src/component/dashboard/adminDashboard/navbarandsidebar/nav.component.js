@@ -25,6 +25,12 @@ const Nav = (props) => {
             logoutno: true
         })
     }
+    const gotoProfile = () => {
+        props.props.push('/dashboard/settings/userprofile')
+    }
+    const changepassword = () => {
+        props.props.push('/dashboard/settings/change-password')
+    }
 
     return (
         <>
@@ -39,7 +45,7 @@ const Nav = (props) => {
 
                 <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
 
-                    <h4 className="font-weight-bold welcome-shiva" style={{ marginTop: '8px' }}>Welcome Shiva</h4>
+                    <h4 className="font-weight-bold welcome-shiva" style={{ marginTop: '8px' }}>Welcome Admin</h4>
 
                     <ul className="navbar-nav navbar-nav-right">
                         <li className="nav-item dropdown">
@@ -69,11 +75,14 @@ const Nav = (props) => {
                                             <i className="ti-settings mx-0"></i>
                                         </div>
                                     </div>
-                                    <div className="preview-item-content">
-                                        <h6 className="preview-subject font-weight-normal">Settings</h6>
-                                        <p className="font-weight-light small-text mb-0 text-muted">
-                                            Private message
-                                        </p>
+                                    <div className="dropdown-item" onClick={gotoProfile}>
+                                        <i className="ti-user text-primary"></i>
+                                        <span>Profile</span>
+                                    </div>
+
+                                    <div className="dropdown-item" onClick={changepassword}>
+                                        <i className="ti-settings text-primary"></i>
+                                        <span>Change Password</span>
                                     </div>
                                 </a>
                                 <a className="dropdown-item preview-item">
@@ -97,9 +106,14 @@ const Nav = (props) => {
                                 <img src="/images/dashboard/user1.jpg" alt="profile" />
                             </a>
                             <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                                <div className="dropdown-item">
+                                <div className="dropdown-item" onClick={gotoProfile}>
+                                    <i className="ti-user text-primary"></i>
+                                    <span>Profile</span>
+                                </div>
+
+                                <div className="dropdown-item" onClick={changepassword}>
                                     <i className="ti-settings text-primary"></i>
-                                    <span>Settings</span>
+                                    <span>Change Password</span>
                                 </div>
                                 <div className="dropdown-item" onClick={Logout}>
                                     <i className="ti-power-off text-primary"></i>

@@ -4,6 +4,9 @@
     display: inline-block;
 
 }
+a{
+    text-decoration: none;
+}
 
 img {
     transition: all 900ms ease;

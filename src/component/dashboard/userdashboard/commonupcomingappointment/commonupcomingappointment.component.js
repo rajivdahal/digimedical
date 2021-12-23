@@ -228,7 +228,7 @@ export const Commonupcomingappointment = (props) => {
                             : null}
                     ></MaterialTable>
             }
-            <Prescribe showModal={showPrescriptionModal}  handlecancel={()=>fademodel()} patient={patient}></Prescribe>
+            <Prescribe showModal={showPrescriptionModal}  handlecancel={()=>fademodel()} patient={patient} props={props.props?props.props.history:null}></Prescribe>
             {/* <Prescribe></Prescribe> */}
            <Showmodal showModal={showModal} handlecancel={()=>handlecancel()} deleteindeed={()=>deleteindeed()}></Showmodal>
         </>

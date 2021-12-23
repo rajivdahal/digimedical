@@ -127,36 +127,3 @@
     box-sizing: border-box;
     border-radius: 5px;
 }
-
-.footer-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 12px 24px;
-    position: relative;
-    right: 20%;
-}
-
-.prescription-footer {
-    position: absolute;
-    right: 0%;
-    top: 525px;
-}
-
-.footer-button {
-    background: #FFFFFF;
-    border-radius: 10px;
-    border: 1px solid #2745F0;
-    padding: 10px;
-    margin-left: 10px;
-    cursor: pointer;
-
-}
-.next-button{
-    background-color: #2745F0;
-    color: #FFFFFF;
-    padding: 10px 20px;
-}
-.modal-content{
-border: none;
-}

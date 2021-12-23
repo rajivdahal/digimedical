@@ -14,10 +14,10 @@ const Userdashboard = (props) => {
         settotalappointments(resp.data.data.totalAppointments)
       })
       .catch(err => {
-        
+
         notify.error("Total appointments-unable to fetch")
       })
-  },[])
+  }, [])
   return (
     <>
       <div className="container-fluid page-body-wrapper">
@@ -183,10 +183,9 @@ const Userdashboard = (props) => {
                   <div className="col-12 col-xl-4">
                     <div className="justify-content-end d-flex">
                       <div className="dropdown flex-md-grow-1 flex-xl-grow-0">
-                        <button className="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                          <i className="mdi mdi-calendar"></i>Today- {TimeandDate.today()}
-                        </button>
-
+                        <div className="btn btn-sm btn-light bg-white " >
+                          <span className="mdi mdi-calendar"></span> Today {TimeandDate.today()}
+                        </div>
                       </div>
                     </div>
                   </div>

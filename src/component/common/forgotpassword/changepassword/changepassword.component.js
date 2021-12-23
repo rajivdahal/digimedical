@@ -24,7 +24,7 @@ export const Changepassword = (props) => {
                 return httpClient.PUT("update-user-password", values, false, true)
                     .then(resp => {
                         notify.success("Password successfully changed")
-                        props.history.push("/dashboard")
+                        props.history.push("/dashboard/")
                     })
                     .catch(err => {
                         console.log(err.response)
