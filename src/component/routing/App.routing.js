@@ -39,8 +39,8 @@ export const Approuting = (props) => {
         <ProtectedRoute exact path="/dashboard/create-doctor" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/create-services" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/appointment" component={Dashboard}></ProtectedRoute>
-        <ProtectedRoute exact path="/dashboard/lab-test" component={Dashboard}></ProtectedRoute>
-
+        <ProtectedRoute exact path="/dashboard/add/labtest" component={Dashboard}></ProtectedRoute>
+        <ProtectedRoute exact path="/dashboard/labtest" component={Dashboard}></ProtectedRoute>
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
     </BrowserRouter>

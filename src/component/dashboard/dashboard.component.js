@@ -21,6 +21,7 @@ import Appointment from "./adminDashboard/appointmentPage/appointment.component"
 import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component"
 import Labtest from "./adminDashboard/labtestData/labtest.component"
 import UserProfile from "./userdashboard/settings/profileupdate.component"
+import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -67,8 +68,10 @@ const Dashboard = (props) => {
                                 <ProtectedRoute component={Createservices}></ProtectedRoute>
                                 : props.match.path === "/dashboard/appointment" ?
                                   <ProtectedRoute component={Appointment} />
-                                  : props.match.path === "/dashboard/lab-test" ?
+                                  : props.match.path === "/dashboard/add/labtest" ?
                                     <ProtectedRoute component={Labtest} />
+                                    : props.match.path === "/dashboard/labtest" ?
+                                    <ProtectedRoute component={LabTestDetail}/>
                                     : null
                       }
                     </div>
