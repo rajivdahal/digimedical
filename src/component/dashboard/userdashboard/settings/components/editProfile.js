@@ -331,7 +331,7 @@ const EditProfile = (props) => {
                                     <Button type="button" className="cancel-btn" onClick={cancelProfileEdit}>
                                         Cancel
                                     </Button>
-                                    <Button type="submit" style={{ marginLeft: '8px' }}>
+                                    <Button className="change-btn" type="submit">
                                         Save Changes
                                     </Button>
                                 </div>
