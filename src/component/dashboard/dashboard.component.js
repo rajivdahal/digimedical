@@ -19,7 +19,6 @@ import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappoint
 
 import Appointment from "./adminDashboard/appointmentPage/appointment.component"
 import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component"
-import Usersettings from "./settings/usersettings/usersettings.component"
 import Prescribe from "./doctordashboard/prescribe/prescribe.component"
 import Labtest from "./adminDashboard/labtestData/labtest.component"
 import UserProfile from "./userdashboard/settings/profileupdate.component"

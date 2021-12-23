@@ -100,6 +100,10 @@ const Createdoctor = (props) => {
             selectedId.push(service.id)
         })
 
+        if(values.doctorImage){
+            formData.append("image", values.doctorImage);
+
+        }
         let formData = new FormData();
 
         formData.append("firstName", values.firstName);
@@ -115,7 +119,6 @@ const Createdoctor = (props) => {
         formData.append("liscenceDate", values.licensedDate);
         formData.append("mobileNumber", values.mobileNumber);
         formData.append("serviceId", selectedId);
-        formData.append("image", values.doctorImage);
 
         httpClient.POST("doctor/create", formData, false, true, "formdata")
             .then(resp => {
