@@ -5,22 +5,15 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { notify } from '../../../../services/notify';
 import { formatDate } from '../../../../services/timeanddate';
+import { Todaydate } from '../../../../services/todaydate';
 export default function Internalappointmentbook(prop) {
-    console.log("props are", prop)
     const editdata = prop.location.data ? prop.location.data : null
-
     const [appointmentsuccess, setappointmentsuccess] = useState(null)
     const [appointmentfailed, setappointmentfailed] = useState(null)
     const [services, setservices] = useState([])
     const [doctors, setdoctors] = useState([])
     const [doctorname, setdoctorname] = useState(null)
     const [service, setservicename] = useState(null)
-    // const [isparameterschanged, setisparameterschanged] = useState({
-    //     servicesId: true,
-    //     doctorId: true,
-    //     appointmentDate: true,
-    //     appointmentTime: true
-    // })
     const [toeditdata, settoeditdata] = useState(editdata)
     if (toeditdata) {
         toeditdata['serviceId'] = toeditdata['servicesId']
@@ -85,7 +78,7 @@ export default function Internalappointmentbook(prop) {
     }
     const handleeditchange = (e) => {
         let { name, value } = e.target
-        let servicesId
+
         if (name === "servicesId") {
             httpClient.GET(`services/get-name/${value}`)
                 .then(resp => {
@@ -196,6 +189,7 @@ export default function Internalappointmentbook(prop) {
                         id="appointmentDate"
                         name="appointmentDate"
                         placeholder="dd/mm/yyyy"
+                        min={Todaydate()}
                         onChange={(e) => {
                             handleeditchange(e)
                         }}

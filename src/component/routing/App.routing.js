@@ -9,19 +9,26 @@ import ProtectedRoute from "./Protectedroute.component";
 import { PublicRoute } from "./publicroute";
 import { Verifypassword } from "../common/forgotpassword/verifypassword.component";
 import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component";
+import AboutPage from "../AboutPage/AboutPage";
+import Service from "../Service/Service";
+import ContactUs from "../Contact/ContactUs";
 
 export const Approuting = (props) => {
-
   return (
     <BrowserRouter>
       <Switch>
         <PublicRoute exact path="/login" component={Login}></PublicRoute>
         <PublicRoute exact path="/" component={Home}></PublicRoute>
         <PublicRoute exact path="/register" component={Register}></PublicRoute>
+        <PublicRoute exact path="/about" component={AboutPage}></PublicRoute>
+        <PublicRoute exact path="/services" component={Service}></PublicRoute>
+        <PublicRoute exact path="/contact" component={ContactUs}></PublicRoute>
         <PublicRoute exact path="/forgot-password" component={Forgotpassword}></PublicRoute>
         <PublicRoute exact path="/change-password" component={Changepassword}></PublicRoute>
         <PublicRoute exact path="/forgot-password/verify-password" component={Verifypassword}></PublicRoute>
         <PublicRoute exact path="/verify-password" component={Verifypassword}></PublicRoute>
+
+
         <ProtectedRoute exact path="/dashboard" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/viewappointment" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/bookappointment" component={Dashboard}></ProtectedRoute>
@@ -32,13 +39,19 @@ export const Approuting = (props) => {
         <ProtectedRoute exact path="/dashboard/lab-reports" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/medical-reports" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/all-patients" component={Dashboard}></ProtectedRoute>
-        <ProtectedRoute exact path="/dashboard/userprofile" component={Dashboard}></ProtectedRoute>
+
+        <ProtectedRoute exact path="/dashboard/prescribe/:id" component={Dashboard}></ProtectedRoute>
+        <ProtectedRoute exact path="/dashboard/settings/userprofile" component={Dashboard}></ProtectedRoute> 
+        {/* TO DO */}
+        <ProtectedRoute exact="/dashboard/settings/change-password" component={Dashboard}></ProtectedRoute>
+        {/* <ProtectedRoute exact path="/dashboard/userprofile" component={Dashboard}></ProtectedRoute> */}
 
         {/* admin route */}
         <ProtectedRoute exact path="/dashboard/doctor-table" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/create-doctor" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/create-services" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/appointment" component={Dashboard}></ProtectedRoute>
+        <ProtectedRoute exact path="/dashboard/lab-test" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/add/labtest" component={Dashboard}></ProtectedRoute>
         <ProtectedRoute exact path="/dashboard/labtest" component={Dashboard}></ProtectedRoute>
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>

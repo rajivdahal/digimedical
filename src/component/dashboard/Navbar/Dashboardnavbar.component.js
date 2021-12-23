@@ -1,59 +1,64 @@
 import { notify } from "./../../../services/notify"
 import { Link } from "react-router-dom"
-import {useEffect,useState} from "react"
+import { useEffect, useState } from "react"
 import { httpClient } from "../../../utils/httpClient"
 import "./dashboardnavbar.component.css"
-export const Dashboardnavbar=(props)=>{
+export const Dashboardnavbar = (props) => {
+  const [userImage,setImage]=useState("")
+  let [username, setusername] = useState("")
+  const [logoutstate, setlogoutstate] = useState({
+    logout: false,
+  })
+  const Logout = (e) => {
+    setlogoutstate({
+      logout: true
+    })
+  }
 
-  const [userImage, setImage] = useState("");
-  let [username,setusername]=useState("")
-    const [logoutstate, setlogoutstate] = useState({
-        logout: false,
-      })
-      const Logout = (e) => {
-        setlogoutstate({
-          logout: true
-        })
-      }
+  const logoutyes = () => {
+    localStorage.removeItem("dm-access_token")
+    localStorage.removeItem("timeout")
+    localStorage.removeItem("dm-refresh_token")
+    props.props.push('/login')
+    notify.success("Logout success! Please Login again")
+  }
+  const logoutno = () => {
+    setlogoutstate({
+      logoutno: true
+    })
+  }
+  const gotoProfile=()=>{
+    props.props.push('/dashboard/settings/userprofile')
+  }
+  const changepassword=()=>{
+    props.props.push('/dashboard/settings/change-password')
+  }
 
-      const logoutyes = () => {
-        console.log("inside logout yes")
-        localStorage.removeItem("dm-access_token")
-        localStorage.removeItem("timeout")
-        localStorage.removeItem("dm-refresh_token")
-        props.props.push('/login')
-        notify.success("Logout success! Please Login again")
-      }
-      const logoutno = () => {
-        setlogoutstate({
-          logoutno: true
-        })
-      }
-     
-      useEffect(()=>{
-        let id = localStorage.getItem('userid');
-        
-        httpClient.GET("user-profile",false,true)
-        .then(resp=>{
-          let url = "http://103.90.86.77:8082/api/download/" + id;
-          setImage(url)
+  useEffect(()=>{
+    let id = localStorage.getItem('userid');
+    
+    httpClient.GET("user-profile",false,true)
+    .then(resp=>{
+      let url = "http://103.90.86.77:8082/api/download/" + id;
+      setImage(url)
 
-          const name=resp.data.data.profileInfo.name
-          setusername(name)
-        })
-        .catch(err=>{
-          notify.error("something went wrong")
-        })
-      })
-    return(
-        <>
-        <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      const name=resp.data.data.profileInfo.name
+      setusername(name)
+    })
+    .catch(err=>{
+      notify.error("something went wrong")
+    })
+  })
+
+  return (
+    <>
+      <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-         <Link to="/"> 
-         <a className="navbar-brand" href="index.html">
-           <img src="/images/logo/logo4.png" className=" logoimg" alt="logo" />
-           </a>
-           </Link>
+          <Link to="/">
+            <a className="navbar-brand" href="index.html">
+              <img src="/images/logo/logo4.png" className=" logoimg" alt="logo" />
+            </a>
+          </Link>
         </div>
         <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
           <h3 className="font-weight-bold header-color">Welcome {username}</h3>
@@ -112,10 +117,16 @@ export const Dashboardnavbar=(props)=>{
                 <img src={userImage}alt="profile" />
               </a>
               <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                <div className="dropdown-item">
-                  <i className="ti-settings text-primary"></i>
-                  <span>Settings</span>
-                </div>
+                
+                  <div className="dropdown-item" onClick={gotoProfile}>
+                    <i className="ti-user text-primary"></i>
+                    <span>Profile</span>
+                  </div>
+                
+                <div className="dropdown-item" onClick={changepassword}>
+                    <i className="ti-settings text-primary"></i>
+                    <span>Change Password</span>
+                  </div>
                 <div className="dropdown-item" onClick={Logout}>
                   <i className="ti-power-off text-primary"></i>
                   <span>Logout</span>
@@ -141,6 +152,6 @@ export const Dashboardnavbar=(props)=>{
           </button>
         </div>
       </nav>
-   </>
-    )
+    </>
+  )
 }

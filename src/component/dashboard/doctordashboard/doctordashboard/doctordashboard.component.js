@@ -4,6 +4,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { notify } from "../../../../services/notify"
 import { httpClient } from "../../../../utils/httpClient"
+import { Modal, Button } from 'react-bootstrap';
 export const Doctordashboard = (props) => {
   const [totalappointments, settotalappointments] = useState()
   useEffect(() => {
@@ -104,7 +105,7 @@ export const Doctordashboard = (props) => {
 
 
         <Commonupcomingappointment fromdoctorcomponent={true} setisassigneddoctor={false}></Commonupcomingappointment>
-
+      
 
 
 

@@ -2,21 +2,26 @@ import { httpClient } from "../../../../utils/httpClient";
 import { useEffect } from "react"
 import { useState } from "react"
 import { notify } from "../../../../services/notify";
-import { Check, Edit, Delete, Clear } from "@material-ui/icons";
+import { Check, Edit, Clear ,Add} from "@material-ui/icons";
+import CallMissedOutgoingIcon from '@material-ui/icons/CallMissedOutgoing';
 // import "./upcomingappointment.component.css"
 import { formatDate } from "../../../../services/timeanddate";
 import MaterialTable from 'material-table'
-import { Modal, Button } from 'react-bootstrap';
 import Cliploader from "../../../../utils/clipLoader";
+import { Showmodal, ShowPrescription } from "../../../../utils/showmodal";
+import Prescribe from "../../doctordashboard/prescribe/prescribe.component";
 
 export const Commonupcomingappointment = (props) => {
+    console.log("props in commmonupcoming appointment is",props)
     const userid = localStorage.getItem("userid")
     const [isloading, setisloading] = useState(false)
     const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
     const [pendingData, setpendingData] = useState([])
     const [showModal, setShowModal] = useState(false)
+    const [showPrescriptionModal, setshowPrescriptionModal] = useState(false)
     const [refresh, setrefresh] = useState()
     const [id, setid] = useState()
+    const [patient,setpatient]=useState({})
     useEffect(() => {
         setisloading(true)
         if (fromdoctorcomponent) {
@@ -43,6 +48,7 @@ export const Commonupcomingappointment = (props) => {
             httpClient.GET("get-user-pending-appointments", false, true)
                 .then(resp => {
                     let data = resp.data.data
+                    console.log("data are",data)
                     data = data.map((item, index) => {
                         item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
                         item.appointmentTime = item.appointmentTime.slice(0, 5)
@@ -57,7 +63,6 @@ export const Commonupcomingappointment = (props) => {
                     notify.error("something went wrong")
                 })
         }
-
     }, [])
     useEffect(() => {
         setisloading(true)
@@ -144,6 +149,11 @@ export const Commonupcomingappointment = (props) => {
     }
     const handlecancel = () => {
         setShowModal(false)
+        setshowPrescriptionModal(false)
+    }
+    const fademodel=()=>{
+        console.log("fade model triggered")
+        setshowPrescriptionModal(false)
     }
     const deleteindeed = () => {
         console.log("inside delete")
@@ -152,12 +162,20 @@ export const Commonupcomingappointment = (props) => {
                 .then(resp => {
                     setShowModal(false)
                     setrefresh(true)
-
                 })
                 .catch(err => {
                     console.log(err.response)
                 })
         }
+    }
+    const handleAddAppointment=()=>{
+        props.props.push("/dashboard/bookappointment")
+    }
+    const proceedprescription=(e,rowdata)=>{
+        
+        setshowPrescriptionModal(true)
+        setpatient(rowdata)
+        // props.props.history.push(`/dashboard/prescribe/${rowdata.id}`)
     }
     return (
         <>
@@ -183,7 +201,6 @@ export const Commonupcomingappointment = (props) => {
                                 backgroundColor: '#2745F0',
                                 color: '#FFF'
                             }
-
                         }}
                         actions={props.isactionavailable && !fromdoctorcomponent ? [
                             {
@@ -196,31 +213,24 @@ export const Commonupcomingappointment = (props) => {
                                 tooltip: 'cancel appointment',
                                 onClick: (e, rowData) => { handledelete(e, rowData) }
                             },
+                            {
+                                icon: Add,
+                                tooltip: 'Add Appintment',
+                                isFreeAction: true,
+                                onClick: () => { handleAddAppointment() }
+                            },
                         ] : props.isactionavailable && fromdoctorcomponent ? [
                             {
-                                icon: Check,
-                                tooltip: 'mark as complete',
-                                onClick: (e, rowData) => { handledelete(e, rowData) }
+                                icon: CallMissedOutgoingIcon,
+                                tooltip: 'Proceed for Prescription',
+                                onClick: (e, rowData) => { proceedprescription(e, rowData)}
                             }]
                             : null}
                     ></MaterialTable>
             }
-
-            <Modal show={showModal} onHide={handlecancel}>
-                <Modal.Header >
-                    <Modal.Title><b>Upcomming Appointment</b></Modal.Title>
-                </Modal.Header>
-                <Modal.Body >Do you really want to clear the appointment?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="info" onClick={handlecancel}>
-                        Cancel
-                    </Button>
-                    <Button variant="danger" onClick={deleteindeed}>
-                        Delete
-                    </Button>
-
-                </Modal.Footer>
-            </Modal>
+            <Prescribe showModal={showPrescriptionModal}  handlecancel={()=>fademodel()} patient={patient} props={props.props?props.props.history:null}></Prescribe>
+            {/* <Prescribe></Prescribe> */}
+           <Showmodal showModal={showModal} handlecancel={()=>handlecancel()} deleteindeed={()=>deleteindeed()}></Showmodal>
         </>
     )
 }

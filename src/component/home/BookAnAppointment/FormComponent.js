@@ -5,6 +5,7 @@ import { httpClient } from "../../../utils/httpClient";
 import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
 import Cliploader from "../../../utils/clipLoader";
+import { Todaydate } from "../../../services/todaydate";
 const FormSection = styled.div`
   height: auto;
   margin-top: 25px;
@@ -39,7 +40,9 @@ const FormSection = styled.div`
 `;
 
 function FormComponent(props) {
-  const prop = props.history.history
+ const today=Todaydate()
+  const prop = props.history.history?props.history.history:props.history.props.props.history
+
   const [appointmentsuccess, setappointmentsuccess] = useState(null)
   const [appointmentfailed, setappointmentfailed] = useState(null)
   const [services, setservices] = useState([])
@@ -151,6 +154,9 @@ function FormComponent(props) {
         notify.error("No any doctors are available to this service")
       })
   }
+ 
+  
+
   return (
     <FormSection>
       <form onSubmit={formik.handleSubmit}>
@@ -257,6 +263,8 @@ function FormComponent(props) {
               className="form-control"
               id="appointmentDate"
               placeholder="dd/mm/yyyy"
+              min={today}
+              max=""
               {...formik.getFieldProps("appointmentDate")}
             />
             {formik.errors.appointmentDate && formik.touched.appointmentDate ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentDate}  </div> : null}

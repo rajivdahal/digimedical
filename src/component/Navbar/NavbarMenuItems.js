@@ -75,7 +75,7 @@ const NavbarMenuItems = () => {
           </span>
           <span className="menu-item">
             <Link
-              to="/service"
+              to="/services"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Services{" "}
