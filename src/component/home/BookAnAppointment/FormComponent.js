@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
 import Cliploader from "../../../utils/clipLoader";
 import { Todaydate } from "../../../services/todaydate";
+import "./formcomponent.css"
+const BASE_URL = process.env.REACT_APP_BASE_URL
+
 const FormSection = styled.div`
   height: auto;
   margin-top: 25px;
@@ -40,14 +43,22 @@ const FormSection = styled.div`
 `;
 
 function FormComponent(props) {
- const today=Todaydate()
-  const prop = props.history.history?props.history.history:props.history.props.props.history
-
+  const today = Todaydate()
+  const prop = props.history.history ? props.history.history : props.history.props.props.history
   const [appointmentsuccess, setappointmentsuccess] = useState(null)
   const [appointmentfailed, setappointmentfailed] = useState(null)
   const [services, setservices] = useState([])
   const [doctors, setdoctors] = useState([])
   const [isloading, setisloading] = useState(false)
+  const [doctorfetched, setdoctorfetched] = useState({
+    image: null,
+    prefix:null,
+    name:null,
+    specialist:null,
+    description:null
+
+  })
+  const [isdoctorblurred, setisdoctorblurred] = useState(false)
   useEffect(() => {
     httpClient.GET("services/get/true")
       .then(resp => {
@@ -111,11 +122,11 @@ function FormComponent(props) {
           setappointmentsuccess(res.data.message)
           setTimeout(() => {
             prop.push({
-              pathname:"/login",
-              fromexternaluser:true,
-              email:values.email
+              pathname: "/login",
+              fromexternaluser: true,
+              email: values.email
             })
-          },3000);
+          }, 3000);
         })
         .catch(err => {
           console.log(err.response)
@@ -145,7 +156,6 @@ function FormComponent(props) {
     let serviceid = e.target.value
     httpClient.GET(`doctor/get-related-doctor/${serviceid}`, false, false)
       .then(resp => {
-
         setdoctors(resp.data.data)
         console.log(resp.data.data)
       })
@@ -154,8 +164,32 @@ function FormComponent(props) {
         notify.error("No any doctors are available to this service")
       })
   }
- 
-  
+  const getdoctorinfo = (e) => {
+    let doctorid = e.target.value
+    console.log(doctorid)
+    let image = BASE_URL + "doctor/download/" + doctorid
+    httpClient.GET(`doctor/public-info/${doctorid}`)
+      .then((resp => {
+        const {prefix,name,specialist,description}=resp.data.data
+        setdoctorfetched({
+          image: image,
+          prefix:prefix,
+          name:name,
+          specialist:specialist,
+          description:description
+        })
+        setisdoctorblurred(true)
+        console.log(resp.data.data)
+      }))
+      .catch(err => {
+        notify.error("something went wrong")
+      })
+
+    
+
+    // console.log("values are", e.target.value)
+  }
+
 
   return (
     <FormSection>
@@ -242,13 +276,16 @@ function FormComponent(props) {
           </div>
           <div className="form-group col-md-6">
             <label htmlFor="doctor">Select Doctor</label>
-            <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{ color: "black" }}>
+            <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{ color: "black" }}
+              onChange={(e) => {
+                formik.handleChange(e)
+                getdoctorinfo(e)
+              }}
+            >
               <option value={null}></option>
               {
                 doctors.map((item, index) => {
-
                   return <option key={index} value={item.id}>{item.name}</option>
-
                 })
               }
             </select>
@@ -307,7 +344,29 @@ function FormComponent(props) {
           We value your privacy. Your details are safe with us.
         </div>
       </form>
+
+      {
+        isdoctorblurred ?
+
+          <div class="docs">
+            <div class="doc bubble">
+              <div class="imag1">
+
+                <img src={doctorfetched.image} />
+              </div>
+              <div class="description">
+                <p id="doc_name">Dr. {doctorfetched.name}</p>
+                <p id="doc_skill">{doctorfetched.specialist}</p>
+                <p id="doc_edu">
+                  {doctorfetched.prefix}
+                </p>
+                <p id="doc_exp">{doctorfetched.description}</p>
+              </div>
+            </div>
+          </div> : null}
+
     </FormSection>
+
   );
 }
 

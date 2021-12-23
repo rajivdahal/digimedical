@@ -123,16 +123,17 @@ const Createdoctor = (props) => {
                 if (resp.data.status) {
                     console.log(resp.data.data);
                     notify.success(resp.data.message)
-                    setLoading(false)
                     props.history.push("/dashboard/doctor-table")
                 }
             })
             .catch(err => {
-                if (err.response && err.response.data) {
+                if (err.response || err.response.data) {
                     notify.error(err.response.data.message || "Something went wrong")
                     setLoading(false)
-
                 }
+            })
+            .finally(()=>{
+                setLoading(false)
             })
     }
 

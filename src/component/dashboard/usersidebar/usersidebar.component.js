@@ -2,26 +2,42 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import "./usersidebar.component"
 import DashboardIcon from '@material-ui/icons/Dashboard';
-export default function Usersidebar() {
+export default function Usersidebar(props) {
+    console.log("props in sidebar is", props)
+    const navigateLabreport = () => {
+        props.props.push("/dashboard/lab-reports")
+    }
+    const navigateDashboard = () => {
+        props.props.push("/dashboard")
+    }
+    const navigateMedicalreports = () => {
+        props.props.push("/dashboard/medical-reports")
+    }
     return (
         <div >
             <nav className="sidebar sidebar-offcanvas" id="sidebar">
-                
+
                 <ul className="nav">
-                    <Link to="/dashboard" >
-                        <li className="nav-item">
+                    <li className="nav-item" onClick={navigateDashboard} style={{ cursor: "pointer" }}>
+                        <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
+                            <i className="fas fa-bars menu-icon"></i>
+                            <span className="menu-title">dashboard</span>
+                        </a>
+                    </li>
+
+                    {/* <li className="nav-item  style-yourself" onClick={navigateDashboard}>
                             <div className="nav-link dashboard-styling" data-toggle="collapse" aria-expanded="false" aria-controls="doctors" style={{ cursor: "pointer" }}>
                                 <i className="fas fa-bars menu-icon"></i>
-                                {/* <DashboardIcon/>     */}
+                                <DashboardIcon/>    
                                 <span className="menu-title" style={{ color: "grey" }}>Dashboard</span>
                             </div>
                         </li>
-                    </Link>
+                */}
                     <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
                             <i className="fas fa-user-clock menu-icon"></i>
-                            
-                            
+
+
                             <span className="menu-title">Appointments</span>
                             <i className="menu-arrow"></i>
                         </a>
@@ -36,14 +52,14 @@ export default function Usersidebar() {
                             </ul>
                         </div>
                     </li>
-                    <Link to="/dashboard/doctors">
+                    {/* <Link to="/dashboard/doctors">
                         <li className="nav-item">
                             <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
                                 <i className="fas fa-user-md  menu-icon"></i>
                                 <span className="menu-title" >Doctors</span>
                             </a>
                         </li>
-                    </Link>
+                    </Link> */}
 
                     <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
@@ -65,8 +81,8 @@ export default function Usersidebar() {
                             </ul>
                         </div>
                     </li>
-                    <Link to="/dashboard/lab-reports">
-                    <li className="nav-item">
+
+                    <li className="nav-item" onClick={navigateLabreport}>
                         <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
                             <i className="fas fa-pager menu-icon"></i>
                             <span className="menu-title">Lab reports</span>
@@ -74,15 +90,15 @@ export default function Usersidebar() {
                         </a>
 
                     </li>
-                    </Link>
-                    <Link to="/dashboard/medical-reports">
-                    <li className="nav-item">
+
+
+                    <li className="nav-item" onClick={navigateMedicalreports}>
                         <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
                             <i className="fas fa-file-medical menu-icon"></i>
                             <span className="menu-title">Medical Reports</span>
                         </a>
                     </li>
-                    </Link>
+
 
                 </ul>
             </nav>

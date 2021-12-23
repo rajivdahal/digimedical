@@ -5,6 +5,7 @@ import { useState } from "react"
 import { notify } from "../../../../services/notify"
 import { httpClient } from "../../../../utils/httpClient"
 import { Modal, Button } from 'react-bootstrap';
+import { TimeandDate } from "../../../../services/timeanddate"
 export const Doctordashboard = (props) => {
   const [totalappointments, settotalappointments] = useState()
   useEffect(() => {
@@ -31,7 +32,7 @@ export const Doctordashboard = (props) => {
                 <div className="justify-content-end d-flex">
                   <div className="dropdown flex-md-grow-1 flex-xl-grow-0">
                     <div className="btn btn-sm btn-light bg-white " >
-                      <span className="mdi mdi-calendar"></span> Today (24 Nov 2021)
+                      <span className="mdi mdi-calendar"></span> Today {TimeandDate.today()}
                     </div>
                   </div>
                 </div>
@@ -105,7 +106,7 @@ export const Doctordashboard = (props) => {
 
 
         <Commonupcomingappointment fromdoctorcomponent={true} setisassigneddoctor={false}></Commonupcomingappointment>
-      
+
 
 
 

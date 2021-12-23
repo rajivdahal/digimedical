@@ -65,10 +65,10 @@ export const Dashboardnavbar = (props) => {
           <ul className="navbar-nav navbar-nav-right">
             <li className="nav-item dropdown">
               <a className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                <i className="icon-bell mx-0"></i>
-                <span className="count"></span>
+                {/* <i className="icon-bell mx-0"></i> */}
+                {/* <span className="count"></span> */}
               </a>
-              <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+              {/* <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                 <p className="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
                 <a className="dropdown-item preview-item">
                   <div className="preview-thumbnail">
@@ -109,7 +109,7 @@ export const Dashboardnavbar = (props) => {
                     </p>
                   </div>
                 </a>
-              </div>
+              </div> */}
 
             </li>
             <li className="nav-item nav-profile dropdown">

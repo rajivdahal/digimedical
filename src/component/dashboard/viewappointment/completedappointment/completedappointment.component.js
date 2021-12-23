@@ -2,7 +2,6 @@ import { notify } from "../../../../services/notify";
 import { useState } from "react";
 import { useEffect } from "react";
 import { httpClient } from "../../../../utils/httpClient";
-import { Delete } from "@material-ui/icons";
 import { formatDate } from "../../../../services/timeanddate";
 import { Modal, Button } from 'react-bootstrap';
 import MaterialTable from 'material-table'
@@ -170,10 +169,8 @@ export const Completedappointment = (props) => {
                                 backgroundColor: '#2745F0',
                                 color: '#FFF'
                             }
-
                         }}
                     ></MaterialTable>
-
             }
 
 

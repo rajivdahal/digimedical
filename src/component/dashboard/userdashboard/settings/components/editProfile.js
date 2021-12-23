@@ -7,6 +7,7 @@ import { notify } from "../../../../../services/notify";
 import "./editProfile.css"
 import "../userprofile.css"
 const EditProfile = (props) => {
+    const userstatus = localStorage.getItem("status")
     const imageSelectRef = useRef();
     const [selectedImage, setImage] = useState("");
     const [userID, setUserID] = useState("")
@@ -23,7 +24,7 @@ const EditProfile = (props) => {
         weight: "",
         previousDisease: "",
         fatherName: "",
-        gender:  0,
+        gender: 0,
         image: "",
         bloodGroup: "A+"
     })
@@ -37,10 +38,7 @@ const EditProfile = (props) => {
     }
     function validateEmail(value) {
         let error;
-        if (!value) {
-            error = "Required!"
-        }
-        else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+         if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
             error = "Invalid email format!"
         }
         return error;
@@ -115,9 +113,8 @@ const EditProfile = (props) => {
                 weight: props.weight,
                 previousDisease: props.disease,
                 fatherName: props.fathername,
-                bloodGroup : props.bloodgroup,
+                bloodGroup: props.bloodgroup,
                 gender: props.gender,
-
             })
         }
     }
@@ -130,15 +127,14 @@ const EditProfile = (props) => {
         if (values.image) {
             formData.append("image", values.image);
         }
-        if(values.middleName){
+        if (values.middleName) {
             formData.append("middleName", values.middleName);
         }
-        if(values.previousDisease) {
+        if (values.previousDisease) {
             formData.append("previousDisease", values.previousDisease)
         }
-        if(values.bloodGroup){
-            formData.append("bloodGroup",values.bloodGroup)
-
+        if (values.bloodGroup) {
+            formData.append("bloodGroup", values.bloodGroup)
         }
         formData.append("firstName", values.firstName);
         formData.append("lastName", values.lastName);
@@ -211,11 +207,11 @@ const EditProfile = (props) => {
                                     <div className="image-wrapper" >
                                         <Image src={selectedImage ? selectedImage : Avatar} fluid roundedCircle></Image>
                                         <Button variant="secondary" onClick={handleAddImage} className="change-photo">Change Photo</Button>
-                                            <input onChange={(e) => handleChangeImage(e, setFieldValue)} type="file" name="image" 
+                                        <input onChange={(e) => handleChangeImage(e, setFieldValue)} type="file" name="image"
                                             style={{ display: "none" }} ref={imageSelectRef}  ></input>
-                                   
+
                                     </div>
-                                    
+
                                 </Col>
 
                                 <Col md={9}>
@@ -224,7 +220,7 @@ const EditProfile = (props) => {
                                             <Col md={4}>
                                                 <div className=" form-group select-label">
                                                     <label > First Name : </label>
-                                                    <Field name="firstName" validate={validateName} className="form-control profile-field" />
+                                                    <Field name="firstName"  className="form-control profile-field" />
                                                     {errors.name && touched.name && <div className="error-message">{errors.name}</div>}
                                                 </div>
                                             </Col>
@@ -237,7 +233,7 @@ const EditProfile = (props) => {
                                             <Col md={4}>
                                                 <div className=" form-group select-label">
                                                     <label > Last Name : </label>
-                                                    <Field name="lastName" validate={validateName} className="form-control profile-field" />
+                                                    <Field name="lastName" className="form-control profile-field" />
                                                     {errors.name && touched.name && <div className="error-message">{errors.name}</div>}
                                                 </div>
                                             </Col>
@@ -245,11 +241,11 @@ const EditProfile = (props) => {
                                             <Col md={6}>
                                                 <div className=" form-group">
                                                     <label >Address : </label>
-                                                    <Field name="address" validate={validateAddress} className="form-control profile-field" />
+                                                    <Field name="address" className="form-control profile-field" />
                                                     {errors.address && touched.address && <div className="error-message">{errors.address}</div>}
                                                 </div>
                                             </Col>
-                                            
+
                                             <Col md={6}>
                                                 <div className=" form-group ">
                                                     <label >Email : </label>
@@ -267,7 +263,7 @@ const EditProfile = (props) => {
 
                                             </Col>
                                             <Col md={4}>
-                                            <label >Blood Group : </label>
+                                                <label >Blood Group : </label>
                                                 <Field class="form-control profile-field" as='select' name="bloodGroup">
                                                     <option value="A+">A-postivie</option>
                                                     <option value="A-">A-negative</option>
@@ -283,44 +279,47 @@ const EditProfile = (props) => {
                                             <Col md={4}>
                                                 <div className=" form-group">
                                                     <label >Date Of Birth : </label>
-                                                    <Field name="dob" validate={validateDob} className="form-control profile-field" type="date" />
+                                                    <Field name="dob" className="form-control profile-field" type="date" />
                                                     {errors.dob && touched.dob && <div className="error-message">{errors.dob}</div>}
                                                 </div>
                                             </Col>
                                             <Col md={4}>
                                                 <div className=" form-group">
                                                     <label >Weight : </label>
-                                                    <Field name="weight" validate={validateWeight} className="form-control profile-field" />
+                                                    <Field name="weight" className="form-control profile-field" />
                                                     {errors.weight && touched.weight && <div className="error-message">{errors.weight}</div>}
                                                 </div>
                                             </Col>
                                             <Col md={4}>
                                                 <div className=" form-group">
                                                     <label >Height : </label>
-                                                    <Field name="height" validate={validateHeight} className="form-control profile-field" />
+                                                    <Field name="height"  className="form-control profile-field" />
                                                     {errors.height && touched.height && <div className="error-message">{errors.height}</div>}
                                                 </div>
                                             </Col>
                                             <Col md={4}>
                                                 <div className=" form-group">
                                                     <label >Contact Number : </label>
-                                                    <Field name="contactNo" validate={validateContactNo} className="form-control profile-field" />
+                                                    <Field name="contactNo"  className="form-control profile-field" />
                                                     {errors.contactNo && touched.contactNo && <div className="error-message">{errors.contactNo}</div>}
                                                 </div>
                                             </Col>
                                             <Col md={6}>
                                                 <div className=" form-group">
                                                     <label >Father's Name : </label>
-                                                    <Field name="fatherName" validate={validateFatherName} className="form-control profile-field" />
+                                                    <Field name="fatherName"  className="form-control profile-field" />
                                                     {errors.fatherName && touched.fatherName && <div className="error-message">{errors.fatherName}</div>}
                                                 </div>
                                             </Col>
-                                            <Col md={6}>
-                                                <div className=" form-group">
-                                                    <label >Previous Diseases : </label>
-                                                    <Field name="previousDisease" className="form-control profile-field" />
-                                                </div>
-                                            </Col>
+                                            {
+                                                userstatus === "300" ? null : <Col md={6}>
+                                                    <div className=" form-group">
+                                                        <label >Previous Diseases : </label>
+                                                        <Field name="previousDisease" className="form-control profile-field" />
+                                                    </div>
+                                                </Col>
+                                            }
+
                                         </Row>
                                     </Container>
                                 </Col>
@@ -332,7 +331,7 @@ const EditProfile = (props) => {
                                     <Button type="button" className="cancel-btn" onClick={cancelProfileEdit}>
                                         Cancel
                                     </Button>
-                                    <Button  type="submit" style={{ marginLeft: '8px' }}>
+                                    <Button type="submit" style={{ marginLeft: '8px' }}>
                                         Save Changes
                                     </Button>
                                 </div>

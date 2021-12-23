@@ -31,9 +31,8 @@ const UserProfile = (props) => {
             .then(resp => {
                 console.log(resp)
                 if (resp.data.status) {
-
                     let details = resp.data.data;
-                    console.log(details);
+                    console.log("user details is",details);
                     setUserDetails(details);
                 }
             })
