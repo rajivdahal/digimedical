@@ -8,9 +8,7 @@ import { Modal, Button } from 'react-bootstrap';
 import MaterialTable from 'material-table'
 import Cliploader from "../../../../utils/clipLoader";
 export const Completedappointment = (props) => {
-    // const userid = localStorage.getItem("userid")
     const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
-    // console.log(userid,fromdoctorcomponent)
     const [isloading, setisloading] = useState(false)
     const [pendingData, setpendingData] = useState([])
     const [showModal, setShowModal] = useState(false)

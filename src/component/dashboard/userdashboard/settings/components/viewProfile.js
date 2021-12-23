@@ -1,126 +1,125 @@
-const ViewProfile = () => {
+import { useState, useEffect } from "react";
+import { Image, Row, Col, Container } from "react-bootstrap"
+import Avatar from "../../../../../assets/avatars.png"
+import "../userprofile.css"
+import "./editProfile.css"
+const ViewProfile = (props) => {
+
+    const [selectedImage, setImage] = useState("");
+
+    const getUser = () => {
+        let id = localStorage.getItem('userid');
+        // console.log(id)
+        console.log(props);
+        if (props) {
+            let url = "http://103.90.86.77:8082/api/download/" + id;
+            setImage(url)
+        }
+    }
+    useEffect(() => {
+        getUser();
+    }, [])
+
     return (
-        <div>
-            <div className="con-flex-row1">
-                <div className="con-flex1 layout">
-                    <div className="con-flex1-col">
-                        <div className="con-flex layout">
-                            <div className="con-flex2-row">
-                                <div
-                                    // style="src:url(/assets/40d4dbcc2937e814a121715a4aad5340.png)"
-                                    className="con-cover-group3 layout"
-                                >
-                                    <div
-                                        // style="--src:url(/assets/8fc675dd0582e2e458882e50b9ae2597.png)"
-                                        className="con-image layout"
-                                    ></div>
-                                </div>
-                            </div>
-                            <h4 className="con-peter-parker layout">Peter Parker</h4>
-                            <div className="con-text-body layout">
-                                Spideypeter@gmail.com
-                            </div>
+        <Container>
+            <Row>
+                <Col md={3} >
+                    <div >
+                        <div className="image-profile textAlign-center" >
+                            <Image src={selectedImage ? selectedImage : Avatar} fluid roundedCircle></Image>
+
+                        </div>
+                        <div className="textAlign-center">
+                            <div className="credentials-name">{props.firstname} {props.middlename} {props.lastname}</div>
+                            <div className="credentials-email">{props.email}</div>
                         </div>
                     </div>
-                    <div className="con-flex1-spacer"></div>
-                    <div className="con-flex1-col1">
-                        <div className="con-flex layout">
-                            <div className="con-flex3-row">
-                                <article className="con-content-box1 layout">
+                </Col>
 
-                                    <div className="con-age layout">Age</div>
-                                    <div className="con-content-box1-spacer"></div>
-                                    <div className="con-text-body1 layout">:</div>
-                                    <div className="con-content-box1-spacer1"></div>
-                                    <div className="con-text-body2 layout">22</div>
+                <Col md={9}>
+                    {/* <Container> */}
+                    <Row>
+                        <Col md={6}>
+                            <div className="info-block">
+                                <span className="info-label">Role</span>
+                                <span>:</span>
+                                <span className="info-value">Patient</span>
+                            </div>
+                        </Col>
+                        <Col md={6}>
+                            <div className="info-block">
+                                <span className="info-label">Address </span>
+                                <span>:</span>
+                                <span className="info-value">{props.address}</span>
+                            </div>
+                        </Col>
+                        <Col md={6}>
+                            <div className="info-block">
+                                <span className="info-label">Date Of Birth</span>
+                                <span>:</span>
+                                <span className="info-value">{props.dateofbirth}</span>
+                            </div>
+                        </Col>
+                        <Col md={6}>
+                            <div className="info-block">
+                                <span className="info-label">Age</span>
+                                <span>:</span>
+                                <span className="info-value">{props.age}</span>
+                            </div>
+                        </Col>
+                        <Col md={6}>
+                            <div className="info-block">
+                                <span className="info-label">Height</span>
+                                <span>:</span>
+                                <span className="info-value">{props.height}</span>
+                            </div>
+                        </Col>
+                        <Col md={6}>
+                            <div className="info-block">
+                                <span className="info-label">Weight</span>
+                                <span>:</span>
+                                <span className="info-value">{props.weight}</span>
+                            </div>
+                        </Col>
+                        <Col md={6}>
+                            <div className="info-block">
+                                <span className="info-label">Blood Group</span>
+                                <span>:</span>
+                                <span className="info-value">{props.bloodgroup}</span>
+                            </div>
+                        </Col>
+                        <Col md={6}>
+                            <div className="info-block">
+                                <span className="info-label">Gender</span>
+                                <span>:</span>
+                                <span className="info-value">{props.gender == "0" ? "Male" : "Female"}</span>
+                            </div>
+                        </Col>
 
-                                </article>
+                        <Col md={6}>
+                            <div className="info-block">
+                                <span className="info-label">Contact</span>
+                                <span>:</span>
+                                <span className="info-value">{props.mobilenumber}</span>
                             </div>
-                            <div className="con-flex3-row1">
-                                <div className="con-cover-group4 layout">
-                                    <div className="con-role layout">Role</div>
-                                    <div className="con-patient layout">Patient</div>
-                                    <div className="con-text-body3 layout">:</div>
-                                    <div className="con-rect layout"></div>
-                                    <div className="con-role layout">Role</div>
-                                    <div className="con-patient layout1">Patient</div>
-                                    <div className="con-text-body4 layout">:</div>
-                                </div>
-                            </div>
-                            <div className="con-flex3-row2">
-                                <article className="con-content-box2 layout">
-                                    <div className="con-contact layout">Contact</div>
-                                    <div className="con-content-box2-spacer"></div>
-                                    <div className="con-text-body5 layout">:</div>
-                                    <div className="con-content-box2-spacer1"></div>
-                                    <div className="con-text-body6 layout">9814017327</div>
-                                </article>
-                            </div>
-                            <div className="con-flex3-row3">
-                                <article className="con-content-box3 layout">
-                                    <div className="con-blood-group layout">Blood Group</div>
-                                    <div className="con-content-box3-spacer"></div>
-                                    <div className="con-text-body7 layout">:</div>
-                                    <div className="con-content-box3-spacer1"></div>
-                                    <div className="con-text-body8 layout">B+</div>
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="con-flex1-spacer1"></div>
-                    <div className="con-flex1-col2">
-                        <div className="con-flex layout">
-                            <div className="con-flex4-row">
-                                <article className="con-content-box4 layout">
-                                    <div className="con-weight layout">Weight</div>
-                                    <div className="con-content-box4-spacer"></div>
-                                    <div className="con-text-body9 layout">:</div>
-                                    <div className="con-content-box4-spacer1"></div>
-                                    <div className="con-text-body10 layout">65 kg</div>
-                                </article>
-                            </div>
-                            <div className="con-flex4-row1">
-                                <article className="con-content-box5 layout">
-                                    <div className="con-gender layout">Gender</div>
-                                    <div className="con-content-box5-spacer"></div>
-                                    <div className="con-text-body11 layout">:</div>
-                                    <div className="con-content-box5-spacer1"></div>
-                                    <div className="con-male layout">Male</div>
-                                </article>
-                            </div>
-                            <div className="con-flex4-row2">
-                                <article className="con-content-box6 layout">
-                                    <div className="con-height layout">Height</div>
-                                    <div className="con-content-box6-spacer"></div>
-                                    <div className="con-text-body12 layout">:</div>
-                                    <div className="con-content-box6-spacer1"></div>
-                                    <div className="con-text-body13 layout">5.6 ft</div>
-                                </article>
-                            </div>
+                        </Col>
 
-                            <div className="con-flex-row2">
-                                <article className="con-content-box7 layout">
-                                    <div className="con-contact layout">Contact</div>
-                                    <div className="con-content-box7-spacer"></div>
-                                    <div className="con-text-body14 layout">:</div>
-                                    <div className="con-content-box7-spacer1"></div>
-                                    <div className="con-text-body15 layout">9814017327</div>
-                                </article>
+                        <Col md={6}>
+                            <div className="info-block">
+                                <span className="info-label">Father's Name</span>
+                                <span>:</span>
+                                <span className="info-value">{props.fathername}</span>
                             </div>
-                            <div className="con-flex-row3">
-                                <article className="con-content-box8 layout">
-                                    <div className="con-address layout">Address</div>
-                                    <div className="con-content-box8-spacer"></div>
-                                    <div className="con-text-body16 layout">:</div>
-                                    <div className="con-content-box8-spacer1"></div>
-                                    <div className="con-text-body17 layout">Damak-06, Jhapa</div>
-                                </article>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </Col>
+
+                    </Row>
+
+                    {/* </Container> */}
+                </Col>
+
+            </Row>
+
+        </Container>
     )
 
 }

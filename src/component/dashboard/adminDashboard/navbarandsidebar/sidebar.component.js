@@ -10,7 +10,6 @@ const Adminsidebar = (props) => {
     <div>
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <p className="centered mt-3"><a href="profile.html">
-          {/* <img className="img-circle user-img-circle img-fluid" width="80" /> */}
         </a></p>
         <ul className="nav">
           <li className="nav-item" onClick={navigatedashboard} style={{cursor:"pointer"}}>
@@ -29,6 +28,21 @@ const Adminsidebar = (props) => {
               <ul className="nav flex-column sub-menu">
                 <Link to="/dashboard/appointment">
                   <li className="nav-item"> <a className="nav-link" href="">View Appointment</a></li>
+                </Link>
+              </ul>
+            </div>
+          </li>
+
+          <li className="nav-item">
+            <a className="nav-link" data-toggle="collapse" href="#labtest" aria-expanded="false" aria-controls="labtest">
+              <i className="icon-layout menu-icon"></i>
+              <span className="menu-title">Lab Tests</span>
+              <i className="menu-arrow"></i>
+            </a>
+            <div className="collapse" id="labtest">
+              <ul className="nav flex-column sub-menu">
+                <Link to="/dashboard/labtest">
+                <li className="nav-item"> <a className="nav-link" href="">View Lab Test</a></li>
                 </Link>
               </ul>
             </div>

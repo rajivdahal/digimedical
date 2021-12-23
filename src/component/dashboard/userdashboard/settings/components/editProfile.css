@@ -1,7 +1,38 @@
-.textAlign-center{
+.image-wrapper{
     text-align: center;
+    position: relative;
+    margin-top: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    max-height: 150px;
+    max-width: 150px;
   }
 
-  .profile-image {
-    max-height: 120px;
+
+  .change-photo{
+    /* margin-top: 20px; */
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.8;
+    width: 100%;
+    border-radius: 0;
+    color: white;
+    height: 50px;
+  }
+
+  .profile-field{
+    border-radius: 8px;
+  }
+
+  .submit-button{
+    background-color: '#2745F0';
+    color: "#fff";
+  }
+
+  .cancel-btn{
+    background-color: white;
+    border : 1px solid #2745F0;
+    color: #2745F0;
   }

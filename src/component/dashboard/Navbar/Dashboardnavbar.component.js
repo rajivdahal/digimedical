@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { httpClient } from "../../../utils/httpClient"
 import "./dashboardnavbar.component.css"
 export const Dashboardnavbar = (props) => {
+  const [userImage,setImage]=useState("")
   let [username, setusername] = useState("")
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -33,16 +34,22 @@ export const Dashboardnavbar = (props) => {
     props.props.push('/dashboard/settings/change-password')
   }
 
-  useEffect(() => {
-    httpClient.GET("user-profile", false, true)
-      .then(resp => {
-        const name = resp.data.data.profileInfo.name
-        setusername(name)
-      })
-      .catch(err => {
-        notify.error("something went wrong")
-      })
+  useEffect(()=>{
+    let id = localStorage.getItem('userid');
+    
+    httpClient.GET("user-profile",false,true)
+    .then(resp=>{
+      let url = "http://103.90.86.77:8082/api/download/" + id;
+      setImage(url)
+
+      const name=resp.data.data.profileInfo.name
+      setusername(name)
+    })
+    .catch(err=>{
+      notify.error("something went wrong")
+    })
   })
+
   return (
     <>
       <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -107,7 +114,7 @@ export const Dashboardnavbar = (props) => {
             </li>
             <li className="nav-item nav-profile dropdown">
               <a className="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src="/images/dashboard/user1.jpg" alt="profile" />
+                <img src={userImage}alt="profile" />
               </a>
               <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                 
