@@ -263,7 +263,9 @@ export default function Prescribe(props) {
                                                                                 <div key={index}>
                                                                                     <label>Lab Test {index + 1}:</label>
                                                                                     <Field as="select" className="prescription-input" name={`labTestId[${index}]`}>
+                                                                                        <option value={null}></option>
                                                                                         {
+                                                                                           
                                                                                             services.map((item, index) => {
                                                                                                 return <option value={item.id} key={index}>{item.name}</option>
                                                                                             })

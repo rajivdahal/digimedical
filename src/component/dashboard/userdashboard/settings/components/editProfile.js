@@ -4,9 +4,11 @@ import { Col, Container, Row, Button, Image } from "react-bootstrap"
 import { httpClient } from "../../../../../utils/httpClient"
 import Avatar from "../../../../../assets/avatars.png"
 import { notify } from "../../../../../services/notify";
+import { useHistory } from "react-router-dom";
 import "./editProfile.css"
 import "../userprofile.css"
 const EditProfile = (props) => {
+    let history=useHistory()
     const userstatus = localStorage.getItem("status")
     const imageSelectRef = useRef();
     const [selectedImage, setImage] = useState("");
@@ -152,6 +154,7 @@ const EditProfile = (props) => {
             .then(resp => {
                 console.log(resp);
                 notify.success(resp.data.message)
+                history.push("/dashboard")
                 // getUser();
             })
             .catch(err => {
@@ -340,13 +343,9 @@ const EditProfile = (props) => {
                         </Form>
                     )}
                 </Formik>
-
-
             </Container>
-
         </div>
     )
-
 }
 
 export default EditProfile
