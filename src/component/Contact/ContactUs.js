@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import contactwall from "../../assets/contactwall.png";
+import Footer from "../Footer/Footer";
 import BookAnAppointment from "../home/BookAnAppointment/BookAnAppointment";
+import Navbar from "../Navbar/Navbar";
 import ContactData from "./ContactData";
 import LocationContact from "./LocationContact/LocationContact";
 
@@ -86,9 +88,11 @@ const Description = styled.div`
   gap: 0.75rem;
 `;
 
-const ContactUs = () => {
+const ContactUs = (props) => {
+  console.log("props in contact us",props)
   return (
     <div>
+      <Navbar></Navbar>
       <Root
         style={{
           backgroundImage: `url(${contactwall})`,
@@ -126,7 +130,8 @@ const ContactUs = () => {
         })}
       </BottomSection>
       <LocationContact />
-      <BookAnAppointment />
+      <BookAnAppointment props={props} />
+      <Footer></Footer>
     </div>
   );
 };

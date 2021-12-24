@@ -6,11 +6,32 @@
 
 .appointment{
     text-align: center;
-    padding: 15px;
+    padding: 10px;
     font-size: 18px;
 }
 .appointment:hover{
     cursor: pointer;
+}
+
+.appointment-focus{
+    height: 40px;
+    border-radius: 10px;
+    background: #2745F0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+
+}
+
+.appointment-tab{
+    height: 40px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

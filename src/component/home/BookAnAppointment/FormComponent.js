@@ -1,11 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import {useFormik } from "formik";
+import { useFormik } from "formik";
 import { httpClient } from "../../../utils/httpClient";
 import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
+import Cliploader from "../../../utils/clipLoader";
+import { Todaydate } from "../../../services/todaydate";
+import Clear from "@material-ui/icons/Clear";
+import "./formcomponent.css"
+const BASE_URL = process.env.REACT_APP_BASE_URL
+
 const FormSection = styled.div`
-  height: auto;
+  height: 580px;
   margin-top: 25px;
   padding: 3rem;
   background-color: white;
@@ -38,11 +44,22 @@ const FormSection = styled.div`
 `;
 
 function FormComponent(props) {
-  const prop = props.history.history
+  const today = Todaydate()
+  const prop = props.history.history ? props.history.history : props.history.props.props.history
   const [appointmentsuccess, setappointmentsuccess] = useState(null)
   const [appointmentfailed, setappointmentfailed] = useState(null)
   const [services, setservices] = useState([])
   const [doctors, setdoctors] = useState([])
+  const [isloading, setisloading] = useState(false)
+  const [doctorfetched, setdoctorfetched] = useState({
+    image: null,
+    prefix:null,
+    name:null,
+    specialist:null,
+    description:null
+
+  })
+  const [isdoctorblurred, setisdoctorblurred] = useState(false)
   useEffect(() => {
     httpClient.GET("services/get/true")
       .then(resp => {
@@ -82,6 +99,9 @@ function FormComponent(props) {
       if (!values.mobileNumber) {
         errors.mobileNumber = "Required!"
       }
+      if (("" + values.mobileNumber).length != 10) {
+        errors.mobileNumber = "Mobile Number must be of 10 digits!"
+      }
       if (!values.servicesId) {
         errors.servicesId = "Required!"
       }
@@ -97,24 +117,38 @@ function FormComponent(props) {
       return errors
     },
     onSubmit: values => {
-      console.log("values are", values)
+      setisloading(true)
       httpClient.POST('create-external-user', values)
         .then((res) => {
           setappointmentsuccess(res.data.message)
+          setTimeout(() => {
+            prop.push({
+              pathname: "/login",
+              fromexternaluser: true,
+              email: values.email
+            })
+          }, 3000);
         })
         .catch(err => {
+          console.log(err.response)
           if (!err) {
             return setappointmentfailed("something went wrong")
           }
           console.log("inside error")
-          setappointmentfailed(err.response.data.message + " redirecting to dashboard....")
-          setTimeout(() => {
-            let token = localStorage.getItem("dm-access_token")
-            token ? prop.push("/dashboard") : prop.push({
-              pathname: '/login',
-              timeoutMsg: "please login"
-            })
-          }, 2000)
+          if (err.response.data.message === "Email already exists") {
+            setappointmentfailed(err.response.data.message + " redirecting to dashboard....")
+            return setTimeout(() => {
+              let token = localStorage.getItem("dm-access_token")
+              token ? prop.push("/dashboard") : prop.push({
+                pathname: '/login',
+                timeoutMsg: "please login"
+              })
+            }, 2000)
+          }
+          notify.error("something went wrong ")
+        })
+        .finally(() => {
+          setisloading(false)
         })
     }
   })
@@ -123,7 +157,6 @@ function FormComponent(props) {
     let serviceid = e.target.value
     httpClient.GET(`doctor/get-related-doctor/${serviceid}`, false, false)
       .then(resp => {
-    
         setdoctors(resp.data.data)
         console.log(resp.data.data)
       })
@@ -132,6 +165,38 @@ function FormComponent(props) {
         notify.error("No any doctors are available to this service")
       })
   }
+  const getdoctorinfo = (e) => {
+    let doctorid = e.target.value
+    if(!doctorid){
+      return setisdoctorblurred(false)
+    }
+    console.log(doctorid)
+    let image = BASE_URL + "doctor/download/" + doctorid
+    httpClient.GET(`doctor/public-info/${doctorid}`)
+      .then((resp => {
+        const {prefix,name,specialist,description}=resp.data.data
+        setdoctorfetched({
+          image: image,
+          prefix:prefix,
+          name:name,
+          specialist:specialist,
+          description:description
+        })
+        setisdoctorblurred(true)
+        console.log(resp.data.data)
+      }))
+      .catch(err => {
+        notify.error("something went wrong")
+      })
+
+    
+
+    // console.log("values are", e.target.value)
+  }
+const clearpopup=()=>{
+  setisdoctorblurred(false)
+}
+
   return (
     <FormSection>
       <form onSubmit={formik.handleSubmit}>
@@ -217,13 +282,16 @@ function FormComponent(props) {
           </div>
           <div className="form-group col-md-6">
             <label htmlFor="doctor">Select Doctor</label>
-            <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{ color: "black" }}>
+            <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{ color: "black" }}
+              onChange={(e) => {
+                formik.handleChange(e)
+                getdoctorinfo(e)
+              }}
+            >
               <option value={null}></option>
               {
                 doctors.map((item, index) => {
-               
-                    return <option key={index} value={item.id}>{item.name}</option>
-                  
+                  return <option key={index} value={item.id}>{item.name}</option>
                 })
               }
             </select>
@@ -238,6 +306,8 @@ function FormComponent(props) {
               className="form-control"
               id="appointmentDate"
               placeholder="dd/mm/yyyy"
+              min={today}
+              max=""
               {...formik.getFieldProps("appointmentDate")}
             />
             {formik.errors.appointmentDate && formik.touched.appointmentDate ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentDate}  </div> : null}
@@ -250,13 +320,18 @@ function FormComponent(props) {
           </div>
         </div>
         <div className="col-md-12 col-sm-12 col-xs-12 ">
-          <button type="submit" className="btn btn-primary btn-block">
-            Make Appointment
-          </button>
+          {
+            isloading ?
+              <Cliploader></Cliploader>
+              :
+              <button type="submit" className="btn btn-primary btn-block">
+                Make Appointment
+              </button>
+          }
           {
             appointmentsuccess ? <div className="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Success!</strong>
-              {appointmentsuccess}
+              {appointmentsuccess},You are registered-please check your email to change the password
               <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -275,7 +350,32 @@ function FormComponent(props) {
           We value your privacy. Your details are safe with us.
         </div>
       </form>
+
+      {
+        isdoctorblurred ?
+
+          <div class="docs">
+            
+            <div class="doc bubble">
+            <Clear  className="clear-icon" onClick={clearpopup}></Clear>
+              <div class="imag1">
+
+                <img src={doctorfetched.image} />
+              </div>
+              <div class="description">
+                <p id="doc_name">Dr. {doctorfetched.name}</p>
+                <p id="doc_skill">{doctorfetched.specialist}</p>
+                <p id="doc_edu">
+                  {doctorfetched.prefix}
+                </p>
+                <p id="doc_exp">{doctorfetched.description}</p>
+                
+              </div>
+            </div>
+          </div> : null}
+
     </FormSection>
+
   );
 }
 

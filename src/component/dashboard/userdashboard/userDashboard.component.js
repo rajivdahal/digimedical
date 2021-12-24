@@ -2,13 +2,22 @@ import { TimeandDate } from "../../../services/timeanddate"
 import "./userDashboard.component.css"
 import { Link } from "react-router-dom"
 import { Commonupcomingappointment } from "./commonupcomingappointment/commonupcomingappointment.component"
-import {useEffect,useState} from "react"
+import { useEffect } from "react"
 import { httpClient } from "../../../utils/httpClient"
 import { notify } from "../../../services/notify"
-
-
+import { useState } from "react"
 const Userdashboard = (props) => {
+  const [totalappointments, settotalappointments] = useState()
+  useEffect(() => {
+    httpClient.GET("totoal-appointments-patients", false, true)
+      .then(resp => {
+        settotalappointments(resp.data.data.totalAppointments)
+      })
+      .catch(err => {
 
+        notify.error("Total appointments-unable to fetch")
+      })
+  }, [])
   return (
     <>
       <div className="container-fluid page-body-wrapper">
@@ -174,10 +183,9 @@ const Userdashboard = (props) => {
                   <div className="col-12 col-xl-4">
                     <div className="justify-content-end d-flex">
                       <div className="dropdown flex-md-grow-1 flex-xl-grow-0">
-                        <button className="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                          <i className="mdi mdi-calendar"></i>Today- {TimeandDate.today()}
-                        </button>
-
+                        <div className="btn btn-sm btn-light bg-white " >
+                          <span className="mdi mdi-calendar"></span> Today {TimeandDate.today()}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -210,7 +218,7 @@ const Userdashboard = (props) => {
                     <div className="card card-tale">
                       <div className="card-body">
                         <p className="mb-4">Appointments</p>
-                        <p className="fs-30 mb-2">4006</p>
+                        <p className="fs-30 mb-2">{totalappointments}</p>
                         <p>10.00% (30 days)</p>
                       </div>
                     </div>
@@ -247,14 +255,14 @@ const Userdashboard = (props) => {
                 </div>
               </div>
             </div>
-            
-           
+
+
             <div className="row" >
               <div className="col-md-12 grid-margin stretch-card">
                 <div className="card">
                   <div className="card-body">
-                    <Link to="/dashboard/viewappointment" style={{textDecoration:"none"}}>
-                    <p className="card-title">Upcoming Appointment</p>
+                    <Link to="/dashboard/viewappointment" style={{ textDecoration: "none" }}>
+                      <p className="card-title">Upcoming Appointments</p>
                     </Link>
                     <Commonupcomingappointment isexportavailable={false} issearchavailable={false} isactionavailable={false}></Commonupcomingappointment>
                   </div>

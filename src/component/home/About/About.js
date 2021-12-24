@@ -53,7 +53,6 @@ const WhaiIsDegimediacal = () => {
     <>
       <AboutUsContainer>
         <ImageContainer src={logo} />
-
         <RightContainer>
           <DescriptionContainer>
             <span>About Us</span>

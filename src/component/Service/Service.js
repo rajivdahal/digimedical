@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import servicewall from "../../assets/servicewall.png";
+import Footer from "../Footer/Footer";
 import OurServices from "../home/About/OurServices";
 import BookAnAppointment from "../home/BookAnAppointment/BookAnAppointment";
+import Navbar from "../Navbar/Navbar";
 import EmergencyNumber from "./EmergencyNumber/EmergencyNumber";
 const Root = styled.div`
   height: 25rem;
@@ -36,9 +38,10 @@ const Subheading = styled.div`
   letter-spacing: 0.03em;
 `;
 
-const Service = () => {
+const Service = (props) => {
   return (
     <>
+    <Navbar></Navbar>
       <Root
         style={{
           backgroundImage: `url(${servicewall})`,
@@ -56,7 +59,8 @@ const Service = () => {
       </Root>
       <OurServices />
       <EmergencyNumber />
-      <BookAnAppointment />
+      <BookAnAppointment props={props} />
+      <Footer></Footer>
     </>
   );
 };

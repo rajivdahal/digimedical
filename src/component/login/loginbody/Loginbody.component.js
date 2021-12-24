@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import { loginuser } from "../../../actions/User.ac"
 import React, { useEffect } from 'react'
-import { useFormik } from "formik"
+import { Formik, useFormik } from "formik"
 import { httpClient } from "../../../utils/httpClient"
 import { Link } from "react-router-dom"
 import { notify } from "../../../services/notify"
@@ -9,6 +9,9 @@ import Submitbtn from "../../common/Submitbtn/Submitbtn.component"
 import { useState } from "react"
 import "./Loginbody.component.css"
 const Loginbodycomponent = (props) => {
+    console.log("props are in loginbody are",props.history.location.fromexternaluser)
+    const fromexternaluser=props.history.location.fromexternaluser?props.history.location.fromexternaluser:false
+    const externaluseremail=props.history.location.email?props.history.location.email:null
     const [isLoading, setisLoading] = useState(false)
     const [errMsg, seterrMsg] = useState('')
     useEffect(() => {
@@ -30,15 +33,16 @@ const Loginbodycomponent = (props) => {
                 .then(resp => {
                     let response = JSON.parse(resp)
                     console.log(response)
-                    let { access_token, refresh_token, expires_in,status,userid } = response
+                    let { access_token, refresh_token, expires_in, status, userid } = response
                     localStorage.setItem("dm-access_token", access_token)
                     localStorage.setItem("dm-refresh_token", refresh_token)
                     localStorage.setItem("timeout", expires_in)
-                    localStorage.setItem("status",status)
-                    localStorage.setItem("userid",userid)
+                    localStorage.setItem("status", status)
+                    localStorage.setItem("userid", userid)
                     setTimeout(() => {
                         props.history.push({
-                            pathname: `/dashboard`
+                            pathname: `/dashboard/`,
+                            fromexternaluser:fromexternaluser
                         })
                         // notify.success("Successfully Loggedin")
                     }, 3000)
@@ -73,7 +77,7 @@ const Loginbodycomponent = (props) => {
 
 
 
-                        
+
     // render() {
     const alert = props.usernameinfo ? props.usernameinfo : "not found"
 
@@ -84,24 +88,26 @@ const Loginbodycomponent = (props) => {
                     <div className="row adjust-height">
                         <div className="col-md-6 adj-height">
                             <div className="login-img">
-                                <img src="/images/login-bg.png" alt="" className="img-fluid"  style={{height:700}}/>
+                                <img src="/images/login-bg.png" alt="" className="img-fluid" style={{ height: 700 }} />
                             </div>
                         </div>
                         <div className="col-md-6 adj-form">
                             <form className="login-form " onSubmit={formik.handleSubmit}>
                                 <h2 className="fs-title text-center">Login</h2>
                                 <h3 className="fs-subtitle text-center">Fill in your credentials</h3>
+                               <p style={{color:"blue"}}>{fromexternaluser?`Please check your email and login with OTP provided at`:null}</p>
+                               <h4>{fromexternaluser?externaluseremail:null}</h4> 
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
                                             <label>Email address </label>
-                                            <input type="username" className="form-control form-input" placeholder="username" id="username" {...formik.getFieldProps("username")} />
+                                            <input type="username" className="form-control form-input" placeholder="username" id="username" {...formik.getFieldProps("username")}/>
                                             {formik.errors.username && formik.touched.username ? <div style={{ color: "red" }} className="errmsg">{formik.errors.username}  </div> : null}
                                         </div>
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
-                                            <label>Password </label>
+                                            <label>{fromexternaluser?"OTP":"Password"} </label>
                                             <input type="password" className="form-control form-input" placeholder="Enter Password" id="password" {...formik.getFieldProps("password")} />
                                             {formik.errors.password && formik.touched.password ? <div style={{ color: "red" }} className="errmsg">{formik.errors.password}  </div> : null}
                                             {errMsg ? <div style={{ color: "red" }} className="errmsg">{errMsg}  </div> : null}
@@ -112,8 +118,9 @@ const Loginbodycomponent = (props) => {
                                             <Submitbtn enabledLabel="Login" disabledLabel="Logging in......" isSubmitting={isLoading}></Submitbtn>
                                         </a><br />
 
-                                        <a href="#" className="pt-3 text-center w-100">Forgot Password?
-                                            <br />(request a new one)</a>
+                                        <Link to="/forgot-password"><div className="pt-3 text-center w-100">Forgot Password?
+                                            <br />(request a new one)</div>
+                                        </Link>
                                         <p className="text-center w-100 pt-3">OR</p>
                                         <Link to="/register">
 

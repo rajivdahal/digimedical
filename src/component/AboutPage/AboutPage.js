@@ -1,8 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import aboutwall from "../../assets/aboutwall.png";
+import Footer from "../Footer/Footer";
 
 import TheyTrustedUs from "../home/TheyTrustedUs/TheyTrustedUs";
+import Navbar from "../Navbar/Navbar";
 import CoreValues from "./CoreValues/CoreValues";
 import OurMission from "./OurMission/OurMission";
 const Root = styled.div`
@@ -49,6 +52,7 @@ const GetAppointment = styled.a`
 const AboutPage = () => {
   return (
     <>
+    <Navbar></Navbar>
       <Root
         style={{
           backgroundImage: `url(${aboutwall})`,
@@ -61,15 +65,18 @@ const AboutPage = () => {
           <Subheading>About Us</Subheading>
           <Heading>We are here to Improve your health</Heading>
           <ButtonContainor>
+            <Link to={"/"}>
             <GetAppointment type="button" className="btn btn-primary">
               Get Appointment
             </GetAppointment>
+            </Link>
           </ButtonContainor>
         </Content>
       </Root>
       <CoreValues />
       <OurMission />
       <TheyTrustedUs />
+      <Footer></Footer>
     </>
   );
 };

@@ -5,6 +5,7 @@ import FormComponent from "./FormComponent";
 import servicewall from "../../../assets/servicewall.png";
 
 function BookAnAppointment(props) {
+  props=props.props?props.props:props
   console.log("props are in book appointment",props)
   const Container = styled.div`
     padding-left: 8.75rem;
@@ -60,14 +61,7 @@ function BookAnAppointment(props) {
   `;
   return (
     <div id="BookanAppointment">
-      <Container
-      // style={{
-      //   backgroundImage: `url(${servicewall})`,
-      //   backgroundPosition: "center",
-      //   backgroundSize: "cover",
-      //   backgroundRepeat: "no-repeat",
-      // }}
-      >
+      <Container>
         <Header>
           <TopHeader>We are here for you</TopHeader>
           <BottomHeader>Book an Appointment</BottomHeader>

@@ -15034,7 +15034,7 @@ a.close.disabled {
   pointer-events: auto;
   background-color: #ffffff;
   background-clip: padding-box;
-  border: 1px solid #CED4DA;
+  border: none;
   border-radius: 0.3rem;
   outline: 0;
 }
