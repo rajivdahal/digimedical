@@ -181,7 +181,6 @@ const Createservices = (props) => {
 
                     onSubmit={(values, { resetForm }) => {
                         console.log(values);
-
                         {
                             serviceEditId ?
                                 handleEdit(values, resetForm)
@@ -190,7 +189,6 @@ const Createservices = (props) => {
                         }
                     }}
                 >
-
                     {({ errors, touched }) => (
                         <Form className="mb-4">
                             <div className=" form-group select-label">

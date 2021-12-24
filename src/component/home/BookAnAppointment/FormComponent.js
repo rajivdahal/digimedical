@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
 import Cliploader from "../../../utils/clipLoader";
 import { Todaydate } from "../../../services/todaydate";
+import Clear from "@material-ui/icons/Clear";
 import "./formcomponent.css"
 const BASE_URL = process.env.REACT_APP_BASE_URL
 
 const FormSection = styled.div`
-  height: auto;
+  height: 580px;
   margin-top: 25px;
   padding: 3rem;
   background-color: white;
@@ -166,6 +167,9 @@ function FormComponent(props) {
   }
   const getdoctorinfo = (e) => {
     let doctorid = e.target.value
+    if(!doctorid){
+      return setisdoctorblurred(false)
+    }
     console.log(doctorid)
     let image = BASE_URL + "doctor/download/" + doctorid
     httpClient.GET(`doctor/public-info/${doctorid}`)
@@ -189,7 +193,9 @@ function FormComponent(props) {
 
     // console.log("values are", e.target.value)
   }
-
+const clearpopup=()=>{
+  setisdoctorblurred(false)
+}
 
   return (
     <FormSection>
@@ -349,7 +355,9 @@ function FormComponent(props) {
         isdoctorblurred ?
 
           <div class="docs">
+            
             <div class="doc bubble">
+            <Clear  className="clear-icon" onClick={clearpopup}></Clear>
               <div class="imag1">
 
                 <img src={doctorfetched.image} />
@@ -361,6 +369,7 @@ function FormComponent(props) {
                   {doctorfetched.prefix}
                 </p>
                 <p id="doc_exp">{doctorfetched.description}</p>
+                
               </div>
             </div>
           </div> : null}
