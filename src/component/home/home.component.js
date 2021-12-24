@@ -66,11 +66,11 @@ const ConnectionContainor = styled.div`
   }
 `;
 export const Home = (props) => {
-  console.log("home",props);
+  console.log("home", props);
   return (
     <>
-    <Navbar></Navbar>
-      <Root style={{backgroundImage: `url(${wallpaper})`,backgroundPosition: "center",backgroundSize: "cover", backgroundRepeat: "no-repeat"}}>
+      <Navbar></Navbar>
+      <Root style={{ backgroundImage: `url(${wallpaper})`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
         <HeroSectionContent>
           <Heading>Caring Health is all Important</Heading>
           <SubHeading>
@@ -108,7 +108,7 @@ export const Home = (props) => {
       <OurServices />
       <WhyChooseUs />
       <div id="bookappointment">
-      <BookAnAppointment history={props.history} />
+        <BookAnAppointment history={props.history} />
       </div>
       <TheyTrustedUs />
       <OurPartnar />

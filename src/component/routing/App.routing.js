@@ -12,6 +12,7 @@ import { Changepassword } from "../common/forgotpassword/changepassword/changepa
 import AboutPage from "../AboutPage/AboutPage";
 import Service from "../Service/Service";
 import ContactUs from "../Contact/ContactUs";
+import HomeLabtest from "../home/Labtest/labtest";
 
 export const Approuting = (props) => {
   return (
@@ -27,6 +28,7 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/change-password" component={Changepassword}></PublicRoute>
         <PublicRoute exact path="/forgot-password/verify-password" component={Verifypassword}></PublicRoute>
         <PublicRoute exact path="/verify-password" component={Verifypassword}></PublicRoute>
+        <PublicRoute exact path="/home-labtest" component={HomeLabtest}></PublicRoute>
 
 
         <ProtectedRoute exact path="/dashboard" component={Dashboard}></ProtectedRoute>
