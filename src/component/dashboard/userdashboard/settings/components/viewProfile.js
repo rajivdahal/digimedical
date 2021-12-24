@@ -24,7 +24,7 @@ const ViewProfile = (props) => {
         <Container>
             <Row>
                 <Col md={3} >
-                    <div >
+                    <div >                        
                         <div className="image-profile textAlign-center" >
                             <Image src={selectedImage ? selectedImage : Avatar} fluid roundedCircle></Image>
 
