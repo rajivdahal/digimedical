@@ -210,125 +210,133 @@ export const Completedappointment = (props) => {
           <Image src={DigiMedicalLogo} fluid />
         </div>
         <Modal.Body>
-          <Row>
-            <Col md={12}>
-              <div className="prescription-block">
-                <p className="prescription-label">Name</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">
-                  {prescriptionData.patientname}
-                </p>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <div className="prescription-block">
-                <p className="prescription-label">Date Of Birth</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">{prescriptionData.dobad}</p>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <div className="prescription-block">
-                <p className="prescription-label">Age</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">{prescriptionData.age}</p>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <div className="prescription-block">
-                <p className="prescription-label">Weight</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">{prescriptionData.weight}</p>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <div className="prescription-block">
-                <p className="prescription-label">Height</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">{prescriptionData.height}</p>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <div className="prescription-block">
-                <p className="prescription-label">Blood Group</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">
-                  {prescriptionData.bloodgroup}
-                </p>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <div className="prescription-block">
-                <p className="prescription-label">Doctor Name</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">{tableData.doctorsName}</p>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <div className="prescription-block">
-                <p className="prescription-label">Service Name</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">{tableData.serviceName}</p>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <div className="prescription-block">
-                <p className="prescription-label">Appointment Date</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">
-                  {tableData.appointmentDate}
-                </p>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <div className="prescription-block">
-                <p className="prescription-label">Labtest</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">{prescriptionData.labtest}</p>
-              </div>
-            </Col>
-          </Row>
+          <div className="prescription_view">
+            <Row>
+              <Col md={12}>
+                <div className="prescription-block">
+                  <p className="prescription-label">Name</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">
+                    {prescriptionData.patientname}
+                  </p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <div className="prescription-block">
+                  <p className="prescription-label">Date Of Birth</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">{prescriptionData.dobad}</p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <div className="prescription-block">
+                  <p className="prescription-label">Age</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">{prescriptionData.age}</p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <div className="prescription-block">
+                  <p className="prescription-label">Weight</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">
+                    {prescriptionData.weight}
+                  </p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <div className="prescription-block">
+                  <p className="prescription-label">Height</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">
+                    {prescriptionData.height}
+                  </p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <div className="prescription-block">
+                  <p className="prescription-label">Blood Group</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">
+                    {prescriptionData.bloodgroup}
+                  </p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <div className="prescription-block">
+                  <p className="prescription-label">Doctor Name</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">{tableData.doctorsName}</p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <div className="prescription-block">
+                  <p className="prescription-label">Service Name</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">{tableData.serviceName}</p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <div className="prescription-block">
+                  <p className="prescription-label">Appointment Date</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">
+                    {tableData.appointmentDate}
+                  </p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <div className="prescription-block">
+                  <p className="prescription-label">Labtest</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">
+                    {prescriptionData.labtest}
+                  </p>
+                </div>
+              </Col>
+            </Row>
 
-          <Row>
-            <Col md={12}>
-              <div className="prescription-block">
-                <p className="prescription-label">Medicine</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">
-                  {prescriptionData.medecine}
-                </p>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <div className="prescription-block">
-                <p className="prescription-label">Description</p>
-                <p className="colon">:</p>
-                <p className="prescription-value">
-                  {prescriptionData.description}
-                </p>
-              </div>
-            </Col>
-          </Row>
+            <Row>
+              <Col md={12}>
+                <div className="prescription-block">
+                  <p className="prescription-label">Medicine</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">
+                    {prescriptionData.medecine}
+                  </p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <div className="prescription-block">
+                  <p className="prescription-label">Description</p>
+                  <p className="colon">:</p>
+                  <p className="prescription-value">
+                    {prescriptionData.description}
+                  </p>
+                </div>
+              </Col>
+            </Row>
+          </div>
         </Modal.Body>
       </Modal>
     </>
