@@ -52,13 +52,13 @@ const Appointment = (props) => {
                         <Row className="appointmentRow">
 
                             <Col md={4} className="appointment" >
-                                <div className={status == 0 ? 'title-focus' : ''} onClick={() => handleAppointment("Upcoming Appointment", 0)}>Upcoming Appointment</div>
+                                <div className={status == 0 ? 'appointment-focus' : 'appointment-tab'} onClick={() => handleAppointment("Upcoming Appointment", 0)}>Upcoming Appointment</div>
                             </Col>
                             <Col md={4} className="appointment" >
-                                <div className={status == 1 ? 'title-focus' : ''} onClick={() => handleAppointment("Completed Appointment", 1)}>Completed Appointment</div>
+                                <div className={status == 1 ? ' appointment-focus' : 'appointment-tab'} onClick={() => handleAppointment("Completed Appointment", 1)}>Completed Appointment</div>
                             </Col>
                             <Col md={4} className="appointment" >
-                                <div className={status == 2 ? 'title-focus' : ''} onClick={() => handleAppointment("Cancelled Appointment", 2)} >Cancelled Appointment</div>
+                                <div className={status == 2 ? ' appointment-focus ' : 'appointment-tab'} onClick={() => handleAppointment("Cancelled Appointment", 2)} >Cancelled Appointment</div>
                             </Col>
                         </Row>
                     </Card.Text>

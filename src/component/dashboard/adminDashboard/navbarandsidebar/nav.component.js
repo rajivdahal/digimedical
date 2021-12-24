@@ -25,9 +25,7 @@ const Nav = (props) => {
             logoutno: true
         })
     }
-    const gotoProfile = () => {
-        props.props.push('/dashboard/settings/userprofile')
-    }
+
     const changepassword = () => {
         props.props.push('/dashboard/settings/change-password')
     }
@@ -75,10 +73,7 @@ const Nav = (props) => {
                                             <i className="ti-settings mx-0"></i>
                                         </div>
                                     </div>
-                                    <div className="dropdown-item" onClick={gotoProfile}>
-                                        <i className="ti-user text-primary"></i>
-                                        <span>Profile</span>
-                                    </div>
+                              
 
                                     <div className="dropdown-item" onClick={changepassword}>
                                         <i className="ti-settings text-primary"></i>
@@ -106,10 +101,7 @@ const Nav = (props) => {
                                 <img src="/images/dashboard/user1.jpg" alt="profile" />
                             </a>
                             <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                                <div className="dropdown-item" onClick={gotoProfile}>
-                                    <i className="ti-user text-primary"></i>
-                                    <span>Profile</span>
-                                </div>
+                               
 
                                 <div className="dropdown-item" onClick={changepassword}>
                                     <i className="ti-settings text-primary"></i>

@@ -155,22 +155,6 @@ const DoctorTable = (props) => {
                     }}
                 />
 
-                {/* <Modal show={doctorInfoModal} onHide={handleClose}>
-                    <Card style={{ width: '18rem' }}>
-                        {doctorInfo.map((doctor,index)=>{
-                            return <Card.Body>
-                            <Card.Title>{doctor.prefix}{doctor.name}</Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
-                            </Card.Text>
-                        </Card.Body>
-                        })}
-                        
-                    </Card>
-                </Modal> */}
-
                 <Modal show={showModal} onHide={handleClose}>
                     <Modal.Header >
                         <Modal.Title><b>Doctor Status</b></Modal.Title>

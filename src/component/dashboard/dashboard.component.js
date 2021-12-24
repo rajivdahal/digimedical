@@ -37,7 +37,7 @@ const Dashboard = (props) => {
               <Dashboardnavbar props={props.history}></Dashboardnavbar>
               <Usersidebar props={props.history}></Usersidebar>
               {
-                props.location.pathname === "/dashboard"  || props.location.pathname === "/dashboard/" ?
+                props.location.pathname === "/dashboard" || props.location.pathname === "/dashboard/" ?
                   <ProtectedRoute component={Userdashboard}></ProtectedRoute>
                   : props.location.pathname === "/dashboard/viewappointment" ?
                     <ProtectedRoute component={Viewappointment}></ProtectedRoute>
@@ -74,9 +74,9 @@ const Dashboard = (props) => {
                                   :
                                   props.location.pathname === "/dashboard/lab-test" ?
                                     <ProtectedRoute component={Labtest} />
-                                    : props.location.pathname === "/dashboard/settings/userprofile" ?
-                                      <ProtectedRoute component={UserProfile} /> :
-                                      props.location.pathname === "/dashboard/settings/change-password" ?
+                                    : props.location.pathname === "/dashboard/labtest" ?
+                                      <ProtectedRoute component={LabTestDetail} />
+                                      : props.location.pathname === "/dashboard/settings/change-password" ?
                                         <ProtectedRoute component={Changepassword}></ProtectedRoute>
                                         : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }

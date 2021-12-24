@@ -8,8 +8,9 @@ import MaterialTable from 'material-table'
 import Cliploader from "../../../../utils/clipLoader";
 import Edit from '@material-ui/icons/Edit';
 import DigiMedicalLogo from "../../../../assets/logo.png"
-import { Visibility } from "@material-ui/icons";
+import { Visibility} from "@material-ui/icons";
 import "./prescriptionView.css"
+
 export const Completedappointment = (props) => {
     const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
     const [isloading, setisloading] = useState(false)
@@ -124,7 +125,6 @@ export const Completedappointment = (props) => {
     }
     const showPrescriptionModal = (e, data) => {
         setShowPrescription(true)
-        console.log(data)
         setTableData(data);
         let id = data.appointmentId;
         setAppointmentId(id)
@@ -133,8 +133,8 @@ export const Completedappointment = (props) => {
 
     const handleClose = () => {
         setShowPrescription(false)
-
     }
+    
     return (
         <>
             {
@@ -193,6 +193,16 @@ export const Completedappointment = (props) => {
                     <Image src={DigiMedicalLogo} fluid />
                 </div>
                 <Modal.Body >
+                    {/* <div>
+                        <Row>
+                            <Col md={5}>
+                            </Col>
+                            <Col md={2}>
+                            </Col>
+                            <Col md={5}>
+                            </Col>
+                        </Row>
+                    </div> */}
                     <Row>
                         <Col md={12}>
                         <div className="prescription-block">

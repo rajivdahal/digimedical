@@ -25,8 +25,14 @@ const RegisterComponent = (props) => {
             if (!values.firstName) {
                 errors.firstName = "Firstname is required!"
             }
+            if(values.firstName.length < 2){
+                errors.firstName = "Firstname must not be of one word!"
+            }
             if (!values.lastName) {
                 errors.lastName = "LastName is required!"
+            }
+            if(values.lastName.length < 2){
+                errors.lastName = "Lastname must not be of one word!"
             }
             if (!values.mobileNumber) {
                 errors.mobileNumber = "MobileNumber  is required!"

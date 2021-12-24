@@ -49,13 +49,13 @@ const LabTestDetail = (props) => {
                         <Row className="appointmentRow">
 
                             <Col md={4} className="appointment" >
-                                <div className={status == 0 ? 'title-focus' : ''} onClick={() => handleLabtest("Upcoming Lab Test", 0)}>Upcoming Lab Test</div>
+                                <div className={status == 0 ? ' appointment-focus ' : 'appointment-tab'} onClick={() => handleLabtest("Upcoming Lab Test", 0)}>Upcoming Lab Test</div>
                             </Col>
                             <Col md={4} className="appointment" >
-                                <div className={status == 1 ? 'title-focus' : ''} onClick={() => handleLabtest("Completed Lab Test", 1)}>Completed LabTest</div>
+                                <div className={status == 1 ? ' appointment-focus ' : 'appointment-tab'} onClick={() => handleLabtest("Completed Lab Test", 1)}>Completed LabTest</div>
                             </Col>
                             <Col md={4} className="appointment" >
-                                <div className={status == 2 ? 'title-focus' : ''} onClick={() => handleLabtest("Cancelled Lab Test", 2)} >Cancelled Lab Test</div>
+                                <div className={status == 2 ? ' appointment-focus ' : 'appointment-tab'} onClick={() => handleLabtest("Cancelled Lab Test", 2)} >Cancelled Lab Test</div>
                             </Col>
                         </Row>
                     </Card.Text>
