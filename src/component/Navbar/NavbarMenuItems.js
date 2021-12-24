@@ -81,7 +81,14 @@ const NavbarMenuItems = () => {
               Services{" "}
             </Link>
           </span>
-          <span className="menu-item">Lab Test</span>
+          <span className="menu-item">
+            <Link
+              to="/home-labtest"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Lab Test{" "}
+            </Link>
+          </span>
           <span className="menu-item">Health Pacakages</span>
           <span className="menu-item">Special Pacakages</span>
           <span className="menu-item">
