@@ -14,9 +14,12 @@ const Root = styled.div`
   height: 33.7rem;
 `;
 const HeroSectionContent = styled.div`
-  color: red;
   padding-top: 6rem;
   padding-left: 9rem;
+  @media screen and (max-width: 650px) {
+    padding-top: 4rem;
+    padding-left: 2rem;
+  }
 `;
 const Heading = styled.div`
   width: 30%;
@@ -28,6 +31,18 @@ const Heading = styled.div`
   align-items: center;
   letter-spacing: 0.03em;
   color: #ffffff;
+  @media screen and (max-width: 1280px) {
+    width: 50%;
+    // background-color: red;
+  }
+  @media screen and (max-width: 1013px) {
+    width: 70%;
+    // background-color: red;
+  }
+  @media screen and (max-width: 650px) {
+    font-size: 35px;
+    width: 100%;
+  }
 `;
 
 const SubHeading = styled.div`
@@ -40,9 +55,20 @@ const SubHeading = styled.div`
   display: flex;
   align-items: left;
   color: #ffffff;
+  @media screen and (max-width: 865px) {
+    width: 50%;
+  }
+  @media screen and (max-width: 950px) {
+    width: 52%;
+  }
 `;
 const ButtonContainor = styled.div`
   margin-top: 1rem;
+  @media screen and (max-width: 650px) {
+    display: flex;
+    // justify-content: center;
+    margin-top: 3rem;
+  }
 `;
 
 const ReadMore = styled.a`
@@ -52,6 +78,8 @@ const ReadMore = styled.a`
   border-color: white;
   &:hover {
     background-color: #2745f0;
+  }
+  @media screen and (max-width: 650px) {
   }
 `;
 const GetAppointment = styled.a`
@@ -66,11 +94,18 @@ const ConnectionContainor = styled.div`
   }
 `;
 export const Home = (props) => {
-  console.log("home",props);
+  console.log("home", props);
   return (
     <>
-    <Navbar></Navbar>
-      <Root style={{backgroundImage: `url(${wallpaper})`,backgroundPosition: "center",backgroundSize: "cover", backgroundRepeat: "no-repeat"}}>
+      <Navbar></Navbar>
+      <Root
+        style={{
+          backgroundImage: `url(${wallpaper})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <HeroSectionContent>
           <Heading>Caring Health is all Important</Heading>
           <SubHeading>
@@ -108,7 +143,7 @@ export const Home = (props) => {
       <OurServices />
       <WhyChooseUs />
       <div id="bookappointment">
-      <BookAnAppointment history={props.history} />
+        <BookAnAppointment history={props.history} />
       </div>
       <TheyTrustedUs />
       <OurPartnar />

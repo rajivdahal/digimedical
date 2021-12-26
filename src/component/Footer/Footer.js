@@ -10,14 +10,34 @@ const FooterSection = styled.div`
   background: #2745f0;
 `;
 const FooterContainer = styled.div`
-  padding: 30px 80px;
+  padding: 40px 130px;
   color: #fff;
+  @media screen and (max-width: 1024px) {
+    padding: 40px 100px;
+  }
 `;
 const TopFooter = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  align-items: center;
+  @media screen and (max-width: 1024px) {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 16px;
+  }
+  @media screen and (max-width: 725px) {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 const LeftContainer = styled.div`
+  @media screen and (max-width: 725px) {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+  }
   .location {
     line-height: 30px;
     margin-bottom: 1rem;
@@ -26,6 +46,9 @@ const LeftContainer = styled.div`
   .icon {
     margin-right: 0.7rem;
     margin-top: 0.5rem;
+  }
+  .image {
+    height: 70px;
   }
 `;
 const AboutContainer = styled.div`
@@ -53,6 +76,9 @@ const ServiceContainer = styled.div`
   &:hover {
     text-decoration: none;
   }
+  @media screen and (max-width: 725px) {
+    margin-top: 1rem;
+  }
 `;
 const RightContainer = styled.div`
   display: flex;
@@ -65,10 +91,19 @@ const RightContainer = styled.div`
   .qr {
     height: 25vh;
   }
+  @media screen and (max-width: 725px) {
+    .qr {
+      height: 40vh;
+    }
+  }
+  @media screen and (max-width: 725px) {
+    margin-top: 1rem;
+  }
 `;
 const BorderLine = styled.div`
   border: 0.001px solid;
-  margin: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
 
   opacity: 0.4;
 `;
@@ -77,11 +112,23 @@ const BottomFooter = styled.div`
   p {
     margin-top: 0.5rem;
   }
+  .paraSection {
+    margin-top: 2rem;
+  }
+  @media screen and (max-width: 768px) {
+    text-align: justify;
+    p {
+      margin-top: 1rem;
+    }
+  }
 `;
 const TopBottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 const IconBottom = styled.div`
   font-size: 1.5rem;
@@ -154,15 +201,19 @@ const Footer = () => {
                 <FaInstagram />
               </IconBottom>
             </TopBottom>
-            <p>©degimedical2021 . All rights reserved. Supported by Grow Tech</p>
-            <p>
-              When you visit or interact with our sites, services or tools, we
-              or our authorised service providers may use cookies for storing
-              information
-              <br />
-              to help provide you with a better, faster and safer experience and
-              for marketing purposes.
-            </p>
+            <div className="paraSection">
+              <p>
+                ©degimedical2021 . All rights reserved. Supported by Grow Tech
+              </p>
+              <p>
+                When you visit or interact with our sites, services or tools, we
+                or our authorised service providers may use cookies for storing
+                information
+                <br />
+                to help provide you with a better, faster and safer experience
+                and for marketing purposes.
+              </p>
+            </div>
           </BottomFooter>
         </FooterContainer>
       </FooterSection>

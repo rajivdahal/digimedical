@@ -12,6 +12,10 @@ const Root = styled.div`
 const Content = styled.div`
   padding-top: 9rem;
   padding-left: 9rem;
+  @media screen and (max-width: 650px) {
+    padding-top: 8rem;
+    padding-left: 2rem;
+  }
 `;
 const Heading = styled.div`
   width: 30%;
@@ -23,6 +27,12 @@ const Heading = styled.div`
   align-items: center;
   letter-spacing: 0.03em;
   color: #192638;
+  @media screen and (max-width: 1077px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 650px) {
+    font-size: 35px;
+  }
 `;
 
 const Subheading = styled.div`
@@ -36,12 +46,27 @@ const Subheading = styled.div`
   align-items: left;
   color: #596579;
   letter-spacing: 0.03em;
+  @media screen and (max-width: 960px) {
+    width: 30%;
+  }
+  @media screen and (max-width: 960px) {
+    width: 35%;
+  }
+  @media screen and (max-width: 680px) {
+    width: 40%;
+  }
+  @media screen and (max-width: 500px) {
+    width: 50%;
+  }
+  @media screen and (max-width: 500px) {
+    width: 70%;
+  }
 `;
 
 const Service = (props) => {
   return (
     <>
-    <Navbar></Navbar>
+      <Navbar></Navbar>
       <Root
         style={{
           backgroundImage: `url(${servicewall})`,

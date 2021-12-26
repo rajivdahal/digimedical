@@ -7,21 +7,62 @@ const Root = styled.div`
   padding-top: 5rem;
   padding-bottom: 5rem;
   display: flex;
-  //   justify-content: space-between;
-  //   align-items: center;
+  justify-content: center;
+  // background-color: red;
+  @media screen and (max-width: 1077px) {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  @media screen and (max-width: 950px) {
+    flex-direction: column;
+  }
+  @media screen and (max-width: 650px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 `;
 const MapContainor = styled.div`
   width: 50%;
-  //   background-color: blue;
+
+  // background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 950px) {
+    width: 100%;
+  }
+
+  .map {
+    width: 100%;
+    height: 80vh;
+    @media screen and (max-width: 1242px) {
+      height: 80vh;
+    }
+    @media screen and (max-width: 980px) {
+      height: 70vh;
+    }
+    @media screen and (max-width: 970px) {
+      height: 70vh;
+    }
+    @media screen and (max-width: 650px) {
+      width: 110%;
+    }
+  }
 `;
 const FormContainor = styled.div`
   width: 50%;
   margin-left: 2rem;
   display: flex;
-  //   background-color: red;
+
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  @media screen and (max-width: 950px) {
+    width: 100%;
+    margin-top: 2rem;
+    margin-left: 0rem;
+  }
   span {
     font-style: normal;
     line-height: 52px;
@@ -60,9 +101,8 @@ const LocationContact = () => {
     <Root>
       <MapContainor>
         <iframe
-          style={{ filter: "drop-shadow(6px 6px 30px rgba(0, 0, 0, 0.15))" }}
-          width="530"
-          height="500"
+          className="map"
+          // style={{ filter: "drop-shadow(6px 6px 30px rgba(0, 0, 0, 0.15))" }}
           id="gmap_canvas"
           src="https://maps.google.com/maps?q=koteshower%20nepal&t=&z=13&ie=UTF8&iwloc=&output=embed"
           frameborder="0"

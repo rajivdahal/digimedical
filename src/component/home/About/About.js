@@ -8,10 +8,37 @@ const AboutUsContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   grid-column-gap: 60px;
+  @media screen and (max-width: 1077px) {
+    grid-template-columns: auto;
+  }
+  @media screen and (max-width: 650px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 `;
 const ImageContainer = styled.img`
-  width: 555.6px;
+  width: 555px;
   height: 355px;
+  @media screen and (max-width: 1260px) {
+    width: 460px;
+    height: 300px;
+  }
+  @media screen and (max-width: 1184px) {
+    width: 410px;
+    height: 300px;
+  }
+  @media screen and (max-width: 1150px) {
+    width: 400px;
+    height: 300px;
+  }
+  @media screen and (max-width: 1143px) {
+    width: 360px;
+    height: 270px;
+  }
+  @media screen and (max-width: 1077px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 const RightContainer = styled.div`
   display: flex;
