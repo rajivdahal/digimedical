@@ -12,6 +12,14 @@ const Root = styled.div`
   flex-direction: column;
   padding-top: 5rem;
   text-align: center;
+  @media screen and (max-width: 1176px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  @media screen and (max-width: 650px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 `;
 const Content = styled.div``;
 const Title = styled.div`
@@ -39,6 +47,12 @@ const Feature = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 3rem;
+  @media screen and (max-width: 650px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0rem;
+  }
 `;
 const BoxContainpr = styled.div`
   padding: 1.5rem 1.5rem 1.5rem 0rem;
@@ -48,6 +62,11 @@ const BoxContainpr = styled.div`
   width: 45%;
   background: #f5faff;
   border-radius: 10px;
+  @media screen and (max-width: 650px) {
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
   .title-deatial-div {
     margin-left: 1.5rem;
   }

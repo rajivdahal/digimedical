@@ -15,6 +15,10 @@ const Root = styled.div`
 const Content = styled.div`
   padding-top: 6rem;
   padding-left: 9rem;
+  @media screen and (max-width: 650px) {
+    padding-top: 4rem;
+    padding-left: 2rem;
+  }
 `;
 const Heading = styled.div`
   width: 40%;
@@ -26,6 +30,25 @@ const Heading = styled.div`
   align-items: center;
   letter-spacing: 0.03em;
   color: #192638;
+  @media screen and (max-width: 968px) {
+    width: 45%;
+  }
+  @media screen and (max-width: 974px) {
+    width: 50%;
+  }
+  @media screen and (max-width: 804px) {
+    width: 55%;
+  }
+  @media screen and (max-width: 744px) {
+    width: 60%;
+  }
+  @media screen and (max-width: 992px) {
+    width: 65%;
+  }
+  @media screen and (max-width: 650px) {
+    font-size: 35px;
+    width: 100%;
+  }
 `;
 
 const Subheading = styled.div`
@@ -52,7 +75,7 @@ const GetAppointment = styled.a`
 const AboutPage = () => {
   return (
     <>
-    <Navbar></Navbar>
+      <Navbar></Navbar>
       <Root
         style={{
           backgroundImage: `url(${aboutwall})`,
@@ -66,9 +89,9 @@ const AboutPage = () => {
           <Heading>We are here to Improve your health</Heading>
           <ButtonContainor>
             <Link to={"/"}>
-            <GetAppointment type="button" className="btn btn-primary">
-              Get Appointment
-            </GetAppointment>
+              <GetAppointment type="button" className="btn btn-primary">
+                Get Appointment
+              </GetAppointment>
             </Link>
           </ButtonContainor>
         </Content>

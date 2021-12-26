@@ -70,6 +70,11 @@ const BottomSection = styled.div`
   justify-content: center;
   align-items: center;
   gap: 3rem;
+  @media screen and (max-width: 999px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Card = styled.div`
@@ -79,8 +84,11 @@ const Card = styled.div`
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 1 rem;
+  gap: 1rem;
   padding: 1rem;
+  @media screen and (max-width: 999px) {
+    width: 20rem;
+  }
 `;
 
 const Top = styled.div`

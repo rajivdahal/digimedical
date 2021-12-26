@@ -8,17 +8,33 @@ const Root = styled.div`
   padding-top: 4.5rem;
   // padding-bottom: 4.5rem;
   display: flex;
+  @media screen and (max-width: 1024px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 3rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
 `;
 const ImageContainor = styled.div`
   width: 45%;
   //   background-color: red;
   .image {
     width: 80%;
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+    }
   }
 `;
 const ContentContainor = styled.div`
   width: 50%;
   padding-right: 3rem;
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    padding-right: 0rem;
+  }
 `;
 const Title = styled.div`
   font-style: normal;
