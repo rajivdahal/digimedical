@@ -52,15 +52,6 @@ export default function Usersidebar(props) {
                             </ul>
                         </div>
                     </li>
-                    {/* <Link to="/dashboard/doctors">
-                        <li className="nav-item">
-                            <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
-                                <i className="fas fa-user-md  menu-icon"></i>
-                                <span className="menu-title" >Doctors</span>
-                            </a>
-                        </li>
-                    </Link> */}
-
                     <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                             <i className="fas fa-money-check-alt menu-icon"></i>
@@ -82,24 +73,20 @@ export default function Usersidebar(props) {
                         </div>
                     </li>
 
-                    <li className="nav-item" onClick={navigateLabreport}>
-                        <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
-                            <i className="fas fa-pager menu-icon"></i>
-                            <span className="menu-title">Lab reports</span>
-
-                        </a>
-
-                    </li>
-
-
-                    <li className="nav-item" onClick={navigateMedicalreports}>
-                        <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
-                            <i className="fas fa-file-medical menu-icon"></i>
+                    <li className="nav-item">
+                        <a className="nav-link" data-toggle="collapse" href="#medicalreports" aria-expanded="false" aria-controls="medicalreports">
+                        <i className="fas fa-file-medical menu-icon"></i>
                             <span className="menu-title">Medical Reports</span>
+                            <i className="menu-arrow"></i>
                         </a>
+                        <div className="collapse" id="medicalreports">
+                            <ul className="nav flex-column sub-menu">
+                                <Link to="/dashboard/lab-reports">
+                                    <li className="nav-item"> <a className="nav-link" href="">Lab Reports</a></li>
+                                </Link>
+                            </ul>
+                        </div>
                     </li>
-
-
                 </ul>
             </nav>
         </div>

@@ -3,3 +3,20 @@
     position: absolute;
    
 }
+.eye-to-see-password-register{
+    color: grey;
+    position: absolute;
+    bottom: 40px;
+    left: 90%;
+    cursor: pointer;
+}
+.eye-to-see-password{
+    color: grey;
+    position: absolute;
+    bottom: 40px;
+    left: 85%;
+    cursor: pointer;
+}
+.eye-to-see-password:hover {
+    color: black
+}

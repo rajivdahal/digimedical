@@ -9,7 +9,7 @@ import Footer from '../Footer/Footer'
 
 const RegisterComponent = (props) => {
     const [isLoading, setisLoading] = useState(false)
-
+    const [ispassword, setispassword] = useState(true)
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -22,16 +22,15 @@ const RegisterComponent = (props) => {
         },
         validate: values => {
             let errors = {}
+
             if (!values.firstName) {
                 errors.firstName = "Firstname is required!"
             }
-            if(values.firstName.length < 2){
-                errors.firstName = "Firstname must not be of one word!"
-            }
+            
             if (!values.lastName) {
                 errors.lastName = "LastName is required!"
             }
-            if(values.lastName.length < 2){
+            if (values.lastName.length < 2) {
                 errors.lastName = "Lastname must not be of one word!"
             }
             if (!values.mobileNumber) {
@@ -66,6 +65,9 @@ const RegisterComponent = (props) => {
             if (values.confirmPassword != values.password) {
                 errors.confirmPassword = "Password doesn't match!"
             }
+            if (values.firstName.length < 2) {
+                errors.firstName = "Invalid firstname!"
+            }
             return errors
         },
         onSubmit: values => {
@@ -90,6 +92,10 @@ const RegisterComponent = (props) => {
                 })
         }
     })
+    const vieworhidepassword=()=>{
+        setispassword(!ispassword)
+    }
+    
     return (
         <>
             <Navbar></Navbar>
@@ -125,14 +131,14 @@ const RegisterComponent = (props) => {
                                     <div className="col-md-4">
                                         <div className="form-group select-label">
                                             <label>First Name </label>
-                                            <input type="text" className="form-control form-input" placeholder="First Name" id="firstName" name="firstName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <input type="text" className="form-control " placeholder="First Name" id="firstName" name="firstName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.firstName && formik.touched.firstName ? <div style={{ color: "red" }} className="errmsg">{formik.errors.firstName}</div> : null}
                                         </div>
                                     </div>
                                     <div className="col-md-4">
                                         <div className="form-group select-label">
                                             <label>Middle Name </label>
-                                            <input type="text" className="form-control form-input" placeholder="Middle Name" id="middleName" name="middleName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <input type="text" className="form-control " placeholder="Middle Name" id="middleName" name="middleName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.middleName && formik.touched.middleName ? <div style={{ color: "red" }} className="errmsg">{formik.errors.middleName}</div> : null}
 
                                         </div>
@@ -140,7 +146,7 @@ const RegisterComponent = (props) => {
                                     <div className="col-md-4">
                                         <div className="form-group select-label">
                                             <label>Last Name </label>
-                                            <input type="text" className="form-control form-input" placeholder="Last Name" id="lastName" name="lastName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <input type="text" className="form-control " placeholder="Last Name" id="lastName" name="lastName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.lastName && formik.touched.lastName ? <div style={{ color: "red" }} className="errmsg">{formik.errors.lastName}</div> : null}
 
 
@@ -149,14 +155,14 @@ const RegisterComponent = (props) => {
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
                                             <label>Phone </label>
-                                            <input type="number" className="form-control form-input" placeholder="" id="mobileNumber" name="mobileNumber" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <input type="number" className="form-control " placeholder="" id="mobileNumber" name="mobileNumber" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.mobileNumber && formik.touched.mobileNumber ? <div style={{ color: "red" }} className="errmsg">{formik.errors.mobileNumber}</div> : null}
                                         </div>
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
                                             <label>Email address </label>
-                                            <input type="email" className="form-control form-input" placeholder="" id="email" name="email" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <input type="email" className="form-control " placeholder="" id="email" name="email" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.email && formik.touched.email ? <div style={{ color: "red" }} className="errmsg">{formik.errors.email}</div> : null}
 
 
@@ -165,7 +171,10 @@ const RegisterComponent = (props) => {
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
                                             <label>Password </label>
-                                            <input type="password" className="form-control form-input" placeholder="" id="password" name="password" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <input  type={ispassword?"password":"text"} className="form-control " placeholder="" id="password" name="password" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            {
+                                                ispassword ? <i class="fas fa-eye eye-to-see-password-register" onClick={vieworhidepassword}></i>:<i class="fas fa-eye-slash eye-to-see-password-register" onClick={vieworhidepassword}></i>
+                                            }
                                             {formik.errors.password && formik.touched.password ? <div style={{ color: "red" }} className="errmsg">{formik.errors.password}</div> : null}
 
                                         </div>
@@ -173,7 +182,7 @@ const RegisterComponent = (props) => {
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
                                             <label>Confirm Password </label>
-                                            <input type="password" className="form-control form-input" placeholder="" id="confirmPassword" name="confirmPassword" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <input type="password" className="form-control " placeholder="" id="confirmPassword" name="confirmPassword" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.confirmPassword && formik.touched.confirmPassword ? <div style={{ color: "red" }} className="errmsg">{formik.errors.confirmPassword}</div> : null}
                                         </div>
                                     </div>
