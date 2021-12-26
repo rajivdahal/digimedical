@@ -4,6 +4,7 @@ export const data = [
     title: "Doctor at home",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet.",
+    link: "/doctor-at-home",
   },
   {
     img: require("../../../assets/Nurse.png").default,

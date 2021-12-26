@@ -5,8 +5,8 @@ import FormComponent from "./FormComponent";
 import servicewall from "../../../assets/servicewall.png";
 
 function BookAnAppointment(props) {
-  props=props.props?props.props:props
-  console.log("props are in book appointment",props)
+  props = props.props ? props.props : props;
+  console.log("props are in book appointment", props);
   const Container = styled.div`
     padding-left: 8.75rem;
     padding-right: 8.75rem;
@@ -15,6 +15,18 @@ function BookAnAppointment(props) {
     background: rgba(245, 250, 255, 1);
     display: flex;
     flex-direction: column;
+    @media screen and (max-width: 1077px) {
+      padding-left: 9rem;
+      padding-right: 9rem;
+    }
+    @media screen and (max-width: 1077px) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    @media screen and (max-width: 500px) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
   `;
   const InnerContainer = styled.div`
     display: flex;
@@ -55,9 +67,15 @@ function BookAnAppointment(props) {
     width: 60%;
     // height: auto;
     // margin-bottom: 20px;
+    @media screen and (max-width: 1077px) {
+      width: 100%;
+    }
   `;
   const RightSection = styled.div`
     // height: auto;
+    @media screen and (max-width: 1077px) {
+      display: none;
+    }
   `;
   return (
     <div id="BookanAppointment">
@@ -68,7 +86,7 @@ function BookAnAppointment(props) {
         </Header>
         <InnerContainer>
           <LeftSection>
-            <FormComponent history={props}/>
+            <FormComponent history={props} />
           </LeftSection>
           <RightSection>
             <img src={Appointment} style={{ width: "400px" }} />

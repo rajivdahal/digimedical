@@ -3,11 +3,41 @@ import styled from "styled-components";
 
 const Root = styled.div`
   width: 35%;
-  //   height: 50vh;
+
   padding: 1rem;
   background: #ffffff;
   box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+  @media screen and (max-width: 1280px) {
+    width: 40%;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 45%;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 50%;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 55%;
+  }
+  @media screen and (max-width: 960px) {
+    width: 60%;
+  }
+  @media screen and (max-width: 870px) {
+    width: 65%;
+  }
+  @media screen and (max-width: 820px) {
+    width: 70%;
+  }
+  @media screen and (max-width: 770px) {
+    width: 80%;
+  }
+  @media screen and (max-width: 730px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 650px) {
+    width: 100%;
+  }
   .btn {
     background-color: #2745f0;
     border-radius: 0.5rem;

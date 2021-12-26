@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import digoMediaLogo from "../../../assets/digoMediaLogo.png";
+import globalLogo from "../../../assets/global.png";
 const Root = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,9 +25,26 @@ const SubHeading = styled.div`
 const Logo = styled.div`
   margin-top: 2rem;
   display: flex;
+  @media screen and (max-width: 650px) {
+    flex-direction: column;
+  }
   .logo {
     height: 4rem;
     margin-left: 3.5rem;
+    @media screen and (max-width: 1077px) {
+      margin-left: 1rem;
+    }
+    @media screen and (max-width: 900px) {
+      height: 3.5rem;
+    }
+    @media screen and (max-width: 770px) {
+      height: 3.3rem;
+    }
+    @media screen and (max-width: 650px) {
+      height: 5rem;
+      margin-left: 0rem;
+      margin-top: 1rem;
+    }
   }
 `;
 const Ourpartner = () => {

@@ -6,17 +6,18 @@ import Question from "../../assets/Question.png";
 import { BiPlusCircle } from "react-icons/bi";
 import { BiMinusCircle } from "react-icons/bi";
 const Root = styled.div`
-  //   margin-top: 2rem;
   padding-left: 9rem;
   padding-right: 9rem;
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
+
+  @media screen and (max-width: 999px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 `;
 
 const Heading = styled.div`
   font-style: normal;
-  //   line-height: 1rem;
+
   font-size: 38px;
   color: #192638;
   text-align: center;
@@ -46,6 +47,9 @@ const Items = styled.div`
   border-bottom: 0.8px solid #a7b2c3;
   padding-top: 1.3rem;
   padding-bottom: 1.3rem;
+  @media screen and (max-width: 790px) {
+    width: 100%;
+  }
   span {
     margin-left: 1rem;
     font-style: normal;

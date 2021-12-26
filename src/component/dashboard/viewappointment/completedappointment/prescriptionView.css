@@ -4,16 +4,27 @@
 
 .prescription-block {
   display: flex;
-  padding: 5px 25px;
-  border-radius: 10px;
-  margin-bottom: 8px;
+  padding: 2px;
 }
 
 .prescription-label {
-  width: 90px;
+  width: 150px;
 }
 
 .colon {
-  padding: 0px 15px 0px 20px;
   width: 60px;
+}
+
+.prescription-value {
+  width: 130px;
+  line-height: 20px;
+}
+
+row {
+  padding: 300px;
+}
+
+.prescription_view {
+  padding: 0px;
+  float: none;
 }

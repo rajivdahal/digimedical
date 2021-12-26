@@ -13,6 +13,9 @@ import { Link } from "react-router-dom";
 
 const Root = styled.div``;
 const Heading = styled.div`
+  @media screen and (max-width: 1077px) {
+    display: none;
+  }
   //   padding: 18px 197.53px 18px 197.53px;
   padding-left: 140px;
   padding-top: 14px;
