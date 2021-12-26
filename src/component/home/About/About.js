@@ -12,8 +12,8 @@ const AboutUsContainer = styled.div`
     grid-template-columns: auto;
   }
   @media screen and (max-width: 650px) {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 `;
 const ImageContainer = styled.img`

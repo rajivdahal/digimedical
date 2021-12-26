@@ -15,6 +15,10 @@ const FooterContainer = styled.div`
   @media screen and (max-width: 1024px) {
     padding: 40px 100px;
   }
+  @media screen and (max-width: 650px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 `;
 const TopFooter = styled.div`
   display: flex;
