@@ -52,7 +52,7 @@ const Labtest = (props) => {
                         item.description = joinDesc;
                     }  
 
-                    item.price ="Rs."+item.price;
+                    item.priceString ="Rs."+item.price;
                 })
                 console.log(resp)
 
@@ -90,12 +90,6 @@ const Labtest = (props) => {
             if (!values.description) {
                 errors.description = 'Required!'
             }
-            if (!values.date) {
-                errors.date = 'Required!'
-
-            }
-
-
             let decimalREGEX = /^\d*\.?\d*$/;
 
             if(!decimalREGEX.test(values.price)){
@@ -154,6 +148,7 @@ const Labtest = (props) => {
             .catch(err => {
                 console.log(err.response)
                 setIsLoading(false)
+                notify.error(err.response.data.message || "Something went wrong")
 
             })
     }
@@ -259,6 +254,7 @@ const Labtest = (props) => {
     }
     return (
         <div>
+           
             <Container>
                 <Form onSubmit={formik.handleSubmit}>
                     <Row className="mb-3">
@@ -310,7 +306,7 @@ const Labtest = (props) => {
                     <Row>
                         <Col md={4}>
                             <Form.Label>Choose Photo :  </Form.Label><br></br>
-                            <Button variant="info" onClick={handleAddImage}>Choose Photo</Button>
+                            <Button variant="info" onClick={handleAddImage}>Browse</Button>
                             <input onChange={(e) => handleChangeImage(e)} type="file" name="image" style={{ display: "none" }} ref={imageSelectRef}  ></input>
                         </Col>
 
@@ -385,7 +381,7 @@ const Labtest = (props) => {
                         { title: "ID", field: "id" },
                         { title: 'Name', field: 'name' },
                         { title: 'Description', field: 'description' },
-                        { title: 'Price', field: 'price' },
+                        { title: 'Price', field: 'priceString' },
                         { title: 'Issue Date', field: 'issueDate' },
                         {
                             title: 'Status', field: 'status',

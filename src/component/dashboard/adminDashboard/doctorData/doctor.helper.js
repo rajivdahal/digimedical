@@ -1,5 +1,7 @@
 const validateDoctor = ( values, isEdit = false ) =>{
     let errors = {};
+    let decimalREGEX = /^\d*\.?\d*$/;
+
     if (!values.firstName) {
         errors.firstName = 'Required!'
     }
@@ -10,6 +12,11 @@ const validateDoctor = ( values, isEdit = false ) =>{
     if (!values.mobileNumber) {
         errors.mobileNumber = "Required!"
     }
+
+    if(!decimalREGEX.test(values.mobileNumber)){
+        errors.mobileNumber = "Must be a number!";
+    }
+    
     else if (("" + values.mobileNumber).length != 10) {
         errors.mobileNumber = "Mobile Number must be of 10 digits!"
     }
@@ -23,6 +30,10 @@ const validateDoctor = ( values, isEdit = false ) =>{
 
     if (!values.nmcNumber) {
         errors.nmcNumber = 'Required!'
+    }
+
+    if(!decimalREGEX.test(values.nmcNumber)){
+        errors.nmcNumber = "Must be a number";
     }
 
     if (!values.specialist) {
