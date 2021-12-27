@@ -113,7 +113,7 @@
 .lab_buttons_select {
   margin-top: 50px;
   width: 100%;
-  overflow: hidden;
+
   display: flex;
 }
 .lab_buttons_select1 {
@@ -130,12 +130,25 @@
   height: 26px;
   border: #d0d7e2;
   background: #d0d7e2;
-  overflow: hidden;
+
   border-radius: 4px;
 }
 
 .lab_arrow_left div {
   margin-left: 11px;
+  margin-top: -5px;
+}
+
+.lab_arrow_right {
+  width: 25px;
+  height: 26px;
+  border: 1px solid #dfe3e8;
+
+  border-radius: 4px;
+}
+
+#lab_arrow_right {
+  margin-left: 7px;
   margin-top: -5px;
 }
 
@@ -149,6 +162,15 @@
 
 .left {
   transform: rotate(135deg);
+}
+
+.lab_arrow_r {
+  border: 1px solid #4200ff;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 2px;
+  background: white;
+  transform: rotate(316deg);
 }
 
 #lab_button_num {
@@ -181,25 +203,4 @@
   border: 2px solid #2745f0;
 
   border-radius: 4px;
-}
-
-.lab_arrow_right {
-  width: 25px;
-  height: 26px;
-  border: 1px solid #dfe3e8;
-
-  border-radius: 4px;
-}
-
-#lab_arrow_right {
-  margin-left: 7px;
-  margin-top: -5px;
-}
-.lab_arrow_r {
-  border: 1px solid #4200ff;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 2px;
-  background: white;
-  transform: rotate(316deg);
 }
