@@ -109,9 +109,14 @@ const NavbarMenuItems = () => {
               Services{" "}
             </Link>
           </span>
-          <span className="menu-item">Lab Test</span>
+          <Link to="/lab-test" 
+           style={{ textDecoration: "none", color: "inherit" }}>
+            <span className="menu-item">Lab Test</span>
+
+          </Link>
+
           <span className="menu-item">Health Packages</span>
-          
+
           <span className="menu-item">
             {" "}
             <Link

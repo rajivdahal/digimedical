@@ -23,6 +23,7 @@ import Prescribe from "./doctordashboard/prescribe/prescribe.component"
 import Labtest from "./adminDashboard/labtestData/labtest.component"
 import UserProfile from "./userdashboard/settings/profileupdate.component"
 import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list"
+import Userlabtest from "./userdashboard/labtest/userlabtest.component"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -49,7 +50,10 @@ const Dashboard = (props) => {
                           <ProtectedRoute component={Internalappointmentbook}></ProtectedRoute> :
                           props.location.pathname === "/dashboard/settings/change-password" ?
                             <ProtectedRoute component={Changepassword}></ProtectedRoute>
-                            : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                            :
+                            props.location.pathname === "/dashboard/lab-test" ?
+                              <ProtectedRoute component={Userlabtest}></ProtectedRoute>
+                              : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
               }
             </> :
             statusCode == 100 ?
