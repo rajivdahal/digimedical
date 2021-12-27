@@ -13,6 +13,7 @@ import AboutPage from "../AboutPage/AboutPage";
 import Service from "../Service/Service";
 import ContactUs from "../Contact/ContactUs";
 import DoctorAtHome from "../DoctorAtHome/DoctorAtHome";
+import HomeLabtest from "../home/Labtest/labtest";
 
 export const Approuting = (props) => {
   return (
@@ -49,6 +50,11 @@ export const Approuting = (props) => {
           exact
           path="/verify-password"
           component={Verifypassword}
+        ></PublicRoute>
+          <PublicRoute
+          exact
+          path="/lab-test"
+          component={HomeLabtest}
         ></PublicRoute>
 
         <ProtectedRoute
@@ -146,11 +152,7 @@ export const Approuting = (props) => {
           component={Dashboard}
         ></ProtectedRoute>
         {/* <ProtectedRoute exact path="/dashboard/add/labtest" component={Dashboard}></ProtectedRoute> */}
-        <ProtectedRoute
-          exact
-          path="/dashboard/labtest"
-          component={Dashboard}
-        ></ProtectedRoute>
+       
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
     </BrowserRouter>

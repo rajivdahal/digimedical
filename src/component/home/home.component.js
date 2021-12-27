@@ -98,14 +98,7 @@ export const Home = (props) => {
   return (
     <>
       <Navbar></Navbar>
-      <Root
-        style={{
-          backgroundImage: `url(${wallpaper})`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
+      <Root style={{ backgroundImage: `url(${wallpaper})`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
         <HeroSectionContent>
           <Heading>Caring Health is all Important</Heading>
           <SubHeading>
