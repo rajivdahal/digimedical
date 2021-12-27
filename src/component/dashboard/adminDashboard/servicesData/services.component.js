@@ -263,6 +263,7 @@ const Createservices = (props) => {
 
                 <MaterialTable
                     columns={[
+                        {title : "ID" , field : "id"},
                         { title: 'Service Name', field: 'serviceName', },
                         { title: 'Service Description', field: 'serviceDescription', sorting: false },
                         {

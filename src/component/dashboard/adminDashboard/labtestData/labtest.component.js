@@ -90,12 +90,6 @@ const Labtest = (props) => {
             if (!values.description) {
                 errors.description = 'Required!'
             }
-            if (!values.date) {
-                errors.date = 'Required!'
-
-            }
-
-
             let decimalREGEX = /^\d*\.?\d*$/;
 
             if(!decimalREGEX.test(values.price)){
@@ -213,7 +207,6 @@ const Labtest = (props) => {
         if (values.image) {
             formData.append("image", values.image);
         }
-
         formData.append('name', values.name);
         formData.append('description', values.description);
         formData.append('issueDate', values.date);
@@ -313,9 +306,8 @@ const Labtest = (props) => {
                     <Row>
                         <Col md={4}>
                             <Form.Label>Choose Photo :  </Form.Label><br></br>
-                            <Button variant="info" onClick={handleAddImage}>Choose Photo</Button>
-                            <input onChange={(e) => handleChangeImage(e)} type="file" name="image" 
-                            accept="image/png, image/jpg, image/jpeg" style={{ display: "none" }} ref={imageSelectRef}  ></input>
+                            <Button variant="info" onClick={handleAddImage}>Browse</Button>
+                            <input onChange={(e) => handleChangeImage(e)} type="file" name="image" style={{ display: "none" }} ref={imageSelectRef}  ></input>
                         </Col>
 
                         <Col md={5}>
