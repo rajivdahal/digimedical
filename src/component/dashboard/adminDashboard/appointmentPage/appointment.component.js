@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { httpClient } from '../../../../utils/httpClient';
 import { Col, Row, Container, Card, ButtonGroup, Button } from 'react-bootstrap';
 import "./appointment.component.css"
-import Select from 'react-select';
+// import Select from 'react-select';
 const Appointment = (props) => {
 
     const [appointmentDetail, setAppointmentDetail] = useState([]);

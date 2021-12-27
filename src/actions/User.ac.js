@@ -1,8 +1,8 @@
 export const userActionTypes = {
+
     SET_IS_LOGIN_LOADING: 'SET_IS_LOGIN_LOADING',
     USER_LOGGED_IN: 'USER_LOGGED_IN',
 }
-
 export const loginuser=params=>{
     // console.log("at action file inc data is>>",params)
     return(dispatch)=>{

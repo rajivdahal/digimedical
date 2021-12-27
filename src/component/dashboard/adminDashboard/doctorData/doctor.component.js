@@ -7,7 +7,6 @@ import "./doctor.component.css"
 import { useFormik } from "formik";
 import { validateDoctor } from "./doctor.helper";
 import Avatar from "../../../../assets/avatars.png";
-import Select from 'react-select';
 const Createdoctor = (props) => {
 
     // all services

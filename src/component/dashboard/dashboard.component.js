@@ -23,7 +23,8 @@ import Prescribe from "./doctordashboard/prescribe/prescribe.component"
 import Labtest from "./adminDashboard/labtestData/labtest.component"
 import UserProfile from "./userdashboard/settings/profileupdate.component"
 import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list"
-import Userlabtest from "./userdashboard/labtest/userlabtest.component"
+import { Userlabtest } from "./userdashboard/labtest/userlabtest.component"
+
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
