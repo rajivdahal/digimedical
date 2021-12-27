@@ -53,7 +53,7 @@ export const Forgotpassword = (props) => {
                     <h2 className="primary-color" >Reset Password</h2>
                     <p>You will be provided an OTP on your gmail,please enter the your Email</p>
                 </div>
-                <form onSubmit={formik.handleSubmit} className="forgotpassword" noValidate>
+                <form onSubmit={formik.handleSubmit} className="forgotpassword">
                     <label htmlFor="email">Email</label>
                     <input type="email" id="username" {...formik.getFieldProps("username")} className="form-control form-input"></input>
                     {formik.errors.username && formik.touched.username ? <div style={{ color: "red" }} className="errmsg">{formik.errors.username}</div> : null}

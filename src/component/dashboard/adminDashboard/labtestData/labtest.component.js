@@ -356,7 +356,7 @@ const Labtest = (props) => {
                     <Modal.Header >
                         <Modal.Title><b>Change Labtest Status</b></Modal.Title>
                     </Modal.Header>
-                    <Modal.Body >Do you really want to deactivate this labtest ?</Modal.Body>
+                    <Modal.Body >Do you really want to change this labtest status ?</Modal.Body>
                     <Modal.Footer>
                         {isLoading == true ?
                             <Cliploader isLoading={isLoading} />

@@ -159,7 +159,7 @@ const DoctorTable = (props) => {
                     <Modal.Header >
                         <Modal.Title><b>Doctor Status</b></Modal.Title>
                     </Modal.Header>
-                    <Modal.Body >Do you really want to deactivate this doctor ?</Modal.Body>
+                    <Modal.Body >Do you really want to change this doctor status ?</Modal.Body>
                     <Modal.Footer>
                         <Button variant="danger" onClick={handleClose}>
                             Close

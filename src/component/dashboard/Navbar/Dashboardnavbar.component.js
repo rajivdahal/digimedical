@@ -2,6 +2,8 @@ import { notify } from "./../../../services/notify"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { httpClient } from "../../../utils/httpClient"
+import Avatar from "../../../assets/avatars.png"
+
 import "./dashboardnavbar.component.css"
 export const Dashboardnavbar = (props) => {
   const [userImage,setImage]=useState("")
@@ -114,7 +116,7 @@ export const Dashboardnavbar = (props) => {
             </li>
             <li className="nav-item nav-profile dropdown">
               <a className="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src={userImage}alt="profile" />
+                <img src={userImage ? userImage : Avatar} alt="profile" />
               </a>
               <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                 

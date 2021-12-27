@@ -23,7 +23,7 @@ export const Changepassword = (props) => {
             if (!userName) {
                 return httpClient.PUT("update-user-password", values, false, true)
                     .then(resp => {
-                        notify.success("Password successfully changed")
+                        notify.success("Password successfully changed.")
                         props.history.push("/dashboard/")
                     })
                     .catch(err => {
@@ -31,7 +31,7 @@ export const Changepassword = (props) => {
                         values.newPassword=""
                         values.confirmPassword=""
                         values.oldPassword=""
-                        Formik.errors.confirmPassword=err.response.data.message
+                        
                         return notify.error("Old password does not match")
                     })
                     .finally(()=>{
@@ -54,9 +54,13 @@ export const Changepassword = (props) => {
         validate: values => {
             let errors = {}
             if(props.location.pathname !== "/dashboard/settings/change-password"){
+                if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(values.password)) {
+                    errors.password = "Password should at least be 8 characters of one uppercase ,one lowercase and one special character!"
+                }
                 if (!values.password) {
                     errors.password = "Password must not be empty!"
                 }
+                
                 if (!values.confirmPassword) {
                     errors.confirmPassword = "Confirm password must not be empty!"
                 }
@@ -68,6 +72,10 @@ export const Changepassword = (props) => {
                 if(!values.oldPassword){
                     errors.oldPassword="Old password is required!"
                 }
+                
+                if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(values.newPassword)) {
+                    errors.newPassword = "Password should at least be 8 characters of one uppercase ,one lowercase and one special character!"
+                }
                 if (values.confirmPassword != values.newPassword) {
                     errors.confirmPassword = "Password doesn't match!"
                 }
@@ -75,9 +83,7 @@ export const Changepassword = (props) => {
                     errors.newPassword="Please enter new Password!"
                 }  
             }
-          
-           
-            
+                    
             return errors
         }
     })
@@ -95,25 +101,25 @@ export const Changepassword = (props) => {
                 <form className="forgotpassword" onSubmit={Formik.handleSubmit}>
                     {
                         props.location.pathname === "/dashboard/settings/change-password" ?
-                            <>
-                                <label htmlFor="password">Old Password</label>
+                            <div>
+                                <label htmlFor="password">Old Password<span style={{color:'red'}}>*</span></label>
                                 <input type="password" id="password" className="form-control form-input"{...Formik.getFieldProps("oldPassword")} ></input>
-                            </> : null
+                            </div> : null
                     }
                     {
                         props.location.pathname === "/dashboard/settings/change-password" ?
                             <>
-                                <label htmlFor="password">{props.location.fromexternaluser ? "Password" : "New Password"}</label>
+                                <label htmlFor="password" style={{ marginTop: "20px" }}>{props.location.fromexternaluser ? "Password" : "New Password"}<span style={{color:'red'}}>*</span></label>
                                 <input type="password" id="password" className="form-control form-input"{...Formik.getFieldProps("newPassword")} ></input>
                                 {Formik.errors.newPassword && Formik.touched.newPassword ? <div style={{ color: "red" }} className="errmsg">{Formik.errors.newPassword}</div> : null}
                             </> :
                             <>
-                                <label htmlFor="password">{props.location.fromexternaluser ? "Password" : "New Password"}</label>
+                                <label htmlFor="password" style={{ marginTop: "20px" }}>{props.location.fromexternaluser ? "Password" : "New Password"}<span style={{color:'red'}}>*</span></label>
                                 <input type="password" id="password" className="form-control form-input"{...Formik.getFieldProps("password")} ></input>
                                 {Formik.errors.password && Formik.touched.password ? <div style={{ color: "red" }} className="errmsg">{Formik.errors.password}</div> : null}
                             </>
                     }
-                    <label htmlFor="password" style={{ marginTop: "20px" }}>Confirm Password</label>
+                    <label htmlFor="password" style={{ marginTop: "25px" }}>Confirm Password<span style={{color:'red'}}>*</span></label>
                     <input type="password" id="confirmPassword" className="form-control form-input" {...Formik.getFieldProps("confirmPassword")} ></input>
                     {Formik.errors.confirmPassword && Formik.touched.confirmPassword ? <div style={{ color: "red" }} className="errmsg">{Formik.errors.confirmPassword}</div> : null}
                     <div className="adjust-center" style={{ marginTop: "20px" }}>

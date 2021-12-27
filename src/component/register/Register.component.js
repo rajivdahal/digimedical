@@ -33,14 +33,19 @@ const RegisterComponent = (props) => {
             if (values.lastName.length < 2) {
                 errors.lastName = "Lastname must not be of one word!"
             }
+            let decimalREGEX = /^\d*\.?\d*$/;
+
+            if(!decimalREGEX.test(values.mobileNumber)){
+                errors.mobileNumber = "Must be a number";
+            }
             if (!values.mobileNumber) {
-                errors.mobileNumber = "MobileNumber  is required!"
+                errors.mobileNumber = "Mobile Number  is required!"
             }
 
-            if (("" + values.mobileNumber).length != 10) {
+            else if ((values.mobileNumber).length != 10) {
                 errors.mobileNumber = "Mobile Number must be of 10 digits!"
             }
-            if (("" + values.mobileNumber).includes('-')) {
+            else if (("" + values.mobileNumber).includes('-')) {
                 errors.mobileNumber = "Phone Number can't be Negative!"
             }
             if (!values.email) {
@@ -130,8 +135,8 @@ const RegisterComponent = (props) => {
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="form-group select-label">
-                                            <label>First Name </label>
-                                            <input type="text" className="form-control " placeholder="First Name" id="firstName" name="firstName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <label>First Name<span style={{color:'red'}}>*</span> </label>
+                                            <input type="text" className="form-control form-input" placeholder="First Name" id="firstName" name="firstName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.firstName && formik.touched.firstName ? <div style={{ color: "red" }} className="errmsg">{formik.errors.firstName}</div> : null}
                                         </div>
                                     </div>
@@ -145,8 +150,8 @@ const RegisterComponent = (props) => {
                                     </div>
                                     <div className="col-md-4">
                                         <div className="form-group select-label">
-                                            <label>Last Name </label>
-                                            <input type="text" className="form-control " placeholder="Last Name" id="lastName" name="lastName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <label>Last Name<span style={{color:'red'}}>*</span> </label>
+                                            <input type="text" className="form-control form-input" placeholder="Last Name" id="lastName" name="lastName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.lastName && formik.touched.lastName ? <div style={{ color: "red" }} className="errmsg">{formik.errors.lastName}</div> : null}
 
 
@@ -154,15 +159,15 @@ const RegisterComponent = (props) => {
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
-                                            <label>Phone </label>
-                                            <input type="number" className="form-control " placeholder="" id="mobileNumber" name="mobileNumber" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <label>Phone<span style={{color:'red'}}>*</span> </label>
+                                            <input type="text" className="form-control form-input" placeholder="" id="mobileNumber" name="mobileNumber" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.mobileNumber && formik.touched.mobileNumber ? <div style={{ color: "red" }} className="errmsg">{formik.errors.mobileNumber}</div> : null}
                                         </div>
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
-                                            <label>Email address </label>
-                                            <input type="email" className="form-control " placeholder="" id="email" name="email" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <label>Email address<span style={{color:'red'}}>*</span> </label>
+                                            <input type="email" className="form-control form-input" placeholder="" id="email" name="email" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.email && formik.touched.email ? <div style={{ color: "red" }} className="errmsg">{formik.errors.email}</div> : null}
 
 
@@ -170,19 +175,16 @@ const RegisterComponent = (props) => {
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
-                                            <label>Password </label>
-                                            <input  type={ispassword?"password":"text"} className="form-control " placeholder="" id="password" name="password" onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                            {
-                                                ispassword ? <i class="fas fa-eye eye-to-see-password-register" onClick={vieworhidepassword}></i>:<i class="fas fa-eye-slash eye-to-see-password-register" onClick={vieworhidepassword}></i>
-                                            }
+                                            <label>Password<span style={{color:'red'}}>*</span> </label>
+                                            <input type="password" className="form-control form-input" placeholder="" id="password" name="password" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.password && formik.touched.password ? <div style={{ color: "red" }} className="errmsg">{formik.errors.password}</div> : null}
 
                                         </div>
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
-                                            <label>Confirm Password </label>
-                                            <input type="password" className="form-control " placeholder="" id="confirmPassword" name="confirmPassword" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <label>Confirm Password<span style={{color:'red'}}>*</span> </label>
+                                            <input type="password" className="form-control form-input" placeholder="" id="confirmPassword" name="confirmPassword" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.confirmPassword && formik.touched.confirmPassword ? <div style={{ color: "red" }} className="errmsg">{formik.errors.confirmPassword}</div> : null}
                                         </div>
                                     </div>

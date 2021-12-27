@@ -24,7 +24,6 @@ class userlabtestcomponent extends Component {
 
 const mapStateToProps = rootstore => {
     return {
-        a: 'abcd',
         cartitems:rootstore.cart.cartitems,
         cartnumber:rootstore.cart.cartnumber,
         allabtest:rootstore.cart.allabtest
