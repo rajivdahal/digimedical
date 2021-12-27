@@ -33,6 +33,16 @@ export const Forgotpassword = (props) => {
                 .finally(() => {
                     setisLoading(false)
                 })
+        },
+        validate:values=>{
+            let errors={}
+            if(!values.username){
+                errors.username="Email required!"
+            }
+            else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.username)) {
+                errors.username = "invalid email format!"
+            }
+            return errors
         }
     })
     return (
@@ -43,9 +53,10 @@ export const Forgotpassword = (props) => {
                     <h2 className="primary-color" >Reset Password</h2>
                     <p>You will be provided an OTP on your gmail,please enter the your Email</p>
                 </div>
-                <form onSubmit={formik.handleSubmit} className="forgotpassword">
-                    <label htmlFor="email">email</label>
+                <form onSubmit={formik.handleSubmit} className="forgotpassword" noValidate>
+                    <label htmlFor="email">Email</label>
                     <input type="email" id="username" {...formik.getFieldProps("username")} className="form-control form-input"></input>
+                    {formik.errors.username && formik.touched.username ? <div style={{ color: "red" }} className="errmsg">{formik.errors.username}</div> : null}
 
                     {/* <label htmlFor="password">New Password</label>
                 <input type="password" id="password" {...formik.getFieldProps("password")} className="form-control form-input"></input>

@@ -106,8 +106,8 @@ const RegisterComponent = (props) => {
                             <div className="banner">
                                 <h2>Dont wait to SignUp today</h2>
                                 <ul className="page-title-link">
-                                    <li><a href="home.html">Home</a></li>
-                                    <li><a href="">Register</a></li>
+                                    <li><a >Home</a></li>
+                                    <li><a >Register</a></li>
                                 </ul>
                             </div>
                         </div>

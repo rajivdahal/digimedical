@@ -109,8 +109,7 @@ export const Home = (props) => {
         <HeroSectionContent>
           <Heading>Caring Health is all Important</Heading>
           <SubHeading>
-            Lorem ipsum dolor sit amet, consectetur adipisci elit. Netus eros
-            dolor sapien eget. Mattis malesuada quam sed accumsan lectus{" "}
+           In order to make you safe in this Pandemic era we have been providing different COVID related services that you can take online at the ease of your home
           </SubHeading>
 
           <ButtonContainor>

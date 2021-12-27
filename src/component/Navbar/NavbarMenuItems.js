@@ -110,8 +110,8 @@ const NavbarMenuItems = () => {
             </Link>
           </span>
           <span className="menu-item">Lab Test</span>
-          <span className="menu-item">Health Pacakages</span>
-          <span className="menu-item">Special Pacakages</span>
+          <span className="menu-item">Health Packages</span>
+          
           <span className="menu-item">
             {" "}
             <Link

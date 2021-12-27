@@ -177,8 +177,8 @@ const Footer = () => {
               <Link to="/about">About</Link>
               <Link to="/services">Our Services</Link>
               <Link to="/lab-test">Lab Test</Link>
-              <Link to="/health-packages">Health Packages</Link>
-              <Link to="/special-packages">Special Packages</Link>
+              <Link to="/">Health Packages</Link>
+              <Link to="/">Special Packages</Link>
             </AboutContainer>
             <ServiceContainer>
               <h4>Services</h4>

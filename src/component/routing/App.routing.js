@@ -25,6 +25,7 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/services" component={Service}></PublicRoute>
         <PublicRoute exact path="/contact" component={ContactUs}></PublicRoute>
         <PublicRoute
+          exact
           path="/doctor-at-home"
           component={DoctorAtHome}
         ></PublicRoute>
