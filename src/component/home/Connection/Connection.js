@@ -59,6 +59,10 @@ const Root = styled.div`
   @media screen and (max-width: 484px) {
     margin-top: 4rem;
   }
+
+  @media screen and (max-width: 480px) {
+    // flex-wrap: wrap;
+  }
 `;
 
 const HappyClient = styled.div`
@@ -100,6 +104,9 @@ const HappyClient = styled.div`
     align-items: center;
     letter-spacing: 0.01em;
     color: #596579;
+    @media screen and (max-width: 480px) {
+      font-size: 0.8rem;
+    }
   }
 `;
 
@@ -142,6 +149,9 @@ const Doctor = styled.div`
     align-items: center;
     letter-spacing: 0.01em;
     color: #596579;
+    @media screen and (max-width: 480px) {
+      font-size: 0.8rem;
+    }
   }
 `;
 const Hospital = styled.div`
@@ -180,6 +190,9 @@ const Hospital = styled.div`
     align-items: center;
     letter-spacing: 0.01em;
     color: #596579;
+    @media screen and (max-width: 480px) {
+      font-size: 0.8rem;
+    }
   }
 `;
 const MedicalIndustries = styled.div`
@@ -218,6 +231,9 @@ const MedicalIndustries = styled.div`
     align-items: center;
     letter-spacing: 0.01em;
     color: #596579;
+    @media screen and (max-width: 480px) {
+      font-size: 0.8rem;
+    }
   }
 `;
 const Conection = () => {

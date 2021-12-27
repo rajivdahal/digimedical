@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import Search from "./Search/Search";
 import { GiHamburgerMenu } from "react-icons/gi";
+import CancelIcon from "@material-ui/icons/Cancel";
+import "./Navbar.css";
+import { data } from "./MenuItemsData";
+
 const Root = styled.div`
   background-color: #2745f0;
   height: 3.5rem;
@@ -68,66 +72,104 @@ const LogMenuItemsContainor = styled.div`
    
   }
 `;
-const Menuitems = styled.div``;
+
 // const SearchContainor = styled.div`
 //   background-color: #fff;
 //   border-radius: 4px;
 //   padding: 0.4rem;
 // `;
+const HamburgerMenu = styled.div``;
 const NavbarMenuItems = () => {
+  const [showMenu, setShowMenu] = useState(false);
+  let menu;
+
+  if (showMenu) {
+    menu = (
+      <div className="mobilenav">
+        <CancelIcon
+          className="crossIcon"
+          onClick={() => setShowMenu(!showMenu)}
+        />
+        <ul>
+          {data.map((items) => {
+            return (
+              <li>
+                <Link
+                  smooth
+                  to={items.links}
+                  style={{ textDecoration: "none" }}
+                  className="mobilenavList"
+                  onClick={() => setShowMenu(!showMenu)}
+                >
+                  {" "}
+                  {items.name}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
   return (
-    <Root>
-      <LogMenuItemsContainor>
-        <img
-          src={logo}
-          className="logoImage"
-          style={{
-            height: "3.5rem",
-          }}
-        ></img>
-        <GiHamburgerMenu className="hamburgerMenu" />
-        <div className="menu">
-          {" "}
-          <span className="menu-item">
-            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-              Home{" "}
-            </Link>
-          </span>
-          <span className="menu-item">
-            <Link
-              to="/about"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              About
-            </Link>
-          </span>
-          <span className="menu-item">
-            <Link
-              to="/services"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              Services{" "}
-            </Link>
-          </span>
-          <span className="menu-item">Lab Test</span>
-          <span className="menu-item">Health Pacakages</span>
-          <span className="menu-item">Special Pacakages</span>
-          <span className="menu-item">
+    <>
+      <Root>
+        <LogMenuItemsContainor>
+          <img
+            src={logo}
+            className="logoImage"
+            style={{
+              height: "3.5rem",
+            }}
+          ></img>
+          <GiHamburgerMenu
+            className="hamburgerMenu"
+            onClick={() => setShowMenu(!showMenu)}
+          />
+          <div className="menu">
             {" "}
-            <Link
-              to="/contact"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              Contact
-            </Link>
-          </span>
-        </div>
-      </LogMenuItemsContainor>
-      <Search />
-      {/* <SearchContainor>
+            <span className="menu-item">
+              <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+                Home{" "}
+              </Link>
+            </span>
+            <span className="menu-item">
+              <Link
+                to="/about"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                About
+              </Link>
+            </span>
+            <span className="menu-item">
+              <Link
+                to="/services"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                Services{" "}
+              </Link>
+            </span>
+            <span className="menu-item">Lab Test</span>
+            <span className="menu-item">Health Pacakages</span>
+            <span className="menu-item">Special Pacakages</span>
+            <span className="menu-item">
+              {" "}
+              <Link
+                to="/contact"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                Contact
+              </Link>
+            </span>
+          </div>
+        </LogMenuItemsContainor>
+        <Search />
+        {/* <SearchContainor>
         
       </SearchContainor> */}
-    </Root>
+      </Root>
+      {menu}
+    </>
   );
 };
 
