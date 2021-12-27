@@ -13,7 +13,8 @@ export const Cartreducer = (state, action) => {
         case cartActionTypes.SET_IS_CART_ADDED:
             return {
                 ...state,
-                cartitems: action.payload
+                cartvalue:state.cartvalue+1,
+                cartitems:state.cartitems.push(action.payload) 
             }
         case labtestActionTypes.SET_IS_LAB_TEST_FETCHED:
             return{

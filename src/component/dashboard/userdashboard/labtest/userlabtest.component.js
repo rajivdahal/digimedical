@@ -9,7 +9,7 @@ class userlabtestcomponent extends Component {
     }
     render() {
         let {allabtest}=this.props
-        console.log("alllabtest are",allabtest)
+        console.log("props are",this.props)
         return (
             <div>
                {
@@ -25,15 +25,15 @@ class userlabtestcomponent extends Component {
 const mapStateToProps = rootstore => {
     return {
         cartitems:rootstore.cart.cartitems,
-        cartnumber:rootstore.cart.cartnumber,
-        allabtest:rootstore.cart.allabtest
+        allabtest:rootstore.cart.allabtest,
+        cartvalue:rootstore.cart.cartvalue
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         addtocart: (params) => dispatch(addtocart(params)),
-        fetchlabtest:(params)=>dispatch(fetchlabtest(params))
+        fetchlabtest:(params)=>dispatch(fetchlabtest(params)),
     }
 }
 
