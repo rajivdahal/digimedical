@@ -2,8 +2,10 @@ import MaterialTable from 'material-table';
 import Tableicons from '../../../../utils/materialicons';
 import { useEffect, useState } from 'react';
 import { httpClient } from '../../../../utils/httpClient';
-import { Col, Row, Container, Card, ButtonGroup,Button } from 'react-bootstrap';
+import { Col, Row, Container, Card, ButtonGroup, Button } from 'react-bootstrap';
 import "./appointment.component.css"
+import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 const Appointment = (props) => {
 
     const [appointmentDetail, setAppointmentDetail] = useState([]);
@@ -19,8 +21,8 @@ const Appointment = (props) => {
             .then(resp => {
                 console.log(resp)
                 let appointment = resp.data.data;
-                appointment.forEach((item)=>{
-                    item.appointmentDate = item.appointmentDate.slice(0,10)
+                appointment.forEach((item) => {
+                    item.appointmentDate = item.appointmentDate.slice(0, 10)
                 })
                 console.log(appointment)
                 setAppointmentDetail(appointment)
@@ -34,7 +36,7 @@ const Appointment = (props) => {
 
     useEffect(() => {
         getAppointment(0);
-    },[])
+    }, [])
 
     const handleAppointment = (title, status) => {
         setStatus(status);
@@ -43,6 +45,7 @@ const Appointment = (props) => {
         setTitle(title);
     }
 
+    
     return (
         <div>
 

@@ -126,6 +126,7 @@ const EditProfile = (props) => {
 
     const updateProfile = (values) => {
         let formData = new FormData();
+        
         if (values.image) {
             formData.append("image", values.image);
         }

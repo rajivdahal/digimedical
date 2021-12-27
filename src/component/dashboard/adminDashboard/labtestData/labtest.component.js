@@ -52,7 +52,7 @@ const Labtest = (props) => {
                         item.description = joinDesc;
                     }  
 
-                    item.price ="Rs."+item.price;
+                    item.priceString ="Rs."+item.price;
                 })
                 console.log(resp)
 
@@ -154,6 +154,7 @@ const Labtest = (props) => {
             .catch(err => {
                 console.log(err.response)
                 setIsLoading(false)
+                notify.error(err.response.data.message || "Something went wrong")
 
             })
     }
@@ -212,6 +213,7 @@ const Labtest = (props) => {
         if (values.image) {
             formData.append("image", values.image);
         }
+
         formData.append('name', values.name);
         formData.append('description', values.description);
         formData.append('issueDate', values.date);
@@ -259,6 +261,7 @@ const Labtest = (props) => {
     }
     return (
         <div>
+           
             <Container>
                 <Form onSubmit={formik.handleSubmit}>
                     <Row className="mb-3">
@@ -311,7 +314,8 @@ const Labtest = (props) => {
                         <Col md={4}>
                             <Form.Label>Choose Photo :  </Form.Label><br></br>
                             <Button variant="info" onClick={handleAddImage}>Choose Photo</Button>
-                            <input onChange={(e) => handleChangeImage(e)} type="file" name="image" style={{ display: "none" }} ref={imageSelectRef}  ></input>
+                            <input onChange={(e) => handleChangeImage(e)} type="file" name="image" 
+                            accept="image/png, image/jpg, image/jpeg" style={{ display: "none" }} ref={imageSelectRef}  ></input>
                         </Col>
 
                         <Col md={5}>
@@ -385,7 +389,7 @@ const Labtest = (props) => {
                         { title: "ID", field: "id" },
                         { title: 'Name', field: 'name' },
                         { title: 'Description', field: 'description' },
-                        { title: 'Price', field: 'price' },
+                        { title: 'Price', field: 'priceString' },
                         { title: 'Issue Date', field: 'issueDate' },
                         {
                             title: 'Status', field: 'status',
