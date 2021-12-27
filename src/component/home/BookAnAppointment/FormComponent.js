@@ -202,7 +202,7 @@ const clearpopup=()=>{
       <form onSubmit={formik.handleSubmit}>
         <div className="form-row">
           <div className="form-group col-md-4">
-            <label htmlFor="fname">First Name</label>
+            <label htmlFor="fname">First Name<span style={{color:'red'}}>*</span></label>
             <input
               type="text"
               className="form-control"
@@ -224,7 +224,7 @@ const clearpopup=()=>{
             />
           </div>
           <div className="form-group col-md-4">
-            <label htmlFor="lname">Last Name</label>
+            <label htmlFor="lname">Last Name<span style={{color:'red'}}>*</span></label>
             <input
               type="text"
               className="form-control"
@@ -238,7 +238,7 @@ const clearpopup=()=>{
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email<span style={{color:'red'}}>*</span></label>
             <input
               type="email"
               className="form-control"
@@ -251,7 +251,7 @@ const clearpopup=()=>{
 
           </div>
           <div className="form-group col-md-6">
-            <label htmlFor="phoneno">Mobile No.</label>
+            <label htmlFor="phoneno">Mobile No.<span style={{color:'red'}}>*</span></label>
             <input
               type="text"
               className="form-control"
@@ -264,7 +264,7 @@ const clearpopup=()=>{
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <label htmlFor="service">Select Service</label>
+            <label htmlFor="service">Select Service<span style={{color:'red'}}>*</span></label>
             <select id="servicesId" className="form-control" {...formik.getFieldProps("servicesId")} style={{ color: "black" }}
               onChange={(e) => {
                 formik.handleChange(e)
@@ -281,7 +281,7 @@ const clearpopup=()=>{
             {formik.errors.servicesId && formik.touched.servicesId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.servicesId}  </div> : null}
           </div>
           <div className="form-group col-md-6">
-            <label htmlFor="doctor">Select Doctor</label>
+            <label htmlFor="doctor">Select Doctor<span style={{color:'red'}}>*</span></label>
             <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{ color: "black" }}
               onChange={(e) => {
                 formik.handleChange(e)
@@ -300,7 +300,7 @@ const clearpopup=()=>{
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <label htmlFor="appointment">Appointment Date.</label>
+            <label htmlFor="appointment">Appointment Date<span style={{color:'red'}}>*</span></label>
             <input
               type="date"
               className="form-control"
@@ -314,7 +314,7 @@ const clearpopup=()=>{
           </div>
 
           <div className="form-group col-md-6">
-            <label htmlFor="time">Time</label>
+            <label htmlFor="time">Time<span style={{color:'red'}}>*</span></label>
             <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formik.getFieldProps("appointmentTime")}></input>
             {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
           </div>

@@ -44,7 +44,7 @@ export const Forgotpassword = (props) => {
                     <p>You will be provided an OTP on your gmail,please enter the your Email</p>
                 </div>
                 <form onSubmit={formik.handleSubmit} className="forgotpassword">
-                    <label htmlFor="email">email</label>
+                    <label htmlFor="email">Email</label>
                     <input type="email" id="username" {...formik.getFieldProps("username")} className="form-control form-input"></input>
 
                     {/* <label htmlFor="password">New Password</label>
