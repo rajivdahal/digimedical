@@ -13,7 +13,13 @@ const initialState = {
         allabtest:[],
         cartitems:[],
         cartnumber:null,
-        cartvalue:parseInt(localStorage.getItem("cartvalue"))||0
+        cartvalue:parseInt(localStorage.getItem("cartvalue"))||0,
+
+        tempdata:{
+            totalamount:0
+        },
+        addtocartsignal:true
+        
     }
 }
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))

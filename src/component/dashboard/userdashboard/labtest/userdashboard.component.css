@@ -89,6 +89,18 @@
   overflow: hidden;
   display: flex;
 }
+.active_lab_add_to_cart_samp1{
+  margin-top: 25px;
+  margin-left: 50px;
+  width: 1025px;
+  height: 185px;
+  background-color: #f5faff;
+  border: 1px solid red;
+  /* border: 3px solid red; */
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+}
 
 .lab_add_to_cart_samp_img1 img {
   margin-top: 2px;
