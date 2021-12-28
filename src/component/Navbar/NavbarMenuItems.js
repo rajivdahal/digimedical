@@ -78,6 +78,7 @@ const NavbarMenuItems = () => {
   return (
     <Root>
       <LogMenuItemsContainor>
+        <Link to={"/"}>
         <img
           src={logo}
           className="logoImage"
@@ -85,6 +86,7 @@ const NavbarMenuItems = () => {
             height: "3.5rem",
           }}
         ></img>
+        </Link>
         <GiHamburgerMenu className="hamburgerMenu" />
         <div className="menu">
           {" "}

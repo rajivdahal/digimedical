@@ -141,9 +141,8 @@ export const Completedappointment = (props) => {
   };
   const showPrescriptionModal = (e, data) => {
     setShowPrescription(true);
-    console.log(data);
     setTableData(data);
-    let id = data.appointmentId;
+    let id = data.appointmentId||data.id;
     setAppointmentId(id);
     getPrescriptionData(id);
   };
