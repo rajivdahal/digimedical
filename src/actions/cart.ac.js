@@ -26,7 +26,7 @@ export const addtocart = params => {
 export const fetchlabtest = (params) => {
     console.log("inside fetchlabtest")
     return (dispatch) => {
-        httpClient.GET("lab-test/get-all",false,true)
+        httpClient.GET("lab-test/get-all/active")
             .then(resp => {
                 // console.log(resp.data.data)
                 dispatch({
