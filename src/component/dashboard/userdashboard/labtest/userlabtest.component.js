@@ -1,28 +1,129 @@
 import React from "react";
 import "./userdashboard.component.css";
 import labtest_img2 from "../../../../assets/labtest2.png";
+import popup from "./lab_popup";
 
 export default function Userlabtest() {
   return (
     <div className="lab_add_to_cart">
       <div className="lab_add_to_cart1">
         <div className="lab_add_to_cart_top">
-          <div>
-            <p id="lab_your_cart">Your Cart</p>
+          <div className="lab_add_lttwo">
+            {" "}
+            <p id="lab_add_lttwo">Lab test that we offer</p>
           </div>
-          <div className="lab_add_to_cart_cart">
+          <div className="lab_add_to_boxes">
+            {" "}
             <div>
-              <p>0</p>
+              <p id="lab_your_cart">Your Cart</p>
+            </div>
+            <div className="lab_add_to_cart_box">
+              <a className="lab_add_to_cart_cart" href="#popup1_carts">
+                <div>
+                  <p>0</p>
+                  <div>
+                    <i class="fas fa-shopping-cart"></i>
+                  </div>
+                </div>
+              </a>
+
+              <div id="popup1_carts" className="overlay_carts">
+                <div className="popup_carts">
+                  <h1>Hello</h1>
+                  <a class="close_carts" href="#">
+                    &times;
+                  </a>
+                </div>
+              </div>
+            </div>
+            <a href="#pop_checkout" className="lab_add_to_cart_checkout">
               <div>
-                <i class="fas fa-shopping-cart"></i>
+                <p>Checkout</p>
+              </div>
+            </a>
+          </div>
+
+          {/* popup checkout */}
+
+          <div id="pop_checkout" className="overlay_lab1">
+            <div className="popup_lab">
+              <div className="popup_lab1">
+                <div className="pop_lab_cont1">
+                  <div className="pop_lab_cont1_1">
+                    <p id="popup_lab_cont1_head">Order Details</p>
+                    <div>
+                      <p id="popup_lab_cont1_desc">
+                        Order Created
+                        <span id="popup_lab_cont1_span">
+                          Tue, Janauary 9, 2021
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="pop_lab_cont2">
+                  <div className="pop_lab_cont1_1">
+                    <p id="popup_lab_cont2_head">Lab Test</p>
+                    <ol className="popup_lab_cont2_desc">
+                      <li id="popup_lab_cont3_desc">
+                        Heamatology / Blood Related Test{" "}
+                        <span id="lab_labtest_span_cross">
+                          <p>&times;</p>
+                        </span>
+                      </li>
+                      <li id="popup_lab_cont3_desc">
+                        Widal Test{" "}
+                        <span id="lab_labtest_span_cross">
+                          <p>&times;</p>
+                        </span>
+                      </li>
+                      <li id="popup_lab_cont3_desc">
+                        Liver Function Test{" "}
+                        <span id="lab_labtest_span_cross">
+                          <p>&times;</p>
+                        </span>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+                <div className="pop_lab_cont3">
+                  <div className="pop_lab_cont3_3">
+                    <p id="popup_lab_cont1_head">Order Summary</p>
+                    <div className="popup_lab_cont3_desc">
+                      <p id="popup_lab_cont3_desc">
+                        Subtotal{" "}
+                        <span id="popup_lab_cont1_span">Rs 648.00</span>
+                      </p>
+                      <p id="popup_lab_cont3_desc">
+                        Service Charge{" "}
+                        <span id="popup_lab_cont1_span">10%</span>
+                      </p>
+                      <p id="popup_lab_cont3_desc">
+                        Discount <span id="popup_lab_cont1_span">10%</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="pop_lab_cont4">
+                  <p id="popup_lab_cont4_head">
+                    Grand Total <span id="popup_lab_cont1_span">Rs 580.00</span>
+                  </p>
+                  <div className="popup_lab_cont4_foot">
+                    <a href="#" className="popup_lab_close">
+                      <p>Back</p>
+                    </a>
+                    <a href="#" className="lab_popup_checkout">
+                      <div>
+                        <p>Checkout</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div className="lab_add_to_cart_checkout">
-            <div>
-              <p>Checkout</p>
-            </div>
-          </div>
+
+          {/* for main code */}
         </div>
         <div className="lab_add_to_cart_samp">
           <div className="lab_add_to_cart_samp1">
