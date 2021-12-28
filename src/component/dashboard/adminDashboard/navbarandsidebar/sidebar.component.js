@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom"
-
+import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
+import CoPresentRoundedIcon from '@mui/icons-material/CoPresentRounded';
+import "./nav.component.css"
+import CoPresentRounded from "@mui/icons-material/CoPresentRounded";
+import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
+import VaccinesRoundedIcon from '@mui/icons-material/VaccinesRounded';
+import WysiwygRoundedIcon from '@mui/icons-material/WysiwygRounded';
 
 const Adminsidebar = (props) => {
   console.log("props in admin sidebar", props)
@@ -14,13 +21,15 @@ const Adminsidebar = (props) => {
         <ul className="nav">
           <li className="nav-item" onClick={navigatedashboard} style={{cursor:"pointer"}}>
             <a className="nav-link" >
-              <i className="icon-grid menu-icon"></i>
+              {/* <i className="icon-grid menu-icon"></i> */}
+              <GridViewRoundedIcon className="dash-icon"> </GridViewRoundedIcon>
               <span className="menu-title">Dashboard</span>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
-              <i className="icon-layout menu-icon"></i>
+              {/* <i className="icon-layout menu-icon"></i> */}
+              <AssignmentIndOutlinedIcon className="dash-icon"></AssignmentIndOutlinedIcon>
               <span className="menu-title">Appointments</span>
               <i className="menu-arrow"></i>
             </a>
@@ -35,7 +44,8 @@ const Adminsidebar = (props) => {
 
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#labtest" aria-expanded="false" aria-controls="labtest">
-              <i className="icon-layout menu-icon"></i>
+              {/* <i className="icon-layout menu-icon"></i> */}
+              <VaccinesRoundedIcon className="dash-icon"></VaccinesRoundedIcon>
               <span className="menu-title">Lab Tests</span>
               <i className="menu-arrow"></i>
             </a>
@@ -49,8 +59,9 @@ const Adminsidebar = (props) => {
           </li>
 
           <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#doctor" aria-expanded="false" aria-controls="doctor">
-              <i className="icon-layout menu-icon"></i>
+            <a className="nav-link " data-toggle="collapse" href="#doctor" aria-expanded="false" aria-controls="doctor">
+              {/* <i className="icon-layout menu-icon"></i> */}
+              <CoPresentRounded className="dash-icon"></CoPresentRounded>
               <span className="menu-title">Doctors</span>
               <i className="menu-arrow"></i>
             </a>
@@ -68,7 +79,8 @@ const Adminsidebar = (props) => {
 
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#staffs" aria-expanded="false" aria-controls="staffs">
-              <i className="icon-bar-graph menu-icon"></i>
+              {/* <i className="icon-bar-graph menu-icon"></i> */}
+              <GroupRoundedIcon className="dash-icon"></GroupRoundedIcon>
               <span className="menu-title">Staff</span>
               <i className="menu-arrow"></i>
             </a>
@@ -81,7 +93,8 @@ const Adminsidebar = (props) => {
           </li>
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
-              <i className="icon-columns menu-icon"></i>
+              {/* <i className="icon-columns menu-icon"></i> */}
+              <WysiwygRoundedIcon className="dash-icon"></WysiwygRoundedIcon>
               <span className="menu-title">Master Data</span>
               <i className="menu-arrow"></i>
             </a>

@@ -27,32 +27,32 @@ const Labtest = (props) => {
         price: "",
     })
 
-    const disablePastDate = () => {
-        const today = new Date();
-        const dd = String(today.getDate() + 1).padStart(2, "0");
-        const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-        const yyyy = today.getFullYear();
-        return yyyy + "-" + mm + "-" + dd;
-    };
+    // const disablePastDate = () => {
+    //     const today = new Date();
+    //     const dd = String(today.getDate() + 1).padStart(2, "0");
+    //     const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    //     const yyyy = today.getFullYear();
+    //     return yyyy + "-" + mm + "-" + dd;
+    // };
 
     const handleClose = () => setShowModal(false)
 
 
     const getLabtestData = async () => {
         await httpClient.GET("lab-test/get-all", false, true)
- 
-            .then(resp => {
-                resp.data.data.forEach((item)=>{
-                    let splitDesc = item.description.split(" ");
-                    if(splitDesc.length < 10){
-                        item.description = item.description
-                    }else{
-                        let sliceDesc = splitDesc.slice(0 , 10);
-                        let joinDesc = sliceDesc.join(" ")+" ...";
-                        item.description = joinDesc;
-                    }  
 
-                    item.priceString ="Rs."+item.price;
+            .then(resp => {
+                resp.data.data.forEach((item) => {
+                    let splitDesc = item.description.split(" ");
+                    if (splitDesc.length < 10) {
+                        item.description = item.description
+                    } else {
+                        let sliceDesc = splitDesc.slice(0, 10);
+                        let joinDesc = sliceDesc.join(" ") + " ...";
+                        item.description = joinDesc;
+                    }
+
+                    item.priceString = "Rs." + item.price;
                 })
                 console.log(resp)
 
@@ -92,7 +92,7 @@ const Labtest = (props) => {
             }
             let decimalREGEX = /^\d*\.?\d*$/;
 
-            if(!decimalREGEX.test(values.price)){
+            if (!decimalREGEX.test(values.price)) {
                 errors.price = "Must be a number";
             }
             if (!values.price) {
@@ -185,7 +185,7 @@ const Labtest = (props) => {
     }
 
     const setLabtestData = (e, data) => {
-        let  id = data.id;
+        let id = data.id;
         setlabtestStatusId(id)
         console.log(data);
         if (data) {
@@ -213,7 +213,7 @@ const Labtest = (props) => {
         formData.append('price', values.price);
         formData.append('id', labtestStatusId)
         console.log(values.date);
-        
+
         httpClient.PUT("lab-test/update", formData, false, true, "formdata")
             .then(resp => {
                 // console.log(resp)
@@ -230,7 +230,9 @@ const Labtest = (props) => {
                         price: "",
                     })
                     setImage("");
-                    setImgName("")
+                    setImgName("");
+                    setlabtestStatusId(null);
+
                 }
             })
             .catch(err => {
@@ -254,7 +256,7 @@ const Labtest = (props) => {
     }
     return (
         <div>
-           
+
             <Container>
                 <Form onSubmit={formik.handleSubmit}>
                     <Row className="mb-3">
@@ -284,7 +286,7 @@ const Labtest = (props) => {
                         <Col md={6}>
                             <Form.Group>
                                 <Form.Label>Date</Form.Label>
-                                <Form.Control type="date" name="date" onChange={formik.handleChange} min={disablePastDate()}
+                                <Form.Control type="date" name="date" onChange={formik.handleChange}
                                     value={formik.values.date} onBlur={formik.handleBlur} />
                                 {formik.errors.date && formik.touched.date ?
                                     <div className="error-message">{formik.errors.date}</div>
@@ -382,7 +384,6 @@ const Labtest = (props) => {
                         { title: 'Name', field: 'name' },
                         { title: 'Description', field: 'description' },
                         { title: 'Price', field: 'priceString' },
-                        { title: 'Issue Date', field: 'issueDate' },
                         {
                             title: 'Status', field: 'status',
                             render: rowData => rowData.status == true ?

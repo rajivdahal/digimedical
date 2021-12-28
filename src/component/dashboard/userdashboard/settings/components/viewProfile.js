@@ -26,7 +26,7 @@ const ViewProfile = (props) => {
                 <Col md={3} >
                     <div >                        
                         <div className="image-profile textAlign-center" >
-                            <Image src={selectedImage ? selectedImage : Avatar} fluid roundedCircle></Image>
+                            <Image src={selectedImage.status == false ? Avatar : selectedImage } fluid roundedCircle></Image>
 
                         </div>
                         <div className="textAlign-center">

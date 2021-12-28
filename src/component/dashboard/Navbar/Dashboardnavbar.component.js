@@ -5,6 +5,7 @@ import { httpClient } from "../../../utils/httpClient"
 import Avatar from "../../../assets/avatars.png"
 
 import "./dashboardnavbar.component.css"
+import { Image } from "react-bootstrap"
 export const Dashboardnavbar = (props) => {
   const [userImage,setImage]=useState("")
   let [username, setusername] = useState("")
@@ -116,7 +117,7 @@ export const Dashboardnavbar = (props) => {
             </li>
             <li className="nav-item nav-profile dropdown">
               <a className="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src={userImage ? userImage : Avatar} alt="profile" />
+                <Image src={userImage ? userImage : Avatar} alt="profile" />
               </a>
               <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                 
