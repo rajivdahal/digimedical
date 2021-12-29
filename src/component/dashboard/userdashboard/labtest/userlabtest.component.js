@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
-import { addtocart } from '../../../../actions/cart.ac'
+import { addtocart, cartpopup } from '../../../../actions/cart.ac'
 import { fetchlabtest } from '../../../../actions/cart.ac'
 import "./userdashboard.component.css";
-import labtest_img2 from "../../../../assets/labtest2.png";
 import { setlabtest } from '../../../../actions/cart.ac';
 import { settemptotal } from '../../../../actions/cart.ac';
 import { resetcheckbox } from '../../../../actions/cart.ac';
 import { addtocartsignal } from '../../../../actions/cart.ac';
 import { checkout } from '../../../../actions/cart.ac';
-import {Checkoutpopup} from "./lab_popup"
+import { Checkoutpopup } from "./lab_popup"
+import { Cartpopup } from './cart_pupup';
+import { cartpopupsignal } from '../../../../actions/cart.ac';
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
 class userlabtestcomponent extends Component {
@@ -20,10 +21,11 @@ class userlabtestcomponent extends Component {
     render() {
         let total = 0
         console.log("props in labtest are", this.props)
-        let { allabtest, cartitems, cartvalue, tempdata,addtocartsign,checkoutsignal} = this.props
-        let cart=localStorage.getItem("cart")?JSON.parse(localStorage.getItem("cart")):null
+        let { allabtest, cartitems, cartvalue, tempdata, addtocartsign, checkoutsignal, cartpopupsign, cartpopupsignal } = this.props
+        console.log("cartpopup signal is", cartpopupsign)
+        let cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : null
         const addtocart = (item) => {
-            console.log("add to cart items are",item)
+            console.log("add to cart items are", item)
             this.props.addtocart(item)
         }
         const assignisactive = (item, index) => {
@@ -59,12 +61,12 @@ class userlabtestcomponent extends Component {
             }
             else {
                 if (!tempdata.totalamount) {
-                    
+
                     price = totalprice - parseInt(price)
                     this.props.settemptotal(price)
                 }
                 else {
-                    console.log("tempdata.totalamount is????????",tempdata.totalamount)
+                    console.log("tempdata.totalamount is????????", tempdata.totalamount)
                     price = parseInt(tempdata.totalamount) - parseInt(price)
                     this.props.settemptotal(price)
 
@@ -74,20 +76,24 @@ class userlabtestcomponent extends Component {
                     subcategoryindex: subcategoryindex,
                     checked: false
                 })
-
             }
-
         }
-        const handleCheckout=()=>{
+        const handleCheckout = () => {
             this.props.checkout(!checkoutsignal)
             console.log("checkout called")
+        }
+        const showcartpopup = (sign) => {
+            console.log("showcartpop up triggered")
+            this.props.cartpopupsignal(!checkoutsignal)            
         }
         return (
             <div>
                 {
-                    checkoutsignal?<Checkoutpopup/>:null
+                    checkoutsignal ? <Checkoutpopup /> : null
                 }
-               
+                {
+                    cartpopupsign?<Cartpopup></Cartpopup>:null
+                }
                 <div className="lab_add_to_cart">
                     <div className="lab_add_to_cart1">
                         <div className="lab_add_to_cart_top">
@@ -95,20 +101,20 @@ class userlabtestcomponent extends Component {
                                 <p id="lab_your_cart">Your Cart</p>
                             </div>
                             <div className="lab_add_to_cart_cart">
-                                <div>
-                                    <p>{cart?cart.cartvalue:"0"}</p>
+                                <div onClick={showcartpopup} style={{cursor:"pointer"}}>
+                                    <p>{cart ? cart.cartvalue : "0"}</p>
                                     <div>
                                         <i class="fas fa-shopping-cart"></i>
                                     </div>
                                 </div>
                             </div>
                             <div className="lab_add_to_cart_checkout">
-                                <div onClick={handleCheckout} style={{cursor:"pointer"}}>
+                                <div onClick={handleCheckout} style={{ cursor: "pointer" }}>
                                     <p>Checkout</p>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div className="lab_add_to_cart_samp">
                             {
                                 allabtest.map((item, index) => {
@@ -283,11 +289,11 @@ class userlabtestcomponent extends Component {
                                             }
                                             <div className="lab_add_to_cart_atc">
                                                 {
-                                                    addtocartsign? <button onClick={() => addtocart(item)}>
-                                                    <p>Add to Cart</p>
-                                                </button>:<button>Please choose</button>
+                                                    addtocartsign ? <button onClick={() => addtocart(item)}>
+                                                        <p>Add to Cart</p>
+                                                    </button> : <button>Please choose</button>
                                                 }
-                                               
+
                                             </div>
                                         </div>
                                     </div>
@@ -322,7 +328,7 @@ class userlabtestcomponent extends Component {
                         </div>
                     </div>
                 </div>
-              
+
             </div>
         )
     }
@@ -334,8 +340,9 @@ const mapStateToProps = rootstore => {
         allabtest: rootstore.cart.allabtest,
         cartvalue: rootstore.cart.cartvalue,
         tempdata: rootstore.cart.tempdata,
-        addtocartsign:rootstore.cart.addtocartsignal,
-        checkoutsignal:rootstore.cart.checkoutsignal
+        addtocartsign: rootstore.cart.addtocartsignal,
+        checkoutsignal: rootstore.cart.checkoutsignal,
+        cartpopupsign: rootstore.cart.cartpopupsign
     }
 }
 
@@ -347,7 +354,8 @@ const mapDispatchToProps = dispatch => {
         settemptotal: (params) => dispatch(settemptotal(params)),
         resetcheckbox: (params) => dispatch(resetcheckbox(params)),
         addtocartsignal: (params) => dispatch(addtocartsignal(params)),
-        checkout: (params) => dispatch(checkout(params))
+        checkout: (params) => dispatch(checkout(params)),
+        cartpopupsignal: (params) => dispatch(cartpopupsignal(params))
     }
 }
 

@@ -22,10 +22,11 @@
 
 .lab_add_to_cart_top {
   margin-top: 60px;
-  margin-left: 50px;
-
+  margin-right: 250px;
   height: 48px;
   display: flex;
+  justify-content: flex-end;
+
 }
 
 #lab_add_lttwo {

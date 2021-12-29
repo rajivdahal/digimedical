@@ -16,7 +16,9 @@ export const labtestActionTypes = {
     ADD_TO_CART_SIGNAL: "ADD_TO_CART_SIGNAL",
     CHECKOUT: "CHECKOUT",
     REMOVE_PRODUCT_STATUS: "REMOVE_PRODUCT_STATUS",
-    REMOVE_PRODUCT: "REMOVE_PRODUCT"
+    REMOVE_PRODUCT: "REMOVE_PRODUCT",
+    CART_POP_UP: "CART_POP_UP"
+
 }
 
 export const addtocart = params => {
@@ -110,6 +112,15 @@ export const removeproductstatus = (params) => {
     return (dispatch) => {
         dispatch({
             type: labtestActionTypes.REMOVE_PRODUCT_STATUS,
+            payload: params
+        })
+    }
+}
+export const cartpopupsignal = (params) => {
+    
+    return (dispatch) => {
+        dispatch({
+            type: labtestActionTypes.CART_POP_UP,
             payload: params
         })
     }

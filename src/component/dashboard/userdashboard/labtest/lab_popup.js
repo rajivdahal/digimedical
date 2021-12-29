@@ -9,6 +9,7 @@ import { addtocartsignal } from '../../../../actions/cart.ac'
 import { checkout } from '../../../../actions/cart.ac'
 import { removeproduct } from '../../../../actions/cart.ac'
 
+
 class Checkoutpopupcomponent extends Component {
   render() {
     let total=0

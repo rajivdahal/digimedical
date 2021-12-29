@@ -21,6 +21,7 @@ const initialState = {
         addtocartsignal:true,
         checkoutsignal:false,
         removeproductsign:true,
+        cartpopupsign:false
     }
 }
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))
