@@ -8,8 +8,10 @@ import { setlabtest } from '../../../../actions/cart.ac';
 import { settemptotal } from '../../../../actions/cart.ac';
 import { resetcheckbox } from '../../../../actions/cart.ac';
 import { addtocartsignal } from '../../../../actions/cart.ac';
-const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
+import { checkout } from '../../../../actions/cart.ac';
+import {Checkoutpopup} from "./lab_popup"
 
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
 class userlabtestcomponent extends Component {
     componentDidMount = () => {
         this.props.fetchlabtest()
@@ -18,7 +20,7 @@ class userlabtestcomponent extends Component {
     render() {
         let total = 0
         console.log("props in labtest are", this.props)
-        let { allabtest, cartitems, cartvalue, tempdata,addtocartsign } = this.props
+        let { allabtest, cartitems, cartvalue, tempdata,addtocartsign,checkoutsignal} = this.props
         let cart=localStorage.getItem("cart")?JSON.parse(localStorage.getItem("cart")):null
         const addtocart = (item) => {
             console.log("add to cart items are",item)
@@ -77,10 +79,15 @@ class userlabtestcomponent extends Component {
 
         }
         const handleCheckout=()=>{
+            this.props.checkout(!checkoutsignal)
             console.log("checkout called")
         }
         return (
             <div>
+                {
+                    checkoutsignal?<Checkoutpopup/>:null
+                }
+               
                 <div className="lab_add_to_cart">
                     <div className="lab_add_to_cart1">
                         <div className="lab_add_to_cart_top">
@@ -101,6 +108,7 @@ class userlabtestcomponent extends Component {
                                 </div>
                             </div>
                         </div>
+                        
                         <div className="lab_add_to_cart_samp">
                             {
                                 allabtest.map((item, index) => {
@@ -314,11 +322,7 @@ class userlabtestcomponent extends Component {
                         </div>
                     </div>
                 </div>
-                {/* {
-                   allabtest.map((item,index)=>{
-                       return <h4 key={index}>{item.name}</h4>
-                   })
-               } */}
+              
             </div>
         )
     }
@@ -330,7 +334,8 @@ const mapStateToProps = rootstore => {
         allabtest: rootstore.cart.allabtest,
         cartvalue: rootstore.cart.cartvalue,
         tempdata: rootstore.cart.tempdata,
-        addtocartsign:rootstore.cart.addtocartsignal
+        addtocartsign:rootstore.cart.addtocartsignal,
+        checkoutsignal:rootstore.cart.checkoutsignal
     }
 }
 
@@ -341,8 +346,8 @@ const mapDispatchToProps = dispatch => {
         setlabtest: (params) => dispatch(setlabtest(params)),
         settemptotal: (params) => dispatch(settemptotal(params)),
         resetcheckbox: (params) => dispatch(resetcheckbox(params)),
-        addtocartsignal: (params) => dispatch(addtocartsignal(params))
-
+        addtocartsignal: (params) => dispatch(addtocartsignal(params)),
+        checkout: (params) => dispatch(checkout(params))
     }
 }
 

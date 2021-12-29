@@ -18,8 +18,9 @@ const initialState = {
         tempdata:{
             totalamount:0
         },
-        addtocartsignal:true
-        
+        addtocartsignal:true,
+        checkoutsignal:false,
+        removeproductsign:true,
     }
 }
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))
