@@ -29,7 +29,7 @@ const Adminsidebar = (props) => {
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
               {/* <i className="icon-layout menu-icon"></i> */}
-              <AssignmentIndOutlinedIcon className="dash-icon"></AssignmentIndOutlinedIcon>
+              <AssignmentIndOutlinedIcon className="dash-icon "></AssignmentIndOutlinedIcon>
               <span className="menu-title">Appointments</span>
               <i className="menu-arrow"></i>
             </a>
@@ -105,6 +105,9 @@ const Adminsidebar = (props) => {
                 </Link>
                 <Link to="/dashboard/lab-test">
                   <li className="nav-item"> <a className="nav-link" href="">Lab Test</a></li>
+                </Link>
+                <Link to="/dashboard/labtest-subcategory">
+                  <li className="nav-item"> <a className="nav-link" href="">Labtest Subcategory</a></li>
                 </Link>
               </ul>
             </div>

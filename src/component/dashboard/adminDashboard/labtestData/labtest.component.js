@@ -27,14 +27,6 @@ const Labtest = (props) => {
         price: "",
     })
 
-    // const disablePastDate = () => {
-    //     const today = new Date();
-    //     const dd = String(today.getDate() + 1).padStart(2, "0");
-    //     const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    //     const yyyy = today.getFullYear();
-    //     return yyyy + "-" + mm + "-" + dd;
-    // };
-
     const handleClose = () => setShowModal(false)
 
 
@@ -54,7 +46,6 @@ const Labtest = (props) => {
 
                     item.priceString = "Rs." + item.price;
                 })
-                console.log(resp)
 
                 if (resp.data.status) {
                     let result = resp.data.data;
@@ -90,17 +81,17 @@ const Labtest = (props) => {
             if (!values.description) {
                 errors.description = 'Required!'
             }
-            let decimalREGEX = /^\d*\.?\d*$/;
+            // let decimalREGEX = /^\d*\.?\d*$/;
 
-            if (!decimalREGEX.test(values.price)) {
-                errors.price = "Must be a number";
-            }
-            if (!values.price) {
-                errors.price = "Required!"
-            }
-            if (values.price < 0) {
-                errors.price = "Must be positive!"
-            }
+            // if (!decimalREGEX.test(values.price)) {
+            //     errors.price = "Must be a number";
+            // }
+            // if (!values.price) {
+            //     errors.price = "Required!"
+            // }
+            // if (values.price < 0) {
+            //     errors.price = "Must be positive!"
+            // }
             return errors;
         },
 
@@ -123,6 +114,8 @@ const Labtest = (props) => {
     }
 
     const createLabtest = (values) => {
+        try {
+         
         setIsLoading(true)
 
         let formData = new FormData();
@@ -151,6 +144,10 @@ const Labtest = (props) => {
                 notify.error(err.response.data.message || "Something went wrong")
 
             })
+        }
+        catch(err){
+            console.log(err)
+        }
     }
 
     const handleStatusModal = (e, data) => {
@@ -283,7 +280,7 @@ const Labtest = (props) => {
                     </Row>
 
                     <Row className="mb-3">
-                        <Col md={6}>
+                        {/* <Col md={6}>
                             <Form.Group>
                                 <Form.Label>Date</Form.Label>
                                 <Form.Control type="date" name="date" onChange={formik.handleChange}
@@ -292,8 +289,8 @@ const Labtest = (props) => {
                                     <div className="error-message">{formik.errors.date}</div>
                                     : null}
                             </Form.Group>
-                        </Col>
-                        <Col md={6}>
+                        </Col> */}
+                        {/* <Col md={6}>
                             <Form.Group >
                                 <Form.Label>Price</Form.Label>
                                 <Form.Control type="text" name="price" onChange={formik.handleChange}
@@ -302,7 +299,7 @@ const Labtest = (props) => {
                                     <div className="error-message">{formik.errors.price}</div>
                                     : null}
                             </Form.Group>
-                        </Col>
+                        </Col> */}
                     </Row>
 
                     <Row>

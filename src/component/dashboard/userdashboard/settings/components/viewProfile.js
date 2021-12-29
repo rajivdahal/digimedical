@@ -9,12 +9,11 @@ const ViewProfile = (props) => {
 
     const getUser = () => {
         let id = localStorage.getItem('userid');
+        let url = "http://103.90.86.77:8082/api/download/" + id;
+            setImage(url)
         // console.log(id)
         console.log(props);
-        if (props) {
-            let url = "http://103.90.86.77:8082/api/download/" + id;
-            setImage(url)
-        }
+        
     }
     useEffect(() => {
         getUser();
