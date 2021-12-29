@@ -117,7 +117,7 @@ export const removeproductstatus = (params) => {
     }
 }
 export const cartpopupsignal = (params) => {
-    
+    console.log("cartpopup signal",params)
     return (dispatch) => {
         dispatch({
             type: labtestActionTypes.CART_POP_UP,

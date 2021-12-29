@@ -14,6 +14,14 @@ import { cartpopupsignal } from '../../../../actions/cart.ac';
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
 class userlabtestcomponent extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             active:false
+        }
+    }
+    
     componentDidMount = () => {
         this.props.fetchlabtest()
         console.log("props are", this.props)
@@ -83,8 +91,12 @@ class userlabtestcomponent extends Component {
             console.log("checkout called")
         }
         const showcartpopup = (sign) => {
-            console.log("showcartpop up triggered")
-            this.props.cartpopupsignal(!checkoutsignal)            
+            this.setState(()=>{
+                return{
+                    active:!this.state.active
+                }
+            })
+
         }
         return (
             <div>
@@ -92,7 +104,7 @@ class userlabtestcomponent extends Component {
                     checkoutsignal ? <Checkoutpopup /> : null
                 }
                 {
-                    cartpopupsign?<Cartpopup></Cartpopup>:null
+                    this.state.active?<Cartpopup></Cartpopup>:null
                 }
                 <div className="lab_add_to_cart">
                     <div className="lab_add_to_cart1">
@@ -101,7 +113,7 @@ class userlabtestcomponent extends Component {
                                 <p id="lab_your_cart">Your Cart</p>
                             </div>
                             <div className="lab_add_to_cart_cart">
-                                <div onClick={showcartpopup} style={{cursor:"pointer"}}>
+                                <div onClick={showcartpopup} style={{cursor:"pointer"}} className='cart-value'>
                                     <p>{cart ? cart.cartvalue : "0"}</p>
                                     <div>
                                         <i class="fas fa-shopping-cart"></i>

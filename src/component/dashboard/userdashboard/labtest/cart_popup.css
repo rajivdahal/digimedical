@@ -1,9 +1,8 @@
 #popup1_carts{
   position: absolute;
-  right: 40%;
+  right: 0%;
   top: 5%;
   z-index: 100;
-  border: 1px solid red;
 }
 .overlay_carts {
     position: fixed;

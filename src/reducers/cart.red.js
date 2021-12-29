@@ -103,13 +103,7 @@ export const Cartreducer = (state, action) => {
                 // removeproductstatus: action.payload
             }
         case labtestActionTypes.CART_POP_UP:
-           console.log("data is",action.payload)
-           if(data.payload==true){
-            return {
-                ...state,
-                cartpopupsign:false
-            }
-           }
+         
             return {
                 ...state,
                 cartpopupsign:action.payload
