@@ -102,14 +102,14 @@ const vieworhidepassword=()=>{
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
-                                            <label>Email address </label>
+                                            <label>Email address<span style={{color:'red'}}>*</span> </label>
                                             <input type="username" className="form-control form-input" placeholder="username" id="username" {...formik.getFieldProps("username")}/>
                                             {formik.errors.username && formik.touched.username ? <div style={{ color: "red" }} className="errmsg">{formik.errors.username}  </div> : null}
                                         </div>
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
-                                            <label>{fromexternaluser?"OTP":"Password"} </label>
+                                            <label>{fromexternaluser?"OTP":"Password"}<span style={{color:'red'}}>*</span> </label>
                                             <input type={ispassword?"password":"text"} className="form-control form-input" placeholder="Enter Password" id="password" {...formik.getFieldProps("password")} />
                                             {
                                                 ispassword?<i class="fas fa-eye eye-to-see-password" onClick={vieworhidepassword}></i>: <i class="fas fa-eye-slash eye-to-see-password" onClick={vieworhidepassword}></i>

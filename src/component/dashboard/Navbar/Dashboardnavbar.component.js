@@ -38,16 +38,22 @@ export const Dashboardnavbar = (props) => {
     props.props.push('/dashboard/settings/change-password')
   }
 
-  useEffect(()=>{
-    let id = localStorage.getItem('userid');
-    
-    httpClient.GET("user-profile",false,true)
-    .then(resp=>{
-      let url = REACT_APP_BASE_URL+"download/" + id;
-      setImage(url)
+  const getImage=(id)=>{
+    let url = REACT_APP_BASE_URL+"download/" + id;
+    console.log(url)
+    if(url.status == false) {
+      setImage(Avatar)
+    }
+    setImage(url)
+  }
 
+  useEffect(async()=>{
+    let id = localStorage.getItem('userid');
+    await httpClient.GET("user-profile",false,true)
+    .then(resp=>{
       const name=resp.data.data.profileInfo.name
-      setusername(name)
+      setusername(name);
+      getImage(id);
     })
     .catch(err=>{
       notify.error("something went wrong")

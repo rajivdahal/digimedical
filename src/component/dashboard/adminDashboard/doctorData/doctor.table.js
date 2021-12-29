@@ -6,8 +6,6 @@ import { Add, Edit, Clear, DeleteOutline } from "@material-ui/icons";
 import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
 import { Modal, Button,Card } from 'react-bootstrap';
-// import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
-import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
 const DoctorTable = (props) => {
 
     const [doctors, setDoctors] = useState([]);
@@ -50,6 +48,7 @@ const DoctorTable = (props) => {
         })
 
     }
+    
     useEffect(() => {
         getDoctor();
     }, [])
@@ -84,12 +83,6 @@ const DoctorTable = (props) => {
             })
 
     }
-
-    // const doctorModal = (data) => {
-    //     let doctorData = data;
-    //     setDoctorInfo(doctorData)
-    //     setDoctorInfoModal(true)
-    // }
 
     const handleAddDoctor = () => {
         props.history.push("/dashboard/create-doctor")

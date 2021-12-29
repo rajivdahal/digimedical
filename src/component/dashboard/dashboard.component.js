@@ -25,6 +25,8 @@ import LabtestSubcategory from "./adminDashboard/labtestData/labtest.subcategory
 import UserProfile from "./userdashboard/settings/profileupdate.component"
 import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list"
 import { Userlabtest } from "./userdashboard/labtest/userlabtest.component"
+import StaffPage from "./adminDashboard/staffData/staff.component"
+import StaffTable from "./adminDashboard/staffData/staff.table"
 
 
 const Dashboard = (props) => {
@@ -86,6 +88,10 @@ const Dashboard = (props) => {
                                         <ProtectedRoute component={Changepassword}></ProtectedRoute>
                                         : props.location.pathname === "/dashboard/labtest-subcategory" ?
                                         <ProtectedRoute component={LabtestSubcategory}/>
+                                        : props.location.pathname === "/dashboard/create-staff" ?
+                                        <ProtectedRoute component={StaffPage}/>
+                                        : props.location.pathname === "/dashboard/staff-table" ?
+                                        <ProtectedRoute component={StaffTable}/>
                                         : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </div>
