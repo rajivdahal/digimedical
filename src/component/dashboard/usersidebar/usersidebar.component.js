@@ -24,7 +24,7 @@ export default function Usersidebar(props) {
                     <li className="nav-item" onClick={navigateDashboard} style={{ cursor: "pointer" }}>
                         <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
                             <i className="fas fa-bars menu-icon"></i>
-                            <span className="menu-title">dashboard</span>
+                            <span className="menu-title">Dashboard</span>
                         </a>
                     </li>
 

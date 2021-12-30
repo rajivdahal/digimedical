@@ -16,10 +16,7 @@ img {
     -o-transition: all 900ms ease;
 }
 
-img:hover {
-    opacity: 0.5;
-    /* filter: grayscale(100%); */
-}
+
 
 a:focus {
     outline: none;

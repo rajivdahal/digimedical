@@ -339,7 +339,7 @@ export default function Prescribe(props) {
 
                 </div>
             </Modal>
-5
+
 
 
             <Modal show={lining.confirm} onHide={!lining.confirm} style={{ marginTop: "25%", height: "500px",marginLeft:"180px" }}>

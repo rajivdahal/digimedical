@@ -8,10 +8,13 @@ import { removeproductstatus } from '../../../../actions/cart.ac'
 import { addtocartsignal } from '../../../../actions/cart.ac'
 import { checkout } from '../../../../actions/cart.ac'
 import { removeproduct } from '../../../../actions/cart.ac'
+import { httpClient } from '../../../../utils/httpClient'
+import { notify } from '../../../../services/notify'
 
 
 class Checkoutpopupcomponent extends Component {
   render() {
+  
     let total=0
     console.log("props in popups are", this.props)
     let { removeproductstatus, addtocartsign, checkoutsignal,removeproductsign } = this.props
@@ -48,6 +51,31 @@ class Checkoutpopupcomponent extends Component {
         }
 
       })
+      
+    }
+    const handleCheckout=()=>{
+      const cartitems = JSON.parse(localStorage.getItem("cart"))
+      let labdatatocheckout=[]
+      cartitems.labs.map((item,index)=>{
+        item.subcategory.map((item,index)=>{
+          if(item.checked==true){
+            labdatatocheckout.push({
+              price:item.price,
+              labId:item.id
+            })
+          }
+        })
+      })
+      if(labdatatocheckout.length){
+        httpClient.POST("lab-booking/create",labdatatocheckout,false,true)
+        .then(resp=>{
+          notify.success("Lab test booked successfully")
+            this.props.history.push("/dashboard")
+        })
+        .catch(err=>{
+          notify.error("Lab test could not be saved,Please try again in few minutes")
+        })
+      }
       
     }
     return (
@@ -134,8 +162,8 @@ class Checkoutpopupcomponent extends Component {
                   <a className="popup_lab_close" onClick={removepopup} style={{ cursor: "pointer" }}>
                     <p>Back</p>
                   </a>
-                  <a className="lab_popup_checkout">
-                    <div>
+                  <a className="lab_popup_checkout" style={{cursor:"pointer"}}>
+                    <div onClick={handleCheckout}>
                       <p>Checkout</p>
                     </div>
                   </a>
@@ -150,10 +178,6 @@ class Checkoutpopupcomponent extends Component {
 }
 const mapStateToProps = rootstore => {
   return {
-    // cartitems: rootstore.cart.cartitems,
-    // allabtest: rootstore.cart.allabtest,
-    // cartvalue: rootstore.cart.cartvalue,
-    // tempdata: rootstore.cart.tempdata,
     addtocartsign: rootstore.cart.addtocartsignal,
     checkoutsignal: rootstore.cart.checkoutsignal,
     removeproductsign:rootstore.cart.removeproductsign
@@ -162,11 +186,6 @@ const mapStateToProps = rootstore => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // addtocart: (params) => dispatch(addtocart(params)),
-    // fetchlabtest: (params) => dispatch(fetchlabtest(params)),
-    // setlabtest: (params) => dispatch(setlabtest(params)),
-    // settemptotal: (params) => dispatch(settemptotal(params)),
-    // resetcheckbox: (params) => dispatch(resetcheckbox(params)),
     removeproduct:(params)=>dispatch(removeproduct(params)),
     addtocartsignal: (params) => dispatch(addtocartsignal(params)),
     checkout: (params) => dispatch(checkout(params)),
