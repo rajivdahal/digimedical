@@ -13,9 +13,9 @@ export default function Usersidebar(props) {
     const navigateMedicalreports = () => {
         props.props.push("/dashboard/medical-reports")
     }
-    const navigateLabtest=()=>{
-        props.props.push("/dashboard/lab-test")
-    }
+    // const navigateLabtest=()=>{
+    //     props.props.push("/dashboard/lab-test")
+    // }
     return (
         <div >
             <nav className="sidebar sidebar-offcanvas" id="sidebar">
@@ -75,12 +75,8 @@ export default function Usersidebar(props) {
                             </ul>
                         </div>
                     </li>
-                    <li className="nav-item" onClick={navigateLabtest} style={{ cursor: "pointer" }}>
-                        <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
-                            <i className="fas  fa-file-medical menu-icon"></i>
-                            <span className="menu-title">Labtest</span>
-                        </a>
-                    </li>
+                    
+
 
                     <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#medicalreports" aria-expanded="false" aria-controls="medicalreports">
@@ -92,6 +88,25 @@ export default function Usersidebar(props) {
                             <ul className="nav flex-column sub-menu">
                                 <Link to="/dashboard/lab-reports">
                                     <li className="nav-item"> <a className="nav-link" href="">Lab Reports</a></li>
+                                </Link>
+                            </ul>
+                        </div>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" data-toggle="collapse" href="#labreports" aria-expanded="false" aria-controls="labreports">
+                        <i className="fas fa-file-medical menu-icon"></i>
+                            <span className="menu-title">Lab Tests</span>
+                            <i className="menu-arrow"></i>
+                        </a>
+                        <div className="collapse" id="labreports">
+                            <ul className="nav flex-column sub-menu">
+                                <Link to="/dashboard/lab-test">
+                                    <li className="nav-item"> <a className="nav-link" href="">Book Lab Tests</a></li>
+                                </Link>
+                            </ul>
+                            <ul className="nav flex-column sub-menu">
+                                <Link to="/dashboard/view-lab-test">
+                                    <li className="nav-item"> <a className="nav-link" href="">Booked Lab tests</a></li>
                                 </Link>
                             </ul>
                         </div>

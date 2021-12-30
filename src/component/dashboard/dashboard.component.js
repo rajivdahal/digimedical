@@ -25,6 +25,7 @@ import LabtestSubcategory from "./adminDashboard/labtestData/labtest.subcategory
 import UserProfile from "./userdashboard/settings/profileupdate.component"
 import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list"
 import { Userlabtest } from "./userdashboard/labtest/userlabtest.component"
+import Viewlabtest from "./userdashboard/viewlabtest/viewlabtest.component"
 
 
 const Dashboard = (props) => {
@@ -55,6 +56,9 @@ const Dashboard = (props) => {
                             :
                             props.location.pathname === "/dashboard/lab-test" ?
                               <ProtectedRoute component={Userlabtest}></ProtectedRoute>
+                              :
+                            props.location.pathname === "/dashboard/view-lab-test" ?
+                              <ProtectedRoute component={Viewlabtest}></ProtectedRoute>
                               : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
               }
             </> :

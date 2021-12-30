@@ -3,13 +3,15 @@
   right: 19%;
   top: 2%;
 }
-.cart-value{
+
+.cart-value {
   position: absolute;
   z-index: 100;
 
   padding-top: 10px;
   padding-left: 10px;
 }
+
 .lab_add_to_cart1 {
   margin-top: 60px;
   margin-left: 235px;
@@ -383,11 +385,13 @@
   width: 1025px;
   height: 185px;
   background-color: #f5faff;
-  border: 1px solid red;
+  border: 3px solid #007bff40;
+  box-shadow: 0px 0px 30px #6c757d;
   /* border: 3px solid red; */
   border-radius: 10px;
   overflow: hidden;
   display: flex;
+
 }
 
 .lab_add_to_cart_samp_img1 img {

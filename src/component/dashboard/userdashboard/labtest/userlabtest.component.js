@@ -11,6 +11,7 @@ import { checkout } from '../../../../actions/cart.ac';
 import { Checkoutpopup } from "./lab_popup"
 import { Cartpopup } from './cart_pupup';
 import { cartpopupsignal } from '../../../../actions/cart.ac';
+import { notify } from '../../../../services/notify';
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
 class userlabtestcomponent extends Component {
@@ -33,6 +34,7 @@ class userlabtestcomponent extends Component {
         console.log("cartpopup signal is", cartpopupsign)
         let cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : null
         const addtocart = (item) => {
+            notify.success("Added to cart")
             console.log("add to cart items are", item)
             this.props.addtocart(item)
         }

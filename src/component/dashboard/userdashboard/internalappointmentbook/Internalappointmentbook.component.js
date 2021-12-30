@@ -258,6 +258,7 @@ export default function Internalappointmentbook(prop) {
                             formik.handleChange(e)
 
                         }}
+                        
                     />
                     {formik.errors.appointmentDate && formik.touched.appointmentDate ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentDate}  </div> : null}
                 </div>

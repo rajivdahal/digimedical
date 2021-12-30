@@ -143,11 +143,12 @@ const LabtestSubcategory = (props) => {
                     if (resp.data.status) {
                         notify.success(resp.data.message)
                         formik.resetForm();
-
+                        getSubcategory()
                     }
                 })
                 .catch(err => {
-                    console.log(err.response)
+                    
+                    notify.error(err.response.data.message)
                 })
                 .finally(() => {
                     setIsLoading(false)
@@ -155,7 +156,7 @@ const LabtestSubcategory = (props) => {
 
         }
         catch (err) {
-            console.log(err)
+            notify.error("Something went wrong during creating subcategory")
             setIsLoading(false)
         }
 
