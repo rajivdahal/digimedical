@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { httpClient } from "../../../utils/httpClient"
 import Avatar from "../../../assets/avatars.png"
 import "./dashboardnavbar.component.css"
+import { Image } from "react-bootstrap"
 const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
 
 export const Dashboardnavbar = (props) => {
@@ -117,7 +118,7 @@ export const Dashboardnavbar = (props) => {
             </li>
             <li className="nav-item nav-profile dropdown">
               <a className="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src={userImage ? userImage : Avatar} alt="profile" />
+                <Image src={userImage} alt=""/>
               </a>
               <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                 

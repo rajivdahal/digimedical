@@ -98,8 +98,14 @@ function FormComponent(props) {
       if (!values.firstName) {
         errors.firstName = "Required!";
       }
+      if(values.firstName.length < 2){
+        errors.firstName = "Invalid first name."
+      }
       if (!values.lastName) {
         errors.lastName = "Required!";
+      }
+      if(values.lastName.length < 2){
+        errors.lastName = "Invalid last name."
       }
       if (!values.email) {
         errors.email = "Required!";

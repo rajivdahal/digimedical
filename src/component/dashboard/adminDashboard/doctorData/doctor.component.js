@@ -7,13 +7,12 @@ import "./doctor.component.css"
 import { useFormik } from "formik";
 import { validateDoctor } from "./doctor.helper";
 import Avatar from "../../../../assets/avatars.png";
+import Select from 'react-select';
+
 const Createdoctor = (props) => {
 
     // all services
     const [services, setServices] = useState([]);
-
-    // selectable services
-    const [availableServices, setAvailableServices] = useState([]);
     const imageSelectRef = useRef();
 
     // const [doctorInfo, setDoctorInfo] = useState("");
@@ -36,9 +35,20 @@ const Createdoctor = (props) => {
         licensedDate: "",
         doctorImage: "",
         serviceID: "",
-        serviceOptions : [],
         doctorServices: [],
     })
+
+    
+    useEffect(() => {
+        initialize();
+    }, [])
+
+    const initialize = async () => {
+        let allServices = await getServices();
+        if (props.location.state && props.location.state.id != null) {
+            await getDoctorById(allServices);
+        }
+    }
 
     const getServices = async () => {
         let allServices = await httpClient.GET("services/true", false, true)
@@ -63,13 +73,12 @@ const Createdoctor = (props) => {
             }
         })
 
-        let tempData = { ...doctorData };
-        tempData.serviceOptions=options;
-
-        tempData.serviceID = allServices[0].id;
-        setServices(allServices);
-        setAvailableServices(allServices);
-        setDoctorData(tempData);
+        // let tempData = { ...doctorData };
+ 
+        // tempData.serviceID = allServices[0].id;
+        setServices(options);
+        // setAvailableServices(allServices);
+        // setDoctorData(tempData);
         return allServices;
 
     }
@@ -93,26 +102,18 @@ const Createdoctor = (props) => {
         },
     })
 
-    const initialize = async () => {
-        let allServices = await getServices();
-        if (props.location.state && props.location.state.id != null) {
-            await getDoctorById(allServices);
-        }
-    }
 
-    useEffect(() => {
-        initialize();
-    }, [])
 
     const handleCreateDoctor = (values) => {
         try{
         setLoading(true)       
         let selectedId = [];
         values.doctorServices.forEach((service, index) => {
-            selectedId.push(service.id)
+            selectedId.push(service.value)
         })
 
         let formData = new FormData();
+        
         if (values.doctorImage) {
             formData.append("image", values.doctorImage);
 
@@ -156,11 +157,11 @@ const Createdoctor = (props) => {
     }
 
     const getDoctorById = (allServices) => {
+        
         // get doctor id
-        console.log(props);
         let id = props.location.state.id;
-        console.log(id);
         if (id == null) return;
+        
         setDoctorId(id)
 
         // get doctor details
@@ -173,19 +174,20 @@ const Createdoctor = (props) => {
                     let data = responseData.basicDetails;
                     let serviceData = responseData.services;
                     console.log(serviceData);
+
                     // get services details from service data
-                    let savedServices = [], remainServices = [];
+                    let savedServices = [];
                     allServices.forEach((service) => {
-                        // let found = serviceData.includes(service.id.toString());
                         let found = serviceData.filter((item) => {
                             return (item.id.toString() == service.id.toString())
                         })
                         if (found.length > 0) {
                             console.log(found)
-                            savedServices.push(service);
-                        } else {
-                            remainServices.push(service)
-                        }
+                            savedServices.push({
+                                label : service.serviceName,
+                                value : service.id
+                            });
+                        } 
                     })
 
                     console.log(savedServices);
@@ -206,11 +208,10 @@ const Createdoctor = (props) => {
                             mobileNumber: data.mobilenumber,
                             licensedDate: data.liscenceDate,
                             doctorServices: savedServices,
-                            serviceID: remainServices[0].id
+                            serviceID: null,
+
                         })
-                        console.log(doctorData.doctorServices)
                         setImgName(data.image);
-                        setAvailableServices(remainServices);
                     }
                 }
             })
@@ -225,7 +226,7 @@ const Createdoctor = (props) => {
         setLoading(true)
         let selectedId = [];
         values.doctorServices.forEach((service, index) => {
-            selectedId.push(service.id)
+            selectedId.push(service.value)
         })
 
         let formData = new FormData();
@@ -265,47 +266,6 @@ const Createdoctor = (props) => {
             .finally(() => {
                 setLoading(false)
             })
-    }
-
-    const handleAddService = (values) => {
-        let selectedService = services.filter((service) => {
-            return (service.id == values.serviceID)
-        })
-        let tempAvailable = availableServices.filter((service, index) => service.id != values.serviceID);
-        setAvailableServices(tempAvailable);
-        if (tempAvailable.length > 0) {
-            let doctorServiceArr = { ...values }
-            doctorServiceArr.doctorServices.push(selectedService[0]);
-            console.log(doctorServiceArr)
-            console.log(doctorServiceArr.doctorServices)
-            doctorServiceArr.serviceID = tempAvailable[0].id;
-            formik.setFieldValue('doctorServices', doctorServiceArr.doctorServices)
-            formik.setFieldValue('serviceID', doctorServiceArr.serviceID)
-        }
-
-    }
-
-    const removeService = (values, id) => {
-        console.log(id)
-        let remainingService = values.doctorServices.filter((service) => {
-            return (service.id != id)
-        })
-
-        console.log(remainingService);
-
-        if (remainingService.length >= 0) {
-            let doctorServiceArr = { ...values, ...{ doctorServices: remainingService } }
-            let notSelected = [];
-            services.forEach((service) => {
-
-                let found = remainingService.includes(service);
-                if (!found) {
-                    notSelected.push(service)
-                }
-            })
-            formik.setFieldValue('doctorServices', remainingService)
-            setAvailableServices(notSelected)
-        }
     }
 
     const handleCancelEdit = () => {
@@ -354,6 +314,11 @@ const Createdoctor = (props) => {
         setImgName(null);
         formik.setFieldValue('doctorImage', null);
         
+    }
+
+    const handleServiceChange=(item)=>{
+        console.log(item);
+        formik.setFieldValue('doctorServices',item)
     }
     return (
         <div >
@@ -443,37 +408,16 @@ const Createdoctor = (props) => {
 
                         <Col md={6}>
                             <Row className="mb-3">
-                                <Col md={8}>
+                                <Col md={11}>
                                     <Form.Label>Service </Form.Label>
-                                    {/* <Select 
-                                        isMulti
-                                        options={formik.values.serviceOptions}>
-                                          
+                                    <Select 
+                                        value={formik.values.doctorServices}
+                                        isMulti options={services} 
+                                        name="serviceID"
+                                        onChange={handleServiceChange} >
                                         
-                                    </Select> */}
-                                    <select class="form-select" name="serviceID"
-                                        onChange={formik.handleChange} onBlur={formik.handleBlur}>
-                                        {availableServices.map((service, index) => {
-                                            return <option value={service.id} key={service.id}>{service.serviceName}</option>
-                                        })}
-                                    </select>
-
+                                    </Select>                                   
                                 </Col>
-
-                                <Col md={2}>
-                                    <Button variant="info" className="mt-4" onClick={() => handleAddService(formik.values)}>Add</Button>
-                                </Col>
-                            </Row>
-
-                            <Row>
-                                <Col md={12}>
-                                    {formik.values.doctorServices && formik.values.doctorServices.map((service, index) => {
-                                        return <span className="service" key={index} onClick={() => removeService(formik.values, service.id)}>
-                                            <span>{service.serviceName}</span>
-                                        </span>
-                                    })}
-                                </Col>
-
                             </Row>
 
                         </Col>
@@ -481,18 +425,19 @@ const Createdoctor = (props) => {
                         <Col md={6}>
                             <Row>
                                 <Col md={5}>
-                                    <Form.Label>Choose Photo  </Form.Label><br></br>
+                                    <Form.Label>Choose Photo  </Form.Label>
                                     <Button variant="info" onClick={handleAddImage}>Browse</Button>
                                     <input onChange={(e) => handleChangeImage(e)} type="file" name="doctorImage" 
                                     style={{ display: "none" }} ref={imageSelectRef}  accept="image/png, image/jpg, image/jpeg" ></input>
                                 </Col>
 
                                 <Col md={5}>
+                                   
+                                    <Image src={selectedImage ? selectedImage : Avatar} fluid className="image ml-3" roundedCircle ></Image>                                    
                                     <div>
                                         {selectedImgName}
                                     </div>
-                                    <Image src={selectedImage ? selectedImage : Avatar} fluid className="image ml-3" roundedCircle ></Image>
-
+                                    
                                 </Col>
                                 <Col md={2}>
                                     <a style={{color:'red'}} onClick={removeImage}>x</a>
