@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "./footerlogo.png";
 import google from "./googleplay.png";
@@ -142,6 +142,7 @@ const IconBottom = styled.div`
   }
 `;
 const Footer = () => {
+  const [showMenu, setShowMenu] = useState(false);
   return (
     <>
       <FooterSection>

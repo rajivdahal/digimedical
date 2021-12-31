@@ -100,7 +100,7 @@ const WhaiIsDegimediacal = () => {
               uphold human values.
             </p>
           </DescriptionContainer>
-          <Button>Read More</Button>
+          <Button type="button">Read More</Button>
         </RightContainer>
       </AboutUsContainer>
     </>

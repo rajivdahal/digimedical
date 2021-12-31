@@ -63,10 +63,13 @@ const SubHeading = styled.div`
   }
 `;
 const ButtonContainor = styled.div`
+  a {
+    text-decoration: none;
+    color: white;
+  }
   margin-top: 1rem;
+  display: flex;
   @media screen and (max-width: 650px) {
-    display: flex;
-    // justify-content: center;
     margin-top: 3rem;
   }
 `;
@@ -75,7 +78,15 @@ const ReadMore = styled.a`
   margin-left: 1.5rem;
   color: white;
   border-radius: 5px;
-  border-color: white;
+  border: 1px solid #fff;
+  // border-color: white;
+  height: 50px;
+  padding: 0rem 1.5rem 0rem 1.5rem;
+  // width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &:hover {
     background-color: #2745f0;
   }
@@ -85,6 +96,13 @@ const ReadMore = styled.a`
 const GetAppointment = styled.a`
   background-color: #2745f0;
   border-radius: 5px;
+  height: 50px;
+  padding: 0rem 1rem 0rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  
 `;
 
 const ConnectionContainor = styled.div`
@@ -107,13 +125,9 @@ export const Home = (props) => {
 
           <ButtonContainor>
             <a href="#BookanAppointment">
-              <GetAppointment type="button" className="btn btn-primary">
-                Get Appointment
-              </GetAppointment>
+              <GetAppointment type="button">Get Appointment</GetAppointment>
             </a>
-            <ReadMore type="button" className="btn btn-outline-primary">
-              Read MOre
-            </ReadMore>
+            <ReadMore type="button">Read MOre</ReadMore>
             {/* <div class="btn-group dropright">
   <button type="button" class="btn btn-secondary">
     Split dropright

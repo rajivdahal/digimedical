@@ -201,10 +201,6 @@ export default function Viewlabtest() {
                             </tbody>
                         </table>
                     </div> */}
-
-
-
-
                 </div>
 
             </div>

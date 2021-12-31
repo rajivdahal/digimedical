@@ -70,6 +70,13 @@ const ButtonContainor = styled.div`
 const GetAppointment = styled.a`
   background-color: #2745f0;
   border-radius: 5px;
+  height: 50px;
+  width: 170px;
+  padding: 0rem 1rem 0rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
 `;
 
 const AboutPage = () => {
@@ -88,10 +95,8 @@ const AboutPage = () => {
           <Subheading>About Us</Subheading>
           <Heading>We are here to Improve your health</Heading>
           <ButtonContainor>
-            <Link to={"/"}>
-              <GetAppointment type="button" className="btn btn-primary">
-                Get Appointment
-              </GetAppointment>
+            <Link to={"/"} style={{ textDecoration: "none" }}>
+              <GetAppointment type="button">Get Appointment</GetAppointment>
             </Link>
           </ButtonContainor>
         </Content>
