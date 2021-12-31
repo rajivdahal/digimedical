@@ -156,7 +156,7 @@ const Navbar = (props) => {
           {
             isuserloggedin ?
               <>
-                <Link to="/dashboard">
+                <Link to="/dashboard/">
                   <div>
                     {" "}
                     <img

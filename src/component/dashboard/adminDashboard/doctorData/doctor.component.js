@@ -73,13 +73,7 @@ const Createdoctor = (props) => {
                 value : service.id
             }
         })
-
-        // let tempData = { ...doctorData };
- 
-        // tempData.serviceID = allServices[0].id;
         setServices(options);
-        // setAvailableServices(allServices);
-        // setDoctorData(tempData);
         return allServices;
 
     }
@@ -88,7 +82,6 @@ const Createdoctor = (props) => {
         enableReinitialize: true,
         initialValues: doctorData,
         onSubmit: values => {
-            // console.log(values.doctorImage);
             if (doctorId) {
                 editDoctorDetail(values)
 
@@ -97,7 +90,6 @@ const Createdoctor = (props) => {
             }
         },
         validate: values => {
-            // console.log(values);
             let isEdit = doctorId ? true : false;
             return validateDoctor(values, isEdit);
         },

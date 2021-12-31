@@ -21,14 +21,12 @@ const Adminsidebar = (props) => {
         <ul className="nav">
           <li className="nav-item" onClick={navigatedashboard} style={{cursor:"pointer"}}>
             <a className="nav-link" >
-              {/* <i className="icon-grid menu-icon"></i> */}
               <GridViewRoundedIcon className="dash-icon"> </GridViewRoundedIcon>
               <span className="menu-title">Dashboard</span>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
-              {/* <i className="icon-layout menu-icon"></i> */}
               <AssignmentIndOutlinedIcon className="dash-icon "></AssignmentIndOutlinedIcon>
               <span className="menu-title">Appointments</span>
               <i className="menu-arrow"></i>
@@ -44,7 +42,6 @@ const Adminsidebar = (props) => {
 
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#labtest" aria-expanded="false" aria-controls="labtest">
-              {/* <i className="icon-layout menu-icon"></i> */}
               <VaccinesRoundedIcon className="dash-icon"></VaccinesRoundedIcon>
               <span className="menu-title">Lab Tests</span>
               <i className="menu-arrow"></i>
@@ -54,13 +51,15 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/labtest">
                 <li className="nav-item"> <a className="nav-link" href="">View Lab Test</a></li>
                 </Link>
+                <Link to="/dashboard/booked-labtest">
+                <li className="nav-item"> <a className="nav-link" href="">Booked Labtest</a></li>
+                </Link>
               </ul>
             </div>
           </li>
 
           <li className="nav-item">
             <a className="nav-link " data-toggle="collapse" href="#doctor" aria-expanded="false" aria-controls="doctor">
-              {/* <i className="icon-layout menu-icon"></i> */}
               <CoPresentRounded className="dash-icon"></CoPresentRounded>
               <span className="menu-title">Doctors</span>
               <i className="menu-arrow"></i>
@@ -77,6 +76,7 @@ const Adminsidebar = (props) => {
             </div>
           </li>
 
+
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#staffs" aria-expanded="false" aria-controls="staffs">
               {/* <i className="icon-bar-graph menu-icon"></i> */}
@@ -84,13 +84,18 @@ const Adminsidebar = (props) => {
               <span className="menu-title">Staff</span>
               <i className="menu-arrow"></i>
             </a>
-            <div className="collapse" id="staff">
+            <div className="collapse" id="staffs">
               <ul className="nav flex-column sub-menu">
+                <Link to="/dashboard/staff-table">
                 <li className="nav-item"><a className="nav-link" href="">All Staff</a></li>
+                </Link>
+                <Link to="/dashboard/create-staff">
                 <li className="nav-item"><a className="nav-link" href="">Add Staff</a></li>
+                </Link>
               </ul>
             </div>
           </li>
+
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
               {/* <i className="icon-columns menu-icon"></i> */}
@@ -109,6 +114,12 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/labtest-subcategory">
                   <li className="nav-item"> <a className="nav-link" href="">Labtest Subcategory</a></li>
                 </Link>
+                <Link to="/dashboard/add-institute">
+                  <li className="nav-item"><a className="nav-link" href="">Medical Institute</a></li>
+                </Link>
+                {/* <Link to="/dashboard/hospital">
+                  <li className="nav-item"><a className="nav-link" href="">Hospital</a></li>
+                </Link> */}
               </ul>
             </div>
           </li>
