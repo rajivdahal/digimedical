@@ -59,6 +59,7 @@ const Loginbodycomponent = (props) => {
                     let error = JSON.parse(err)
                     formik.errors.password = error.message
                     setisLoading(false)
+                    notify.error("Login unsuccessful")
                 })
         },
         validate: values => {
