@@ -51,6 +51,9 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/labtest">
                 <li className="nav-item"> <a className="nav-link" href="">View Lab Test</a></li>
                 </Link>
+                <Link to="/dashboard/booked-labtest">
+                <li className="nav-item"> <a className="nav-link" href="">Booked Labtest</a></li>
+                </Link>
               </ul>
             </div>
           </li>
@@ -111,6 +114,12 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/labtest-subcategory">
                   <li className="nav-item"> <a className="nav-link" href="">Labtest Subcategory</a></li>
                 </Link>
+                <Link to="/dashboard/add-institute">
+                  <li className="nav-item"><a className="nav-link" href="">Medical Institute</a></li>
+                </Link>
+                {/* <Link to="/dashboard/hospital">
+                  <li className="nav-item"><a className="nav-link" href="">Hospital</a></li>
+                </Link> */}
               </ul>
             </div>
           </li>

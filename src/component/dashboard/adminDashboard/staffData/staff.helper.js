@@ -41,16 +41,12 @@ const validateStaff = ( values, isEdit = false ) =>{
         errors.streetName = 'Required!'
     }
 
-    if (!values.localBodies) {
-        errors.localBodies = 'Required!'
-    }
-
-    if (!values.email) {
-        errors.email = "Email is required!"
-    }
-    else if (!emailRegex.test(values.email)) {
-        errors.email = "Invalid email format!"
-    }
+    // if (!values.email) {
+    //     errors.email = "Email is required!"
+    // }
+    // else if (!emailRegex.test(values.email)) {
+    //     errors.email = "Invalid email format!"
+    // }
 
     // console.log(errors);
     return errors;   

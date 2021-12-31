@@ -21,7 +21,7 @@ const StaffTable = (props) => {
         mobileNumber: "",
         email: "",
         streetName: "",
-        localBodies: "",
+        localBodies: "Metropolitan",
         wardNo: "",
         post: "",
         gender: "",
@@ -52,7 +52,7 @@ const StaffTable = (props) => {
             formData.append("firstName", values.firstName);
             formData.append("middleName", values.middleName);
             formData.append("lastName", values.lastName);
-            formData.append("email", values.email);
+            // formData.append("email", values.email);
             formData.append("post", values.post);
             formData.append("streetName", values.streetName);
             formData.append("localBodies", values.localBodies);
@@ -88,7 +88,7 @@ const StaffTable = (props) => {
         let id = props.location.state.id;
         if (id == null) return;
         setStaffId(id);
-        httpClient.GET("staff/basic-info/" + id, false, true)
+        httpClient.GET("staff/get/" + id, false, true)
             .then(resp => {
                 console.log(resp)
                 if (resp.data.status) {
@@ -100,19 +100,19 @@ const StaffTable = (props) => {
                         // setImage(url)
 
                         setStaffInfo({
-                            firstName: data.firstName,
-                            lastName: data.lastName,
-                            middleName: data.middleName,
+                            firstName: data.firstname,
+                            lastName: data.lastname,
+                            middleName: data.middlename,
                             email: data.email,
                             post: data.post,
-                            wardNo: data.wardNo,
-                            localBodies: data.localBodies,
-                            streetName: data.streetName,
+                            wardNo: data.wardno,
+                            localBodies: data.localbodies,
+                            streetName: data.streetname,
                             mobileNumber: data.mobilenumber,
 
 
                         })
-                        setImgName(data.image);
+                        // setImgName(data.image);
                     }
                 }
             })
@@ -135,14 +135,15 @@ const StaffTable = (props) => {
             formData.append("firstName", values.firstName);
             formData.append("middleName", values.middleName);
             formData.append("lastName", values.lastName);
-            formData.append("email", values.email);
+            // formData.append("email", values.email);
             formData.append("post", values.post);
             formData.append("streetName", values.streetName);
             formData.append("localBodies", values.localBodies);
             formData.append("wardNo", values.wardNo);
             formData.append("mobileNumber", values.mobileNumber);
+            formData.append("id" , staffId)
 
-            httpClient.PUT("staff/update/" + staffId, formData, false, true, "formdata")
+            httpClient.PUT("staff/update", formData, false, true, "formdata")
                 .then(resp => {
                     console.log(resp)
                     if (resp.data.status) {
@@ -165,6 +166,7 @@ const StaffTable = (props) => {
         }
         catch (err) {
             console.log(err)
+            notify.error(err)
         }
     }
 
@@ -183,6 +185,8 @@ const StaffTable = (props) => {
             gender: "",
             image: "",
         })
+        props.history.replace('/dashboard/create-doctor', null);
+
     }
     const formik = useFormik({
         enableReinitialize: true,
@@ -270,7 +274,8 @@ const StaffTable = (props) => {
                                     : null}
                             </Form.Group>
                         </Col>
-                        <Col md={4}>
+                        
+                        {/* <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control type="email" name="email"
@@ -279,7 +284,7 @@ const StaffTable = (props) => {
                                     <div className="error-message">{formik.errors.email}</div>
                                     : null}
                             </Form.Group>
-                        </Col>
+                        </Col> */}
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Mobile Number</Form.Label>
@@ -291,20 +296,36 @@ const StaffTable = (props) => {
                             </Form.Group>
                         </Col>
 
+                        <Col md={4}>
+                            <Form.Group>
+                                <Form.Label>Local Bodies</Form.Label>
+                                <select class="form-select"  name="localBodies"
+                                    onChange={formik.handleChange} value={formik.values.localBodies} onBlur={formik.handleBlur} >
+                                    <option value="0">Metropolitan</option>
+                                    <option value="1">Sub Metropolitan</option>
+                                    <option value="2">Municipality</option>
+                                    <option value="3">VDC</option>
+
+                                </select>
+                            </Form.Group>
+                        </Col>
 
                     </Row>
 
                     <Row className="mb-3">
-                        <Col md={4}>
+                        {/* <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Local Bodies</Form.Label>
-                                <Form.Control type="text" name="localBodies"
-                                    onChange={formik.handleChange} value={formik.values.localBodies} onBlur={formik.handleBlur} />
-                                {formik.errors.localBodies && formik.touched.localBodies ?
-                                    <div className="error-message">{formik.errors.localBody}</div>
-                                    : null}
+                                <select class="form-select"  name="localBodies"
+                                    onChange={formik.handleChange} value={formik.values.localBodies} onBlur={formik.handleBlur} >
+                                    <option value="0">Metropolitan</option>
+                                    <option value="1">Sub Metropolitan</option>
+                                    <option value="2">Municipality</option>
+                                    <option value="3">VDC</option>
+
+                                </select>
                             </Form.Group>
-                        </Col>
+                        </Col> */}
 
                         <Col md={4}>
                             <Form.Group>
