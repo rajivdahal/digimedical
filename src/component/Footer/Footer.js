@@ -157,7 +157,7 @@ const Footer = () => {
                 <span>
                   Lalupate Marga, Putalisadak,
                   <br />
-                  Kathamdu, Nepal
+                  Kathmandu, Nepal
                 </span>
               </div>
               <div className="location">
@@ -169,7 +169,7 @@ const Footer = () => {
               </div>
               <div className="location">
                 <HiOutlineMail className="icon" />
-                <span>info@degimedical.com</span>
+                <span>info@digimedical.com</span>
               </div>
             </LeftContainer>
             <AboutContainer>
@@ -183,12 +183,12 @@ const Footer = () => {
             </AboutContainer>
             <ServiceContainer>
               <h4>Services</h4>
-              <a href="#">Doctor at home</a>
-              <a href="#">24/7 Nursing service at home</a>
-              <a href="#">Online medical consultation</a>
-              <a href="#">Lab test at home</a>
-              <a href="#">PCR at home</a>
-              <a href="#">UCG/ECG/ECHO at home</a>
+              <a >Doctor at home</a>
+              <a >24/7 Nursing service at home</a>
+              <a >Online medical consultation</a>
+              <a >Lab test at home</a>
+              <a >PCR at home</a>
+              <a >UCG/ECG/ECHO at home</a>
             </ServiceContainer>
 
             <RightContainer>

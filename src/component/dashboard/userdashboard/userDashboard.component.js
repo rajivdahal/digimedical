@@ -6,15 +6,16 @@ import { useEffect } from "react"
 import { httpClient } from "../../../utils/httpClient"
 import { notify } from "../../../services/notify"
 import { useState } from "react"
+import TimePicker from 'react-time-picker';
 const Userdashboard = (props) => {
   const [totalappointments, settotalappointments] = useState()
+  
   useEffect(() => {
     httpClient.GET("totoal-appointments-patients", false, true)
       .then(resp => {
         settotalappointments(resp.data.data.totalAppointments)
       })
       .catch(err => {
-
         notify.error("Total appointments-unable to fetch")
       })
   }, [])
@@ -273,7 +274,6 @@ const Userdashboard = (props) => {
 
 
           </div>
-
         </div>
 
 

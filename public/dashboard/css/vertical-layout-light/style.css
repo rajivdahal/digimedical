@@ -28499,14 +28499,14 @@ div.tagsinput span.tag a {
   -ms-transition: width 0.25s ease, background 0.25s ease;
   box-shadow: 2px 24px 13px -1px #104a8b3b;
   height: 100%;
-  padding-top: 4%;
+  padding-top: 0%;
 }
 
 .sidebar .nav {
   overflow: hidden;
   flex-wrap: nowrap;
   flex-direction: column;
-  margin-bottom: 60px;
+  margin-bottom: 320px;
 }
 
 .sidebar .nav .nav-item {

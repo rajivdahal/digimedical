@@ -9,6 +9,7 @@ import WhatisdoctorAtHomeService from "./whatIsdoctorAtHomeService/whatisdoctorA
 import FrequentlyAsked from "../FrequentlyAsked/FrequentlyAsked";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import { Link } from "react-router-dom";
 const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
@@ -101,7 +102,7 @@ const doctorAtHome = () => {
           <span className="arrow">
             <MdOutlineKeyboardArrowRight />
           </span>
-          <span className="service"> Service </span>
+         <Link to="/services"> <span className="service"> Service </span></Link>
           <span className="arrow">
             <MdOutlineKeyboardArrowRight />
           </span>

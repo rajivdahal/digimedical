@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { validateDoctor } from "./doctor.helper";
 import Avatar from "../../../../assets/avatars.png";
 import Select from 'react-select';
+import { Link } from "react-router-dom";
 
 const Createdoctor = (props) => {
 
@@ -409,7 +410,8 @@ const Createdoctor = (props) => {
                         <Col md={6}>
                             <Row className="mb-3">
                                 <Col md={11}>
-                                    <Form.Label>Service </Form.Label>
+                                   <Form.Label>Service </Form.Label>
+                                    
                                     <Select 
                                         value={formik.values.doctorServices}
                                         isMulti options={services} 

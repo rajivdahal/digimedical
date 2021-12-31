@@ -12,7 +12,7 @@ import { Checkoutpopup } from "./lab_popup";
 import { Cartpopup } from "./cart_pupup";
 import { cartpopupsignal } from "../../../../actions/cart.ac";
 import { notify } from "../../../../services/notify";
-
+import { httpClient } from "../../../../utils/httpClient";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 class userlabtestcomponent extends Component {
   constructor(props) {
@@ -72,43 +72,61 @@ class userlabtestcomponent extends Component {
       let { name, value, checked } = e.target;
       console.log(
         "checked is",
+        e.target.checked,
         category,
         checked,
         item,
         categoryindex,
         subcategoryindex
       );
-      let price = item.price;
-      let totalprice = 0;
-      category.subcategory.map((item, index) => {
-        totalprice = totalprice + parseInt(item.price);
-      });
-      if (checked) {
-        price = tempdata.totalamount + parseInt(price);
-        this.props.settemptotal(price);
-        this.props.resetcheckbox({
-          categoryindex: categoryindex,
-          subcategoryindex: subcategoryindex,
-          checked: true,
-        });
-      } else {
-        if (!tempdata.totalamount) {
-          price = totalprice - parseInt(price);
-          this.props.settemptotal(price);
-        } else {
-          console.log("tempdata.totalamount is????????", tempdata.totalamount);
-          price = parseInt(tempdata.totalamount) - parseInt(price);
-          this.props.settemptotal(price);
-        }
-        this.props.resetcheckbox({
-          categoryindex: categoryindex,
-          subcategoryindex: subcategoryindex,
-          checked: false,
-        });
+      if(e.target.checked){
+        httpClient.GET(`medical-institute/categoryId/${item.id}`,false,true)
+        .then(resp=>{
+          console.log("data after fetching data are",resp.data)
+        })
+        .catch(err=>{
+          console.log("some error occurred",err.response)
+        })
       }
+      
+      // let price = item.price;
+      // let totalprice = 0;
+      // category.subcategory.map((item, index) => {
+      //   totalprice = totalprice + parseInt(item.price);
+      // });
+      // if (checked) {
+      //   price = tempdata.totalamount + parseInt(price);
+      //   this.props.settemptotal(price);
+      //   this.props.resetcheckbox({
+      //     categoryindex: categoryindex,
+      //     subcategoryindex: subcategoryindex,
+      //     checked: true,
+      //   });
+      // } else {
+      //   if (!tempdata.totalamount) {
+      //     price = totalprice - parseInt(price);
+      //     this.props.settemptotal(price);
+      //   } else {
+      //     console.log("tempdata.totalamount is????????", tempdata.totalamount);
+      //     price = parseInt(tempdata.totalamount) - parseInt(price);
+      //     this.props.settemptotal(price);
+      //   }
+      //   this.props.resetcheckbox({
+      //     categoryindex: categoryindex,
+      //     subcategoryindex: subcategoryindex,
+      //     checked: false,
+      //   });
+      // }
     };
     const handleCheckout = () => {
       this.props.checkout(!checkoutsignal);
+      if(this.state.active){
+        this.setState(()=>{
+          return {
+            active:false
+          }
+        })
+      }
       console.log("checkout called");
     };
     const showcartpopup = (sign) => {
@@ -203,7 +221,7 @@ class userlabtestcomponent extends Component {
                                               subcategoryindex
                                             )
                                           }
-                                          checked={subcategory.checked}
+                                          
                                         />
                                         <label
                                           htmlFor={subcategory.categoryname}

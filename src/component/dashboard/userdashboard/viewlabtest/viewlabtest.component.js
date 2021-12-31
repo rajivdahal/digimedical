@@ -197,7 +197,6 @@ export default function Viewlabtest() {
                                         </tr>
                                     }):<p>No data found</p>
                                 }
-
                             </tbody>
                         </table>
                     </div> */}
