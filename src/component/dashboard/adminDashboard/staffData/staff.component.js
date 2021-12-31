@@ -141,7 +141,7 @@ const StaffTable = (props) => {
             formData.append("localBodies", values.localBodies);
             formData.append("wardNo", values.wardNo);
             formData.append("mobileNumber", values.mobileNumber);
-            formData.append("id" , staffId)
+            formData.append("id", staffId)
 
             httpClient.PUT("staff/update", formData, false, true, "formdata")
                 .then(resp => {
@@ -274,7 +274,7 @@ const StaffTable = (props) => {
                                     : null}
                             </Form.Group>
                         </Col>
-                        
+
                         {/* <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Email</Form.Label>
@@ -299,7 +299,7 @@ const StaffTable = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Local Bodies</Form.Label>
-                                <select class="form-select"  name="localBodies"
+                                <select class="form-select" name="localBodies"
                                     onChange={formik.handleChange} value={formik.values.localBodies} onBlur={formik.handleBlur} >
                                     <option value="0">Metropolitan</option>
                                     <option value="1">Sub Metropolitan</option>
@@ -378,34 +378,35 @@ const StaffTable = (props) => {
                     </Row>
 
 
-                    {loading == true ?
-                        <Cliploader isLoading={loading} />
-                        :
-                        <div>
-                            {staffId ?
-                                <div className="textAlign-right">
-                                    <Button variant="info" type="submit" >
-                                        Edit
-                                    </Button>
-                                    <Button variant="danger" type="button" style={{ marginLeft: '10px' }} onClick={handleCancelEdit}>
-                                        Cancel
-                                    </Button>
-                                </div>
+                    <div className="textAlign-right">
+                        {loading == true ?
+                            <Cliploader isLoading={loading} />
+                            :
+                            <div>
+                                {staffId ?
+                                    <div >
+                                        <Button variant="info" type="submit" >
+                                            Edit
+                                        </Button>
+                                        <Button variant="danger" type="button" style={{ marginLeft: '10px' }} onClick={handleCancelEdit}>
+                                            Cancel
+                                        </Button>
+                                    </div>
 
-                                :
-                                <div className="textAlign-right">
-                                    <Button variant="info" type="submit" >
-                                        Create
-                                    </Button>
-                                </div>
-                            }
-                        </div>
-                    }
-
+                                    :
+                                    <div >
+                                        <Button variant="info" type="submit" >
+                                            Create
+                                        </Button>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
                 </Form>
 
-            </Container>        
-            </div>
+            </Container>
+        </div>
     )
 }
 export default StaffTable

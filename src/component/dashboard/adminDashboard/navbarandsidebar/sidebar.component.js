@@ -43,13 +43,13 @@ const Adminsidebar = (props) => {
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#labtest" aria-expanded="false" aria-controls="labtest">
               <VaccinesRoundedIcon className="dash-icon"></VaccinesRoundedIcon>
-              <span className="menu-title">Lab Tests</span>
+              <span className="menu-title">View Lab Tests</span>
               <i className="menu-arrow"></i>
             </a>
             <div className="collapse" id="labtest">
               <ul className="nav flex-column sub-menu">
                 <Link to="/dashboard/labtest">
-                <li className="nav-item"> <a className="nav-link" href="">View Lab Test</a></li>
+                <li className="nav-item"> <a className="nav-link" href="">All Labtest</a></li>
                 </Link>
                 <Link to="/dashboard/booked-labtest">
                 <li className="nav-item"> <a className="nav-link" href="">Booked Labtest</a></li>
@@ -87,10 +87,10 @@ const Adminsidebar = (props) => {
             <div className="collapse" id="staffs">
               <ul className="nav flex-column sub-menu">
                 <Link to="/dashboard/staff-table">
-                <li className="nav-item"><a className="nav-link" href="">All Staff</a></li>
+                <li className="nav-item"><a className="nav-link" href="">All Staffs</a></li>
                 </Link>
                 <Link to="/dashboard/create-staff">
-                <li className="nav-item"><a className="nav-link" href="">Add Staff</a></li>
+                <li className="nav-item"><a className="nav-link" href="">Add Staffs</a></li>
                 </Link>
               </ul>
             </div>
