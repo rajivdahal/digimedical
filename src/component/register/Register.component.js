@@ -9,7 +9,7 @@ import Footer from '../Footer/Footer'
 
 const RegisterComponent = (props) => {
     const [isLoading, setisLoading] = useState(false)
-
+    const [ispassword, setispassword] = useState(true)
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -22,26 +22,30 @@ const RegisterComponent = (props) => {
         },
         validate: values => {
             let errors = {}
+
             if (!values.firstName) {
                 errors.firstName = "Firstname is required!"
             }
-            if(values.firstName.length < 2){
-                errors.firstName = "Firstname must not be of one word!"
-            }
+            
             if (!values.lastName) {
                 errors.lastName = "LastName is required!"
             }
-            if(values.lastName.length < 2){
-                errors.lastName = "Lastname must not be of one word!"
+            if (values.lastName.length < 2) {
+                errors.lastName = "Invalid Lastname!"
+            }
+            let decimalREGEX = /^\d*\.?\d*$/;
+
+            if(!decimalREGEX.test(values.mobileNumber)){
+                errors.mobileNumber = "Must be a number";
             }
             if (!values.mobileNumber) {
-                errors.mobileNumber = "MobileNumber  is required!"
+                errors.mobileNumber = "Mobile Number  is required!"
             }
 
-            if (("" + values.mobileNumber).length != 10) {
+            else if ((values.mobileNumber).length != 10) {
                 errors.mobileNumber = "Mobile Number must be of 10 digits!"
             }
-            if (("" + values.mobileNumber).includes('-')) {
+            else if (("" + values.mobileNumber).includes('-')) {
                 errors.mobileNumber = "Phone Number can't be Negative!"
             }
             if (!values.email) {
@@ -65,6 +69,9 @@ const RegisterComponent = (props) => {
             }
             if (values.confirmPassword != values.password) {
                 errors.confirmPassword = "Password doesn't match!"
+            }
+            if (values.firstName.length < 2) {
+                errors.firstName = "Invalid firstname!"
             }
             return errors
         },
@@ -90,6 +97,10 @@ const RegisterComponent = (props) => {
                 })
         }
     })
+    const vieworhidepassword=()=>{
+        setispassword(!ispassword)
+    }
+    
     return (
         <>
             <Navbar></Navbar>
@@ -100,8 +111,8 @@ const RegisterComponent = (props) => {
                             <div className="banner">
                                 <h2>Dont wait to SignUp today</h2>
                                 <ul className="page-title-link">
-                                    <li><a href="home.html">Home</a></li>
-                                    <li><a href="">Register</a></li>
+                                    <li><a >Home</a></li>
+                                    <li><a >Register</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -124,23 +135,23 @@ const RegisterComponent = (props) => {
                                 <div className="row">
                                     <div className="col-md-4">
                                         <div className="form-group select-label">
-                                            <label>First Name </label>
-                                            <input type="text" className="form-control form-input" placeholder="First Name" id="firstName" name="firstName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <label>First Name<span style={{color:'red'}}>*</span> </label>
+                                            <input type="text" className="form-control " placeholder="First Name" id="firstName" name="firstName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.firstName && formik.touched.firstName ? <div style={{ color: "red" }} className="errmsg">{formik.errors.firstName}</div> : null}
                                         </div>
                                     </div>
                                     <div className="col-md-4">
                                         <div className="form-group select-label">
                                             <label>Middle Name </label>
-                                            <input type="text" className="form-control form-input" placeholder="Middle Name" id="middleName" name="middleName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <input type="text" className="form-control " placeholder="Middle Name" id="middleName" name="middleName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.middleName && formik.touched.middleName ? <div style={{ color: "red" }} className="errmsg">{formik.errors.middleName}</div> : null}
 
                                         </div>
                                     </div>
                                     <div className="col-md-4">
                                         <div className="form-group select-label">
-                                            <label>Last Name </label>
-                                            <input type="text" className="form-control form-input" placeholder="Last Name" id="lastName" name="lastName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <label>Last Name<span style={{color:'red'}}>*</span> </label>
+                                            <input type="text" className="form-control " placeholder="Last Name" id="lastName" name="lastName" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.lastName && formik.touched.lastName ? <div style={{ color: "red" }} className="errmsg">{formik.errors.lastName}</div> : null}
 
 
@@ -148,15 +159,15 @@ const RegisterComponent = (props) => {
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
-                                            <label>Phone </label>
-                                            <input type="number" className="form-control form-input" placeholder="" id="mobileNumber" name="mobileNumber" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <label>Phone<span style={{color:'red'}}>*</span> </label>
+                                            <input type="text" className="form-control " placeholder="" id="mobileNumber" name="mobileNumber" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.mobileNumber && formik.touched.mobileNumber ? <div style={{ color: "red" }} className="errmsg">{formik.errors.mobileNumber}</div> : null}
                                         </div>
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
-                                            <label>Email address </label>
-                                            <input type="email" className="form-control form-input" placeholder="" id="email" name="email" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <label>Email address<span style={{color:'red'}}>*</span> </label>
+                                            <input type="email" className="form-control " placeholder="" id="email" name="email" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.email && formik.touched.email ? <div style={{ color: "red" }} className="errmsg">{formik.errors.email}</div> : null}
 
 
@@ -164,16 +175,16 @@ const RegisterComponent = (props) => {
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
-                                            <label>Password </label>
-                                            <input type="password" className="form-control form-input" placeholder="" id="password" name="password" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <label>Password<span style={{color:'red'}}>*</span> </label>
+                                            <input type="password" className="form-control " placeholder="" id="password" name="password" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.password && formik.touched.password ? <div style={{ color: "red" }} className="errmsg">{formik.errors.password}</div> : null}
 
                                         </div>
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
-                                            <label>Confirm Password </label>
-                                            <input type="password" className="form-control form-input" placeholder="" id="confirmPassword" name="confirmPassword" onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                            <label>Confirm Password<span style={{color:'red'}}>*</span> </label>
+                                            <input type="password" className="form-control " placeholder="" id="confirmPassword" name="confirmPassword" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                             {formik.errors.confirmPassword && formik.touched.confirmPassword ? <div style={{ color: "red" }} className="errmsg">{formik.errors.confirmPassword}</div> : null}
                                         </div>
                                     </div>

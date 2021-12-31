@@ -7,12 +7,18 @@ import WhyChooseUs from "../home/WhyChooseUs/WhyChooseUs";
 import OurServices from "../home/About/OurServices";
 import WhatisdoctorAtHomeService from "./whatIsdoctorAtHomeService/whatisdoctorAtHomeService";
 import FrequentlyAsked from "../FrequentlyAsked/FrequentlyAsked";
-
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
+import { Link } from "react-router-dom";
 const Root = styled.div`
-  //   height: 25rem;
   padding-left: 9rem;
   padding-right: 9rem;
   padding-top: 1.5rem;
+  @media screen and (max-width: 650px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+  }
 `;
 
 const Navigate = styled.div`
@@ -68,6 +74,10 @@ const Heading = styled.div`
   align-items: center;
   letter-spacing: 0.03em;
   color: #192638;
+  @media screen and (max-width: 650px) {
+    font-size: 35px;
+    margin-top: 0px;
+  }
 `;
 
 const FormContainor = styled.div`
@@ -78,6 +88,7 @@ const FormContainor = styled.div`
 const doctorAtHome = () => {
   return (
     <>
+      <Navbar />
       <Root
         style={{
           backgroundImage: `url(${doctorAtHomewall})`,
@@ -91,7 +102,7 @@ const doctorAtHome = () => {
           <span className="arrow">
             <MdOutlineKeyboardArrowRight />
           </span>
-          <span className="service"> Service </span>
+         <Link to="/services"> <span className="service"> Service </span></Link>
           <span className="arrow">
             <MdOutlineKeyboardArrowRight />
           </span>
@@ -106,6 +117,7 @@ const doctorAtHome = () => {
       <WhyChooseUs />
       <FrequentlyAsked />
       <OurServices />
+      <Footer />
     </>
   );
 };

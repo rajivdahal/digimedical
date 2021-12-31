@@ -13,6 +13,9 @@ export default function Usersidebar(props) {
     const navigateMedicalreports = () => {
         props.props.push("/dashboard/medical-reports")
     }
+    // const navigateLabtest=()=>{
+    //     props.props.push("/dashboard/lab-test")
+    // }
     return (
         <div >
             <nav className="sidebar sidebar-offcanvas" id="sidebar">
@@ -21,7 +24,7 @@ export default function Usersidebar(props) {
                     <li className="nav-item" onClick={navigateDashboard} style={{ cursor: "pointer" }}>
                         <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
                             <i className="fas fa-bars menu-icon"></i>
-                            <span className="menu-title">dashboard</span>
+                            <span className="menu-title">Dashboard</span>
                         </a>
                     </li>
 
@@ -52,15 +55,6 @@ export default function Usersidebar(props) {
                             </ul>
                         </div>
                     </li>
-                    {/* <Link to="/dashboard/doctors">
-                        <li className="nav-item">
-                            <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
-                                <i className="fas fa-user-md  menu-icon"></i>
-                                <span className="menu-title" >Doctors</span>
-                            </a>
-                        </li>
-                    </Link> */}
-
                     <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                             <i className="fas fa-money-check-alt menu-icon"></i>
@@ -81,25 +75,42 @@ export default function Usersidebar(props) {
                             </ul>
                         </div>
                     </li>
-
-                    <li className="nav-item" onClick={navigateLabreport}>
-                        <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
-                            <i className="fas fa-pager menu-icon"></i>
-                            <span className="menu-title">Lab reports</span>
-
-                        </a>
-
-                    </li>
+                    
 
 
-                    <li className="nav-item" onClick={navigateMedicalreports}>
-                        <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
-                            <i className="fas fa-file-medical menu-icon"></i>
+                    <li className="nav-item">
+                        <a className="nav-link" data-toggle="collapse" href="#medicalreports" aria-expanded="false" aria-controls="medicalreports">
+                        <i className="fas fa-file-medical menu-icon"></i>
                             <span className="menu-title">Medical Reports</span>
+                            <i className="menu-arrow"></i>
                         </a>
+                        <div className="collapse" id="medicalreports">
+                            <ul className="nav flex-column sub-menu">
+                                <Link to="/dashboard/lab-reports">
+                                    <li className="nav-item"> <a className="nav-link" href="">Lab Reports</a></li>
+                                </Link>
+                            </ul>
+                        </div>
                     </li>
-
-
+                    <li className="nav-item">
+                        <a className="nav-link" data-toggle="collapse" href="#labreports" aria-expanded="false" aria-controls="labreports">
+                        <i className="fas fa-file-medical menu-icon"></i>
+                            <span className="menu-title">Lab Tests</span>
+                            <i className="menu-arrow"></i>
+                        </a>
+                        <div className="collapse" id="labreports">
+                            <ul className="nav flex-column sub-menu">
+                                <Link to="/dashboard/lab-test">
+                                    <li className="nav-item"> <a className="nav-link" href="">Book Lab Tests</a></li>
+                                </Link>
+                            </ul>
+                            <ul className="nav flex-column sub-menu">
+                                <Link to="/dashboard/view-lab-test">
+                                    <li className="nav-item"> <a className="nav-link" href="">Booked Lab tests</a></li>
+                                </Link>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </nav>
         </div>

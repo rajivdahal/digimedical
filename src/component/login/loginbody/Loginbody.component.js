@@ -6,6 +6,7 @@ import { httpClient } from "../../../utils/httpClient"
 import { Link } from "react-router-dom"
 import { notify } from "../../../services/notify"
 import Submitbtn from "../../common/Submitbtn/Submitbtn.component"
+import CalendarViewWeekOutlinedIcon from '@mui/icons-material/CalendarViewWeekOutlined';
 import { useState } from "react"
 import "./Loginbody.component.css"
 const Loginbodycomponent = (props) => {
@@ -14,6 +15,7 @@ const Loginbodycomponent = (props) => {
     const externaluseremail=props.history.location.email?props.history.location.email:null
     const [isLoading, setisLoading] = useState(false)
     const [errMsg, seterrMsg] = useState('')
+    const [ispassword,setispassword]=useState(true)
     useEffect(() => {
         const timeoutMsg = props.timeoutMsg
         console.log(timeoutMsg)
@@ -74,9 +76,9 @@ const Loginbodycomponent = (props) => {
         },
     })
 
-
-
-
+const vieworhidepassword=()=>{
+    setispassword(!ispassword)
+}
 
     // render() {
     const alert = props.usernameinfo ? props.usernameinfo : "not found"
@@ -108,7 +110,10 @@ const Loginbodycomponent = (props) => {
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
                                             <label>{fromexternaluser?"OTP":"Password"} </label>
-                                            <input type="password" className="form-control form-input" placeholder="Enter Password" id="password" {...formik.getFieldProps("password")} />
+                                            <input type={ispassword?"password":"text"} className="form-control form-input" placeholder="Enter Password" id="password" {...formik.getFieldProps("password")} />
+                                            {
+                                                ispassword?<i class="fas fa-eye eye-to-see-password" onClick={vieworhidepassword}></i>: <i class="fas fa-eye-slash eye-to-see-password" onClick={vieworhidepassword}></i>
+                                            }
                                             {formik.errors.password && formik.touched.password ? <div style={{ color: "red" }} className="errmsg">{formik.errors.password}  </div> : null}
                                             {errMsg ? <div style={{ color: "red" }} className="errmsg">{errMsg}  </div> : null}
                                         </div>
@@ -125,7 +130,6 @@ const Loginbodycomponent = (props) => {
                                         <Link to="/register">
 
                                             <button className="btn register-btn br/-0 mt-0">
-
                                                 Register new
                                             </button>
 

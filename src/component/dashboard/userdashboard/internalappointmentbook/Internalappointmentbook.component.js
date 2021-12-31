@@ -6,6 +6,9 @@ import { useFormik } from "formik";
 import { notify } from '../../../../services/notify';
 import { formatDate } from '../../../../services/timeanddate';
 import { Todaydate } from '../../../../services/todaydate';
+import Clear from "@material-ui/icons/Clear";
+import TimePicker from 'react-time-picker';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default function Internalappointmentbook(prop) {
     const editdata = prop.location.data ? prop.location.data : null
     const [appointmentsuccess, setappointmentsuccess] = useState(null)
@@ -15,6 +18,16 @@ export default function Internalappointmentbook(prop) {
     const [doctorname, setdoctorname] = useState(null)
     const [service, setservicename] = useState(null)
     const [toeditdata, settoeditdata] = useState(editdata)
+    const [isdoctorblurred, setisdoctorblurred] = useState(false);
+    const [value, onChange] = useState('12:00');
+ 
+    const [doctorfetched, setdoctorfetched] = useState({
+        image: null,
+        prefix: null,
+        name: null,
+        specialist: null,
+        description: null,
+    });
     if (toeditdata) {
         toeditdata['serviceId'] = toeditdata['servicesId']
     }
@@ -138,6 +151,39 @@ export default function Internalappointmentbook(prop) {
 
 
     }
+    const getdoctorinfo = (e) => {
+        let doctorid = e.target.value;
+        if (!doctorid) {
+            return setisdoctorblurred(false);
+        }
+        console.log(doctorid);
+        let image = BASE_URL + "doctor/download/" + doctorid;
+        httpClient
+            .GET(`doctor/public-info/${doctorid}`)
+            .then((resp) => {
+                const { prefix, name, specialist, description } = resp.data.data;
+                setdoctorfetched({
+                    image: image,
+                    prefix: prefix,
+                    name: name,
+                    specialist: specialist,
+                    description: description,
+                });
+                setisdoctorblurred(true);
+                console.log(resp.data.data);
+            })
+            .catch((err) => {
+                notify.error("something went wrong");
+            });
+
+        // console.log("values are", e.target.value)
+    };
+    if(value){
+        formik.values.appointmentTime=value
+    }
+    const clearpopup = () => {
+        setisdoctorblurred(false);
+    };
     let formcontent = toeditdata ?
         <div>
             <div className="form-row">
@@ -231,6 +277,7 @@ export default function Internalappointmentbook(prop) {
                     <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{ color: "black" }}
                         onChange={(e) => {
                             formik.handleChange(e)
+                            getdoctorinfo(e);
                         }}
                     >
                         <option value={null}></option>
@@ -264,16 +311,17 @@ export default function Internalappointmentbook(prop) {
 
                 <div className="form-group col-md-12">
                     <label htmlFor="time">Time</label>
-                    <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formik.getFieldProps("appointmentTime")}
-                        onChange={(e) => {
-                            formik.handleChange(e)
-
-                        }}
-                    ></input>
+                    <div>
+                        <TimePicker
+                            onChange={onChange}
+                            value={value}
+                            required
+                            className="time-picker"
+                        />
+                    </div>
                     {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
                 </div>
             </div>
-
         </div>
     return (
         <>
@@ -309,6 +357,22 @@ export default function Internalappointmentbook(prop) {
                         We value your privacy. Your details are safe with us.
                     </div>
                 </form>
+                {isdoctorblurred ? (
+                    <div class="docs">
+                        <div class="doc bubbble">
+                            <Clear className="clear-icon" onClick={clearpopup}></Clear>
+                            <div class="imag1">
+                                <img src={doctorfetched.image} />
+                            </div>
+                            <div class="description">
+                                <p id="doc_name">Dr. {doctorfetched.name}</p>
+                                <p id="doc_skill">{doctorfetched.specialist}</p>
+                                <p id="doc_edu">{doctorfetched.prefix}</p>
+                                <p id="doc_exp">{doctorfetched.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                ) : null}
                 <img src="/images/dashboard/bookappointment/bookanappointment.png" alt="image.png" className="bookappimage"></img>
             </div>
         </>

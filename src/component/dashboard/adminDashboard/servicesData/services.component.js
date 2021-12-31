@@ -244,7 +244,7 @@ const Createservices = (props) => {
                     <Modal.Header >
                         <Modal.Title><b>Service Status</b></Modal.Title>
                     </Modal.Header>
-                    <Modal.Body >Do you really want to deactivate this service ?</Modal.Body>
+                    <Modal.Body >Do you really want to change this service status ?</Modal.Body>
                     <Modal.Footer>
                         {loading == true ?
                             <ClipLoader isLoading={loading} />
@@ -263,6 +263,7 @@ const Createservices = (props) => {
 
                 <MaterialTable
                     columns={[
+                        {title : "ID" , field : "id"},
                         { title: 'Service Name', field: 'serviceName', },
                         { title: 'Service Description', field: 'serviceDescription', sorting: false },
                         {

@@ -6,6 +6,14 @@ const Root = styled.div`
   padding-right: 9rem;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  @media screen and (max-width: 800px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  @media screen and (max-width: 650px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 `;
 const ContentContainor = styled.div``;
 const Heading = styled.div`

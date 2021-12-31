@@ -2,7 +2,11 @@ import { notify } from "./../../../services/notify"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { httpClient } from "../../../utils/httpClient"
+import Avatar from "../../../assets/avatars.png"
 import "./dashboardnavbar.component.css"
+import { Image } from "react-bootstrap"
+const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+
 export const Dashboardnavbar = (props) => {
   const [userImage,setImage]=useState("")
   let [username, setusername] = useState("")
@@ -39,7 +43,7 @@ export const Dashboardnavbar = (props) => {
     
     httpClient.GET("user-profile",false,true)
     .then(resp=>{
-      let url = "http://103.90.86.77:8082/api/download/" + id;
+      let url = REACT_APP_BASE_URL+"download/" + id;
       setImage(url)
 
       const name=resp.data.data.profileInfo.name
@@ -114,7 +118,7 @@ export const Dashboardnavbar = (props) => {
             </li>
             <li className="nav-item nav-profile dropdown">
               <a className="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src={userImage}alt="profile" />
+                <Image src={userImage} alt=""/>
               </a>
               <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                 

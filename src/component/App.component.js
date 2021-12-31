@@ -7,7 +7,7 @@ export const App = (args) => {
     return (
         <>
             <Provider store={store}>
-            <Toaster  position="bottom-right"/>
+                <Toaster position="bottom-right" />
                 <Approuting></Approuting>
             </Provider>
         </>

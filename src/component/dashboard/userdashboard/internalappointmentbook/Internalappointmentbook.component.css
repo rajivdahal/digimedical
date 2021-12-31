@@ -33,3 +33,33 @@
     margin-left: 100px;
     margin-top: 100px;
 }
+.bubbble {
+    position: relative;
+    background: white;
+    padding: 20px;
+    color: black;
+    border-radius: 5px;
+    margin-left: 20px;
+    left: -80%;
+    top: 180%;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+.bubble::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -24px;
+    top: 180%;
+
+    width: 100px;
+    height: 100px;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border: 25px solid white;
+    /* box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%); */
+}
+.time-picker{
+    height: 40px;
+    width: 100%;
+    
+}

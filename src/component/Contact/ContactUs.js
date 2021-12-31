@@ -14,6 +14,10 @@ const Root = styled.div`
 const Content = styled.div`
   padding-top: 9rem;
   padding-left: 9rem;
+  @media screen and (max-width: 650px) {
+    padding-top: 8rem;
+    padding-left: 2rem;
+  }
 `;
 const Heading = styled.div`
   width: 30%;
@@ -25,6 +29,12 @@ const Heading = styled.div`
   align-items: center;
   letter-spacing: 0.03em;
   color: #192638;
+  @media screen and (max-width: 964px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 650px) {
+    font-size: 35px;
+  }
 `;
 
 const Subheading = styled.div`
@@ -38,6 +48,18 @@ const Subheading = styled.div`
   align-items: left;
   color: #596579;
   letter-spacing: 0.03em;
+  @media screen and (max-width: 1231px) {
+    width: 25%;
+  }
+  @media screen and (max-width: 1145px) {
+    width: 27%;
+  }
+  @media screen and (max-width: 1077px) {
+    width: 30%;
+  }
+  @media screen and (max-width: 460px) {
+    width: 40%;
+  }
 `;
 
 const BottomSection = styled.div`
@@ -48,6 +70,11 @@ const BottomSection = styled.div`
   justify-content: center;
   align-items: center;
   gap: 3rem;
+  @media screen and (max-width: 999px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Card = styled.div`
@@ -59,6 +86,9 @@ const Card = styled.div`
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
+  @media screen and (max-width: 999px) {
+    width: 20rem;
+  }
 `;
 
 const Top = styled.div`
@@ -89,7 +119,7 @@ const Description = styled.div`
 `;
 
 const ContactUs = (props) => {
-  console.log("props in contact us",props)
+  console.log("props in contact us", props);
   return (
     <div>
       <Navbar></Navbar>

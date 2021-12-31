@@ -27,34 +27,25 @@ const Labtest = (props) => {
         price: "",
     })
 
-    const disablePastDate = () => {
-        const today = new Date();
-        const dd = String(today.getDate() + 1).padStart(2, "0");
-        const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-        const yyyy = today.getFullYear();
-        return yyyy + "-" + mm + "-" + dd;
-    };
-
     const handleClose = () => setShowModal(false)
 
 
     const getLabtestData = async () => {
         await httpClient.GET("lab-test/get-all", false, true)
- 
-            .then(resp => {
-                resp.data.data.forEach((item)=>{
-                    let splitDesc = item.description.split(" ");
-                    if(splitDesc.length < 10){
-                        item.description = item.description
-                    }else{
-                        let sliceDesc = splitDesc.slice(0 , 10);
-                        let joinDesc = sliceDesc.join(" ")+" ...";
-                        item.description = joinDesc;
-                    }  
 
-                    item.price ="Rs."+item.price;
+            .then(resp => {
+                resp.data.data.forEach((item) => {
+                    let splitDesc = item.description.split(" ");
+                    if (splitDesc.length < 10) {
+                        item.description = item.description
+                    } else {
+                        let sliceDesc = splitDesc.slice(0, 10);
+                        let joinDesc = sliceDesc.join(" ") + " ...";
+                        item.description = joinDesc;
+                    }
+
+                    item.priceString = "Rs." + item.price;
                 })
-                console.log(resp)
 
                 if (resp.data.status) {
                     let result = resp.data.data;
@@ -90,23 +81,17 @@ const Labtest = (props) => {
             if (!values.description) {
                 errors.description = 'Required!'
             }
-            if (!values.date) {
-                errors.date = 'Required!'
+            // let decimalREGEX = /^\d*\.?\d*$/;
 
-            }
-
-
-            let decimalREGEX = /^\d*\.?\d*$/;
-
-            if(!decimalREGEX.test(values.price)){
-                errors.price = "Must be a number";
-            }
-            if (!values.price) {
-                errors.price = "Required!"
-            }
-            if (values.price < 0) {
-                errors.price = "Must be positive!"
-            }
+            // if (!decimalREGEX.test(values.price)) {
+            //     errors.price = "Must be a number";
+            // }
+            // if (!values.price) {
+            //     errors.price = "Required!"
+            // }
+            // if (values.price < 0) {
+            //     errors.price = "Must be positive!"
+            // }
             return errors;
         },
 
@@ -129,6 +114,8 @@ const Labtest = (props) => {
     }
 
     const createLabtest = (values) => {
+        try {
+         
         setIsLoading(true)
 
         let formData = new FormData();
@@ -154,8 +141,13 @@ const Labtest = (props) => {
             .catch(err => {
                 console.log(err.response)
                 setIsLoading(false)
+                notify.error(err.response.data.message || "Something went wrong")
 
             })
+        }
+        catch(err){
+            console.log(err)
+        }
     }
 
     const handleStatusModal = (e, data) => {
@@ -190,7 +182,7 @@ const Labtest = (props) => {
     }
 
     const setLabtestData = (e, data) => {
-        let  id = data.id;
+        let id = data.id;
         setlabtestStatusId(id)
         console.log(data);
         if (data) {
@@ -218,7 +210,7 @@ const Labtest = (props) => {
         formData.append('price', values.price);
         formData.append('id', labtestStatusId)
         console.log(values.date);
-        
+
         httpClient.PUT("lab-test/update", formData, false, true, "formdata")
             .then(resp => {
                 // console.log(resp)
@@ -235,7 +227,9 @@ const Labtest = (props) => {
                         price: "",
                     })
                     setImage("");
-                    setImgName("")
+                    setImgName("");
+                    setlabtestStatusId(null);
+
                 }
             })
             .catch(err => {
@@ -259,6 +253,7 @@ const Labtest = (props) => {
     }
     return (
         <div>
+
             <Container>
                 <Form onSubmit={formik.handleSubmit}>
                     <Row className="mb-3">
@@ -285,17 +280,17 @@ const Labtest = (props) => {
                     </Row>
 
                     <Row className="mb-3">
-                        <Col md={6}>
+                        {/* <Col md={6}>
                             <Form.Group>
                                 <Form.Label>Date</Form.Label>
-                                <Form.Control type="date" name="date" onChange={formik.handleChange} min={disablePastDate()}
+                                <Form.Control type="date" name="date" onChange={formik.handleChange}
                                     value={formik.values.date} onBlur={formik.handleBlur} />
                                 {formik.errors.date && formik.touched.date ?
                                     <div className="error-message">{formik.errors.date}</div>
                                     : null}
                             </Form.Group>
-                        </Col>
-                        <Col md={6}>
+                        </Col> */}
+                        {/* <Col md={6}>
                             <Form.Group >
                                 <Form.Label>Price</Form.Label>
                                 <Form.Control type="text" name="price" onChange={formik.handleChange}
@@ -304,13 +299,13 @@ const Labtest = (props) => {
                                     <div className="error-message">{formik.errors.price}</div>
                                     : null}
                             </Form.Group>
-                        </Col>
+                        </Col> */}
                     </Row>
 
                     <Row>
                         <Col md={4}>
                             <Form.Label>Choose Photo :  </Form.Label><br></br>
-                            <Button variant="info" onClick={handleAddImage}>Choose Photo</Button>
+                            <Button variant="info" onClick={handleAddImage}>Browse</Button>
                             <input onChange={(e) => handleChangeImage(e)} type="file" name="image" style={{ display: "none" }} ref={imageSelectRef}  ></input>
                         </Col>
 
@@ -360,7 +355,7 @@ const Labtest = (props) => {
                     <Modal.Header >
                         <Modal.Title><b>Change Labtest Status</b></Modal.Title>
                     </Modal.Header>
-                    <Modal.Body >Do you really want to deactivate this labtest ?</Modal.Body>
+                    <Modal.Body >Do you really want to change this labtest status ?</Modal.Body>
                     <Modal.Footer>
                         {isLoading == true ?
                             <Cliploader isLoading={isLoading} />
@@ -385,8 +380,7 @@ const Labtest = (props) => {
                         { title: "ID", field: "id" },
                         { title: 'Name', field: 'name' },
                         { title: 'Description', field: 'description' },
-                        { title: 'Price', field: 'price' },
-                        { title: 'Issue Date', field: 'issueDate' },
+                        { title: 'Price', field: 'priceString' },
                         {
                             title: 'Status', field: 'status',
                             render: rowData => rowData.status == true ?

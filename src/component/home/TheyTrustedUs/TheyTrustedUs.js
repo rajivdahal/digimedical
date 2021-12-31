@@ -11,6 +11,10 @@ const Root = styled.div`
   align-items: center;
   padding-top: 5rem;
   padding-bottom: 5rem;
+  @media screen and (max-width: 650px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
   span {
     font-size: 0.9rem;
     line-height: 30px;
@@ -31,8 +35,7 @@ const Root = styled.div`
 `;
 const Featured = styled.div`
   padding-top: 3rem;
-  // display: flex;
-  //   justify-content:;
+
   .email-img {
     height: 6rem;
   }
@@ -44,6 +47,14 @@ const Featured = styled.div`
     border: 1px solid #d0d7e2;
     box-sizing: border-box;
     border-radius: 5px;
+    @media screen and (max-width: 1077px) {
+      margin-top: 1rem;
+    }
+    @media screen and (max-width: 650px) {
+      width: 100%;
+      margin-left: 0rem;
+      margin-right: 0rem;
+    }
   }
   .image-name-div {
     display: flex;
@@ -72,6 +83,11 @@ const Featured = styled.div`
 `;
 const Item = styled.div`
   display: flex;
+  @media screen and (max-width: 1077px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const TheyTrustedUs = () => {
   const items = [

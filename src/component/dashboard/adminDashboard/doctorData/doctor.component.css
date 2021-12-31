@@ -1,19 +1,19 @@
 
 .service{
-    background-color: rgb(90, 152, 233);
+    /* background-color: rgb(90, 152, 233); */
     /* background-color: '#2745F0'; */
-    color: white;
-    padding: 10px;
+    color: #2745F0;
+    /* padding: 10px; */
     margin: 5px 5px;
     float: left;
     border-radius: 5px;
 }
-.service:hover {
+/* .service:hover {
     background-color: rgb(240, 99, 64);
     cursor: pointer;
-}
+} */
 .image{
-    max-height: 100px;
+    max-height: 60%;
 }
 
 .submit-button{

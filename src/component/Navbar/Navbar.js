@@ -10,9 +10,15 @@ import login from "../../assets/login.png";
 import user from "../../assets/user.png";
 import NavbarMenuItems from "./NavbarMenuItems";
 import { Link } from "react-router-dom";
-
+import { useEffect } from "react";
+import { useState } from "react";
+import { notify } from "../../services/notify";
+import { useHistory } from "react-router-dom";
 const Root = styled.div``;
 const Heading = styled.div`
+  @media screen and (max-width: 1077px) {
+    display: none;
+  }
   //   padding: 18px 197.53px 18px 197.53px;
   padding-left: 140px;
   padding-top: 14px;
@@ -76,7 +82,42 @@ const Heading = styled.div`
   }
 `;
 const NavbarContainer = styled.div``;
-const Navbar = () => {
+
+const Navbar = (props) => {
+  let history = useHistory();
+  console.log("props are",props)
+  let [isuserloggedin, setisuserloggedin] = useState(null)
+  const [logoutstate, setlogoutstate] = useState({
+    logout: false,
+  })
+  const logoutyes = () => {
+    
+    localStorage.removeItem("dm-access_token")
+    localStorage.removeItem("timeout")
+    localStorage.removeItem("dm-refresh_token")
+    history.push('/login')
+    notify.success("Logout success! Please Login again")
+  }
+  const logoutno = () => {
+    setlogoutstate({
+      logoutno: true
+    })
+  }
+  useEffect(() => {
+    const isuserlogged = localStorage.getItem("dm-access_token")
+    if (isuserlogged) {
+      setisuserloggedin(isuserlogged)
+    }
+  })
+  const handlelogout=()=>{
+
+  }
+  const Logout = (e) => {
+    setlogoutstate({
+      logout: true
+    })
+  }
+
   return (
     <Root>
       <Heading>
@@ -94,7 +135,7 @@ const Navbar = () => {
               className="email-img"
               style={{ height: "10px" }}
             ></img>
-            <span style={{ marginLeft: "0.563rem" }}>info@degimedical.com</span>
+            <span style={{ marginLeft: "0.563rem" }}>info@digimedical.com</span>
           </div>
           <div className="emergencyService-div">Emergency service 24/7</div>
         </div>
@@ -112,34 +153,80 @@ const Navbar = () => {
             src={line}
             style={{ width: "1.8px", height: "2rem", marginLeft: "1rem" }}
           ></img>
-          <Link to="/login">
-            <div>
-              {" "}
-              <img
-                src={login}
-                style={{
-                  height: "13px",
-                  marginLeft: "1rem",
-                  marginRight: "0.5rem",
-                }}
-              ></img>
-              Login
-            </div>
-          </Link>
-          <Link to="/register">
-            <div>
-              {" "}
-              <img
-                src={user}
-                style={{
-                  height: "13px",
-                  marginLeft: "1rem",
-                  marginRight: "0.5rem",
-                }}
-              ></img>
-              Sign up{" "}
-            </div>
-          </Link>
+          {
+            isuserloggedin ?
+              <>
+                <Link to="/dashboard">
+                  <div>
+                    {" "}
+                    <img
+                      src={user}
+                      style={{
+                        height: "13px",
+                        marginLeft: "1rem",
+                        marginRight: "0.5rem",
+                      }}
+                    ></img>
+                    Dashboard
+                  </div>
+                </Link>
+                <div style={{color:"blue",cursor:"pointer"}} onClick={Logout}>
+                  {" "}
+                  <img
+                    src={login}
+                    style={{
+                      height: "13px",
+                      marginLeft: "1rem",
+                      marginRight: "0.5rem",
+                    }}
+                  ></img>
+                  Logout
+                </div>
+              </> :
+              <>
+                <Link to="/login">
+                  <div>
+                    {" "}
+                    <img
+                      src={login}
+                      style={{
+                        height: "13px",
+                        marginLeft: "1rem",
+                        marginRight: "0.5rem",
+                      }}
+                    ></img>
+                    Login
+                  </div>
+                </Link>
+                <Link to="/register">
+                  <div>
+                    {" "}
+                    <img
+                      src={user}
+                      style={{
+                        height: "13px",
+                        marginLeft: "1rem",
+                        marginRight: "0.5rem",
+                      }}
+                    ></img>
+                    Sign up{" "}
+                  </div>
+                </Link>
+              </>
+          }
+ {
+              logoutstate.logout ? <div className="logout-container">
+                <div className="logout">
+                  <p>Are you sure you want to Logout?</p>
+                  <div className="buttons">
+                    <button className="yes-logout" onClick={logoutyes}>Yes</button>
+                    <button className="no-logout" onClick={logoutno}>No</button>
+                  </div>
+                </div>
+              </div>
+                :
+                null
+            }
         </div>
       </Heading>
       <NavbarMenuItems />

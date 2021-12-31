@@ -8,7 +8,20 @@ const initialState = {
         username:'',
         email:'',
         isuserloginloading:false
+    },
+    cart:{
+        allabtest:[],
+        cartitems:[],
+        cartnumber:null,
+        cartvalue:parseInt(localStorage.getItem("cartvalue"))||0,
+
+        tempdata:{
+            totalamount:0
+        },
+        addtocartsignal:true,
+        checkoutsignal:false,
+        removeproductsign:true,
+        cartpopupsign:false
     }
 }
-
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))

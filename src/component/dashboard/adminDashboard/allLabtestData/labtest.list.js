@@ -64,11 +64,11 @@ const LabTestDetail = (props) => {
                         title={title}
                         icons={Tableicons}
                         columns={[
+                            { title: 'Appointment ID', field: 'appointmentid' },
                             { title: 'Patient Name', field: 'patientsname' },
                             { title: 'Doctor Name', field: 'name' },
                             { title: 'Labtest', field: 'labtestname' },
                             { title: 'Price', field: 'price' },
-                            { title: 'Appointment ID', field: 'appointmentid' },
 
                         ]}
                         data={labtestDetail}

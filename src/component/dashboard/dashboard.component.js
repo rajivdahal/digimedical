@@ -21,8 +21,12 @@ import Appointment from "./adminDashboard/appointmentPage/appointment.component"
 import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component"
 import Prescribe from "./doctordashboard/prescribe/prescribe.component"
 import Labtest from "./adminDashboard/labtestData/labtest.component"
+import LabtestSubcategory from "./adminDashboard/labtestData/labtest.subcategory"
 import UserProfile from "./userdashboard/settings/profileupdate.component"
 import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list"
+import { Userlabtest } from "./userdashboard/labtest/userlabtest.component"
+import Viewlabtest from "./userdashboard/viewlabtest/viewlabtest.component"
+
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -49,7 +53,13 @@ const Dashboard = (props) => {
                           <ProtectedRoute component={Internalappointmentbook}></ProtectedRoute> :
                           props.location.pathname === "/dashboard/settings/change-password" ?
                             <ProtectedRoute component={Changepassword}></ProtectedRoute>
-                            : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                            :
+                            props.location.pathname === "/dashboard/lab-test" ?
+                              <ProtectedRoute component={Userlabtest}></ProtectedRoute>
+                              :
+                            props.location.pathname === "/dashboard/view-lab-test" ?
+                              <ProtectedRoute component={Viewlabtest}></ProtectedRoute>
+                              : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
               }
             </> :
             statusCode == 100 ?
@@ -78,6 +88,8 @@ const Dashboard = (props) => {
                                       <ProtectedRoute component={LabTestDetail} />
                                       : props.location.pathname === "/dashboard/settings/change-password" ?
                                         <ProtectedRoute component={Changepassword}></ProtectedRoute>
+                                        : props.location.pathname === "/dashboard/labtest-subcategory" ?
+                                        <ProtectedRoute component={LabtestSubcategory}/>
                                         : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </div>
