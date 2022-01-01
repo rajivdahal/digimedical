@@ -10,13 +10,13 @@ import { useState } from "react";
 const HomeLabtest = (props) => {
   let [labTestData, setlabTestData] = useState([])
   useEffect(() => {
-    httpClient.GET("lab-test/get-all", false, true)
+    httpClient.GET("lab-test/get-all", false, false)
       .then(resp => {
         // console.log(resp.data.data)
         setlabTestData(resp.data.data)
       })
       .catch(err => {
-        notify.error("soomething went wrong")
+        notify.error("Something went wrong")
       })
   },[])
   return (
@@ -34,6 +34,7 @@ const HomeLabtest = (props) => {
         <div className="lab_content">
           <p id="lab_content_headtxt">Lab test that we offer</p>
           {
+            labTestData.length?
             labTestData.map((item, index) => {
               return <>
                 <div className="lab_samp1">
@@ -78,12 +79,14 @@ const HomeLabtest = (props) => {
 
               </>
 
-            })
+            }):<div>No any lab test are provided this time</div>
           }
 
 
         </div>
-        <div className="lab_buttons_select">
+        {
+          labTestData.length?<>
+           <div className="lab_buttons_select">
           <div className="lab_buttons_select1">
             <div className="lab_arrow_left">
               <div>
@@ -106,6 +109,9 @@ const HomeLabtest = (props) => {
             </div>
           </div>
         </div>
+          </>:null
+        }
+       
       </div>
     </>
   );

@@ -58,12 +58,12 @@ const Dashboard = (props) => {
                           <ProtectedRoute component={Internalappointmentbook}></ProtectedRoute> :
                           props.location.pathname === "/dashboard/settings/change-password" ?
                             <ProtectedRoute component={Changepassword}></ProtectedRoute>
-                            :
-                            props.location.pathname === "/dashboard/lab-test" ?
-                              <ProtectedRoute component={Userlabtest}></ProtectedRoute>
-                              :
-                            props.location.pathname === "/dashboard/view-lab-test" ?
-                              <ProtectedRoute component={Viewlabtest}></ProtectedRoute>
+                            // :
+                            // props.location.pathname === "/dashboard/lab-test" ?
+                            //   <ProtectedRoute component={Userlabtest}></ProtectedRoute>
+                            //   :
+                            // props.location.pathname === "/dashboard/view-lab-test" ?
+                            //   <ProtectedRoute component={Viewlabtest}></ProtectedRoute>
                               : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
               }
             </> :

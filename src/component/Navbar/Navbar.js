@@ -41,7 +41,7 @@ const Heading = styled.div`
   }
   .phone-number-div {
     display: flex;
-    flex-direction: column;
+
     margin-left: 0.528rem;
     font-wight: 400;
     font-size: 13px;
@@ -125,8 +125,9 @@ const Navbar = (props) => {
           <div className="phone-div">
             <img src={phone} className="phone-img"></img>
             <div className="phone-number-div">
-              <span>+977 9843346605</span>
-              <span style={{ marginLeft: "1.153rem" }}>01 5909141</span>
+              <span style={{ marginRight: "1rem" }}>+977 9843346605</span>
+              <span>|</span>
+              <span style={{ marginLeft: "1rem" }}>01 5909141</span>
             </div>
           </div>
           <div className="email-div">
