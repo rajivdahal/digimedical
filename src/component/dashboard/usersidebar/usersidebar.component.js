@@ -92,7 +92,7 @@ export default function Usersidebar(props) {
                             </ul>
                         </div>
                     </li> */}
-                    {/* <li className="nav-item">
+                    <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#labreports" aria-expanded="false" aria-controls="labreports">
                         <i className="fas fa-file-medical menu-icon"></i>
                             <span className="menu-title">Lab Tests</span>
@@ -110,7 +110,7 @@ export default function Usersidebar(props) {
                                 </Link>
                             </ul>
                         </div>
-                    </li> */}
+                    </li>
                 </ul>
             </nav>
         </div>

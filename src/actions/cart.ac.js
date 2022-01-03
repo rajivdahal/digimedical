@@ -22,7 +22,7 @@ export const labtestActionTypes = {
 }
 
 export const addtocart = params => {
-
+    console.log("addtocart service in action file is",params)
     return (dispatch) => {
         dispatch({
             type: cartActionTypes.SET_IS_CART_ADDED,

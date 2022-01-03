@@ -14,24 +14,34 @@ export const Cartreducer = (state, action) => {
         case cartActionTypes.SET_IS_CART_ADDED:
             let cartitems = state.cartitems
             console.log("cartvalues are", cartitems)
-            cartitems.push(action.payload)
+            action.payload.map((item)=>{
+                console.log("item in reducer is",item)
+                cartitems.push(item)
+                console.log("cartitem is",cartitems)
+            })
+           
             if (!localStorage.getItem("cart")) {
                 var cart = {
                     cartvalue: 0,
                     labs: []
                 }
             }
-            else {
+            // {"cartvalue":2,"labs":[[{"name":"Abnormal Hb Test","subcategory":"pcr test","company":"Apex Pharmaceuticals Pvt. Ltd.","price":"2000","labId":2,"medicalInstituteId":4},{"name":"Abnormal Hb Test","subcategory":"abc","company":"OM hospital","price":"2000","labId":1,"medicalInstituteId":1}],[{"name":"Abnormal Hb Test","subcategory":"pcr test","company":"Apex Pharmaceuticals Pvt. Ltd.","price":"2000","labId":2,"medicalInstituteId":4},{"name":"Abnormal Hb Test","subcategory":"abc","company":"OM hospital","price":"2000","labId":1,"medicalInstituteId":1}]]}
+             else {
                 var cart = JSON.parse(localStorage.getItem("cart"))
             }
 
             cart.cartvalue = parseInt(localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")).cartvalue : "0") + 1
-            cart.labs.push(action.payload)
+            
+            action.payload.map((item)=>{
+                cart.labs.push(item)
+            })
+            
             localStorage.setItem("cart", JSON.stringify(cart))
             return {
                 ...state,
                 cartvalue: state.cartvalue + 1,
-                cartitems: [...cartitems]
+                cartitems: cartitems
             }
         case labtestActionTypes.SET_IS_LAB_TEST_FETCHED:
             return {

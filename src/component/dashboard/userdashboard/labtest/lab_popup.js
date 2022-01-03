@@ -56,8 +56,6 @@ class Checkoutpopupcomponent extends Component {
 
         })
       }
-
-
     }
     const handleCheckoutlabtest = () => {
       if (!localStorage.getItem("cart")) {
@@ -66,27 +64,20 @@ class Checkoutpopupcomponent extends Component {
       const cartitems = JSON.parse(localStorage.getItem("cart"))
       let labdatatocheckout = []
       cartitems.labs.map((item, index) => {
-        item.subcategory.map((item, index) => {
-          if (item.checked == true) {
-            labdatatocheckout.push({
-              price: item.price,
-              labId: item.id
-            })
-          }
-        })
+        let internallabitemdata={}
+        internallabitemdata.price=item.price
+        internallabitemdata.labId=item.labId
+        internallabitemdata.medicalInstituteId=item.medicalInstituteId
+        labdatatocheckout.push(internallabitemdata)
       })
 
       if (labdatatocheckout.length) {
-
         httpClient.POST("lab-booking/create", labdatatocheckout, false, true)
           .then(resp => {
             console.log("inside then")
-            console.log("props are", props)
             notify.success("Lab test booked successfully")
             localStorage.removeItem("cart")
             this.props.checkout(!checkoutsignal)
-           
-            //  props.history.push("/dashboard")
           })
           .catch(err => {
             console.log("inside catch")
@@ -94,7 +85,6 @@ class Checkoutpopupcomponent extends Component {
           })
       }
     }
-
     return (
       <div>
         <div id="pop_checkout" >
@@ -145,14 +135,7 @@ class Checkoutpopupcomponent extends Component {
                             cart.labs.map((categoryitem, categoryindex) => {
                               console.log("categoryitem is", categoryitem)
                               console.log("inside map")
-                              categoryitem.subcategory.map((subcategoryitem, subcategoryindex) => {
-                                if (subcategoryitem.checked == true) {
-                                  total = total + parseInt(subcategoryitem.price)
-
-                                  console.log("total is", total)
-                                }
-
-                              })
+                              total = total + parseInt(categoryitem.price)
                               console.log("index is", categoryindex, "length is", categoryitem.length)
 
                               if (categoryindex == cart.labs.length - 1) {
