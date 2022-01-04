@@ -1,5 +1,6 @@
 import { cartActionTypes } from "../actions/cart.ac";
 import { labtestActionTypes } from "../actions/cart.ac";
+import { notify } from "../services/notify";
 
 export const Cartreducer = (state, action) => {
 
@@ -32,12 +33,13 @@ export const Cartreducer = (state, action) => {
             }
 
             cart.cartvalue = parseInt(localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")).cartvalue : "0") + 1
-            
+            let arrayinsidelabs=[]
             action.payload.map((item)=>{
-                cart.labs.push(item)
+                arrayinsidelabs.push(item)
             })
-            
+            cart.labs.push(arrayinsidelabs)
             localStorage.setItem("cart", JSON.stringify(cart))
+            notify.success("Added to cart");
             return {
                 ...state,
                 cartvalue: state.cartvalue + 1,

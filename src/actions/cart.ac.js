@@ -34,7 +34,7 @@ export const addtocart = params => {
 export const fetchlabtest = (params) => {
 
     return (dispatch) => {
-        httpClient.GET("labtest/category/get", false, true)
+        httpClient.GET("labtest/category/get")
             .then(resp => {
                 let data = resp.data.data
                 console.log(data)

@@ -1,17 +1,17 @@
-import { useFormik } from "formik";
-import { useState, useEffect, useRef } from "react";
-import { Container, Form, Row, Col, Button, Modal, Image } from "react-bootstrap";
-import { httpClient } from '../../../../utils/httpClient';
 import Select from 'react-select'
-import Cliploader from "../../../../utils/clipLoader";
-import { notify } from "../../../../services/notify";
+import { useFormik } from "formik";
 import MaterialTable from 'material-table'
 import Edit from '@material-ui/icons/Edit';
+import { useState, useEffect, useRef } from "react";
+import { notify } from "../../../../services/notify";
+import Cliploader from "../../../../utils/clipLoader";
 import Tableicons from "../../../../utils/materialicons";
+import { httpClient } from '../../../../utils/httpClient';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
-
+import { Container, Form, Row, Col, Button, Modal, Image } from "react-bootstrap";
 
 const LabtestSubcategory = (props) => {
+
     const [subCategoryID, setSubCategoryID] = useState("");
     const [subCategory, setSubCategory] = useState([]);
     const [categoryStatus, setCategoryStatus] = useState("");
@@ -23,8 +23,8 @@ const LabtestSubcategory = (props) => {
     const [labtestSubcategory, setLabTestSubcategory] = useState({
         selectedLabtest: {},
         labtestID: "",
-        selectedInstitude : {},
-        institudeId : "",
+        selectedInstitute: {},
+        instituteId: "",
         subCategory: "",
         description: "",
         price: "",
@@ -57,6 +57,7 @@ const LabtestSubcategory = (props) => {
     const getAllInstitute = async () => {
         let institute = await httpClient.GET("medical-institute/get-all", false, true)
             .then(resp => {
+
                 if (resp.data.status) {
                     let result = resp.data.data;
                     return result;
@@ -66,16 +67,19 @@ const LabtestSubcategory = (props) => {
                 console.log(err)
             })
 
-        let trueInstitute = institute.filter((item, index) => {
-            return (item.status == true)
-        })
-        let options = trueInstitute.map((item, index) => {
-            return {
-                label: item.name,
-                value: item.id
-            }
-        })
+        if (institute) {
+            let trueInstitute = institute.filter((item, index) => {
+                return (item.status == true)
+            })
+            let options = trueInstitute.map((item, index) => {
+                return {
+                    label: item.name,
+                    value: item.id
+                }
+            })
         setAllInstitute(options)
+
+        }
     }
 
     const getSubcategory = () => {
@@ -100,9 +104,6 @@ const LabtestSubcategory = (props) => {
                 })
                 if (resp.data.status) {
                     let data = resp.data.data;
-                    // let option={
-
-                    // }
                     setSubCategory(data)
                 }
             })
@@ -110,6 +111,7 @@ const LabtestSubcategory = (props) => {
                 console.log(err)
             })
     }
+
     useEffect(() => {
         getAllLabtest();
         getSubcategory();
@@ -162,14 +164,14 @@ const LabtestSubcategory = (props) => {
         try {
             setIsLoading(true)
             let labtestId = formik.values.selectedLabtest.value;
-            let instituteId = formik.values.selectedInstitude.value;
-            
+            let instituteId = formik.values.selectedInstitute.value;
+
             let labSubcategory = {
                 name: values.subCategory,
                 description: values.description,
                 price: values.price,
                 labTestId: labtestId,
-                medicalInstituteId : instituteId,
+                medicalInstituteId: instituteId,
             }
             httpClient.POST("labtest/category/create", labSubcategory, false, true)
                 .then(resp => {
@@ -188,10 +190,8 @@ const LabtestSubcategory = (props) => {
                 .finally(() => {
                     setIsLoading(false)
                 })
-        }
-
-        catch (err) {
-            notify.error("Something went wrong during creating subcategory")
+        } catch (err) {
+            console.log(err)
             setIsLoading(false)
         }
 
@@ -203,9 +203,9 @@ const LabtestSubcategory = (props) => {
         formik.setFieldValue('selectedLabtest', item)
     }
 
-    const handleInstituteChange=(item)=>{
+    const handleInstituteChange = (item) => {
         console.log(item);
-        formik.setFieldValue('selectedInstitude', item)
+        formik.setFieldValue('selectedInstitute', item)
     }
     const handleClose = () => {
         setShowModal(false);
@@ -213,7 +213,6 @@ const LabtestSubcategory = (props) => {
 
     const subcategoryChangeStatus = (e, data) => {
         setShowModal(true);
-        console.log(data);
         setCategoryStatus(data.status)
         setSubCategoryID(data.id);
     }
@@ -228,7 +227,7 @@ const LabtestSubcategory = (props) => {
                     notify.success(resp.data.message)
                     handleClose();
                     getSubcategory();
-                   setIsLoading(false)
+                    setIsLoading(false)
                 }
             })
             .catch(err => {
@@ -242,20 +241,20 @@ const LabtestSubcategory = (props) => {
 
     const getEditSubcategory = (e, data) => {
         setSubCategoryID(data.id)
-        console.log(data)
         if (data) {
             let labtestData = {
                 label: data.labtestname,
                 value: data.labtestid
             }
 
-            // let instituteData = {
-            //     label: data.labtestname,
-            //     value: data.labtestid
-            // }
-
+            let instituteData = {
+                label: data.institutename,
+                value: data.medicalinstituteid
+            }
+            console.log(instituteData)
             setLabTestSubcategory({
                 selectedLabtest: labtestData,
+                selectedInstitute: instituteData,
                 subCategory: data.name ?? "",
                 description: data.description ?? "",
                 price: data.price ?? 0
@@ -265,52 +264,63 @@ const LabtestSubcategory = (props) => {
     }
 
     const editSubcategoryData = (values) => {
+        setIsLoading(true)
         try {
-            setIsLoading(true)
-            let id = formik.values.selectedLabtest.value;
-            console.log(id)
+            let labtestId = values.selectedLabtest.value;
+            let instituteid = values.selectedInstitute.value
             let labSubcategory = {
                 name: values.subCategory,
                 description: values.description,
                 price: values.price,
-                labTestId: id,
+                labTestId: labtestId,
+                medicalInstituteId: instituteid,
                 labTestCategoryId: subCategoryID,
             }
+            console.log("EDIT PAYLOAD");
+            console.log(labSubcategory);
             httpClient.PUT("labtest/category/update", labSubcategory, false, true)
                 .then(resp => {
                     console.log(resp)
                     if (resp.data.status) {
                         notify.success(resp.data.message)
-                        formik.resetForm();
-                        setLabTestSubcategory({
-                            labtestID: "",
-                            subCategory: "",
-                            description: "",
-                            price: "",
-                        })
+                        clearForm();
                         getSubcategory();
-                        setSubCategoryID(null);
-
                     }
                 })
                 .catch(err => {
-                    console.log(err.response)
+                    if (err.response && err.response.data && err.response.data.data.length > 0) {
+                        const errMessage = err.response.data.data[0].errorMsg;
+                        notify.error(errMessage)
+                    }
                 })
                 .finally(() => {
                     setIsLoading(false)
                 })
-
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err)
-            setIsLoading(false)
         }
+        setIsLoading(false)
     }
+
+    const clearForm = () => {
+        formik.resetForm();
+        setLabTestSubcategory({
+            labtestID: "",
+            instituteId: "",
+            subCategory: "",
+            description: "",
+            price: "",
+            selectedLabtest: {},
+            selectedInstitute: {},
+        })
+        setSubCategoryID(null);
+    }
+
     const handleCancelEdit = () => {
         setSubCategoryID(null);
         setLabTestSubcategory({
             labtestID: "",
-            institudeId : "",
+            instituteId: "",
             subCategory: "",
             description: "",
             price: "",
@@ -329,7 +339,6 @@ const LabtestSubcategory = (props) => {
                                     value={formik.values.selectedLabtest}
                                     options={allLabtest}
                                     name="labtestID"
-                                    selected
                                     onChange={handleLabtestChange}
                                     defaultInputValue="Please Select One value"
                                 >
@@ -352,10 +361,9 @@ const LabtestSubcategory = (props) => {
                             <Form.Group>
                                 <Form.Label>Institute</Form.Label>
                                 <Select
-                                    value={formik.values.selectedInstitude}
+                                    value={formik.values.selectedInstitute}
                                     options={allInstitue}
-                                    // value={allInstitue[0]}
-                                    name="labtestID"
+                                    name="instituteId"
                                     onChange={handleInstituteChange}
                                 >
                                 </Select>
@@ -414,9 +422,9 @@ const LabtestSubcategory = (props) => {
                         { title: "ID", field: "id" },
                         { title: 'Lab Test Name', field: 'labtestname', },
                         { title: 'Subcategory', field: 'name', sorting: false },
-                        { title: 'Price', field: 'priceString' },
                         { title: 'Description', field: 'description' },
-                        { title: 'Medical Institute', field: 'institutename' },
+                        { title: 'Institute', field: 'institutename' },
+                        { title: 'Price', field: 'priceString' },
                         {
                             title: 'Status', field: 'activeStatus',
                             render: rowData => rowData.status == true ?

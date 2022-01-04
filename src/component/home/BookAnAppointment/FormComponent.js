@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
 import Cliploader from "../../../utils/clipLoader";
 import { Todaydate } from "../../../services/todaydate";
+import 'react-modern-calendar-datepicker/lib/DatePicker.css';
+import DatePicker from 'react-modern-calendar-datepicker';
 import Clear from "@material-ui/icons/Clear";
 import "./formcomponent.css";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -53,6 +55,7 @@ const FormSection = styled.div`
 `;
 
 function FormComponent(props) {
+
   const today = Todaydate();
   const prop = props.history.history
     ? props.history.history
@@ -70,6 +73,11 @@ function FormComponent(props) {
     description: null,
   });
   const [isdoctorblurred, setisdoctorblurred] = useState(false);
+  const [selectedDayRange, setSelectedDayRange] = useState({
+    from: 4,
+    to: 10
+  });
+
   useEffect(() => {
     httpClient
       .GET("services/get/true")
@@ -98,13 +106,13 @@ function FormComponent(props) {
       if (!values.firstName) {
         errors.firstName = "Required!";
       }
-      if(values.firstName.length < 2){
+      if (values.firstName.length < 2) {
         errors.firstName = "Invalid first name."
       }
       if (!values.lastName) {
         errors.lastName = "Required!";
       }
-      if(values.lastName.length < 2){
+      if (values.lastName.length < 2) {
         errors.lastName = "Invalid last name."
       }
       if (!values.email) {
@@ -163,9 +171,9 @@ function FormComponent(props) {
               token
                 ? prop.push("/dashboard")
                 : prop.push({
-                    pathname: "/login",
-                    timeoutMsg: "please login",
-                  });
+                  pathname: "/login",
+                  timeoutMsg: "please login",
+                });
             }, 2000);
           }
           notify.error("something went wrong ");
@@ -219,13 +227,12 @@ function FormComponent(props) {
   const clearpopup = () => {
     setisdoctorblurred(false);
   };
-
   return (
     <FormSection>
       <form onSubmit={formik.handleSubmit}>
         <div className="form-row">
           <div className="form-group col-md-4">
-            <label htmlFor="fname">First Name<span style={{color:'red'}}>*</span></label>
+            <label htmlFor="fname">First Name<span style={{ color: 'red' }}>*</span></label>
             <input
               type="text"
               className="form-control"
@@ -250,7 +257,7 @@ function FormComponent(props) {
             />
           </div>
           <div className="form-group col-md-4">
-            <label htmlFor="lname">Last Name<span style={{color:'red'}}>*</span></label>
+            <label htmlFor="lname">Last Name<span style={{ color: 'red' }}>*</span></label>
             <input
               type="text"
               className="form-control"
@@ -267,7 +274,7 @@ function FormComponent(props) {
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <label htmlFor="email">Email<span style={{color:'red'}}>*</span></label>
+            <label htmlFor="email">Email<span style={{ color: 'red' }}>*</span></label>
             <input
               type="email"
               className="form-control"
@@ -282,7 +289,7 @@ function FormComponent(props) {
             ) : null}
           </div>
           <div className="form-group col-md-6">
-            <label htmlFor="phoneno">Mobile No.<span style={{color:'red'}}>*</span></label>
+            <label htmlFor="phoneno">Mobile No.<span style={{ color: 'red' }}>*</span></label>
             <input
               type="text"
               className="form-control"
@@ -299,7 +306,7 @@ function FormComponent(props) {
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <label htmlFor="service">Select Service<span style={{color:'red'}}>*</span></label>
+            <label htmlFor="service">Select Service<span style={{ color: 'red' }}>*</span></label>
             <select id="servicesId" className="form-control" {...formik.getFieldProps("servicesId")} style={{ color: "black" }}
               onChange={(e) => {
                 formik.handleChange(e);
@@ -322,7 +329,7 @@ function FormComponent(props) {
             ) : null}
           </div>
           <div className="form-group col-md-6">
-            <label htmlFor="doctor">Select Doctor<span style={{color:'red'}}>*</span></label>
+            <label htmlFor="doctor">Select Doctor<span style={{ color: 'red' }}>*</span></label>
             <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{ color: "black" }}
               onChange={(e) => {
                 formik.handleChange(e);
@@ -347,13 +354,26 @@ function FormComponent(props) {
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <label htmlFor="appointment">Appointment Date<span style={{color:'red'}}>*</span></label>
+            <label htmlFor="appointment">Appointment Date<span style={{ color: 'red' }}>*</span></label>
+            {/* <DatePicker 
+            // value={}
+            className="form-control"
+            shouldHighlightWeekends
+            value={{from:{day:1,month:1,year:2022},to:{day:10,month:1,year:2022}}}
+            onChange={datechanged}
+
+              // from: null,
+              //  to:
+              //   { day: 11, month: 3, year: 2020}
+
+            ></DatePicker> */}
             <input
               type="date"
               className="form-control"
               id="appointmentDate"
               placeholder="dd/mm/yyyy"
               min={today}
+              pattern="\d{4}-\d{2}-\d{2}"
               max=""
               {...formik.getFieldProps("appointmentDate")}
             />
@@ -365,7 +385,7 @@ function FormComponent(props) {
           </div>
 
           <div className="form-group col-md-6">
-            <label htmlFor="time">Time<span style={{color:'red'}}>*</span></label>
+            <label htmlFor="time">Time<span style={{ color: 'red' }}>*</span></label>
             <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formik.getFieldProps("appointmentTime")}></input>
             {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
           </div>

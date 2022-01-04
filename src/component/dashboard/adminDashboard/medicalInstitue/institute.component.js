@@ -10,6 +10,7 @@ import Edit from '@material-ui/icons/Edit';
 import Tableicons from "../../../../utils/materialicons";
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import { validateInstitute } from "./institute.helper";
+import "./institute.css"
 
 const MedicalInstitute = (props) => {
     const [instituteID, setInstituteID] = useState("");
@@ -22,7 +23,7 @@ const MedicalInstitute = (props) => {
         name: "",
         contactNo: "",
         city: "",
-        state: "",
+        province: "0",
         street: "",
     })
 
@@ -74,7 +75,7 @@ const MedicalInstitute = (props) => {
                 name: values.name,
                 contactNo: values.contactNo,
                 city: values.city,
-                state: values.state,
+                province: values.province,
                 street: values.street,
             }
             httpClient.POST("medical-institute/create", medicalInstitute, false, true)
@@ -83,8 +84,7 @@ const MedicalInstitute = (props) => {
                     if (resp.data.status) {
                         notify.success(resp.data.message)
                         formik.resetForm();
-                        getAllInstitute();
-
+                        getAllInstitute()
                     }
                 })
                 .catch(err => {
@@ -148,7 +148,7 @@ const MedicalInstitute = (props) => {
             setInstituteInfo({
                 name: data.name ?? "",
                 contactNo : data.contactno ?? "",
-                state: data.state ?? 0,
+                province: data.province ?? 0,
                 city: data.city ?? 0,
                 street: data.street ?? 0,
 
@@ -164,7 +164,7 @@ const MedicalInstitute = (props) => {
                 name: values.name,
                 contactNo: values.contactNo,
                 city: values.city,
-                state: values.state,
+                province: values.province,
                 street: values.street,
                 id : instituteID,
             }
@@ -177,7 +177,7 @@ const MedicalInstitute = (props) => {
                             name: "",
                             contactNo: "",
                             city: "",
-                            state: "",
+                            province: "",
                             street: "",
                         })
                         getAllInstitute();
@@ -208,7 +208,7 @@ const MedicalInstitute = (props) => {
             name: "",
             contactNo: "",
             city: "",
-            state: "",
+            province: "",
             street: "",
         })
     }
@@ -246,18 +246,18 @@ const MedicalInstitute = (props) => {
                         <Col md={4}>
                             <Form.Group >
                                 <Form.Label>State</Form.Label>
-                                <Form.Control type="text" name="state" onChange={formik.handleChange}
-                                    value={formik.values.state} onBlur={formik.handleBlur} />
-                                {/* <select class="form-control"  name="state"
-                                    onChange={formik.handleChange} value={formik.values.state} onBlur={formik.handleBlur} >
+                                {/* <Form.Control type="text" name="province" onChange={formik.handleChange}
+                                    value={formik.values.province} onBlur={formik.handleBlur} /> */}
+                                <select class="select-control"  name="province" onChange={formik.handleChange} 
+                                value={formik.values.province} onBlur={formik.handleBlur} >
                                     <option value="0">Province No.1</option>
                                     <option value="1">Province No.2</option>
-                                    <option value="bagmati">Bagmati Province</option>
+                                    <option value="2">Bagmati Province</option>
                                     <option value="3">Gandaki Province</option>
                                     <option value="4">Lumbini Province</option>
                                     <option value="5">Karnali Province</option>
                                     <option value="6">Sudurpashchim Province</option>
-                                </select> */}
+                                </select>
                             </Form.Group>
                         </Col>
 
@@ -311,7 +311,7 @@ const MedicalInstitute = (props) => {
                         { title: "ID", field: "id" },
                         { title: 'Name', field: 'name', },
                         { title: 'Contact', field: 'contactno' },
-                        { title: 'State', field: 'state' },
+                        { title: 'State', field: 'province' },
                         { title: 'City', field: 'city' },
                         { title: 'Street', field: 'street' },
 

@@ -47,6 +47,7 @@
   border-radius: 10px;
   overflow: hidden;
   display: flex;
+  cursor: pointer;
 }
 
 .lab_sam_img1 img {
@@ -62,7 +63,7 @@
   height: 220px;
   margin-top: 25px;
   margin-left: 10px;
-  border-right: 1px solid #8797a87e;
+  /* border-right: 1px solid #8797a87e; */
 }
 
 #labtest_desc_txt1 {

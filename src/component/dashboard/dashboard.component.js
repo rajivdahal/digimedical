@@ -31,6 +31,7 @@ import StaffTable from "./adminDashboard/staffData/staff.table"
 import BookedLabtest from "./adminDashboard/allLabtestData/booked.labtest"
 import MedicalInstitute from "./adminDashboard/medicalInstitue/institute.component"
 import Hospital from "./adminDashboard/hospitalData/hospital.component"
+import HospitalTable from "./adminDashboard/hospitalData/hospital.table"
 
 
 const Dashboard = (props) => {
@@ -61,9 +62,9 @@ const Dashboard = (props) => {
                             :
                             props.location.pathname === "/dashboard/lab-test" ?
                               <ProtectedRoute component={Userlabtest}></ProtectedRoute>
-                            //   :
-                            // props.location.pathname === "/dashboard/view-lab-test" ?
-                            //   <ProtectedRoute component={Viewlabtest}></ProtectedRoute>
+                              :
+                            props.location.pathname === "/dashboard/view-lab-test" ?
+                              <ProtectedRoute component={Viewlabtest}></ProtectedRoute>
                               : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
               }
             </> :
@@ -103,7 +104,9 @@ const Dashboard = (props) => {
                                                 <ProtectedRoute component={BookedLabtest}/> 
                                                 : props.location.pathname === "/dashboard/add-institute" ? 
                                                 <ProtectedRoute component={MedicalInstitute}/>
-                                                : props.location.pathname === "/dashboard/hospital" ? 
+                                                : props.location.pathname === "/dashboard/hospital-table" ? 
+                                                <ProtectedRoute component={HospitalTable}/>
+                                                : props.location.pathname === "/dashboard/add-hospital" ? 
                                                 <ProtectedRoute component={Hospital}/>
                                               : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
