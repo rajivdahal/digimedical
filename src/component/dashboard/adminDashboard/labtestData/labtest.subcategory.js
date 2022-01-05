@@ -435,7 +435,7 @@ const LabtestSubcategory = (props) => {
                     actions={[
                         {
                             icon: Edit,
-                            tooltip: 'Edit Service',
+                            tooltip: 'Edit Subcategory',
                             onClick: (e, rowData) => { getEditSubcategory(e, rowData) }
                         },
                         {

@@ -1,0 +1,32 @@
+.cancel-button{
+    background-color: white;
+    border : 2px solid #52B2E5;
+    color: #52B2E5;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 14.51px;
+    width: 12%;
+    text-align: center;
+  }
+  .cancel-button:hover{
+    background-color: white;
+    border : 2px solid #2745F0;
+    color: #2745F0;
+  }
+  .change-button{
+    background-color: #52B2E5;
+    border : 2px solid #52B2E5;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 14.51px;
+    margin-left: 8px;
+    width: 12%;
+  }
+  .change-button:hover{
+    background-color: #2745F0;
+    border : 2px solid #2745F0;
+    color: white;
+  }

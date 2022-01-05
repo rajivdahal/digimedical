@@ -10,35 +10,80 @@ import Select from 'react-select';
 
 const Hospital = (props) => {
 
-    const [hospitalID,setHospitalID] = useState("")
+    const imageSelectRef = useRef();
+    const [loading, setLoading] = useState(false);
+    const [hospitalID, setHospitalID] = useState("")
+    const [selectedImage, setImage] = useState("");
+    const [selectedImgName, setImgName] = useState("");
     const [hospitalData, setHospitalData] = useState({
         name: "",
-        description: "",     
+        description: "",
         establishedDate: "",
-        contactNumber: "",
-        mobileNumber : "",
-        vatNo: "",
         panNo: "",
-        country: "",
-        province: "0",
-        district : "",
-        street : "",
-        localBodies : "",
+        contactNumber: "",
+        mobileNumber: "",
+        address: "",
+        hospitalImage :"",
         email: "",
         password: "",
         confirmPassword: "",
     })
+
+    const initialize = async () => {
+        if (props.location.state && props.location.state.id != null) {
+            await getHospitalById();
+        }
+    }
+
+    useEffect(() => {
+        initialize()
+    }, [])
+
+    const getHospitalById = () => {
+        let id = props.location.state.id;
+        if (id == null) return;
+
+        setHospitalID(id)
+        httpClient.GET("hospital/get/" + id, false, true)
+            .then(resp => {
+                console.log(resp)
+                if (resp.data.status) {
+                    let data = resp.data.data;
+
+                    if (data) {
+                        let url = "http://202.51.74.219:8082/api/hospital/download/" + id;
+                        setImage(url)
+
+                        setHospitalData({
+                            name: data.name,
+                            email: data.email,
+                            mobileNumber: data.mobilenumber,
+                            contactNumber: data.contactnumber,
+                            panNo: data.panno,
+                            description: data.description,
+                            establishedDate: data.establisheddate,
+                            address: data.address,
+                        })
+                    }
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                console.log(err.response)
+            })
+    }
+
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: hospitalData,
         onSubmit: values => {
             console.log(values)
-            // if (hospitalID) {
-            //     editDoctorDetail(values)
+            if (hospitalID) {
+                editHospitalDetail(values)
 
-            // } else {
-            //     handleCreateDoctor(values);
-            // }
+            } else {
+                handleCreateHospital(values);
+            }
         },
         validate: values => {
             let isEdit = hospitalID ? true : false;
@@ -46,12 +91,140 @@ const Hospital = (props) => {
         },
     })
 
+    const handleCreateHospital = (values) => {
+        try {
+            setLoading(true)
+
+            let formData = new FormData();
+            if (values.hospitalImage) {
+                formData.append("image", values.hospitalImage);
+            }
+            formData.append("name", values.name);
+            formData.append("description", values.description);
+            formData.append("establishedDate", values.establishedDate);
+            formData.append("panNo", values.panNo);
+            formData.append("contactNo", values.contactNumber);
+            formData.append("phoneNumber", values.mobileNumber);
+            formData.append("address", values.address);
+            formData.append("hospitalEmail", values.email);
+            formData.append("password", values.password);
+            formData.append("confirmPassword", values.confirmPassword);
+
+            httpClient.POST("hospital/create", formData, false, true, "formdata")
+                .then(resp => {
+                    if (resp.data.status) {
+                        console.log(resp.data.data);
+                        notify.success(resp.data.message)
+                        props.history.push("/dashboard/hospital-table")
+                    }
+                })
+                .catch(err => {
+                    if (err.response) {
+                        notify.error("Something went wrong")
+                        setLoading(false)
+                    }
+                })
+                .finally(() => {
+                    setLoading(false)
+                })
+        }
+        catch (err) {
+            console.log(err)
+            notify.error("Something went wrong")
+            setLoading(false)
+        }
+    }
+
+    const editHospitalDetail = (values) => {
+        console.log("edited")
+
+        setLoading(true)
+
+        let formData = new FormData();
+
+        if (values.hospitalImage) {
+            formData.append("image", values.hospitalImage);
+        }
+        formData.append("name", values.name);
+        formData.append("description", values.description);
+        formData.append("panNo", values.panNo);
+        formData.append("contactNo", values.contactNumber);
+        formData.append("phoneNumber", values.mobileNumber);
+        formData.append("address", values.address);
+        formData.append("establishedDate", values.establishedDate);
+        formData.append("hospitalId", hospitalID)
+
+        httpClient.PUT("hospital/update", formData, false, true, "formdata")
+            .then(resp => {
+                console.log(resp)
+                if (resp.data.status) {
+                    notify.success(resp.data.message);
+                    props.history.push("/dashboard/hospital-table")
+                    setLoading(false)
+
+                }
+            })
+            .catch(err => {
+                console.log(err.response)
+                console.log(err.response.data.message)
+                notify.error(err.response.data.message || "Something went wrong")
+                setLoading(false)
+            })
+
+            .finally(() => {
+                setLoading(false)
+            })
+
+    }
+
+    const handleCancelEdit = () => {
+        setHospitalID(null);
+        setImage(null);
+        setImgName(null);
+        setHospitalData({
+            name: "",
+            description: "",
+            establishedDate: "",
+            panNo: "",
+            contactNumber: "",
+            mobileNumber: "",
+            address: "",
+            email: "",
+            hospitalImage : "",
+        })
+        props.history.replace('/dashboard/add-hospital', null);
+
+    }
+
+
+    const handleAddImage = () => {
+        imageSelectRef.current.click();
+    }
+
+    const handleChangeImage = (e) => {
+        let files = e.target.files[0];
+        let reader = new FileReader();
+        formik.setFieldValue('hospitalImage', files);
+        reader.onloadend = () => {
+            setImage(reader.result.toString());
+            setImgName(files.name);
+        };
+        reader.readAsDataURL(files);
+    }
+
+    const removeImage=()=>{
+        setImage(null);
+        setImgName(null);
+        formik.setFieldValue('hospitalImage', null);
+        
+    }
+
     return (
         <div>
             <Container>
                 <Form onSubmit={formik.handleSubmit}>
                     <Row className="mb-3">
-                        <Col md={3}>
+                        <Col md={4}>
                             <Form.Group >
                                 <Form.Label>Name</Form.Label>
                                 <Form.Control type="text" name="name"
@@ -61,23 +234,24 @@ const Hospital = (props) => {
                                     : null}
                             </Form.Group>
                         </Col>
-                        <Col md={3}>
-                            <Form.Group>
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control type="text" name="description"
-                                    onChange={formik.handleChange} value={formik.values.description} onBlur={formik.handleBlur} />
-                                    {formik.touched.description && formik.errors.description ?
-                                    <div className="error-message">{formik.errors.description}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col>
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Established Date</Form.Label>
-                                <Form.Control type="text" name="establishedDate"
+                                <Form.Control type="date" name="establishedDate"
                                     onChange={formik.handleChange} value={formik.values.establishedDate} onBlur={formik.handleBlur} />
                                 {formik.touched.establishedDate && formik.errors.establishedDate ?
                                     <div className="error-message">{formik.errors.establishedDate}</div>
+                                    : null}
+                            </Form.Group>
+                        </Col>
+
+                        <Col md={4}>
+                            <Form.Group >
+                                <Form.Label>PAN Number</Form.Label>
+                                <Form.Control type="text" name="panNo"
+                                    onChange={formik.handleChange} value={formik.values.panNo} onBlur={formik.handleBlur} />
+                                {formik.errors.panNo && formik.touched.panNo ?
+                                    <div className="error-message">{formik.errors.panNo}</div>
                                     : null}
                             </Form.Group>
                         </Col>
@@ -86,15 +260,16 @@ const Hospital = (props) => {
                     <Row className="mb-3">
 
                         <Col md={4}>
-                            <Form.Group >
-                                <Form.Label>PAN Number</Form.Label>
-                                <Form.Control type="text" name="panNumber"
-                                    onChange={formik.handleChange} value={formik.values.panNumber} onBlur={formik.handleBlur} />
-                                {formik.errors.panNumber && formik.touched.panNumber ?
-                                    <div className="error-message">{formik.errors.panNumber}</div>
+                            <Form.Group>
+                                <Form.Label>Address</Form.Label>
+                                <Form.Control type="text" name="address" onChange={formik.handleChange}
+                                    value={formik.values.address} onBlur={formik.handleBlur} />
+                                {formik.errors.address && formik.touched.address ?
+                                    <div className="error-message">{formik.errors.address}</div>
                                     : null}
                             </Form.Group>
                         </Col>
+
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Contact Number</Form.Label>
@@ -109,105 +284,51 @@ const Hospital = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Mobile Number</Form.Label>
-                                <Form.Control type="date" name="mobileNumber"
+                                <Form.Control type="text" name="mobileNumber"
                                     onChange={formik.handleChange} value={formik.values.mobileNumber} onBlur={formik.handleBlur} />
                                 {formik.errors.mobileNumber && formik.touched.mobileNumber ?
                                     <div className="error-message">{formik.errors.mobileNumber}</div>
                                     : null}
                             </Form.Group>
                         </Col>
-
                     </Row>
 
                     <Row className="mb-3">
-
-                    <Col md={4}>
-                            <Form.Group >
-                                <Form.Label>Country</Form.Label>
-                                <Form.Control type="text" name="country" onChange={formik.handleChange}
-                                    value={formik.values.country} onBlur={formik.handleBlur} />
-                                {formik.errors.country && formik.touched.country ?
-                                    <div className="error-message">{formik.errors.country}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col>
-
-                        <Col md={4}>
-                            <Form.Group >
-                                <Form.Label>Province</Form.Label>
-                                {/* <Form.Control type="text" name="province" onChange={formik.handleChange}
-                                    value={formik.values.province} onBlur={formik.handleBlur} /> */}
-                                <select class="select-control"  name="province" onChange={formik.handleChange} 
-                                value={formik.values.province} onBlur={formik.handleBlur} >
-                                    <option value="0">Province No.1</option>
-                                    <option value="1">Province No.2</option>
-                                    <option value="2">Bagmati Province</option>
-                                    <option value="3">Gandaki Province</option>
-                                    <option value="4">Lumbini Province</option>
-                                    <option value="5">Karnali Province</option>
-                                    <option value="6">Sudurpashchim Province</option>
-                                </select>
-                            </Form.Group>
-                        </Col>
-
-                        <Col md={4}>
-                            <Form.Group >
-                                <Form.Label>District</Form.Label>
-                                <Form.Control type="text" name="district" onChange={formik.handleChange}
-                                    value={formik.values.district} onBlur={formik.handleBlur} />
-                                {formik.touched.district && formik.errors.district ?
-                                    <div className="error-message">{formik.errors.district}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col>
-
-                        
-                    </Row>
-
-                    <Row className="mb-3">
-                    <Col md={4}>
-                            <Form.Group>
-                                <Form.Label>Local Bodies</Form.Label>
-                                <select class="form-select" name="localBodies"
-                                    onChange={formik.handleChange} value={formik.values.localBodies} onBlur={formik.handleBlur} >
-                                    <option value="0">Metropolitan</option>
-                                    <option value="1">Sub Metropolitan</option>
-                                    <option value="2">Municipality</option>
-                                    <option value="3">VDC</option>
-
-                                </select>
-                            </Form.Group>
-                        </Col>
-                        <Col md={4}>
-                            <Form.Group>
-                                <Form.Label>City</Form.Label>
-                                <Form.Control type="text" name="city" onChange={formik.handleChange} 
-                                value={formik.values.city} onBlur={formik.handleBlur} />
-                                {formik.errors.city && formik.touched.city ?
-                                    <div className="error-message">{formik.errors.city}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col>
-
-                        <Col md={4}>
-                            <Form.Group>
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" name="email"
-                                    onChange={formik.handleChange} value={formik.values.email} onBlur={formik.handleBlur} />
-                                {formik.errors.email && formik.touched.email ?
-                                    <div className="error-message">{formik.errors.email}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col>
-                    </Row>
-
-                    <Row className="mb-3">
-                        
 
                         <Col md={8}>
-                            {/* {doctorId ?
+                            <Form.Group>
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control type="text" name="description"
+                                    onChange={formik.handleChange} value={formik.values.description} onBlur={formik.handleBlur} />
+                                {formik.touched.description && formik.errors.description ?
+                                    <div className="error-message">{formik.errors.description}</div>
+                                    : null}
+                            </Form.Group>
+                        </Col>
+
+                        {hospitalID ?
+                            <></>
+                            :
+                            <Col md={4}>
+                                <Form.Group>
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control type="email" name="email"
+                                        onChange={formik.handleChange} value={formik.values.email} onBlur={formik.handleBlur} />
+                                    {formik.errors.email && formik.touched.email ?
+                                        <div className="error-message">{formik.errors.email}</div>
+                                        : null}
+                                </Form.Group>
+                            </Col>
+                        }
+
+                    </Row>
+
+                    <Row className="mb-3">
+
+                        <Col>
+                            {hospitalID ?
                                 <></>
-                                : */}
+                                :
                                 <Row>
 
                                     <Col md={6}>
@@ -231,19 +352,56 @@ const Hospital = (props) => {
                                         </Form.Group>
                                     </Col>
                                 </Row>
-                            {/* } */}
+                            }
 
                         </Col>
-
                     </Row>
 
-                    <Row className="mb-3">
+                    <Row>
+                        <Col md={5}>
+                            <Form.Label>Choose Photo  </Form.Label>
+                            <Button variant="info" onClick={handleAddImage}>Browse</Button>
+                            <input onChange={(e) => handleChangeImage(e)} type="file" name="hospitalImage"
+                                style={{ display: "none" }} ref={imageSelectRef} accept="image/png, image/jpg, image/jpeg" ></input>
+                        </Col>
 
+                        <Col md={5}>
+
+                            <Image src={selectedImage} fluid className="image ml-3" ></Image>
+                            <div>
+                                {selectedImgName}
+                            </div>
+
+                        </Col>
+                        {/* <Col md={2}>
+                            <a style={{ color: 'red' }} onClick={removeImage}>x</a>
+                        </Col> */}
                     </Row>
 
-                    <Button variant="info" type="submit" >
-                        Create
-                    </Button>
+                    {loading == true ?
+                        <Cliploader isLoading={loading} />
+                        :
+                        <div>
+                            {hospitalID ?
+                                <div className="textAlign-right">
+                                    <Button variant="danger" type="button" onClick={handleCancelEdit}>
+                                        Cancel
+                                    </Button>
+                                    <Button variant="info" type="submit" style={{ marginLeft: '10px' }}>
+                                        Edit
+                                    </Button>
+
+                                </div>
+
+                                :
+                                <div className="textAlign-right">
+                                    <Button variant="info" type="submit" >
+                                        Create
+                                    </Button>
+                                </div>
+                            }
+                        </div>
+                    }
 
                 </Form>
             </Container>

@@ -25,12 +25,13 @@ import LabtestSubcategory from "./adminDashboard/labtestData/labtest.subcategory
 import UserProfile from "./userdashboard/settings/profileupdate.component"
 import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list"
 import { Userlabtest } from "./userdashboard/labtest/userlabtest.component"
-import StaffPage from "./adminDashboard/staffData/staff.component"
-import StaffTable from "./adminDashboard/staffData/staff.table"
 import BookedLabtest from "./adminDashboard/allLabtestData/booked.labtest"
 import MedicalInstitute from "./adminDashboard/medicalInstitue/institute.component"
 import Hospital from "./adminDashboard/hospitalData/hospital.component"
 import HospitalTable from "./adminDashboard/hospitalData/hospital.table"
+import CorporatePage from "./adminDashboard/corporateData/corporate.component"
+import Role from "./adminDashboard/userManagement/role.component"
+import CreateAdmin from "./adminDashboard/userManagement/admin.component"
 
 
 const Dashboard = (props) => {
@@ -92,10 +93,10 @@ const Dashboard = (props) => {
                                         <ProtectedRoute component={Changepassword}></ProtectedRoute>
                                         : props.location.pathname === "/dashboard/labtest-subcategory" ?
                                           <ProtectedRoute component={LabtestSubcategory} />
-                                          : props.location.pathname === "/dashboard/create-staff" ?
-                                            <ProtectedRoute component={StaffPage} />
-                                            : props.location.pathname === "/dashboard/staff-table" ?
-                                              <ProtectedRoute component={StaffTable} />
+                                          : props.location.pathname === "/dashboard/admin" ?
+                                            <ProtectedRoute component={CreateAdmin} />
+                                            : props.location.pathname === "/dashboard/role" ?
+                                              <ProtectedRoute component={Role} />
                                               : props.location.pathname === "/dashboard/booked-labtest" ?
                                                 <ProtectedRoute component={BookedLabtest}/> 
                                                 : props.location.pathname === "/dashboard/add-institute" ? 
@@ -104,6 +105,8 @@ const Dashboard = (props) => {
                                                 <ProtectedRoute component={HospitalTable}/>
                                                 : props.location.pathname === "/dashboard/add-hospital" ? 
                                                 <ProtectedRoute component={Hospital}/>
+                                                : props.location.pathname === "/dashboard/corporate" ? 
+                                                <ProtectedRoute component={CorporatePage}/>
                                               : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </div>

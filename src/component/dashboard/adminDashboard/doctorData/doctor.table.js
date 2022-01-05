@@ -37,17 +37,17 @@ const DoctorTable = (props) => {
             })
     }
 
-     const getDoctorInfo=(id)=>{
-        httpClient.GET("doctor/basic-info/" + id, false, true)
-        .then(resp => {
-            let responseData = resp.data.data;
-            setDoctorInfo(responseData);
-        })
-        .catch(err => {
-            console.log(err.response)
-        })
+    //  const getDoctorInfo=(id)=>{
+    //     httpClient.GET("doctor/basic-info/" + id, false, true)
+    //     .then(resp => {
+    //         let responseData = resp.data.data;
+    //         setDoctorInfo(responseData);
+    //     })
+    //     .catch(err => {
+    //         console.log(err.response)
+    //     })
 
-    }
+    // }
     
     useEffect(() => {
         getDoctor();
@@ -141,8 +141,6 @@ const DoctorTable = (props) => {
                     options={{
                         actionsColumnIndex: -1,
                         pageSize: 20,
-                        filtering: false,
-                        sorting: true,
                         headerStyle: {
                             backgroundColor: '#2745F0',
                             color: '#FFF'

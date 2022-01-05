@@ -354,7 +354,7 @@ const MedicalInstitute = (props) => {
                     <Modal.Header >
                         <Modal.Title><b>Institute Status</b></Modal.Title>
                     </Modal.Header>
-                    <Modal.Body >Do you really want to change this subcategory status ?</Modal.Body>
+                    <Modal.Body >Do you really want to change this institute status ?</Modal.Body>
                     <Modal.Footer>
                         {isLoading == true ?
                             <Cliploader isLoading={isLoading} />
