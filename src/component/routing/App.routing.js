@@ -51,7 +51,7 @@ export const Approuting = (props) => {
           path="/verify-password"
           component={Verifypassword}
         ></PublicRoute>
-          <PublicRoute
+        <PublicRoute
           exact
           path="/lab-test"
           component={HomeLabtest}
@@ -102,11 +102,11 @@ export const Approuting = (props) => {
           path="/dashboard/view-lab-test"
           component={Dashboard}
         ></ProtectedRoute>
-        <ProtectedRoute
+        {/* <ProtectedRoute
           exact
           path="/dashboard/medical-reports"
           component={Dashboard}
-        ></ProtectedRoute>
+        ></ProtectedRoute> */}
         <ProtectedRoute
           exact
           path="/dashboard/all-patients"
@@ -157,11 +157,42 @@ export const Approuting = (props) => {
           component={Dashboard}
         ></ProtectedRoute>
         <ProtectedRoute
+          exact
+          path="/dashboard/booked-labtest"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/labtest-subcategory"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/create-staff"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/staff-table"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
         exact
-        path="/dashboard/labtest-subcategory"
+        path="/dashboard/add-institute"
         component={Dashboard}
-      ></ProtectedRoute>
-       
+        >          
+        </ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/hospital-table"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/add-hospital"
+          component={Dashboard}
+        ></ProtectedRoute>
+
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
     </BrowserRouter>

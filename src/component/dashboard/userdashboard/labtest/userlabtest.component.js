@@ -17,15 +17,20 @@ const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 class userlabtestcomponent extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      active: false,
+      activecheckbox: [],
+      subcategorydata: [],
+      totalprice: 0,
+      checkeditems: [],
+      issubcategoryloading: false,
+      datas: [],
+      totaltoshow:[]
+
     };
   }
 
   componentDidMount = () => {
     this.props.fetchlabtest();
-    console.log("props are", this.props);
   };
   render() {
     let total = 0;
@@ -44,13 +49,34 @@ class userlabtestcomponent extends Component {
     let cart = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : null;
+
     const addtocart = (item) => {
-      notify.success("Added to cart");
-      console.log("add to cart items are", item);
-      this.props.addtocart(item);
+      let totalamount=this.state.totaltoshow    
+      let finaldata=totalamount.map((item,index)=>{
+        let dummyobj={}
+        dummyobj.price=item.price 
+        dummyobj.labId=item.subcategoryId
+        dummyobj.medicalInstituteId=item.medicalId
+        dummyobj.medicalname=item.medicalname
+        dummyobj.category=item.category
+        dummyobj.subcategoryname=item.subcategoryname
+        return dummyobj
+      })
+      this.props.addtocart(finaldata);
+      
     };
+
     const assignisactive = (item, index) => {
+      console.log("item is>>>>>>>>>>>>>>>>>>>>>>>>.",item)
       let newallabtest = allabtest.map((item, indexoflabtest) => {
+        // if(!item.isactiveclass){
+        //   this.setState((prev)=>{
+        //     return{
+        //       ...prev,
+        //       totaltoshow:[]
+        //     }
+        //   })
+        // }
         if (index == indexoflabtest) {
           item.isactiveclass = true;
         } else {
@@ -61,69 +87,13 @@ class userlabtestcomponent extends Component {
       // console.log("new mappedlabtest is", newallabtest)
       this.props.setlabtest(newallabtest);
     };
-
-    const handlecheckboxchange = (
-      e,
-      category,
-      item,
-      categoryindex,
-      subcategoryindex
-    ) => {
-      let { name, value, checked } = e.target;
-      console.log(
-        "checked is",
-        e.target.checked,
-        category,
-        checked,
-        item,
-        categoryindex,
-        subcategoryindex
-      );
-      if(e.target.checked){
-        httpClient.GET(`medical-institute/categoryId/${item.id}`,false,true)
-        .then(resp=>{
-          console.log("data after fetching data are",resp.data)
-        })
-        .catch(err=>{
-          console.log("some error occurred",err.response)
-        })
-      }
-      
-      // let price = item.price;
-      // let totalprice = 0;
-      // category.subcategory.map((item, index) => {
-      //   totalprice = totalprice + parseInt(item.price);
-      // });
-      // if (checked) {
-      //   price = tempdata.totalamount + parseInt(price);
-      //   this.props.settemptotal(price);
-      //   this.props.resetcheckbox({
-      //     categoryindex: categoryindex,
-      //     subcategoryindex: subcategoryindex,
-      //     checked: true,
-      //   });
-      // } else {
-      //   if (!tempdata.totalamount) {
-      //     price = totalprice - parseInt(price);
-      //     this.props.settemptotal(price);
-      //   } else {
-      //     console.log("tempdata.totalamount is????????", tempdata.totalamount);
-      //     price = parseInt(tempdata.totalamount) - parseInt(price);
-      //     this.props.settemptotal(price);
-      //   }
-      //   this.props.resetcheckbox({
-      //     categoryindex: categoryindex,
-      //     subcategoryindex: subcategoryindex,
-      //     checked: false,
-      //   });
-      // }
-    };
+  
     const handleCheckout = () => {
       this.props.checkout(!checkoutsignal);
-      if(this.state.active){
-        this.setState(()=>{
+      if (this.state.active) {
+        this.setState(() => {
           return {
-            active:false
+            active: false
           }
         })
       }
@@ -136,7 +106,144 @@ class userlabtestcomponent extends Component {
         };
       });
     };
+    const handleinstitutechange = (e, item, subcategory, category, index) => {
+
+      let total = this.state.totalprice
+      let checkedlist = {}
+      if (e.target.checked) {
+        item.checked = true
+        checkedlist.name = category.name
+        checkedlist.subcategory = subcategory.categoryname
+        checkedlist.company = item.medicalinstitutename
+        checkedlist.price = item.price
+        checkedlist.labId = subcategory.id
+        checkedlist.medicalInstituteId = item.id
+        total = parseInt(item.price)
+        this.setState((prev) => {
+          return {
+            ...prev,
+            totalprice: total,
+            checkeditems: [...prev.checkeditems, checkedlist]
+          }
+        })
+        setTimeout(() => {
+          console.log("this state is", item, this.state.checkeditems)
+        }, 2000)
+      }
+      console.log("e,item is", e, item)
+    }
+    const handleChange = (e, item, index) => {
+      console.log("checked is",e.target.checked,item)
+      if (e.target.checked) {
+        httpClient.GET(`medical-institute/categoryId/${item.id}`, false, true)
+          .then(resp => {
+            let dummydata = this.state.datas
+            let dummyobj = {}
+            dummyobj.name = item.categoryname
+            dummyobj.data = resp.data.data
+            dummydata.push(dummyobj)
+            this.setState((prev) => {
+              return {
+                ...prev,
+                datas: dummydata
+              }
+            })
+            setTimeout(() => {
+              console.log(this.state.datas)
+            }, 2000);
+
+            console.log("response is", resp.data.data)
+          })
+          .catch(()=>{
+            notify.error("Error occurred")
+          })
+      }
+      else{
+        console.log("inside else statement",item)
+        let dummydata=this.state.datas 
+        let totalamount=this.state.totaltoshow
+        dummydata.map((data,index)=>{
+          console.log(data,index)
+          if(data.name==item.categoryname){
+            console.log("inside splicaing of dummy data else")
+            dummydata.splice(index,1)
+          }
+        })
+        totalamount.map((totalitem,totalindex)=>{
+          console.log("totalitem",totalitem)
+          if(totalitem.subcategoryId==item.id){
+            totalamount.splice(totalindex,1)
+          }
+        })
+        this.setState((prev)=>{
+          return{
+            ...prev,
+            datas:dummydata,
+            totaltoshow:totalamount
+          }
+        })
+      }
+      setTimeout(() => {
+        console.log("total item is",this.state.totaltoshow)
+      }, 2000);
+
+
+    }
+    const handleRadioChange = (item, index,subcategory,category) => {
+      console.log("inside radiochange")
+      console.log("dasdas", item, index,subcategory)
+      let datatopush={}
+      datatopush.category=category.name
+      datatopush.subcategoryId=subcategory.id
+      datatopush.subcategoryname=subcategory.categoryname
+      datatopush.medicalname=item.medicalinstitutename
+      datatopush.medicalId=item.id
+      datatopush.price=item.price
+      let statetotalarray=this.state.totaltoshow
+      if(!statetotalarray.length){
+        console.log("inside if")
+        statetotalarray.push(datatopush)
+      }
+      else{
+        statetotalarray.map((totalitem,totalindex)=>{
+          console.log("inside else",totalitem.subcategoryId,subcategory.id)
+          if(totalitem.subcategoryId!=subcategory.id && totalitem.medicalId!=item.id  ){
+            console.log("inside first if")
+            console.log("totalitem length  and index is",totalitem.length,totalindex)
+            if(totalindex===statetotalarray.length-1){
+               statetotalarray.push(datatopush)
+            }
+          }
+          if(totalitem.subcategoryId!=subcategory.id && totalitem.medicalId==item.id){
+            console.log("inside second if")
+            if(totalindex===statetotalarray.length-1){
+              statetotalarray.push(datatopush)
+           }
+          }
+          if(totalitem.subcategoryId==subcategory.id && totalitem.medicalId!=item.id){
+            console.log("inside third-if")
+            statetotalarray.splice(totalindex,1)
+            statetotalarray.push(datatopush)
+          }
+          if(totalitem.subcategoryId==subcategory.id && totalitem.medicalId==item.id){
+            console.log("inside fouth-if")
+            statetotalarray.splice(totalindex,1)
+            statetotalarray.push(datatopush)
+          }
+        })
+      }
+      this.setState((prev)=>{
+        return{
+          ...prev,
+          totaltoshow:statetotalarray
+        }
+      })
+      setTimeout(() => {
+        console.log("total is",this.state.totaltoshow)
+      }, 2000);
+    }
     return (
+
       <div>
         {checkoutsignal ? <Checkoutpopup /> : null}
         {this.state.active ? <Cartpopup></Cartpopup> : null}
@@ -171,218 +278,100 @@ class userlabtestcomponent extends Component {
                 </div>
               </div>
             </div>
-
             <div className="lab_add_to_cart_samp">
-              {allabtest.map((item, index) => {
+              {allabtest.map((category, index) => {
                 return (
                   <div
                     className={
-                      item.isactiveclass
+                      category.isactiveclass
                         ? "active_lab_add_to_cart_samp1"
                         : "lab_add_to_cart_samp1"
                     }
                     key={index}
-                    onClick={() => assignisactive(item, index)}
+                    onClick={() => assignisactive(category, index)}
                   >
                     <div className="lab_add_to_cart_samp_img1">
                       <img
                         src={
-                          REACT_APP_BASE_URL + "lab-test/download/" + item.id
+                          REACT_APP_BASE_URL + "lab-test/download/" + category.id
                         }
-                        alt={item.name}
+                        alt={category.name}
                       />
                     </div>
                     <div className="lab_add_to_cart_test_desc">
-                      <p>{item.isactive}</p>
-                      <p id="labtest_desc_txt1">{item.name}</p>
+                      <p>{category.isactive}</p>
+                      <p id="labtest_desc_txt1">{category.name}</p>
                       <p id="labtest_desc_txt2">What it include :</p>
                       <div className="labtest_desc1">
                         <div className="labtest_desc_detail">
-                          {item.isactiveclass ? (
+                          {category.isactiveclass ? (
                             <form id="lab_test_detail">
-                              {item.subcategory.map(
-                                (subcategory, subcategoryindex) => {
-                                  console.log(
-                                    "subcategory checked  is>>>>",
-                                    subcategory.checked
-                                  );
-                                  if (index < 3) {
-                                    return (
-                                      <div key={subcategoryindex}>
-                                        <input
-                                          type={"checkbox"}
-                                          name={subcategory.categoryname}
-                                          onChange={(e) =>
-                                            handlecheckboxchange(
-                                              e,
-                                              item,
-                                              subcategory,
-                                              index,
-                                              subcategoryindex
-                                            )
-                                          }
-                                          
-                                        />
-                                        <label
-                                          htmlFor={subcategory.categoryname}
-                                        >
-                                          {subcategory.categoryname}
-                                        </label>
-                                        <br />
-                                      </div>
-                                    );
-                                  }
-                                }
+                              {category.subcategory.map((subcategory, index) =>
+                                <>
+                                  <input type={"checkbox"} onChange={(e) => handleChange(e, subcategory, index)} name={category.id}></input>
+                                  <label style={{ position: "inherit", zIndex: "10" }}>{subcategory.categoryname} </label>
+                                  <div id={index}>
+                                    {
+                                      this.state.datas.map((item) => {
+                                        if (item.name == subcategory.categoryname) {
+                                          console.log("inside if statement", item)
+                                          return item.data.map((item, index) => {
+                                            return <>
+                                              <input type={"radio"} onChange={() => handleRadioChange(item, index,subcategory,category)} name={subcategory.categoryname}></input>
+                                              <label>{item.medicalinstitutename}</label>
+                                              <span style={{marginLeft:"40px",color:"blue"}}>Rs.{item.price}</span>
+                                              <br />
+                                            </>
+                                          })
+                                        }
+
+                                      })
+                                    }
+
+                                  </div>
+                                </>
                               )}
                             </form>
                           ) : (
                             <ul id="lab_test_detail">
-                              {item.subcategory.map((item, index) => {
-                                if (index < 3) {
-                                  return (
-                                    <>
-                                      <li>{item.categoryname}</li>
-                                    </>
-                                  );
-                                }
-                              })}
-                            </ul>
-                          )}
-                        </div>
-                        <div>
-                          {item.isactiveclass ? (
-                            <form id="lab_test_detail">
-                              {item.subcategory.map((item, index) => {
-                                if (index > 2 && index < 5) {
-                                  return (
-                                    <>
-                                      <input
-                                        type={"checkbox"}
-                                        name={item.categoryname}
-                                      />
-                                      <label htmlFor={item.categoryname}>
-                                        {item.categoryname}
-                                      </label>
-                                      <br />
-                                    </>
-                                  );
-                                }
-                              })}
-                            </form>
-                          ) : (
-                            <ul id="lab_test_detail">
-                              {item.subcategory.map((item, index) => {
-                                if (index > 2 && index < 5) {
-                                  return (
-                                    <>
-                                      <li>{item.categoryname}</li>
-                                    </>
-                                  );
-                                }
-                              })}
-                            </ul>
-                          )}
-                        </div>
-                        <div>
-                          {item.isactiveclass ? (
-                            <form id="lab_test_detail">
-                              {item.subcategory.map((item, index) => {
-                                if (index > 5 && index < 8) {
-                                  return (
-                                    <>
-                                      <input
-                                        type={"checkbox"}
-                                        name={item.categoryname}
-                                      />
-                                      <label htmlFor={item.categoryname}>
-                                        {item.categoryname}
-                                      </label>
-                                      <br />
-                                    </>
-                                  );
-                                }
-                              })}
-                            </form>
-                          ) : (
-                            <ul id="lab_test_detail">
-                              {item.subcategory.map((item, index) => {
-                                if (index > 5 && index < 8) {
-                                  return (
-                                    <>
-                                      <li>{item.categoryname}</li>
-                                    </>
-                                  );
-                                }
-                              })}
-                            </ul>
-                          )}
-                        </div>
-                        <div>
-                          {item.isactiveclass ? (
-                            <form id="lab_test_detail">
-                              {item.subcategory.map((item, index) => {
-                                if (index > 8 && index < 11) {
-                                  return (
-                                    <>
-                                      <input
-                                        type={"checkbox"}
-                                        name={item.categoryname}
-                                      />
-                                      <label htmlFor={item.categoryname}>
-                                        {item.categoryname}
-                                      </label>
-                                      <br />
-                                    </>
-                                  );
-                                }
-                              })}
-                            </form>
-                          ) : (
-                            <ul id="lab_test_detail">
-                              {item.subcategory.map((item, index) => {
-                                if (index > 8 && index < 11) {
-                                  return (
-                                    <>
-                                      <li>{item.categoryname}</li>
-                                    </>
-                                  );
-                                }
-                              })}
+                              {category.subcategory.map((item, index) => {
+                                return (
+                                  <>
+                                    <li>{item.categoryname}</li>
+                                  </>
+                                );
+                              }
+                              )}
                             </ul>
                           )}
                         </div>
                       </div>
                     </div>
-                    <div className="lab_add_to_cart_price">
-                      {item.isactiveclass && tempdata.totalamount ? (
-                        <p>Rs.{tempdata.totalamount}</p>
-                      ) : (
-                        item.subcategory.map((subcategory, index) => {
-                          //console.log("subcategory is", subcategory)
-                          total = total + parseInt(subcategory.price);
-                          // console.log("total is", total)
-                          if (index == item.subcategory.length - 1) {
-                            return (
-                              <>
-                                <p>Rs.{total}</p>
-                                <div style={{ display: "none" }}>
-                                  {(total = 0)}
-                                </div>
-                              </>
-                            );
+
+                    {
+                      category.isactiveclass ?
+                        <div className="lab_add_to_cart_price">
+                         
+                          {
+                            this.state.totaltoshow.length?
+                             this.state.totaltoshow.map((item,index)=>{
+                                total=total+parseInt(item.price)
+                                if(index==this.state.totaltoshow.length-1){
+                                  return <p>Rs. {total}</p>
+                                }
+                            }):<p>Rs.0</p>
                           }
-                        })
-                      )}
-                      <div className="lab_add_to_cart_atc">
-                        {addtocartsign ? (
-                          <button onClick={() => addtocart(item)}>
-                            <p>Add to Cart</p>
-                          </button>
-                        ) : (
-                          <button>Please choose</button>
-                        )}
-                      </div>
-                    </div>
+                          <div className="lab_add_to_cart_atc">
+                            {this.state.totaltoshow.length ? (
+                              <button onClick={() => addtocart()}>
+                                <p>Add to Cart</p>
+                              </button>
+                            ) : (
+                              <button disabled>Select some</button>
+                            )}
+                          </div>
+                        </div> : <h3>Click here to choose </h3>
+                    }
                   </div>
                 );
               })}

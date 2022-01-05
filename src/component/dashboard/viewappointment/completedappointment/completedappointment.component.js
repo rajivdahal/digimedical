@@ -10,6 +10,7 @@ import Edit from "@material-ui/icons/Edit";
 import DigiMedicalLogo from "../../../../assets/logo.png";
 import { Visibility } from "@material-ui/icons";
 import "./prescriptionView.css";
+import "./completedappointment.component.css"
 export const Completedappointment = (props) => {
   const fromdoctorcomponent = props.fromdoctorcomponent
     ? props.fromdoctorcomponent
@@ -174,15 +175,32 @@ export const Completedappointment = (props) => {
               backgroundColor: "#2745F0",
               color: "#FFF",
             },
+            rowStyle:(rowdata)=>{
+              console.log("row data are",rowdata)
+              if(!rowdata.isViewed){
+                return{
+                  backgroundColor:"green",
+                  color:"white"
+                }
+              }
+            }
           }}
           actions={[
             {
-              icon: Visibility,
-              tooltip: "Edit Labtest",
+              icon: () => (
+                
+                <Visibility fontSize="medium"
+               
+                  className="action-button"
+                />
+              ),
+              tooltip: "View prescription",
+              
               onClick: (e, rowData) => {
                 showPrescriptionModal(e, rowData);
               },
-            },
+              
+            }, 
           ]}
         ></MaterialTable>
       )}

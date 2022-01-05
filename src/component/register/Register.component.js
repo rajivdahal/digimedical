@@ -92,7 +92,7 @@ const RegisterComponent = (props) => {
 
 
                     }
-                    notify.error(err.response.data.message)
+                    err.response?notify.error(err.response.data.message):notify.error("Register unsuccessful")
                     setisLoading(false)
                 })
         }

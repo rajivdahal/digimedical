@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
 import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
-import CoPresentRoundedIcon from '@mui/icons-material/CoPresentRounded';
 import "./nav.component.css"
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import CoPresentRounded from "@mui/icons-material/CoPresentRounded";
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
 import VaccinesRoundedIcon from '@mui/icons-material/VaccinesRounded';
 import WysiwygRoundedIcon from '@mui/icons-material/WysiwygRounded';
-
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 const Adminsidebar = (props) => {
   console.log("props in admin sidebar", props)
   const navigatedashboard = () => {
@@ -21,14 +21,12 @@ const Adminsidebar = (props) => {
         <ul className="nav">
           <li className="nav-item" onClick={navigatedashboard} style={{cursor:"pointer"}}>
             <a className="nav-link" >
-              {/* <i className="icon-grid menu-icon"></i> */}
-              <GridViewRoundedIcon className="dash-icon"> </GridViewRoundedIcon>
+              <DashboardIcon className="dash-icon"></DashboardIcon>
               <span className="menu-title">Dashboard</span>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
-              {/* <i className="icon-layout menu-icon"></i> */}
               <AssignmentIndOutlinedIcon className="dash-icon "></AssignmentIndOutlinedIcon>
               <span className="menu-title">Appointments</span>
               <i className="menu-arrow"></i>
@@ -44,15 +42,17 @@ const Adminsidebar = (props) => {
 
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#labtest" aria-expanded="false" aria-controls="labtest">
-              {/* <i className="icon-layout menu-icon"></i> */}
               <VaccinesRoundedIcon className="dash-icon"></VaccinesRoundedIcon>
-              <span className="menu-title">Lab Tests</span>
+              <span className="menu-title">View Lab Tests</span>
               <i className="menu-arrow"></i>
             </a>
             <div className="collapse" id="labtest">
               <ul className="nav flex-column sub-menu">
                 <Link to="/dashboard/labtest">
-                <li className="nav-item"> <a className="nav-link" href="">View Lab Test</a></li>
+                <li className="nav-item"> <a className="nav-link" href="">All Labtest</a></li>
+                </Link>
+                <Link to="/dashboard/booked-labtest">
+                <li className="nav-item"> <a className="nav-link" href="">Booked Labtest</a></li>
                 </Link>
               </ul>
             </div>
@@ -60,7 +60,6 @@ const Adminsidebar = (props) => {
 
           <li className="nav-item">
             <a className="nav-link " data-toggle="collapse" href="#doctor" aria-expanded="false" aria-controls="doctor">
-              {/* <i className="icon-layout menu-icon"></i> */}
               <CoPresentRounded className="dash-icon"></CoPresentRounded>
               <span className="menu-title">Doctors</span>
               <i className="menu-arrow"></i>
@@ -77,6 +76,7 @@ const Adminsidebar = (props) => {
             </div>
           </li>
 
+
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#staffs" aria-expanded="false" aria-controls="staffs">
               {/* <i className="icon-bar-graph menu-icon"></i> */}
@@ -84,13 +84,38 @@ const Adminsidebar = (props) => {
               <span className="menu-title">Staff</span>
               <i className="menu-arrow"></i>
             </a>
-            <div className="collapse" id="staff">
+            <div className="collapse" id="staffs">
               <ul className="nav flex-column sub-menu">
-                <li className="nav-item"><a className="nav-link" href="">All Staff</a></li>
-                <li className="nav-item"><a className="nav-link" href="">Add Staff</a></li>
+                <Link to="/dashboard/staff-table">
+                <li className="nav-item"><a className="nav-link" href="">All Staffs</a></li>
+                </Link>
+                <Link to="/dashboard/create-staff">
+                <li className="nav-item"><a className="nav-link" href="">Add Staffs</a></li>
+                </Link>
               </ul>
             </div>
           </li>
+
+
+          <li className="nav-item">
+            <a className="nav-link" data-toggle="collapse" href="#hospital" aria-expanded="false" aria-controls="hospital">
+              {/* <i className="icon-bar-graph menu-icon"></i> */}
+              <LocalHospitalIcon className="dash-icon"></LocalHospitalIcon>
+              <span className="menu-title">Hospital</span>
+              <i className="menu-arrow"></i>
+            </a>
+            <div className="collapse" id="hospital">
+              <ul className="nav flex-column sub-menu">
+              <Link to="/dashboard/hospital-table">
+                  <li className="nav-item"><a className="nav-link" href="">All Hospitals</a></li>
+                </Link>
+                <Link to="/dashboard/add-hospital">
+                <li className="nav-item"><a className="nav-link" href="">Add Hospital</a></li>
+                </Link>
+              </ul>
+            </div>
+          </li>
+
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
               {/* <i className="icon-columns menu-icon"></i> */}
@@ -109,6 +134,10 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/labtest-subcategory">
                   <li className="nav-item"> <a className="nav-link" href="">Labtest Subcategory</a></li>
                 </Link>
+                <Link to="/dashboard/add-institute">
+                  <li className="nav-item"><a className="nav-link" href="">Medical Institute</a></li>
+                </Link>
+                
               </ul>
             </div>
           </li>

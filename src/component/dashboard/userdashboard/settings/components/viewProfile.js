@@ -54,7 +54,7 @@ const ViewProfile = (props) => {
                         </Col>
                         <Col md={6}>
                             <div className="info-block">
-                                <span className="info-label">Date Of Birth</span>
+                                <span className="info-label">DOB</span>
                                 <span>:</span>
                                 <span className="info-value">{props.dateofbirth}</span>
                             </div>

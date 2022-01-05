@@ -73,13 +73,7 @@ const Createdoctor = (props) => {
                 value : service.id
             }
         })
-
-        // let tempData = { ...doctorData };
- 
-        // tempData.serviceID = allServices[0].id;
         setServices(options);
-        // setAvailableServices(allServices);
-        // setDoctorData(tempData);
         return allServices;
 
     }
@@ -88,7 +82,6 @@ const Createdoctor = (props) => {
         enableReinitialize: true,
         initialValues: doctorData,
         onSubmit: values => {
-            // console.log(values.doctorImage);
             if (doctorId) {
                 editDoctorDetail(values)
 
@@ -97,7 +90,6 @@ const Createdoctor = (props) => {
             }
         },
         validate: values => {
-            // console.log(values);
             let isEdit = doctorId ? true : false;
             return validateDoctor(values, isEdit);
         },
@@ -335,9 +327,7 @@ const Createdoctor = (props) => {
                                     <option value="MBBS">MBBS</option>
                                     <option value="Both">Both</option>
                                 </select>
-                                {formik.errors.prefix && formik.touched.prefix ?
-                                    <div className="error-message">{formik.errors.prefix}</div>
-                                    : null}
+                               
                             </Form.Group>
                         </Col>
                         <Col md={3}>
@@ -463,7 +453,7 @@ const Createdoctor = (props) => {
                         <Col md={6}>
                             <Form.Group>
                                 <Form.Label>Description</Form.Label>
-                                <Form.Control type="text" name="description" name="description"
+                                <Form.Control type="text" name="description"
                                     onChange={formik.handleChange} value={formik.values.description} onBlur={formik.handleBlur} />
                                 {formik.errors.description && formik.touched.description ?
                                     <div className="error-message">{formik.errors.description}</div>

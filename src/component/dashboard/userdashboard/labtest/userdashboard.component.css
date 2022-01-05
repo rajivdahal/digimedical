@@ -9,7 +9,7 @@
   margin-left: 235px;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   background: linear-gradient(
     177.28deg,
     rgba(82, 178, 229, 0.14) 2.16%,
@@ -36,7 +36,7 @@
 
 .lab_add_to_cart_ltwo {
   font-weight: bold;
-  font-size: 40px;
+  font-size: 37px;
   line-height: 52px;
 
   color: #192638;
@@ -168,7 +168,7 @@
   border: 2px solid #2745f0;
   /* border: 3px solid red; */
   border-radius: 10px;
-  overflow: hidden;
+  overflow: scroll;
   display: flex;
   box-shadow: 2px 2px 1px 1px #2745f08e;
 }
@@ -192,6 +192,7 @@
   width: 185px;
   display: inline-block;
   line-height: 140px;
+  position: fixed;
 }
 
 .lab_add_to_cart_test_desc {
@@ -208,7 +209,8 @@
   text-align: center;
   padding-top: 75px;
   font-weight: bold;
-  margin-left: 20px;
+  right: 23%;
+  position: fixed;
 }
 
 .lab_add_to_cart_price p {
@@ -258,4 +260,10 @@
 
 .lab_add_to_cart_buttons_select1 div {
   margin-left: 10px;
+}
+.medical-institute-name{
+  margin-left: 3rem;
+}
+.medical-institute-name-display-null{
+  display: none;
 }

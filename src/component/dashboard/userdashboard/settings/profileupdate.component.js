@@ -32,7 +32,7 @@ const UserProfile = (props) => {
                 console.log(resp)
                 if (resp.data.status) {
                     let details = resp.data.data;
-                    console.log("user details is",details);
+                    // console.log("user details is",details);
                     setUserDetails(details);
                 }
             })

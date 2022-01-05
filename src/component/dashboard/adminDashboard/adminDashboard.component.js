@@ -6,7 +6,7 @@ import './adminDashboard.component.css'
 
 const AdminDashboard = (props) => {
   const[totalAppointments,setTotalAppointment] = useState("");
-
+  let [today,settoday]=useState(TimeandDate.today())
   const getTotalAppointments=()=>{
     httpClient.GET("total-appointments-admin",false,true)
     .then(resp => {
@@ -34,7 +34,7 @@ const AdminDashboard = (props) => {
               <div className="justify-content-end d-flex">
                 <div className="dropdown flex-md-grow-1 flex-xl-grow-0">
                   <div className="btn btn-sm btn-light bg-white " >
-                    <span className="mdi mdi-calendar"></span> Today {TimeandDate.today()}
+                    <span className="mdi mdi-calendar"></span> Today {today}
                   </div>
                 </div>
               </div>
