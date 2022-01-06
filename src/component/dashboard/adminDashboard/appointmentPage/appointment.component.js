@@ -68,8 +68,8 @@ const Appointment = (props) => {
                         icons={Tableicons}
                         columns={[
                             { title: 'NMC', field: 'nmcNo', },
-                            { title: 'Patient Name', field: 'patientsName' },
                             { title: 'Doctor Name', field: 'doctorsName' },
+                            { title: 'Patient Name', field: 'patientsName' },
                             { title: 'Service', field: 'serviceName' },
                             { title: 'Appointment Date', field: 'appointmentDate' },
                             { title: 'Appointment Time', field: 'appointmentTime' },

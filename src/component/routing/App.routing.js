@@ -14,6 +14,8 @@ import Service from "../Service/Service";
 import ContactUs from "../Contact/ContactUs";
 import DoctorAtHome from "../DoctorAtHome/DoctorAtHome";
 import HomeLabtest from "../home/Labtest/labtest";
+import Hospitalbooking from "../home/Hospital Booking/hospital.booking.component";
+import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component";
 
 export const Approuting = (props) => {
   return (
@@ -51,10 +53,20 @@ export const Approuting = (props) => {
           path="/verify-password"
           component={Verifypassword}
         ></PublicRoute>
-          <PublicRoute
+        <PublicRoute
           exact
           path="/lab-test"
           component={HomeLabtest}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/hospitals"
+          component={Hospitalbooking}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/hospitals/view-doctors"
+          component={Hospital_doctors}
         ></PublicRoute>
 
         <ProtectedRoute
@@ -97,16 +109,16 @@ export const Approuting = (props) => {
           path="/dashboard/lab-reports"
           component={Dashboard}
         ></ProtectedRoute>
-         <ProtectedRoute
+        <ProtectedRoute
           exact
           path="/dashboard/view-lab-test"
           component={Dashboard}
         ></ProtectedRoute>
-        <ProtectedRoute
+        {/* <ProtectedRoute
           exact
           path="/dashboard/medical-reports"
           component={Dashboard}
-        ></ProtectedRoute>
+        ></ProtectedRoute> */}
         <ProtectedRoute
           exact
           path="/dashboard/all-patients"
@@ -157,11 +169,48 @@ export const Approuting = (props) => {
           component={Dashboard}
         ></ProtectedRoute>
         <ProtectedRoute
-        exact
-        path="/dashboard/labtest-subcategory"
-        component={Dashboard}
-      ></ProtectedRoute>
-       
+          exact
+          path="/dashboard/booked-labtest"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/labtest-subcategory"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/admin"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/role"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/add-institute"
+          component={Dashboard}
+        >
+        </ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/hospital-table"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/add-hospital"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/corporate"
+          component={Dashboard}
+        >
+        </ProtectedRoute>
+
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
     </BrowserRouter>

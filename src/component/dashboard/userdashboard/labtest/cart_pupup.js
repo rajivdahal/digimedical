@@ -11,21 +11,57 @@ class Cartpopupcomponent extends Component {
     render() {
         let { removeproductstatus, removeproductsign } = this.props
         const cart = JSON.parse(localStorage.getItem("cart"))
-        const removemappedproduct = (toremoveitem, toremoveindex) => {
-            console.log(toremoveitem, toremoveindex)
+        console.log("cart items arfter pop up is", cart)
+        const removemappedproduct = (toremoveitemcategory) => {
             if (cart) {
                 cart.labs.map((item, index) => {
-                    console.log("inside mapper")
-                    if (index == toremoveindex) {
-                        cart.cartvalue = cart.cartvalue - 1
+                    if(item[0].category==toremoveitemcategory){
                         cart.labs.splice(index, 1)
+                        cart.cartvalue = cart.cartvalue - 1
                         localStorage.setItem("cart", JSON.stringify(cart))
                         this.props.removeproductstatus(!removeproductsign)
                     }
+                   
+                    // console.log("inside mapper")
+                    // if (index == toremoveindex) {
+                    //     cart.cartvalue = cart.cartvalue - 1
+                    //     cart.labs.splice(index, 1)
+                    //     localStorage.setItem("cart", JSON.stringify(cart))
+                    //     this.props.removeproductstatus(!removeproductsign)
+                    // }
                 })
             }
         }
+        let maincategories = []
 
+
+        if (cart) {
+            cart.labs.map((mainarray, mainarrayindex) => {
+                console.log("mainarray is", mainarray)
+                let subcategories = []
+                let subcategoryarray = {}
+                mainarray.map((item, index) => {
+                    if (index == 0) {
+                        subcategoryarray.category = item.category
+                        subcategories.push(item.subcategoryname)
+                    }
+                    else {
+                        subcategories.push(item.subcategoryname)
+                    }
+                    if (index == mainarray.length - 1) {
+                        subcategoryarray.subcategories = subcategories
+                        maincategories.push(subcategoryarray)
+
+                    }
+                })
+            })
+
+            // [{
+            //         maincategory: category,
+            //         subcategories: [sdnj, fkas]
+            //     }]
+        }
+        // {"cartvalue":2,"labs":[[{"price":"100","labId":4,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab4"},{"price":"1000","labId":1,"medicalInstituteId":2,"medicalname":"institute2","category":"labtest2`","subcategoryname":"lab1"}],[{"price":"1400","labId":2,"medicalInstituteId":2,"medicalname":"institute2","category":"labtest1","subcategoryname":"lab2"}]]}
         return (
             <>
                 <div>
@@ -38,19 +74,25 @@ class Cartpopupcomponent extends Component {
                                     </div>
                                     <ol className="popup_carts_cont1_desc">
                                         {
-                                            cart ?
-                                                cart.labs.length ?
-                                                    cart.labs.map((item, index) => {
-                                                        return <li id="popup_carts_cont1_desc">
-                                                            <div>
-                                                                {item.name}
-                                                                <span id="carts_labtest_span_cross" onClick={() => removemappedproduct(item, index)} style={{ cursor: "pointer" }}>
-                                                                    <p>&times;</p>
-                                                                </span>
-                                                            </div>
-                                                        </li>
-                                                    }) : <p>No any items found</p> : <p>No any items found</p>
-
+                                            maincategories.length ?
+                                                maincategories.map((item, index) => {
+                                                    return <li id="popup_carts_cont1_desc" key={index}>
+                                                        <div>
+                                                            <span>{item.category}</span>
+                                                            <span id="carts_labtest_span_cross" onClick={() => removemappedproduct(item.category)} style={{ cursor: "pointer" }}>
+                                                                <p>&times;</p>
+                                                            </span>
+                                                        </div>
+                                                        <ul>
+                                                            {
+                                                                item.subcategories.map((item)=>{
+                                                                    return <li>{item}</li>
+                                                                })
+                                                            }
+                                                            
+                                                        </ul>
+                                                    </li>
+                                                }):<p>No any items to show</p>
                                         }
                                     </ol>
                                 </div>

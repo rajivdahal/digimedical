@@ -87,10 +87,7 @@ const BoxContainpr = styled.div`
     margin-top: 1rem;
   }
 `;
-const ImageContainer = styled.img`
-  margin-left: -1.8rem;
-  height: 3.5rem;
-`;
+;
 
 const CoreValues = () => {
   return (
@@ -107,14 +104,19 @@ const CoreValues = () => {
         return (
           <Feature>
             <BoxContainpr>
-              <ImageContainer src={circleicon} />
+              <div style={{ height: "4rem", width: "6rem", borderRadius: "50%", backgroundColor: "#52B2E5" ,display:"flex",justifyContent:"center",alignItems:"center"}}>
+              <i class="fas fa-clipboard-check" style={{fontSize:"30px",color:"white"}}></i>
+
+              </div>
               <div className="title-deatial-div">
                 <div className="title">{item.title1}</div>
                 <div className="detail">{item.description1}</div>
               </div>
             </BoxContainpr>
             <BoxContainpr>
-              <ImageContainer src={circleicon} />
+              <div style={{ height: "4rem", width: "6rem", borderRadius: "50%", backgroundColor: "#52B2E5" ,display:"flex",justifyContent:"center",alignItems:"center"}}>
+              <i class="fas fa-clipboard-check" style={{fontSize:"30px",color:"white"}}></i>
+              </div>
               <div className="title-deatial-div">
                 <div className="title">{item.title2}</div>
                 <div className="detail">{item.description2}</div>

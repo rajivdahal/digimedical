@@ -111,7 +111,7 @@ const Labtest = (props) => {
             setImgName(files.name);
         };
         reader.readAsDataURL(files);
-    }
+    }   
 
     const createLabtest = (values) => {
         try {
@@ -380,7 +380,6 @@ const Labtest = (props) => {
                         { title: "ID", field: "id" },
                         { title: 'Name', field: 'name' },
                         { title: 'Description', field: 'description' },
-                        { title: 'Price', field: 'priceString' },
                         {
                             title: 'Status', field: 'status',
                             render: rowData => rowData.status == true ?

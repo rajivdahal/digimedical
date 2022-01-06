@@ -22,7 +22,7 @@ export const labtestActionTypes = {
 }
 
 export const addtocart = params => {
-
+    console.log("addtocart service in action file is",params)
     return (dispatch) => {
         dispatch({
             type: cartActionTypes.SET_IS_CART_ADDED,
@@ -34,7 +34,7 @@ export const addtocart = params => {
 export const fetchlabtest = (params) => {
 
     return (dispatch) => {
-        httpClient.GET("labtest/category/get", false, true)
+        httpClient.GET("labtest/category/get")
             .then(resp => {
                 let data = resp.data.data
                 console.log(data)

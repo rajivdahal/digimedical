@@ -47,6 +47,7 @@
   border-radius: 10px;
   overflow: hidden;
   display: flex;
+  cursor: pointer;
 }
 
 .lab_sam_img1 img {
@@ -62,7 +63,7 @@
   height: 220px;
   margin-top: 25px;
   margin-left: 10px;
-  border-right: 1px solid #8797a87e;
+  /* border-right: 1px solid #8797a87e; */
 }
 
 #labtest_desc_txt1 {
@@ -92,6 +93,7 @@
   font-size: 12px;
   margin-left: 50px;
   color: #596579;
+  
 }
 
 #lab_test_detail li {
@@ -204,3 +206,16 @@
 
   border-radius: 4px;
 }
+.No_cart_item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 3rem;
+  color: #4200ff;
+}
+
+/* .lab_add_to_cart_price{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */

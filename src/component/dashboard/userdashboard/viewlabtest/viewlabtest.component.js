@@ -10,6 +10,7 @@ import Tableicons from "../../../../utils/materialicons";
 
 export default function Viewlabtest() {
     let [labtests, setlabtests] = useState([])
+    let [today,settoday]=useState(TimeandDate.today())
     useEffect(() => {
         httpClient.GET("lab-booking/get-booking/0", false, true)
             .then(resp => {
@@ -125,7 +126,7 @@ export default function Viewlabtest() {
                                     <div className="justify-content-end d-flex">
                                         <div className="dropdown flex-md-grow-1 flex-xl-grow-0">
                                             <button className="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                <i className="mdi mdi-calendar"></i>Today- {TimeandDate.today()}
+                                                <i className="mdi mdi-calendar"></i>Today- {today}
                                             </button>
 
                                         </div>

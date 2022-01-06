@@ -18,20 +18,23 @@ class Checkoutpopupcomponent extends Component {
     let { removeproductstatus, addtocartsign, checkoutsignal, removeproductsign } = this.props
     const cart = JSON.parse(localStorage.getItem("cart"))
     console.log("cart is", cart)
-    const removecartproduct = (toremoveitem, toremoveindex) => {
+    const removecartproduct = (category, toremoveindex) => {
+      console.log("to remove category and index is", category, toremoveindex)
       if (cart) {
-        cart.labs.map((item, index) => {
-          console.log("inside mapper")
-          if (index == toremoveindex) {
-            cart.cartvalue = cart.cartvalue - 1
-            cart.labs.splice(index, 1)
-            localStorage.setItem("cart", JSON.stringify(cart))
-            this.props.removeproductstatus(!removeproductsign)
-          }
-        })
+        cart.labs.length ?
+          cart.labs.map((mainarray, mainarrayindex) => {
+            console.log("inside mapper")
+            if (mainarray[0].category == category.category) {
+              cart.labs.splice(mainarrayindex, 1)
+              cart.cartvalue = cart.cartvalue - 1
+              localStorage.setItem("cart", JSON.stringify(cart))
+              this.props.removeproductstatus(!removeproductsign)
+            }
+
+          }) : console.log("No items in the cart")
       }
       else {
-        notify.error("No items in the cart")
+        return
       }
 
     }
@@ -40,60 +43,64 @@ class Checkoutpopupcomponent extends Component {
       console.log("remove pop up triggered")
       this.props.checkout(!checkoutsignal)
     }
-    const itemsmanipulation = (toremoveitem, toremoveindex) => {
-      console.log("manipulation triggered")
-      console.log("item and index are", toremoveindex)
-      const cartitems = JSON.parse(localStorage.getItem("cart"))
-      if (cartitems) {
-        cartitems.labs.map((item, index) => {
-          console.log("inside mapper")
-          if (index == toremoveindex) {
-            cartitems.cartvalue = cartitems.cartvalue - 1
-            cartitems.labs.splice(index, 1)
-            localStorage.setItem("cart", JSON.stringify(cartitems))
-            this.props.removeproductstatus(!removeproductstatus)
-          }
-
-        })
-      }
-
-
-    }
+   
     const handleCheckoutlabtest = () => {
+      
+      
       if (!localStorage.getItem("cart")) {
         return notify.error("Please add some items to the cart")
       }
       const cartitems = JSON.parse(localStorage.getItem("cart"))
-      let labdatatocheckout = []
-      cartitems.labs.map((item, index) => {
-        item.subcategory.map((item, index) => {
-          if (item.checked == true) {
-            labdatatocheckout.push({
-              price: item.price,
-              labId: item.id
+      if(cartitems.labs.length){
+        let labdatatocheckout = []
+        cartitems.labs.map((mainarray,mainarrayindex)=>{
+          mainarray.map((insideobject,insideobjectitem)=>{
+            labdatatocheckout.push(insideobject)
+          })
+        })
+        labdatatocheckout.length?
+        httpClient.POST("lab-booking/create", labdatatocheckout, false, true)
+            .then(resp => {
+              notify.success("Lab test booked successfully")
+              localStorage.removeItem("cart")
+              this.props.checkout(!checkoutsignal)
             })
+            .catch(err => {
+              notify.error("Lab test could not be saved,Please try again in few minutes")
+            })
+            :notify.error("No any data found")
+        
+      }
+      else{
+        notify.error("Please add some items to the cart")
+        this.props.checkout(!checkoutsignal)
+      }
+        // {"cartvalue":2,"labs":[[{"price":"100","labId":4,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab4"},{"price":"1000","labId":1,"medicalInstituteId":2,"medicalname":"institute2","category":"labtest2`","subcategoryname":"lab1"}],[{"price":"1400","labId":2,"medicalInstituteId":2,"medicalname":"institute2","category":"labtest1","subcategoryname":"lab2"}]]}
+    }
+    let maincategories = []
+    if (cart) {
+      cart.labs.map((mainarray, mainarrayindex) => {
+        console.log("mainarray is", mainarray)
+        let subcategories = []
+        let subcategoryarray = {}
+        mainarray.map((item, index) => {
+          if (index == 0) {
+            subcategoryarray.category = item.category
+            subcategories.push(item.subcategoryname)
           }
+          else {
+            subcategories.push(item.subcategoryname)
+          }
+          if (index == mainarray.length - 1) {
+            subcategoryarray.subcategories = subcategories
+            maincategories.push(subcategoryarray)
+
+          }
+          total = total + parseInt(item.price)
         })
       })
-
-      if (labdatatocheckout.length) {
-
-        httpClient.POST("lab-booking/create", labdatatocheckout, false, true)
-          .then(resp => {
-            console.log("inside then")
-            console.log("props are", props)
-            notify.success("Lab test booked successfully")
-            localStorage.removeItem("cart")
-            this.props.checkout(!checkoutsignal)
-           
-            //  props.history.push("/dashboard")
-          })
-          .catch(err => {
-            console.log("inside catch")
-            notify.error("Lab test could not be saved,Please try again in few minutes")
-          })
-      }
     }
+    console.log("maincategories is", maincategories)
 
     return (
       <div>
@@ -118,18 +125,16 @@ class Checkoutpopupcomponent extends Component {
                   <p id="popup_lab_cont2_head">Lab Test</p>
                   <ol className="popup_lab_cont2_desc">
                     {
-                      cart ?
-                        cart.labs.map((item, index) => {
+                      maincategories.length ?
+                        maincategories.map((item, index) => {
                           return <li id="popup_lab_cont2_desc">
-                            {item.name}
+                            {item.category}
                             <span id="lab_labtest_span_cross" style={{ cursor: "pointer" }} onClick={() => removecartproduct(item, index)}>
                               <p>&times;</p>
                             </span>
                           </li>
                         }) : <p>No any items</p>
                     }
-
-
                   </ol>
                 </div>
               </div>
@@ -140,27 +145,7 @@ class Checkoutpopupcomponent extends Component {
                     <p id="popup_lab_cont3_desc">
                       Subtotal
                       <span id="popup_lab_cont1_span">Rs {
-                        cart ?
-                          cart.labs.length ?
-                            cart.labs.map((categoryitem, categoryindex) => {
-                              console.log("categoryitem is", categoryitem)
-                              console.log("inside map")
-                              categoryitem.subcategory.map((subcategoryitem, subcategoryindex) => {
-                                if (subcategoryitem.checked == true) {
-                                  total = total + parseInt(subcategoryitem.price)
-
-                                  console.log("total is", total)
-                                }
-
-                              })
-                              console.log("index is", categoryindex, "length is", categoryitem.length)
-
-                              if (categoryindex == cart.labs.length - 1) {
-                                console.log("inside last index and total is", total)
-                                return <span>{total}</span>
-                              }
-                            }) : <span>0</span>
-                          : <span>0</span>
+                        total ? <span>{total}</span> : "0"
 
                       }</span>
                     </p>
