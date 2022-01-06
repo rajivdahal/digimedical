@@ -8,6 +8,7 @@ import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
 import VaccinesRoundedIcon from '@mui/icons-material/VaccinesRounded';
 import WysiwygRoundedIcon from '@mui/icons-material/WysiwygRounded';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
 const Adminsidebar = (props) => {
   console.log("props in admin sidebar", props)
   const navigatedashboard = () => {
@@ -81,16 +82,16 @@ const Adminsidebar = (props) => {
             <a className="nav-link" data-toggle="collapse" href="#staffs" aria-expanded="false" aria-controls="staffs">
               {/* <i className="icon-bar-graph menu-icon"></i> */}
               <GroupRoundedIcon className="dash-icon"></GroupRoundedIcon>
-              <span className="menu-title">Staff</span>
+              <span className="menu-title">User Management</span>
               <i className="menu-arrow"></i>
             </a>
             <div className="collapse" id="staffs">
               <ul className="nav flex-column sub-menu">
-                <Link to="/dashboard/staff-table">
-                <li className="nav-item"><a className="nav-link" href="">All Staffs</a></li>
+                <Link to="/dashboard/role">
+                <li className="nav-item"><a className="nav-link" href="">Role</a></li>
                 </Link>
-                <Link to="/dashboard/create-staff">
-                <li className="nav-item"><a className="nav-link" href="">Add Staffs</a></li>
+                <Link to="/dashboard/admin">
+                <li className="nav-item"><a className="nav-link" href="">Admin</a></li>
                 </Link>
               </ul>
             </div>
@@ -117,13 +118,28 @@ const Adminsidebar = (props) => {
           </li>
 
           <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#doctors" aria-expanded="false" aria-controls="doctors">
+            <a className="nav-link" data-toggle="collapse" href="#corporate" aria-expanded="false" aria-controls="corporate">
+              <CorporateFareOutlinedIcon className="dash-icon"></CorporateFareOutlinedIcon>
+              <span className="menu-title">Corporate</span>
+              <i className="menu-arrow"></i>
+            </a>
+            <div className="collapse" id="corporate">
+              <ul className="nav flex-column sub-menu">
+                <Link to="/dashboard/corporate">
+                <li className="nav-item"><a className="nav-link" href="">Add Corporate</a></li>
+                </Link>
+              </ul>
+            </div>
+          </li>
+
+          <li className="nav-item">
+            <a className="nav-link" data-toggle="collapse" href="#masterdata" aria-expanded="false" aria-controls="masterdata">
               {/* <i className="icon-columns menu-icon"></i> */}
               <WysiwygRoundedIcon className="dash-icon"></WysiwygRoundedIcon>
               <span className="menu-title">Master Data</span>
               <i className="menu-arrow"></i>
             </a>
-            <div className="collapse" id="doctors">
+            <div className="collapse" id="masterdata">
               <ul className="nav flex-column sub-menu">
                 <Link to="/dashboard/create-services">
                   <li className="nav-item"> <a className="nav-link" href="">Services</a></li>
