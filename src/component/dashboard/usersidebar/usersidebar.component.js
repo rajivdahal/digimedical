@@ -16,6 +16,9 @@ export default function Usersidebar(props) {
     // const navigateLabtest=()=>{
     //     props.props.push("/dashboard/lab-test")
     // }
+    const loadHospitals=()=>{
+        props.props.push("/dashboard/hospitals")
+    }
     return (
         <div >
             <nav className="sidebar sidebar-offcanvas" id="sidebar">
@@ -110,6 +113,12 @@ export default function Usersidebar(props) {
                                 </Link>
                             </ul>
                         </div>
+                    </li>
+                    <li className="nav-item"  style={{ cursor: "pointer" }} onClick={loadHospitals}>
+                        <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
+                        <i class="fas fa-hospital menu-icon"></i>
+                            <span className="menu-title">Hospitals</span>
+                        </a>
                     </li>
                 </ul>
             </nav>

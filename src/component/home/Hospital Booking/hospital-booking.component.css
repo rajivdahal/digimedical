@@ -41,6 +41,12 @@
   width: 80%;
   margin-left: 10%;
 }
+.hospital_bookcont_from_user {
+  width: 60%;
+  margin-left: 22%;
+  position: relative;
+  top: 4rem;
+}
 
 .hospital_bookconthead {
   width: 100%;
@@ -150,7 +156,24 @@ form.example::after {
   line-height: 15px;
   transition: 0.5s;
 }
-
+#hosp_card_but_user{
+  width: 155px;
+    height: 40px;
+    margin-top: 50px;
+    margin-left: -10px;
+    border: 1px solid #2745f0;
+    color: #2745f0;
+    /* background: rgb(7, 6, 6); */
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 15px;
+    transition: 0.5s;
+}
+#hosp_card_but_user:hover{
+  background: #2745f0;
+  color: white;
+}
 #hosp_card_but:hover {
   background: #2745f0;
   color: white;

@@ -92,7 +92,7 @@
   }
   /* doctor card */
   .doc_apoint_card {
-    border: 1px solid #D0D7E2;
+    /* border: 1px solid #D0D7E2; */
     box-sizing: border-box;
     border-radius: 10px;
     margin-top: 3rem;
@@ -188,4 +188,30 @@
   }
   #hosp_ph_no img {
     width: 14px;
+  }
+  .form_doc {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+    padding: 10px;
+  }
+  .doc_appoin_form1 input {
+    padding: 8px;
+    font-size: 17px;
+    border: 1px solid #D0D7E2;
+    width: 250px;
+    border-radius: 15px;
+  }
+  .doc_appoin_form1::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  .submit-button{
+    height: 2rem;
+    border-radius: 4%;
+    background-color: #0B7DDA;
+    color: #fff;
+    margin: 30px;
   }

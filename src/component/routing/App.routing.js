@@ -32,7 +32,6 @@ export const Approuting = (props) => {
           path="/doctor-at-home"
           component={DoctorAtHome}
         ></PublicRoute>
-
         <PublicRoute
           exact
           path="/forgot-password"
@@ -68,7 +67,6 @@ export const Approuting = (props) => {
           path="/hospitals/view-doctors"
           component={Hospital_doctors}
         ></PublicRoute>
-
         <ProtectedRoute
           exact
           path="/dashboard"
@@ -87,6 +85,11 @@ export const Approuting = (props) => {
         <ProtectedRoute
           exact
           path="/dashboard/doctors"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/hospitals"
           component={Dashboard}
         ></ProtectedRoute>
         <ProtectedRoute

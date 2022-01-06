@@ -1,39 +1,79 @@
 import React from "react";
 import Footer from "../../Footer/Footer";
 import Navbar from "../../Navbar/Navbar";
-import styled from "styled-components";
-import search from "../../../assets/Search.png";
-import { BiSearch } from "react-icons/bi";
 import Pagination from "../../common/pagination/pagination.component";
 import "./viewdoctor.component.css";
 import doctor1 from "../../../assets/client1.png";
 import phone from "../../../assets/phone.png";
 import { httpClient } from "../../../utils/httpClient";
+import { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
+import 'react-modern-calendar-datepicker/lib/DatePicker.css';
+import DatePicker from 'react-modern-calendar-datepicker';
+import { Field, Formik, useFormik, ErrorMessage, Form, FieldArray } from "formik";
 import { notify } from "../../../services/notify";
-import { useState ,useEffect} from "react";
-import { Link } from "react-router-dom";
 // import hospital_ico from "../../../assets/hospital_icon.png";
 export default function Hospital_doctors(props) {
-    console.log("props are",props)
-    // const [props.location.state,setprops.location.state]=useState(props.location.state)
-    let [alldoctors,setallDoctors]=useState([])
-    useEffect(()=>{
-        httpClient.GET("hospital/get-all/doctors/"+props.location.state.id)
-        .then(resp=>{
-            // alldoctors=[...resp.data.data]
-            // // alldoctors=resp.data.data
-            console.log("data after fetching API are",alldoctors)
-            setallDoctors(resp.data.data)
-        })
-    },[])
-    let [doctorappointmentindex,setdoctorappointmentindex]=useState(null)
-    const showappointment=(item,index)=>{
-        console.log("doctor appointment index is",doctorappointmentindex)
-        if(!doctorappointmentindex){
-            return setdoctorappointmentindex(parseInt(index)+1)
-        }
-        setdoctorappointmentindex(null)
+  console.log("props are", props)
+  // const [props.location.state,setprops.location.state]=useState(props.location.state)
+  let [alldoctors, setallDoctors] = useState([])
+  const [selectedDay, setSelectedDay] = useState(null);
+  const history = useHistory()
+  useEffect(() => {
+    httpClient.GET("hospital/get-all/doctors/" + props.location.state.id)
+      .then(resp => {
+        // alldoctors=[...resp.data.data]
+        // // alldoctors=resp.data.data
+        console.log("data after fetching API are", alldoctors)
+        setallDoctors(resp.data.data)
+      })
+  }, [])
+  let [doctorappointmentindex, setdoctorappointmentindex] = useState(null)
+  const showappointment = (item, index) => {
+    console.log("doctor appointment index is", doctorappointmentindex)
+    if (!doctorappointmentindex) {
+      return setdoctorappointmentindex(parseInt(index) + 1)
     }
+    setdoctorappointmentindex(null)
+  }
+  const initialValues = {
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    email: "",
+    mobileNumber: "",
+    appointmentDate: "",
+    appointmentTime: ""
+  }
+  const handleSubmit = (values, doctor) => {
+    let finaldata = {}
+    finaldata = { ...values, hospitalId: props.location.state.id, doctorId: doctor.doctorid, servicesId: doctor.serviceid }
+    debugger;
+    httpClient.POST("create-external-user", finaldata)
+      .then(resp => {
+        notify.success("Appointment successfully created")
+        setTimeout(() => {
+          notify.loading("Please check your Email to create an account")
+        }, 1000);
+      })
+      .catch(err => {
+        if(err.response.data.message=="Email already exists"){
+          if(localStorage.getItem("status")==200){
+            notify.success("Email already exists,please book hospital appointment internally")
+            return history.push("/dashboard")
+          }
+          else{
+            // history.push("/login")
+            return notify.promise(new Promise(function(resolve,reject){
+              resolve("Email already exist please login and book internally")
+            }))
+            // return notify.loading("Email already exist please login and book internally")
+          }
+
+        }
+        notify.error("Something went wrong")
+      })
+  }
   return (
     <div>
       <Navbar></Navbar>
@@ -44,7 +84,7 @@ export default function Hospital_doctors(props) {
             <p>
               <i class="doc_arrow doc_right"></i>
             </p>
-           <Link to={"/hospitals"}> <p>Hospitals</p></Link>
+            <Link to={"/hospitals"}> <p>Hospitals</p></Link>
             <p>
               <i class="doc_arrow doc_right"></i>
             </p>
@@ -74,91 +114,109 @@ export default function Hospital_doctors(props) {
               </div>
             </div>
             <div className="doc_appoint_main">
-              
-              {alldoctors.length?
-                  alldoctors.map((doctor,doctorindex)=>{
-                        return <div className="doc_apoint_card">
-                        <div className="doc_apoint_card1">
-                          <div className="doc_card_img">
-                            <img src={doctor1} alt="" />
-                          </div>
-                          <div className="doc_about_desc">
-                            <p id="doc_name_card">{doctor.prefix}. {doctor.doctorname}</p>
-                            <p>{doctor.specialist} </p>
-                            <p id="doc_available_days">
-                              Availabile days :{" "}
-                              <span id="span1_doc_card">Sunday, Teusday, Friday</span>
-                            </p>
-                            <p>
-                              Availabile time :{" "}
-                              <span id="span1_doc_card">10am - 1pm</span>
-                            </p>
-                          </div>{" "}
-                          <div className="hosp_card_but">
-                            {" "}
-                            <button id="hosp_card_but" onClick={()=>showappointment(doctor,doctorindex)}>Book an appointment</button>
-                          </div>
-                        </div>
-                        {/* after clicking book an appointment */}
-                        {
-                            
-                            doctorappointmentindex==doctorindex+1?<div className="click_book_action">
-                            <form class="doc_appoin_form1">
+
+              {alldoctors.length ?
+                alldoctors.map((doctor, doctorindex) => {
+                  return <div className="doc_apoint_card">
+                    <div className="doc_apoint_card1">
+                      <div className="doc_card_img">
+                        <img src={doctor1} alt="" />
+                      </div>
+                      <div className="doc_about_desc">
+                        <p id="doc_name_card">{doctor.prefix}. {doctor.doctorname}</p>
+                        <p>{doctor.specialist} </p>
+                        <p id="doc_available_days">
+                          Availabile days :{" "}
+                          <span id="span1_doc_card">Sunday, Teusday, Friday</span>
+                        </p>
+                        <p>
+                          Availabile time :{" "}
+                          <span id="span1_doc_card">10am - 1pm</span>
+                        </p>
+                      </div>{" "}
+                      <div className="hosp_card_but">
+                        {" "}
+                        <button id="hosp_card_but" onClick={() => showappointment(doctor, doctorindex)}>Book an appointment</button>
+                      </div>
+                    </div>
+                    {/* after clicking book an appointment */}
+                    {
+                      doctorappointmentindex == doctorindex + 1 ?
+                        <Formik initialValues={initialValues} onSubmit={(values) => handleSubmit(values, doctor)} >
+                          <Form className="form_doc">
+                            <div className="doc_appoin_form1">
                               <p>First Name</p>
-                              <input
+                              <Field
                                 type="text"
                                 placeholder="Enter First Name"
-                                name="search"
+                                name="firstName"
+                                id="firstName"
                               />
-                            </form>
-                            <form class="doc_appoin_form2">
+                            </div>
+                            <div class="doc_appoin_form1">
                               <p>Middle Name</p>
-                              <input
+                              <Field
                                 type="text"
                                 placeholder="Enter Middle Name"
-                                name="search"
+                                name="middleName"
+                                id="middleName"
                               />
-                            </form>
-                            <form class="doc_appoin_form2">
+                            </div>
+                            <div class="doc_appoin_form1">
                               <p>Last Name</p>
-                              <input
+                              <Field
                                 type="text"
                                 placeholder="Enter Last Name"
-                                name="search"
+                                name="lastName"
+                                id="lastName"
                               />
-                            </form>
-                            <form class="doc_appoin_form1">
+                            </div>
+                            <div class="doc_appoin_form1">
                               <p>Email Address</p>
-                              <input
+                              <Field
                                 type="text"
                                 placeholder="Enter Email Address"
-                                name="search"
+                                name="email"
+                                id="email"
                               />
-                            </form>
-                            <form class="doc_appoin_form2">
+                            </div>
+                            <div class="doc_appoin_form1">
                               <p>Phone No.</p>
-                              <input
+                              <Field
                                 type="text"
                                 placeholder="Enter Phone no."
-                                name="search"
+                                name="mobileNumber"
+                                id="mobileNumber"
                               />
-                            </form>
-                            <form class="doc_appoin_form2">
-                              <p>Appointment Data</p>
-                              <input type="date" id="appoint_dt" name="" />
-                            </form>
-                            <form class="doc_appoin_form1">
+                            </div>
+                            <div class="doc_appoin_form1">
+                              <p>Appointment Date</p>
+                              {/* <DatePicker
+                                value={selectedDay}
+                                onChange={setSelectedDay}
+                                inputPlaceholder="Select a day"
+                                shouldHighlightWeekends
+                                name="appointmentDate"
+                                id="appointmentDate"
+                              /> */}
+                              <Field type="date" name="appointmentDate"
+                                id="appointmentDate" />
+                            </div>
+                            <div class="doc_appoin_form1">
                               <p>Appointment Time</p>
-                              <input type="time" id="appoint_dt" name="appt" />
-                            </form>
-                          </div> :null
-                        }
-                        
-                       
-                      </div>
-                      
-                      
-                  }):<h3>No any doctors found</h3>
+                              <Field type="time" name="appointmentTime"
+                                id="appointmentTime" />
+                            </div>
+                            <button type="submit" className="submit-button">Submit</button>
+                          </Form>
+                        </Formik>
+                        : null
+                    }
+
+                  </div>
+
+
+                }) : <h3>No any doctors found</h3>
               }
             </div>
           </div>

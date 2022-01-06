@@ -192,8 +192,7 @@ export default function Prescribe(props) {
             hitbasicinfo: true
         })
         setfade(true)
-
-    }
+}
     return (
         <>
             <Modal show={props.showModal} onHide={props.handlecancel || fade}>
