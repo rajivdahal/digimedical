@@ -93,6 +93,7 @@
   font-size: 12px;
   margin-left: 50px;
   color: #596579;
+  
 }
 
 #lab_test_detail li {
@@ -205,3 +206,16 @@
 
   border-radius: 4px;
 }
+.No_cart_item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 3rem;
+  color: #4200ff;
+}
+
+/* .lab_add_to_cart_price{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */

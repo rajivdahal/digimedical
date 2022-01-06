@@ -1,0 +1,191 @@
+.hospital_doc_checkroute {
+    margin-left: 10%;
+    width: 80%;
+    margin-top: 30px;
+    display: flex;
+  }
+  .doc_arrow {
+    border: solid #A7B2C3;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+  }
+  .doc_right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+  .hospital_doc_checkroute p {
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.01em;
+    color: #596579;
+  }
+  #hospital_name {
+    font-weight: 700;
+  }
+  .hospital_doc_checkroute p:hover {
+    cursor: pointer;
+  }
+  .doc_appoint_main {
+    flex-direction: column;
+    
+  }
+  .doc_appoint_main1{
+    margin-top: 40px;
+    display: flex;
+  }
+  /* content for appointment */
+  .take_doc_appoint {
+    margin-left: 10%;
+    width: 55%;
+    margin-top: 100px;
+  }
+  .doc_appoint_head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .doc_appoint_head div h1 {
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 52px;
+  }
+  .doc_appoint_head div p {
+    font-size: 15px;
+    line-height: 30px;
+    color: #596579;
+  }
+  .doc_booksearch {
+    margin-top: 40px;
+    width: 260px;
+    height: 10px;
+  }
+  form.doc_example input[type="text"] {
+    padding: 8px;
+    font-size: 17px;
+    border: 1px solid #D0D7E2;
+    float: left;
+    width: 100%;
+    height: 100%;
+    background: #E6EAF0;
+    border-radius: 15px;
+  }
+  form.doc_example button {
+    margin-left: -50px;
+    margin-top: -3px;
+    float: left;
+    width: 4%;
+    padding: 10px;
+    background: none;
+    color: #2745F0;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+  }
+  form.doc_example button:hover {
+    color: #0B7DDA;
+  }
+  form.doc_example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  /* doctor card */
+  .doc_apoint_card {
+    border: 1px solid #D0D7E2;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-top: 3rem;
+    background: #F5FAFF;
+  }
+  .doc_apoint_card1 {
+    display: flex;
+  }
+  .doc_card_img img {
+    margin-left: 0px;
+    margin-top: 5px;
+  }
+  .doc_about_desc p {
+    font-size: 14px;
+    line-height: 20px;
+    color: #596579;
+  }
+  #doc_name_card {
+    padding-top: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 10px;
+    color: black;
+  }
+  #doc_available_days {
+    padding-top: 8px;
+    line-height: 10px;
+  }
+  #span1_doc_card {
+    font-weight: 500;
+    color: black;
+  }
+  .hosp_card_but {
+    margin-top: 40px;
+    margin-left: 65px;
+  }
+  /* form for appointment */
+  .click_book_action {
+    display: flex;
+    flex-wrap: wrap;
+    transition: 1s linear;
+  }
+  form.doc_appoin_form1 input {
+    padding: 8px;
+    font-size: 17px;
+    border: 1px solid #D0D7E2;
+    float: left;
+    border-radius: 15px;
+  }
+  form.doc_appoin_form1::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  .doc_appoin_form2 {
+    margin-left: 90px;
+  }
+  form.doc_appoin_form2 input {
+    padding: 8px;
+    font-size: 17px;
+    border: 1px solid #D0D7E2;
+    float: left;
+    border-radius: 15px;
+  }
+  form.doc_appoin_form2::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  #appoint_dt {
+    width: 215px;
+  }
+  .doc_appoin_hosp_desc {
+    margin-top: 20px;
+    width: 280px;
+    margin-left: 100px;
+  }
+  .hosp_desc_hosp {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .hosp_desc_hosp img {
+    width: 150px;
+  }
+  .hosp_desc_hosp p {
+    color: #596579;
+  }
+  #hosp_name_doc {
+    font-weight: bold;
+    font-size: 16px;
+    color: black;
+  }
+  #hosp_ph_no img {
+    width: 14px;
+  }
