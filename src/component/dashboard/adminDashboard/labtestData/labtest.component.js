@@ -81,17 +81,6 @@ const Labtest = (props) => {
             if (!values.description) {
                 errors.description = 'Required!'
             }
-            // let decimalREGEX = /^\d*\.?\d*$/;
-
-            // if (!decimalREGEX.test(values.price)) {
-            //     errors.price = "Must be a number";
-            // }
-            // if (!values.price) {
-            //     errors.price = "Required!"
-            // }
-            // if (values.price < 0) {
-            //     errors.price = "Must be positive!"
-            // }
             return errors;
         },
 
@@ -186,7 +175,7 @@ const Labtest = (props) => {
         setlabtestStatusId(id)
         console.log(data);
         if (data) {
-            let url = "http://103.90.86.77:8082/api/lab-test/download/" + id;
+            let url = "http://202.51.74.219:8082/api/lab-test/download/" + id;
             setImage(url)
             setLabTest({
                 name: data.name,

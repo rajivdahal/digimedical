@@ -52,6 +52,9 @@ export default function Usersidebar(props) {
                                 <Link to="/dashboard/bookappointment">
                                     <li className="nav-item"> <div className="nav-link" >Book Appointment</div></li>
                                 </Link>
+                                <Link to="/dashboard/hospital-doctor">
+                                    <li className="nav-item"> <div className="nav-link">doctor</div></li>
+                                </Link>
                             </ul>
                         </div>
                     </li>

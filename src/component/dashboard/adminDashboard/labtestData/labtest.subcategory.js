@@ -19,7 +19,7 @@ const LabtestSubcategory = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [allLabtest, setAllLabtest] = useState([]);
     const [allInstitue, setAllInstitute] = useState([]);
-
+    const [instituteID,setInstituteID] =useState("");
     const [labtestSubcategory, setLabTestSubcategory] = useState({
         selectedLabtest: {},
         labtestID: "",
@@ -85,9 +85,7 @@ const LabtestSubcategory = (props) => {
     const getSubcategory = () => {
         httpClient.GET("labtest/category/get-all", false, true)
             .then(resp => {
-                console.log(resp)
                 resp.data.data.forEach((item) => {
-                    console.log(item.description)
                     if (item.description) {
                         let splitDesc = item.description.split(" ");
 
@@ -123,7 +121,6 @@ const LabtestSubcategory = (props) => {
         initialValues: labtestSubcategory,
 
         onSubmit: (values) => {
-            console.log(values)
             if (subCategoryID) {
                 editSubcategoryData(values)
             } else {
@@ -172,7 +169,6 @@ const LabtestSubcategory = (props) => {
             }
             httpClient.POST("labtest/category/create", labSubcategory, false, true)
                 .then(resp => {
-                    console.log(resp)
                     if (resp.data.status) {
                         notify.success(resp.data.message)
                         formik.resetForm();
@@ -180,14 +176,12 @@ const LabtestSubcategory = (props) => {
                     }
                 })
                 .catch(err => {
-                    console.log(err.response)
                     notify.error(err.response.data.message)
                 })
                 .finally(() => {
                     setIsLoading(false)
                 })
         } catch (err) {
-            console.log(err)
             setIsLoading(false)
         }
 
@@ -208,6 +202,8 @@ const LabtestSubcategory = (props) => {
     }
 
     const subcategoryChangeStatus = (e, data) => {
+        console.log(data)
+        setInstituteID(data.medicalinstituteid)
         setShowModal(true);
         setCategoryStatus(data.status)
         setSubCategoryID(data.id);
@@ -215,10 +211,14 @@ const LabtestSubcategory = (props) => {
 
     const changeLabtestStatus = () => {
         setIsLoading(true)
-        let subCategoryStatus = categoryStatus == true ? false : true;
-        httpClient.PUT("labtest/category/change/" + subCategoryID + "/" + subCategoryStatus, {}, null, true)
+        let tempData={
+            status : categoryStatus == true ? false : true,
+            instituteId : instituteID,
+            categoryId : subCategoryID
+        } 
+        console.log(tempData)
+        httpClient.PUT("labtest/category/change/status",tempData , false, true)
             .then(resp => {
-                console.log(resp)
                 if (resp.data.status) {
                     notify.success(resp.data.message)
                     handleClose();
@@ -227,7 +227,7 @@ const LabtestSubcategory = (props) => {
                 }
             })
             .catch(err => {
-                console.log(err);
+                notify.error(err.response)
                 setIsLoading(false)
             })
             .finally(() => {
@@ -247,7 +247,6 @@ const LabtestSubcategory = (props) => {
                 label: data.institutename,
                 value: data.medicalinstituteid
             }
-            console.log(instituteData)
             setLabTestSubcategory({
                 selectedLabtest: labtestData,
                 selectedInstitute: instituteData,
@@ -272,11 +271,8 @@ const LabtestSubcategory = (props) => {
                 medicalInstituteId: instituteid,
                 labTestCategoryId: subCategoryID,
             }
-            console.log("EDIT PAYLOAD");
-            console.log(labSubcategory);
             httpClient.PUT("labtest/category/update", labSubcategory, false, true)
                 .then(resp => {
-                    console.log(resp)
                     if (resp.data.status) {
                         notify.success(resp.data.message)
                         clearForm();
@@ -415,7 +411,7 @@ const LabtestSubcategory = (props) => {
                 <MaterialTable
                     columns={[
                         { title: "ID", field: "id" },
-                        { title: 'Lab Test Name', field: 'labtestname', },
+                        { title: 'LabTest', field: 'labtestname', },
                         { title: 'Subcategory', field: 'name', sorting: false },
                         { title: 'Description', field: 'description' },
                         { title: 'Institute', field: 'institutename' },
