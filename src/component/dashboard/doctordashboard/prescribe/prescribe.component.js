@@ -192,8 +192,7 @@ export default function Prescribe(props) {
             hitbasicinfo: true
         })
         setfade(true)
-
-    }
+}
     return (
         <>
             <Modal show={props.showModal} onHide={props.handlecancel || fade}>
@@ -345,8 +344,6 @@ export default function Prescribe(props) {
             <Modal show={lining.confirm} onHide={!lining.confirm} style={{ marginTop: "25%", height: "500px",marginLeft:"180px" }}>
                 <Modal.Header >
                     <Modal.Title><b>Confirm Prescription?</b></Modal.Title>
-
-
                 </Modal.Header>
                 <Modal.Footer>
                     <br />

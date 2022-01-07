@@ -23,7 +23,8 @@ const Hospital = (props) => {
         contactNumber: "",
         mobileNumber: "",
         address: "",
-        hospitalImage :"",
+        hospitalImage: "",
+        link : "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -190,7 +191,7 @@ const Hospital = (props) => {
             mobileNumber: "",
             address: "",
             email: "",
-            hospitalImage : "",
+            hospitalImage: "",
         })
         props.history.replace('/dashboard/add-hospital', null);
 
@@ -212,11 +213,11 @@ const Hospital = (props) => {
         reader.readAsDataURL(files);
     }
 
-    const removeImage=()=>{
+    const removeImage = () => {
         setImage(null);
         setImgName(null);
         formik.setFieldValue('hospitalImage', null);
-        
+
     }
 
     return (
@@ -295,7 +296,7 @@ const Hospital = (props) => {
 
                     <Row className="mb-3">
 
-                        <Col md={8}>
+                        <Col md={6}>
                             <Form.Group>
                                 <Form.Label>Description</Form.Label>
                                 <Form.Control type="text" name="description"
@@ -306,9 +307,23 @@ const Hospital = (props) => {
                             </Form.Group>
                         </Col>
 
-                        {hospitalID ?
-                            <></>
-                            :
+                        <Col md={6}>
+                            <Form.Group>
+                                <Form.Label>Link</Form.Label>
+                                <Form.Control type="file" name="link"
+                                    onChange={formik.handleChange} value={formik.values.link} onBlur={formik.handleBlur} />
+                                {formik.touched.link && formik.errors.link ?
+                                    <div className="error-message">{formik.errors.link}</div>
+                                    : null}
+                            </Form.Group>
+                        </Col>
+
+                    </Row>
+
+                    {hospitalID ?
+                        <></>
+                        :
+                        <Row className="mb-3">
                             <Col md={4}>
                                 <Form.Group>
                                     <Form.Label>Email</Form.Label>
@@ -319,45 +334,31 @@ const Hospital = (props) => {
                                         : null}
                                 </Form.Group>
                             </Col>
-                        }
 
-                    </Row>
+                            <Col md={4}>
+                                <Form.Group>
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" name="password"
+                                        onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                    {formik.errors.password && formik.touched.password ?
+                                        <div className="error-message">{formik.errors.password}</div>
+                                        : null}
+                                </Form.Group>
+                            </Col>
+                            <Col md={4}>
+                                <Form.Group>
+                                    <Form.Label>Confirm Password</Form.Label>
+                                    <Form.Control type="password" name="confirmPassword"
+                                        onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                    {formik.errors.confirmPassword && formik.touched.confirmPassword ?
+                                        <div className="error-message">{formik.errors.confirmPassword}</div>
+                                        : null}
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                    }
 
                     <Row className="mb-3">
-
-                        <Col>
-                            {hospitalID ?
-                                <></>
-                                :
-                                <Row>
-
-                                    <Col md={6}>
-                                        <Form.Group>
-                                            <Form.Label>Password</Form.Label>
-                                            <Form.Control type="password" name="password"
-                                                onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                            {formik.errors.password && formik.touched.password ?
-                                                <div className="error-message">{formik.errors.password}</div>
-                                                : null}
-                                        </Form.Group>
-                                    </Col>
-                                    <Col md={6}>
-                                        <Form.Group>
-                                            <Form.Label>Confirm Password</Form.Label>
-                                            <Form.Control type="password" name="confirmPassword"
-                                                onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                            {formik.errors.confirmPassword && formik.touched.confirmPassword ?
-                                                <div className="error-message">{formik.errors.confirmPassword}</div>
-                                                : null}
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                            }
-
-                        </Col>
-                    </Row>
-
-                    <Row>
                         <Col md={5}>
                             <Form.Label>Choose Photo  </Form.Label>
                             <Button variant="info" onClick={handleAddImage}>Browse</Button>
@@ -368,14 +369,14 @@ const Hospital = (props) => {
                         <Col md={5}>
 
                             <Image src={selectedImage} fluid className="image ml-3" ></Image>
-                            <div>
+                            {/* <div>
                                 {selectedImgName}
-                            </div>
+                            </div> */}
 
                         </Col>
-                        {/* <Col md={2}>
+                        <Col md={2}>
                             <a style={{ color: 'red' }} onClick={removeImage}>x</a>
-                        </Col> */}
+                        </Col>
                     </Row>
 
                     {loading == true ?

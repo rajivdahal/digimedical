@@ -9,6 +9,7 @@ import BookAnAppointment from "./BookAnAppointment/BookAnAppointment";
 import TheyTrustedUs from "./TheyTrustedUs/TheyTrustedUs";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import Hospital_home from "../common/hospitals_home/hospitals_home.component";
 const Root = styled.div`
   // background-color: red;
   height: 33.7rem;
@@ -102,7 +103,6 @@ const GetAppointment = styled.a`
   align-items: center;
   justify-content: center;
   color: #fff;
-  
 `;
 
 const ConnectionContainor = styled.div`
@@ -116,11 +116,20 @@ export const Home = (props) => {
   return (
     <>
       <Navbar></Navbar>
-      <Root style={{ backgroundImage: `url(${wallpaper})`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat" }}>
+      <Root
+        style={{
+          backgroundImage: `url(${wallpaper})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <HeroSectionContent>
           <Heading>Caring Health is all Important</Heading>
           <SubHeading>
-           In order to make you safe in this Pandemic era we have been providing different COVID related services that you can take online at the ease of your home
+            In order to make you safe in this Pandemic era we have been
+            providing different COVID related services that you can take online
+            at the ease of your home
           </SubHeading>
 
           <ButtonContainor>
@@ -151,6 +160,7 @@ export const Home = (props) => {
       <div id="bookappointment">
         <BookAnAppointment history={props.history} />
       </div>
+      <Hospital_home></Hospital_home>
       <TheyTrustedUs />
       <OurPartnar />
       <Footer></Footer>

@@ -23,6 +23,8 @@ export const Dashboardnavbar = (props) => {
     localStorage.removeItem("dm-access_token")
     localStorage.removeItem("timeout")
     localStorage.removeItem("dm-refresh_token")
+    localStorage.removeItem("status")
+    localStorage.removeItem("userid")
     props.props.push('/login')
     notify.success("Logout success! Please Login again")
   }

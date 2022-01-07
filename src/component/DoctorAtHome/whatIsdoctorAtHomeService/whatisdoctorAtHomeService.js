@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import "./whatisdoctorAtHomeService.css";
 
 const Root = styled.div`
   padding-left: 9rem;
@@ -42,20 +43,50 @@ const whatisdoctorAtHomeService = () => {
       <ContentContainor>
         <Heading>What is Doctor at home service?</Heading>
         <Details>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-          adipiscing nibh ac praesent dui. Sit viverra molestie posuere donec
-          arcu. Massa neque nibh non a et sapien, et semper. Tincidunt purus
-          tellus eu orci, pulvinar aliquet ultrices commodo. Etiam pellentesque
-          lectus enim velit, tellus. Risus lectus interdum faucibus lectus.
-          Gravida elementum vitae proin elit, lacus, libero. Tempor, ut non quis
-          maecenas amet volutpat ut enim. Cursus cras nec amet, sed. Ut volutpat
-          proin at amet. Suspendisse quam orci mi non ipsum, orci leo.
-          Consectetur fringilla euismod vehicula habitant egestas sed turpis mi.
-          Gravida potenti eu consequat ac. Tempus et diam, odio quis sit
-          adipiscing maecenas eu varius. Odio elit velit, tempus odio facilisis
-          mauris a tempus. Egestas quam viverra sit in odio. Arcu sapien, purus
-          netus duis. At rutrum ultrices magna magna faucibus condimentum
-          egestas.
+          Consulting doctors at the hospital could be a tiresome task involving
+          depending on the hospitals for general consultations and regular
+          health check-ups. Through doctor at home service you could get proper
+          attention from the doctor and personalized treatment and help you
+          throughout your recovery process,avoid longer waiting periods in
+          hospital and reduce the need for travel.Furthermore, you will be
+          treated in the comfort of your home, surrounded by your family
+          members.The doctor home visit service can be a great convenience for
+          all. egestas.
+        </Details>
+
+        <Heading>Doctor at Home Details or Features </Heading>
+        <Details>
+          You don't have to leave the home, though the doctor will come to your
+          home and assess, diagnose and treat you depending on the condition of
+          your health. Our experienced doctors have years of experience in their
+          specialized medical field and will treat you with patience and
+          compassion. Digimedical service is ready to serve you with our
+          specialized and experienced doctors of different medical fields like:
+          <ul className="ul_docathome_feat">
+            <li>General Physician/ Surgeon</li>
+            <li>Community Medicine</li>
+            <li>Cardiologist</li>
+            <li>Nephrologist</li>
+            <li>Pulmonologist</li>
+            <li>Obstetrician and Gynecologist</li>
+            <li>Pediatrician</li>
+            <li>Physiotherapist</li>
+
+            <li>Oncologist</li>
+            <li>Endocrinologist</li>
+            <li>Neurologist</li>
+            <li>Psychiatrists</li>
+            <li>Dentist</li>
+            <li>Dermatologist</li>
+            <li>Ophthalmologist</li>
+            <li>ENT (Otorhinolaryngologist)</li>
+            <li>Orthopedic</li>
+            <li>Radiologist</li>
+            <li>Rheumatologist</li>
+            <li>Gastroenterologist</li>
+            <li>Haematologist</li>
+            <li>General medicine </li>
+          </ul>
         </Details>
       </ContentContainor>
     </Root>

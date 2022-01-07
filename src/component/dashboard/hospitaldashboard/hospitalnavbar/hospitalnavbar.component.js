@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { notify } from '../../../../services/notify'
 import { useEffect } from 'react'
 import { httpClient } from '../../../../utils/httpClient'
-import "./doctornavbar.component.css"
+// import "./hospi.component.css"
 import { Link } from 'react-router-dom'
-const Doctornavbar = (props) => {
+const Hospitalnavbar = (props) => {
     let [username, setusername] = useState("")
     const [logoutstate, setlogoutstate] = useState({
         logout: false,
@@ -55,57 +55,13 @@ const Doctornavbar = (props) => {
             </div>
             <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
 
-                <h3 className="font-weight-bold welcome-shiva">Welcome Dr. {username}</h3>
+                <h3 className="font-weight-bold welcome-shiva">Welcome Hospital</h3>
 
                 <ul className="navbar-nav navbar-nav-right">
                     <li className="nav-item dropdown">
                         <div className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                            {/* <i className="icon-bell mx-0"></i>
-                            <span className="count"></span> */}
+                           
                         </div>
-                        {/* <div className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <p className="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                            <div className="dropdown-item preview-item">
-                                <div className="preview-thumbnail">
-                                    <div className="preview-icon bg-success">
-                                        <i className="ti-info-alt mx-0"></i>
-                                    </div>
-                                </div>
-                                <div className="preview-item-content">
-                                    <h6 className="preview-subject font-weight-normal">Application Error</h6>
-                                    <p className="font-weight-light small-text mb-0 text-muted">
-                                        Just now
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="dropdown-item preview-item">
-                                <div className="preview-thumbnail">
-                                    <div className="preview-icon bg-warning">
-                                        <i className="ti-settings mx-0"></i>
-                                    </div>
-                                </div>
-                                <div className="preview-item-content">
-                                    <h6 className="preview-subject font-weight-normal">Settings</h6>
-                                    <p className="font-weight-light small-text mb-0 text-muted">
-                                        Private message
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="dropdown-item preview-item">
-                                <div className="preview-thumbnail">
-                                    <div className="preview-icon bg-info">
-                                        <i className="ti-user mx-0"></i>
-                                    </div>
-                                </div>
-                                <div className="preview-item-content">
-                                    <h6 className="preview-subject font-weight-normal">New user registration</h6>
-                                    <p className="font-weight-light small-text mb-0 text-muted">
-                                        2 days ago
-                                    </p>
-                                </div>
-                            </div>
-                        </div> */}
-
                     </li>
                     <li className="nav-item nav-profile dropdown">
                         <div className="nav-link" href="#" data-toggle="dropdown" id="profileDropdown" style={{cursor:"pointer"}}>
@@ -152,4 +108,4 @@ const Doctornavbar = (props) => {
     )
 }
 
-export default Doctornavbar;
+export default Hospitalnavbar;

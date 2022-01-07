@@ -1,0 +1,49 @@
+.hosp_hom_cont {
+  margin-top: 80px;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.hosp_hom_head {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.hosp_hom_head h1 {
+  font-size: 35px;
+  font-weight: bold;
+  line-height: 52px;
+}
+
+.hosp_hom_head p {
+  font-size: 16px;
+  line-height: 30px;
+
+  color: #596579;
+}
+
+.view_hosp_home {
+  margin-top: 40px;
+  display: flex;
+
+  justify-content: center;
+}
+
+.link_hosp_home {
+  display: flex;
+}
+
+.link_hosp_home p {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+
+  color: #2745f0;
+}
+.link_hosp_home:hover {
+  text-decoration: none;
+}
+
+.link_hosp_home:hover #arrow_hosp_hom {
+  text-decoration: underline;
+}
