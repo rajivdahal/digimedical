@@ -118,8 +118,12 @@
     color: black;
   }
   #doc_available_days {
+    margin-top: 20px;
     padding-top: 8px;
     line-height: 10px;
+    min-width: 25rem;
+    /* border: 1px solid red; */
+    position: absolute;
   }
   #span1_doc_card {
     font-weight: 500;
@@ -202,6 +206,12 @@
     border: 1px solid #D0D7E2;
     width: 250px;
     border-radius: 15px;
+  }
+  .doc_appoint_main1_user{
+    /* margin-top: 40px; */
+    display: flex;
+    width: 80%;
+    margin-left: 15%;
   }
   .doc_appoin_form1::after {
     content: "";

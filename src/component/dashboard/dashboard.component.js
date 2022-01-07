@@ -39,6 +39,7 @@ import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.co
 import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component"
 import Hospitalbooking from "../home/Hospital Booking/hospital.booking.component"
 import Hospitalbookingcomponent from "../home/Hospital Booking/hospitalbooking.component"
+import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -74,6 +75,8 @@ const Dashboard = (props) => {
                               :
                               props.location.pathname === "/dashboard/hospitals" ?
                               <ProtectedRoute component={Hospitalbookingcomponent}></ProtectedRoute>:
+                              props.location.pathname === "/dashboard/hospitals/view-doctors" ?
+                              <ProtectedRoute component={Hospital_doctors}></ProtectedRoute>:
                                <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
               }
             </> :
