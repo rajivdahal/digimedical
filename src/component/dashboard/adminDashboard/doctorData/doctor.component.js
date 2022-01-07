@@ -9,6 +9,7 @@ import { validateDoctor } from "./doctor.helper";
 import Avatar from "../../../../assets/avatars.png";
 import Select from 'react-select';
 import { Link } from "react-router-dom";
+import doctorApi from "./doctor.services";
 
 const Createdoctor = (props) => {
 
@@ -39,14 +40,18 @@ const Createdoctor = (props) => {
         doctorServices: [],
     })
 
-    
+    const successPath = {
+        "hospital":"/dashboard/doctor-table",
+        "admin" : "/dashboard/doctor-table",
+    }
+
     useEffect(() => {
         initialize();
     }, [])
 
     const initialize = async () => {
         let allServices = await getServices();
-        if (props.location.state && props.location.state.id != null) {
+        if (props.location && props.location.state && props.location.state.id != null) {
             await getDoctorById(allServices);
         }
     }
@@ -62,15 +67,14 @@ const Createdoctor = (props) => {
             })
             .catch(err => {
                 console.log("inside catch block")
-                // console.log(err.response)
                 return [];
             })
-        
+
         console.log(allServices)
-        let options = allServices.map((service,index)=>{
+        let options = allServices.map((service, index) => {
             return {
-                label : service.serviceName,
-                value : service.id
+                label: service.serviceName,
+                value: service.id
             }
         })
         setServices(options);
@@ -81,83 +85,50 @@ const Createdoctor = (props) => {
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: doctorData,
-        onSubmit: values => {
+        onSubmit: async (values) => {
             if (doctorId) {
                 editDoctorDetail(values)
-
             } else {
-                handleCreateDoctor(values);
+                await handleCreateDoctor(values);
             }
         },
         validate: values => {
             let isEdit = doctorId ? true : false;
-            return validateDoctor(values, isEdit);
+            let isHospital = props.isHospital ? true : false
+            return validateDoctor(values, isEdit,isHospital);
         },
     })
 
 
-
-    const handleCreateDoctor = (values) => {
-        try{
-        setLoading(true)       
-        let selectedId = [];
-        values.doctorServices.forEach((service, index) => {
-            selectedId.push(service.value)
-        })
-
-        let formData = new FormData();
-        
-        if (values.doctorImage) {
-            formData.append("image", values.doctorImage);
-
+    const handleCreateDoctor = async (values) => {
+        setLoading(true)
+        try {
+            let resp;
+            if(props.isHospital){
+                resp = await doctorApi.createAdminDoctor(values);
+            }else{
+                resp = await doctorApi.createAdminDoctor(values);
+            }
+            if (resp.data.status) {
+                notify.success(resp.data.message)
+                props.history.push(props.isHospital ? successPath.hospital : successPath.admin);   
+            }
         }
-        formData.append("firstName", values.firstName);
-        formData.append("middleName", values.middleName);
-        formData.append("lastName", values.lastName);
-        formData.append("email", values.email);
-        formData.append("prefix", values.prefix);
-        formData.append("nmcNo", values.nmcNumber);
-        formData.append("specialist", values.specialist);
-        formData.append("description", values.description);
-        formData.append("password", values.password);
-        formData.append("confirmPassword", values.confirmPassword);
-        formData.append("liscenceDate", values.licensedDate);
-        formData.append("mobileNumber", values.mobileNumber);
-        formData.append("serviceId", selectedId);
-
-        httpClient.POST("doctor/create", formData, false, true, "formdata")
-            .then(resp => {
-                if (resp.data.status) {
-                    console.log(resp.data.data);
-                    notify.success(resp.data.message)
-                    props.history.push("/dashboard/doctor-table")
-                }
-            })
-            .catch(err => {
-                if (err.response || err.response.data) {
-                    notify.error(err.response.data.message || "Something went wrong")
-                    setLoading(false)
-                }
-            })
-            .finally(() => {
-                setLoading(false)
-            })
+        catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong")
+            }
         }
-        catch(err){
-            console.log(err)
-            setLoading(false)
-        }
+        setLoading(false)
     }
 
     const getDoctorById = (allServices) => {
-        
+
         // get doctor id
         let id = props.location.state.id;
         if (id == null) return;
-        
-        setDoctorId(id)
 
-        // get doctor details
+        setDoctorId(id)
         httpClient.GET("doctor/basic-info/" + id, false, true)
             .then(resp => {
                 console.log(resp)
@@ -175,20 +146,17 @@ const Createdoctor = (props) => {
                             return (item.id.toString() == service.id.toString())
                         })
                         if (found.length > 0) {
-                            console.log(found)
                             savedServices.push({
-                                label : service.serviceName,
-                                value : service.id
+                                label: service.serviceName,
+                                value: service.id
                             });
-                        } 
+                        }
                     })
 
                     console.log(savedServices);
                     if (data) {
-
-                        let url = "http://103.90.86.77:8082/api/doctor/download/" + id;
+                        let url = "http://202.51.74.219:8082/api/doctor/download/" + id;
                         setImage(url)
-
                         setDoctorData({
                             firstName: data.firstName,
                             lastName: data.lastName,
@@ -215,50 +183,26 @@ const Createdoctor = (props) => {
 
     }
 
-    const editDoctorDetail = (values) => {
+    const editDoctorDetail = async(values) => {
         setLoading(true)
-        let selectedId = [];
-        values.doctorServices.forEach((service, index) => {
-            selectedId.push(service.value)
-        })
-
-        let formData = new FormData();
-        if (values.doctorImage) {
-            formData.append("image", values.doctorImage);
+        try {
+            let resp;
+            if(props.isHospital){
+                resp = await doctorApi.editAdminDoctor(values);
+            }else{
+                resp = await doctorApi.editAdminDoctor(values,doctorId);
+            }
+            if (resp.data.status) {
+                notify.success(resp.data.message)
+                props.history.push(props.isHospital ? successPath.hospital : successPath.admin);   
+            }
         }
-        formData.append("firstName", values.firstName);
-        formData.append("middleName", values.middleName);
-        formData.append("lastName", values.lastName);
-        formData.append("email", values.email);
-        formData.append("prefix", values.prefix);
-        formData.append("nmcNo", values.nmcNumber);
-        formData.append("specialist", values.specialist);
-        formData.append("description", values.description);
-        formData.append("liscenceDate", values.licensedDate);
-        formData.append("mobileNumber", values.mobileNumber);
-        formData.append("serviceId", selectedId);
-
-        console.log(formData);
-        httpClient.PUT("doctor/update/" + doctorId, formData, false, true, "formdata")
-            .then(resp => {
-                console.log(resp)
-                if (resp.data.status) {
-                    notify.success(resp.data.message);
-                    props.history.push("/dashboard/doctor-table")
-                    setLoading(false)
-
-                }
-            })
-            .catch(err => {
-                console.log(err.response)
-                console.log(err.response.data.message)
+        catch (err) {
+            if (err && err.response && err.response.data) {
                 notify.error(err.response.data.message || "Something went wrong")
-                setLoading(false)
-            })
-
-            .finally(() => {
-                setLoading(false)
-            })
+            }
+        }
+        setLoading(false)
     }
 
     const handleCancelEdit = () => {
@@ -283,8 +227,6 @@ const Createdoctor = (props) => {
         setImage("");
         setImgName("");
         props.history.replace('/dashboard/create-doctor', null);
-
-
     }
 
     const handleAddImage = () => {
@@ -302,16 +244,16 @@ const Createdoctor = (props) => {
         reader.readAsDataURL(files);
     }
 
-    const removeImage=()=>{
+    const removeImage = () => {
         setImage(null);
         setImgName(null);
         formik.setFieldValue('doctorImage', null);
-        
+
     }
 
-    const handleServiceChange=(item)=>{
+    const handleServiceChange = (item) => {
         console.log(item);
-        formik.setFieldValue('doctorServices',item)
+        formik.setFieldValue('doctorServices', item)
     }
     return (
         <div >
@@ -321,13 +263,13 @@ const Createdoctor = (props) => {
                         <Col md={2}>
                             <Form.Group>
                                 <Form.Label>Prefix</Form.Label>
-                                <select class="form-select" aria-label="Default select example" name="prefix"
+                                <select class="select-control" aria-label="Default select example" name="prefix"
                                     onChange={formik.handleChange} value={formik.values.prefix} onBlur={formik.handleBlur} >
                                     <option value="MD">MD</option>
                                     <option value="MBBS">MBBS</option>
                                     <option value="Both">Both</option>
                                 </select>
-                               
+
                             </Form.Group>
                         </Col>
                         <Col md={3}>
@@ -360,7 +302,6 @@ const Createdoctor = (props) => {
                     </Row>
 
                     <Row className="mb-3">
-
                         <Col md={4}>
                             <Form.Group >
                                 <Form.Label>NMC Number</Form.Label>
@@ -392,7 +333,6 @@ const Createdoctor = (props) => {
                                     : null}
                             </Form.Group>
                         </Col>
-
                     </Row>
 
                     <Row className="mb-3">
@@ -400,15 +340,14 @@ const Createdoctor = (props) => {
                         <Col md={6}>
                             <Row className="mb-3">
                                 <Col md={11}>
-                                   <Form.Label>Service </Form.Label>
-                                    
-                                    <Select 
+                                    <Form.Label>Service </Form.Label>
+                                    <Select
                                         value={formik.values.doctorServices}
-                                        isMulti options={services} 
+                                        isMulti options={services}
                                         name="serviceID"
                                         onChange={handleServiceChange} >
-                                        
-                                    </Select>                                   
+
+                                    </Select>
                                 </Col>
                             </Row>
 
@@ -419,20 +358,20 @@ const Createdoctor = (props) => {
                                 <Col md={5}>
                                     <Form.Label>Choose Photo  </Form.Label>
                                     <Button variant="info" onClick={handleAddImage}>Browse</Button>
-                                    <input onChange={(e) => handleChangeImage(e)} type="file" name="doctorImage" 
-                                    style={{ display: "none" }} ref={imageSelectRef}  accept="image/png, image/jpg, image/jpeg" ></input>
+                                    <input onChange={(e) => handleChangeImage(e)} type="file" name="doctorImage"
+                                        style={{ display: "none" }} ref={imageSelectRef} accept="image/png, image/jpg, image/jpeg" ></input>
                                 </Col>
 
                                 <Col md={5}>
-                                   
-                                    <Image src={selectedImage ? selectedImage : Avatar} fluid className="image ml-3" roundedCircle ></Image>                                    
+
+                                    <Image src={selectedImage ? selectedImage : Avatar} fluid className="image ml-3" roundedCircle ></Image>
                                     <div>
                                         {selectedImgName}
                                     </div>
-                                    
+
                                 </Col>
                                 <Col md={2}>
-                                    <a style={{color:'red'}} onClick={removeImage}>x</a>
+                                    <a style={{ color: 'red' }} onClick={removeImage}>x</a>
 
                                 </Col>
                             </Row>
@@ -462,54 +401,43 @@ const Createdoctor = (props) => {
                         </Col>
                     </Row>
 
-                    <Row className="mb-3">
-                        <Col md={4}>
-                            <Form.Group>
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" name="email"
-                                    onChange={formik.handleChange} value={formik.values.email} onBlur={formik.handleBlur} />
-                                {formik.errors.email && formik.touched.email ?
-                                    <div className="error-message">{formik.errors.email}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col>
+                    {doctorId ?
+                        <></>
+                        :
+                        <Row className="mb-3">
+                            <Col md={4}>
+                                <Form.Group>
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control type="email" name="email"
+                                        onChange={formik.handleChange} value={formik.values.email} onBlur={formik.handleBlur} />
+                                    {formik.errors.email && formik.touched.email ?
+                                        <div className="error-message">{formik.errors.email}</div>
+                                        : null}
+                                </Form.Group>
+                            </Col>
 
-                        <Col md={8}>
-                            {doctorId ?
-                                <></>
-                                :
-                                <Row>
-
-                                    <Col md={6}>
-                                        <Form.Group>
-                                            <Form.Label>Password</Form.Label>
-                                            <Form.Control type="password" name="password"
-                                                onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                            {formik.errors.password && formik.touched.password ?
-                                                <div className="error-message">{formik.errors.password}</div>
-                                                : null}
-                                        </Form.Group>
-                                    </Col>
-                                    <Col md={6}>
-                                        <Form.Group>
-                                            <Form.Label>Confirm Password</Form.Label>
-                                            <Form.Control type="password" name="confirmPassword"
-                                                onChange={formik.handleChange} onBlur={formik.handleBlur} />
-                                            {formik.errors.confirmPassword && formik.touched.confirmPassword ?
-                                                <div className="error-message">{formik.errors.confirmPassword}</div>
-                                                : null}
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                            }
-
-                        </Col>
-
-                    </Row>
-
-                    <Row className="mb-3">
-
-                    </Row>
+                            <Col md={4}>
+                                <Form.Group>
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" name="password"
+                                        onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                    {formik.errors.password && formik.touched.password ?
+                                        <div className="error-message">{formik.errors.password}</div>
+                                        : null}
+                                </Form.Group>
+                            </Col>
+                            <Col md={4}>
+                                <Form.Group>
+                                    <Form.Label>Confirm Password</Form.Label>
+                                    <Form.Control type="password" name="confirmPassword"
+                                        onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                    {formik.errors.confirmPassword && formik.touched.confirmPassword ?
+                                        <div className="error-message">{formik.errors.confirmPassword}</div>
+                                        : null}
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                    }
 
                     {loading == true ?
                         <Cliploader isLoading={loading} />

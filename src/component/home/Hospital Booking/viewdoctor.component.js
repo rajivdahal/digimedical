@@ -46,18 +46,24 @@ export default function Hospital_doctors(props) {
     appointmentTime: ""
   }
   const handleSubmit = (values, doctor, index) => {
+    console.log("values are",values)
     let finaldata = {}
     finaldata = { ...values, hospitalId: props.location.state.id, doctorId: doctor.doctorid, servicesId: doctor.serviceid }
     httpClient.POST(props.match.url == "/dashboard/hospitals/view-doctors" ? "create-appointment" : "create-external-user", finaldata, false, props.match.url == "/dashboard/hospitals/view-doctors" ? true : false)
       .then(resp => {
-        notify.success("Appointment successfully created")
+    
         if (props.match.url != "/dashboard/hospitals/view-doctors") {
           notify.promise(new Promise(function (resolve, reject) {
-            resolve("Please check your email to verify account")
+            resolve("Booking success! Please check your email to verify account")
           }))
+          history.push({
+            pathname: "/login",
+            fromexternaluser: true,
+          })
         }
-        else{
+        else {
           history.push("/dashboard")
+          notify.success("Hospital appointment booked successfully")
         }
         showappointment(doctor, index)
       })
@@ -133,7 +139,7 @@ export default function Hospital_doctors(props) {
                     name="search"
                     onChange={searchDoctors}
                   />
-                  <button type="submit" disabled>
+                  <button>
                     <i class="fa fa-search"></i>
                   </button>
                 </form>
@@ -172,63 +178,63 @@ export default function Hospital_doctors(props) {
                           doctorappointmentindex == doctorindex + 1 ?
                             <Formik initialValues={initialValues} onSubmit={(values) => handleSubmit(values, doctor, doctorindex)} >
                               {
-                                (values)=>{
-                                console.log("form values are",values)
-                                  return  <Form className="form_doc">
-                                  {
-                                    props.match.url != "/dashboard/hospitals/view-doctors" ? <>
-                                      <div className="doc_appoin_form1">
-                                        <p>First Name</p>
-                                        <Field
-                                          type="text"
-                                          placeholder="Enter First Name"
-                                          name="firstName"
-                                          id="firstName"
-                                        />
-                                      </div>
-                                      <div class="doc_appoin_form1">
-                                        <p>Middle Name</p>
-                                        <Field
-                                          type="text"
-                                          placeholder="Enter Middle Name"
-                                          name="middleName"
-                                          id="middleName"
-                                        />
-                                      </div>
-                                      <div class="doc_appoin_form1">
-                                        <p>Last Name</p>
-                                        <Field
-                                          type="text"
-                                          placeholder="Enter Last Name"
-                                          name="lastName"
-                                          id="lastName"
-                                        />
-                                      </div>
-                                      <div class="doc_appoin_form1">
-                                        <p>Email Address</p>
-                                        <Field
-                                          type="text"
-                                          placeholder="Enter Email Address"
-                                          name="email"
-                                          id="email"
-                                        />
-                                      </div>
-                                      <div class="doc_appoin_form1">
-                                        <p>Phone No.</p>
-                                        <Field
-                                          type="text"
-                                          placeholder="Enter Phone no."
-                                          name="mobileNumber"
-                                          id="mobileNumber"
-                                        />
-                                      </div>
-                                    </> : null
-                                  }
-  
-  
-                                  <div class="doc_appoin_form1">
-                                    <p>Appointment Date</p>
-                                    {/* <DatePicker
+                                (values) => {
+                                  console.log("form values are", values)
+                                  return <Form className="form_doc">
+                                    {
+                                      props.match.url != "/dashboard/hospitals/view-doctors" ? <>
+                                        <div className="doc_appoin_form1">
+                                          <p>First Name</p>
+                                          <Field
+                                            type="text"
+                                            placeholder="Enter First Name"
+                                            name="firstName"
+                                            id="firstName"
+                                          />
+                                        </div>
+                                        <div class="doc_appoin_form1">
+                                          <p>Middle Name</p>
+                                          <Field
+                                            type="text"
+                                            placeholder="Enter Middle Name"
+                                            name="middleName"
+                                            id="middleName"
+                                          />
+                                        </div>
+                                        <div class="doc_appoin_form1">
+                                          <p>Last Name</p>
+                                          <Field
+                                            type="text"
+                                            placeholder="Enter Last Name"
+                                            name="lastName"
+                                            id="lastName"
+                                          />
+                                        </div>
+                                        <div class="doc_appoin_form1">
+                                          <p>Email Address</p>
+                                          <Field
+                                            type="text"
+                                            placeholder="Enter Email Address"
+                                            name="email"
+                                            id="email"
+                                          />
+                                        </div>
+                                        <div class="doc_appoin_form1">
+                                          <p>Phone No.</p>
+                                          <Field
+                                            type="text"
+                                            placeholder="Enter Phone no."
+                                            name="mobileNumber"
+                                            id="mobileNumber"
+                                          />
+                                        </div>
+                                      </> : null
+                                    }
+
+
+                                    <div class="doc_appoin_form1">
+                                      <p>Appointment Date</p>
+                                      {/* <DatePicker
                                   value={selectedDay}
                                   onChange={setSelectedDay}
                                   inputPlaceholder="Select a day"
@@ -236,16 +242,16 @@ export default function Hospital_doctors(props) {
                                   name="appointmentDate"
                                   id="appointmentDate"
                                 /> */}
-                                    <Field type="date" name="appointmentDate"
-                                      id="appointmentDate" />
-                                  </div>
-                                  <div class="doc_appoin_form1">
-                                    <p>Appointment Time</p>
-                                    <Field type="time" name="appointmentTime"
-                                      id="appointmentTime" />
-                                  </div>
-                                  <button type="submit" className="submit-button" disabled={!values.dirty && !values.errors}>Submit</button>
-                                </Form>
+                                      <Field type="date" name="appointmentDate"
+                                        id="appointmentDate" />
+                                    </div>
+                                    <div class="doc_appoin_form1">
+                                      <p>Appointment Time</p>
+                                      <Field type="time" name="appointmentTime"
+                                        id="appointmentTime" />
+                                    </div>
+                                    <button type="submit" className="submit-button" >Submit</button>
+                                  </Form>
                                 }
                               }
                             </Formik>

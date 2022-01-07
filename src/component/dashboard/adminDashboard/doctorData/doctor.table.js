@@ -5,83 +5,76 @@ import Tableicons from "../../../../utils/materialicons";
 import { Add, Edit, Clear, DeleteOutline } from "@material-ui/icons";
 import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
-import { Modal, Button,Card } from 'react-bootstrap';
+import { Modal, Button, Card } from 'react-bootstrap';
+import doctorApi from "./doctor.services";
 const DoctorTable = (props) => {
 
     const [doctors, setDoctors] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [doctorInfoModal,setDoctorInfoModal] = useState(false)
+    const [doctorInfoModal, setDoctorInfoModal] = useState(false)
     const [doctorId, setDoctorId] = useState("");
     const [doctorStatus, setDoctorStatus] = useState("");
     const [loading, setLoading] = useState(false)
-    const [doctorInfo , setDoctorInfo] =useState([]);
+    const [doctorInfo, setDoctorInfo] = useState([]);
 
     const handleClose = () => {
         setShowModal(false);
         setDoctorInfoModal(false)
     }
 
-    const getDoctor = () => {
+    const getDoctor = async () => {
         setLoading(true)
-        httpClient.GET("doctor/getall", false, true)
-            .then(resp => {
-                console.log(resp)
-                if (resp.data.status) {
-                    setDoctors(resp.data.data)
-                }
-                setLoading(false)
-            })
-            .catch(err => {
-                console.log(err.response)
-                setLoading(false)
-            })
+        try {
+            let resp = await doctorApi.getAdminDoctor();
+            if (resp.data.status) {
+                resp.data.data.forEach((item) => {
+                    if (item.description) {
+                        let splitDesc = item.description.split(" ");
+
+                        if (splitDesc.length < 10) {
+                            item.description = item.description
+                        } else {
+                            let sliceDesc = splitDesc.slice(0, 10);
+                            let joinDesc = sliceDesc.join(" ") + " ...";
+                            item.description = joinDesc;
+                        }
+                    }
+                })
+                setDoctors(resp.data.data)
+            }
+        }
+        catch (err) {
+            console.log(err.response)
+        }
+        setLoading(false)
     }
 
-    //  const getDoctorInfo=(id)=>{
-    //     httpClient.GET("doctor/basic-info/" + id, false, true)
-    //     .then(resp => {
-    //         let responseData = resp.data.data;
-    //         setDoctorInfo(responseData);
-    //     })
-    //     .catch(err => {
-    //         console.log(err.response)
-    //     })
-
-    // }
-    
     useEffect(() => {
         getDoctor();
     }, [])
 
 
     const handleDeactivateDoctor = (e, data) => {
-        console.log(data);
         setDoctorStatus(data.status)
         setDoctorId(data.id)
         setShowModal(true)
     }
-    const changeDoctorStatus = () => {
 
-        let tempDoctorStatus = {
-            id: doctorId,
-            status: doctorStatus == "true" ? false : true
-        }
-
-        console.log(tempDoctorStatus)
-        httpClient.PUT("doctor/change-status", tempDoctorStatus, false, true)
-            .then(resp => {
-                console.log(resp)
-                if (resp.data.status) {
-                    notify.success(resp.data.message)
-                    getDoctor();
-                    handleClose();
-                }
-            })
-            .catch(err => {
-                console.log(err.response.data);
+    const changeDoctorStatus = async () => {
+        setLoading(true);
+        try {
+            let resp = await doctorApi.adminDoctorStatus(doctorId, doctorStatus);
+            if (resp.data.status) {
+                notify.success(resp.data.message)
+                getDoctor();
                 handleClose();
-            })
-
+            }
+        } catch (err) {
+            console.log(err.response.data);
+            notify.error(err.response.data.message)
+            handleClose();
+        }
+        setLoading(false)
     }
 
     const handleAddDoctor = () => {
@@ -89,8 +82,6 @@ const DoctorTable = (props) => {
     }
 
     const handleEditDoctor = (e, data) => {
-        // setDoctorId(data.id)
-        console.log(data)
         props.history.push("/dashboard/create-doctor", data)
     }
 
@@ -98,9 +89,9 @@ const DoctorTable = (props) => {
         <div>
             <Container>
                 <MaterialTable
-                 data={doctors}
-                 title="All Doctor Details"
-                 icons={Tableicons}
+                    data={doctors}
+                    title="All Doctor Details"
+                    icons={Tableicons}
                     columns={[
                         { title: 'ID', field: 'id' },
                         { title: 'Name', field: 'name' },

@@ -37,9 +37,11 @@ import Role from "./adminDashboard/userManagement/role.component"
 import CreateAdmin from "./adminDashboard/userManagement/admin.component"
 import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component"
 import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component"
-import Hospitalbooking from "../home/Hospital Booking/hospital.booking.component"
+
 import Hospitalbookingcomponent from "../home/Hospital Booking/hospitalbooking.component"
 import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component"
+
+
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -113,16 +115,16 @@ const Dashboard = (props) => {
                                             : props.location.pathname === "/dashboard/role" ?
                                               <ProtectedRoute component={Role} />
                                               : props.location.pathname === "/dashboard/booked-labtest" ?
-                                                <ProtectedRoute component={BookedLabtest}/> 
-                                                : props.location.pathname === "/dashboard/add-institute" ? 
-                                                <ProtectedRoute component={MedicalInstitute}/>
-                                                : props.location.pathname === "/dashboard/hospital-table" ? 
-                                                <ProtectedRoute component={HospitalTable}/>
-                                                : props.location.pathname === "/dashboard/add-hospital" ? 
-                                                <ProtectedRoute component={Hospital}/>
-                                                : props.location.pathname === "/dashboard/corporate" ? 
-                                                <ProtectedRoute component={CorporatePage}/>
-                                              : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                                                <ProtectedRoute component={BookedLabtest} />
+                                                : props.location.pathname === "/dashboard/add-institute" ?
+                                                  <ProtectedRoute component={MedicalInstitute} />
+                                                  : props.location.pathname === "/dashboard/hospital-table" ?
+                                                    <ProtectedRoute component={HospitalTable} />
+                                                    : props.location.pathname === "/dashboard/add-hospital" ?
+                                                      <ProtectedRoute component={Hospital} />
+                                                      : props.location.pathname === "/dashboard/corporate" ?
+                                                        <ProtectedRoute component={CorporatePage} />
+                                                        : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </div>
                   </div>

@@ -119,6 +119,7 @@ const Role = (props) => {
                     })
                     getAllRoles()
                     setLoading(false)
+                    setRoleID(null)
                 })
                 .catch(err => {
                     console.log(err)

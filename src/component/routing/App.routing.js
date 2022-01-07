@@ -143,6 +143,11 @@ export const Approuting = (props) => {
           path="/dashboard/settings/userprofile"
           component={Dashboard}
         ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/hospital-doctor"
+          component={Dashboard}
+        ></ProtectedRoute>
         {/* TO DO */}
         <ProtectedRoute
           exact="/dashboard/settings/change-password"
@@ -216,8 +221,7 @@ export const Approuting = (props) => {
           exact
           path="/dashboard/corporate"
           component={Dashboard}
-        >
-        </ProtectedRoute>
+        ></ProtectedRoute>
 
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
