@@ -87,8 +87,6 @@ const BoxContainpr = styled.div`
     margin-top: 1rem;
   }
 `;
-;
-
 const CoreValues = () => {
   return (
     <Root>
@@ -104,9 +102,21 @@ const CoreValues = () => {
         return (
           <Feature>
             <BoxContainpr>
-              <div style={{ height: "4rem", width: "6rem", borderRadius: "50%", backgroundColor: "#52B2E5" ,display:"flex",justifyContent:"center",alignItems:"center"}}>
-              <i class="fas fa-clipboard-check" style={{fontSize:"30px",color:"white"}}></i>
-
+              <div
+                style={{
+                  height: "4rem",
+                  width: "5rem",
+                  borderRadius: "50%",
+                  backgroundColor: "#52B2E5",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <i
+                  class="fas fa-clipboard-check"
+                  style={{ fontSize: "30px", color: "white" }}
+                ></i>
               </div>
               <div className="title-deatial-div">
                 <div className="title">{item.title1}</div>
@@ -114,8 +124,21 @@ const CoreValues = () => {
               </div>
             </BoxContainpr>
             <BoxContainpr>
-              <div style={{ height: "4rem", width: "6rem", borderRadius: "50%", backgroundColor: "#52B2E5" ,display:"flex",justifyContent:"center",alignItems:"center"}}>
-              <i class="fas fa-clipboard-check" style={{fontSize:"30px",color:"white"}}></i>
+              <div
+                style={{
+                  height: "4rem",
+                  width: "6rem",
+                  borderRadius: "50%",
+                  backgroundColor: "#52B2E5",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <i
+                  class="fas fa-clipboard-check"
+                  style={{ fontSize: "30px", color: "white" }}
+                ></i>
               </div>
               <div className="title-deatial-div">
                 <div className="title">{item.title2}</div>

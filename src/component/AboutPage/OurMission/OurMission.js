@@ -20,7 +20,11 @@ const Root = styled.div`
 `;
 const ImageContainor = styled.div`
   width: 45%;
-  //   background-color: red;
+  height: 700px;
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    height: 100%;
+  }
   .image {
     width: 80%;
     @media screen and (max-width: 1024px) {
