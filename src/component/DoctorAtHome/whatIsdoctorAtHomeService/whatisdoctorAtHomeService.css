@@ -1,0 +1,12 @@
+.ul_docathome_feat {
+  margin-top: 10px;
+
+  margin-left: 300px;
+  width: 1000px;
+  height: 250px;
+}
+
+.ul_docathome_feat li {
+  width: 400px;
+  float: left;
+}

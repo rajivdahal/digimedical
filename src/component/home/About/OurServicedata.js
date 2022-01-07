@@ -11,34 +11,34 @@ export const data = [
     title: "24/7 Nursing service at home",
     description:
       "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
-      link: "/"
+    link: "/",
   },
   {
     img: require("../../../assets/firstadd.png").default,
     title: "Online medical consultation",
     description:
       "Online consultation with doctors and nurses via online video service keeps the track of your prescription and we are here for you",
-      link: "/"
+    link: "/",
   },
   {
     img: require("../../../assets/file.png").default,
     title: "Lab test at home",
     description:
       "We present you the first remote Lab test all over Nepal with a lab report in no time",
-      link: "/"
+    link: "/",
   },
   {
     img: require("../../../assets/meter.png").default,
     title: "PCR at home",
     description:
       "Covid PCR test is provided at your Home from DigiMedical,Click here",
-      link: "/"
+    link: "/",
   },
   {
     img: require("../../../assets/meter.png").default,
     title: "UCG/ECG/ECHO at home",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet.",
-      link: "/"
+      "Ultrasonography(USG), Electrocardiography(ECG), echocardiogram(ECHO) is provided at your home by Digimedical.",
+    link: "/",
   },
 ];

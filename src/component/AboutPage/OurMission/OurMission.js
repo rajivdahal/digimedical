@@ -114,9 +114,8 @@ const OurMission = () => {
         <Heading>Digitize Nepal’s medical</Heading>
         <Heading>field !</Heading>
         <Deatail>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sollicitudin
-          sed at nunc elit. Donec risus cras faucibus velit eros nunc nam sed
-          pulvinar.
+          To provide high quality, cost effective, comprehensive primary and
+          preventative online health care.
         </Deatail>
         <Review>
           <div className="review-detail">
