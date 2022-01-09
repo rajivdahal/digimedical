@@ -8,6 +8,8 @@ import TheyTrustedUs from "../home/TheyTrustedUs/TheyTrustedUs";
 import Navbar from "../Navbar/Navbar";
 import CoreValues from "./CoreValues/CoreValues";
 import OurMission from "./OurMission/OurMission";
+import "./AboutPage.css";
+import ourteamimg from "../../assets/team2.png";
 const Root = styled.div`
   height: 25rem;
 `;
@@ -96,7 +98,9 @@ const AboutPage = () => {
           <Heading>We are here to Improve your health</Heading>
           <ButtonContainor>
             <Link to={"/"} style={{ textDecoration: "none" }}>
-              <GetAppointment type="button">Get Appointment</GetAppointment>
+              <GetAppointment className="abt_get_apt_but" type="button">
+                Get Appointment
+              </GetAppointment>
             </Link>
           </ButtonContainor>
         </Content>
@@ -104,6 +108,113 @@ const AboutPage = () => {
       <CoreValues />
       <OurMission />
       <TheyTrustedUs />
+      <div className="about_teams">
+        <div className="head_about_teams">
+          {" "}
+          <h1>Meet Our Team</h1>
+          <p>These are the people that make the medical service digital</p>
+        </div>
+
+        <div className="about_teams1">
+          <div className="team_buttons">
+            <button id="sel_abtteam_but">All</button>
+            <button id="unsel_abtteam_but">Leadership</button>
+            <button id="unsel_abtteam_but">Medical Team</button>
+            <button id="unsel_abtteam_but">External Panel</button>
+          </div>
+
+          <div className="our_team_card">
+            <a className="teamcard_1" href="#slide_abt_cont">
+              <div className="our_team_card_content">
+                <img src={ourteamimg} alt="Team Img" />
+                <div className="team_container">
+                  <h4>
+                    <b>Jane Doe</b>
+                  </h4>
+                  <p>Interior Designer</p>
+                </div>
+              </div>
+
+              <div className="card_teamdetails" id="slide_abt_cont">
+                <div className="team_det_desc">
+                  <p1>Gynaecologist & Obstetrician</p1>
+                  <p2>
+                    M.D, M.S, FICS (USA), Ph.D, Diploma in Adv. Laproscopic
+                    Surgery (Germany)
+                  </p2>
+                  <p3>34 Years of Experience*</p3>
+                </div>
+              </div>
+            </a>
+            <a className="teamcard_1" href="#slide_abt_cont">
+              <div className="our_team_card_content">
+                <img src={ourteamimg} alt="Team Img" />
+                <div className="team_container">
+                  <h4>
+                    <b>Jane Doe</b>
+                  </h4>
+                  <p>Interior Designer</p>
+                </div>
+              </div>
+            </a>
+            <a className="teamcard_1" href="#slide_abt_cont">
+              <div className="our_team_card_content">
+                <img src={ourteamimg} alt="Team Img" />
+                <div className="team_container">
+                  <h4>
+                    <b>Jane Doe</b>
+                  </h4>
+                  <p>Interior Designer</p>
+                </div>
+              </div>
+            </a>
+            <a className="teamcard_1" href="#slide_abt_cont">
+              <div className="our_team_card_content">
+                <img src={ourteamimg} alt="Team Img" />
+                <div className="team_container">
+                  <h4>
+                    <b>Jane Doe</b>
+                  </h4>
+                  <p>Interior Designer</p>
+                </div>
+              </div>
+            </a>
+            <a className="teamcard_1" href="#slide_abt_cont">
+              <div className="our_team_card_content">
+                <img src={ourteamimg} alt="Team Img" />
+                <div className="team_container">
+                  <h4>
+                    <b>Jane Doe</b>
+                  </h4>
+                  <p>Interior Designer</p>
+                </div>
+              </div>
+            </a>
+            <a className="teamcard_1" href="#slide_abt_cont">
+              <div className="our_team_card_content">
+                <img src={ourteamimg} alt="Team Img" />
+                <div className="team_container">
+                  <h4>
+                    <b>Jane Doe</b>
+                  </h4>
+                  <p>Interior Designer</p>
+                </div>
+              </div>
+            </a>
+            <a className="teamcard_1" href="#slide_abt_cont">
+              <div className="our_team_card_content">
+                <img src={ourteamimg} alt="Team Img" />
+                <div className="team_container">
+                  <h4>
+                    <b>Jane Doe</b>
+                  </h4>
+                  <p>Interior Designer</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
       <Footer></Footer>
     </>
   );

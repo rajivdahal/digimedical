@@ -23,15 +23,17 @@ export const Commonupcomingappointment = (props) => {
     const [id, setid] = useState()
     const [patient,setpatient]=useState({})
     useEffect(() => {
+        
         setisloading(true)
         if (fromdoctorcomponent) {
+           
             httpClient.GET(`getall-appointments-by/0`, false, true)
                 .then(resp => {
                     
                     let data = resp.data.data
                     data = data.map((item, index) => {
-                        item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
-                        item.appointmentTime = item.appointmentTime.slice(0, 5)
+                        item.appointmentdate = formatDate(item.appointmentdate.slice(0, 10))
+                        item.appointmenttime = item.appointmenttime.slice(0, 5)
                         return item
                     })
                     console.log(data)
@@ -44,14 +46,16 @@ export const Commonupcomingappointment = (props) => {
                 })
         }
         else {
-            setisloading(true)
+           
             httpClient.GET("get-user-pending-appointments", false, true)
+           
                 .then(resp => {
+                 
                     let data = resp.data.data
                     console.log("data are",data)
                     data = data.map((item, index) => {
-                        item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
-                        item.appointmentTime = item.appointmentTime.slice(0, 5)
+                        item.appointmentdate = formatDate(item.appointmentdate.slice(0, 10))
+                        item.appointmenttime = item.appointmenttime.slice(0, 5)
                         return item
                     })
                     console.log(data)
@@ -59,6 +63,7 @@ export const Commonupcomingappointment = (props) => {
                     setisloading(false)
                 })
                 .catch(err => {
+          
                     setisloading(false)
                     notify.error("something went wrong")
                 })
@@ -71,8 +76,8 @@ export const Commonupcomingappointment = (props) => {
                 .then(resp => {
                     let data = resp.data.data
                     data = data.map((item, index) => {
-                        item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
-                        item.appointmentTime = item.appointmentTime.slice(0, 5)
+                        item.appointmentdate = formatDate(item.appointmentdate.slice(0, 10))
+                        item.appointmenttime = item.appointmenttime.slice(0, 5)
                         return item
                     })
                     console.log(data)
@@ -89,8 +94,8 @@ export const Commonupcomingappointment = (props) => {
                 .then(resp => {
                     let data = resp.data.data
                     data = data.map((item, index) => {
-                        item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
-                        item.appointmentTime = item.appointmentTime.slice(0, 5)
+                        item.appointmentdate = formatDate(item.appointmentdate.slice(0, 10))
+                        item.appointmenttime = item.appointmenttime.slice(0, 5)
                         return item
                     })
                     console.log(data)
@@ -106,16 +111,19 @@ export const Commonupcomingappointment = (props) => {
 
     const columns = !props.fromdoctorcomponent ? [
         {
-            title: "Assigned Doctor", field: "doctorsName"
+            title: "Assigned Doctor", field: "doctorsname"
         },
         {
-            title: "Date Of Appointment", field: "appointmentDate"
+            title: "Hospital", field: "hospitalname"
         },
         {
-            title: "Time Of Appointment", field: "appointmentTime"
+            title: "Date Of Appointment", field: "appointmentdate"
         },
         {
-            title: "Service", field: "serviceName"
+            title: "Time Of Appointment", field: "appointmenttime"
+        },
+        {
+            title: "Service", field: "servicename"
         }
     ] : [
         {
@@ -123,10 +131,13 @@ export const Commonupcomingappointment = (props) => {
             title: "Patient Name", field: "patientsName"
         },
         {
-            title: "Date Of Appointment", field: "appointmentDate"
+            title: "Hospital", field: "hospitalname"
         },
         {
-            title: "Time Of Appointment", field: "appointmentTime"
+            title: "Date Of Appointment", field: "appointmentdate"
+        },
+        {
+            title: "Time Of Appointment", field: "appointmenttime"
         },
         {
             title: "Service", field: "serviceName"

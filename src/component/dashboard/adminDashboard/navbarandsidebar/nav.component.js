@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { notify } from '../../../../services/notify'
 import "./nav.component.css"
 import { Link } from "react-router-dom"
+import { useHistory } from 'react-router-dom'
 
 const Nav = (props) => {
-
+    let history=useHistory()
     const [logoutstate, setlogoutstate] = useState({
         logout: false,
     })
@@ -19,7 +20,7 @@ const Nav = (props) => {
         localStorage.removeItem("dm-refresh_token")
         localStorage.removeItem("status")
         localStorage.removeItem("userid")
-        props.props.push('/login')
+        history.push('/login')
         notify.success("Logout success! Please Login again")
     }
     const logoutno = () => {
