@@ -37,6 +37,7 @@ const DoctorTable = (props) => {
             }
             if (resp.data.status) {
                 resp.data.data.forEach((item) => {
+                    item.name = item.firstname +item.middlename+item.lastname
                     if (item.description) {
                         let splitDesc = item.description.split(" ");
 
@@ -99,7 +100,12 @@ const DoctorTable = (props) => {
 
     }
     const handleEditDoctor = (e, data) => {
-        props.history.push("/dashboard/create-doctor", data)
+        if(props.isHospital) {
+            props.history.push(props.isHospital ? createDoctorPath.hospital : createDoctorPath.admin);   
+
+        }
+        
+        // props.history.push("/dashboard/create-doctor", data)
     }
 
     return (
@@ -112,13 +118,13 @@ const DoctorTable = (props) => {
                             title="All Doctor Details"
                             icons={Tableicons}
                             columns={[
-                                { title: 'ID', field: 'id' },
-                                { title: 'Name', field: 'name' },
-                                { title: 'Description', field: 'description' },
-                                { title: 'NMC', field: 'nmcNo', },
+                                { title: 'ID', field: 'doctorid' },
                                 { title: 'Prefix', field: 'prefix' },
+                                { title: 'Name', field: 'name' },
+                                { title: 'Specialist', field: 'specialist' },
+                                { title: 'Mobile Number', field: 'mobilenumber', },
                                 {
-                                    title: 'Status', field: 'status',
+                                    title: 'Status', field: 'doctorstatus',
                                     render: rowData => rowData.status.toString() == "true" ?
                                         <span style={{ color: '#18af69' }}>Active</span>
                                         :
@@ -135,11 +141,11 @@ const DoctorTable = (props) => {
                                     isFreeAction: true,
                                     onClick: () => { addHospitalDoctor() }
                                 },
-                                // {
-                                //     icon: Edit,
-                                //     tooltip: 'Edit Service',
-                                //     onClick: (e, rowData) => { handleEditDoctor(e, rowData) }
-                                // },
+                                {
+                                    icon: Edit,
+                                    tooltip: 'Edit Service',
+                                    onClick: (e, rowData) => { handleEditDoctor(e, rowData) }
+                                },
                                 {
                                     icon: Clear,
                                     tooltip: 'Change Status',

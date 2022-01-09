@@ -114,7 +114,7 @@ const doctorApi = {
     },
 
     getHospitalDoctor :()=>{
-        return httpClient.GET("doctor/getall",false, true)
+        return httpClient.GET("hospital/all/doctors",false, true)
     },
 
 
