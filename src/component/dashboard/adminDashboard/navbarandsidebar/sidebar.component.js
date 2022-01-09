@@ -9,6 +9,7 @@ import VaccinesRoundedIcon from '@mui/icons-material/VaccinesRounded';
 import WysiwygRoundedIcon from '@mui/icons-material/WysiwygRounded';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
+
 const Adminsidebar = (props) => {
   console.log("props in admin sidebar", props)
   const navigatedashboard = () => {

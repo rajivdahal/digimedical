@@ -37,12 +37,14 @@ const Createdoctor = (props) => {
         licensedDate: "",
         doctorImage: "",
         serviceID: "",
+        availableDays: "SUN",
+        startTime: "",
+        endTime: "",
         doctorServices: [],
     })
-
-    const successPath = {
-        "hospital":"/dashboard/doctor-table",
-        "admin" : "/dashboard/doctor-table",
+    const doctorTablePath = {
+        "hospital": "/dashboard/hospital-doctor",
+        "admin": "/dashboard/doctor-table",
     }
 
     useEffect(() => {
@@ -95,23 +97,28 @@ const Createdoctor = (props) => {
         validate: values => {
             let isEdit = doctorId ? true : false;
             let isHospital = props.isHospital ? true : false
-            return validateDoctor(values, isEdit,isHospital);
+            return validateDoctor(values, isEdit, isHospital);
         },
     })
 
 
     const handleCreateDoctor = async (values) => {
+
         setLoading(true)
         try {
             let resp;
-            if(props.isHospital){
-                resp = await doctorApi.createAdminDoctor(values);
-            }else{
+            if (props.isHospital) {
+                let hospitalId = localStorage.getItem("userid")
+                console.log(hospitalId)
+                resp = await doctorApi.createHospitalDoctor(values);
+            } else {
                 resp = await doctorApi.createAdminDoctor(values);
             }
             if (resp.data.status) {
                 notify.success(resp.data.message)
-                props.history.push(props.isHospital ? successPath.hospital : successPath.admin);   
+                formik.resetForm();
+                // props.history.push(successPath.admin);
+                props.history.push(props.isHospital ? doctorTablePath.hospital : doctorTablePath.admin);
             }
         }
         catch (err) {
@@ -183,18 +190,18 @@ const Createdoctor = (props) => {
 
     }
 
-    const editDoctorDetail = async(values) => {
+    const editDoctorDetail = async (values) => {
         setLoading(true)
         try {
             let resp;
-            if(props.isHospital){
+            if (props.isHospital) {
                 resp = await doctorApi.editAdminDoctor(values);
-            }else{
-                resp = await doctorApi.editAdminDoctor(values,doctorId);
+            } else {
+                resp = await doctorApi.editAdminDoctor(values, doctorId);
             }
             if (resp.data.status) {
                 notify.success(resp.data.message)
-                props.history.push(props.isHospital ? successPath.hospital : successPath.admin);   
+                props.history.push(props.isHospital ? doctorTablePath.hospital : doctorTablePath.admin);
             }
         }
         catch (err) {
@@ -335,10 +342,10 @@ const Createdoctor = (props) => {
                         </Col>
                     </Row>
 
-                    <Row className="mb-3">
+                    <Row>
 
                         <Col md={6}>
-                            <Row className="mb-3">
+                            <Row>
                                 <Col md={11}>
                                     <Form.Label>Service </Form.Label>
                                     <Select
@@ -400,6 +407,48 @@ const Createdoctor = (props) => {
                             </Form.Group>
                         </Col>
                     </Row>
+                    {props.isHospital ?
+                        <Row className="mb-3">
+                            <Col md={4}>
+                                <Form.Group>
+                                    <Form.Label>Available Days</Form.Label>
+                                    
+                                    <select class="select-control" multiple name="availableDays" onChange={formik.handleChange}
+                                     value={formik.values.availableDays} onBlur={formik.handleBlur} >
+                                    <option value="SUN">Sunday</option>
+                                    <option value="MON">Monday</option>
+                                    <option value="TUE">Tuesday</option>
+                                    <option value="WED">Wednesday</option>
+                                    <option value="THUR">Thursday</option>
+                                    <option value="FRI">Friday</option>
+                                    <option value="SAT">Saturday</option>
+                                </select>
+                                </Form.Group>
+                            </Col>
+                            <Col md={4}>
+                                <Form.Group>
+                                    <Form.Label>Start Time</Form.Label>
+                                    <Form.Control type="time" name="startTime"
+                                        onChange={formik.handleChange} value={formik.values.startTime} onBlur={formik.handleBlur} />
+                                    {formik.errors.startTime && formik.touched.startTime ?
+                                        <div className="error-message">{formik.errors.startTime}</div>
+                                        : null}
+                                </Form.Group>
+                            </Col>
+                            <Col md={4}>
+                                <Form.Group>
+                                    <Form.Label>End Time</Form.Label>
+                                    <Form.Control type="time" name="endTime"
+                                        onChange={formik.handleChange} value={formik.values.endTime} onBlur={formik.handleBlur} />
+                                    {formik.errors.endTime && formik.touched.endTime ?
+                                        <div className="error-message">{formik.errors.endTime}</div>
+                                        : null}
+                                </Form.Group>
+                            </Col>
+                        </Row>
+                        :
+                        <></>
+                    }
 
                     {doctorId ?
                         <></>
@@ -419,7 +468,7 @@ const Createdoctor = (props) => {
                             <Col md={4}>
                                 <Form.Group>
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" name="password"
+                                    <Form.Control type="password" name="password" value={formik.values.password}
                                         onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                     {formik.errors.password && formik.touched.password ?
                                         <div className="error-message">{formik.errors.password}</div>
@@ -429,7 +478,7 @@ const Createdoctor = (props) => {
                             <Col md={4}>
                                 <Form.Group>
                                     <Form.Label>Confirm Password</Form.Label>
-                                    <Form.Control type="password" name="confirmPassword"
+                                    <Form.Control type="password" name="confirmPassword" value={formik.values.confirmPassword}
                                         onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                     {formik.errors.confirmPassword && formik.touched.confirmPassword ?
                                         <div className="error-message">{formik.errors.confirmPassword}</div>

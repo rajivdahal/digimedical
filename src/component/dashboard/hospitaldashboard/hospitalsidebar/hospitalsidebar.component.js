@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import CoPresentRounded from "@mui/icons-material/CoPresentRounded";
 
 const Hospitalsidebar = (props) => {
   const navigateDashboard = () => {
@@ -7,7 +8,7 @@ const Hospitalsidebar = (props) => {
   }
   return (
     <>
-
+      <div>
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <p className="centered mt-3"><div href="profile.html">
           {/* <img className="img-circle user-img-circle img-fluid" width="80" /> */}
@@ -36,17 +37,19 @@ const Hospitalsidebar = (props) => {
 
 
           <li className="nav-item">
-            <div className="nav-link" data-toggle="collapse" href="#patients" aria-expanded="false" aria-controls="patients" style={{cursor:"pointer"}}>
-              <i className="icon-grid-2 menu-icon"></i>
-              <span className="menu-title">Patients</span>
+            <a className="nav-link " data-toggle="collapse" href="#doctor" aria-expanded="false" aria-controls="doctor">
+              <CoPresentRounded className="dash-icon"></CoPresentRounded>
+              <span className="menu-title">Doctors</span>
               <i className="menu-arrow"></i>
-            </div>
-            <div className="collapse" id="patients">
+            </a>
+            <div className="collapse" id="doctor">
               <ul className="nav flex-column sub-menu">
-                {/* <Link to="/dashboard/all-patients"> */}
-                  <li className="nav-item"> <div className="nav-link" href="">All Patients</div></li>
-                {/* </Link> */}
-
+                <Link to="/dashboard/hospital-doctor">
+                  <li className="nav-item"><a className="nav-link" href="">All Doctors</a></li>
+                </Link>
+                <Link to="/dashboard/add-doctor">
+                  <li className="nav-item"><a className="nav-link" href="">Add Doctors</a></li>
+                </Link>
               </ul>
             </div>
           </li>
@@ -54,7 +57,7 @@ const Hospitalsidebar = (props) => {
 
         </ul>
       </nav>
-
+      </div>
     </>
   )
 }

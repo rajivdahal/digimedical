@@ -26,8 +26,6 @@ import UserProfile from "./userdashboard/settings/profileupdate.component"
 import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list"
 import { Userlabtest } from "./userdashboard/labtest/userlabtest.component"
 import Viewlabtest from "./userdashboard/viewlabtest/viewlabtest.component"
-// import StaffPage from "./adminDashboard/staffData/staff.component"
-// import StaffTable from "./adminDashboard/staffData/staff.table"
 import BookedLabtest from "./adminDashboard/allLabtestData/booked.labtest"
 import MedicalInstitute from "./adminDashboard/medicalInstitue/institute.component"
 import Hospital from "./adminDashboard/hospitalData/hospital.component"
@@ -35,9 +33,9 @@ import HospitalTable from "./adminDashboard/hospitalData/hospital.table"
 import CorporatePage from "./adminDashboard/corporateData/corporate.component"
 import Role from "./adminDashboard/userManagement/role.component"
 import CreateAdmin from "./adminDashboard/userManagement/admin.component"
+
 import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component"
 import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component"
-
 import Hospitalbookingcomponent from "../home/Hospital Booking/hospitalbooking.component"
 import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component"
 import Corporatenavbar from "./corporatedashboard/corporatenavbar/corporatenavbar.component"
@@ -45,6 +43,9 @@ import Corporatesidebar from "./corporatedashboard/corporatesidebar/corporatesid
 import { Corporatedashboard } from "./corporatedashboard/corporatedashboard/corporatedashboard.component"
 import Corporateaddmember from "./corporatedashboard/addmembers/corporateaddmembers.component"
 
+import HospitalDashboard from "./hospitaldashboard/hospitalDashboard"
+import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor"
+import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor"
 
 
 const Dashboard = (props) => {
@@ -159,32 +160,28 @@ const Dashboard = (props) => {
                 :
                 statusCode == 400 ?
                   <>
-                    <Hospitalnavbar></Hospitalnavbar>
+                  <Hospitalnavbar></Hospitalnavbar>
                     <Hospitalsidebar></Hospitalsidebar>
-                    <ProtectedRoute component={Doctordashboard} props={props}></ProtectedRoute>
-                    {/* <Doctornavbar props={props.history}></Doctornavbar>
-                    <Doctorsidebar props={props.history}></Doctorsidebar> */}
-                    {/* {
-                      props.location.pathname == "/dashboard/" || props.location.pathname == "/dashboard" ?
-                        <ProtectedRoute component={Doctordashboard} props={props}></ProtectedRoute>
-                        :
-                        props.location.pathname === "/dashboard/viewappointment" ?
-                          <ProtectedRoute component={Viewdoctorappointment} props={props}></ProtectedRoute> :
-                          props.location.pathname === "/dashboard/prescribe/:id" ?
-                            <ProtectedRoute component={Prescribe} props={props}></ProtectedRoute>
-                            :
-                            props.location.pathname === "/dashboard/settings/change-password" ?
-                              <ProtectedRoute component={Changepassword}></ProtectedRoute> :
-                              props.location.pathname === "/dashboard/settings/change-password" ?
-                                <ProtectedRoute component={Changepassword}></ProtectedRoute>
-                                : props.location.pathname === "/dashboard/settings/userprofile" ?
-                                  <ProtectedRoute component={UserProfile} />
+                    <div className="container-fluid page-body-wrapper">
+                      <div className="main-panel">
+                        <div className="content-wrapper">
+                          {
+                            props.location.pathname === "/dashboard" || props.location.pathname === "/dashboard/" ?
+                              <ProtectedRoute component={HospitalDashboard}></ProtectedRoute>
+                              :
+                              props.location.pathname === "/dashboard/hospital-doctor" ?
+                                <ProtectedRoute component={HospitalDoctor}></ProtectedRoute>
+                                : props.location.pathname === "/dashboard/add-doctor" ?
+                                  <ProtectedRoute component={AddDoctor}></ProtectedRoute>
                                   : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
-                    } */}
+                          }
+                        </div>
+                      </div>
+                    </div>
                   </> :
                   statusCode == 500 ?
                     <>
-                      <Corporatenavbar></Corporatenavbar>
+                     <Corporatenavbar></Corporatenavbar>
                       <Corporatesidebar></Corporatesidebar>
                       {
                         props.location.pathname == "/dashboard/" || props.location.pathname == "/dashboard" ?

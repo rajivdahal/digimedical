@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { notify } from '../../../../services/notify'
 import { useEffect } from 'react'
 import { httpClient } from '../../../../utils/httpClient'
+import { useHistory } from 'react-router-dom'
 // import "./hospi.component.css"
 import { Link } from 'react-router-dom'
 const Corporatenavbar = (props) => {
     let [username, setusername] = useState("")
+    let history=useHistory()
     const [logoutstate, setlogoutstate] = useState({
         logout: false,
     })
@@ -20,7 +22,7 @@ const Corporatenavbar = (props) => {
         localStorage.removeItem("dm-refresh_token")
         localStorage.removeItem("status")
         localStorage.removeItem("userid")
-        props.props.push('/login')
+        history.push('/login')
         notify.success("Logout success! Please Login again")
     }
     const logoutno = () => {
@@ -39,10 +41,10 @@ const Corporatenavbar = (props) => {
     //         })
     // })
     const gotoProfile = () => {
-        props.props.push('/dashboard/settings/userprofile')
+        history.push('/dashboard/settings/userprofile')
     }
     const changepassword = () => {
-        props.props.push('/dashboard/settings/change-password')
+        history.push('/dashboard/settings/change-password')
     }
     return (
         <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
