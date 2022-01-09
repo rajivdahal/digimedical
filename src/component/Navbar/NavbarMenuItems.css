@@ -36,6 +36,7 @@
   background-color: rgba(255, 99, 71, 0);
 }
 .dropdown_hp_content {
+  z-index: 1;
   position: absolute;
   left: 20;
   margin-top: 21px;

@@ -107,8 +107,8 @@ const CoreValues = () => {
             <BoxContainpr>
               <div
                 style={{
-                  height: "4.5rem",
-                  width: "5rem",
+                  height: "4rem",
+                  width: "4rem",
                   borderRadius: "50%",
                   backgroundColor: "#52B2E5",
                   display: "flex",
@@ -117,8 +117,8 @@ const CoreValues = () => {
                 }}
               >
                 <i
-                  class="fas fa-clipboard-check"
-                  style={{ fontSize: "30px", color: "white" }}
+                  class="fas fa-heartbeat"
+                  style={{ fontSize: "40px", color: "white" }}
                 ></i>
               </div>
               <div className="title-deatial-div">
@@ -129,8 +129,8 @@ const CoreValues = () => {
             <BoxContainpr>
               <div
                 style={{
-                  height: "4.5rem",
-                  width: "5rem",
+                  height: "4rem",
+                  width: "4rem",
                   borderRadius: "50%",
                   backgroundColor: "#52B2E5",
                   display: "flex",

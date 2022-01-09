@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import search from "../../../assets/Search.png";
 import { BiSearch } from "react-icons/bi";
-import "./Search.css";
+
 const Root = styled.div`
   background-color: #fff;
   border-radius: 4px;

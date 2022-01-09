@@ -160,10 +160,10 @@ const NavbarMenuItems = () => {
                   <img
                     src={package_logo}
                     style={{
-                      height: "1.2 rem",
+                      height: "1.5rem",
                     }}
-                  ></img>
-                  <p>Grand-Parents Care Package</p>{" "}
+                  ></img>{" "}
+                  <p>Husband/Wife Care Packages</p>{" "}
                 </a>
                 <a href="#">
                   {" "}
@@ -256,10 +256,10 @@ const NavbarMenuItems = () => {
                   <img
                     src={package_logo}
                     style={{
-                      height: "1.2 rem",
+                      height: "1.5rem",
                     }}
-                  ></img>
-                  <p>Grand-Parents Care Package</p>{" "}
+                  ></img>{" "}
+                  <p>Husband/Wife Care Packages</p>{" "}
                 </a>
                 <a href="#">
                   {" "}
