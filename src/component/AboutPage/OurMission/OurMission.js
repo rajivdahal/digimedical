@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import imagevideoAbout from "../../../assets/imagevideoAbout.png";
+import about_miss_doc from "../../../assets/about_doc.svg";
+import imagevideoAbout from "../../../assets/about_doc2.svg";
 import reviewer from "../../../assets/reviewer.png";
 const Root = styled.div`
   padding-left: 9rem;
@@ -20,7 +21,11 @@ const Root = styled.div`
 `;
 const ImageContainor = styled.div`
   width: 45%;
-  //   background-color: red;
+  height: 700px;
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    height: 100%;
+  }
   .image {
     width: 80%;
     @media screen and (max-width: 1024px) {
@@ -107,7 +112,7 @@ const OurMission = () => {
   return (
     <Root>
       <ImageContainor>
-        <img src={imagevideoAbout} className="image"></img>
+        <img src={about_miss_doc} className="image"></img>
       </ImageContainor>
       <ContentContainor>
         <Title>Our Mission</Title>

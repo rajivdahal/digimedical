@@ -76,6 +76,10 @@ export const Completedappointment = (props) => {
           field: "doctorsName",
         },
         {
+          title: "Hospital",
+          field: "hospitalName",
+        },
+        {
           title: "Date Of Appointment",
           field: "appointmentDate",
         },
@@ -92,6 +96,10 @@ export const Completedappointment = (props) => {
         {
           title: "Patient Name",
           field: "patientsName",
+        },
+        {
+          title: "Hospital",
+          field: "hospitalName",
         },
         {
           title: "Date Of Appointment",
