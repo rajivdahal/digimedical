@@ -44,11 +44,11 @@ const BookedLabtest=(props)=>{
                     columns={[
                         // { title: "ID", field: "labtestid" },
                         { title: 'Patient Name', field: 'patientname'},
-                        { title: 'Age', field: 'age'},
+                        // { title: 'Age', field: 'age'},
                         { title: 'Lab Test', field: 'labtestname', },
                         { title: 'Subcategory', field: 'labtestcategoryname'},
                         { title: 'Price', field: 'priceString' },
-                        { title: 'Date', field: 'date' },
+                        // { title: 'Date', field: 'date' },
                         
                     ]}
                     data={bookedLabtest}
