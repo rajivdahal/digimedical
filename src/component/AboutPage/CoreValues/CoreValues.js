@@ -55,7 +55,7 @@ const Feature = styled.div`
   }
 `;
 const BoxContainpr = styled.div`
-  padding: 1.5rem 1.5rem 1.5rem 0rem;
+  padding: 1.5rem 1.5rem 1.5rem 1rem;
   display: flex;
   align-items: center;
   text-align: left;
@@ -68,11 +68,13 @@ const BoxContainpr = styled.div`
   }
 
   .title-deatial-div {
-    margin-left: 1.5rem;
+    width: 80%;
+    margin-left: 2rem;
   }
   .logo {
   }
   .title {
+    margin-left: 0px;
     color: #192638;
     letter-spacing: 0.01em;
     font-size: 1rem;
@@ -81,14 +83,13 @@ const BoxContainpr = styled.div`
     line-height: 24px;
   }
   .detail {
+    margin-left: 0px;
     color: #7b8698;
     font-size: 0.9rem;
     line-height: 24px;
     margin-top: 1rem;
   }
 `;
-;
-
 const CoreValues = () => {
   return (
     <Root>
@@ -104,9 +105,21 @@ const CoreValues = () => {
         return (
           <Feature>
             <BoxContainpr>
-              <div style={{ height: "4rem", width: "6rem", borderRadius: "50%", backgroundColor: "#52B2E5" ,display:"flex",justifyContent:"center",alignItems:"center"}}>
-              <i class="fas fa-clipboard-check" style={{fontSize:"30px",color:"white"}}></i>
-
+              <div
+                style={{
+                  height: "4.5rem",
+                  width: "5rem",
+                  borderRadius: "50%",
+                  backgroundColor: "#52B2E5",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <i
+                  class="fas fa-clipboard-check"
+                  style={{ fontSize: "30px", color: "white" }}
+                ></i>
               </div>
               <div className="title-deatial-div">
                 <div className="title">{item.title1}</div>
@@ -114,8 +127,21 @@ const CoreValues = () => {
               </div>
             </BoxContainpr>
             <BoxContainpr>
-              <div style={{ height: "4rem", width: "6rem", borderRadius: "50%", backgroundColor: "#52B2E5" ,display:"flex",justifyContent:"center",alignItems:"center"}}>
-              <i class="fas fa-clipboard-check" style={{fontSize:"30px",color:"white"}}></i>
+              <div
+                style={{
+                  height: "4.5rem",
+                  width: "5rem",
+                  borderRadius: "50%",
+                  backgroundColor: "#52B2E5",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <i
+                  class="fas fa-clipboard-check"
+                  style={{ fontSize: "30px", color: "white" }}
+                ></i>
               </div>
               <div className="title-deatial-div">
                 <div className="title">{item.title2}</div>
