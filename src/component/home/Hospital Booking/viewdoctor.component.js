@@ -17,7 +17,7 @@ export default function Hospital_doctors(props) {
   console.log("props are", props)
   // const [props.location.state,setprops.location.state]=useState(props.location.state)
   let [alldoctors, setallDoctors] = useState([])
-  const [selectedDay, setSelectedDay] = useState(null);
+  // const [selectedDay, setSelectedDay] = useState(null);
   let [searcheddoctors, setsearcheddoctors] = useState([])
   let [issearched, setIssearched] = useState(false)
   const history = useHistory()

@@ -32,24 +32,13 @@ const Corporatesidebar = (props) => {
               </div>
             {/* </Link> */}
           </li>
-
-
-          <li className="nav-item">
-            <div className="nav-link" data-toggle="collapse" href="#patients" aria-expanded="false" aria-controls="patients" style={{cursor:"pointer"}}>
+          <li className="nav-item" style={{ cursor: "pointer" }}>
+            <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
             <i class="fas fa-users menu-icon"></i>
-              <span className="menu-title">Members</span>
-              <i className="menu-arrow"></i>
-            </div>
-            <div className="collapse" id="patients">
-              <ul className="nav flex-column sub-menu">
-                <Link to="/dashboard/corporate/add-members">
-                  <li className="nav-item"> <div className="nav-link" href="">Add Members</div></li>
-                </Link>
-                  <li className="nav-item"> <div className="nav-link" href="">View Members</div></li>
-
-              </ul>
-            </div>
+              <Link to="/dashboard/corporate/add-members"> <span className="menu-title">Members</span></Link>
+            </a>
           </li>
+
          
 
         </ul>
