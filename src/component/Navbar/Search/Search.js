@@ -2,25 +2,34 @@ import React from "react";
 import styled from "styled-components";
 import search from "../../../assets/Search.png";
 import { BiSearch } from "react-icons/bi";
+import "./Search.css";
 const Root = styled.div`
   background-color: #fff;
   border-radius: 4px;
   padding: 0.4rem;
+
   .dropdown-menu {
     padding: 1rem;
     margin-top: 1rem;
     margin-left: -14.5rem;
   }
   .searchInput {
-    background-color: #f0f2ff;
+    background: #f0f2ff;
     border: 0px solid #f0f2ff;
     width: 14rem;
     height: 2.5rem;
-    color: #a7b2c3;
+
     padding-right: 3rem;
   }
   .input-icon-div {
     display: flex;
+  }
+
+  #exampleFormControlInput1::placeholder {
+    color: #a7b2c3;
+  }
+  .input-icon-div .form-control searchInput ::-webkit-input-placeholder {
+    color: red;
   }
   .searchIcon {
     position: absolute;
@@ -42,7 +51,8 @@ const Search = () => {
           aria-expanded="false"
           src={search}
           style={{
-            height: "1rem",
+            width: "100%",
+            height: "100%",
           }}
         ></img>
         <div

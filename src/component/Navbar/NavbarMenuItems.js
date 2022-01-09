@@ -76,7 +76,12 @@ const NavbarMenuItems = () => {
               Services{" "}
             </Link>
           </span>
-         <Link to={"/lab-test"} style={{ textDecoration: "none", color: "inherit" }}><span className="menu-item">Lab Test</span></Link> 
+          <Link
+            to={"/lab-test"}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <span className="menu-item">Lab Test</span>
+          </Link>
           <div className="menu-item_nav">
             <button className="dropbtn">Health Packages</button>
             <div className="dropdown_hp_content">
@@ -105,7 +110,7 @@ const NavbarMenuItems = () => {
                   <img
                     src={package_logo}
                     style={{
-                      height: "1.5rem", 
+                      height: "1.5rem",
                     }}
                   ></img>
                   <p>Corporate Care Package</p>{" "}
@@ -280,9 +285,9 @@ const NavbarMenuItems = () => {
           </span>
         </div>
       </LogMenuItemsContainor>
-      <div className="nav_search">
+      {/* <div className="nav_search">
         <Search />
-      </div>
+      </div> */}
       {/* <SearchContainor>
       </SearchContainor> */}
     </Root>
