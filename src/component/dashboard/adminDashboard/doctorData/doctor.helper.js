@@ -1,4 +1,4 @@
-const validateDoctor = ( values, isEdit = false ) =>{
+const validateDoctor = ( values, isEdit = false,isHospital=false ) => {
     let errors = {};
     let decimalREGEX = /^\d*\.?\d*$/;
 
@@ -17,10 +17,10 @@ const validateDoctor = ( values, isEdit = false ) =>{
         errors.mobileNumber = "Must be a number!";
     }
     
-    else if (("" + values.mobileNumber).length != 10) {
+    if(("" + values.mobileNumber).length != 10) {
         errors.mobileNumber = "Mobile Number must be of 10 digits!"
     }
-    else if (("" + values.mobileNumber).includes('-')) {
+    if (("" + values.mobileNumber).includes('-')) {
         errors.mobileNumber = "Mobile Number can't be Negative!"
     }
 
@@ -48,17 +48,17 @@ const validateDoctor = ( values, isEdit = false ) =>{
         errors.licensedDate = 'Required!'
     }
 
-    if (!values.email) {
-        errors.email = "Email is required!"
-    }
-    else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)) {
-        errors.email = "Invalid email format!"
-    }
-
     if(!isEdit){
-        if (values.password.length < 8) {
-            errors.password = "Password must be greater than 8 digits!"
+        if (!values.email) {
+            errors.email = "Email is required!"
         }
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)) {
+            errors.email = "Invalid email format!"
+        }
+
+        // if (values.password.length < 8) {
+        //     errors.password = "Password must be greater than 8 digits!"
+        // }
         if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(values.password)) {
             errors.password = "Password should at least be 8 characters of one uppercase ,one lowercase and one special character!"
         }
@@ -71,8 +71,9 @@ const validateDoctor = ( values, isEdit = false ) =>{
         if (values.confirmPassword != values.password) {
             errors.confirmPassword = "Password doesn't match!"
         }
+
     }
-    // console.log(errors);
+    console.log(errors);
     return errors;   
 }
 

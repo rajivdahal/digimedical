@@ -105,6 +105,9 @@ export const Cancelledappointment = (props) => {
             title: "Assigned Doctor", field: "doctorsName"
         },
         {
+            title: "Hospital", field: "hospitalName"
+        },
+        {
             title: "Date Of Appointment", field: "appointmentDate"
         },
         {

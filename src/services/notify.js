@@ -14,8 +14,8 @@ const promise=(argfunction)=>{
         argfunction,
         {
           loading: 'Loading',
-          success: (data) => `Successfully saved ${data}`,
-          error: (err) => `This just happened: ${err}`,
+          success: (data) => `${data}`,
+          error: (err) => `${err}`,
         },
         {
           style: {

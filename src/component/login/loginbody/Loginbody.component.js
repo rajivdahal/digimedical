@@ -80,7 +80,6 @@ const Loginbodycomponent = (props) => {
 const vieworhidepassword=()=>{
     setispassword(!ispassword)
 }
-
     // render() {
     const alert = props.usernameinfo ? props.usernameinfo : "not found"
 

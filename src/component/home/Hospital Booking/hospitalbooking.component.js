@@ -34,35 +34,49 @@ export default function Hospitalbookingcomponent(props) {
         setSearchedoutput(searchedoutput)
     }
     const showDoctors = (item) => {
-
         history.push({
-            pathname:props.location.pathname="/dashboard/hospitals"?"/hospitals/dashboard/view-doctors":"/hospitals/view-doctors",
+            pathname: props.location ?
+                props.location.pathname = "/dashboard/hospitals" ?
+                    "/dashboard/hospitals/view-doctors"
+                    :
+                    "/hospitals/dashboard/view-doctors"
+                :
+                "/hospitals/view-doctors",
             state: item
         })
         console.log("data is", item)
     }
+    //   "/dashboard/hospitals"?
     return (
         <div>
             <div className="hospital_booking">
                 {
-                    props.location.pathname="/dashboard/hospitals"? null : <Hospitaltopheader></Hospitaltopheader>
+                    props.location ?
+                        props.location.pathname = "/dashboard/hospitals" ?
+                            null
+                            : null
+                        :
+                        <Hospitaltopheader></Hospitaltopheader>
                 }
-                <div className={props.location.pathname="/dashboard/hospitals"?"hospital_bookcont_from_user":"hospital_bookcont"}>
+                <div className={props.location ? "hospital_bookcont_from_user" : "hospital_bookcont"}>
                     <div className="hospital_bookconthead">
                         <h2>Book appointment at hospital</h2>
-                        <div className="hospital_booksearch">
-                            <form class="example" action="/action_page.php">
-                                <input
-                                    type="text"
-                                    placeholder="Search Hospital .."
-                                    name="search"
-                                    onChange={handleSearch}
-                                />
-                                <button type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </form>
-                        </div>
+                        {
+                            hospitals.length ? <div className="hospital_booksearch">
+                                <form class="example" action="/action_page.php">
+                                    <input
+                                        type="text"
+                                        placeholder="Search Hospital .."
+                                        name="search"
+                                        onChange={handleSearch}
+                                    />
+                                    <button type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </form>
+                            </div> : null
+                        }
+
                     </div>
                     <div className="hospital_book_card">
                         {
@@ -73,7 +87,13 @@ export default function Hospitalbookingcomponent(props) {
                                         <h1>{item.name}</h1>
                                         <p2>{item.address}</p2>
                                         <p2>{item.description.slice(0, 50)}.....</p2>
-                                        <button id={props.location.pathname="/dashboard/hospitals"?"hosp_card_but_user":"hosp_card_but"}  onClick={() => showDoctors(item)}>Book an appointment</button>
+                                        <button id={props.location ?
+                                            props.location.pathname = "/dashboard/hospitals"
+                                                ?
+                                                "hosp_card_but_user"
+                                                : "hosp_card_but_user"
+                                            :
+                                            "hosp_card_but"} onClick={() => showDoctors(item)}>Book an appointment</button>
                                     </div>
                                 </div>
                             }) : searchedoutput.length && issearched ? searchedoutput.map((item, index) => {
@@ -84,7 +104,7 @@ export default function Hospitalbookingcomponent(props) {
                                         <p2>{item.address}</p2>
                                         <p2>{item.description.slice(0, 50)}.....</p2>
                                         {/* <p2>{item.description}</p2> */}
-                                        <button id={props.location.pathname="/dashboard/hospitals"?"hosp_card_but_user":"hosp_card_but"}onClick={() => showDoctors(item)}>Book an appointment</button>
+                                        <button id={props.location.pathname = "/dashboard/hospitals" ? "hosp_card_but_user" : "hosp_card_but"} onClick={() => showDoctors(item)}>Book an appointment</button>
                                     </div>
                                 </div>
                             }) : <h1>Not found</h1>
@@ -92,9 +112,15 @@ export default function Hospitalbookingcomponent(props) {
                     </div>
                 </div>
                 <div className="pagination_hosp">
-                    <Pagination></Pagination>
+                    {
+                        hospitals.length ? <Pagination></Pagination> :
+                            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                <h1>No any hospitals found</h1>
+                            </div>
+                    }
+
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

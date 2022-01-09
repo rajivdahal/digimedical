@@ -20,3 +20,9 @@
 .eye-to-see-password:hover {
     color: black
 }
+.dropdown_hp_content a img, p {
+    margin-top: 10px;
+    margin-left: 0px;
+    /* align-content: center; */
+    text-align: center;
+}
