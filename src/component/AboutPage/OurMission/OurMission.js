@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import about_miss_doc from "../../../assets/about_doc.svg";
-import imagevideoAbout from "../../../assets/about_doc2.svg";
+import about_miss_doc from "../../../assets/ourmission_doc1.svg";
+import imagevideoAbout from "../../../assets/ourmission_doc2.svg";
+import "./ourmission.css";
+
 import reviewer from "../../../assets/reviewer.png";
 const Root = styled.div`
   padding-left: 9rem;
@@ -18,18 +20,97 @@ const Root = styled.div`
     align-items: center;
     gap: 1rem;
   }
+
+  .popup_vid_aboutmission {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+
+    .hello_video {
+      margin: 70px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 5px;
+      width: 30%;
+      position: relative;
+      transition: all 5s ease-in-out;
+    }
+  }
+  .popup_vid_aboutmission:target {
+    visibility: visible;
+    opacity: 1;
+  }
 `;
 const ImageContainor = styled.div`
   width: 45%;
-  height: 700px;
+
   @media screen and (max-width: 1024px) {
     width: 100%;
     height: 100%;
   }
-  .image {
-    width: 80%;
-    @media screen and (max-width: 1024px) {
+  .doc_miss_pic {
+    width: 60%;
+
+    .image {
+      border-radius: 10px;
       width: 100%;
+      @media screen and (max-width: 1024px) {
+        width: 100%;
+      }
+    }
+  }
+
+  .doc_video_play {
+    margin-top: -15%;
+    margin-left: 30%;
+
+    .video_img_abt {
+      border-radius: 10px;
+    }
+
+    .play_but_vid_abt {
+      margin-top: -28%;
+      margin-left: 25%;
+      .player {
+        width: 60px;
+        height: 60px;
+        border: solid 3px #fff;
+        border-radius: 100%;
+        position: relative;
+        text-indent: -9999px;
+        box-shadow: 1px 1px 3px #999999;
+      }
+
+      .player span {
+        width: 0;
+        height: 0;
+        border-top: 15px solid transparent;
+        border-left: 20px solid #fff;
+        border-bottom: 15px solid transparent;
+        position: absolute;
+        top: 20%;
+        left: 36%;
+      }
+
+      .player:hover {
+        background: #4ccaea;
+        cursor: pointer;
+        opacity: 0.95;
+        border: none;
+
+        box-shadow: none;
+      }
+
+      .player:hover span {
+        top: 22%;
+        left: 38%;
+      }
     }
   }
 `;
@@ -89,6 +170,7 @@ const Review = styled.div`
   .image {
     width: 5rem;
   }
+
   .name-div {
     display: flex;
     flex-direction: column;
@@ -112,8 +194,32 @@ const OurMission = () => {
   return (
     <Root>
       <ImageContainor>
-        <img src={about_miss_doc} className="image"></img>
+        <div className="doc_miss_pic">
+          {" "}
+          <img src={about_miss_doc} className="image"></img>
+        </div>
+        <div className="doc_video_play">
+          {" "}
+          <img
+            src={imagevideoAbout}
+            className="video_img_abt"
+            style={{ width: "250px" }}
+          ></img>
+          <div className="play_but_vid_abt">
+            <a href="#popup_vid_aboutmission">
+              <div class="player">
+                <span></span>
+              </div>
+            </a>
+          </div>
+        </div>
       </ImageContainor>
+      <div id="popup_vid_aboutmission" className="popup_vid_aboutmission">
+        <div className="hello_video">
+          {" "}
+          <h1>Hello From Youtube</h1>
+        </div>
+      </div>
       <ContentContainor>
         <Title>Our Mission</Title>
         <Heading>Digitize Nepal’s medical</Heading>
