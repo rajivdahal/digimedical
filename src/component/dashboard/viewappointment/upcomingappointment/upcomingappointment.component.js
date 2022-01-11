@@ -4,7 +4,14 @@ export const Upcomingappointment = (props) => {
    
     return (
         <>
-          <Commonupcomingappointment isactionavailable={true}  isexportavailable={true} issearchavailable={true} props={props.props} fromdoctorcomponent={props.fromdoctorcomponent}></Commonupcomingappointment>
+          <Commonupcomingappointment
+           isactionavailable={true} 
+            isexportavailable={true}
+             issearchavailable={true} 
+             props={props.props} 
+             fromdoctorcomponent={props.fromdoctorcomponent} 
+             fromcorporatecomponent={props.fromcorporatecomponent}
+             ></Commonupcomingappointment>
         </>
     )
 }

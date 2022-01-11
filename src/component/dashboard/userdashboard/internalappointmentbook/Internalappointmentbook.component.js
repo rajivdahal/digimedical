@@ -11,16 +11,19 @@ import TimePicker from 'react-time-picker';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default function Internalappointmentbook(prop) {
     const editdata = prop.location.data ? prop.location.data : null
+    console.log("to edit data is", editdata)
     const [appointmentsuccess, setappointmentsuccess] = useState(null)
     const [appointmentfailed, setappointmentfailed] = useState(null)
     const [services, setservices] = useState([])
     const [doctors, setdoctors] = useState([])
     const [doctorname, setdoctorname] = useState(null)
     const [service, setservicename] = useState(null)
+    const [corporatememberemail, setcorporatememberemail] = useState([])
+
     const [toeditdata, settoeditdata] = useState(editdata)
     const [isdoctorblurred, setisdoctorblurred] = useState(false);
     const [value, onChange] = useState('12:00');
- 
+
     const [doctorfetched, setdoctorfetched] = useState({
         image: null,
         prefix: null,
@@ -31,6 +34,19 @@ export default function Internalappointmentbook(prop) {
     if (toeditdata) {
         toeditdata['serviceId'] = toeditdata['servicesId']
     }
+    const callapi = (url, values) => {
+        httpClient.POST(url, values, false, true)
+            .then(resp => {
+                let message = resp.data.message
+                setappointmentsuccess(resp.data.message)
+                setTimeout(() => {
+                    prop.location.pathname == "/dashboard/corporate/bookappointment" ? prop.history.push("/dashboard/corporate/viewappointment") : prop.history.push("/dashboard/viewappointment")
+                }, 2000);
+            })
+            .catch(err => {
+                setappointmentfailed("Something went wrong")
+            })
+    }
     useEffect(() => {
         httpClient.GET("services/get/true", false, true)
             .then(resp => {
@@ -39,13 +55,24 @@ export default function Internalappointmentbook(prop) {
             .catch(err => {
                 notify.error("Something went wrong")
             })
+        if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
+            httpClient.GET("corporate/get/members/name", false, true)
+                .then(resp => {
+                    setcorporatememberemail(resp.data.data)
+                })
+                .catch(err => {
+                    notify.error("Something went wrong")
+                })
+        }
+
     }, [])
     const formik = useFormik({
         initialValues: {
             servicesId: '',
             doctorId: '',
             appointmentDate: '',
-            appointmentTime: ''
+            appointmentTime: '',
+            email: ""
         },
         validate: values => {
             let errors = {}
@@ -64,18 +91,11 @@ export default function Internalappointmentbook(prop) {
             return errors
         },
         onSubmit: values => {
-            console.log("inside submit")
-            httpClient.POST('create-appointment', values, false, true)
-                .then(resp => {
-                    let message = resp.data.message
-                    setappointmentsuccess(resp.data.message)
-                    setTimeout(() => {
-                        prop.history.push("/dashboard/viewappointment")
-                    }, 2000);
-                })
-                .catch(err => {
-                    setappointmentfailed("something went wrong")
-                })
+            console.log("inside submit", values)
+            if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
+                return callapi('create-appointment/corporate', values)
+            }
+            callapi('create-appointment', values)
         }
     })
     const handleChange = (e) => {
@@ -175,24 +195,39 @@ export default function Internalappointmentbook(prop) {
             .catch((err) => {
                 notify.error("something went wrong");
             });
-
-        // console.log("values are", e.target.value)
     };
-    if(value){
-        formik.values.appointmentTime=value
+    if (value) {
+        formik.values.appointmentTime = value
     }
     const clearpopup = () => {
         setisdoctorblurred(false);
     };
     let formcontent = toeditdata ?
+
         <div>
+            {
+                prop.location.pathname == "/dashboard/corporate/bookappointment" ?
+                    <div className="form-row">
+                        <label htmlFor="service">Select Member</label>
+                        <select id="email" name="email" className="form-control" 
+                            onChange={(e) => {
+                                formik.handleChange(e)
+                            }}
+                          disabled 
+                        >
+                            
+                           <option>{toeditdata.patientsname}</option>
+                        </select>
+                        {/* <h4>{toeditdata.patientsname}</h4> */}
+                        {/* {formik.errors.email && formik.touched.email ? <div style={{ color: "red" }} className="errmsg">{formik.errors.email}  </div> : null} */}
+                    </div> : null
+            }
             <div className="form-row">
                 <div className="form-group col-md-6">
                     <label htmlFor="service">Select Service</label>
                     <select name="servicesId" className="form-control" style={{ color: "black" }}
                         onChange={(e) => {
                             handleChange(e)
-                            handleeditchange(e)
                         }}
                     >
                         <option value={null}></option>
@@ -202,7 +237,7 @@ export default function Internalappointmentbook(prop) {
                             })
                         }
                     </select>
-                    <h4>{toeditdata.serviceName ? toeditdata.serviceName : service}</h4>
+                    <h4>{toeditdata.servicename ? toeditdata.servicename : service}</h4>
 
                 </div>
                 <div className="form-group col-md-6">
@@ -221,7 +256,7 @@ export default function Internalappointmentbook(prop) {
                             })
                         }
                     </select>
-                    <h4>{toeditdata.doctorsName ? toeditdata.doctorsName : doctorname}</h4>
+                    <h4>{toeditdata.doctorsname ? toeditdata.doctorsname : doctorname}</h4>
                     {/* <h4>{!doctorname && toeditdata.doctorsName ?toeditdata.doctorsName:doctorname}</h4> */}
 
                 </div>
@@ -240,7 +275,7 @@ export default function Internalappointmentbook(prop) {
                             handleeditchange(e)
                         }}
                     />
-                    <h4>{formatDate(toeditdata.appointmentDate)}</h4>
+                    <h4>{formatDate(toeditdata.appointmentdate)}</h4>
                 </div>
                 <div className="form-group col-md-12">
                     <label htmlFor="time">Time</label>
@@ -249,11 +284,29 @@ export default function Internalappointmentbook(prop) {
                             handleeditchange(e)
                         }}
                     ></input>
-                    <h4>{toeditdata.appointmentTime}</h4>
+                    <h4>{toeditdata.appointmenttime}</h4>
                 </div>
             </div>
         </div> :
         <div>
+            {
+                prop.location.pathname == "/dashboard/corporate/bookappointment" ? <div className="form-row">
+                    <label htmlFor="service">Select Member</label>
+                    <select id="email" name="email" className="form-control" style={{ color: "black" }}
+                        onChange={(e) => {
+                            formik.handleChange(e)
+                        }}
+                    >
+                        <option value={null}></option>
+                        {
+                            corporatememberemail.map((item, index) => {
+                                return <option key={index} value={item.email}>{item.email}</option>
+                            })
+                        }
+                    </select>
+                    {formik.errors.email && formik.touched.email ? <div style={{ color: "red" }} className="errmsg">{formik.errors.email}  </div> : null}
+                </div> : null
+            }
             <div className="form-row">
                 <div className="form-group col-md-6">
                     <label htmlFor="service">Select Service</label>
@@ -320,6 +373,7 @@ export default function Internalappointmentbook(prop) {
                         />
                     </div>
                     {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
+
                 </div>
             </div>
         </div>

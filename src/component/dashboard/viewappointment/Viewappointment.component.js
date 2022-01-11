@@ -5,8 +5,10 @@ import { useState } from "react"
 import { Cancelledappointment } from "./cancelledappointment/Cancelledappointment.component"
 import { Completedappointment } from "./completedappointment/completedappointment.component"
 export const Viewappointment = (props) => {
-    console.log("props in viewappointment is",props)
-    const fromdoctorcomponent=props.fromdoctorcomponent?props.fromdoctorcomponent:null
+    console.log("props in viewappointment is", props)
+    const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
+    const fromcorporatecomponent = props.fromcorporatecomponent ? props.fromcorporatecomponent : null
+    console.log("from corporate component", fromcorporatecomponent)
     const [pendingappointment, setpendingappointment] = useState(false)
     const [cancelledappointment, setcancelledappointment] = useState(false)
     const [upcomingappointment, setupcomingappointment] = useState(true)
@@ -218,17 +220,20 @@ export const Viewappointment = (props) => {
                         <div className="row" >
                             <div className="col-md-12 grid-margin stretch-card">
                                 <div className="card">
-                                    <div className="card-body ">
+                                    <div className="card-body">
                                         <div className="title-header">
                                             <p className={`card-title ${isdynamicupcomingclass ? "title-focus" : null}`} onClick={handleupcomingclass}>Upcoming Appointment</p>
-                                            <p className={`card-title ${isdynamicbookedclass ? "title-focus" : null}`} onClick={handlebookedclass}>Completed Appointment</p>
+                                            {
+                                                props.fromcorporatecomponent ?
+                                                    null :
+                                                    <p className={`card-title ${isdynamicbookedclass ? "title-focus" : null}`} onClick={handlebookedclass}>Completed Appointment</p>}
                                             <p className={`card-title ${isdynamicCancelledclass ? "title-focus" : null}`} onClick={handleCancelledclass}>Cancelled Appointment</p>
                                         </div>
                                         {
-                                            upcomingappointment ?<Upcomingappointment props={props.history?props.history:props.props} fromdoctorcomponent={fromdoctorcomponent}></Upcomingappointment>
+                                            upcomingappointment ? <Upcomingappointment props={props.history ? props.history : props.props} fromdoctorcomponent={fromdoctorcomponent} fromcorporatecomponent={fromcorporatecomponent}></Upcomingappointment>
                                                 :
-                                                pendingappointment ? <Completedappointment fromdoctorcomponent={fromdoctorcomponent}></Completedappointment>
-                                                    : cancelledappointment ? <Cancelledappointment fromdoctorcomponent={fromdoctorcomponent}></Cancelledappointment>
+                                                pendingappointment ? <Completedappointment fromdoctorcomponent={fromdoctorcomponent} ></Completedappointment>
+                                                    : cancelledappointment ? <Cancelledappointment fromdoctorcomponent={fromdoctorcomponent} fromcorporatecomponent={fromcorporatecomponent}></Cancelledappointment>
                                                         : <h1>You don't have any appointments</h1>
                                         }
 

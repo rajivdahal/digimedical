@@ -46,6 +46,7 @@ import Corporateaddmember from "./corporatedashboard/addmembers/corporateaddmemb
 import HospitalDashboard from "./hospitaldashboard/hospitalDashboard"
 import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor"
 import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor"
+import Viewcorporateappointment from "./corporatedashboard/corporateappointments/corporateviewappointment/corporateviewappointment.component"
 
 
 const Dashboard = (props) => {
@@ -188,6 +189,10 @@ const Dashboard = (props) => {
                           <ProtectedRoute component={Corporatedashboard} props={props}></ProtectedRoute> :
                           props.location.pathname == "/dashboard/corporate/add-members" ?
                           <ProtectedRoute component={Corporateaddmember} props={props}></ProtectedRoute>:
+                          props.location.pathname == "/dashboard/corporate/viewappointment" ?
+                          <ProtectedRoute component={Viewcorporateappointment} props={props}></ProtectedRoute>:
+                          props.location.pathname == "/dashboard/corporate/bookappointment" ?
+                          <ProtectedRoute component={Internalappointmentbook} props={props} fromcorporateappointment={true}></ProtectedRoute>:
                           <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </> :

@@ -11,112 +11,82 @@ import Cliploader from "../../../../utils/clipLoader"
 
 export const Cancelledappointment = (props) => {
     const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
+    console.log("props in completed appointments are",props)
     const [isloading, setisloading] = useState(false)
     const [pendingData, setpendingData] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [id, setid] = useState()
     const [refresh, setrefresh] = useState()
 
+    const httpcall=(url)=>{
+        // debugger
+        httpClient.GET(url, false, true)
+        .then(resp => {
+            console.log("inside then",resp.data)
+
+            let data = resp.data.data
+            data = data.map((item, index) => {
+                item.appointmentDate = formatDate(item.appointmentdate.slice(0, 10))
+                item.appointmentTime = item.appointmenttime.slice(0, 5)
+                return item
+            })
+            console.log(data)
+            setpendingData(resp.data.data)
+            setisloading(false)
+        })
+        .catch(err => {
+            console.log("inside catch")
+
+            notify.error("something went wrong")
+            setisloading(false)
+        })
+    }
     useEffect(() => {
         setisloading(true)
-        if (fromdoctorcomponent) {
-            httpClient.GET("getall-appointments-by/2", false, true)
-                .then(resp => {
-                    let data = resp.data.data
-                    data = data.map((item, index) => {
-                        item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
-                        item.appointmentTime = item.appointmentTime.slice(0, 5)
-                        return item
-                    })
-                    console.log(data)
-                    setpendingData(resp.data.data)
-                    setisloading(false)
-                })
-                .catch(err => {
-                    notify.error("something went wrong")
-                    setisloading(false)
-                })
+        if (props.fromdoctorcomponent) {
+            httpcall("getall-appointments-by/2")
+        }
+        if (props.fromcorporatecomponent) {
+            httpcall("get/corporate/appointments/2")
         }
         else {
-            setisloading(true)
-            httpClient.GET("get-user-canceled-appointments", false, true)
-                .then(resp => {
-                    let data = resp.data.data
-                    data = data.map((item, index) => {
-                        item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
-                        item.appointmentTime = item.appointmentTime.slice(0, 5)
-                        return item
-                    })
-                    console.log(data)
-                    setpendingData(resp.data.data)
-                    setisloading(false)
-                })
-                .catch(err => {
-                    notify.error("something went wrong")
-                    setisloading(false)
-                })
-
+            httpcall("get-user-canceled-appointments")
         }
-
     }, [])
-    useEffect(() => {
-        setisloading(true)
-        if (fromdoctorcomponent) {
-            httpClient.GET("getall-appointments-by/2", false, true)
-                .then(resp => {
-                    let data = resp.data.data
-                    data = data.map((item, index) => {
-                        item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
-                        item.appointmentTime = item.appointmentTime.slice(0, 5)
-                        return item
-                    })
-                    console.log(data)
-                    setpendingData(resp.data.data)
-                    setisloading(false)
-                })
-                .catch(err => {
-                    notify.error("something went wrong")
-                    setisloading(false)
-                })
-        }
-        else {
-            setisloading(true)
-            httpClient.GET("get-user-canceled-appointments", false, true)
-                .then(resp => {
-                    let data = resp.data.data
-                    data = data.map((item, index) => {
-                        item.appointmentDate = formatDate(item.appointmentDate.slice(0, 10))
-                        item.appointmentTime = item.appointmentTime.slice(0, 5)
-                        return item
-                    })
-                    console.log(data)
-                    setpendingData(resp.data.data)
-                    setisloading(false)
-                })
-                .catch(err => {
-                    notify.error("something went wrong")
-                    setisloading(false)
-                })
-        }
-
-    }, [refresh])
-    const columns = !props.fromdoctorcomponent ? [
+    
+    const columns =  props.fromdoctorcomponent ? [
         {
-            title: "Assigned Doctor", field: "doctorsName"
+            title: "Patient Name", field: "patientsName"
         },
         {
-            title: "Hospital", field: "hospitalName"
+            title: "Hospital", field: "hospitalname"
         },
         {
-            title: "Date Of Appointment", field: "appointmentDate"
+            title: "Date Of Appointment", field: "appointmentdate"
         },
         {
-            title: "Time Of Appointment", field: "appointmentTime"
+            title: "Time Of Appointment", field: "appointmenttime"
         },
         {
             title: "Service", field: "serviceName"
         }
-    ] : [
+    ] :  props.fromcorporatecomponent ? [
+        {
+            title: "Member Name", field: "patientsname"
+        },
+        {
+            title: "Assigned Doctor", field: "doctorsname"
+        },
+        {
+            title: "Date Of Appointment", field: "appointmentdate"
+        },
+        {
+            title: "Time Of Appointment", field: "appointmenttime"
+        },
+        {
+            title: "Service", field: "servicename"
+        }
+    ] :[
         {
 
             title: "Patient Name", field: "patientsName"
@@ -140,7 +110,9 @@ export const Cancelledappointment = (props) => {
         setShowModal(false)
     }
     const deleteindeed = () => {
+        console.log("inside delete")
         if (id) {
+            console.log("inside delete if")
             httpClient.PUT(`cancel-appointment/${id}`, null, false, true)
                 .then(resp => {
                     setShowModal(false)

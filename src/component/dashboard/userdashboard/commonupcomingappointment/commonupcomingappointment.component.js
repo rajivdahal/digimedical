@@ -2,7 +2,7 @@ import { httpClient } from "../../../../utils/httpClient";
 import { useEffect } from "react"
 import { useState } from "react"
 import { notify } from "../../../../services/notify";
-import { Check, Edit, Clear ,Add} from "@material-ui/icons";
+import { Check, Edit, Clear, Add } from "@material-ui/icons";
 import CallMissedOutgoingIcon from '@material-ui/icons/CallMissedOutgoing';
 // import "./upcomingappointment.component.css"
 import { formatDate } from "../../../../services/timeanddate";
@@ -10,106 +10,94 @@ import MaterialTable from 'material-table'
 import Cliploader from "../../../../utils/clipLoader";
 import { Showmodal, ShowPrescription } from "../../../../utils/showmodal";
 import Prescribe from "../../doctordashboard/prescribe/prescribe.component";
-
+import { useHistory } from "react-router-dom";
 export const Commonupcomingappointment = (props) => {
-    console.log("props in commmonupcoming appointment is",props)
+    const history=useHistory()
     const userid = localStorage.getItem("userid")
     const [isloading, setisloading] = useState(false)
     const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
+    const fromcorporatecomponent = props.fromcorporatecomponent ? props.fromcorporatecomponent : null
     const [pendingData, setpendingData] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [showPrescriptionModal, setshowPrescriptionModal] = useState(false)
-    const [refresh, setrefresh] = useState()
+    // const [refresh, setrefresh] = useState(null)
     const [id, setid] = useState()
-    const [patient,setpatient]=useState({})
+    const [patient, setpatient] = useState({})
+
+    const httpcall = (callingurl) => {
+        console.log("inside httpcall")
+        httpClient.GET(callingurl, false, true)
+            .then(resp => {
+                let data = resp.data.data
+                console.log("data before is", resp)
+                data = data.map((item, index) => {
+                    item.appointmentdate = formatDate(item.appointmentdate.slice(0, 10))
+                    item.appointmenttime = item.appointmenttime.slice(0, 5)
+                    console.log("item is", item)
+                    return item
+                })
+                console.log("datta is", data)
+                setpendingData(data)
+
+            })
+            .catch(err => {
+                notify.error("something went wrong")
+            })
+            .finally(() => {
+                setisloading(false)
+            })
+    }
     useEffect(() => {
-        
         setisloading(true)
+        console.log("inside use effecr")
         if (fromdoctorcomponent) {
-           
-            httpClient.GET(`getall-appointments-by/0`, false, true)
-                .then(resp => {
-                    
-                    let data = resp.data.data
-                    data = data.map((item, index) => {
-                        item.appointmentdate = formatDate(item.appointmentdate.slice(0, 10))
-                        item.appointmenttime = item.appointmenttime.slice(0, 5)
-                        return item
-                    })
-                    console.log(data)
-                    setpendingData(resp.data.data)
-                    setisloading(false)
-                })
-                .catch(err => {
-                    notify.error("something went wrong")
-                    setisloading(false)
-                })
+            console.log("inside from doctor component")
+            httpcall(`getall-appointments-by/0`)
+        }
+        if (fromcorporatecomponent) {
+            console.log("inside from corporate component")
+            httpcall(`get/corporate/appointments/0`)
         }
         else {
-           
-            httpClient.GET("get-user-pending-appointments", false, true)
-           
-                .then(resp => {
-                 
-                    let data = resp.data.data
-                    console.log("data are",data)
-                    data = data.map((item, index) => {
-                        item.appointmentdate = formatDate(item.appointmentdate.slice(0, 10))
-                        item.appointmenttime = item.appointmenttime.slice(0, 5)
-                        return item
-                    })
-                    console.log(data)
-                    setpendingData(resp.data.data)
-                    setisloading(false)
-                })
-                .catch(err => {
-          
-                    setisloading(false)
-                    notify.error("something went wrong")
-                })
+            console.log("inside from else component")
+
+            httpcall(`get-user-pending-appointments`)
         }
     }, [])
-    useEffect(() => {
-        setisloading(true)
-        if (fromdoctorcomponent) {
-            httpClient.GET("getall-appointments-by/0", false, true)
-                .then(resp => {
-                    let data = resp.data.data
-                    data = data.map((item, index) => {
-                        item.appointmentdate = formatDate(item.appointmentdate.slice(0, 10))
-                        item.appointmenttime = item.appointmenttime.slice(0, 5)
-                        return item
-                    })
-                    console.log(data)
-                    setpendingData(resp.data.data)
-                    setisloading(false)
-                })
-                .catch(err => {
-                    notify.error("something went wrong")
-                })
-        }
-        else {
-            setisloading(true)
-            httpClient.GET("get-user-pending-appointments", false, true)
-                .then(resp => {
-                    let data = resp.data.data
-                    data = data.map((item, index) => {
-                        item.appointmentdate = formatDate(item.appointmentdate.slice(0, 10))
-                        item.appointmenttime = item.appointmenttime.slice(0, 5)
-                        return item
-                    })
-                    console.log(data)
-                    setpendingData(resp.data.data)
-                    setisloading(false)
-                })
-                .catch(err => {
-                    notify.error("something went wrong")
-                    setisloading(false)
-                })
-        }
-    }, [refresh])
 
-    const columns = !props.fromdoctorcomponent ? [
+    const columns = props.fromdoctorcomponent ? [
+        {
+            title: "Patient Name", field: "patientsName"
+        },
+        {
+            title: "Hospital", field: "hospitalname"
+        },
+        {
+            title: "Date Of Appointment", field: "appointmentdate"
+        },
+        {
+            title: "Time Of Appointment", field: "appointmenttime"
+        },
+        {
+            title: "Service", field: "serviceName"
+        }
+    ] : props.fromcorporatecomponent ? [
+        {
+            title: "Member Name", field: "patientsname"
+        },
+        {
+            title: "Assigned Doctor", field: "doctorsname"
+        },
+        {
+            title: "Date Of Appointment", field: "appointmentdate"
+        },
+        {
+            title: "Time Of Appointment", field: "appointmenttime"
+        },
+        {
+            title: "Service", field: "servicename"
+        }
+    ] : [
         {
             title: "Assigned Doctor", field: "doctorsname"
         },
@@ -125,65 +113,61 @@ export const Commonupcomingappointment = (props) => {
         {
             title: "Service", field: "servicename"
         }
-    ] : [
-        {
-
-            title: "Patient Name", field: "patientsName"
-        },
-        {
-            title: "Hospital", field: "hospitalname"
-        },
-        {
-            title: "Date Of Appointment", field: "appointmentdate"
-        },
-        {
-            title: "Time Of Appointment", field: "appointmenttime"
-        },
-        {
-            title: "Service", field: "serviceName"
-        }
     ]
     const handleEdit = (e, data) => {
         console.log("e is", e)
         console.log("data is", data)
-        props.props.push({
+        props.fromcorporatecomponent?
+        history.push({
+            pathname: "/dashboard/corporate/bookappointment",
+            data: data,
+        }):history.push({
             pathname: "/dashboard/bookappointment",
             data: data,
         })
     }
     const handledelete = (e, data) => {
-        console.log("delete triggered", data)
-        const appointmentid = data.appointmentId
-        console.log("appointment id is",appointmentid)
-        setid(appointmentid)
+        setid(data.appointmentid)
         setShowModal(true)
     }
     const handlecancel = () => {
         setShowModal(false)
         setshowPrescriptionModal(false)
     }
-    const fademodel=()=>{
-        console.log("fade model triggered")
+    const fademodel = () => {
         setshowPrescriptionModal(false)
     }
     const deleteindeed = () => {
-        console.log("inside delete")
         if (id) {
             httpClient.PUT(`cancel-appointment/${id}`, null, false, true)
                 .then(resp => {
+                    notify.success("Deleted successfully")
                     setShowModal(false)
-                    setrefresh(true)
                 })
                 .catch(err => {
-                    console.log(err.response)
+                    notify.error("Item cannot be deleted")
                 })
+                .finally(() => {
+                    if (fromcorporatecomponent) {
+                        console.log("inside from corporate component")
+                        httpcall(`get/corporate/appointments/0`)
+                    }
+                    if (fromdoctorcomponent) {
+                        httpcall(`getall-appointments-by/0`)
+                    }
+                    else {
+                        httpcall(`get-user-pending-appointments`)
+                    }
+                })
+
         }
     }
-    const handleAddAppointment=()=>{
-        props.props.push("/dashboard/bookappointment")
+    const handleAddAppointment = () => {
+        console.log("props is........",props)
+        props.fromcorporatecomponent?props.props.history.push("/dashboard/corporate/bookappointment"):props.props.push("/dashboard/bookappointment")
     }
-    const proceedprescription=(e,rowdata)=>{
-        
+    const proceedprescription = (e, rowdata) => {
+
         setshowPrescriptionModal(true)
         setpatient(rowdata)
         // props.props.history.push(`/dashboard/prescribe/${rowdata.id}`)
@@ -234,14 +218,14 @@ export const Commonupcomingappointment = (props) => {
                             {
                                 icon: CallMissedOutgoingIcon,
                                 tooltip: 'Proceed for Prescription',
-                                onClick: (e, rowData) => { proceedprescription(e, rowData)}
+                                onClick: (e, rowData) => { proceedprescription(e, rowData) }
                             }]
                             : null}
                     ></MaterialTable>
             }
-            <Prescribe showModal={showPrescriptionModal}  handlecancel={()=>fademodel()} patient={patient} props={props.props?props.props.history:null}></Prescribe>
-            {/* <Prescribe></Prescribe> */}
-           <Showmodal showModal={showModal} handlecancel={()=>handlecancel()} deleteindeed={()=>deleteindeed()}></Showmodal>
+            <Prescribe showModal={showPrescriptionModal} handlecancel={() => fademodel()} patient={patient} props={props.props ? props.props.history : null}></Prescribe>
+
+            <Showmodal showModal={showModal} handlecancel={() => handlecancel()} deleteindeed={() => deleteindeed()}></Showmodal>
         </>
     )
 }
