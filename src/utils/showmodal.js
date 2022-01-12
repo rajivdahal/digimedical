@@ -13,7 +13,7 @@ export const Showmodal = (props) => {
                         Cancel
                     </Button>
                     <Button variant="danger" onClick={props.deleteindeed}>
-                        Delete
+                        Clear
                     </Button>
                 </Modal.Footer>
             </Modal>

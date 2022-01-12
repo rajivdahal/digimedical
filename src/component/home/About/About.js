@@ -83,7 +83,7 @@ const WhaiIsDegimediacal = () => {
         <RightContainer>
           <DescriptionContainer>
             <span>About Us</span>
-            <h2>What is Degimedical ?</h2>
+            <h2>What is Digimedical ?</h2>
             <p>
               Digi Medical Sewa is an emerging healthcare service established to
               provide world-class quality health care to the citizen of Nepal

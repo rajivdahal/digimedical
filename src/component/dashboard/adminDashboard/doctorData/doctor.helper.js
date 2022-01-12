@@ -1,6 +1,8 @@
+import { REGEX } from "../../../../constants/constants";
+
 const validateDoctor = ( values, isEdit = false,isHospital=false ) => {
     let errors = {};
-    let decimalREGEX = /^\d*\.?\d*$/;
+    // let decimalREGEX = /^\d*\.?\d*$/;
 
     if (!values.firstName) {
         errors.firstName = 'Required!'
@@ -13,7 +15,7 @@ const validateDoctor = ( values, isEdit = false,isHospital=false ) => {
         errors.mobileNumber = "Required!"
     }
 
-    if(!decimalREGEX.test(values.mobileNumber)){
+    if(!REGEX.DECIMAL.test(values.mobileNumber)){
         errors.mobileNumber = "Must be a number!";
     }
     
@@ -32,7 +34,7 @@ const validateDoctor = ( values, isEdit = false,isHospital=false ) => {
         errors.nmcNumber = 'Required!'
     }
 
-    if(!decimalREGEX.test(values.nmcNumber)){
+    if(!REGEX.DECIMAL.test(values.nmcNumber)){
         errors.nmcNumber = "Must be a number";
     }
 
@@ -48,18 +50,32 @@ const validateDoctor = ( values, isEdit = false,isHospital=false ) => {
         errors.licensedDate = 'Required!'
     }
 
+    if(!isHospital){
+        if (!values.availableDays) {
+            errors.availableDays = 'Required!'
+        }
+    
+        if (!values.startTime) {
+            errors.startTime = 'Required!'
+        }
+    
+        if (!values.endTime) {
+            errors.endTime = 'Required!'
+        }
+    }
+
     if(!isEdit){
         if (!values.email) {
             errors.email = "Email is required!"
         }
-        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)) {
+        if (!REGEX.EMAIL.test(values.email)) {
             errors.email = "Invalid email format!"
         }
 
         // if (values.password.length < 8) {
         //     errors.password = "Password must be greater than 8 digits!"
         // }
-        if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(values.password)) {
+        if (!REGEX.PASSWORD.test(values.password)) {
             errors.password = "Password should at least be 8 characters of one uppercase ,one lowercase and one special character!"
         }
         if (!values.password) {
@@ -73,7 +89,7 @@ const validateDoctor = ( values, isEdit = false,isHospital=false ) => {
         }
 
     }
-    console.log(errors);
+    // console.log(errors);
     return errors;   
 }
 

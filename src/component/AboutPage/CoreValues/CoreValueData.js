@@ -14,6 +14,6 @@ export const data = [
 
     title2: "Qualified Doctor",
     description2:
-      "Degimedical have highly qualified and experienced doctor to provide excellent health service.",
+      "Digimedical have highly qualified and experienced doctor to provide excellent health service.",
   },
 ];

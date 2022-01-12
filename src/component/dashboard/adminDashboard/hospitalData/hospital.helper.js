@@ -1,6 +1,7 @@
+import { REGEX } from "../../../../constants/constants";
+
 const validateHospital = ( values, isEdit = false ) =>{
     let errors = {};
-    let decimalREGEX = /^\d*\.?\d*$/;
 
     if (!values.name) {
         errors.name = 'Required!'
@@ -18,7 +19,7 @@ const validateHospital = ( values, isEdit = false ) =>{
         errors.panNo = 'Required!'
     }
 
-    if(!decimalREGEX.test(values.panNo)){
+    if(!REGEX.DECIMAL.test(values.panNo)){
         errors.panNo = "Must be a number";
     }
 
@@ -30,7 +31,7 @@ const validateHospital = ( values, isEdit = false ) =>{
         errors.mobileNumber = "Required!"
     }
 
-    if(!decimalREGEX.test(values.mobileNumber)){
+    if(!REGEX.DECIMAL.test(values.mobileNumber)){
         errors.mobileNumber = "Must be a number!";
     }
     
@@ -45,18 +46,20 @@ const validateHospital = ( values, isEdit = false ) =>{
         errors.address = 'Required!'
     }
 
-
+    // if (!values.link) {
+    //     errors.link = 'Required!'
+    // }
     if(!isEdit){
         if (!values.email) {
             errors.email = "Email is required!"
         }
-        else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)) {
+        else if (!REGEX.EMAIL.test(values.email)) {
             errors.email = "Invalid email format!"
         }
         if (values.password.length < 8) {
             errors.password = "Password must be greater than 8 digits!"
         }
-        if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(values.password)) {
+        if (!REGEX.PASSWORD.test(values.password)) {
             errors.password = "Password should at least be 8 characters of one uppercase ,one lowercase and one special character!"
         }
         if (!values.password) {
@@ -69,7 +72,6 @@ const validateHospital = ( values, isEdit = false ) =>{
             errors.confirmPassword = "Password doesn't match!"
         }
     }
-    console.log(errors);
     return errors;   
 }
 

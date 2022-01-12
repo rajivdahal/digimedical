@@ -37,7 +37,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 25px;
-
+  border: 1px solid white;
   color: #2745f0;
 }
 .link_hosp_home:hover {
@@ -45,5 +45,32 @@
 }
 
 .link_hosp_home:hover #arrow_hosp_hom {
-  text-decoration: underline;
+  border-bottom: 1px solid;
+}
+
+#hosp_card_but_hom {
+  width: 200px;
+  height: 40px;
+  margin-top: 5%;
+  margin-left: 9vw;
+  border: 1px solid #2745f0;
+  color: #2745f0;
+  background: white;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 15px;
+  transition: 0.5s;
+}
+
+#hosp_card_but_hom:hover {
+  background: #2745f0;
+  color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .hospital_card_text #hosp_card_but_hom {
+    width: 80%;
+    margin: auto;
+  }
 }

@@ -2,25 +2,30 @@
   width: 100%;
 }
 
-.labtest1:hover img {
-  opacity: 100%;
+.labtest_main_text {
+  width: 20%;
+
+  margin-top: -25%;
+  margin-left: 10%;
+}
+
+.labtest1 {
+  margin-bottom: 20%;
 }
 
 #labtxt1 {
-  position: relative;
-  bottom: 320px;
-  left: 160px;
-  font-weight: bolder;
-  font-size: 50px;
+  font-weight: 700;
+  font-size: 3.7vw;
+  line-height: 5vw;
+  text-align: left;
 }
 
 #labtxt2 {
-  position: relative;
-  bottom: 300px;
-  left: 160px;
-  font-size: 16px;
+  font-size: 1.1vw;
   color: #596579;
+  text-align: left;
   text-indent: 0px;
+  line-height: 1.5vw;
   letter-spacing: 1px;
 }
 
@@ -34,14 +39,14 @@
   margin-top: 30px;
   color: black;
   font-weight: 700;
-  font-size: 35px;
+  font-size: 2.5vw;
   margin-bottom: 40px;
 }
 
 .lab_samp1 {
   margin-top: 25px;
-  width: 1000px;
-  height: 265px;
+  width: 70vw;
+
   background-color: #f5faff;
   border: 1px solid #d0d7e2;
   border-radius: 10px;
@@ -49,7 +54,13 @@
   display: flex;
   cursor: pointer;
 }
-
+@media screen and (max-width: 1020px) {
+  .lab_samp1 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
 .lab_sam_img1 img {
   padding: 20px;
   height: 270px;
@@ -93,7 +104,6 @@
   font-size: 12px;
   margin-left: 50px;
   color: #596579;
-  
 }
 
 #lab_test_detail li {
@@ -206,7 +216,7 @@
 
   border-radius: 4px;
 }
-.No_cart_item{
+.No_cart_item {
   display: flex;
   justify-content: center;
   align-items: center;

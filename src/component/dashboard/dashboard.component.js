@@ -46,7 +46,8 @@ import Corporateaddmember from "./corporatedashboard/addmembers/corporateaddmemb
 import HospitalDashboard from "./hospitaldashboard/hospitalDashboard"
 import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor"
 import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor"
-
+import Viewcorporateappointment from "./corporatedashboard/corporateappointments/corporateviewappointment/corporateviewappointment.component"
+import HospitalAppointment from "./hospitaldashboard/appointmentPage/appointment.component"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -173,6 +174,8 @@ const Dashboard = (props) => {
                                 <ProtectedRoute component={HospitalDoctor}></ProtectedRoute>
                                 : props.location.pathname === "/dashboard/add-doctor" ?
                                   <ProtectedRoute component={AddDoctor}></ProtectedRoute>
+                                  : props.location.pathname === "/dashboard/hospital-appointment" ?
+                                  <ProtectedRoute component={HospitalAppointment}></ProtectedRoute>
                                   : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                           }
                         </div>
@@ -188,6 +191,10 @@ const Dashboard = (props) => {
                           <ProtectedRoute component={Corporatedashboard} props={props}></ProtectedRoute> :
                           props.location.pathname == "/dashboard/corporate/add-members" ?
                           <ProtectedRoute component={Corporateaddmember} props={props}></ProtectedRoute>:
+                          props.location.pathname == "/dashboard/corporate/viewappointment" ?
+                          <ProtectedRoute component={Viewcorporateappointment} props={props}></ProtectedRoute>:
+                          props.location.pathname == "/dashboard/corporate/bookappointment" ?
+                          <ProtectedRoute component={Internalappointmentbook} props={props} fromcorporateappointment={true}></ProtectedRoute>:
                           <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </> :

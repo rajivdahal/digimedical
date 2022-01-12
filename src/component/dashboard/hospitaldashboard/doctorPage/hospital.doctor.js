@@ -7,7 +7,7 @@ const HospitalDoctor = (props) => {
         <div>
 
             {/* <Createdoctor isHospital></Createdoctor> */}
-            <DoctorTable isHospital></DoctorTable>
+            <DoctorTable isHospital {...props}></DoctorTable>
         </div>
     )
 }

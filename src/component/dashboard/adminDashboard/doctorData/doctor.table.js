@@ -2,28 +2,23 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap"
 import MaterialTable from 'material-table';
 import Tableicons from "../../../../utils/materialicons";
-import { Add, Edit, Clear, DeleteOutline } from "@material-ui/icons";
+import { Add, Edit, Clear} from "@material-ui/icons";
 import { notify } from "../../../../services/notify";
-import { httpClient } from "../../../../utils/httpClient";
-import { Modal, Button, Card } from 'react-bootstrap';
+import { Modal, Button} from 'react-bootstrap';
 import doctorApi from "./doctor.services";
 const DoctorTable = (props) => {
 
     const [doctors, setDoctors] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [doctorInfoModal, setDoctorInfoModal] = useState(false)
     const [doctorId, setDoctorId] = useState("");
     const [doctorStatus, setDoctorStatus] = useState("");
     const [loading, setLoading] = useState(false)
-    const [doctorInfo, setDoctorInfo] = useState([]);
-
     const  createDoctorPath= {
         "hospital" : "/dashboard/add-doctor",
         "admin" : "/dashboard/create-doctor",
     }
     const handleClose = () => {
         setShowModal(false);
-        setDoctorInfoModal(false)
     }
 
     const getDoctor = async () => {
@@ -87,148 +82,152 @@ const DoctorTable = (props) => {
     }
 
     const handleAddDoctor = () => {
-        let hospital = props.isHospital;
-        // console.log(hospital)
-        // props.history.push("/dashboard/create-doctor")
-        // props.history.push(hospital ? createDoctorPath.hospital : createDoctorPath.admin);   
-
-    }
-
-    const addHospitalDoctor=()=>{
-        props.history.push("/dashboard/add-doctor")
+        props.history.push(props.isHospital? createDoctorPath.hospital : createDoctorPath.admin);   
 
     }
     const handleEditDoctor = (e, data) => {
-        props.history.push("/dashboard/create-doctor", data)
+      props.history.push(props.isHospital ? createDoctorPath.hospital : createDoctorPath.admin,data);   
     }
 
-    return (
-        <div>
-            <Container>
-                {
-                    props.isHospital ?
-                        <MaterialTable
-                            data={doctors}
-                            title="All Doctor Details"
-                            icons={Tableicons}
-                            columns={[
-                                { title: 'ID', field: 'id' },
-                                { title: 'Name', field: 'name' },
-                                { title: 'Description', field: 'description' },
-                                { title: 'NMC', field: 'nmcNo', },
-                                { title: 'Prefix', field: 'prefix' },
-                                {
-                                    title: 'Status', field: 'status',
-                                    render: rowData => rowData.status.toString() == "true" ?
-                                        <span style={{ color: '#18af69' }}>Active</span>
-                                        :
-                                        <span style={{ color: 'red' }}>inActive</span>
+  return (
+    <div>
+      <Container>
+        {props.isHospital ? (
+          <MaterialTable
+            data={doctors}
+            title="All Doctor Details"
+            icons={Tableicons}
+            columns={[
+              { title: "ID", field: "doctorid" },
+              { title: "Prefix", field: "prefix" },
+              { title: "Name", field: "doctorname" },
+              { title: "Service Name", field: "servicename" },
+              { title: "Specialist", field: "specialist" },
+              { title: "Mobile Number", field: "mobilenumber" },
+              {
+                title: "Status",
+                field: "doctorstatus",
+                render: (rowData) =>
+                  rowData.doctorstatus.toString() == "true" ? (
+                    <span style={{ color: "#18af69" }}>Active</span>
+                  ) : (
+                    <span style={{ color: "red" }}>inActive</span>
+                  ),
+              },
+            ]}
+            actions={[
+              {
+                icon: Add,
+                tooltip: "Add Doctor",
+                isFreeAction: true,
+                onClick: () => {
+                  handleAddDoctor();
+                },
+              },
+              {
+                icon: Edit,
+                tooltip: "Edit Service",
+                onClick: (e, rowData) => {
+                  handleEditDoctor(e, rowData);
+                },
+              },
+              {
+                icon: Clear,
+                tooltip: "Change Status",
+                onClick: (e, rowData) => {
+                  handleDeactivateDoctor(e, rowData);
+                },
+              },
+            ]}
+            isLoading={loading}
+            options={{
+              actionsColumnIndex: -1,
+              pageSize: 20,
+              headerStyle: {
+                backgroundColor: "#2745F0",
+                color: "#FFF",
+              },
+            }}
+          />
+        ) : (
+          <MaterialTable
+            data={doctors}
+            title="All Doctor Details"
+            icons={Tableicons}
+            columns={[
+              { title: "ID", field: "id" },
+              { title: "Name", field: "name" },
+              { title: "Description", field: "description" },
+              { title: "NMC", field: "nmcNo" },
+              { title: "Prefix", field: "prefix" },
+              {
+                title: "Status",
+                field: "status",
+                render: (rowData) =>
+                  rowData.status.toString() == "true" ? (
+                    <span style={{ color: "#18af69" }}>Active</span>
+                  ) : (
+                    <span style={{ color: "red" }}>inActive</span>
+                  ),
+              },
+            ]}
+            actions={[
+              {
+                icon: Add,
+                tooltip: "Add Doctor",
+                isFreeAction: true,
+                onClick: () => {
+                  handleAddDoctor();
+                },
+              },
+              {
+                icon: Edit,
+                tooltip: "Edit Service",
+                onClick: (e, rowData) => {
+                  handleEditDoctor(e, rowData);
+                },
+              },
+              {
+                icon: Clear,
+                tooltip: "Change Status",
+                onClick: (e, rowData) => {
+                  handleDeactivateDoctor(e, rowData);
+                },
+              },
+            ]}
+            isLoading={loading}
+            options={{
+              actionsColumnIndex: -1,
+              pageSize: 20,
+              headerStyle: {
+                backgroundColor: "#2745F0",
+                color: "#FFF",
+              },
+            }}
+          />
+        )}
 
-                                },
-                            ]}
+        <Modal show={showModal} onHide={handleClose}>
+          <Modal.Header>
+            <Modal.Title>
+              <b>Doctor Status</b>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Do you really want to change this doctor status ?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="danger" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="info" onClick={changeDoctorStatus}>
+              Change Status
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Container>
+    </div>
+  );
+};
 
-                            actions={[
-
-                                {
-                                    icon: Add,
-                                    tooltip: 'Add Doctor',
-                                    isFreeAction: true,
-                                    onClick: () => { addHospitalDoctor() }
-                                },
-                                // {
-                                //     icon: Edit,
-                                //     tooltip: 'Edit Service',
-                                //     onClick: (e, rowData) => { handleEditDoctor(e, rowData) }
-                                // },
-                                {
-                                    icon: Clear,
-                                    tooltip: 'Change Status',
-                                    onClick: (e, rowData) => { handleDeactivateDoctor(e, rowData) }
-                                }
-
-                            ]}
-                            isLoading={loading}
-                            options={{
-                                actionsColumnIndex: -1,
-                                pageSize: 20,
-                                headerStyle: {
-                                    backgroundColor: '#2745F0',
-                                    color: '#FFF'
-                                }
-                            }}
-                        />
-                        :
-                        <MaterialTable
-                            data={doctors}
-                            title="All Doctor Details"
-                            icons={Tableicons}
-                            columns={[
-                                { title: 'ID', field: 'id' },
-                                { title: 'Name', field: 'name' },
-                                { title: 'Description', field: 'description' },
-                                { title: 'NMC', field: 'nmcNo', },
-                                { title: 'Prefix', field: 'prefix' },
-                                {
-                                    title: 'Status', field: 'status',
-                                    render: rowData => rowData.status.toString() == "true" ?
-                                        <span style={{ color: '#18af69' }}>Active</span>
-                                        :
-                                        <span style={{ color: 'red' }}>inActive</span>
-
-                                },
-                            ]}
-
-                            actions={[
-
-                                {
-                                    icon: Add,
-                                    tooltip: 'Add Doctor',
-                                    isFreeAction: true,
-                                    onClick: () => { handleAddDoctor() }
-                                },
-                                {
-                                    icon: Edit,
-                                    tooltip: 'Edit Service',
-                                    onClick: (e, rowData) => { handleEditDoctor(e, rowData) }
-                                },
-                                {
-                                    icon: Clear,
-                                    tooltip: 'Change Status',
-                                    onClick: (e, rowData) => { handleDeactivateDoctor(e, rowData) }
-                                }
-
-                            ]}
-                            isLoading={loading}
-                            options={{
-                                actionsColumnIndex: -1,
-                                pageSize: 20,
-                                headerStyle: {
-                                    backgroundColor: '#2745F0',
-                                    color: '#FFF'
-                                }
-                            }}
-                        />
-                }
-
-
-                <Modal show={showModal} onHide={handleClose}>
-                    <Modal.Header >
-                        <Modal.Title><b>Doctor Status</b></Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body >Do you really want to change this doctor status ?</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="danger" onClick={handleClose}>
-                            Close
-                        </Button>
-                        <Button variant="info" onClick={changeDoctorStatus}>
-                            Change Status
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-
-            </Container>
-        </div>
-    )
-}
-
-export default DoctorTable
+export default DoctorTable;
