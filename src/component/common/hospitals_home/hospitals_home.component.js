@@ -30,7 +30,6 @@ export default function Hospitalshome() {
         <h1>Book an Appointment at Hospital</h1>
       </div>
       <div className="hospital_book_card">
-
         {
           hospitals.length ? hospitals.map((item, index) => {
             if (index < 4)

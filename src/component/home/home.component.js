@@ -10,6 +10,7 @@ import TheyTrustedUs from "./TheyTrustedUs/TheyTrustedUs";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import Hospital_home from "../common/hospitals_home/hospitals_home.component";
+import { Link } from "react-router-dom";
 const Root = styled.div`
   // background-color: red;
   height: 33.7rem;
@@ -136,7 +137,7 @@ export const Home = (props) => {
             <a href="#BookanAppointment">
               <GetAppointment type="button">Get Appointment</GetAppointment>
             </a>
-            <ReadMore type="button">Read MOre</ReadMore>
+           <Link to="/about"><ReadMore type="button">Read MOre</ReadMore></Link> 
             {/* <div class="btn-group dropright">
   <button type="button" class="btn btn-secondary">
     Split dropright
