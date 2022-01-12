@@ -12,7 +12,7 @@ const ContactData = [
   {
     icon: Email,
     Heading: "Email",
-    Description1: "info@degimedical.com.",
+    Description1: "info@Digimedical.com.",
     Description2: "",
   },
   {

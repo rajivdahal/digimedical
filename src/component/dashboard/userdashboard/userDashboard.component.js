@@ -7,9 +7,14 @@ import { httpClient } from "../../../utils/httpClient"
 import { notify } from "../../../services/notify"
 import { useState } from "react"
 import TimePicker from 'react-time-picker';
+
 const Userdashboard = (props) => {
+  let [pendingappointment,setpendingappointments]=useState(0)
+  let [completedappointments,setcompletedappointments]=useState(0)
+  let [cancelledappointments,setcancelledappointments]=useState(0)
+
+
   const [totalappointments, settotalappointments] = useState()
-  
   useEffect(() => {
     httpClient.GET("totoal-appointments-patients", false, true)
       .then(resp => {
@@ -17,6 +22,18 @@ const Userdashboard = (props) => {
       })
       .catch(err => {
         notify.error("Total appointments-unable to fetch")
+      })
+      httpClient.GET("get-user-pending-appointments", false, true)
+      .then(resp => {
+        setpendingappointments(resp.data.data.length)
+      })
+      httpClient.GET("get-user-completed-appointments", false, true)
+      .then(resp => {
+        setcompletedappointments(resp.data.data.length)
+      })
+      httpClient.GET("get-user-canceled-appointments", false, true)
+      .then(resp => {
+        setcancelledappointments(resp.data.data.length)
       })
   }, [])
   return (
@@ -218,18 +235,18 @@ const Userdashboard = (props) => {
                   <div className="col-md-6 mb-4 stretch-card transparent">
                     <div className="card card-tale">
                       <div className="card-body">
-                        <p className="mb-4">Appointments</p>
+                        <p className="mb-4">Total Appointments</p>
                         <p className="fs-30 mb-2">{totalappointments}</p>
-                        <p>10.00% (30 days)</p>
+
                       </div>
                     </div>
                   </div>
                   <div className="col-md-6 mb-4 stretch-card transparent">
                     <div className="card card-dark-blue">
                       <div className="card-body">
-                        <p className="mb-4">Total Operations</p>
-                        <p className="fs-30 mb-2">61344</p>
-                        <p>22.00% (30 days)</p>
+                        <p className="mb-4">Total Pending Appointments</p>
+                        <p className="fs-30 mb-2">{pendingappointment}</p>
+                        {/* <p>22.00% (30 days)</p> */}
                       </div>
                     </div>
                   </div>
@@ -238,18 +255,17 @@ const Userdashboard = (props) => {
                   <div className="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
                     <div className="card card-light-blue">
                       <div className="card-body">
-                        <p className="mb-4">Number of Patients</p>
-                        <p className="fs-30 mb-2">34040</p>
-                        <p>2.00% (30 days)</p>
+                        <p className="mb-4">Total Completed Appointments</p>
+                        <p className="fs-30 mb-2">{completedappointments}</p>
                       </div>
                     </div>
                   </div>
                   <div className="col-md-6 stretch-card transparent">
                     <div className="card card-light-danger">
                       <div className="card-body">
-                        <p className="mb-4">Expenditure</p>
-                        <p className="fs-30 mb-2">47033</p>
-                        <p>0.22% (30 days)</p>
+                        <p className="mb-4">Total Cancelled Appointments</p>
+                        <p className="fs-30 mb-2">{cancelledappointments}</p>
+
                       </div>
                     </div>
                   </div>

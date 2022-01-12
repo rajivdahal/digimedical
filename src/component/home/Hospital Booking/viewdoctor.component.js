@@ -58,7 +58,7 @@ export default function Hospital_doctors(props) {
     httpClient
       .POST(
         props.match.url == "/dashboard/hospitals/view-doctors"
-          ? "create-appointment"
+          ? "create-appointment/hospital"
           : "create-external-user",
         finaldata,
         false,

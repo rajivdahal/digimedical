@@ -98,24 +98,23 @@ form.example::after {
   clear: both;
   display: table;
 }
-
+/* hospital card here 
+asasdas*/
 .hospital_book_card {
   margin-top: 40px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2em;
 }
 
 .hospital_book_card1 {
   padding: 10px;
   display: flex;
-  width: 48%;
+
   background: #f5faff;
   border: 1px solid #d0d7e2;
-  box-sizing: border-box;
+
   border-radius: 10px;
-  margin-top: 20px;
 }
 
 .hospital_book_card1 img {
@@ -126,16 +125,16 @@ form.example::after {
 .hospital_card_text {
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  width: 60%;
+  padding-left: 10px;
 }
 .hospital_card_text h1 {
-  font-size: 21px;
-
+  font-size: 20px;
+  line-height: 30px;
   font-weight: bold;
 }
 
 .hospital_card_text p2 {
-  margin-top: 15px;
   font-size: 16px;
   line-height: 30px;
   letter-spacing: 0.02em;
@@ -145,8 +144,7 @@ form.example::after {
 #hosp_card_but {
   width: 200px;
   height: 40px;
-  margin-top: 50px;
-  margin-left: 140px;
+
   border: 1px solid #2745f0;
   color: #2745f0;
   background: white;
@@ -156,21 +154,21 @@ form.example::after {
   line-height: 15px;
   transition: 0.5s;
 }
-#hosp_card_but_user{
+#hosp_card_but_user {
   width: 155px;
-    height: 40px;
-    margin-top: 50px;
-    margin-left: -10px;
-    border: 1px solid #2745f0;
-    color: #2745f0;
-    /* background: rgb(7, 6, 6); */
-    border-radius: 5px;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 15px;
-    transition: 0.5s;
+  height: 40px;
+  margin-top: 50px;
+  margin-left: -10px;
+  border: 1px solid #2745f0;
+  color: #2745f0;
+  /* background: rgb(7, 6, 6); */
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 15px;
+  transition: 0.5s;
 }
-#hosp_card_but_user:hover{
+#hosp_card_but_user:hover {
   background: #2745f0;
   color: white;
 }
@@ -181,4 +179,43 @@ form.example::after {
 
 .pagination_hosp {
   height: 100px;
+}
+
+/* responsive design query */
+@media only screen and (max-width: 600px) {
+  .hospital_book_card {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hospital_book_card1 {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .hospital_book_card1 img {
+    width: 80%;
+  }
+  .hospital_card_text {
+    margin-top: 20px;
+    text-align: center;
+    padding: 0px;
+  }
+  .hospital_card_text p2 {
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .hospital_book_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }

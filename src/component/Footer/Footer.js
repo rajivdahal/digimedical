@@ -209,7 +209,7 @@ const Footer = () => {
             </TopBottom>
             <div className="paraSection">
               <p>
-                ©degimedical2021 . All rights reserved. Supported by Grow Tech
+                ©Digimedical2021 . All rights reserved. Supported by Grow Tech
               </p>
               <p>
                 When you visit or interact with our sites, services or tools, we
