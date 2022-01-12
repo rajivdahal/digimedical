@@ -45,6 +45,56 @@ const NavbarMenuItems = () => {
   return (
     <Root style={{ height: "60px" }} className="root_nav">
       <LogMenuItemsContainor className="logcontainer_nav">
+        <div class="m-menu">
+          <input class="m-menu__toggle" type="checkbox" />
+          <div class="m-menu__burger">
+            <span></span>
+          </div>
+          <div class="m-menu__content">
+            <nav>
+              <h3>Categories</h3>
+              <div className="categories_nav_mob">
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  Home{" "}
+                </Link>
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/about"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  About
+                </Link>
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/services"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  Services
+                </Link>
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/lab-test"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  Lab Test
+                </Link>
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/contact"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  Contact
+                </Link>
+              </div>
+            </nav>
+          </div>
+          <div class="m-menu__backdrop"></div>
+        </div>
+
         <Link to="/">
           <img
             src={logo}
@@ -53,6 +103,7 @@ const NavbarMenuItems = () => {
             }}
           ></img>
         </Link>
+
         <div className="menu">
           {" "}
           <span className="menu-item">
@@ -76,12 +127,14 @@ const NavbarMenuItems = () => {
               Services{" "}
             </Link>
           </span>
-          <Link
-            to={"/lab-test"}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <span className="menu-item">Lab Test</span>
-          </Link>
+          <span className="menu-item">
+            <Link
+              to="/lab-test"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Lab Test{" "}
+            </Link>
+          </span>
           <div className="menu-item_nav">
             <button className="dropbtn">Health Packages</button>
             <div className="dropdown_hp_content">
@@ -273,9 +326,8 @@ const NavbarMenuItems = () => {
                 </a>
               </div>
             </div>
-          </div>
+          </div>{" "}
           <span className="menu-item">
-            {" "}
             <Link
               to="/contact"
               style={{ textDecoration: "none", color: "inherit" }}
