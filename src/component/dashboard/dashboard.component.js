@@ -34,8 +34,8 @@ import CorporatePage from "./adminDashboard/corporateData/corporate.component"
 import Role from "./adminDashboard/userManagement/role.component"
 import CreateAdmin from "./adminDashboard/userManagement/admin.component"
 
-import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component"
-import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component"
+import Hospitalnavbar from "./hospitalDashboard/hospitalnavbar/hospitalnavbar.component"
+import Hospitalsidebar from "./hospitalDashboard/hospitalsidebar/hospitalsidebar.component"
 import Hospitalbookingcomponent from "../home/Hospital Booking/hospitalbooking.component"
 import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component"
 import Corporatenavbar from "./corporatedashboard/corporatenavbar/corporatenavbar.component"
@@ -43,9 +43,10 @@ import Corporatesidebar from "./corporatedashboard/corporatesidebar/corporatesid
 import { Corporatedashboard } from "./corporatedashboard/corporatedashboard/corporatedashboard.component"
 import Corporateaddmember from "./corporatedashboard/addmembers/corporateaddmembers.component"
 
-import HospitalDashboard from "./hospitaldashboard/hospitalDashboard"
-import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor"
-import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor"
+import HospitalDashboard from "./hospitalDashboard/hospitalDashboard"
+import HospitalDoctor from "./hospitalDashboard/doctorPage/hospital.doctor"
+import AddDoctor from "./hospitalDashboard/doctorPage/addHospitalDoctor"
+import HospitalAppointment from "./hospitalDashboard/appointmentPage/appointment.component"
 
 
 const Dashboard = (props) => {
@@ -173,6 +174,8 @@ const Dashboard = (props) => {
                                 <ProtectedRoute component={HospitalDoctor}></ProtectedRoute>
                                 : props.location.pathname === "/dashboard/add-doctor" ?
                                   <ProtectedRoute component={AddDoctor}></ProtectedRoute>
+                                  : props.location.pathname === "/dashboard/hospital-appointment" ?
+                                  <ProtectedRoute component={HospitalAppointment}></ProtectedRoute>
                                   : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                           }
                         </div>
