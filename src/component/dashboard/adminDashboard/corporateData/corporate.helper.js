@@ -1,7 +1,7 @@
+import { REGEX } from "../../../../constants/constants";
+
 const validateCorporate = ( values, isEdit = false ) =>{
     let errors = {};
-    let decimalREGEX = /^\d*\.?\d*$/;
-    let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     if (!values.name) {
         errors.name = 'Required!'
@@ -11,7 +11,7 @@ const validateCorporate = ( values, isEdit = false ) =>{
         errors.contactNumber = "Required!"
     }
 
-    if(!decimalREGEX.test(values.contactNumber)){
+    if(!REGEX.DECIMAL.test(values.contactNumber)){
         errors.contactNumber = "Must be a number!";
     }
 
@@ -30,7 +30,7 @@ const validateCorporate = ( values, isEdit = false ) =>{
         errors.panNumber = 'Required!'
     }
 
-    if(!decimalREGEX.test(values.panNumber)){
+    if(!REGEX.DECIMAL.test(values.panNumber)){
         errors.panNumber = "Must be a number";
     }
 
@@ -42,13 +42,13 @@ const validateCorporate = ( values, isEdit = false ) =>{
         if (!values.email) {
             errors.email = "Email is required!"
         }
-        else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)) {
+        else if (!REGEX.EMAIL.test(values.email)) {
             errors.email = "Invalid email format!"
         }
         if (values.password.length < 8) {
             errors.password = "Password must be greater than 8 digits!"
         }
-        if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(values.password)) {
+        if (!REGEX.PASSWORD.test(values.password)) {
             errors.password = "Password should at least be 8 characters of one uppercase ,one lowercase and one special character!"
         }
         if (!values.password) {

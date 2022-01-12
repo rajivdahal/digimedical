@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import CoPresentRounded from "@mui/icons-material/CoPresentRounded";
+import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
 
 const Hospitalsidebar = (props) => {
   const navigateDashboard = () => {
@@ -20,21 +21,21 @@ const Hospitalsidebar = (props) => {
               <span className="menu-title">Dashboard</span>
             </a>
           </li>
+
           <li className="nav-item">
-            <div className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment" style={{cursor:"pointer"}}>
-              <i className="icon-layout menu-icon"></i>
+            <a className="nav-link " data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
+            <AssignmentIndOutlinedIcon className="dash-icon "></AssignmentIndOutlinedIcon>
               <span className="menu-title">Appointments</span>
               <i className="menu-arrow"></i>
+            </a>
+            <div className="collapse" id="appointment">
+              <ul className="nav flex-column sub-menu">
+                <Link to="/dashboard/hospital-appointment">
+                  <li className="nav-item"><a className="nav-link" href="">View Appointment</a></li>
+                </Link>
+              </ul>
             </div>
-            {/* <Link to="/dashboard/viewappointment"> */}
-              <div className="collapse" id="appointment">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"> <div className="nav-link" href="">View Appointment</div></li>
-                </ul>
-              </div>
-            {/* </Link> */}
           </li>
-
 
           <li className="nav-item">
             <a className="nav-link " data-toggle="collapse" href="#doctor" aria-expanded="false" aria-controls="doctor">

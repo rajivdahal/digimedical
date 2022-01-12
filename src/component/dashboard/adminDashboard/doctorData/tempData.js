@@ -1,27 +1,28 @@
-import { useEffect, useRef, useState } from "react";
-import { Form, Button, Container, Row, Col, Nav, Image } from "react-bootstrap";
-import { notify } from "../../../../services/notify";
-import { httpClient } from "../../../../utils/httpClient";
-import Cliploader from "../../../../utils/clipLoader";
-import "./doctor.component.css";
+import Select from "react-select";
 import { useFormik } from "formik";
+import { useEffect, useRef, useState } from "react";
+import doctorApi from "./doctor.services";
 import { validateDoctor } from "./doctor.helper";
 import Avatar from "../../../../assets/avatars.png";
-import Select from "react-select";
-import doctorApi from "./doctor.services";
+import { notify } from "../../../../services/notify";
+import Cliploader from "../../../../utils/clipLoader";
+import { httpClient } from "../../../../utils/httpClient";
+import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
+import "./doctor.component.css";
 import { DAYS } from "../../../../constants/constants";
-const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Createdoctor = (props) => {
-  // all services
+const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
 
   const [services, setServices] = useState([]);
   const imageSelectRef = useRef();
-  const days = DAYS;
+
   const [doctorId, setDoctorId] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedImage, setImage] = useState("");
   const [selectedImgName, setImgName] = useState("");
+
+  const days = DAYS;
   const [doctorData, setDoctorData] = useState({
     firstName: "",
     lastName: "",
@@ -42,30 +43,43 @@ const Createdoctor = (props) => {
     endTime: "",
     doctorServices: [],
   });
+
   const doctorTablePath = {
     hospital: "/dashboard/hospital-doctor",
     admin: "/dashboard/doctor-table",
   };
 
   useEffect(() => {
-    initialize();
-  }, []);
+    if (props.isHospital) {
+      initializeHospital();
+    } else {
+      initializeAdmin();
+    }
+  },[]);
 
-  const initialize = async () => {
+  const initializeAdmin = async () => {
     let allServices = await getServices();
-    if (props.location && props.location.state) {
-      let id = null;
-      if (props.isHospital) {
-        if (props.location.state.doctorid != null) {
-          id = props.location.state.doctorid;
-        }
-      } else if (props.location.state.id != null) {
-        id = props.location.state.id;
-      }
-
-      console.log(id);
+    if (
+      props.location &&
+      props.location.state &&
+      props.location.state.id != null
+    ) {
+      let id = props.location.state.id;
       setDoctorId(id);
-      await getDoctorById(id, allServices);
+      await getDoctorById(allServices);
+    }
+  };
+
+  const initializeHospital = async () => {
+    let allServices = await getServices();
+    if (
+      props.location &&
+      props.location.state &&
+      props.location.state.doctorid != null
+    ) {
+      let id = props.location.state.doctorid;
+      setDoctorId(id);
+      await getDoctorById(allServices);
     }
   };
 
@@ -73,18 +87,16 @@ const Createdoctor = (props) => {
     let allServices = await httpClient
       .GET("services/true", false, true)
       .then((resp) => {
-        console.log(resp);
         if (resp.data.status) {
           let data = resp.data.data;
           return data;
         }
       })
       .catch((err) => {
-        console.log("inside catch block");
+        notify.error(err.response.data.message || "Something went wrong");
         return [];
       });
 
-    console.log(allServices);
     let options = allServices.map((service, index) => {
       return {
         label: service.serviceName,
@@ -117,8 +129,6 @@ const Createdoctor = (props) => {
     try {
       let resp;
       if (props.isHospital) {
-        let hospitalId = localStorage.getItem("userid");
-        console.log(hospitalId);
         resp = await doctorApi.createHospitalDoctor(values);
       } else {
         resp = await doctorApi.createAdminDoctor(values);
@@ -138,43 +148,37 @@ const Createdoctor = (props) => {
     setLoading(false);
   };
 
-  const getDoctorById = async (id, allServices) => {
-    console.log(id);
-    let resp;
+  const getDoctorById = async (allServices) => {
+    // get doctor id
+    // let id = props.location.state.doctorid;
+    // if (id == null) return;
+    // setDoctorId(id);
     try {
+      let resp;
       if (props.isHospital) {
-        console.log("hospital doctor");
-        console.log(id);
-        resp = await doctorApi.getHospitalDoctorById(id);
+        resp = await doctorApi.getHospitalDoctorById(doctorId);
       } else {
-        console.log(id);
-        resp = await doctorApi.getAdminDoctorBYId(id);
+        resp = await doctorApi.getAdminDoctorBYId(doctorId);
       }
 
-      console.log(resp);
-      if (resp.data.status) {
+      if (resp.data && resp.data.status) {
         // get doctor services + basic details
         let responseData = resp.data.data;
         let data = responseData.basicDetails;
         let serviceData = responseData.services;
-        console.log(serviceData);
-        console.log(data);
+
+        let dayArr = data.availabledays.split(",");
 
         let selectedDays = [];
-        if (data.availabledays) {
-          let dayArr = data.availabledays.split(",");
-          console.log(dayArr);
-          days.forEach((day) => {
-            let foundDay = dayArr.filter((item) => {
-              return item == day.value;
-            });
-            if (foundDay.length > 0) {
-              selectedDays.push(day);
-            }
+        days.forEach((day) => {
+          let foundDay = dayArr.filter((item) => {
+            return item == day.value;
           });
-        }
+          if (foundDay.length > 0) {
+            selectedDays.push(day);
+          }
+        });
 
-        console.log(selectedDays);
         // get services details from service data
         let savedServices = [];
         allServices.forEach((service) => {
@@ -188,56 +192,35 @@ const Createdoctor = (props) => {
             });
           }
         });
-        console.log(savedServices);
-        console.log(data);
 
         if (data) {
-          let url = REACT_APP_BASE_URL + "doctor/download/" + id;
+          // change here
+          let url = REACT_APP_BASE_URL+"doctor/download/" + id;
           setImage(url);
           let docData = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            middleName: data.middleName,
+            email: data.email,
             prefix: data.prefix,
+            nmcNumber: data.nmcNo,
             specialist: data.specialist,
             description: data.description,
             mobileNumber: data.mobilenumber,
+            licensedDate: data.liscencedate,
             doctorServices: savedServices,
             serviceID: null,
           };
-          if (props.isHospital) {
-            docData = {
-              ...docData,
-              ...{
-                firstName: data.firstname,
-                lastName: data.lastname,
-                middleName: data.middlename,
-                availableDays: selectedDays,
-                startTime: data.starttime,
-                endTime: data.endtime,
-                nmcNumber: data.nmcno,
-                licensedDate: data.liscencedate,
-              },
-            };
-          } else {
-            docData = {
-              ...docData,
-              ...{
-                firstName: data.firstName,
-                lastName: data.lastName,
-                middleName: data.middleName,
-                nmcNumber: data.nmcNo,
-                licensedDate: data.liscenceDate,
-              },
-            };
-          }
-          console.log("dataa");
-          console.log(docData);
-          setDoctorData(docData);
+            if(props.isHopital){
+                docData =  {...docData,...{ availableDays: selectedDays,startTime: data.starttime,endTime: data.endtime,}}
+            }
+            setDoctorData(docData);
           setImgName(data.image);
         }
       }
     } catch (err) {
       if (err && err.response && err.response.data) {
         notify.error(err.response.data.message || "Something went wrong");
-      }
     }
   };
 
@@ -246,6 +229,8 @@ const Createdoctor = (props) => {
     try {
       let resp;
       if (props.isHospital) {
+        // console.log("is hospital doctor");
+        // console.log(doctorId);
         resp = await doctorApi.editHospitalDoctor(values, doctorId);
       } else {
         resp = await doctorApi.editAdminDoctor(values, doctorId);
@@ -313,7 +298,6 @@ const Createdoctor = (props) => {
   };
 
   const handleServiceChange = (item) => {
-    console.log(item);
     formik.setFieldValue("doctorServices", item);
   };
 
@@ -483,9 +467,9 @@ const Createdoctor = (props) => {
                   <div>{selectedImgName}</div>
                 </Col>
                 <Col md={2}>
-                  <span style={{ color: "red" }} onClick={removeImage}>
+                  <a style={{ color: "red" }} onClick={removeImage}>
                     x
-                  </span>
+                  </a>
                 </Col>
               </Row>
             </Col>
@@ -535,7 +519,7 @@ const Createdoctor = (props) => {
                   <Select
                     value={formik.values.availableDays}
                     isMulti
-                    options={DAYS}
+                    options={days}
                     name="availableDays"
                     onChange={handleChooseDays}
                   ></Select>
@@ -667,6 +651,8 @@ const Createdoctor = (props) => {
       </Container>
     </div>
   );
+};
+
 };
 
 export default Createdoctor;

@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom"
 import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
-import "./nav.component.css"
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import CoPresentRounded from "@mui/icons-material/CoPresentRounded";
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
@@ -9,6 +7,7 @@ import VaccinesRoundedIcon from '@mui/icons-material/VaccinesRounded';
 import WysiwygRoundedIcon from '@mui/icons-material/WysiwygRounded';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
+import "./nav.component.css"
 
 const Adminsidebar = (props) => {
   console.log("props in admin sidebar", props)
