@@ -93,6 +93,9 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/admin">
                 <li className="nav-item"><a className="nav-link" href="">Admin</a></li>
                 </Link>
+                <Link to="/dashboard/permission">
+                <li className="nav-item"><a className="nav-link" href="">Permission</a></li>
+                </Link>
               </ul>
             </div>
           </li>
