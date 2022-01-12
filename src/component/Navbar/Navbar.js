@@ -85,7 +85,7 @@ const NavbarContainer = styled.div``;
 
 const Navbar = (props) => {
   let history = useHistory();
-  console.log("props are",props)
+  console.log("props are", props)
   let [isuserloggedin, setisuserloggedin] = useState(null)
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -110,7 +110,7 @@ const Navbar = (props) => {
       setisuserloggedin(isuserlogged)
     }
   })
-  const handlelogout=()=>{
+  const handlelogout = () => {
 
   }
   const Logout = (e) => {
@@ -172,7 +172,7 @@ const Navbar = (props) => {
                     Dashboard
                   </div>
                 </Link>
-                <div style={{color:"blue",cursor:"pointer"}} onClick={Logout}>
+                <div style={{ color: "blue", cursor: "pointer" }} onClick={Logout}>
                   {" "}
                   <img
                     src={login}
@@ -216,19 +216,19 @@ const Navbar = (props) => {
                 </Link>
               </>
           }
- {
-              logoutstate.logout ? <div className="logout-container">
-                <div className="logout">
-                  <p>Are you sure you want to Logout?</p>
-                  <div className="buttons">
-                    <button className="yes-logout" onClick={logoutyes}>Yes</button>
-                    <button className="no-logout" onClick={logoutno}>No</button>
-                  </div>
+          {
+            logoutstate.logout ? <div className="logout-container">
+              <div className="logout">
+                <p>Are you sure you want to Logout?</p>
+                <div className="buttons">
+                  <button className="yes-logout" onClick={logoutyes}>Yes</button>
+                  <button className="no-logout" onClick={logoutno}>No</button>
                 </div>
               </div>
-                :
-                null
-            }
+            </div>
+              :
+              null
+          }
         </div>
       </Heading>
       <NavbarMenuItems />

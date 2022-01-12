@@ -4,10 +4,11 @@ import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import Cliploader from "../../../../utils/clipLoader";
 import Tableicons from '../../../../utils/materialicons';
 import MaterialTable from 'material-table';
-import { httpClient } from '../../../../utils/httpClient';
 import { notify } from "../../../../services/notify";
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import Edit from '@material-ui/icons/Edit';
+import UserManagementApi from "./userManageService";
+import { httpClient } from '../../../../utils/httpClient';
 
 const Role = (props) => {
     const [loading, setLoading] = useState(false)
@@ -21,16 +22,20 @@ const Role = (props) => {
     })
 
     const getAllRoles = async () => {
-        await httpClient.GET("role/get-all", false, true)
-            .then(resp => {
-                if (resp.data.status) {
-                    let result = resp.data.data;
-                    setAllRole(result)
-                }
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        setLoading(true)
+        try {
+            let resp = await UserManagementApi.getRole();
+            if (resp.data.status) {
+                let result = resp.data.data;
+                setAllRole(result)
+            }
+        }
+        catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+              }
+        }
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -42,9 +47,9 @@ const Role = (props) => {
         enableReinitialize: true,
         initialValues: roleData,
         onSubmit: (values) => {
-            if(roleID){
+            if (roleID) {
                 editRoleData(values)
-            }else{
+            } else {
                 createRole(values)
             }
         },
@@ -57,7 +62,6 @@ const Role = (props) => {
             if (!values.description) {
                 errors.description = 'Required!'
             }
-            console.log(errors)
             return errors;
         },
 
@@ -89,18 +93,18 @@ const Role = (props) => {
         }
     }
 
-    const setEditRoleData=(e,data)=>{
+    const setEditRoleData = (e, data) => {
         console.log(data)
         setRoleID(data.id);
         setRoleData({
-            name : data.name,
-            description : data.description
+            name: data.name,
+            description: data.description
         })
         window.scrollTo(0, 0)
 
     }
 
-    const editRoleData=(values)=>{
+    const editRoleData = (values) => {
         setLoading(true)
         try {
             let data = {
@@ -108,14 +112,14 @@ const Role = (props) => {
                 roleDescription: values.description
             }
             console.log(data)
-            httpClient.PUT("role/update/"+roleID, data, false, true)
+            httpClient.PUT("role/update/" + roleID, data, false, true)
                 .then(resp => {
                     console.log(resp)
                     notify.success(resp.data.message)
                     formik.resetForm();
                     setRoleData({
-                        name : "",
-                        description : "",
+                        name: "",
+                        description: "",
                     })
                     getAllRoles()
                     setLoading(false)
@@ -132,11 +136,11 @@ const Role = (props) => {
         }
     }
 
-    const handleCancelEdit=()=>{
+    const handleCancelEdit = () => {
         setRoleID(null);
         setRoleData({
-            name : "",
-            description : "",
+            name: "",
+            description: "",
         })
     }
     return (
@@ -207,7 +211,7 @@ const Role = (props) => {
                     icons={Tableicons}
                     data={allRoles}
                     columns={[
-                        { title : 'ID' , field : 'id'},
+                        { title: 'ID', field: 'id' },
                         { title: 'Name', field: 'name' },
                         { title: 'Description', field: 'description' },
 

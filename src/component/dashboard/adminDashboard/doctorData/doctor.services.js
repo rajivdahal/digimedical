@@ -106,7 +106,6 @@ const doctorApi = {
   },
 
   editHospitalDoctor: (values, id) => {
-    console.log("hospital doctor edit");
     let selectedId = [];
     values.doctorServices.forEach((service, index) => {
       selectedId.push(service.value);
@@ -135,7 +134,7 @@ const doctorApi = {
     formData.append("endTime", values.endTime);
     formData.append("serviceId", selectedId);
     return httpClient.PUT(
-      "doctor/update/" + id,
+      "doctor/hospital/update/" + id,
       formData,
       false,
       true,
