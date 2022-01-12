@@ -16,7 +16,7 @@ export default function Hospitalshome() {
             <h1>B.P Koirala Institute of Health Science</h1>
             <p2>Dharan, Nepal</p2>
 
-            <button id="hosp_card_but">Book an appointment</button>
+            <button id="hosp_card_but_hom">Book an appointment</button>
           </div>
         </div>
 
@@ -26,7 +26,7 @@ export default function Hospitalshome() {
             <h1>B.P Koirala Institute of Health Science</h1>
             <p2>Dharan, Nepal</p2>
 
-            <button id="hosp_card_but">Book an appointment</button>
+            <button id="hosp_card_but_hom">Book an appointment</button>
           </div>
         </div>
         <div className="hospital_book_card1">
@@ -35,7 +35,7 @@ export default function Hospitalshome() {
             <h1>B.P Koirala Institute of Health Science</h1>
             <p2>Dharan, Nepal</p2>
 
-            <button id="hosp_card_but">Book an appointment</button>
+            <button id="hosp_card_but_hom">Book an appointment</button>
           </div>
         </div>
         <div className="hospital_book_card1">
@@ -44,14 +44,14 @@ export default function Hospitalshome() {
             <h1>B.P Koirala Institute of Health Science</h1>
             <p2>Dharan, Nepal</p2>
 
-            <button id="hosp_card_but">Book an appointment</button>
+            <button id="hosp_card_but_hom">Book an appointment</button>
           </div>
         </div>
       </div>
       <div className="view_hosp_home">
         <a href="" className="link_hosp_home">
           <p id="arrow_hosp_hom">View All</p>
-          <p>&#8594; </p>
+          <p>&nbsp; &#8594; </p>
         </a>
       </div>
     </div>

@@ -40,6 +40,20 @@ const Root = styled.div`
       width: 30%;
       position: relative;
       transition: all 5s ease-in-out;
+
+      .close_vid {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+      }
+      .close_vid:hover {
+        color: #06d85f;
+      }
     }
   }
   .popup_vid_aboutmission:target {
@@ -218,6 +232,9 @@ const OurMission = () => {
         <div className="hello_video">
           {" "}
           <h1>Hello From Youtube</h1>
+          <a class="close_vid" href="#">
+            &times;
+          </a>
         </div>
       </div>
       <ContentContainor>
