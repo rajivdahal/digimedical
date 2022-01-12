@@ -50,19 +50,19 @@ const validateDoctor = ( values, isEdit = false,isHospital=false ) => {
         errors.licensedDate = 'Required!'
     }
 
-    if(!isHospital){
-        if (!values.availableDays) {
-            errors.availableDays = 'Required!'
-        }
+    // if(!isHospital){
+    //     if (!values.availableDays) {
+    //         errors.availableDays = 'Required!'
+    //     }
     
-        if (!values.startTime) {
-            errors.startTime = 'Required!'
-        }
+    //     if (!values.startTime) {
+    //         errors.startTime = 'Required!'
+    //     }
     
-        if (!values.endTime) {
-            errors.endTime = 'Required!'
-        }
-    }
+    //     if (!values.endTime) {
+    //         errors.endTime = 'Required!'
+    //     }
+    // }
 
     if(!isEdit){
         if (!values.email) {

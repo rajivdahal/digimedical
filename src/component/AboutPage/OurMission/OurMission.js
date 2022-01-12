@@ -35,21 +35,23 @@ const Root = styled.div`
     .hello_video {
       margin: 70px auto;
       padding: 20px;
-      background: #fff;
+    // background: #fff;
       border-radius: 5px;
       width: 30%;
+      height:20rem;
       position: relative;
       transition: all 5s ease-in-out;
-
+    
+    
       .close_vid {
         position: absolute;
-        top: 20px;
-        right: 30px;
+        top:  -40px;
+        right: -120px;
         transition: all 200ms;
-        font-size: 30px;
+        font-size: 60px;
         font-weight: bold;
         text-decoration: none;
-        color: #333;
+        color: #fff;
       }
       .close_vid:hover {
         color: #06d85f;
@@ -86,6 +88,9 @@ const ImageContainor = styled.div`
 
     .video_img_abt {
       border-radius: 10px;
+    }
+    .yt-video{
+      border-radius:10px
     }
 
     .play_but_vid_abt {
@@ -214,24 +219,26 @@ const OurMission = () => {
         </div>
         <div className="doc_video_play">
           {" "}
-          <img
-            src={imagevideoAbout}
-            className="video_img_abt"
-            style={{ width: "250px" }}
-          ></img>
-          <div className="play_but_vid_abt">
-            <a href="#popup_vid_aboutmission">
-              <div class="player">
-                <span></span>
-              </div>
-            </a>
-          </div>
+          <iframe
+            width="300"
+            height="200"
+            src="https://www.youtube.com/embed/bFGbnjxNvBk"
+            title="Digimedical"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            className="yt-video"
+          ></iframe>
         </div>
       </ImageContainor>
       <div id="popup_vid_aboutmission" className="popup_vid_aboutmission">
         <div className="hello_video">
           {" "}
-          <h1>Hello From Youtube</h1>
+          {/* <iframe width="560" height="315" src="https://www.youtube.com/embed/bFGbnjxNvBk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
           <a class="close_vid" href="#">
             &times;
           </a>

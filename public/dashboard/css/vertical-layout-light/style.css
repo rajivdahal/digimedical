@@ -15916,6 +15916,7 @@ button.bg-dark:focus,
 
 .d-none, .navbar .navbar-menu-wrapper .navbar-nav.navbar-nav-right .nav-item.nav-settings {
   display: none !important;
+
 }
 
 .d-inline {
@@ -28873,7 +28874,7 @@ div.tagsinput span.tag a {
   padding-right: 2.375rem;
   padding-left: 2.375rem;
   width: calc(100% - 235px);
-  height: 60px;
+  height: 70px;
 }
 
 @media (max-width: 991px) {

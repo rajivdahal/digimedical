@@ -3,7 +3,6 @@ import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import package_logo from "../../assets/hospital.png";
 import { Link } from "react-router-dom";
-import Search from "./Search/Search";
 import "./NavbarMenuItems.css";
 const Root = styled.div`
   // background-color: #2745F0;
@@ -135,6 +134,16 @@ const NavbarMenuItems = () => {
               Lab Test{" "}
             </Link>
           </span>
+
+          <span className="menu-item">
+            <Link
+              to="/hospitals"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Hospital{" "}
+            </Link>
+          </span>
+
           <div className="menu-item_nav">
             <button className="dropbtn">Health Packages</button>
             <div className="dropdown_hp_content">

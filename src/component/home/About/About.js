@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../../../assets/about.png";
+import { Link } from "react-router-dom";
 const AboutUsContainer = styled.div`
   margin-top: 8rem;
   padding-left: 140px;
@@ -100,7 +101,7 @@ const WhaiIsDegimediacal = () => {
               uphold human values.
             </p>
           </DescriptionContainer>
-          <Button type="button">Read More</Button>
+        <Link to="/about"><Button type="button">Read More</Button></Link>  
         </RightContainer>
       </AboutUsContainer>
     </>

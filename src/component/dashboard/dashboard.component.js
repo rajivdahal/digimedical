@@ -48,6 +48,7 @@ import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor"
 import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor"
 import Viewcorporateappointment from "./corporatedashboard/corporateappointments/corporateviewappointment/corporateviewappointment.component"
 import HospitalAppointment from "./hospitaldashboard/appointmentPage/appointment.component"
+import Permission from "./adminDashboard/userManagement/permission.component"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -130,6 +131,8 @@ const Dashboard = (props) => {
                                                       <ProtectedRoute component={Hospital} />
                                                       : props.location.pathname === "/dashboard/corporate" ?
                                                         <ProtectedRoute component={CorporatePage} />
+                                                        : props.location.pathname === "/dashboard/permission" ?
+                                                        <ProtectedRoute component={Permission} />
                                                         : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </div>
