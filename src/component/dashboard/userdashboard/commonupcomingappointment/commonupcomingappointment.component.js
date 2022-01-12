@@ -115,8 +115,6 @@ export const Commonupcomingappointment = (props) => {
         }
     ]
     const handleEdit = (e, data) => {
-        console.log("e is", e)
-        console.log("data is", data)
         props.fromcorporatecomponent?
         history.push({
             pathname: "/dashboard/corporate/bookappointment",
@@ -159,7 +157,6 @@ export const Commonupcomingappointment = (props) => {
                         httpcall(`get-user-pending-appointments`)
                     }
                 })
-
         }
     }
     const handleAddAppointment = () => {
@@ -224,7 +221,6 @@ export const Commonupcomingappointment = (props) => {
                     ></MaterialTable>
             }
             <Prescribe showModal={showPrescriptionModal} handlecancel={() => fademodel()} patient={patient} props={props.props ? props.props.history : null}></Prescribe>
-
             <Showmodal showModal={showModal} handlecancel={() => handlecancel()} deleteindeed={() => deleteindeed()}></Showmodal>
         </>
     )

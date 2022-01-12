@@ -23,14 +23,13 @@ export const Cancelledappointment = (props) => {
         httpClient.GET(url, false, true)
         .then(resp => {
             console.log("inside then",resp.data)
-
             let data = resp.data.data
             data = data.map((item, index) => {
-                item.appointmentDate = formatDate(item.appointmentdate.slice(0, 10))
-                item.appointmentTime = item.appointmenttime.slice(0, 5)
+                item.appointmentDate = formatDate(item.appointmentdate?item.appointmentdate.slice(0, 10):item.appointmentDate.slice(0, 10))
+                item.appointmentTime = item.appointmenttime?item.appointmenttime.slice(0, 5):item.appointmentTime.slice(0, 5)
                 return item
             })
-            console.log(data)
+            console.log(data)   
             setpendingData(resp.data.data)
             setisloading(false)
         })

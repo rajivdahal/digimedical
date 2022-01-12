@@ -19,7 +19,6 @@ export default function Internalappointmentbook(prop) {
     const [doctorname, setdoctorname] = useState(null)
     const [service, setservicename] = useState(null)
     const [corporatememberemail, setcorporatememberemail] = useState([])
-
     const [toeditdata, settoeditdata] = useState(editdata)
     const [isdoctorblurred, setisdoctorblurred] = useState(false);
     const [value, onChange] = useState('12:00');
@@ -64,7 +63,6 @@ export default function Internalappointmentbook(prop) {
                     notify.error("Something went wrong")
                 })
         }
-
     }, [])
     const formik = useFormik({
         initialValues: {
@@ -90,13 +88,7 @@ export default function Internalappointmentbook(prop) {
             }
             return errors
         },
-        onSubmit: values => {
-            console.log("inside submit", values)
-            if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
-                return callapi('create-appointment/corporate', values)
-            }
-            callapi('create-appointment', values)
-        }
+
     })
     const handleChange = (e) => {
         let { name, value } = e.target
@@ -111,7 +103,7 @@ export default function Internalappointmentbook(prop) {
     }
     const handleeditchange = (e) => {
         let { name, value } = e.target
-
+        console.log("name and values are", name, value, "to edit data is", toeditdata)
         if (name === "servicesId") {
             httpClient.GET(`services/get-name/${value}`)
                 .then(resp => {
@@ -129,7 +121,6 @@ export default function Internalappointmentbook(prop) {
                 })
         }
         if (name === "doctorId") {
-
             httpClient.GET(`doctor/doctor-name/${value}`)
                 .then(resp => {
                     let doctorname = resp.data.data.name
@@ -145,30 +136,43 @@ export default function Internalappointmentbook(prop) {
                     notify.error("something went wrong")
                 })
         }
-
         settoeditdata(prevvalue => {
             return {
                 ...prevvalue,
                 [name]: value
             }
         })
+        setTimeout(() => {
+            console.log("data changed", editdata)
+        }, 2000);
 
     }
     useEffect(() => {
         console.log(toeditdata)
     }, [toeditdata])
     const handlesubmit = (e) => {
+        e.preventDefault()
         if (toeditdata) {
-            httpClient.PUT(`update-appointment/${toeditdata.appointmentId}`, toeditdata, false, true)
+            let finaldata = {}
+            finaldata['servicesId'] = toeditdata['serviceid']
+            finaldata['appointmentTime'] = toeditdata['appointmenttime']
+            finaldata['doctorId'] = toeditdata['doctorid']
+            finaldata['appointmentDate'] = toeditdata['appointmentdate']
+            // finaldata['appointmentId']=toeditdata['appointmentid']
+            console.log("to edit data are>>>>", finaldata, toeditdata)
+            return httpClient.PUT(`update-appointment/${toeditdata.appointmentid}`, finaldata, false, true)
                 .then(resp => {
                     notify.success("Appointment updated successfully")
-                    prop.history.push("/dashboard/viewappointment")
+                    prop.location.pathname == "/dashboard/corporate/bookappointment" ? prop.history.push("/dashboard/corporate/viewappointment") : prop.history.push("/dashboard/viewappointment")
                 })
                 .catch(err => {
                     notify.error("Error in updating the appointment")
                 })
         }
-
+        if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
+            return callapi('create-appointment/corporate', formik.values)
+        }
+        callapi('create-appointment', formik.values)
 
     }
     const getdoctorinfo = (e) => {
@@ -203,20 +207,19 @@ export default function Internalappointmentbook(prop) {
         setisdoctorblurred(false);
     };
     let formcontent = toeditdata ?
-
         <div>
             {
                 prop.location.pathname == "/dashboard/corporate/bookappointment" ?
                     <div className="form-row">
                         <label htmlFor="service">Select Member</label>
-                        <select id="email" name="email" className="form-control" 
+                        <select id="email" name="email" className="form-control"
                             onChange={(e) => {
                                 formik.handleChange(e)
                             }}
-                          disabled 
+                            disabled
                         >
-                            
-                           <option>{toeditdata.patientsname}</option>
+
+                            <option>{toeditdata.patientsname}</option>
                         </select>
                         {/* <h4>{toeditdata.patientsname}</h4> */}
                         {/* {formik.errors.email && formik.touched.email ? <div style={{ color: "red" }} className="errmsg">{formik.errors.email}  </div> : null} */}
@@ -225,19 +228,14 @@ export default function Internalappointmentbook(prop) {
             <div className="form-row">
                 <div className="form-group col-md-6">
                     <label htmlFor="service">Select Service</label>
-                    <select name="servicesId" className="form-control" style={{ color: "black" }}
+                    <select name="servicesId" className="form-control"
                         onChange={(e) => {
                             handleChange(e)
                         }}
+                        disabled
                     >
-                        <option value={null}></option>
-                        {
-                            services.map((item, index) => {
-                                return <option key={index} value={item.id}>{item.serviceName}</option>
-                            })
-                        }
+                        <option >{toeditdata.servicename}</option>
                     </select>
-                    <h4>{toeditdata.servicename ? toeditdata.servicename : service}</h4>
 
                 </div>
                 <div className="form-group col-md-6">
@@ -246,19 +244,11 @@ export default function Internalappointmentbook(prop) {
                         onChange={(e) => {
                             handleeditchange(e)
                         }}
+                        disabled
                     >
-                        <option value={null}></option>
-                        {
-                            doctors.map((item, index) => {
-                                if (item.name) {
-                                    return <option key={index} value={item.id}>{item.name}</option>
-                                }
-                            })
-                        }
-                    </select>
-                    <h4>{toeditdata.doctorsname ? toeditdata.doctorsname : doctorname}</h4>
-                    {/* <h4>{!doctorname && toeditdata.doctorsName ?toeditdata.doctorsName:doctorname}</h4> */}
+                        <option >{toeditdata.doctorsname}</option>
 
+                    </select>
                 </div>
             </div>
             <div className="form-row">
@@ -267,8 +257,8 @@ export default function Internalappointmentbook(prop) {
                     <input
                         type="date"
                         className="form-control"
-                        id="appointmentDate"
-                        name="appointmentDate"
+                        id="appointmentdate"
+                        name="appointmentdate"
                         placeholder="dd/mm/yyyy"
                         min={Todaydate()}
                         onChange={(e) => {
@@ -279,7 +269,7 @@ export default function Internalappointmentbook(prop) {
                 </div>
                 <div className="form-group col-md-12">
                     <label htmlFor="time">Time</label>
-                    <input type="time" placeholder="select time" id="appointmentTime" name="appointmentTime" className="form-control"
+                    <input type="time" placeholder="select time" id="appointmenttime" name="appointmenttime" className="form-control"
                         onChange={(e) => {
                             handleeditchange(e)
                         }}
@@ -373,14 +363,13 @@ export default function Internalappointmentbook(prop) {
                         />
                     </div>
                     {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
-
                 </div>
             </div>
         </div>
     return (
         <>
             <div className="marginadj">
-                <form onSubmit={formik.handleSubmit} className="form-width-adjust">
+                <form className="form-width-adjust">
                     {formcontent}
                     <div className="col-md-12 col-sm-12 col-xs-12 ">
                         <button type="submit" className="btn btn-primary btn-block" onClick={handlesubmit}>
