@@ -1,6 +1,12 @@
-.logoimg{
-   margin: 0px !important;
-   height: 60px !important;
-   width: 300px !important;
-   margin-right: 10px;
+.logoimg {
+  margin: 0px !important;
+  height: 60px !important;
+  width: 300px !important;
+  margin-right: 10px;
+}
+
+.db_navbar {
+  display: flex;
+  background-color: blue;
+  height: 60px;
 }

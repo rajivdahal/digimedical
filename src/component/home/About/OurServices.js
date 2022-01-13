@@ -15,6 +15,28 @@ const OurServiceContainer = styled.div`
     padding-left: 2rem;
     padding-right: 2rem;
   }
+
+
+    .view_serv_home {
+      display: flex;
+      margin-left: 70rem;
+      .link_serv_home:hover {
+        text-decoration: none;
+      }
+    
+      .link_serv_home{
+        display:flex;
+      }
+    }
+    .view_serv_home p {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 25px;
+      border: 1px solid white;
+      color: #2745f0;
+    }
+
+  }
 `;
 
 const HeadingContainer = styled.div`
@@ -128,9 +150,13 @@ const OurServices = () => {
             );
           })}
         </ServiceContainer>
-        <View>
-          ViewAll <AiOutlineArrowRight className="arrow" />
-        </View>
+
+        <div className="view_serv_home">
+          <Link to="/services" className="link_serv_home">
+            <p id="arrow_hosp_hom">View All</p>
+            <p id="arrow_hosp_hom1">&nbsp; &#8594; </p>
+          </Link>
+        </div>
       </OurServiceContainer>
     </div>
   );
