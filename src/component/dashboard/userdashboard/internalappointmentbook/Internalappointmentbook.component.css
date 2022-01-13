@@ -20,7 +20,7 @@
     display: flex;
 }
 .form-width-adjust{
-    width: 80%;
+    width: 100%;
 
 }
 .errmsg{
@@ -30,8 +30,10 @@
 .bookappimage{
     height: 400px;
     width: 400px;
-    margin-left: 100px;
+    margin-left: 30rem;
     margin-top: 100px;
+    position: absolute;
+    z-index: -10;
 }
 .bubbble {
     position: relative;

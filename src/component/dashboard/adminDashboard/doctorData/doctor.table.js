@@ -101,7 +101,7 @@ const DoctorTable = (props) => {
               { title: "ID", field: "doctorid" },
               { title: "Prefix", field: "prefix" },
               { title: "Name", field: "doctorname" },
-              { title: "Service Name", field: "servicename" },
+              { title: "Service Name", field: "service" },
               { title: "Specialist", field: "specialist" },
               { title: "Mobile Number", field: "mobilenumber" },
               {

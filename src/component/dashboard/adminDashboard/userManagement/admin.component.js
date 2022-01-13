@@ -18,7 +18,7 @@ import MaterialTable from "material-table";
 import Tableicons from "../../../../utils/materialicons";
 import { Edit, Clear } from "@material-ui/icons";
 import Avatar from "../../../../assets/avatars.png";
-import  "./admin.component.css"
+import "./admin.component.css";
 const CreateAdmin = (props) => {
   const imageSelectRef = useRef();
   const [showModal, setShowModal] = useState(false);
@@ -298,7 +298,9 @@ const CreateAdmin = (props) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.middleName && formik.errors.middleName ? (
-                  <div className="error-message">{formik.errors.middleName}</div>
+                  <div className="error-message">
+                    {formik.errors.middleName}
+                  </div>
                 ) : null}
               </Form.Group>
             </Col>
@@ -318,11 +320,10 @@ const CreateAdmin = (props) => {
                 ) : null}
               </Form.Group>
             </Col>
-
           </Row>
 
           <Row>
-          <Col md={4}>
+            <Col md={4}>
               <Form.Group>
                 <Form.Label>Date Of Birth</Form.Label>
                 <Form.Control
@@ -366,38 +367,9 @@ const CreateAdmin = (props) => {
                 ) : null}
               </Form.Group>
             </Col>
-            </Row>
-            <Row>
-            <Col md={4}>
-              <Form.Label>Choose Photo </Form.Label>
-              <Button variant="info" onClick={handleAddImage}>
-                Browse
-              </Button>
-              <input
-                onChange={(e) => handleChangeImage(e)}
-                type="file"
-                name="adminImage"
-                style={{ display: "none" }}
-                ref={imageSelectRef}
-                accept="image/png, image/jpg, image/jpeg"
-              ></input>
-            </Col>
-
-            <Col md={4}>
-              <Image
-                src={selectedImage ? selectedImage : Avatar}
-                fluid
-                className="image ml-3"
-                roundedCircle
-              ></Image>
-            </Col>
-            <Col md={2}>
-                <span style={{ color: 'red' }} className="removeBtn" onClick={removeImage}>x</span>
-
-            </Col>
           </Row>
 
-          <Row className="mb-3">
+          <Row>
             <Col md={12}>
               {adminId ? (
                 <></>
@@ -461,6 +433,35 @@ const CreateAdmin = (props) => {
             </Col>
           </Row>
 
+          <Row>
+            <Col md={4}>
+              <Form.Label>Choose Photo </Form.Label>
+              <Button variant="info" onClick={handleAddImage}>
+                Browse
+              </Button>
+              <input
+                onChange={(e) => handleChangeImage(e)}
+                type="file"
+                name="adminImage"
+                style={{ display: "none" }}
+                ref={imageSelectRef}
+                accept="image/png, image/jpg, image/jpeg"
+              ></input>
+            </Col>
+
+            <Col md={4}>
+              <Image
+                src={selectedImage}
+                fluid
+                className="image ml-3"
+                roundedCircle
+              ></Image>
+            </Col>
+            <Col md={2}>
+                <span style={{ color: 'red' }} className="removeBtn" onClick={removeImage}>x</span>
+
+            </Col>
+          </Row>
           <div className="textAlign-right  mb-5">
             {loading == true ? (
               <Cliploader isLoading={loading} />

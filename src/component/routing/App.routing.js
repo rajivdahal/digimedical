@@ -12,10 +12,10 @@ import { Changepassword } from "../common/forgotpassword/changepassword/changepa
 import AboutPage from "../AboutPage/AboutPage";
 import Service from "../Service/Service";
 import ContactUs from "../Contact/ContactUs";
-import DoctorAtHome from "../DoctorAtHome/DoctorAtHome";
 import HomeLabtest from "../home/Labtest/labtest";
 import Hospitalbooking from "../home/Hospital Booking/hospital.booking.component";
 import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component";
+import OurServices from "../DoctorAtHome/DoctorAtHome";
 
 export const Approuting = (props) => {
   return (
@@ -29,8 +29,8 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/contact" component={ContactUs}></PublicRoute>
         <PublicRoute
           exact
-          path="/doctor-at-home"
-          component={DoctorAtHome}
+          path="/our-services/:subservice"
+          component={OurServices}
         ></PublicRoute>
         <PublicRoute
           exact
@@ -120,6 +120,11 @@ export const Approuting = (props) => {
         <ProtectedRoute
           exact
           path="/dashboard/view-lab-test"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/add-member"
           component={Dashboard}
         ></ProtectedRoute>
         {/* <ProtectedRoute
@@ -234,7 +239,7 @@ export const Approuting = (props) => {
           path="/dashboard/hospital-doctor"
           component={Dashboard}
         ></ProtectedRoute>
-           <ProtectedRoute
+        <ProtectedRoute
           exact
           path="/dashboard/hospital-appointment"
           component={Dashboard}
