@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import "./whatisdoctorAtHomeService.css";
+import { Mapper } from "./utilsFile";
 
 const Root = styled.div`
   padding-left: 9rem;
@@ -37,24 +38,28 @@ const Details = styled.div`
   box-sizing: border-box;
 `;
 
-const whatisdoctorAtHomeService = () => {
+const whatisdoctorAtHomeService = (props) => {
+  const heading = props.heading
+  const params = props.params
+  const description = Mapper(params)
   return (
     <Root>
       <ContentContainor>
-        <Heading>What is Doctor at home service?</Heading>
+        <Heading>What is {
+          heading.length ? heading.map((item) => {
+            return <span>{` ${item + '\xa0'}`}</span>
+          }) : null
+        } service?</Heading>
         <Details>
-          Consulting doctors at the hospital could be a tiresome task involving
-          depending on the hospitals for general consultations and regular
-          health check-ups. Through doctor at home service you could get proper
-          attention from the doctor and personalized treatment and help you
-          throughout your recovery process,avoid longer waiting periods in
-          hospital and reduce the need for travel.Furthermore, you will be
-          treated in the comfort of your home, surrounded by your family
-          members.The doctor home visit service can be a great convenience for
-          all. egestas.
+          {description}
+
         </Details>
 
-        <Heading>Doctor at Home Details or Features </Heading>
+        <Heading>{
+          heading.length ? heading.map((item) => {
+            return <span>{` ${item + '\xa0'}`}</span>
+          }) : null
+        }  Details or Features </Heading>
         <Details>
           You don't have to leave the home, though the doctor will come to your
           home and assess, diagnose and treat you depending on the condition of

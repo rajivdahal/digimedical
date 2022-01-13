@@ -240,7 +240,7 @@ const NavbarMenuItems = () => {
               </div>
             </div>
           </div>
-          <div className="menu-item_nav">
+          {/* <div className="menu-item_nav">
             <button className="dropbtn">Special Packages</button>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
@@ -335,7 +335,7 @@ const NavbarMenuItems = () => {
                 </a>
               </div>
             </div>
-          </div>{" "}
+          </div>{" "} */}
           <span className="menu-item">
             <Link
               to="/contact"

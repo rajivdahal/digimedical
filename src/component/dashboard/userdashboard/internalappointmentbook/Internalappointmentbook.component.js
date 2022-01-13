@@ -194,8 +194,7 @@ export default function Internalappointmentbook(prop) {
         notify.success("Appointment booked successfully")
 
     }
-    const getdoctorinfo = (e) => {
-        let doctorid = e.target.value;
+    const getdoctorinfo = (doctorid) => {
         if (!doctorid) {
             return setisdoctorblurred(false);
         }
@@ -227,7 +226,7 @@ export default function Internalappointmentbook(prop) {
     };
     const handleDoctorChange = (doctor) => {
         formik.setFieldValue("doctorId", doctor.value);
-
+        getdoctorinfo(doctor.value)
     }
     let formcontent = toeditdata ?
         <div>

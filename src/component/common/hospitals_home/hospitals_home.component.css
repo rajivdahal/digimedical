@@ -1,7 +1,7 @@
 .hosp_hom_cont {
-  margin-top: 80px;
+  padding-top: 80px;
   width: 80%;
-  margin-left: 10%;
+  margin: auto;
 }
 
 .hosp_hom_head {
@@ -22,6 +22,10 @@
   color: #596579;
 }
 
+/* view all button css here */
+.link_hosp_home:hover {
+  text-decoration: none;
+}
 .view_hosp_home {
   margin-top: 40px;
   display: flex;
@@ -29,25 +33,19 @@
   justify-content: center;
 }
 
-.link_hosp_home {
-  display: flex;
-}
-
-.link_hosp_home p {
+.view_hosp_home p {
   font-weight: 500;
   font-size: 16px;
   line-height: 25px;
   border: 1px solid white;
   color: #2745f0;
 }
-.link_hosp_home:hover {
-  text-decoration: none;
-}
 
-.link_hosp_home:hover #arrow_hosp_hom {
+.view_hosp_home:hover #arrow_hosp_hom {
   border-bottom: 1px solid;
 }
 
+/* get appointment button on hospital homepage */
 #hosp_card_but_hom {
   width: 200px;
   height: 40px;
@@ -68,9 +66,9 @@
   color: white;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1300px) {
   .hospital_card_text #hosp_card_but_hom {
-    width: 80%;
+    width: fit-content;
     margin: auto;
   }
 }

@@ -108,6 +108,8 @@ const AboutPage = () => {
       <CoreValues />
       <OurMission />
       <TheyTrustedUs />
+
+      {/* here is about teams html */}
       <div className="about_teams">
         <div className="head_about_teams">
           {" "}

@@ -3,19 +3,22 @@
   display: flex;
   justify-content: space-between;
 }
+
+.logcontainer_nav {
+  display: flex;
+}
 .logcontainer_nav img {
   margin-left: 130px;
 }
 .menu {
-  position: relative;
-  left: 350px;
-  top: -40px;
+  margin-left: 5rem;
+  margin-top: 1rem;
   color: white;
   display: flex;
 }
 .menu .menu-item {
   height: 20px;
-  margin-left: 30px;
+  margin-left: 40px;
 }
 .menu-item:hover {
   border-bottom: 1px solid white;
@@ -26,7 +29,7 @@
 .menu-item_nav {
   margin-top: -16px;
   height: 60px;
-  margin-left: 30px;
+  margin-left: 40px;
 }
 .dropbtn {
   margin-top: 15px;
@@ -190,7 +193,7 @@ p {
   background-color: #2745f0;
   color: white;
   transform-origin: 0 0;
-  transform: translateX(-21rem);
+  transform: translateX(-23rem);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   pointer-events: all;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.75);
