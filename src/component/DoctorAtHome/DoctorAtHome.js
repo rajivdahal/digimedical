@@ -10,6 +10,7 @@ import FrequentlyAsked from "../FrequentlyAsked/FrequentlyAsked";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
@@ -80,12 +81,24 @@ const Heading = styled.div`
   }
 `;
 
+
+
 const FormContainor = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
 `;
 
-const doctorAtHome = () => {
+const Ourservices = (props) => {
+  let [heading, setHeading] = useState([])
+  useEffect(() => {
+    const paramsValue = props.match.params.subservice.split("-")
+    let title = paramsValue.map((item,index) => {
+      return item[0].toUpperCase() + item.substring(1)
+    })
+    console.log("title is", title)
+    setHeading(title)
+  }, [])
+
   return (
     <>
       <Navbar />
@@ -102,24 +115,34 @@ const doctorAtHome = () => {
           <span className="arrow">
             <MdOutlineKeyboardArrowRight />
           </span>
-         <Link to="/services"> <span className="service"> Service </span></Link>
+          <Link to="/services"> <span className="service"> Service </span></Link>
           <span className="arrow">
             <MdOutlineKeyboardArrowRight />
           </span>
-          <span className="doctorAtHome"> Doctor at Home</span>
+          {
+            heading.length ? heading.map((item) => {
+              return <span>{item+'\xa0'}</span>
+            }) : null
+          }
+          {/* <span className="doctorAtHome"> Doctor at Home</span> */}
         </Navigate>
-        <Heading>Doctor at home</Heading>
+
+        <Heading>{
+          heading.length ? heading.map((item) => {
+            return <span>{` ${item+'\xa0'}`}</span>
+          }) : null
+        }</Heading>
         <FormContainor>
           <DoctorAtHomeForm />
         </FormContainor>
       </Root>
-      <WhatisdoctorAtHomeService />
+      <WhatisdoctorAtHomeService heading={heading} params={props.match.params.subservice}/>
       <WhyChooseUs />
       <FrequentlyAsked />
-      <OurServices />
+      {/* <OurServices /> */}
       <Footer />
     </>
   );
 };
 
-export default doctorAtHome;
+export default Ourservices;
