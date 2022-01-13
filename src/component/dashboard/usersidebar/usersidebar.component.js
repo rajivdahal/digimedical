@@ -19,6 +19,9 @@ export default function Usersidebar(props) {
     const loadHospitals=()=>{
         props.props.push("/dashboard/hospitals")
     }
+    const navigateFamilyMember=()=>{
+        props.props.push("/dashboard/add-member")
+    }
     return (
         <div >
             <nav className="sidebar sidebar-offcanvas" id="sidebar">
@@ -42,8 +45,6 @@ export default function Usersidebar(props) {
                     <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
                             <i className="fas fa-user-clock menu-icon"></i>
-
-
                             <span className="menu-title">Appointments</span>
                             <i className="menu-arrow"></i>
                         </a>
@@ -118,6 +119,12 @@ export default function Usersidebar(props) {
                         <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
                         <i class="fas fa-hospital menu-icon"></i>
                             <span className="menu-title">Hospitals</span>
+                        </a>
+                    </li>
+                    <li className="nav-item" onClick={navigateFamilyMember} style={{ cursor: "pointer" }}>
+                        <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
+                            <i class="fas fa-people-carry menu-icon"></i>
+                            <span className="menu-title">Add Family Member</span>
                         </a>
                     </li>
                 </ul>

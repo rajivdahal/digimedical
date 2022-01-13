@@ -126,11 +126,7 @@ export const Dashboardnavbar = (props) => {
             </li>
             <li className="nav-item nav-profile dropdown">
               <a className="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src="{userImage}" alt=""/>
-                {
-                  console.log("image in dom is",userImage)
-                }
-                {/* <img src={userImage} onerror="src='https://www.unesale.com/ProductImages/Large/notfound.png'" alt=""></img> */}
+                <img src={userImage} alt=""/>
               </a>
               <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                 
