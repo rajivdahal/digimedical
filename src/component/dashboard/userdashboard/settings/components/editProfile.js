@@ -5,8 +5,14 @@ import { httpClient } from "../../../../../utils/httpClient"
 import Avatar from "../../../../../assets/avatars.png"
 import { notify } from "../../../../../services/notify";
 import { useHistory } from "react-router-dom";
+import Select from "react-select";
+
 import "./editProfile.css"
 import "../userprofile.css"
+import { BLOODGROUP } from "../../../../../constants/constants";
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
+const BloodGroup = BLOODGROUP;
+
 const EditProfile = (props) => {
     let history = useHistory()
     const userstatus = localStorage.getItem("status")
@@ -101,8 +107,11 @@ const EditProfile = (props) => {
         // console.log(id)
         console.log(props);
         if (props) {
-            let url = "http://103.90.86.77:8082/api/download/" + id;
+            console.log(props);
+            let url = REACT_APP_BASE_URL + "download/"+ id;
             setImage(url)
+            console.log(props)
+            console.log(props.bloodgroup)
             setUserProfile({
                 firstName: props.firstname,
                 middleName: props.middlename,
@@ -115,7 +124,8 @@ const EditProfile = (props) => {
                 weight: props.weight,
                 previousDisease: props.disease,
                 fatherName: props.fathername,
-                bloodGroup: props.bloodgroup ?? "A+", 
+                // bloodGroup: props.bloodgroup,
+                bloodGroup: props.bloodgroup ?? "A+",
                 gender: props.gender ?? "0",
             })
         }
@@ -136,7 +146,7 @@ const EditProfile = (props) => {
         if (values.previousDisease) {
             formData.append("previousDisease", values.previousDisease)
         }
-        
+
         formData.append("firstName", values.firstName);
         formData.append("lastName", values.lastName);
         formData.append("email", values.email);
@@ -145,7 +155,6 @@ const EditProfile = (props) => {
         formData.append("height", values.height);
         formData.append("gender", values.gender);
         formData.append("bloodGroup", values.bloodGroup)
-
         formData.append("dobAd", values.dob);
         formData.append("mobileNumber", values.contactNo);
         formData.append("fatherName", values.fatherName);
@@ -154,29 +163,52 @@ const EditProfile = (props) => {
         httpClient.PUT("update-user", formData, false, true, "formdata")
             .then(resp => {
                 console.log(resp);
-                notify.success(resp.data.message)
-                history.push("/dashboard")
+                if (resp.data.status) {
+                    notify.success(resp.data.message)
+                    // setUserProfile({
+                    //     name: "",
+                    //     address: "",
+                    //     email: "",
+                    //     contactNo: "",
+                    //     dob: "",
+                    //     height: "",
+                    //     weight: "",
+                    //     previousDisease: "",
+                    //     fatherName: "",
+                    //     gender: "",
+                    //     image: "",
+                    // })
+                }
+                // history.push("/dashboard")
                 // getUser();
             })
             .catch(err => {
+                if (err && err.response && err.response.data) {
+                    console.log(err.response)
+                    notify.error(err.response.data.message || "Something went wrong");
+                }
                 console.log(err.response)
             })
     }
 
     const cancelProfileEdit = () => {
-        setUserProfile({
-            name: "",
-            address: "",
-            email: "",
-            contactNo: "",
-            dob: "",
-            height: "",
-            weight: "",
-            previousDisease: "",
-            fatherName: "",
-            gender: "",
-            image: "",
-        })
+        // setUserProfile({
+        //     firstName: "",
+        //     middleName: "",
+        //     lastName: "",
+        //     name: "",
+        //     address: "",
+        //     email: "",
+        //     contactNo: "",
+        //     dob: "",
+        //     height: "",
+        //     weight: "",
+        //     previousDisease: "",
+        //     fatherName: "",
+        //     gender: "0",
+        //     image: "",
+        //     bloodGroup: "A+"
+        // })
     }
 
     const handleAddImage = () => {
@@ -193,6 +225,10 @@ const EditProfile = (props) => {
         reader.readAsDataURL(files);
     }
 
+    const chooseBloodGroup=(item)=>{
+        console.log(item);
+
+    }
     return (
         <div className="edit-profile">
             <Container>
@@ -204,7 +240,7 @@ const EditProfile = (props) => {
                         updateProfile(values);
                     }}
                 >
-                    {({ errors, touched, setFieldValue }) => (
+                    {({values, errors, touched, setFieldValue }) => (
                         <Form>
                             <Row>
                                 <Col md={3} >
@@ -231,13 +267,13 @@ const EditProfile = (props) => {
                                             <Col md={4}>
                                                 <div className=" form-group select-label">
                                                     <label > Middle Name : </label>
-                                                    <Field name="middleName" className="form-control profile-field" disabled/>
+                                                    <Field name="middleName" className="form-control profile-field" />
                                                 </div>
                                             </Col>
                                             <Col md={4}>
                                                 <div className=" form-group select-label">
                                                     <label > Last Name : </label>
-                                                    <Field name="lastName" className="form-control profile-field" disabled/>
+                                                    <Field name="lastName" className="form-control profile-field" />
                                                     {errors.name && touched.name && <div className="error-message">{errors.name}</div>}
                                                 </div>
                                             </Col>
@@ -253,13 +289,13 @@ const EditProfile = (props) => {
                                             <Col md={6}>
                                                 <div className=" form-group ">
                                                     <label >Email : </label>
-                                                    <Field name="email" validate={validateEmail} className="form-control profile-field" disabled/>
+                                                    <Field name="email" validate={validateEmail} className="form-control profile-field" disabled />
                                                     {errors.email && touched.email && <div className="error-message">{errors.email}</div>}
                                                 </div>
                                             </Col>
                                             <Col md={4}>
                                                 <label >Gender : </label>
-                                                <Field class="form-control profile-field" as='select' name="gender" value={userProfile.gender}>
+                                                <Field class="form-control profile-field" as='select' name="gender" value={values.gender}>
                                                     <option value="0">Male</option>
                                                     <option value="1">Female</option>
                                                     <option value="2">Other</option>
@@ -268,7 +304,13 @@ const EditProfile = (props) => {
                                             </Col>
                                             <Col md={4}>
                                                 <label >Blood Group : </label>
-                                                <Field class="form-control profile-field" as='select' name="bloodGroup" value={userProfile.bloodGroup}>
+                                                <Field class="form-control profile-field" as='select' name="bloodGroup" value={values.bloodGroup}>
+                                                {/* <Select name="bloodGroup" 
+                                                value={userProfile.bloodGroup}
+                                                options={BloodGroup}
+                                                onChange={chooseBloodGroup}
+                                                ></Select> */}
+                                                                                                        
                                                     <option value="A+">A-postivie</option>
                                                     <option value="A-">A-negative</option>
                                                     <option value="B+">B-postive</option>
@@ -278,7 +320,6 @@ const EditProfile = (props) => {
                                                     <option value="AB+">AB-postive</option>
                                                     <option value="AB-">AB-negative</option>
                                                 </Field>
-
                                             </Col>
                                             <Col md={4}>
                                                 <div className=" form-group">
@@ -319,11 +360,10 @@ const EditProfile = (props) => {
                                                 userstatus === "300" ? null : <Col md={6}>
                                                     <div className=" form-group">
                                                         <label >Previous Diseases : </label>
-                                                        <Field name="previousDisease" className="form-control profile-field" />
+                                                        <Field name="previousDisease" className="form-control profile-field" placeholder="Disese"/>
                                                     </div>
                                                 </Col>
                                             }
-
                                         </Row>
                                     </Container>
                                 </Col>

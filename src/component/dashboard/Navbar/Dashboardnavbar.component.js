@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { httpClient } from "../../../utils/httpClient"
 import Avatar from "../../../assets/avatars.png"
 import "./dashboardnavbar.component.css"
-import { Image } from "react-bootstrap"
 const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
 
 export const Dashboardnavbar = (props) => {
@@ -42,7 +41,6 @@ export const Dashboardnavbar = (props) => {
 
   const getImage=(id)=>{
     let url = REACT_APP_BASE_URL+"download/" + id;
-    console.log(url)
     if(url.status == false) {
       setImage(Avatar)
     }

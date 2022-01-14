@@ -19,10 +19,7 @@ export const data = [
     links: "/",
     name: "Health Pacakages",
   },
-  {
-    links: "/",
-    name: "Special Pacakages",
-  },
+
   {
     links: "/contact",
     name: "Contact",
