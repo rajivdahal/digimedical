@@ -4,6 +4,7 @@ import logo from "../../assets/logo.png";
 import package_logo from "../../assets/hospital.png";
 import { Link } from "react-router-dom";
 import "./NavbarMenuItems.css";
+import login_signup from "../../component/common/login component/login_signup";
 const Root = styled.div`
   // background-color: #2745F0;
   // display: flex;
@@ -53,6 +54,7 @@ const NavbarMenuItems = () => {
             <nav>
               <h3>Categories</h3>
               <div className="categories_nav_mob">
+                <login_signup></login_signup>
                 <Link
                   id="link_cat_nav_mob"
                   to="/"
@@ -134,7 +136,6 @@ const NavbarMenuItems = () => {
               Lab Test{" "}
             </Link>
           </span>
-
           <span className="menu-item">
             <Link
               to="/hospitals"
@@ -143,7 +144,6 @@ const NavbarMenuItems = () => {
               Hospital{" "}
             </Link>
           </span>
-
           <div className="menu-item_nav">
             <button className="dropbtn">Health Packages</button>
             <div className="dropdown_hp_content">

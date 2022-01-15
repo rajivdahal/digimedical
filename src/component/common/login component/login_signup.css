@@ -1,0 +1,10 @@
+.right-div {
+  display: flex;
+  align-items: center;
+  color: #7b8698;
+  justify-content: center;
+  font-size: 14px;
+}
+.login {
+  margin-left: 0.5rem;
+}
