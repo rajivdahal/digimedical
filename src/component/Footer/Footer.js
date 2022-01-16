@@ -169,7 +169,7 @@ const Footer = () => {
               </div>
               <div className="location">
                 <HiOutlineMail className="icon" />
-                <span>info@digimedical.com</span>
+                <span>info@digimedicalsewa.com</span>
               </div>
             </LeftContainer>
             <AboutContainer>
@@ -209,7 +209,7 @@ const Footer = () => {
             </TopBottom>
             <div className="paraSection">
               <p>
-                ©Digimedical2021 . All rights reserved. Supported by Grow Tech
+                ©DigimedicalSewa2022 . All rights reserved. Supported by Grow Tech
               </p>
               <p>
                 When you visit or interact with our sites, services or tools, we

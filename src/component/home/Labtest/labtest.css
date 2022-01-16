@@ -1,7 +1,9 @@
 .labtest1 img {
   width: 100%;
 }
-
+.labtest{
+  margin-bottom: 20px;
+}
 .labtest_main_text {
   width: 20%;
 

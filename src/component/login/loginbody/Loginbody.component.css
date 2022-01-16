@@ -1,28 +1,30 @@
-.errmsg
-{
-    position: absolute;
-   
+.login_digim {
 }
-.eye-to-see-password-register{
-    color: grey;
-    position: absolute;
-    bottom: 40px;
-    left: 90%;
-    cursor: pointer;
+
+.errmsg {
+  position: absolute;
 }
-.eye-to-see-password{
-    color: grey;
-    position: absolute;
-    bottom: 40px;
-    left: 85%;
-    cursor: pointer;
+.eye-to-see-password-register {
+  color: grey;
+  position: absolute;
+  bottom: 40px;
+  left: 90%;
+  cursor: pointer;
+}
+.eye-to-see-password {
+  color: grey;
+  position: absolute;
+  bottom: 40px;
+  left: 85%;
+  cursor: pointer;
 }
 .eye-to-see-password:hover {
-    color: black
+  color: black;
 }
-.dropdown_hp_content a img, p {
-    margin-top: 10px;
-    margin-left: 0px;
-    /* align-content: center; */
-    text-align: center;
+.dropdown_hp_content a img,
+p {
+  margin-top: 10px;
+  margin-left: 0px;
+  /* align-content: center; */
+  text-align: center;
 }
