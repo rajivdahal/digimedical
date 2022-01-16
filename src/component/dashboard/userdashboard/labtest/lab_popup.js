@@ -60,7 +60,7 @@ class Checkoutpopupcomponent extends Component {
               notify.success("Lab test booked successfully")
               localStorage.removeItem("cart")
               this.props.checkout(!checkoutsignal)
-              this.props.props.push("/dashboard/view-lab-testq")
+              this.props.props.push("/dashboard/view-lab-test")
 
             })
             .catch(err => {

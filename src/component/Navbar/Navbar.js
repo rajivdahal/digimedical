@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { notify } from "../../services/notify";
 import { useHistory } from "react-router-dom";
+// import { logoutyes } from "../common/logoutLoginResponse/logoutLoginResponse";
 const Root = styled.div``;
 const Heading = styled.div`
   @media screen and (max-width: 1077px) {
@@ -90,6 +91,7 @@ const Navbar = (props) => {
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
   })
+  
   const logoutyes = () => {
     localStorage.removeItem("dm-access_token")
     localStorage.removeItem("timeout")
@@ -118,7 +120,6 @@ const Navbar = (props) => {
       logout: true
     })
   }
-
   return (
     <Root>
       <Heading>
@@ -162,7 +163,7 @@ const Navbar = (props) => {
                   <div>
                     {" "}
                     <img
-                      src={user}
+                           src={user}
                       style={{
                         height: "13px",
                         marginLeft: "1rem",
@@ -221,7 +222,7 @@ const Navbar = (props) => {
               <div className="logout">
                 <p>Are you sure you want to Logout?</p>
                 <div className="buttons">
-                  <button className="yes-logout" onClick={logoutyes}>Yes</button>
+                  <button className="yes-logout" onClick={logoutyes()}>Yes</button>
                   <button className="no-logout" onClick={logoutno}>No</button>
                 </div>
               </div>
