@@ -49,6 +49,9 @@ import AddDoctor from "./hospitalDashboard/doctorPage/addHospitalDoctor"
 import Viewcorporateappointment from "./corporatedashboard/corporateappointments/corporateviewappointment/corporateviewappointment.component"
 import HospitalAppointment from "./hospitalDashboard/appointmentPage/appointment.component"
 import Permission from "./adminDashboard/userManagement/permission.component"
+import AddFamilyMember from "./userdashboard/familyMember/addFamilyMember.component"
+import MembershipPackage from "./adminDashboard/packageData/membership.package"
+import MembershipPackageDetails from "./adminDashboard/packageData/package.details"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -86,6 +89,8 @@ const Dashboard = (props) => {
                                   <ProtectedRoute component={Hospitalbookingcomponent}></ProtectedRoute> :
                                   props.location.pathname === "/dashboard/hospitals/view-doctors" ?
                                     <ProtectedRoute component={Hospital_doctors}></ProtectedRoute> :
+                                    props.location.pathname === "/dashboard/add-member" ?
+                                    <ProtectedRoute component={AddFamilyMember}></ProtectedRoute>:
                                     <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
               }
             </> :
@@ -133,6 +138,10 @@ const Dashboard = (props) => {
                                                         <ProtectedRoute component={CorporatePage} />
                                                         : props.location.pathname === "/dashboard/permission" ?
                                                         <ProtectedRoute component={Permission} />
+                                                        : props.location.pathname === "/dashboard/membership-package" ?
+                                                        <ProtectedRoute component={MembershipPackage} />
+                                                        : props.location.pathname === "/dashboard/package-details" ?
+                                                        <ProtectedRoute component={MembershipPackageDetails} />
                                                         : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </div>

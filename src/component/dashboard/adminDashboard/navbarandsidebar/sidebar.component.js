@@ -131,6 +131,7 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/corporate">
                 <li className="nav-item"><a className="nav-link" href="">Add Corporate</a></li>
                 </Link>
+              
               </ul>
             </div>
           </li>
@@ -148,7 +149,7 @@ const Adminsidebar = (props) => {
                   <li className="nav-item"> <a className="nav-link" href="">Services</a></li>
                 </Link>
                 <Link to="/dashboard/lab-test">
-                  <li className="nav-item"> <a className="nav-link" href="">Lab Test</a></li>
+                  <li className="nav-item"> <a className="nav-link" href="">Add Lab Test</a></li>
                 </Link>
                 <Link to="/dashboard/labtest-subcategory">
                   <li className="nav-item"> <a className="nav-link" href="">Labtest Subcategory</a></li>
@@ -156,7 +157,12 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/add-institute">
                   <li className="nav-item"><a className="nav-link" href="">Medical Institute</a></li>
                 </Link>
-                
+                <Link to="/dashboard/membership-package">
+                <li className="nav-item"><a className="nav-link" href="">Add Package</a></li>
+                </Link>
+                <Link to="/dashboard/package-details">
+                <li className="nav-item"><a className="nav-link" href="">Add Package Details</a></li>
+                </Link>
               </ul>
             </div>
           </li>

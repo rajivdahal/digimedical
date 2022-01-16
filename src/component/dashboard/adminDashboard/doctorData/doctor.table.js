@@ -108,7 +108,7 @@ const DoctorTable = (props) => {
                 title: "Status",
                 field: "doctorstatus",
                 render: (rowData) =>
-                  rowData.doctorstatus.toString() == "true" ? (
+                  rowData.doctorstatus.toString() === true.toString() ? (
                     <span style={{ color: "#18af69" }}>Active</span>
                   ) : (
                     <span style={{ color: "red" }}>inActive</span>
@@ -164,7 +164,7 @@ const DoctorTable = (props) => {
                 title: "Status",
                 field: "status",
                 render: (rowData) =>
-                  rowData.status.toString() == "true" ? (
+                  rowData.status.toString() == true.toString() ? (
                     <span style={{ color: "#18af69" }}>Active</span>
                   ) : (
                     <span style={{ color: "red" }}>inActive</span>

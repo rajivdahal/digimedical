@@ -3,17 +3,19 @@ import "./userDashboard.component.css"
 import { Link } from "react-router-dom"
 import { Commonupcomingappointment } from "./commonupcomingappointment/commonupcomingappointment.component"
 import { useEffect } from "react"
-import { httpClient } from "../../../utils/httpClient"
+import { http, httpClient } from "../../../utils/httpClient"
 import { notify } from "../../../services/notify"
 import { useState } from "react"
 import TimePicker from 'react-time-picker';
+import { Weather } from "../../common/weather description/weather.component"
 
 const Userdashboard = (props) => {
-  let [pendingappointment,setpendingappointments]=useState(0)
-  let [completedappointments,setcompletedappointments]=useState(0)
-  let [cancelledappointments,setcancelledappointments]=useState(0)
-
-
+  let [pendingappointment, setpendingappointments] = useState(0)
+  let [completedappointments, setcompletedappointments] = useState(0)
+  let [cancelledappointments, setcancelledappointments] = useState(0)
+  let [weather, setWeather] = useState({})
+  let [weatherDescription, setWeatherDescription] = useState({})
+  let [currentTemperature, setCurrentTemperature] = useState("")
   const [totalappointments, settotalappointments] = useState()
   useEffect(() => {
     httpClient.GET("totoal-appointments-patients", false, true)
@@ -23,18 +25,58 @@ const Userdashboard = (props) => {
       .catch(err => {
         notify.error("Total appointments-unable to fetch")
       })
-      httpClient.GET("get-user-pending-appointments", false, true)
+    httpClient.GET("get-user-pending-appointments", false, true)
       .then(resp => {
         setpendingappointments(resp.data.data.length)
       })
-      httpClient.GET("get-user-completed-appointments", false, true)
+    httpClient.GET("get-user-completed-appointments", false, true)
       .then(resp => {
         setcompletedappointments(resp.data.data.length)
       })
-      httpClient.GET("get-user-canceled-appointments", false, true)
+    httpClient.GET("get-user-canceled-appointments", false, true)
       .then(resp => {
         setcancelledappointments(resp.data.data.length)
       })
+    // Weather.getWeather(function(err,done){
+    //   console.log("inside callback")
+    //   if(!err){
+    //     console.log("not found")
+    //   }
+    //   if(err){
+    //     console.log("error occurred",err)
+    //   }
+    //   else{
+    //     console.log("done is",done)
+    //   }
+    // })
+    //  console.log(object) typeof(Weather.getWeather())
+    // .then(resp=>{
+    //   console.log("response is",resp)
+    // })
+    // .catch(err=>{
+    //   console.log("error is",err)
+    // })
+
+    // console.log("after calling weather output is",response)
+    navigator.geolocation.getCurrentPosition(function(done,err){
+      if(done){
+          let latitude=done.coords.latitude
+          let longitude=done.coords.longitude 
+          http.get(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=47056d723585bc46aefd6a866267557a`)
+          .then(resp=>{
+            console.log(resp.data)
+            setWeather(resp.data)
+            setWeatherDescription(resp.data.weather[0])
+            setCurrentTemperature((resp.data.main.temp-273.15).toString())
+          })
+          .catch(err=>{
+            console.log("error in fetching the data after api")
+          })
+      }
+      else{
+        console.log("geolocation is not working",err)
+      }
+    })
   }, [])
   return (
     <>
@@ -219,11 +261,16 @@ const Userdashboard = (props) => {
                     <div className="weather-info">
                       <div className="d-flex">
                         <div>
-                          <h2 className="mb-0 font-weight-normal"><i className="icon-sun mr-2"></i>20<sup>C</sup></h2>
+                          <h2 className="mb-0 font-weight-normal" >
+                            <img src={`http://openweathermap.org/img/w/${weatherDescription.icon}.png`} style={{height:"70px",width:"70px"}}/>
+                            {currentTemperature.slice(0,6)}<sup>C</sup></h2>
                         </div>
                         <div className="ml-2">
-                          <h4 className="location font-weight-normal">Kathmandu</h4>
-                          <h6 className="font-weight-normal">Nepal</h6>
+                          <h4 className="location font-weight-normal">{weather.name}</h4>
+                          {
+                            weather.sys?<h6 className="font-weight-normal">{weather.sys.country}</h6>:<h6 className="font-weight-normal">Nepal</h6>
+                          }
+                          
                         </div>
                       </div>
                     </div>

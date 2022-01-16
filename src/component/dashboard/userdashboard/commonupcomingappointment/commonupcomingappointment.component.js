@@ -31,8 +31,8 @@ export const Commonupcomingappointment = (props) => {
                 let data = resp.data.data
                 console.log("data before is", resp)
                 data = data.map((item, index) => {
-                    item.appointmentdate = formatDate(item.appointmentdate.slice(0, 10))
-                    item.appointmenttime = item.appointmenttime.slice(0, 5)
+                    item.appointmentdate = formatDate(item.appointmentdate?item.appointmentdate.slice(0, 10):item.appointmentDate.slice(0, 10))
+                    item.appointmenttime =item.appointmenttime?item.appointmenttime.slice(0, 5):item.appointmentTime.slice(0, 5)
                     console.log("item is", item)
                     return item
                 })
@@ -52,15 +52,14 @@ export const Commonupcomingappointment = (props) => {
         console.log("inside use effecr")
         if (fromdoctorcomponent) {
             console.log("inside from doctor component")
-            httpcall(`getall-appointments-by/0`)
+            return httpcall(`getall-appointments-by/0`)
         }
         if (fromcorporatecomponent) {
             console.log("inside from corporate component")
-            httpcall(`get/corporate/appointments/0`)
+            return httpcall(`get/corporate/appointments/0`)
         }
         else {
             console.log("inside from else component")
-
             httpcall(`get-user-pending-appointments`)
         }
     }, [])

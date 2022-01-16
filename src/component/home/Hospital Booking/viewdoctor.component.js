@@ -13,6 +13,8 @@ import DatePicker from "react-modern-calendar-datepicker";
 import { Field, Formik, Form } from "formik";
 import { notify } from "../../../services/notify";
 // import hospital_ico from "../../../assets/hospital_icon.png";
+
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
 export default function Hospital_doctors(props) {
   console.log("props are", props);
   // const [props.location.state,setprops.location.state]=useState(props.location.state)
@@ -83,7 +85,7 @@ export default function Hospital_doctors(props) {
         }
         showappointment(doctor, index);
       })
-      .catch((err) => { 
+      .catch((err) => {
         if (props.match.url != "/dashboard/hospitals/view-doctors") {
           if (err.response.data.message == "Email already exists") {
             if (localStorage.getItem("status") == 200) {
@@ -148,8 +150,8 @@ export default function Hospital_doctors(props) {
           className={
             props.location
               ? (props.location.pathname = "/dashboard/hospitals/view-doctors"
-                  ? "doc_appoint_main1_user"
-                  : "doc_appoint_main1_user")
+                ? "doc_appoint_main1_user"
+                : "doc_appoint_main1_user")
               : "doc_appoint_main1"
           }
         >
@@ -182,7 +184,7 @@ export default function Hospital_doctors(props) {
                       <div className="doc_apoint_card">
                         <div className="doc_apoint_card1">
                           <div className="doc_card_img">
-                            <img src={doctor1} alt="" />
+                            <img src={REACT_APP_BASE_URL + "doctor/download/" + doctor.doctorid} alt="" style={{ height: "142px", width: "190px", borderRadius: "50%" }} />
                           </div>
                           <div className="doc_about_desc">
                             <div className="doc_about_desc_head">
@@ -195,13 +197,13 @@ export default function Hospital_doctors(props) {
 
                             <p>{doctor.specialist} </p>
                             <p id="doc_available_days">
-                              Availabile days :{" "}
+                              Available days :{" "}
                               <span id="span1_doc_card">
-                                Sunday, Teusday, Friday
+                                Sunday, Tuesday, Friday
                               </span>
                             </p>
                             <p>
-                              Availabile time :{" "}
+                              Available time :{" "}
                               <span id="span1_doc_card">10am - 1pm</span>
                             </p>
                           </div>{" "}
@@ -230,7 +232,7 @@ export default function Hospital_doctors(props) {
                               return (
                                 <Form className="form_doc">
                                   {props.match.url !=
-                                  "/dashboard/hospitals/view-doctors" ? (
+                                    "/dashboard/hospitals/view-doctors" ? (
                                     <>
                                       <div className="doc_appoin_form1">
                                         <p>First Name</p>
@@ -327,7 +329,7 @@ export default function Hospital_doctors(props) {
                     <div className="doc_apoint_card">
                       <div className="doc_apoint_card1">
                         <div className="doc_card_img">
-                          <img src={doctor1} alt="" />
+                        <img src={REACT_APP_BASE_URL + "doctor/download/" + doctor.doctorid} alt="" style={{ height: "142px", width: "190px", borderRadius: "50%" }} />
                         </div>
                         <div className="doc_about_desc">
                           <p id="doc_name_card">
@@ -335,13 +337,13 @@ export default function Hospital_doctors(props) {
                           </p>
                           <p>{doctor.specialist} </p>
                           <p id="doc_available_days">
-                            Availabile days :{" "}
+                            Available days :{" "}
                             <span id="span1_doc_card">
-                              Sunday, Teusday, Friday
+                              Sunday, Tuesday, Friday
                             </span>
                           </p>
                           <p>
-                            Availabile time :{" "}
+                            Available time :{" "}
                             <span id="span1_doc_card">10am - 1pm</span>
                           </p>
                         </div>{" "}
@@ -365,7 +367,7 @@ export default function Hospital_doctors(props) {
                         >
                           <Form className="form_doc">
                             {props.match.url !=
-                            "/dashboard/hospitals/view-doctors" ? (
+                              "/dashboard/hospitals/view-doctors" ? (
                               <>
                                 <div className="doc_appoin_form1">
                                   <p>First Name</p>
@@ -454,7 +456,7 @@ export default function Hospital_doctors(props) {
           </div>
           <div className="doc_appoin_hosp_desc">
             <div className="hosp_desc_hosp">
-              <img src={doctor1} alt="" />
+              <img src={REACT_APP_BASE_URL + "hospital/download/" + props.location.state.id} alt="" style={{ height: "142px", width: "190px", borderRadius: "50%" ,marginLeft:"2rem"}} alt="" />
               <p id="hosp_name_doc">{props.location.state.name}</p>
               <p>
                 <i class="fas fa-map-marker-alt"></i> &nbsp;{" "}
@@ -466,13 +468,16 @@ export default function Hospital_doctors(props) {
                 {props.location.state.mobilenumber}
               </p>
               <p>
+                
                 <i class="fas fa-envelope"></i>&nbsp; info@norvichospital.com
               </p>
               <p id="hosp_ph_no">
-                {" "}
-                <i class="fas fa-link"></i>
-                {/* <img src={hospital_ico} alt="" /> */}
-                &nbsp; www.norvichospital.com.np
+               
+                {
+                  props.location.state.establisheddate? <>
+                   {props.location.state.establisheddate}</>:null
+                }
+              
               </p>
             </div>
           </div>

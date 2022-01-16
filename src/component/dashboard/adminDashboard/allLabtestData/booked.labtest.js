@@ -4,6 +4,7 @@ import MaterialTable from 'material-table'
 import Tableicons from "../../../../utils/materialicons";
 import { Container } from "react-bootstrap";
 import { httpClient } from '../../../../utils/httpClient';
+import { Visibility } from "@material-ui/icons";
 
 const BookedLabtest=(props)=>{
 
@@ -49,6 +50,7 @@ const BookedLabtest=(props)=>{
                         { title: 'Subcategory', field: 'labtestcategoryname'},
                         { title: 'Price', field: 'priceString' },
                         // { title: 'Date', field: 'date' },
+                        {}
                         
                     ]}
                     data={bookedLabtest}
@@ -63,6 +65,24 @@ const BookedLabtest=(props)=>{
                             color: '#FFF'
                         }
                     }}
+
+                    actions={[
+                        {
+                          icon: () => (
+                            
+                            <Visibility fontSize="small"
+                           
+                              className="action-button"
+                            />
+                          ),
+                          tooltip: "View prescription",
+                          
+                          onClick: (e, rowData) => {
+                            // showPrescriptionModal(e, rowData);
+                          },
+                          
+                        }, 
+                      ]}
                     isLoading={loading}
 
                 />

@@ -8,6 +8,7 @@ import MaterialTable from 'material-table';
 import { notify } from "../../../../services/notify";
 import Edit from '@material-ui/icons/Edit';
 import UserManagementApi from "./userManageService";
+import "./admin.component.css"
 const Permission = (props) => {
 
     const [loading, setLoading] = useState(false)
@@ -15,12 +16,14 @@ const Permission = (props) => {
     const [permissionId, setPermissionID] = useState("");
     const [allRoles, setAllRoles] = useState([]);
     const [allScreens, setAllScreens] = useState([]);
-    const [permissionData, setPermissionData] = useState({
+    const [permissionData, setPermissionData] = useState(
+        {
         role: "",
         roleId: "",
         screens: "",
         screenId: "",
-    })
+    }
+    )
 
     const getAllRoles = async () => {
         setLoading(true)
@@ -125,7 +128,7 @@ const Permission = (props) => {
                                 <Col md={6}>
                                     <Form.Group>
                                         <Form.Label>Role</Form.Label>
-                                        <Select
+                                        <Select className="roleSelect"
                                             value={formik.values.role}
                                             options={allRoles}
                                             name="roleId"
@@ -183,7 +186,7 @@ const Permission = (props) => {
                     </Card.Body>
                 </Card>
 
-                {/* <MaterialTable
+                <MaterialTable
                     title="Screen Permission "
                     icons={Tableicons}
                     // data={}
@@ -220,7 +223,7 @@ const Permission = (props) => {
                         }
                     }}
                     isLoading={loading}
-                />  */}
+                /> 
             </Container>
         </div>
     )

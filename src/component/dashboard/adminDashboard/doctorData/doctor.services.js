@@ -33,7 +33,6 @@ const doctorApi = {
     return httpClient.POST("doctor/create", formData, false, true, "formdata");
   },
   createHospitalDoctor: (values) => {
-    console.log("create admin error");
     let selectedId = [];
     values.doctorServices.forEach((service, index) => {
       selectedId.push(service.value);

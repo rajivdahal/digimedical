@@ -11,7 +11,6 @@ import "./editProfile.css"
 import "../userprofile.css"
 import { BLOODGROUP } from "../../../../../constants/constants";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
-const BloodGroup = BLOODGROUP;
 
 const EditProfile = (props) => {
     let history = useHistory()
@@ -104,14 +103,9 @@ const EditProfile = (props) => {
 
     const getUser = () => {
         let id = localStorage.getItem('userid');
-        // console.log(id)
-        console.log(props);
         if (props) {
-            console.log(props);
             let url = REACT_APP_BASE_URL + "download/"+ id;
             setImage(url)
-            console.log(props)
-            console.log(props.bloodgroup)
             setUserProfile({
                 firstName: props.firstname,
                 middleName: props.middlename,
@@ -124,7 +118,6 @@ const EditProfile = (props) => {
                 weight: props.weight,
                 previousDisease: props.disease,
                 fatherName: props.fathername,
-                // bloodGroup: props.bloodgroup,
                 bloodGroup: props.bloodgroup ?? "A+",
                 gender: props.gender ?? "0",
             })
@@ -162,53 +155,36 @@ const EditProfile = (props) => {
         console.log(formData)
         httpClient.PUT("update-user", formData, false, true, "formdata")
             .then(resp => {
-                console.log(resp);
                 if (resp.data.status) {
                     notify.success(resp.data.message)
-                    // setUserProfile({
-                    //     name: "",
-                    //     address: "",
-                    //     email: "",
-                    //     contactNo: "",
-                    //     dob: "",
-                    //     height: "",
-                    //     weight: "",
-                    //     previousDisease: "",
-                    //     fatherName: "",
-                    //     gender: "",
-                    //     image: "",
-                    // })
                 }
-                // history.push("/dashboard")
-                // getUser();
+                history.push("/dashboard")
             })
             .catch(err => {
                 if (err && err.response && err.response.data) {
-                    console.log(err.response)
                     notify.error(err.response.data.message || "Something went wrong");
                 }
-                console.log(err.response)
             })
     }
 
     const cancelProfileEdit = () => {
-        // setUserProfile({
-        //     firstName: "",
-        //     middleName: "",
-        //     lastName: "",
-        //     name: "",
-        //     address: "",
-        //     email: "",
-        //     contactNo: "",
-        //     dob: "",
-        //     height: "",
-        //     weight: "",
-        //     previousDisease: "",
-        //     fatherName: "",
-        //     gender: "0",
-        //     image: "",
-        //     bloodGroup: "A+"
-        // })
+        setUserProfile({
+            firstName: "",
+            middleName: "",
+            lastName: "",
+            name: "",
+            address: "",
+            email: "",
+            contactNo: "",
+            dob: "",
+            height: "",
+            weight: "",
+            previousDisease: "",
+            fatherName: "",
+            gender: "0",
+            image: "",
+            bloodGroup: "A+"
+        })
     }
 
     const handleAddImage = () => {
@@ -225,10 +201,6 @@ const EditProfile = (props) => {
         reader.readAsDataURL(files);
     }
 
-    const chooseBloodGroup=(item)=>{
-        console.log(item);
-
-    }
     return (
         <div className="edit-profile">
             <Container>
@@ -304,13 +276,7 @@ const EditProfile = (props) => {
                                             </Col>
                                             <Col md={4}>
                                                 <label >Blood Group : </label>
-                                                <Field class="form-control profile-field" as='select' name="bloodGroup" value={values.bloodGroup}>
-                                                {/* <Select name="bloodGroup" 
-                                                value={userProfile.bloodGroup}
-                                                options={BloodGroup}
-                                                onChange={chooseBloodGroup}
-                                                ></Select> */}
-                                                                                                        
+                                                <Field class="form-control profile-field" as='select' name="bloodGroup" value={values.bloodGroup}>                                       
                                                     <option value="A+">A-postivie</option>
                                                     <option value="A-">A-negative</option>
                                                     <option value="B+">B-postive</option>
@@ -360,7 +326,7 @@ const EditProfile = (props) => {
                                                 userstatus === "300" ? null : <Col md={6}>
                                                     <div className=" form-group">
                                                         <label >Previous Diseases : </label>
-                                                        <Field name="previousDisease" className="form-control profile-field" placeholder="Disese"/>
+                                                        <Field name="previousDisease" className="form-control profile-field"/>
                                                     </div>
                                                 </Col>
                                             }

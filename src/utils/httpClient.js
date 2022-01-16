@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = process.env.REACT_APP_BASE_URL
 const REACT_APP_BASE_URL_LOGIN = process.env.REACT_APP_BASE_URL_LOGIN
 
-const http = axios.create({
+export const http = axios.create({
     baseURL: BASE_URL,
     responseType: 'json',
     timeout: 20000,
