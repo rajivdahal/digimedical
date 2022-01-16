@@ -138,7 +138,7 @@ const Navbar = (props) => {
               className="email-img"
               style={{ height: "10px" }}
             ></img>
-            <span style={{ marginLeft: "0.563rem" }}>info@digimedical.com</span>
+            <span style={{ marginLeft: "0.563rem" }}>info@digimedicalsewa.com</span>
           </div>
           <div className="emergencyService-div">Emergency service 24/7</div>
         </div>

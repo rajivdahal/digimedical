@@ -374,6 +374,7 @@ var dt = new Date();
             value={selectedDay}
             onChange={datechange}
             minimumDate={minDate} 
+            style={{width:"40px"}}
             ></DatePicker>
             {formik.errors.appointmentDate && formik.touched.appointmentDate ? (
               <div style={{ color: "red" }} className="errmsg">
@@ -381,8 +382,8 @@ var dt = new Date();
               </div>
             ) : null}
           </div>
-
-          <div className="form-group col-md-6">
+              
+          <div className="form-group col-md-6" style={{marginTop:""}}>
             <label htmlFor="time">Time<span style={{ color: 'red' }}>*</span></label>
             <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formik.getFieldProps("appointmentTime")}></input>
             {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
