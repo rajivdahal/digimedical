@@ -24,7 +24,8 @@ class userlabtestcomponent extends Component {
       checkeditems: [],
       issubcategoryloading: false,
       datas: [],
-      totaltoshow: []
+      totaltoshow: [],
+      isMedicalInstituteLoading:false
 
     };
   }
@@ -37,13 +38,10 @@ class userlabtestcomponent extends Component {
     console.log("props in labtest are", this.props);
     let {
       allabtest,
-      cartitems,
-      cartvalue,
-      tempdata,
-      addtocartsign,
+
       checkoutsignal,
       cartpopupsign,
-      cartpopupsignal,
+
     } = this.props;
     console.log("cartpopup signal is", cartpopupsign);
     let cart = localStorage.getItem("cart")
@@ -130,7 +128,6 @@ class userlabtestcomponent extends Component {
           }
         })
       }
-      console.log("checkout called");
     };
     const showcartpopup = (sign) => {
       this.setState(() => {
@@ -139,35 +136,17 @@ class userlabtestcomponent extends Component {
         };
       });
     };
-    const handleinstitutechange = (e, item, subcategory, category, index) => {
 
-      let total = this.state.totalprice
-      let checkedlist = {}
+    const handleChange = (e, item, index) => {
       if (e.target.checked) {
-        item.checked = true
-        checkedlist.name = category.name
-        checkedlist.subcategory = subcategory.categoryname
-        checkedlist.company = item.medicalinstitutename
-        checkedlist.price = item.price
-        checkedlist.labId = subcategory.id
-        checkedlist.medicalInstituteId = item.id
-        total = parseInt(item.price)
-        this.setState((prev) => {
+        this.setState(()=>{
           return {
-            ...prev,
-            totalprice: total,
-            checkeditems: [...prev.checkeditems, checkedlist]
+            isMedicalInstituteLoading:true
           }
         })
         setTimeout(() => {
-          console.log("this state is", item, this.state.checkeditems)
-        }, 2000)
-      }
-      console.log("e,item is", e, item)
-    }
-    const handleChange = (e, item, index) => {
-      console.log("checked is", e.target.checked, item)
-      if (e.target.checked) {
+          console.log(this.state)
+        }, 1000);
         httpClient.GET(`medical-institute/categoryId/${item.id}`, false, true)
           .then(resp => {
             let dummydata = this.state.datas
@@ -181,14 +160,18 @@ class userlabtestcomponent extends Component {
                 datas: dummydata
               }
             })
-            setTimeout(() => {
-              console.log(this.state.datas)
-            }, 2000);
 
             console.log("response is", resp.data.data)
           })
           .catch(() => {
             notify.error("Error occurred")
+          })
+          .finally(()=>{
+            this.setState(()=>{
+              return {
+                isMedicalInstituteLoading:false
+              }
+            })
           })
       }
       else {
@@ -271,14 +254,12 @@ class userlabtestcomponent extends Component {
           totaltoshow: statetotalarray
         }
       })
-      setTimeout(() => {
-        console.log("total is", this.state.totaltoshow)
-      }, 2000);
+
     }
     return (
 
       <div>
-        {checkoutsignal ? <Checkoutpopup /> : null}
+        {checkoutsignal ? <Checkoutpopup props={this.props.history}/> : null}
         {this.state.active ? <Cartpopup></Cartpopup> : null}
         <div className="lab_add_to_cart">
           <div className="lab_add_to_cart1">
@@ -350,12 +331,12 @@ class userlabtestcomponent extends Component {
                                         if (item.name == subcategory.categoryname) {
                                           console.log("inside if statement", item)
                                           return item.data.map((item, index) => {
-                                            return <>
-                                              <input type={"radio"} onChange={() => handleRadioChange(item, index, subcategory, category)} name={subcategory.categoryname}></input>
+                                            return < div key={index}>          
+                                               <input type={"radio"} onChange={() => handleRadioChange(item, index, subcategory, category)} name={subcategory.categoryname}></input>
                                               <label>{item.medicalinstitutename}</label>
                                               <span style={{ marginLeft: "40px", color: "blue" }}>Rs.{item.price}</span>
-                                              <br />
-                                            </>
+                                              <br />  
+                                            </div>
                                           })
                                         }
 
