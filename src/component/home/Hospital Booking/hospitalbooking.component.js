@@ -47,7 +47,7 @@ export default function Hospitalbookingcomponent(props) {
   };
   //   "/dashboard/hospitals"?
   return (
-    <div>
+    <div className="hospital_main_cont">
       <div className="hospital_booking">
         {props.location ? (
           (props.location.pathname = "/dashboard/hospitals" ? null : null)
@@ -120,7 +120,6 @@ export default function Hospitalbookingcomponent(props) {
                       <p2>{item.description.slice(0, 50)}.....</p2>
                       {/* <p2>{item.description}</p2> */}
                       <button
-                        className="book_an_appoint_hosp"
                         id={
                           (props.location.pathname = "/dashboard/hospitals"
                             ? "hosp_card_but_user"

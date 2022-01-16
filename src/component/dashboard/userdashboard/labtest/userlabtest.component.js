@@ -36,13 +36,9 @@ class userlabtestcomponent extends Component {
     console.log("props in labtest are", this.props);
     let {
       allabtest,
-      cartitems,
-      cartvalue,
-      tempdata,
-      addtocartsign,
+
       checkoutsignal,
       cartpopupsign,
-      cartpopupsignal,
     } = this.props;
     console.log("cartpopup signal is", cartpopupsign);
     let cart = localStorage.getItem("cart")
@@ -125,7 +121,6 @@ class userlabtestcomponent extends Component {
           };
         });
       }
-      console.log("checkout called");
     };
     const showcartpopup = (sign) => {
       this.setState(() => {

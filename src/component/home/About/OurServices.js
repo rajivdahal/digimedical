@@ -4,6 +4,7 @@ import { data } from "./OurServicedata";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import logo from "../WhyChooseUs/whychooseus.png";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const OurServiceContainer = styled.div`
   margin-top: 2.5rem;
@@ -124,7 +125,9 @@ const View = styled.a`
     margin-left: 0.5rem;
   }
 `;
-const OurServices = () => {
+const OurServices = (props) => {
+  const location = useLocation()
+  console.log("props in our service is", location)
   return (
     <div>
       <OurServiceContainer>
@@ -150,12 +153,15 @@ const OurServices = () => {
             );
           })}
         </ServiceContainer>
-
         <div className="view_serv_home">
-          <Link to="/services" className="link_serv_home">
-            <p id="arrow_hosp_hom">View All</p>
-            <p id="arrow_hosp_hom1">&nbsp; &#8594; </p>
-          </Link>
+          {
+            location.pathname == "/services" ? null : <Link to="/services" className="link_serv_home">
+
+              <p id="arrow_hosp_hom">View All</p>
+              <p id="arrow_hosp_hom1">&nbsp; &#8594; </p>
+            </Link>
+          }
+
         </div>
       </OurServiceContainer>
     </div>

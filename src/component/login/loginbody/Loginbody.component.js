@@ -6,7 +6,6 @@ import { httpClient } from "../../../utils/httpClient"
 import { Link } from "react-router-dom"
 import { notify } from "../../../services/notify"
 import Submitbtn from "../../common/Submitbtn/Submitbtn.component"
-import CalendarViewWeekOutlinedIcon from '@mui/icons-material/CalendarViewWeekOutlined';
 import { useState } from "react"
 import "./Loginbody.component.css"
 const Loginbodycomponent = (props) => {
@@ -26,10 +25,11 @@ const Loginbodycomponent = (props) => {
     console.log(props)
     const formik = useFormik({
         initialValues: {
-            username: '',
+            username: fromexternaluser?externaluseremail:"",
             password: '',
         },
         onSubmit: values => {
+            console.log("values are",values)
             setisLoading(true)
             httpClient.UPLOAD('POST', 'oauth/token', values, "password", null)
                 .then(resp => {
@@ -98,12 +98,12 @@ const vieworhidepassword=()=>{
                                 <h2 className="fs-title text-center">Login</h2>
                                 <h3 className="fs-subtitle text-center">Fill in your credentials</h3>
                                <p style={{color:"blue"}}>{fromexternaluser?`Please check your email and login with OTP provided at`:null}</p>
-                               <h4>{fromexternaluser?externaluseremail:null}</h4> 
+                               {/* <h4>{fromexternaluser?externaluseremail:null}</h4>  */}
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group select-label">
                                             <label>Email address<span style={{color:'red'}}>*</span> </label>
-                                            <input type="username" className="form-control form-input" placeholder="username" id="username" {...formik.getFieldProps("username")}/>
+                                            <input type="username" className="form-control form-input" placeholder="username" id="username" {...formik.getFieldProps("username")} />
                                             {formik.errors.username && formik.touched.username ? <div style={{ color: "red" }} className="errmsg">{formik.errors.username}  </div> : null}
                                         </div>
                                     </div>

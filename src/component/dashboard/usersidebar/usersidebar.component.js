@@ -121,12 +121,12 @@ export default function Usersidebar(props) {
                             <span className="menu-title">Hospitals</span>
                         </a>
                     </li>
-                    <li className="nav-item" onClick={navigateFamilyMember} style={{ cursor: "pointer" }}>
+                    {/* <li className="nav-item" onClick={navigateFamilyMember} style={{ cursor: "pointer" }}>
                         <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
                             <i class="fas fa-people-carry menu-icon"></i>
                             <span className="menu-title">Add Family Member</span>
                         </a>
-                    </li>
+                    </li> */}
                 </ul>
             </nav>
         </div>

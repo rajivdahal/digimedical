@@ -9,6 +9,8 @@ import { Todaydate } from '../../../../services/todaydate';
 import Clear from "@material-ui/icons/Clear";
 import TimePicker from 'react-time-picker';
 import Select from "react-select";
+import '@amir04lm26/react-modern-calendar-date-picker/lib/DatePicker.css';
+import DatePicker from '@amir04lm26/react-modern-calendar-date-picker';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default function Internalappointmentbook(prop) {
@@ -32,6 +34,15 @@ export default function Internalappointmentbook(prop) {
         specialist: null,
         description: null,
     });
+    var dt = new Date();
+    const [selectedDay, setSelectedDay] = useState({
+        year: dt.getFullYear(),
+        month: dt.getMonth()+1,
+        day: dt.getDate()})
+        const [minDate, setminDate] = useState({
+          year: dt.getFullYear(),
+          month: dt.getMonth()+1,
+          day: dt.getDate()})
     if (toeditdata) {
         toeditdata['serviceId'] = toeditdata['servicesId']
     }
@@ -40,7 +51,6 @@ export default function Internalappointmentbook(prop) {
             .then(resp => {
                 let message = resp.data.message
                 setappointmentsuccess(resp.data.message)
-
             })
             .catch(err => {
                 setappointmentfailed("Something went wrong")
@@ -115,8 +125,13 @@ export default function Internalappointmentbook(prop) {
                 notify.error("No any doctors are available to this service")
             })
     }
-    const handleeditchange = (e) => {
-        let { name, value } = e.target
+    const handleeditchange = (e,suffix) => {
+        let name
+        let value
+        if(!suffix){
+            console.log("inside if not suffix")
+            name=e.target.name
+            value=e.target.value
         console.log("name and values are", name, value, "to edit data is", toeditdata)
         if (name === "servicesId") {
             httpClient.GET(`services/get-name/${value}`)
@@ -135,6 +150,7 @@ export default function Internalappointmentbook(prop) {
                 })
         }
         if (name === "doctorId") {
+
             httpClient.GET(`doctor/doctor-name/${value}`)
                 .then(resp => {
                     let doctorname = resp.data.data.name
@@ -150,15 +166,28 @@ export default function Internalappointmentbook(prop) {
                     notify.error("something went wrong")
                 })
         }
+        }
+        if(suffix=="appointmentdate"){
+            console.log("inside appintmentdate suffix")
+            var completedate=e.year+"-"+e.month+"-"+e.day
+            console.log("completed date is",completedate)
+            name="appointmentdate"
+            value=completedate
+            setSelectedDay({
+                year:e.year,
+                month:e.month,
+                day:e.day
+            })
+        }
         settoeditdata(prevvalue => {
-            return {
+            return{
                 ...prevvalue,
                 [name]: value
             }
         })
         setTimeout(() => {
-            console.log("data changed", editdata)
-        }, 2000);
+            console.log("data changed", toeditdata)
+        }, 4000);
 
     }
     useEffect(() => {
@@ -189,6 +218,7 @@ export default function Internalappointmentbook(prop) {
 
             return prop.history.push("/dashboard/corporate/viewappointment")
         }
+        console.log(formik.values)
         callapi('create-appointment', formik.values)
         prop.history.push("/dashboard/viewappointment")
         notify.success("Appointment booked successfully")
@@ -228,6 +258,14 @@ export default function Internalappointmentbook(prop) {
         formik.setFieldValue("doctorId", doctor.value);
         getdoctorinfo(doctor.value)
     }
+    const handleDateChange=(value)=>{
+        formik.values.appointmentDate=value.year+"-"+value.month+"-"+value.day
+        setSelectedDay({
+            year:value.year,
+            month:value.month,
+            day:value.day
+        })
+    }
     let formcontent = toeditdata ?
         <div>
             {
@@ -243,20 +281,18 @@ export default function Internalappointmentbook(prop) {
                         >
                             <option>{toeditdata.patientsname}</option>
                         </select>
-                        {/* <h4>{toeditdata.patientsname}</h4> */}
-                        {/* {formik.errors.email && formik.touched.email ? <div style={{ color: "red" }} className="errmsg">{formik.errors.email}  </div> : null} */}
                     </div> : null
             }
             <div className="form-row">
                 <div className="form-group col-md-6">
                     <label htmlFor="service">Select Service</label>
-                    <select name="servicesId" className="form-control"
+                    <select name="servicesId" className="form-control manageZIndex"
                         onChange={(e) => {
                             handleChange(e)
                         }}
                         disabled
                     >
-                        <option >{toeditdata.servicename}</option>
+                        <option style={{zIndex:"100"}}>{toeditdata.servicename}</option>
                     </select>
 
                 </div>
@@ -275,8 +311,15 @@ export default function Internalappointmentbook(prop) {
             </div>
             <div className="form-row">
                 <div className="form-group col-md-12">
-                    <label htmlFor="appointment">Appointment Date.</label>
-                    <input
+                    <label htmlFor="appointment">Appointment Date.</label><br/>
+                    <DatePicker
+            className="form-control"
+            shouldHighlightWeekends
+            value={selectedDay}
+            onChange={(value)=>handleeditchange(value,"appointmentdate")}
+            minimumDate={minDate} 
+            ></DatePicker>
+                    {/* <input
                         type="date"
                         className="form-control"
                         id="appointmentdate"
@@ -286,7 +329,7 @@ export default function Internalappointmentbook(prop) {
                         onChange={(e) => {
                             handleeditchange(e)
                         }}
-                    />
+                    /> */}
                     <h4>{formatDate(toeditdata.appointmentdate)}</h4>
                 </div>
                 <div className="form-group col-md-12">
@@ -324,9 +367,7 @@ export default function Internalappointmentbook(prop) {
                     <label htmlFor="service">Select Service</label>
                     <Select
                         options={services}
-
                         onChange={handleChange}
-
                     />
                     {formik.errors.servicesId && formik.touched.servicesId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.servicesId}  </div> : null}
                 </div>
@@ -334,43 +375,22 @@ export default function Internalappointmentbook(prop) {
                     <label htmlFor="doctor">Select Doctor</label>
                     <Select
                         options={doctors}
-
                         onChange={handleDoctorChange}
-
                     />
-                    {/* <select id="doctorId" className="form-control" {...formik.getFieldProps("doctorId")} style={{ color: "black" }}
-                        onChange={(e) => {
-                            formik.handleChange(e)
-                            getdoctorinfo(e);
-                        }}
-                    >
-                        <option value={null}></option>
-                        {
-                            doctors.map((item, index) => {
-                                if (item.name) {
-                                    return <option key={index} value={item.id}>{item.name}</option>
-                                }
-                            })
-                        }
-                    </select> */}
                     {formik.errors.doctorId && formik.touched.doctorId ? <div style={{ color: "red" }} className="errmsg">{formik.errors.doctorId}</div> : null}
                 </div>
             </div>
             <div className="form-row">
                 <div className="form-group col-md-12">
 
-                    <label htmlFor="appointment">Appointment Date.</label>
-                    <input
-                        type="date"
-                        className="form-control"
-                        id="appointmentDate"
-                        placeholder="dd/mm/yyyy"
-                        {...formik.getFieldProps("appointmentDate")}
-                        onChange={(e) => {
-                            formik.handleChange(e)
-
-                        }}
-                    />
+                    <label htmlFor="appointment">Appointment Date.</label><br/>
+                    <DatePicker
+            className="form-control"
+            shouldHighlightWeekends
+            value={selectedDay}
+            onChange={handleDateChange}
+            minimumDate={minDate} 
+            ></DatePicker>
                     {formik.errors.appointmentDate && formik.touched.appointmentDate ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentDate}  </div> : null}
                 </div>
 
