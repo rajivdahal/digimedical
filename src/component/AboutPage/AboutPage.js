@@ -110,7 +110,7 @@ const AboutPage = () => {
       <TheyTrustedUs />
 
       {/* here is about teams html */}
-      <div className="about_teams">
+      {/* <div className="about_teams">
         <div className="head_about_teams">
           {" "}
           <h1>Meet Our Team</h1>
@@ -216,7 +216,7 @@ const AboutPage = () => {
             </a>
           </div>
         </div>
-      </div>
+      </div> */}
       <Footer></Footer>
     </>
   );

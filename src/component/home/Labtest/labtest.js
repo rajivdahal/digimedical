@@ -7,6 +7,7 @@ import { httpClient } from "../../../utils/httpClient.js";
 import { notify } from "../../../services/notify.js";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import Footer from "../../Footer/Footer.js";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const HomeLabtest = (props) => {
@@ -107,6 +108,7 @@ const HomeLabtest = (props) => {
           </>
         ) : null}
       </div>
+      <Footer></Footer>
     </>
   );
 };

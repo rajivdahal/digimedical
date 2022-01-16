@@ -1,7 +1,6 @@
 import React from 'react'
 import { TimeandDate } from '../../../../services/timeanddate'
 import "./lab_popup.css"
-
 import { Component } from 'react'
 import { connect } from "react-redux"
 import { removeproductstatus } from '../../../../actions/cart.ac'
@@ -10,11 +9,9 @@ import { checkout } from '../../../../actions/cart.ac'
 import { removeproduct } from '../../../../actions/cart.ac'
 import { httpClient } from '../../../../utils/httpClient'
 import { notify } from '../../../../services/notify'
-
 class Checkoutpopupcomponent extends Component {
   render() {
     let total = 0
-    let props = this.props
     let { removeproductstatus, addtocartsign, checkoutsignal, removeproductsign } = this.props
     const cart = JSON.parse(localStorage.getItem("cart"))
     console.log("cart is", cart)
@@ -46,7 +43,6 @@ class Checkoutpopupcomponent extends Component {
    
     const handleCheckoutlabtest = () => {
       
-      
       if (!localStorage.getItem("cart")) {
         return notify.error("Please add some items to the cart")
       }
@@ -64,6 +60,8 @@ class Checkoutpopupcomponent extends Component {
               notify.success("Lab test booked successfully")
               localStorage.removeItem("cart")
               this.props.checkout(!checkoutsignal)
+              this.props.props.push("/dashboard/view-lab-test")
+
             })
             .catch(err => {
               notify.error("Lab test could not be saved,Please try again in few minutes")
@@ -75,7 +73,6 @@ class Checkoutpopupcomponent extends Component {
         notify.error("Please add some items to the cart")
         this.props.checkout(!checkoutsignal)
       }
-        // {"cartvalue":2,"labs":[[{"price":"100","labId":4,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab4"},{"price":"1000","labId":1,"medicalInstituteId":2,"medicalname":"institute2","category":"labtest2`","subcategoryname":"lab1"}],[{"price":"1400","labId":2,"medicalInstituteId":2,"medicalname":"institute2","category":"labtest1","subcategoryname":"lab2"}]]}
     }
     let maincategories = []
     if (cart) {

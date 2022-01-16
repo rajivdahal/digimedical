@@ -1,33 +1,37 @@
-.marginadj{
+.marginadj {
     margin-top: 15%;
     margin-left: 30%;
     position: absolute;
     display: flex;
 }
-.form-width-adjust{
+
+.form-width-adjust {
     width: 80%;
     margin-top: 100px;
-
 }
-.errmsg{
+
+.errmsg {
     font-size: small;
     margin-top: 2px;
 }
-.marginadj{
+
+.marginadj {
     margin-top: 10%;
     margin-left: 30%;
     position: absolute;
     display: flex;
 }
-.form-width-adjust{
-    width: 100%;
 
+.form-width-adjust {
+    width: 100%;
 }
-.errmsg{
+
+.errmsg {
     font-size: small;
     margin-top: 2px;
 }
-.bookappimage{
+
+.bookappimage {
     height: 400px;
     width: 400px;
     margin-left: 30rem;
@@ -35,6 +39,7 @@
     position: absolute;
     z-index: -10;
 }
+
 .bubbble {
     position: relative;
     background: white;
@@ -46,13 +51,13 @@
     top: 180%;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
+
 .bubble::after {
     content: "";
     display: block;
     position: absolute;
     left: -24px;
     top: 180%;
-
     width: 100px;
     height: 100px;
     border-top: 12px solid transparent;
@@ -60,8 +65,30 @@
     border: 25px solid white;
     /* box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%); */
 }
-.time-picker{
+
+.time-picker {
     height: 40px;
     width: 100%;
-    
+}
+
+.DatePicker__input {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 0.4em 0.8em;
+    font-family: inherit;
+    text-align: center;
+    font-size: 13px;
+    height: 3rem;
+    z-index: -10;
+    width: 109%;
+}
+
+.manageZIndex {
+    position: absolute;
+    z-index: 10;
+}
+
+.form-control {
+    position: relative;
+    z-index: 0;
 }

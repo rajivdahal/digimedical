@@ -35,17 +35,16 @@ const Root = styled.div`
     .hello_video {
       margin: 70px auto;
       padding: 20px;
-    // background: #fff;
+      // background: #fff;
       border-radius: 5px;
       width: 30%;
-      height:20rem;
+      height: 20rem;
       position: relative;
       transition: all 5s ease-in-out;
-    
-    
+
       .close_vid {
         position: absolute;
-        top:  -40px;
+        top: -40px;
         right: -120px;
         transition: all 200ms;
         font-size: 60px;
@@ -70,13 +69,16 @@ const ImageContainor = styled.div`
     width: 100%;
     height: 100%;
   }
+
   .doc_miss_pic {
     width: 60%;
-
+    @media screen and (max-width: 700px) {
+      width: 100%;
+    }
     .image {
       border-radius: 10px;
       width: 100%;
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 700px) {
         width: 100%;
       }
     }
@@ -85,51 +87,25 @@ const ImageContainor = styled.div`
   .doc_video_play {
     margin-top: -15%;
     margin-left: 30%;
-
-    .video_img_abt {
+    @media screen and (max-width: 700px) {
+      margin-left: 0;
+      margin-top:10px;
+      width:100%;
+    
+    }
+    .yt-video {
+    
       border-radius: 10px;
+      @media screen and (max-width: 700px){
+        width:100%;
+      }
     }
-    .yt-video{
-      border-radius:10px
-    }
 
-    .play_but_vid_abt {
-      margin-top: -28%;
-      margin-left: 25%;
-      .player {
-        width: 60px;
-        height: 60px;
-        border: solid 3px #fff;
-        border-radius: 100%;
-        position: relative;
-        text-indent: -9999px;
-        box-shadow: 1px 1px 3px #999999;
-      }
 
-      .player span {
-        width: 0;
-        height: 0;
-        border-top: 15px solid transparent;
-        border-left: 20px solid #fff;
-        border-bottom: 15px solid transparent;
-        position: absolute;
-        top: 20%;
-        left: 36%;
-      }
 
-      .player:hover {
-        background: #4ccaea;
-        cursor: pointer;
-        opacity: 0.95;
-        border: none;
 
-        box-shadow: none;
-      }
 
-      .player:hover span {
-        top: 22%;
-        left: 38%;
-      }
+  
     }
   }
 `;
@@ -220,8 +196,6 @@ const OurMission = () => {
         <div className="doc_video_play">
           {" "}
           <iframe
-            width="300"
-            height="200"
             src="https://www.youtube.com/embed/bFGbnjxNvBk"
             title="Digimedical"
             frameborder="0"

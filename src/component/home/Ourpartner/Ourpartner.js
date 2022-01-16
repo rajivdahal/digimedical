@@ -46,8 +46,6 @@ const Logo = styled.div`
   .logo {
     height: 4rem;
 
-    width: 12rem;
-
     @media screen and (max-width: 1077px) {
       margin-left: 1rem;
     }
@@ -58,7 +56,7 @@ const Logo = styled.div`
       height: 3.3rem;
     }
     @media screen and (max-width: 650px) {
-      height: 5rem;
+      height: 4rem;
       margin-left: 0rem;
       margin-top: 1rem;
     }

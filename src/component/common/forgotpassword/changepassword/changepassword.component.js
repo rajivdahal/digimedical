@@ -10,6 +10,8 @@ import { useHistory } from "react-router-dom";
 export const Changepassword = (props) => {
   console.log("props in change password are", props);
   const [isLoading, setisLoading] = useState(false);
+  const [currentPassword,setCurrentPassword]=useState(false)
+  const [newPassword,setNewPassword]=useState(false)
   const userName = props.location.username;
   const history=useHistory()
   const Formik = useFormik({
@@ -81,7 +83,7 @@ export const Changepassword = (props) => {
           !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(values.newPassword)
         ) {
           errors.newPassword =
-            "Password should at least be 8 characters of one uppercase ,one lowercase and one special character!";
+            "Weak password!";
         }
         if (values.confirmPassword != values.newPassword) {
           errors.confirmPassword = "Password doesn't match!";
@@ -96,6 +98,27 @@ export const Changepassword = (props) => {
   });
   const handleCancel=()=>{
     history.push("/dashboard")
+  }
+
+  const changeType=(field)=>{
+    if(field=="showNewPassword"){
+      setNewPassword(!newPassword)
+    }
+
+    if(field=="showCurrentPassword"){
+      setCurrentPassword(!currentPassword)
+    }
+    // switch (field) {
+    //   case "showNewPassword":
+        
+    //     setShowPassword(showpass)
+    //     break;
+    //   case "showCurrentPassword":
+    //     showpass.showCurrentPassword=!showpass.showCurrentPassword
+    //     setShowPassword(showpass)
+    //   default:
+    //     break;
+    // }
   }
   return (
     <>
@@ -115,11 +138,15 @@ export const Changepassword = (props) => {
                   props.location.pathname === "/dashboard/settings/change-password" ?
                     <div>
                       <p id="label_cp">Current Password</p>
-                      <input type="password" id="password" {...Formik.getFieldProps("oldPassword")} />
-
-                      <i class="fas fa-eye-slash" id="icon_eye_cp"></i>
+                      <input type={currentPassword?"text":"password"}  id="password" {...Formik.getFieldProps("oldPassword")} />
+                      
+                      <i 
+                      className={currentPassword?"fas fa-eye":"fas fa-eye-slash"} id="icon_eye_cp" 
+                      onClick={()=>changeType("showCurrentPassword")}
+                      style={{cursor:"pointer"}}
+                      ></i>
                     </div> : null
-                }
+                } 
 
               </div>
 
@@ -127,9 +154,12 @@ export const Changepassword = (props) => {
 
               <div className="form_cont_changepass">
                 <p id="label_cp">{props.location.fromexternaluser ? "Password" : "New Password"}</p>
-                <input type="password" id="password" {...Formik.getFieldProps("newPassword")} />
-
-                <i class="fas fa-eye-slash" id="icon_eye_cp"></i>
+                <input type={newPassword?"text":"password"} id="password" {...Formik.getFieldProps("newPassword")} />
+                <i 
+                className={newPassword?"fas fa-eye":"fas fa-eye-slash"}
+                 id="icon_eye_cp" onClick={()=>changeType("showNewPassword")}
+                 style={{cursor:"pointer"}}
+                 ></i>
                 {Formik.errors.newPassword && Formik.touched.newPassword ? <div style={{ color: "red" }} className="errmsg">{Formik.errors.newPassword}</div> : null}
               </div>
 
@@ -137,8 +167,6 @@ export const Changepassword = (props) => {
               <div className="form_cont_changepass">
                 <p id="label_cp">Confirm Password</p>
                 <input type="password" id="confirmPassword" {...Formik.getFieldProps("confirmPassword")} />
-
-                <i class="fas fa-eye-slash" id="icon_eye_cp"></i>
                 {Formik.errors.confirmPassword && Formik.touched.confirmPassword ? <div style={{ color: "red" }} className="errmsg">{Formik.errors.confirmPassword}</div> : null}
               </div>
               <div className="but_chang_pass">
@@ -148,8 +176,6 @@ export const Changepassword = (props) => {
             </form>
 
           </div>
-
-
         </div> : <div className="container">
           <div className="adjust-center adjust-margin">
             <h2 className="primary-color" >Change Password</h2>

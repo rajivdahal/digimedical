@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
 import Cliploader from "../../../utils/clipLoader";
 import { Todaydate } from "../../../services/todaydate";
-import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import DatePicker from 'react-modern-calendar-datepicker';
+import '@amir04lm26/react-modern-calendar-date-picker/lib/DatePicker.css';
+import DatePicker from '@amir04lm26/react-modern-calendar-date-picker';
 import Clear from "@material-ui/icons/Clear";
 import "./formcomponent.css";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -72,12 +72,19 @@ function FormComponent(props) {
     specialist: null,
     description: null,
   });
-  const [isdoctorblurred, setisdoctorblurred] = useState(false);
-  const [selectedDayRange, setSelectedDayRange] = useState({
-    from: 4,
-    to: 10
-  });
 
+var dt = new Date();
+// var date = dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate();
+// console.log("today date is",date)
+  const [isdoctorblurred, setisdoctorblurred] = useState(false);
+  const [selectedDay, setSelectedDay] = useState({
+    year: dt.getFullYear(),
+    month: dt.getMonth()+1,
+    day: dt.getDate()})
+    const [minDate, setminDate] = useState({
+      year: dt.getFullYear(),
+      month: dt.getMonth()+1,
+      day: dt.getDate()})
   useEffect(() => {
     httpClient
       .GET("services/get/true")
@@ -227,6 +234,12 @@ function FormComponent(props) {
   const clearpopup = () => {
     setisdoctorblurred(false);
   };
+  const datechange=(value)=>{
+    let date=""
+    date=value.year+"-"+value.month+"-"+value.day
+    setSelectedDay(value)
+    formik.values.appointmentDate=date
+  }
   return (
     <FormSection>
       <form onSubmit={formik.handleSubmit}>
@@ -355,36 +368,22 @@ function FormComponent(props) {
         <div className="form-row">
           <div className="form-group col-md-6">
             <label htmlFor="appointment">Appointment Date<span style={{ color: 'red' }}>*</span></label>
-            {/* <DatePicker 
-            // value={}
+            <DatePicker
             className="form-control"
             shouldHighlightWeekends
-            value={{from:{day:1,month:1,year:2022},to:{day:10,month:1,year:2022}}}
-            onChange={datechanged}
-
-              // from: null,
-              //  to:
-              //   { day: 11, month: 3, year: 2020}
-
-            ></DatePicker> */}
-            <input
-              type="date"
-              className="form-control"
-              id="appointmentDate"
-              placeholder="dd/mm/yyyy"
-              min={today}
-              pattern="\d{4}-\d{2}-\d{2}"
-              max=""
-              {...formik.getFieldProps("appointmentDate")}
-            />
+            value={selectedDay}
+            onChange={datechange}
+            minimumDate={minDate} 
+            style={{width:"40px"}}
+            ></DatePicker>
             {formik.errors.appointmentDate && formik.touched.appointmentDate ? (
               <div style={{ color: "red" }} className="errmsg">
                 {formik.errors.appointmentDate}{" "}
               </div>
             ) : null}
           </div>
-
-          <div className="form-group col-md-6">
+              
+          <div className="form-group col-md-6" style={{marginTop:""}}>
             <label htmlFor="time">Time<span style={{ color: 'red' }}>*</span></label>
             <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formik.getFieldProps("appointmentTime")}></input>
             {formik.errors.appointmentTime && formik.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formik.errors.appointmentTime}  </div> : null}
