@@ -104,6 +104,7 @@ const EditProfile = (props) => {
     const getUser = () => {
         let id = localStorage.getItem('userid');
         if (props) {
+            console.log(props)
             let url = REACT_APP_BASE_URL + "download/"+ id;
             setImage(url)
             setUserProfile({
@@ -261,7 +262,7 @@ const EditProfile = (props) => {
                                             <Col md={6}>
                                                 <div className=" form-group ">
                                                     <label >Email : </label>
-                                                    <Field name="email" validate={validateEmail} className="form-control profile-field" disabled />
+                                                    <Field name="email" validate={validateEmail} className="form-control profile-field"/>
                                                     {errors.email && touched.email && <div className="error-message">{errors.email}</div>}
                                                 </div>
                                             </Col>
@@ -338,12 +339,12 @@ const EditProfile = (props) => {
 
                             <Row className="mb-4">
                                 <div className="textAlign-right">
-                                    <Button type="button" className="cancel-btn" onClick={cancelProfileEdit}>
+                                    <button type="button" className="cancel-btn" onClick={cancelProfileEdit}>
                                         Cancel
-                                    </Button>
-                                    <Button className="change-btn" type="submit">
+                                    </button>
+                                    <button className="change-btn" type="submit">
                                         Save Changes
-                                    </Button>
+                                    </button>
                                 </div>
                             </Row>
 
