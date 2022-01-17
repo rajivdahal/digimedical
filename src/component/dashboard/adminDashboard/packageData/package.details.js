@@ -9,20 +9,20 @@ import { notify } from "../../../../services/notify";
 import PackageApi from "./package.service";
 import { validatePackage } from "./package.helper";
 import { Edit, Clear } from "@material-ui/icons";
-
+import "./package.css"
+import { http, httpClient } from '../../../../utils/httpClient';
 const MembershipPackageDetails = (props) => {
 
     const [loading, setLoading] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const [allPackages, setAllPackages] = useState([]);
-    const [packageID, setPackageID] = useState("");
-    const [packageStatus, setPackageStatus] = useState("");
-    const [showModal, setShowModal] = useState(false);
+    const [packageDetail, setPackageDetail] = useState([]);
+    const [detailID, setDetailID] = useState("");
     const [packageData, setPackageData] = useState({
+
         packageId: "",
         selectedPackage: [],
-        description: "",
-        details :"",
+        details: "",
         allDetails: [],
     })
 
@@ -33,14 +33,12 @@ const MembershipPackageDetails = (props) => {
             let resp = await PackageApi.getAllPackage();
             if (resp.data.status) {
                 let truePackage = resp.data.data;
-                console.log(truePackage)
                 let option = truePackage.map((item, index) => {
                     return {
                         label: item.name,
                         value: item.id,
                     }
                 })
-                console.log(option)
                 setAllPackages(option)
 
             }
@@ -53,22 +51,40 @@ const MembershipPackageDetails = (props) => {
         setLoading(false)
     }
 
-    useEffect(() => {
-        getPackages();
-    }, [])
-
-    const createPackageDetails = (values) => {
+    const getPackageDetails = async () => {
         setLoading(true);
         try {
-            let selectedId = values.selectedPackage.value;
-            let  data ={
-                membershipPackageId : selectedId,
-                description : values.description,
-
+            let resp = await PackageApi.getPackageDetails();
+            if (resp.data.status) {
+                let data = resp.data.data;
+                console.log(data)
+                setPackageDetail(data)
             }
-            console.log(data)
+        }
+        catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+            }
+        }
+        setLoading(false)
+    }
 
-            
+    useEffect(() => {
+        getPackages();
+        getPackageDetails();
+    }, [])
+
+    const createPackageDetails = async (values) => {
+        setLoading(true);
+        try {
+            let resp = await PackageApi.createPackageDetail(values);
+            if (resp.data.status) {
+                notify.success(resp.data.message)
+                formik.resetForm();
+                getPackageDetails();
+                formik.setFieldValue("allDetails", [])
+            }
+
         } catch (err) {
             if (err && err.response && err.response.data) {
                 notify.error(err.response.data.message || "Something went wrong");
@@ -81,30 +97,82 @@ const MembershipPackageDetails = (props) => {
         initialValues: packageData,
         onSubmit: (values) => {
             console.log(values)
-            createPackageDetails(values);
 
-            // if (packageID) {
-            //     handleEditPackage(values)
-            // } else {
-            // createPackage(values);
+            if (detailID) {
+                handleEditDetails(values)
+            } else {
+                createPackageDetails(values);
 
-            // }
+            }
         },
-
-        // validate: (values) => {
-        //     let isEdit = packageID ? true : false;
-        //     return validatePackage(values, isEdit);
-        // },
 
     })
 
-    const handleAddDetails=()=>{
+    const handleAddDetails = (values) => {
 
+        if (!values.details) return;
+        let tempArr = values.allDetails;
+        tempArr.push(values.details);
+        formik.setFieldValue('allDetails', tempArr)
+        formik.setFieldValue('details', "")
     }
-    
+
     const handlePackageChange = (item) => {
-        console.log(item);
         formik.setFieldValue('selectedPackage', item)
+    }
+
+    const editPackageDetail = (e, data) => {
+        console.log(data);
+        setDetailID(data.id)
+        if (data) {
+            let packageData = {
+                label: data.name,
+                value: data.membershippackageid
+            }
+            setPackageData({
+                selectedPackage: packageData,
+                details: data.points
+
+            })
+            window.scrollTo(0, 0)
+        }
+    }
+
+    const handleEditDetails = async (values) => {
+        setLoading(true);
+        try {
+            let resp = await PackageApi.editPackageDetails(values, detailID);
+            if (resp.data.status) {
+                notify.success(resp.data.message);
+                setDetailID(null);
+                setPackageData({
+                    packageId: "",
+                    selectedPackage: [],
+                    details: "",
+                    allDetails: [],
+                })
+                getPackageDetails();
+            }
+
+        } catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+            }
+        }
+    }
+
+
+    const handleCancelEdit = () => {
+        setDetailID(null);
+        setPackageData({
+            packageId: "",
+            selectedPackage: [],
+            details: "",
+            allDetails: [],
+        })
+    }
+    const removeDetail = () => {
+
     }
 
     return (
@@ -112,7 +180,7 @@ const MembershipPackageDetails = (props) => {
             <Container>
                 <Form onSubmit={formik.handleSubmit}>
                     <Row className="mb-3">
-                        <Col md={6}>
+                        <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Package Name</Form.Label>
                                 <Select
@@ -120,7 +188,6 @@ const MembershipPackageDetails = (props) => {
                                     options={allPackages}
                                     name="packageId"
                                     onChange={handlePackageChange}
-                                    defaultInputValue="Please Select One value"
                                 >
                                 </Select>
                             </Form.Group>
@@ -128,35 +195,48 @@ const MembershipPackageDetails = (props) => {
 
                         <Col md={6}>
                             <Form.Group >
-                                <Form.Label>Description :</Form.Label>
-                                <Form.Control type="text" name="description" onChange={formik.handleChange}
-                                    value={formik.values.description} onBlur={formik.handleBlur} />
-                                {formik.touched.description && formik.errors.description ?
-                                    <div className="error-message">{formik.errors.description}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col>
-                    </Row>
-
-                    <Row className="mb-3">
-                        <Col md={6}>
-                            <Form.Group >
                                 <Form.Label>Details : </Form.Label>
-                                <Form.Control type="text" name="details"
-                                    value={formik.values.details} onBlur={formik.handleBlur}/>
+                                <Form.Control type="text" name="details" onChange={formik.handleChange}
+                                    value={formik.values.details} onBlur={formik.handleBlur} />
                                 {formik.touched.details && formik.errors.details ?
                                     <div className="error-message">{formik.errors.details}</div>
                                     : null}
                             </Form.Group>
                         </Col>
-                        <Col md={3}>
-                            <br></br>
-                            <Button variant="info" onClick={handleAddDetails}>Add More</Button>
+                        {!detailID ?
+                            <Col md={2}>
+                                <br></br>
+                                <Button variant="info" onClick={() => handleAddDetails(formik.values)}>Add</Button>
+                            </Col>
+                            :
+                            <></>
+                        }
+
+                    </Row>
+
+                    <Row>
+                        <Col md={4}></Col>
+                        <Col md={8}>
+                            {formik.values && formik.values.allDetails ?
+                                <ul>
+                                    {formik.values && formik.values.allDetails.map((item) => {
+                                        return <div className='clearfix'>
+                                            <li>
+                                                <div className='flaotLeft'>{item}</div>
+                                                <div style={{ color: "red" }} className="removeBtn remove-button" onClick={removeDetail}>x</div>
+                                            </li>
+                                        </div>
+                                    })}
+                                </ul>
+                                :
+                                <></>
+                            }
+
                         </Col>
                     </Row>
 
                     <div className="mb-5" >
-                        {packageID ?
+                        {detailID ?
                             <div>
                                 {isLoading == true ?
                                     <Cliploader isLoading={isLoading} />
@@ -165,7 +245,7 @@ const MembershipPackageDetails = (props) => {
                                         <Button variant="info" type="submit">
                                             Edit
                                         </Button>
-                                        <Button variant="danger" style={{ marginLeft: '10px' }} >
+                                        <Button variant="danger" style={{ marginLeft: '10px' }} onClick={handleCancelEdit}>
                                             Cancel
                                         </Button>
                                     </div>
@@ -188,7 +268,41 @@ const MembershipPackageDetails = (props) => {
                     </div>
                 </Form>
 
+                <MaterialTable
+                    columns={[
+                        { title: "ID", field: "id" },
+                        { title: "Name", field: "name" },
+                        { title: "Points", field: "points" },
+                    ]}
+                    data={packageDetail}
+                    title="Pacakges Details"
+                    icons={Tableicons}
+
+                    options={{
+                        actionsColumnIndex: -1,
+                        pageSize: 10,
+                        filtering: false,
+                        sorting: true,
+                        headerStyle: {
+                            backgroundColor: "#2745F0",
+                            color: "#FFF",
+                        },
+                    }}
+
+                    actions={[
+                        {
+                            icon: Edit,
+                            tooltip: "Edit Hospital",
+                            onClick: (e, rowData) => {
+                                editPackageDetail(e, rowData);
+                            },
+                        },
+
+                    ]}
+                />
+
             </Container>
+
 
         </div>
     )

@@ -35,6 +35,10 @@ const BookedLabtest=(props)=>{
         })
     }
 
+    const showLabtestReport=(e,data)=>{
+        props.history.push("/dashboard/labtest-report",data)
+    }
+
     useEffect(()=>{
         getBookedLabtest(0);
     },[])
@@ -43,14 +47,11 @@ const BookedLabtest=(props)=>{
             <Container>
                 <MaterialTable
                     columns={[
-                        // { title: "ID", field: "labtestid" },
+                        { title: "ID", field: "labtestbookingid" },
                         { title: 'Patient Name', field: 'patientname'},
-                        // { title: 'Age', field: 'age'},
                         { title: 'Lab Test', field: 'labtestname', },
                         { title: 'Subcategory', field: 'labtestcategoryname'},
                         { title: 'Price', field: 'priceString' },
-                        // { title: 'Date', field: 'date' },
-                        {}
                         
                     ]}
                     data={bookedLabtest}
@@ -68,17 +69,10 @@ const BookedLabtest=(props)=>{
 
                     actions={[
                         {
-                          icon: () => (
-                            
-                            <Visibility fontSize="small"
-                           
-                              className="action-button"
-                            />
-                          ),
+                          icon: () => <Visibility fontSize="small" className="action-button"/>,
                           tooltip: "View prescription",
-                          
                           onClick: (e, rowData) => {
-                            // showPrescriptionModal(e, rowData);
+                            showLabtestReport(e, rowData);
                           },
                           
                         }, 

@@ -143,7 +143,6 @@ const MedicalInstitute = (props) => {
 
     const getEditData = (e, data) => {
         setInstituteID(data.id)
-        console.log(data)
         if (data) {
             setInstituteInfo({
                 name: data.name ?? "",

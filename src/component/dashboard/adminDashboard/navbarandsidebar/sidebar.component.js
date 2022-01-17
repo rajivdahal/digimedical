@@ -105,7 +105,7 @@ const Adminsidebar = (props) => {
             <a className="nav-link" data-toggle="collapse" href="#hospital" aria-expanded="false" aria-controls="hospital">
               {/* <i className="icon-bar-graph menu-icon"></i> */}
               <LocalHospitalIcon className="dash-icon"></LocalHospitalIcon>
-              <span className="menu-title">Hospital</span>
+              <span className="menu-title">Hospitals/Clinics</span>
               <i className="menu-arrow"></i>
             </a>
             <div className="collapse" id="hospital">
@@ -155,7 +155,7 @@ const Adminsidebar = (props) => {
                   <li className="nav-item"> <a className="nav-link" href="">Labtest Subcategory</a></li>
                 </Link>
                 <Link to="/dashboard/add-institute">
-                  <li className="nav-item"><a className="nav-link" href="">Medical Institute</a></li>
+                  <li className="nav-item"><a className="nav-link" href="">Lab Centers</a></li>
                 </Link>
                 <Link to="/dashboard/membership-package">
                 <li className="nav-item"><a className="nav-link" href="">Add Package</a></li>

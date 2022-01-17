@@ -36,10 +36,23 @@ const PackageApi = {
 
     createPackageDetail:(values)=>{
         let selectedId = values.selectedPackage.value;
-        let  data ={
-            membershipPackageId : selectedId,
-        }
+            let  data ={
+                membershipPackageId : selectedId,
+                points : values.allDetails
+            }
         return httpClient.POST("membership-packages-details/create",data,false,true)
+    },
+    getPackageDetails : ()=>{
+        return httpClient.GET("membership-packages-details/all", false, true)
+    },
+    editPackageDetails : (values,detailID)=>{
+        let selectedId = values.selectedPackage.value;
+            let  data ={
+                membershipPackageId : selectedId,
+                points : values.details,
+                id:detailID,
+            }
+        return httpClient.PUT("membership-packages-details/update",data,false,true)
     }
 }
 export default PackageApi;

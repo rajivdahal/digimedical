@@ -267,7 +267,7 @@ const EditProfile = (props) => {
                                             </Col>
                                             <Col md={4}>
                                                 <label >Gender : </label>
-                                                <Field class="form-control profile-field" as='select' name="gender" value={values.gender}>
+                                                <Field class="select-control profile-field" as='select' name="gender" value={values.gender}>
                                                     <option value="0">Male</option>
                                                     <option value="1">Female</option>
                                                     <option value="2">Other</option>
@@ -276,7 +276,7 @@ const EditProfile = (props) => {
                                             </Col>
                                             <Col md={4}>
                                                 <label >Blood Group : </label>
-                                                <Field class="form-control profile-field" as='select' name="bloodGroup" value={values.bloodGroup}>                                       
+                                                <Field class="select-control profile-field" as='select' name="bloodGroup" value={values.bloodGroup}>                                       
                                                     <option value="A+">A-postivie</option>
                                                     <option value="A-">A-negative</option>
                                                     <option value="B+">B-postive</option>

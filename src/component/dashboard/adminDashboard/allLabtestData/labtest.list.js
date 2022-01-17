@@ -14,7 +14,7 @@ const LabTestDetail = (props) => {
     const getLabtest = async (status) => {
         setLoading(true);
 
-        await httpClient.GET("appointment-labTest/get/detail/" + status, false, true)
+        await httpClient.GET("lab-booking/get-all/" + status, false, true)
             .then(resp => {
                 console.log(resp)
                 // let appointment = resp.data.data;
@@ -64,10 +64,11 @@ const LabTestDetail = (props) => {
                         title={title}
                         icons={Tableicons}
                         columns={[
-                            { title: 'Appointment ID', field: 'appointmentid' },
-                            { title: 'Patient Name', field: 'patientsname' },
-                            { title: 'Doctor Name', field: 'name' },
+                            // { title: 'Appointment ID', field: 'appointmentid' },
+                            { title: 'Patient', field: 'patientname' },
+                            { title: 'Email', field: 'email' },
                             { title: 'Labtest', field: 'labtestname' },
+                            { title: 'Subcategory', field: 'labtestcategoryname' },
                             { title: 'Price', field: 'price' },
 
                         ]}
