@@ -171,8 +171,13 @@ const MembershipPackageDetails = (props) => {
             allDetails: [],
         })
     }
-    const removeDetail = () => {
 
+    const removeDetail = (index) => {
+        console.log(index)
+        let tempArr = [...formik.values.allDetails];
+        console.log(tempArr)
+        tempArr.splice(index,1);
+        formik.setFieldValue('allDetails',tempArr)
     }
 
     return (
@@ -219,11 +224,12 @@ const MembershipPackageDetails = (props) => {
                         <Col md={8}>
                             {formik.values && formik.values.allDetails ?
                                 <ul>
-                                    {formik.values && formik.values.allDetails.map((item) => {
+                                    {formik.values && formik.values.allDetails.map((item,index) => {
                                         return <div className='clearfix'>
                                             <li>
-                                                <div className='flaotLeft'>{item}</div>
-                                                <div style={{ color: "red" }} className="removeBtn remove-button" onClick={removeDetail}>x</div>
+                                                <span className='flaotLeft'>{item}</span>
+                                                <span style={{ color: "red" }} className="removeBtn remove-button" 
+                                                onClick={()=>removeDetail(index)}>x</span>
                                             </li>
                                         </div>
                                     })}

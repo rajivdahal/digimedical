@@ -105,8 +105,19 @@ const Permission = (props) => {
 
     })
 
-    const createPermission=(values)=>{
-       
+    const createPermission=async(values)=>{
+       setLoading(true);
+       try{
+            let resp = await UserManagementApi.createPermission(values);
+            if(resp.data.status){
+                notify.success(resp.data.message)
+            }
+       }catch(err){
+        if (err && err.response && err.response.data) {
+            notify.error(err.response.data.message || "Something went wrong");
+        }
+       }
+       setLoading(false);
     }
 
     const handleRoleChange=(item) =>{
@@ -142,7 +153,7 @@ const Permission = (props) => {
                                         <Form.Label>Screen </Form.Label>
                                         <Select
                                             value={formik.values.screens}
-                                            isMulti
+                                            isMulti className="roleSelect"
                                             options={allScreens}
                                             name="screenId"
                                             onChange={handleScreenChange}

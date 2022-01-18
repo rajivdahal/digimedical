@@ -1,17 +1,50 @@
 import { useEffect, useRef, useState } from "react";
-import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
 import "./labreport.css"
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+
 const LabtestReport = (props) => {
     const imageSelectRef = useRef();
+    const [uploadedImg, setUploadImg] = useState("");
     const [selectedImage, setImage] = useState("");
+    const [allImageId, setAllImageId] = useState([]);
     const [selectedImgName, setImgName] = useState("");
     const [labReportImg, setLabReportImg] = useState();
 
     const handleAddImage = () => {
         imageSelectRef.current.click();
     };
+
+    const getAllImgID = async () => {
+        let id = props.location.state.labtestbookingid;
+
+        console.log(id)
+        try {
+
+            let resp = await httpClient.GET("lab-report/get-all/" + id, false, true);
+            console.log(resp);
+            if (resp.data.status) {
+                let imgId = resp.data.data;
+                console.log(imgId);
+                setAllImageId(imgId)
+                // let url = ;
+                // console.log(url)
+                // setUploadImg(url);
+            }
+
+        } catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+            }
+        }
+    }
+
+
+    useEffect(() => {
+        getAllImgID();
+    }, [])
 
     const handleChangeImage = (e) => {
         let files = e.target.files[0];
@@ -28,7 +61,6 @@ const LabtestReport = (props) => {
         setImage(null);
         setImgName(null);
         setLabReportImg(null);
-        // formik.setFieldValue("doctorImage", null);
     };
 
     const uploadImage = async () => {
@@ -48,7 +80,8 @@ const LabtestReport = (props) => {
             if (resp.data.status) {
                 notify.success(resp.data.message)
                 setImage(null);
-                setImgName(null)
+                setImgName(null);
+                getAllImgID();
             }
         } catch (err) {
             if (err && err.response && err.response.data) {
@@ -115,6 +148,18 @@ const LabtestReport = (props) => {
                     :
                     <></>
                 }
+
+                <Row>
+                    {allImageId.map((item, index) => {
+                        return <Col md={2} sm={4}>
+                            <Image src={REACT_APP_BASE_URL + "lab-report/download/" + item.labtestreportid}
+                             key={index} fluid className="image " 
+                             onClick={()=>window.open(REACT_APP_BASE_URL + "lab-report/download/" + item.labtestreportid)}>
+                            </Image>
+                        </Col>
+                    })}
+
+                </Row>
             </Container>
         </div>
     )

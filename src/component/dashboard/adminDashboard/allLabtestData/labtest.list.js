@@ -2,7 +2,9 @@ import MaterialTable from 'material-table';
 import Tableicons from '../../../../utils/materialicons';
 import { useEffect, useState } from 'react';
 import { httpClient } from '../../../../utils/httpClient';
-import { Col, Row, Container, Card} from 'react-bootstrap';
+import { Col, Row, Container, Card } from 'react-bootstrap';
+import { Visibility } from "@material-ui/icons";
+
 const LabTestDetail = (props) => {
 
     const [labtestDetail, setLabtestDetail] = useState([]);
@@ -13,7 +15,8 @@ const LabTestDetail = (props) => {
 
     const getLabtest = async (status) => {
         setLoading(true);
-
+        setStatus(status)
+        console.log(status)
         await httpClient.GET("lab-booking/get-all/" + status, false, true)
             .then(resp => {
                 console.log(resp)
@@ -32,12 +35,16 @@ const LabTestDetail = (props) => {
 
     useEffect(() => {
         getLabtest(0);
-    },[])
+    }, [])
 
     const handleLabtest = (title, status) => {
         setStatus(status);
         getLabtest(status)
         setTitle(title);
+    }
+
+    const showLabtestReport=(e,data)=>{
+        props.history.push("/dashboard/labtest-report",data,)
     }
 
     return (
@@ -64,7 +71,7 @@ const LabTestDetail = (props) => {
                         title={title}
                         icons={Tableicons}
                         columns={[
-                            // { title: 'Appointment ID', field: 'appointmentid' },
+                            { title: 'Booking ID', field: 'labtestbookingid' },
                             { title: 'Patient', field: 'patientname' },
                             { title: 'Email', field: 'email' },
                             { title: 'Labtest', field: 'labtestname' },
@@ -74,12 +81,25 @@ const LabTestDetail = (props) => {
                         ]}
                         data={labtestDetail}
                         options={{
-                            pageSize: 5,
+                            pageSize: 10,
+                            actionsColumnIndex: -1,
                             headerStyle: {
                                 backgroundColor: '#2745F0',
                                 color: '#FFF'
                             }
                         }}
+
+                        // actions={[
+                        //     {
+                        //         icon: () => <Visibility fontSize="small" className="action-button" />,
+                        //         tooltip: "View Details",
+                        //           onClick: (e, rowData) => {
+                        //             showLabtestReport(e, rowData);
+                        //           },
+
+                        //     },
+                        // ]}
+
                         isLoading={loading}
                     />
 

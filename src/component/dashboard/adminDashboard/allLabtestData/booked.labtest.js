@@ -70,7 +70,7 @@ const BookedLabtest=(props)=>{
                     actions={[
                         {
                           icon: () => <Visibility fontSize="small" className="action-button"/>,
-                          tooltip: "View prescription",
+                          tooltip: "View Details",
                           onClick: (e, rowData) => {
                             showLabtestReport(e, rowData);
                           },

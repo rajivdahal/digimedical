@@ -303,7 +303,6 @@ const Labtest = (props) => {
                                 {selectedImgName}
                             </div>
                             <Image src={selectedImage} fluid className="image ml-3" ></Image>
-
                         </Col>
                     </Row>
 

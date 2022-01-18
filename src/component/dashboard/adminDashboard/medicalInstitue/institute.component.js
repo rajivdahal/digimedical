@@ -1,7 +1,7 @@
 
 import { useFormik } from "formik";
-import { useState, useEffect, useRef } from "react";
-import { Container, Form, Row, Col, Button, Modal, Image } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Container, Form, Row, Col, Button, Modal } from "react-bootstrap";
 import { httpClient } from '../../../../utils/httpClient';
 import Cliploader from "../../../../utils/clipLoader";
 import { notify } from "../../../../services/notify";
@@ -28,17 +28,18 @@ const MedicalInstitute = (props) => {
     })
 
     const getAllInstitute = async () => {
-        await httpClient.GET("medical-institute/get-all", false, true)
-            .then(resp => {
-                console.log(resp)
-                if (resp.data.status) {
-                    let result = resp.data.data;
-                    setAllInstitute(result);
-                }
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        try {
+            let resp = await httpClient.GET("medical-institute/get-all", false, true)
+            if (resp.data.status) {
+                let result = resp.data.data;
+                setAllInstitute(result);
+            }
+        }
+        catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+            }        
+        }
 
     }
 
@@ -52,11 +53,11 @@ const MedicalInstitute = (props) => {
 
         onSubmit: (values) => {
             console.log(values)
-            if(instituteID){
+            if (instituteID) {
                 editMedicalInstitute(values)
-            }else{
-            createInstitute(values)
-           
+            } else {
+                createInstitute(values)
+
             }
         },
 
@@ -68,7 +69,6 @@ const MedicalInstitute = (props) => {
     })
 
     const createInstitute = (values) => {
-        console.log("inside create")
         try {
             setIsLoading(true)
             let medicalInstitute = {
@@ -80,7 +80,6 @@ const MedicalInstitute = (props) => {
             }
             httpClient.POST("medical-institute/create", medicalInstitute, false, true)
                 .then(resp => {
-                    console.log(resp)
                     if (resp.data.status) {
                         notify.success(resp.data.message)
                         formik.resetForm();
@@ -88,12 +87,12 @@ const MedicalInstitute = (props) => {
                     }
                 })
                 .catch(err => {
-                    console.log(err.response)
-                    notify.error(err.response.data.message)
+                    if (err && err.response && err.response.data) {
+                        notify.error(err.response.data.message || "Something went wrong");
+                    }        
                 })
                 .finally(() => {
                     setIsLoading(false)
-
                 })
 
         }
@@ -109,7 +108,6 @@ const MedicalInstitute = (props) => {
 
     const instituteChangeStatus = (e, data) => {
         setShowModal(true);
-        console.log(data);
         setInstituteStatus(data.status)
         setInstituteID(data.id);
     }
@@ -119,7 +117,6 @@ const MedicalInstitute = (props) => {
         let status = instituteStatus == true ? false : true;
         httpClient.PUT("medical-institute/" + status + "/" + instituteID, {}, null, true)
             .then(resp => {
-                console.log(resp)
                 if (resp.data.status) {
                     notify.success(resp.data.message)
                     handleClose();
@@ -130,7 +127,6 @@ const MedicalInstitute = (props) => {
 
             })
             .catch(err => {
-                console.log(err);
                 notify.error("Something went wrong.")
                 setIsLoading(false);
                 handleClose()
@@ -146,7 +142,7 @@ const MedicalInstitute = (props) => {
         if (data) {
             setInstituteInfo({
                 name: data.name ?? "",
-                contactNo : data.contactno ?? "",
+                contactNo: data.contactno ?? "",
                 province: data.province ?? 0,
                 city: data.city ?? 0,
                 street: data.street ?? 0,
@@ -156,7 +152,7 @@ const MedicalInstitute = (props) => {
         }
     }
 
-    const editMedicalInstitute=(values)=>{
+    const editMedicalInstitute = (values) => {
         try {
             setIsLoading(true)
             let medicalInstitute = {
@@ -165,11 +161,10 @@ const MedicalInstitute = (props) => {
                 city: values.city,
                 province: values.province,
                 street: values.street,
-                id : instituteID,
+                id: instituteID,
             }
             httpClient.PUT("medical-institute/update", medicalInstitute, false, true)
                 .then(resp => {
-                    console.log(resp)
                     if (resp.data.status) {
                         notify.success(resp.data.message)
                         setInstituteInfo({
@@ -185,7 +180,6 @@ const MedicalInstitute = (props) => {
                     }
                 })
                 .catch(err => {
-                    console.log(err.response)
                     notify.error(err.response.data.message)
                 })
                 .finally(() => {
@@ -195,7 +189,6 @@ const MedicalInstitute = (props) => {
 
         }
         catch (err) {
-            console.log(err)
             notify.error("Something went wrong.")
             setIsLoading(false)
         }
@@ -245,10 +238,8 @@ const MedicalInstitute = (props) => {
                         <Col md={4}>
                             <Form.Group >
                                 <Form.Label>State</Form.Label>
-                                {/* <Form.Control type="text" name="province" onChange={formik.handleChange}
-                                    value={formik.values.province} onBlur={formik.handleBlur} /> */}
-                                <select class="select-control"  name="province" onChange={formik.handleChange} 
-                                value={formik.values.province} onBlur={formik.handleBlur} >
+                                <select class="select-control" name="province" onChange={formik.handleChange}
+                                    value={formik.values.province} onBlur={formik.handleBlur} >
                                     <option value="0">Province No.1</option>
                                     <option value="1">Province No.2</option>
                                     <option value="2">Bagmati Province</option>
@@ -316,7 +307,7 @@ const MedicalInstitute = (props) => {
 
                         {
                             title: 'Status', field: 'activeStatus',
-                            render: rowData => rowData.status == true ?
+                            render: rowData => rowData.status === true ?
                                 <span style={{ color: '#18af69' }}>Active</span>
                                 :
                                 <span style={{ color: 'red' }}>inActive</span>

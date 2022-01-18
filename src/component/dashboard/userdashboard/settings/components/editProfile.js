@@ -222,7 +222,6 @@ const EditProfile = (props) => {
                                         <Button variant="secondary" onClick={handleAddImage} className="change-photo">Change Photo</Button>
                                         <input onChange={(e) => handleChangeImage(e, setFieldValue)} type="file" name="image"
                                             style={{ display: "none" }} ref={imageSelectRef}  ></input>
-
                                     </div>
 
                                 </Col>
