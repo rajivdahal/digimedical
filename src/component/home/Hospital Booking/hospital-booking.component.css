@@ -7,18 +7,21 @@
 
 .hospital_carousel {
   width: 100%;
+
+  height: 530px;
 }
 
 .hospitalbook_img {
   width: 100%;
+
   position: absolute;
   top: 180px;
   left: 800px;
 }
 
 .hospitalbook_img img {
-  width: 50vw;
-  height: 20vw;
+  width: 50%;
+  height: 400px;
 }
 
 .hospcont_desc {
@@ -31,6 +34,7 @@
 }
 
 .hospcont_desc h1 {
+  text-align: left;
   font-weight: bold;
   font-size: 55px;
 }
@@ -38,12 +42,12 @@
 .hospcont_desc p {
   font-size: 16px;
   line-height: 25px;
-  margin-left: 5px;
+  text-align: left;
   color: #596579;
 }
 
 .hospital_bookcont {
-  width: 60vw;
+  width: 80%;
   margin: auto;
 }
 .hospital_bookcont_from_user {
@@ -153,7 +157,7 @@ asasdas*/
   width: 200px;
   height: 40px;
   margin-top: 10%;
-  margin-left: 5%;
+  margin-left: 43%;
   border: 1px solid #2745f0;
   color: #2745f0;
   background: white;
@@ -237,6 +241,10 @@ asasdas*/
   .hospital_bookcont_from_user {
     margin-right: 30px;
   }
+
+  #hosp_card_but {
+    margin: auto;
+  }
   #hosp_card_but_user {
     width: 155px;
     height: 40px;
@@ -249,6 +257,21 @@ asasdas*/
     font-size: 14px;
     line-height: 15px;
     transition: 0.5s;
+  }
+}
+
+@media only screen and (max-width: 1260px) {
+  .hospital_bookconthead {
+    width: 90%;
+  }
+  .hospital_book_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+  }
+  .hospital_bookcont_from_user {
+    margin-left: 25%;
   }
 }
 
@@ -271,5 +294,11 @@ asasdas*/
   .hospital_card_text #hosp_card_but {
     width: fit-content;
     margin: auto;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .hospital_book_card1 img {
+    width: 100%;
   }
 }
