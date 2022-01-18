@@ -65,12 +65,13 @@ export default function Hospitalbookingcomponent(props) {
               <div className="hospital_booksearch">
                 <form class="example" action="/action_page.php">
                   <input
+                    className="hello_input"
                     type="text"
                     placeholder="Search Hospital .."
                     name="search"
                     onChange={handleSearch}
                   />
-                  <button type="submit">
+                  <button type="submit" className="hosp_srch">
                     <i class="fa fa-search"></i>
                   </button>
                 </form>

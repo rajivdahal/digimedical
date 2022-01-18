@@ -17,7 +17,8 @@
 }
 
 .hospitalbook_img img {
-  height: 400px;
+  width: 50vw;
+  height: 20vw;
 }
 
 .hospcont_desc {
@@ -42,12 +43,12 @@
 }
 
 .hospital_bookcont {
-  width: 80%;
+  width: 60vw;
   margin: auto;
 }
 .hospital_bookcont_from_user {
-  width: 60%;
-  margin-left: 22%;
+  width: 80vw;
+  margin-left: 250px;
   position: relative;
   top: 4rem;
 }
@@ -55,6 +56,7 @@
 .hospital_bookconthead {
   width: 100%;
   display: flex;
+  justify-content: space-between;
 }
 
 .hospital_bookconthead div {
@@ -66,8 +68,7 @@
 }
 
 .hospital_booksearch {
-  width: 300px;
-  margin-left: 430px;
+  width: 15rem;
 }
 
 form.example input[type="text"] {
@@ -80,7 +81,7 @@ form.example input[type="text"] {
   border-radius: 15px;
 }
 
-form.example button {
+.hosp_srch {
   margin-left: -50px;
   margin-top: -3px;
   float: left;
@@ -109,7 +110,7 @@ asasdas*/
   margin-top: 40px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 2em;
+  grid-gap: 2vw;
 }
 
 .hospital_book_card1 {
@@ -151,8 +152,8 @@ asasdas*/
 #hosp_card_but {
   width: 200px;
   height: 40px;
-  margin-top: 7%;
-  margin-left: 9vw;
+  margin-top: 10%;
+  margin-left: 5%;
   border: 1px solid #2745f0;
   color: #2745f0;
   background: white;
@@ -165,8 +166,8 @@ asasdas*/
 #hosp_card_but_user {
   width: 155px;
   height: 40px;
-  margin-top: 5%;
-  margin-left: 9vw;
+  margin-top: 10%;
+  margin-left: 13vw;
   border: 1px solid #2745f0;
   color: #2745f0;
   /* background: rgb(7, 6, 6); */
@@ -190,7 +191,19 @@ asasdas*/
 }
 
 /* responsive design query */
+
 @media only screen and (max-width: 600px) {
+  .hello_input::placeholder {
+    font-size: 2.5vw;
+  }
+  .hosp_srch {
+    margin-top: 2px;
+    font-size: 15px;
+    margin-left: -30px;
+  }
+  .hospital_booksearch {
+    width: 300px;
+  }
   .hospital_book_card {
     width: 100%;
 
@@ -220,7 +233,35 @@ asasdas*/
   }
 }
 
+@media only screen and (max-width: 1486px) {
+  .hospital_bookcont_from_user {
+    margin-right: 30px;
+  }
+  #hosp_card_but_user {
+    width: 155px;
+    height: 40px;
+    margin: auto;
+    border: 1px solid #2745f0;
+    color: #2745f0;
+    /* background: rgb(7, 6, 6); */
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 15px;
+    transition: 0.5s;
+  }
+}
+
 @media only screen and (max-width: 900px) {
+  .hospital_bookconthead h2 {
+    font-size: 25px;
+  }
+  .hospital_booksearch {
+    width: 200px;
+  }
+  .hospital_bookcont_from_user {
+    margin: auto;
+  }
   .hospital_book_card {
     display: flex;
     flex-direction: column;

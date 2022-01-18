@@ -163,7 +163,7 @@ export const Home = (props) => {
       </div>
       <Hospital_home></Hospital_home>
       <TheyTrustedUs />
-      <OurPartnar />
+      {/* <OurPartnar /> */}
       <Footer></Footer>
     </>
   );

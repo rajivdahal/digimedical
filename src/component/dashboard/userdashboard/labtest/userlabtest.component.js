@@ -98,18 +98,6 @@ class userlabtestcomponent extends Component {
         });
         this.props.setlabtest(newallabtest);
       }
-
-      // console.log("item is>>>>>>>>>>>>>>>>>>>>>>>>.", item)
-      // let newallabtest = allabtest.map((item, indexoflabtest) => {
-      //   if (index == indexoflabtest) {
-      //     item.isactiveclass = true;
-      //   } else {
-      //     item.isactiveclass = false;
-      //   }
-      //   return item;
-      // });
-      // console.log("new mappedlabtest is", newallabtest)
-      // this.props.setlabtest(newallabtest);
     };
 
     const handleCheckout = () => {
@@ -354,6 +342,7 @@ class userlabtestcomponent extends Component {
                                       name={category.id}
                                     ></input>
                                     <label
+                                      className="label_userlabtest"
                                       style={{
                                         position: "inherit",
                                         zIndex: "10",
@@ -375,6 +364,7 @@ class userlabtestcomponent extends Component {
                                               return (
                                                 <>
                                                   <input
+                                                    className="input_subcat"
                                                     type={"radio"}
                                                     onChange={() =>
                                                       handleRadioChange(
@@ -388,7 +378,7 @@ class userlabtestcomponent extends Component {
                                                       subcategory.categoryname
                                                     }
                                                   ></input>
-                                                  <label>
+                                                  <label className="label_userlabtest1">
                                                     {item.medicalinstitutename}
                                                   </label>
                                                   <span
