@@ -1,26 +1,65 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
-import { notify } from '../../../../services/notify'
+import { useState } from 'react'
 import { TimeandDate } from '../../../../services/timeanddate'
-import { httpClient } from '../../../../utils/httpClient'
-import MaterialTable from 'material-table';
-import { Add, Edit, Clear, DeleteOutline } from "@material-ui/icons";
-
-import Tableicons from "../../../../utils/materialicons";
+import { CompletedLabTests } from './completedLabTest.component'
+import { CancelledLabTest } from './cancelledLabTest.component'
+import { LabTestImages } from './labTestImages.component'
 
 export default function Viewlabtest() {
-    let [labtests, setlabtests] = useState([])
+    
+    // let [isDynamicCompletedClass,setisDynamicCompletedClass]=useState(true)
+    let [isDynamicCompletedClass,setisDynamicCompletedClass]=useState(true)
+    let [isDynamicPendingClass,setisDynamicPendingClass]=useState(false)
+    const [showModel,setShowModel]=useState(false)
     let [today,settoday]=useState(TimeandDate.today())
-    useEffect(() => {
-        httpClient.GET("lab-booking/get-booking/0", false, true)
-            .then(resp => {
-                setlabtests(resp.data.data)
-
+    const [labTestData,setLabTestData]=useState({})
+  
+    const handleCompletedClass=()=>{
+        setisDynamicCompletedClass(true)
+        setisDynamicPendingClass(false)
+    }
+    const handlePendingClass=()=>{
+        setisDynamicCompletedClass(false)
+        setisDynamicPendingClass(true)
+    }
+    const showLabTest=(data)=>{
+        // console.log("e and data are",data)
+       
+        setLabTestData(data)
+        setShowModel(!showModel) 
+        httpClient.GET("lab-report/get-all/"+props.labTestData.labtestbookingid,false,true)
+        .then(resp=>{
+            resp.data.data.map((item)=>{
+                httpClient.GET("lab-report/download/"+item.labtestreportid)
+                .then(resp=>{
+                    console.log("response is",resp)
+                    lab.push(resp.data)
+                    // lab.push(URL.createObjectURL(resp.data))
+                    // debugger
+                    //   var reader=new FileReader()
+                    // reader.readAsDataURL(resp.data)
+                    // reader.onload=()=>{
+                    //     var base64=reader.result
+                    //     console.log("base 64 is",base64)
+                    //     lab.push(base64)
+                    // }
+                    // reader.onerror=(error)=>{
+                    //     console.log("error while reading url",error)
+                    // }
+                })
+                .catch(err=>{
+                    console.log("error occurred while fetching the image")
+                })
             })
-            .catch(err => {
-                notify.error("Error in fetching lab test")
-            })
-    }, [])
+            console.log("response is",resp.data)
+        })
+        .catch(err=>{
+            console.log("Something went wrong")
+        })
+        .finally(()=>{
+            setlabTestReportId(lab)
+        })  
+    }
     return (
         <div className="container-fluid page-body-wrapper">
             <div id="right-sidebar" className="settings-panel">
@@ -128,7 +167,6 @@ export default function Viewlabtest() {
                                             <button className="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 <i className="mdi mdi-calendar"></i>Today- {today}
                                             </button>
-
                                         </div>
                                     </div>
                                 </div>
@@ -136,71 +174,40 @@ export default function Viewlabtest() {
                         </div>
                     </div>
 
-                    <MaterialTable
-                 data={labtests}
-                 title="All Labtests Details"
-                 icons={Tableicons}
-                    columns={[
-                        { title: 'Name', field: 'labtestname' },
-                        { title: 'description', field: 'description' },
-                        { title: 'price', field: 'price' },
-                        
-                    ]}
-                    actions={[
 
-                
-                        {
-                            icon: Edit,
-                            tooltip: 'Edit Service',
-                            // onClick: (e, rowData) => { handleEditDoctor(e, rowData) }
-                        },
+                    <div className="row" >
+                            <div className="col-md-12 grid-margin stretch-card">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <div className="title-header">
+                                            <p
+                                             className=
+                                             {`card-title ${isDynamicCompletedClass ? "title-focus" : null}`}
+                                              onClick={handleCompletedClass}
+                                             >Completed Labtest</p>
+                                            <p
+                                             className={`card-title ${isDynamicPendingClass ? "title-focus" : null}`} 
+                                             onClick={handlePendingClass}
+                                             >Pending Labtest</p>
+                                        </div>
+                                        {       
+                                               isDynamicCompletedClass?<CompletedLabTests showLabTest={showLabTest}></CompletedLabTests>
+                                                    : isDynamicPendingClass?<CancelledLabTest></CancelledLabTest>
+                                                        : <h1>Please book your Lab Tests</h1>
+                                        }
+                                        {
+                    showModel?
+                    <LabTestImages
+                    showLabTest={showLabTest}
+                    labTestData={labTestData}
 
-                    ]}
-
-                    // isLoading={}
-                    options={{
-                        actionsColumnIndex: -1,
-                        pageSize: 20,
-                        filtering: false,
-                        sorting: true,
-                        headerStyle: {
-                            backgroundColor: '#2745F0',
-                            color: '#FFF'
-                        }
-                    }}
-                />
-
-                    {/* <div className="row">
-                        <table class="table">
-                            <caption>List of users</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">S.No.</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    labtests?
-                                    labtests.map((item, index) => {
-                                        return <tr>
-                                            <th scope="row">{index+1}</th>
-                                            <td>{item.labtestname}</td>
-                                            <td>{item.description}</td>
-                                            <td>{item.price}</td>
-                                            <td>Pending</td>
-                                            <td>  </td>
-                                        </tr>
-                                    }):<p>No data found</p>
-                                }
-                            </tbody>
-                        </table>
-                    </div> */}
+                    >
+                    </LabTestImages>:null
+                }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
 
             </div>

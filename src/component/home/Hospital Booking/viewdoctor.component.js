@@ -13,16 +13,14 @@ import { Link, useHistory } from "react-router-dom";
 import { Field, Formik, Form } from "formik";
 import { notify } from "../../../services/notify";
 // import hospital_ico from "../../../assets/hospital_icon.png";
-
-const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
 export default function Hospital_doctors(props) {
   console.log("props are", props);
   // const [props.location.state,setprops.location.state]=useState(props.location.state)
-  let [alldoctors, setallDoctors] = useState([])
-  // const [selectedDay, setSelectedDay] = useState(null);
-  let [searcheddoctors, setsearcheddoctors] = useState([])
-  let [issearched, setIssearched] = useState(false)
-  const history = useHistory()
+  let [alldoctors, setallDoctors] = useState([]);
+  const [selectedDay, setSelectedDay] = useState(null);
+  let [searcheddoctors, setsearcheddoctors] = useState([]);
+  let [issearched, setIssearched] = useState(false);
+  const history = useHistory();
   useEffect(() => {
     httpClient
       .GET("hospital/get-all/doctors/" + props.location.state.id)
@@ -60,7 +58,7 @@ export default function Hospital_doctors(props) {
     httpClient
       .POST(
         props.match.url == "/dashboard/hospitals/view-doctors"
-          ? "create-appointment/hospital"
+          ? "create-appointment"
           : "create-external-user",
         finaldata,
         false,
@@ -150,8 +148,8 @@ export default function Hospital_doctors(props) {
           className={
             props.location
               ? (props.location.pathname = "/dashboard/hospitals/view-doctors"
-                ? "doc_appoint_main1_user"
-                : "doc_appoint_main1_user")
+                  ? "doc_appoint_main1_user"
+                  : "doc_appoint_main1_user")
               : "doc_appoint_main1"
           }
         >
@@ -184,7 +182,7 @@ export default function Hospital_doctors(props) {
                       <div className="doc_apoint_card">
                         <div className="doc_apoint_card1">
                           <div className="doc_card_img">
-                            <img src={REACT_APP_BASE_URL + "doctor/download/" + doctor.doctorid} alt="" style={{ height: "142px", width: "190px", borderRadius: "50%" }} />
+                            <img src={doctor1} alt="" />
                           </div>
                           <div className="doc_about_desc">
                             <div className="doc_about_desc_head">
@@ -192,7 +190,7 @@ export default function Hospital_doctors(props) {
                               <p id="doc_name_card">
                                 {doctor.prefix}. {doctor.doctorname}
                               </p>
-                              <p id="doc_edu_brief">{doctor.prefix}</p>
+                              <p id="doc_edu_brief">Mbbs,MD</p>
                             </div>
 
                             <p>{doctor.specialist} </p>
@@ -232,7 +230,7 @@ export default function Hospital_doctors(props) {
                               return (
                                 <Form className="form_doc">
                                   {props.match.url !=
-                                    "/dashboard/hospitals/view-doctors" ? (
+                                  "/dashboard/hospitals/view-doctors" ? (
                                     <>
                                       <div className="doc_appoin_form1">
                                         <p>First Name</p>
@@ -329,7 +327,7 @@ export default function Hospital_doctors(props) {
                     <div className="doc_apoint_card">
                       <div className="doc_apoint_card1">
                         <div className="doc_card_img">
-                        <img src={REACT_APP_BASE_URL + "doctor/download/" + doctor.doctorid} alt="" style={{ height: "142px", width: "190px", borderRadius: "50%" }} />
+                          <img src={doctor1} alt="" />
                         </div>
                         <div className="doc_about_desc">
                           <p id="doc_name_card">
@@ -367,7 +365,7 @@ export default function Hospital_doctors(props) {
                         >
                           <Form className="form_doc">
                             {props.match.url !=
-                              "/dashboard/hospitals/view-doctors" ? (
+                            "/dashboard/hospitals/view-doctors" ? (
                               <>
                                 <div className="doc_appoin_form1">
                                   <p>First Name</p>
@@ -456,7 +454,7 @@ export default function Hospital_doctors(props) {
           </div>
           <div className="doc_appoin_hosp_desc">
             <div className="hosp_desc_hosp">
-              <img src={REACT_APP_BASE_URL + "hospital/download/" + props.location.state.id} alt="" style={{ height: "142px", width: "190px", borderRadius: "50%" ,marginLeft:"2rem"}} alt="" />
+              <img src={doctor1} alt="" />
               <p id="hosp_name_doc">{props.location.state.name}</p>
               <p>
                 <i class="fas fa-map-marker-alt"></i> &nbsp;{" "}
@@ -468,16 +466,13 @@ export default function Hospital_doctors(props) {
                 {props.location.state.mobilenumber}
               </p>
               <p>
-                
                 <i class="fas fa-envelope"></i>&nbsp; info@norvichospital.com
               </p>
               <p id="hosp_ph_no">
-               
-                {
-                  props.location.state.establisheddate? <>
-                   {props.location.state.establisheddate}</>:null
-                }
-              
+                {" "}
+                <i class="fas fa-link"></i>
+                {/* <img src={hospital_ico} alt="" /> */}
+                &nbsp; www.norvichospital.com.np
               </p>
             </div>
           </div>

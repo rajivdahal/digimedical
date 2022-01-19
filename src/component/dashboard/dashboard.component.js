@@ -50,6 +50,7 @@ import Viewcorporateappointment from "./corporatedashboard/corporateappointments
 import HospitalAppointment from "./hospitaldashboard/appointmentPage/appointment.component"
 import Permission from "./adminDashboard/userManagement/permission.component"
 import AddFamilyMember from "./userdashboard/familyMember/addFamilyMember.component"
+// import { LabTestImages } from "./userdashboard/viewlabtest/labTestImages/labTestImages.component"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -89,7 +90,7 @@ const Dashboard = (props) => {
                                     <ProtectedRoute component={Hospital_doctors}></ProtectedRoute> :
                                     props.location.pathname === "/dashboard/add-member" ?
                                     <ProtectedRoute component={AddFamilyMember}></ProtectedRoute>:
-                                    <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                                    null
               }
             </> :
             statusCode == 100 ?

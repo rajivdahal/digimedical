@@ -7,6 +7,7 @@ import { notify } from "../../../../../services/notify";
 import { useHistory } from "react-router-dom";
 import "./editProfile.css"
 import "../userprofile.css"
+const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
 const EditProfile = (props) => {
     let history = useHistory()
     const userstatus = localStorage.getItem("status")
@@ -101,7 +102,7 @@ const EditProfile = (props) => {
         // console.log(id)
         console.log(props);
         if (props) {
-            let url = "http://103.90.86.77:8082/api/download/" + id;
+            let url = REACT_APP_BASE_URL+"download/" + id;
             setImage(url)
             setUserProfile({
                 firstName: props.firstname,
@@ -209,7 +210,7 @@ const EditProfile = (props) => {
                             <Row>
                                 <Col md={3} >
                                     <div className="image-wrapper" >
-                                        <Image src={selectedImage} fluid roundedCircle></Image>
+                                        <Image src={selectedImage} fluid roundedCircle className="imag-profile"></Image>
                                         <Button variant="secondary" onClick={handleAddImage} className="change-photo">Change Photo</Button>
                                         <input onChange={(e) => handleChangeImage(e, setFieldValue)} type="file" name="image"
                                             style={{ display: "none" }} ref={imageSelectRef}  ></input>

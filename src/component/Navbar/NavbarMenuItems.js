@@ -87,22 +87,33 @@ const NavbarMenuItems = () => {
               
               <h3>Categories</h3>
               <div className="categories_nav_mob">
+              {
+                  !localStorage.getItem("dm-access_token")? <Link
+                  id="link_cat_nav_mob"
+                  to="/register"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  Register
+                </Link>:null
+                }
+
                 {
-                  !localStorage.getItem("dm-access_token")?  <Link to="/login">
+                  !localStorage.getItem("dm-access_token")? 
+                   <Link to="/login">
                   <div>
-                    <img
-                      src={login}
-                      style={{
-                        height: "13px",
-                        marginLeft: "1rem",
-                        marginRight: "0.5rem",
-                      }}
-                    ></img>
                     <span style={{color:"#fff"}}>Login</span>
                   </div>
                 </Link>:null
                 }
-
+                {
+                  localStorage.getItem("dm-access_token")?<Link
+                  id="link_cat_nav_mob"
+                  to="/dashboard"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  Dashboard
+                </Link>:null
+                }
                 <Link
                   id="link_cat_nav_mob"
                   to="/"
@@ -141,14 +152,7 @@ const NavbarMenuItems = () => {
                 
                   {
                     localStorage.getItem("dm-access_token")?<div onClick={Logout}>
-                    <img
-                      src={login}
-                      style={{
-                        height: "13px",
-                        marginLeft: "1rem",
-                        marginRight: "0.5rem",
-                      }}
-                    ></img>
+                   
                     <span style={{color:"#fff"}}>Logout</span>
                   </div>:null
                   }
