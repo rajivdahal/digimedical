@@ -7,11 +7,28 @@ import { Visibility } from "@material-ui/icons";
 
 const LabTestDetail = (props) => {
 
+    const actions = {
+        completed :[
+            {
+                icon: () => <Visibility fontSize="small" className="action-button" />,
+                tooltip: "View Details",
+                  onClick: (e, rowData) => {
+                    showLabtestReport(e, rowData);
+                  },
+
+            },
+        ],
+        upcoming: [],
+        cancelled: []
+    }
+
     const [labtestDetail, setLabtestDetail] = useState([]);
     const [title, setTitle] = useState("Upcoming Appointment");
     const [status, setStatus] = useState(0);
     const [color, setColor] = useState("grey");
     const [loading, setLoading] = useState(false)
+    const [selectedActions, setActions ] = useState(actions.upcoming);
+
 
     const getLabtest = async (status) => {
         setLoading(true);
@@ -37,6 +54,21 @@ const LabTestDetail = (props) => {
         getLabtest(0);
     }, [])
 
+    useEffect(()=>{
+        console.log("ÜPDATE ACTIONS");
+        let tempActions = [];
+        if(status === 1){
+            tempActions = actions.completed;
+            setActions(tempActions)
+        }else if(status === 0){
+            tempActions = actions.upcoming;
+            setActions(tempActions)
+        }else{
+            tempActions = actions.cancelled;
+            setActions(tempActions) 
+        }
+    },[status])
+
     const handleLabtest = (title, status) => {
         setStatus(status);
         getLabtest(status)
@@ -44,7 +76,13 @@ const LabTestDetail = (props) => {
     }
 
     const showLabtestReport=(e,data)=>{
-        props.history.push("/dashboard/labtest-report",data,)
+        console.log(data)
+        
+        props.history.push({
+            pathname : "/dashboard/labtest-report",
+            state : data,
+        })
+
     }
 
     return (
@@ -89,16 +127,7 @@ const LabTestDetail = (props) => {
                             }
                         }}
 
-                        // actions={[
-                        //     {
-                        //         icon: () => <Visibility fontSize="small" className="action-button" />,
-                        //         tooltip: "View Details",
-                        //           onClick: (e, rowData) => {
-                        //             showLabtestReport(e, rowData);
-                        //           },
-
-                        //     },
-                        // ]}
+                        actions={selectedActions}
 
                         isLoading={loading}
                     />

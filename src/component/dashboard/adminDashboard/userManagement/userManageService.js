@@ -67,6 +67,11 @@ const UserManagementApi={
     getAllScreen:()=>{
         return httpClient.GET("screen/get-all",false,true)
     },
+    
+    getAllScreenRole : ()=>{
+        return httpClient.GET("screen-role/get-all",false,true)
+    
+    },
 
     createPermission:(values)=>{
         let roleid = values.role.value;
@@ -83,6 +88,7 @@ const UserManagementApi={
         return httpClient.POST("screen-role/create",data,false,true)
     },
     editPermission:(values,id)=>{
+        console.log(id)
         let roleid = values.role.value;
         let selectedScreenId = [];
         values.screens.forEach((screen) => {
@@ -94,7 +100,11 @@ const UserManagementApi={
             screenId : selectedScreenId,
         }
         console.log(data)
-        return httpClient.POST("screen-role/update/"+id,data,false,true)
+        return httpClient.PUT("screen-role/update/"+id,data,false,true)
+    },
+
+    getScreenbyId: (id)=>{
+        return httpClient.GET("screen-role/get/"+id,false,true);
     }
 
 }

@@ -41,6 +41,9 @@ const UserProfile = (props) => {
         }
     }, [isEdit])
 
+    const gotoView = ( ) => activateProfile(false);
+    
+
     return (
 
         <div className="container-fluid page-body-wrapper">
@@ -53,7 +56,7 @@ const UserProfile = (props) => {
                     </div>
 
                     {isEdit == true ?
-                        <EditProfile {...userDetails}></EditProfile>
+                        <EditProfile gotoView={()=>gotoView()}  {...userDetails}></EditProfile>
                         :
                         <ViewProfile {...userDetails}></ViewProfile>
                     }
@@ -61,14 +64,6 @@ const UserProfile = (props) => {
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
 
     )
 }

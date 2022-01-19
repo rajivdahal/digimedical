@@ -157,9 +157,9 @@ const EditProfile = (props) => {
         httpClient.PUT("update-user", formData, false, true, "formdata")
             .then(resp => {
                 if (resp.data.status) {
-                    notify.success(resp.data.message)
+                    notify.success(resp.data.message);
+                    props.gotoView();
                 }
-                history.push("/dashboard")
             })
             .catch(err => {
                 if (err && err.response && err.response.data) {
@@ -232,20 +232,20 @@ const EditProfile = (props) => {
                                             <Col md={4}>
                                                 <div className=" form-group select-label">
                                                     <label > First Name : </label>
-                                                    <Field name="firstName" className="form-control profile-field" />
+                                                    <Field name="firstName" className="form-control profile-field" disabled/>
                                                     {errors.name && touched.name && <div className="error-message">{errors.name}</div>}
                                                 </div>
                                             </Col>
                                             <Col md={4}>
                                                 <div className=" form-group select-label">
                                                     <label > Middle Name : </label>
-                                                    <Field name="middleName" className="form-control profile-field" />
+                                                    <Field name="middleName" className="form-control profile-field" disabled />
                                                 </div>
                                             </Col>
                                             <Col md={4}>
                                                 <div className=" form-group select-label">
                                                     <label > Last Name : </label>
-                                                    <Field name="lastName" className="form-control profile-field" />
+                                                    <Field name="lastName" className="form-control profile-field" disabled/>
                                                     {errors.name && touched.name && <div className="error-message">{errors.name}</div>}
                                                 </div>
                                             </Col>
@@ -261,7 +261,7 @@ const EditProfile = (props) => {
                                             <Col md={6}>
                                                 <div className=" form-group ">
                                                     <label >Email : </label>
-                                                    <Field name="email" validate={validateEmail} className="form-control profile-field"/>
+                                                    <Field name="email" validate={validateEmail} className="form-control profile-field" disabled/>
                                                     {errors.email && touched.email && <div className="error-message">{errors.email}</div>}
                                                 </div>
                                             </Col>

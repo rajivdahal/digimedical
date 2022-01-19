@@ -15,14 +15,16 @@ const Permission = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [permissionId, setPermissionID] = useState("");
     const [allRoles, setAllRoles] = useState([]);
+    const [roleId, setRoleId] = useState("");
     const [allScreens, setAllScreens] = useState([]);
+    const [allPermission, setAllPermission] = useState([]);
     const [permissionData, setPermissionData] = useState(
         {
-        role: "",
-        roleId: "",
-        screens: "",
-        screenId: "",
-    }
+            role: "",
+            roleId: "",
+            screens: "",
+            screenId: [],
+        }
     )
 
     const getAllRoles = async () => {
@@ -74,9 +76,54 @@ const Permission = (props) => {
         setLoading(false)
     }
 
+    const getAllScreenRole = async () => {
+        setLoading(true)
+        try {
+            let resp = await UserManagementApi.getAllScreenRole();
+            console.log(resp)
+            if (resp.data.status) {
+                let result = resp.data.data;
+                setAllPermission(result)
+            }
+        }
+        catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+            }
+        }
+        setLoading(false)
+    }
+
+    const getScreenByRole = async (id) => {
+        try {
+            let resp = await UserManagementApi.getScreenbyId(id);
+            if (resp.data.status) {
+                let result = resp.data.data.Screen;
+                let tempArr = [];
+                result.forEach((item) => {
+                    console.log(item);
+                    let filteredArr = allScreens.filter((screen) => {
+                        return screen.value.toString() === item.screenid.toString()
+                    })
+                    console.log(filteredArr[0]);
+                    if (filteredArr.length > 0) {
+                        tempArr.push(filteredArr[0]);
+                    }
+                })
+                console.log(tempArr);
+                formik.setFieldValue('screens', tempArr)
+
+            }
+        } catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+            }
+        }
+    }
     useEffect(() => {
         getAllScreens();
-        getAllRoles()
+        getAllRoles();
+        getAllScreenRole();
     }, [])
 
     const formik = useFormik({
@@ -84,12 +131,8 @@ const Permission = (props) => {
         initialValues: permissionData,
         onSubmit: (values) => {
             console.log(values)
-            createPermission(values);
-            // if (screenID) {
-            //     editScreenData(values)
-            // } else {
-            //     createScreen(values)
-            // }
+            editPermission(values);
+
         },
 
         // validate: (values) => {
@@ -105,29 +148,63 @@ const Permission = (props) => {
 
     })
 
-    const createPermission=async(values)=>{
-       setLoading(true);
-       try{
-            let resp = await UserManagementApi.createPermission(values);
-            if(resp.data.status){
-                notify.success(resp.data.message)
+    const editPermission = async (values) => {
+        setLoading(true);
+        try {
+            console.log(roleId);
+            let resp = await UserManagementApi.editPermission(values, roleId);
+            if (resp.data.status) {
+                notify.success(resp.data.message);
+                formik.resetForm();
+                getAllScreenRole();
             }
-       }catch(err){
-        if (err && err.response && err.response.data) {
-            notify.error(err.response.data.message || "Something went wrong");
+        } catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+            }
         }
-       }
-       setLoading(false);
+        setLoading(false);
     }
 
-    const handleRoleChange=(item) =>{
-        console.log(item);
+    const handleRoleChange = (item) => {
+
+        if(!item) return;
         formik.setFieldValue("role", item);
+        let id = item.value;
+        setRoleId(id)
+        getScreenByRole(id);
     }
     const handleScreenChange = (item) => {
-        console.log(item);
         formik.setFieldValue("screens", item);
-    };
+    }
+
+    const setEditScreenData = (e, data) => {
+        console.log(data);
+        if (data) {
+            let id = data.roleid;
+            setRoleId(id)
+            getScreenByRole(id);
+            let roleData = {
+                label: data.rolename,
+                value: id
+            }
+            setPermissionData({
+                role:roleData
+            })
+            window.scrollTo(0, 0)
+        }
+    }
+
+    const handleCancelEdit = () => {
+        formik.resetForm();
+        setPermissionData({
+                role: "",
+                roleId: "",
+                screens: "",
+                screenId: [],
+        })
+    }
+
     return (
         <div>
             <Container>
@@ -163,34 +240,27 @@ const Permission = (props) => {
                             </Row>
 
                             <div>
-                                {permissionId ?
+                                {formik.values && formik.values.role ?
                                     <div>
                                         {isLoading == true ?
                                             <Cliploader isLoading={isLoading} />
                                             :
                                             <div className="textAlign-right">
                                                 <Button variant="info" type="submit">
-                                                    Edit
+                                                    Update
                                                 </Button>
-                                                {/* <Button variant="danger" style={{ marginLeft: '10px' }} onClick={handleCancelEdit}>
-                                            Cancel
-                                        </Button> */}
+                                                <Button variant="danger" style={{ marginLeft: '10px' }} onClick={handleCancelEdit}>
+                                                    Cancel
+                                                </Button>
                                             </div>
+
                                         }
                                     </div>
+
                                     :
-                                    <div>
-                                        {isLoading == true ?
-                                            <Cliploader isLoading={isLoading} />
-                                            :
-                                            <div className="textAlign-right">
-                                                <Button variant="info" type="submit">
-                                                    Create
-                                                </Button>
-                                            </div>
-                                        }
-                                    </div>
+                                    <></>
                                 }
+
 
                             </div>
                         </Form>
@@ -200,30 +270,30 @@ const Permission = (props) => {
                 <MaterialTable
                     title="Screen Permission "
                     icons={Tableicons}
-                    // data={}
+                    data={allPermission}
                     columns={[
                         { title: 'ID', field: 'id' },
-                        { title: 'Screen Name', field: 'name' },
-                        { title: 'Description', field: 'description' },
+                        { title: 'Screen Name', field: 'screens' },
+                        { title: 'Role Name', field: 'rolename' },
                         {
-                            title: 'Status', field: 'enabled',
+                            title: 'Status', field: 'isactive',
                             render: (rowData) =>
-                                rowData.enabled == true ? (
-                                    <span style={{ color: "#18af69" }}>Enable</span>
+                                rowData.isactive === true ? (
+                                    <span style={{ color: "#18af69" }}>Active</span>
                                 ) : (
-                                    <span style={{ color: "red" }}>Disable</span>
+                                    <span style={{ color: "red" }}>inActive</span>
                                 )
                         }
                     ]}
 
-                    // actions={[
-                    //     {
-                    //         icon: Edit,
-                    //         tooltip: 'Edit Role',
-                    //         onClick: (e, rowData) => { setEditScreenData(e, rowData) }
-                    //     },
+                    actions={[
+                        {
+                            icon: Edit,
+                            tooltip: 'Edit Role',
+                            onClick: (e, rowData) => { setEditScreenData(e, rowData) }
+                        },
 
-                    // ]}
+                    ]}
 
                     options={{
                         actionsColumnIndex: -1,
@@ -234,7 +304,7 @@ const Permission = (props) => {
                         }
                     }}
                     isLoading={loading}
-                /> 
+                />
             </Container>
         </div>
     )

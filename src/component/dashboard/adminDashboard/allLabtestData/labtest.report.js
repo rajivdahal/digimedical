@@ -8,10 +8,11 @@ const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 const LabtestReport = (props) => {
     const imageSelectRef = useRef();
     const [uploadedImg, setUploadImg] = useState("");
-    const [selectedImage, setImage] = useState("");
+    const [selectedImage, setImage] = useState([]);
     const [allImageId, setAllImageId] = useState([]);
     const [selectedImgName, setImgName] = useState("");
-    const [labReportImg, setLabReportImg] = useState();
+    const [labReportImg, setLabReportImg] = useState([]);
+    // const [imageArr,setImgArr] = useState([]);
 
     const handleAddImage = () => {
         imageSelectRef.current.click();
@@ -29,9 +30,6 @@ const LabtestReport = (props) => {
                 let imgId = resp.data.data;
                 console.log(imgId);
                 setAllImageId(imgId)
-                // let url = ;
-                // console.log(url)
-                // setUploadImg(url);
             }
 
         } catch (err) {
@@ -47,14 +45,14 @@ const LabtestReport = (props) => {
     }, [])
 
     const handleChangeImage = (e) => {
-        let files = e.target.files[0];
+        let files = e.target.files;
         let reader = new FileReader();
         setLabReportImg(files)
         reader.onloadend = () => {
             setImage(reader.result.toString());
             setImgName(files.name);
         };
-        reader.readAsDataURL(files);
+        reader.readAsDataURL(files[0]);
     };
 
     const removeImage = () => {
@@ -97,7 +95,7 @@ const LabtestReport = (props) => {
                 {props.location && props.location.state ?
                     <>
                         <div> Patient Name : {props.location.state.patientname} - {props.location.state.age}  </div>
-                        <div>Gender : {props.location.state.gender == 0 ? "Male" : "Female"} </div>
+                        <div>Gender : {props.location.state.gender === 0 ? "Male" : "Female"} </div>
                         <div>Email : {props.location.state.email} </div>
                         <div>Contact Number :{props.location.state.mobilenumber} </div>
                         <div>Labtest Name : {props.location.state.labtestname} </div>
@@ -114,7 +112,7 @@ const LabtestReport = (props) => {
                                 </button>
                                 <input
                                     onChange={(e) => handleChangeImage(e)}
-                                    type="file"
+                                    type="file" multiple="multiple"
                                     name="labReportImg"
                                     style={{ display: "none" }}
                                     ref={imageSelectRef}
@@ -123,12 +121,24 @@ const LabtestReport = (props) => {
                             </Col>
 
                             <Col md={5}>
-                                <Image
+                                {selectedImage ?
+                                    selectedImage.map((img) => {
+                                        return <Image
+                                            src={img}
+                                            fluid
+                                            className="image ml-3"
+                                        ></Image>
+                                    })
+                                    :
+                                    <></>
+                                }
+
+                                {/* <Image
                                     src={selectedImage}
                                     fluid
                                     className="image ml-3"
-                                ></Image>
-                                <div>{selectedImgName}</div>
+                                ></Image> */}
+                                {/* <div>{selectedImgName}</div> */}
                             </Col>
                             {selectedImage ?
                                 <Col md={2}>
@@ -153,8 +163,8 @@ const LabtestReport = (props) => {
                     {allImageId.map((item, index) => {
                         return <Col md={2} sm={4}>
                             <Image src={REACT_APP_BASE_URL + "lab-report/download/" + item.labtestreportid}
-                             key={index} fluid className="image " 
-                             onClick={()=>window.open(REACT_APP_BASE_URL + "lab-report/download/" + item.labtestreportid)}>
+                                key={index} fluid className="image "
+                                onClick={() => window.open(REACT_APP_BASE_URL + "lab-report/download/" + item.labtestreportid)}>
                             </Image>
                         </Col>
                     })}
