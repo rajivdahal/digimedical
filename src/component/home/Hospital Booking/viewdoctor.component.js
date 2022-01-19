@@ -143,8 +143,6 @@ export default function Hospital_doctors(props) {
               <p id="hospital_name">{props.location.state.name}</p>
             </div>
           ) : null}
-
-          <div></div>
         </div>
         <div
           className={

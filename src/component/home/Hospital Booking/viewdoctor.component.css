@@ -104,11 +104,11 @@ form.doc_example::after {
   padding: 10px;
 }
 .doc_card_img {
-  width: 190px;
+  width: 150px;
   height: 164px;
 
   display: flex;
-  justify-content: center;
+
   align-items: center;
 }
 .doc_card_img img {
@@ -132,14 +132,14 @@ form.doc_example::after {
   display: flex;
 }
 #doc_name_card {
-  padding-top: 10px;
   font-weight: 700;
   font-size: 16px;
-  line-height: 10px;
+  line-height: 20px;
   color: black;
 }
 
 #doc_edu_brief {
+  margin-top: 8px;
   margin-left: 20px;
   padding: 4px;
   background: #e1f0ff;
@@ -162,7 +162,7 @@ form.doc_example::after {
 #doc_card_but {
   width: 200px;
   height: 40px;
-  margin-left: 8%;
+  margin-left: 16%;
   margin-top: 62%;
   border: 1px solid #2745f0;
   color: #2745f0;
@@ -173,7 +173,10 @@ form.doc_example::after {
   line-height: 15px;
   transition: 0.5s;
 }
-
+#doc_card_but:hover {
+  background-color: #2745f0;
+  color: #fff;
+}
 /* form for appointment */
 .click_book_action {
   display: flex;

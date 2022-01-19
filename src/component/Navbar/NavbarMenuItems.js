@@ -139,6 +139,14 @@ const NavbarMenuItems = () => {
                   Contact
                 </Link>
 
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/digimedical_doctors"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  Digimedical Doctors
+                </Link>
+
                 {localStorage.getItem("dm-access_token") ? (
                   <div onClick={Logout}>
                     <img
@@ -421,6 +429,14 @@ const NavbarMenuItems = () => {
               </div>
             </div>
           </div>{" "} */}
+          <span className="menu-item">
+            <Link
+              to="/digimedical_doctors"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Digimedical Doctors
+            </Link>
+          </span>
           <span className="menu-item">
             <Link
               to="/contact"
