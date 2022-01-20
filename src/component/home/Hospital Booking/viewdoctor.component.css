@@ -95,13 +95,14 @@ form.doc_example::after {
   border-radius: 10px;
   margin-top: 3rem;
   background: #f5faff;
-  width: fit-content;
+  width: 100%;
 }
 .doc_apoint_card1 {
   border: 1px solid #d0d7e2;
   border-radius: 10px;
   display: flex;
   padding: 10px;
+  justify-content: space-between;
 }
 .doc_card_img {
   width: 150px;
@@ -162,7 +163,7 @@ form.doc_example::after {
 #doc_card_but {
   width: 200px;
   height: 40px;
-  margin-left: 16%;
+
   margin-top: 62%;
   border: 1px solid #2745f0;
   color: #2745f0;
@@ -280,12 +281,67 @@ form.doc_appoin_form2::after {
   color: #fff;
   margin: 30px;
 }
-
-@media screen and (max-width: 1400px) {
-  .doc_appoint_main1 {
-  }
+@media screen and (max-width: 1354px) {
   .doc_appoint_main1_user {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
+  .doc_appoin_hosp_desc {
+    margin: 0;
+    margin-top: 20px;
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 1250px) {
   .take_doc_appoint {
+    width: 90%;
+  }
+  .doc_apoint_card {
+    width: 100%;
+  }
+  .doc_apoint_card1 {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 965px) {
+  .doc_appoint_main1_user {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .doc_about_desc {
+    width: 30%;
+  }
+
+  #doc_card_but {
+    margin-top: 80%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .doc_apoint_card1 {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .doc_about_desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+  }
+
+  .doc_about_desc p {
+    text-align: center;
+  }
+  #doc_card_but {
+    margin-top: 0%;
+  }
+  .doc_appoin_hosp_desc {
+    width: 90%;
   }
 }

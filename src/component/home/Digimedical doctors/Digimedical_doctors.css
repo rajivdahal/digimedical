@@ -95,3 +95,30 @@ p {
   font-size: 16px;
   font-weight: 600;
 }
+
+@media screen and (max-width: 660px) {
+  .digidoctor_apoint_card1 {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #digidoctor_card_but {
+    margin-top: 5%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .take_doc_appoint {
+    width: 90%;
+  }
+  .digi_doc_appointmain {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .digidoctor_whychooseus {
+    margin: 0;
+    width: 90%;
+  }
+}
