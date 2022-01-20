@@ -8,17 +8,17 @@
   display: flex;
 }
 .logcontainer_nav img {
-  margin-left: 130px;
+  margin-left: 5vw;
 }
 .menu {
-  margin-left: 5rem;
-  margin-top: 1rem;
+  margin-left: 12vw;
+  margin-top: 2.1vh;
   color: white;
   display: flex;
 }
 .menu .menu-item {
   height: 20px;
-  margin-left: 40px;
+  margin-left: 3vw;
 }
 .menu-item:hover {
   border-bottom: 1px solid white;

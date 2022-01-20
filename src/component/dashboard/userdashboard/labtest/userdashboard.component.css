@@ -1,19 +1,16 @@
 .main_div_user_lab {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  left: 15.4%;
+  top: 5%;
+  width: 84.7%;
 }
 
 .lab_add_to_cart {
-  margin-left: 15.4%;
-  overflow-y: hidden;
   width: 100%;
-  top: 10%;
-  position: absolute;
 }
 
 .lab_add_to_cart1 {
   width: 100%;
-  height: 100%;
 
   /* background: linear-gradient(
     177.28deg,
@@ -28,11 +25,12 @@
 }
 
 .lab_add_to_cart_top {
-  width: 1020px;
-
-  margin-left: 120px;
+  width: 75%;
+  margin-top: 80px;
+  margin-left: 12%;
   height: 48px;
   display: flex;
+  justify-content: space-between;
 }
 
 .lab_add_to_cart_top div {
@@ -42,7 +40,6 @@
 .lab_add_to_cart_ltwo {
   font-weight: bold;
   font-size: 37px;
-  line-height: 52px;
 
   color: #192638;
 }
@@ -50,7 +47,6 @@
 .lab_add_to_cart_ycarts {
   height: 100%;
   float: right;
-  margin-left: 408px;
 }
 
 #lab_your_cart {
@@ -143,77 +139,81 @@
   background: #091294;
 }
 
+/* cart of sample labtest here */
+
 .lab_add_to_cart_samp {
   margin-top: 40px;
+  width: 75%;
+  margin-left: 12%;
   display: flex;
   flex-direction: column;
 }
 
 .lab_add_to_cart_samp1 {
   margin-bottom: 45px;
-  margin-left: 120px;
-  width: 1025px;
-  height: 185px;
+
   background-color: #f5faff;
   border: 1px solid #d0d7e2;
   border-radius: 10px;
-  overflow: hidden;
+  padding: 10px;
   display: flex;
   transition-duration: 500ms;
+  transition: width 2s;
 }
 
 .lab_add_to_cart_samp1:hover {
   text-decoration: none;
+  -webkit-box-shadow: 0 0 15px 54#5965794f;
+  box-shadow: 0 0 15px #5965794f;
 }
 
 .active_lab_add_to_cart_samp1 {
   margin-bottom: 45px;
-  margin-left: 100px;
-  width: 1065px;
+  padding: 10px;
   background-color: #f5faff;
-  border: 2px solid #2745f0;
+  border: 3px solid #2745f0;
   /* border: 3px solid red; */
   border-radius: 10px;
-  overflow: scroll;
-  display: flex;
-  box-shadow: 2px 2px 1px 1px #2745f08e;
-}
 
-.active_lab_add_to_cart_samp1:hover {
-  text-decoration: none;
-  box-shadow: 3px 3px 1px 1px #2745f08e;
+  display: flex;
 }
 
 .lab_add_to_cart_samp_img1 {
-  margin-top: 2px;
-  width: 185px;
-  height: 180px;
-  display: flex;
+  width: 20%;
 }
 
 .lab_add_to_cart_samp_img1 img {
-  margin-top: 2px;
-  padding: 15px;
-  height: 180px;
+  border-radius: 5px;
   width: 185px;
-  display: inline-block;
-  line-height: 140px;
-  /* position: fixed; */
+  height: 170px;
+  line-height: 160px;
+  object-fit: cover;
 }
 
 .lab_add_to_cart_test_desc {
-  width: 530px;
-  height: 150px;
-  margin-top: 15px;
+  width: 35vw;
+
   margin-left: 10px;
   border-right: 1px solid #8797a87e;
 }
 
+.label_userlabtest {
+  margin-left: 4px;
+  font-size: 15px;
+}
+.input_subcat {
+  margin-left: 5px;
+}
+.label_userlabtest1 {
+  margin-left: 4px;
+}
 .lab_add_to_cart_price {
   color: #2745f0;
-  width: 250px;
-  text-align: center;
-  padding-top: 75px;
+  width: 23%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
   right: 23%;
 }
@@ -223,10 +223,9 @@
 }
 
 .lab_add_to_cart_atc {
-  margin-left: 10px;
-  margin-top: 20px;
   display: flex;
   height: 20px;
+  margin-top: 10px;
 }
 
 .lab_add_to_cart_atc button {
@@ -271,4 +270,63 @@
 }
 .medical-institute-name-display-null {
   display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .main_div_user_lab {
+    left: 0px;
+    width: 100%;
+  }
+
+  .lab_add_to_cart_top {
+    width: 90%;
+    margin-left: 12%;
+    flex-direction: column;
+    margin-bottom: 80px;
+  }
+
+  .lab_add_to_cart_ltwo {
+    width: 100%;
+    line-height: 50px;
+    margin-bottom: 20px;
+  }
+  .lab_add_to_cart_ycarts {
+    width: 100%;
+  }
+  .No_cart_item {
+    margin: auto;
+    margin-top: 10px;
+  }
+  .lab_add_to_cart_atc {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .lab_add_to_cart_samp1 {
+    flex-direction: column;
+  }
+  .active_lab_add_to_cart_samp1 {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .lab_add_to_cart_test_desc {
+    margin: 0;
+    border-right: none;
+    border-bottom: 1px solid gray;
+    width: 100%;
+    overflow-y: scroll;
+  }
+  .labtest_desc1 {
+    justify-content: start;
+  }
+  .lab_add_to_cart_samp_img1 {
+    width: 100%;
+  }
+  .lab_add_to_cart_samp_img1 img {
+    width: 100%;
+    height: 200px;
+  }
 }

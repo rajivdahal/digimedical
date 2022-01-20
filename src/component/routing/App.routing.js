@@ -16,7 +16,7 @@ import HomeLabtest from "../home/Labtest/labtest";
 import Hospitalbooking from "../home/Hospital Booking/hospital.booking.component";
 import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component";
 import OurServices from "../DoctorAtHome/DoctorAtHome";
-
+import Digi_doctors from "../home/Digimedical doctors/Digimedical_doctors";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -27,6 +27,11 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/about" component={AboutPage}></PublicRoute>
         <PublicRoute exact path="/services" component={Service}></PublicRoute>
         <PublicRoute exact path="/contact" component={ContactUs}></PublicRoute>
+        <PublicRoute
+          exact
+          path="/digimedical_doctors"
+          component={Digi_doctors}
+        ></PublicRoute>
         <PublicRoute
           exact
           path="/our-services/:subservice"
@@ -217,8 +222,7 @@ export const Approuting = (props) => {
           exact
           path="/dashboard/add-institute"
           component={Dashboard}
-        >
-        </ProtectedRoute>
+        ></ProtectedRoute>
         <ProtectedRoute
           exact
           path="/dashboard/hospital-table"
