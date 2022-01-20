@@ -50,7 +50,9 @@ import Viewcorporateappointment from "./corporatedashboard/corporateappointments
 import HospitalAppointment from "./hospitaldashboard/appointmentPage/appointment.component"
 import Permission from "./adminDashboard/userManagement/permission.component"
 import AddFamilyMember from "./userdashboard/familyMember/addFamilyMember.component"
-// import { LabTestImages } from "./userdashboard/viewlabtest/labTestImages/labTestImages.component"
+import MembershipPackage from "./adminDashboard/packageData/membership.package"
+import MembershipPackageDetails from "./adminDashboard/packageData/package.details"
+import LabtestReport from "./adminDashboard/allLabtestData/labtest.report"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -137,6 +139,12 @@ const Dashboard = (props) => {
                                                         <ProtectedRoute component={CorporatePage} />
                                                         : props.location.pathname === "/dashboard/permission" ?
                                                         <ProtectedRoute component={Permission} />
+                                                        : props.location.pathname === "/dashboard/membership-package" ?
+                                                        <ProtectedRoute component={MembershipPackage} />
+                                                        : props.location.pathname === "/dashboard/package-details" ?
+                                                        <ProtectedRoute component={MembershipPackageDetails} />
+                                                        : props.location.pathname === "/dashboard/labtest-report" ?
+                                                        <ProtectedRoute component={LabtestReport} />
                                                         : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </div>

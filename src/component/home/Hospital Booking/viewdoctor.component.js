@@ -195,13 +195,13 @@ export default function Hospital_doctors(props) {
 
                             <p>{doctor.specialist} </p>
                             <p id="doc_available_days">
-                              Availabile days :{" "}
+                              Available days :{" "}
                               <span id="span1_doc_card">
-                                Sunday, Teusday, Friday
+                                Sunday, Tuesday, Friday
                               </span>
                             </p>
                             <p>
-                              Availabile time :{" "}
+                              Available time :{" "}
                               <span id="span1_doc_card">10am - 1pm</span>
                             </p>
                           </div>{" "}
@@ -335,13 +335,13 @@ export default function Hospital_doctors(props) {
                           </p>
                           <p>{doctor.specialist} </p>
                           <p id="doc_available_days">
-                            Availabile days :{" "}
+                            Available days :{" "}
                             <span id="span1_doc_card">
-                              Sunday, Teusday, Friday
+                              Sunday, Tuesday, Friday
                             </span>
                           </p>
                           <p>
-                            Availabile time :{" "}
+                            Available time :{" "}
                             <span id="span1_doc_card">10am - 1pm</span>
                           </p>
                         </div>{" "}

@@ -2,19 +2,39 @@ import MaterialTable from 'material-table';
 import Tableicons from '../../../../utils/materialicons';
 import { useEffect, useState } from 'react';
 import { httpClient } from '../../../../utils/httpClient';
-import { Col, Row, Container, Card} from 'react-bootstrap';
+import { Col, Row, Container, Card } from 'react-bootstrap';
+import { Visibility } from "@material-ui/icons";
+
 const LabTestDetail = (props) => {
+
+    const actions = {
+        completed :[
+            {
+                icon: () => <Visibility fontSize="small" className="action-button" />,
+                tooltip: "View Details",
+                  onClick: (e, rowData) => {
+                    showLabtestReport(e, rowData);
+                  },
+
+            },
+        ],
+        upcoming: [],
+        cancelled: []
+    }
 
     const [labtestDetail, setLabtestDetail] = useState([]);
     const [title, setTitle] = useState("Upcoming Appointment");
     const [status, setStatus] = useState(0);
     const [color, setColor] = useState("grey");
     const [loading, setLoading] = useState(false)
+    const [selectedActions, setActions ] = useState(actions.upcoming);
+
 
     const getLabtest = async (status) => {
         setLoading(true);
-
-        await httpClient.GET("appointment-labTest/get/detail/" + status, false, true)
+        setStatus(status)
+        console.log(status)
+        await httpClient.GET("lab-booking/get-all/" + status, false, true)
             .then(resp => {
                 console.log(resp)
                 // let appointment = resp.data.data;
@@ -32,12 +52,37 @@ const LabTestDetail = (props) => {
 
     useEffect(() => {
         getLabtest(0);
-    },[])
+    }, [])
+
+    useEffect(()=>{
+        console.log("ÜPDATE ACTIONS");
+        let tempActions = [];
+        if(status === 1){
+            tempActions = actions.completed;
+            setActions(tempActions)
+        }else if(status === 0){
+            tempActions = actions.upcoming;
+            setActions(tempActions)
+        }else{
+            tempActions = actions.cancelled;
+            setActions(tempActions) 
+        }
+    },[status])
 
     const handleLabtest = (title, status) => {
         setStatus(status);
         getLabtest(status)
         setTitle(title);
+    }
+
+    const showLabtestReport=(e,data)=>{
+        console.log(data)
+        
+        props.history.push({
+            pathname : "/dashboard/labtest-report",
+            state : data,
+        })
+
     }
 
     return (
@@ -64,21 +109,26 @@ const LabTestDetail = (props) => {
                         title={title}
                         icons={Tableicons}
                         columns={[
-                            { title: 'Appointment ID', field: 'appointmentid' },
-                            { title: 'Patient Name', field: 'patientsname' },
-                            { title: 'Doctor Name', field: 'name' },
+                            { title: 'Booking ID', field: 'labtestbookingid' },
+                            { title: 'Patient', field: 'patientname' },
+                            { title: 'Email', field: 'email' },
                             { title: 'Labtest', field: 'labtestname' },
+                            { title: 'Subcategory', field: 'labtestcategoryname' },
                             { title: 'Price', field: 'price' },
 
                         ]}
                         data={labtestDetail}
                         options={{
-                            pageSize: 5,
+                            pageSize: 10,
+                            actionsColumnIndex: -1,
                             headerStyle: {
                                 backgroundColor: '#2745F0',
                                 color: '#FFF'
                             }
                         }}
+
+                        actions={selectedActions}
+
                         isLoading={loading}
                     />
 

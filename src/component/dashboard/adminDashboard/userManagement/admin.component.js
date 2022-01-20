@@ -19,6 +19,10 @@ import Tableicons from "../../../../utils/materialicons";
 import { Edit, Clear } from "@material-ui/icons";
 import Avatar from "../../../../assets/avatars.png";
 import "./admin.component.css";
+import UserManagementApi from "./userManageService";
+
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+
 const CreateAdmin = (props) => {
   const imageSelectRef = useRef();
   const [showModal, setShowModal] = useState(false);
@@ -42,87 +46,70 @@ const CreateAdmin = (props) => {
   });
 
   const getAllAdmin = async () => {
-    await httpClient
-      .GET("admin/all", false, true)
-      .then((resp) => {
-        console.log(resp);
+    setLoading(true);
+    try {
+      let resp = await UserManagementApi.getAllAdmin();
+      if (resp.data.status) {
         let data = resp.data.data;
         data.forEach((admin) => {
           admin.adminName = admin.firstName + " " + admin.lastName;
         });
-        if (resp.data.status) {
-          setAllAdmin(data);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+        setAllAdmin(data);
+      }
+    } catch (err) {
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+  }
 
   const getAllRoles = async () => {
-    let resp = await httpClient.GET("role/get-all", false, true);
-    if (resp.data.status) {
-      let result = resp.data.data;
-      let options = result.map((item, index) => {
-        return {
-          label: item.name,
-          value: item.id,
-        };
-      });
-      setAllRole(options);
+    setLoading(true)
+    try {
+      let resp = await UserManagementApi.getRole();
+      if (resp.data.status) {
+        let result = resp.data.data;
+        let options = result.map((item) => {
+          return {
+            label: item.name,
+            value: item.id,
+          };
+        });
+        setAllRole(options);
+      }
     }
-  };
+    catch (err) {
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+    setLoading(false)
+  }
 
   useEffect(() => {
     getAllRoles();
     getAllAdmin();
   }, []);
 
-  const createAdmin = (values) => {
+  const createAdmin = async (values) => {
     setLoading(true);
     try {
-      let roleid = formik.values.selectedRole.value;
-      console.log(roleid);
-      let formData = new FormData();
-
-      if (values.adminImage) {
-        formData.append("image", values.adminImage);
+      let resp = await UserManagementApi.createAdmin(values);
+      if (resp.data.status) {
+        notify.success(resp.data.message);
+        formik.resetForm();
+        getAllAdmin();
       }
-      formData.append("firstName", values.firstName);
-      formData.append("lastName", values.lastName);
-      formData.append("email", values.email);
-      formData.append("dob", values.dob);
-      formData.append("mobileNumber", values.mobileNumber);
-      formData.append("password", values.password);
-      formData.append("confirmPassword", values.confirmPassword);
-      formData.append("role", roleid);
-
-      console.log(formData);
-      httpClient
-        .POST("admin/create", formData, false, true, "formdata")
-        .then((resp) => {
-          let data = resp.data.data;
-          if (resp.data.status) {
-            console.log(data);
-            notify.success(resp.data.message);
-            formik.resetForm();
-            getAllAdmin();
-          }
-        })
-        .catch((err) => {
-          if (err.response || err.response.data) {
-            notify.error(err.response.data.message || "Something went wrong");
-            setLoading(false);
-          }
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
     }
+    catch (err) {
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+    setLoading(false)
   };
+
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: adminInfo,
@@ -143,62 +130,55 @@ const CreateAdmin = (props) => {
     let id = data.userId;
     setAdminId(data.id);
     if (data) {
-      let url = "http://202.51.74.219:8082/api/admin/download/" + id;
+      let url = REACT_APP_BASE_URL + "admin/download/" + id;
       setImage(url);
+
+      // let admindRole = [];
+      // allRole.forEach((role) => {
+      //   let foundRole = data.roles.filter((item) => {
+      //     return (item.id == role.value)
+      //   });
+      //   if (foundRole.length > 0) {
+      //     admindRole.push(foundRole)
+      //   };
+      // })
       setAdminInfo({
         firstName: data.firstName,
         middleName: data.middleName,
         lastName: data.lastName,
         dob: data.dob,
         mobileNumber: data.mobileNumber,
+        // selectedRole: admindRole,
       });
       window.scrollTo(0, 0);
     }
   };
 
-  const editAdminInfo = (values) => {
+  const editAdminInfo = async (values) => {
     setLoading(true);
     try {
-      let formData = new FormData();
 
-      if (values.adminImage) {
-        formData.append("image", values.adminImage);
-      }
-      formData.append("firstName", values.firstName);
-      formData.append("lastName", values.lastName);
-      formData.append("dob", values.dob);
-      formData.append("mobileNumber", values.mobileNumber);
-
-      httpClient
-        .PUT("admin/update/" + adminId, formData, false, true, "formdata")
-        .then((resp) => {
-          if (resp.data.status) {
-            notify.success(resp.data.message);
-            getAllAdmin();
-            setAdminId(null);
-            setImage(null);
-            setAdminInfo({
-              firstName: "",
-              lastName: "",
-              mobileNumber: "",
-              email: "",
-              dob: "",
-            });
-          }
-        })
-        .catch((err) => {
-          if (err.response || err.response.data) {
-            notify.error(err.response.data.message || "Something went wrong");
-            setLoading(false);
-          }
-        })
-        .finally(() => {
-          setLoading(false);
+      let resp = await UserManagementApi.editAdmin(values, adminId);
+      if (resp.data.status) {
+        notify.success(resp.data.message);
+        getAllAdmin();
+        setAdminId(null);
+        setImage(null);
+        setAdminInfo({
+          firstName: "",
+          lastName: "",
+          mobileNumber: "",
+          email: "",
+          dob: "",
         });
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
+      }
     }
+    catch (err) {
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+    setLoading(false);
   };
 
   const handleCancelEdit = () => {
@@ -243,24 +223,25 @@ const CreateAdmin = (props) => {
     setShowModal(true);
   };
 
-  const changeAdminStatus = () => {
+  const changeAdminStatus = async() => {
     setLoading(true);
-    let status = adminStatus == true ? false : true;
-    httpClient
-      .PUT("admin/change/" + adminId + "/" + status, {}, null, true)
-      .then((resp) => {
-        if (resp.data.status) {
-          notify.success(resp.data.message);
-          setLoading(false);
-          getAllAdmin();
-          handleClose();
-        }
-      })
-      .catch((err) => {
+
+    try{
+      let resp = await UserManagementApi.changeAdminStatus(adminStatus,adminId);
+      if (resp.data.status) {
+        notify.success(resp.data.message);
         setLoading(false);
+        getAllAdmin();
         handleClose();
-      });
-  };
+      }
+    }
+    catch(err){
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+    setLoading(false);
+  }
 
   const handleRoleChange = (item) => {
     console.log(item);
@@ -421,7 +402,7 @@ const CreateAdmin = (props) => {
                         onBlur={formik.handleBlur}
                       />
                       {formik.errors.confirmPassword &&
-                      formik.touched.confirmPassword ? (
+                        formik.touched.confirmPassword ? (
                         <div className="error-message">
                           {formik.errors.confirmPassword}
                         </div>
@@ -458,7 +439,7 @@ const CreateAdmin = (props) => {
               ></Image>
             </Col>
             <Col md={2}>
-                <span style={{ color: 'red' }} className="removeBtn" onClick={removeImage}>x</span>
+              <span style={{ color: 'red' }} className="removeBtn" onClick={removeImage}>x</span>
 
             </Col>
           </Row>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Card, Container } from "react-bootstrap";
 import EditProfile from "./components/editProfile";
 import ViewProfile from "./components/viewProfile";
 import { httpClient } from "../../../../utils/httpClient"
@@ -9,21 +8,11 @@ const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
 const UserProfile = (props) => {
 
     const [userDetails, setUserDetails] = useState("");
-    const [isprofile, setisprofile] = useState({
-        profile: true,
-        editprofile: false
-    })
-    const activateProfile = () => {
-        setisprofile({
-            editprofile: false,
-            profile: true
-        })
-    }
-    const activateEditProfile = () => {
-        setisprofile({
-            editprofile: true,
-            profile: false
-        })
+    const [isEdit, setIsEdit] = useState(false)
+
+
+    const activateProfile = (edit) => {
+        setIsEdit(edit)
     }
 
     const getUserDetails = () => {
@@ -38,13 +27,23 @@ const UserProfile = (props) => {
                 }
             })
             .catch(err => {
-                console.log(err.response.data)
+                // console.log(err.response.data)
+                console.log(err)
             })
     }
 
     useEffect(() => {
         getUserDetails();
     }, [])
+
+    useEffect(() => {
+        if(!isEdit){
+            getUserDetails();
+        }
+    }, [isEdit])
+
+    const gotoView = ( ) => activateProfile(false);
+    
 
     return (
 
@@ -53,12 +52,12 @@ const UserProfile = (props) => {
                 <div className="content-wrapper">
                     <div className="profile-block">
                     <div className="profile-selection">
-                        <div className={isprofile.profile ? " profile-tab selected-tab" : "profile-tab"} onClick={activateProfile}><span>Profile</span> </div>
-                        <div className={isprofile.editprofile ? "profile-tab selected-tab" : "profile-tab"} onClick={activateEditProfile}><span>Edit Profile</span></div>
+                        <div className={isEdit ==false? " profile-tab selected-tab" : "profile-tab"} onClick={()=>activateProfile(false)}><span>Profile</span> </div>
+                        <div className={isEdit ==true? "profile-tab selected-tab" : "profile-tab"} onClick={()=>activateProfile(true)}><span>Edit Profile</span></div>
                     </div>
 
-                    {isprofile.editprofile ?
-                        <EditProfile {...userDetails}></EditProfile>
+                    {isEdit == true ?
+                        <EditProfile gotoView={()=>gotoView()}  {...userDetails}></EditProfile>
                         :
                         <ViewProfile {...userDetails}></ViewProfile>
                     }
@@ -66,14 +65,6 @@ const UserProfile = (props) => {
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
 
     )
 }

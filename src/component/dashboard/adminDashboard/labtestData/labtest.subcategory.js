@@ -423,7 +423,7 @@ const LabtestSubcategory = (props) => {
                         { title: 'Price', field: 'priceString' },
                         {
                             title: 'Status', field: 'activeStatus',
-                            render: rowData => rowData.status == true ?
+                            render: rowData => rowData.status === true ?
                                 <span style={{ color: '#18af69' }}>Active</span>
                                 :
                                 <span style={{ color: 'red' }}>inActive</span>

@@ -71,7 +71,7 @@ export default function Usersidebar(props) {
                             </ul>
                             <ul className="nav flex-column sub-menu">
                                 <Link to="/dashboard/view-lab-test">
-                                    <li className="nav-item"> <a className="nav-link" href="">View all</a></li>
+                                    <li className="nav-item"> <a className="nav-link" href="">My Lab Tests</a></li>
                                 </Link>
                             </ul>
                         </div>

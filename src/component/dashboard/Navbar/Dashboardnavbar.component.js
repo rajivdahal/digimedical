@@ -39,28 +39,26 @@ export const Dashboardnavbar = (props) => {
     props.props.push("/dashboard/settings/change-password");
   };
 
-  const getImage = (id) => {
+  const getImage = () => {
+    let id = localStorage.getItem("userid");
     let url = REACT_APP_BASE_URL + "download/" + id;
     console.log(url);
-    if (url.status == false) {
-      setImage(Avatar);
-    }
     setImage(url);
   };
 
   useEffect(async () => {
-    let id = localStorage.getItem("userid");
     await httpClient
       .GET("user-profile", false, true)
       .then((resp) => {
-        const name = resp.data.data.profileInfo.name;
+        console.log(resp)
+        const name = resp.data.data.profileInfo.name
         setusername(name);
-        getImage(id);
+        getImage();
       })
       .catch((err) => {
         notify.error("something went wrong");
-      });
-  });
+      })
+  },[])
 
   return (
     <>
@@ -134,7 +132,7 @@ export const Dashboardnavbar = (props) => {
             </li>
             <li className="nav-item nav-profile dropdown">
               <a className="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-                <img src={userImage} alt=""/>
+                <img src={userImage ?? Avatar} alt=""/>
               </a>
               <div
                 className="dropdown-menu dropdown-menu-right navbar-dropdown"

@@ -16,6 +16,7 @@ export default function Viewlabtest() {
     let [today,settoday]=useState(TimeandDate.today())
     const [labTestReport,setLabTestReport]=useState([])
     const [downloadLabLabReport,setDownloadLabLabReport]=useState([])
+    const [fromDownload,setFromDOwnload]=useState(false)
   
     const handleCompletedClass=()=>{
         setisDynamicCompletedClass(true)
@@ -28,6 +29,7 @@ export default function Viewlabtest() {
     const getImage=async (data,identifier)=>{
         setLabTestReport([])
         setDownloadLabLabReport([])
+        setFromDOwnload(true)
         console.log("identifier is",identifier)
          httpClient.GET("lab-report/get-all/"+data.labtestbookingid,false,true)
         .then((resp)=>{
@@ -63,7 +65,7 @@ export default function Viewlabtest() {
     const download=async(data)=>{
         getImage(data,"download")  
     }
-    if(downloadLabLabReport.length){
+    if(fromDownload && downloadLabLabReport.length){
         downloadLabLabReport.map(async(item)=>{
             console.log("inside map")
             const originalImage= REACT_APP_BASE_URL+"lab-report/download/"+item;
