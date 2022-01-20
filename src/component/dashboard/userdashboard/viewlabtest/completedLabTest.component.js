@@ -56,7 +56,7 @@ export const CompletedLabTests=(props)=>{
                         className="action-button"
                       />
                     ),
-                    tooltip: "View prescription",
+                    tooltip: "View Lab Reports",
                     onClick: (e, rowData) => {
                       props.showLabTest(rowData,"fetch");
                     },
