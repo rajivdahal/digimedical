@@ -1,0 +1,77 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "#": "images/user1.jpg",
+      "Patient Name": "Raj Shrestha",
+      "Assigned Doctor": "Dr.Ray",
+      "Date": "25/04/2020",
+      "Disease": "Corona"
+    },{
+      "id": "2",
+      "#": "images/user1.jpg",
+      "Patient Name": "Raj Shrestha",
+      "Assigned Doctor": "Dr.Ray",
+      "Date": "25/04/2020",
+      "Disease": "Corona"
+    },{
+      "id": "3",
+      "#": "images/user1.jpg",
+      "Patient Name": "Raj Shrestha",
+      "Assigned Doctor": "Dr.Ray",
+      "Date": "25/04/2020",
+      "Disease": "Corona"
+    },{
+      "id": "4",
+      "#": "images/user1.jpg",
+      "Patient Name": "Raj Shrestha",
+      "Assigned Doctor": "Dr.Ray",
+      "Date": "25/04/2020",
+      "Disease": "Corona"
+    },{
+      "id": "5",
+      "#": "images/user1.jpg",
+      "Patient Name": "Raj Shrestha",
+      "Assigned Doctor": "Dr.Ray",
+      "Date": "25/04/2020",
+      "Disease": "Corona"
+    },{
+      "id": "6",
+      "#": "images/user1.jpg",
+      "Patient Name": "Raj Shrestha",
+      "Assigned Doctor": "Dr.Ray",
+      "Date": "25/04/2020",
+      "Disease": "Corona"
+    },{
+      "id": "7",
+      "#": "images/user1.jpg",
+      "Patient Name": "Raj Shrestha",
+      "Assigned Doctor": "Dr.Ray",
+      "Date": "25/04/2020",
+      "Disease": "Corona"
+    },{
+      "id": "8",
+        "#": "images/user1.jpg",
+      "Patient Name": "Raj Shrestha",
+      "Assigned Doctor": "Dr.Ray",
+      "Date": "25/04/2020",
+      "Disease": "Corona"
+    },{
+      "id": "9",
+      "#": "images/user1.jpg",
+      "Patient Name": "Raj Shrestha",
+      "Assigned Doctor": "Dr.Ray",
+      "Date": "25/04/2020",
+      "Disease": "Corona"
+    },{
+      "id": "10",
+      "#": "images/user1.jpg",
+      "Patient Name": "Raj Shrestha",
+      "Assigned Doctor": "Dr.Ray",
+      "Date": "25/04/2020",
+      "Disease": "Corona"
+    }
+
+    
+  ]
+}

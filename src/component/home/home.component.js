@@ -11,6 +11,7 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import Hospital_home from "../common/hospitals_home/hospitals_home.component";
 import { Link } from "react-router-dom";
+import Digi_doctors from "../common/doctors_home/doctors_home.component";
 const Root = styled.div`
   // background-color: red;
   height: 33.7rem;
@@ -91,6 +92,7 @@ const ReadMore = styled.a`
 
   &:hover {
     background-color: #2745f0;
+    border: none;
   }
   @media screen and (max-width: 650px) {
   }
@@ -137,7 +139,9 @@ export const Home = (props) => {
             <a href="#BookanAppointment">
               <GetAppointment type="button">Get Appointment</GetAppointment>
             </a>
-           <Link to="/about"><ReadMore type="button">Read MOre</ReadMore></Link> 
+            <Link to="/about">
+              <ReadMore type="button">Read More</ReadMore>
+            </Link>
             {/* <div class="btn-group dropright">
   <button type="button" class="btn btn-secondary">
     Split dropright
@@ -157,13 +161,14 @@ export const Home = (props) => {
       </Root>
       <About />
       <OurServices />
+      <Digi_doctors></Digi_doctors>
       <WhyChooseUs />
       <div id="bookappointment">
         <BookAnAppointment history={props.history} />
       </div>
       <Hospital_home></Hospital_home>
       <TheyTrustedUs />
-      <OurPartnar />
+      {/* <OurPartnar /> */}
       <Footer></Footer>
     </>
   );

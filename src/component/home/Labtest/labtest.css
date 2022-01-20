@@ -1,7 +1,9 @@
 .labtest1 img {
   width: 100%;
 }
-
+.labtest {
+  margin-bottom: 20px;
+}
 .labtest_main_text {
   width: 20%;
 
@@ -14,18 +16,18 @@
 }
 
 #labtxt1 {
-  font-weight: 700;
-  font-size: 3.7vw;
-  line-height: 5vw;
+  font-weight: 800;
+  font-size: 50px;
+  line-height: 50px;
   text-align: left;
 }
 
 #labtxt2 {
-  font-size: 1.1vw;
+  font-size: 16px;
   color: #596579;
   text-align: left;
   text-indent: 0px;
-  line-height: 1.5vw;
+  line-height: 20px;
   letter-spacing: 1px;
 }
 
@@ -39,14 +41,14 @@
   margin-top: 30px;
   color: black;
   font-weight: 700;
-  font-size: 2.5vw;
+  font-size: 30px;
   margin-bottom: 40px;
 }
 
 .lab_samp1 {
   margin-top: 25px;
   width: 70vw;
-
+  padding: 10px;
   background-color: #f5faff;
   border: 1px solid #d0d7e2;
   border-radius: 10px;
@@ -54,72 +56,62 @@
   display: flex;
   cursor: pointer;
 }
-@media screen and (max-width: 1020px) {
-  .lab_samp1 {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+
+.lab_sam_img1 {
+  width: 30%;
 }
 .lab_sam_img1 img {
-  padding: 20px;
-  height: 270px;
-}
-.lab_sam_img1:hover img {
-  opacity: 100%;
+  height: 200px;
+  border-radius: 8px;
+  object-fit: cover;
+
+  line-height: 190px;
 }
 
 .labtest_desc {
-  width: 530px;
-  height: 220px;
-  margin-top: 25px;
+  width: 50%;
   margin-left: 10px;
+  text-align: center;
   /* border-right: 1px solid #8797a87e; */
 }
 
 #labtest_desc_txt1 {
   font-weight: 700;
-  font-size: 18px;
-  line-height: 40px;
+  font-size: 20px;
+  line-height: 20px;
 }
 
 #labtest_desc_txt2 {
+  font-size: 15px;
   font-weight: 500px;
   color: #596579;
 }
 
 .labtest_desc1 {
+  height: 62%;
+  margin-left: 40%;
+  justify-content: left;
   display: flex;
+  overflow-y: scroll;
 }
 
 .labtest_desc_detail ul li {
   font-weight: 400px;
-  font-size: 12px;
+
+  font-size: 15px;
   color: #596579;
   line-height: 22px;
 }
 
 #lab_test_detail {
   font-weight: 400px;
-  font-size: 12px;
-  margin-left: 50px;
+  font-size: 14px;
+
   color: #596579;
 }
 
 #lab_test_detail li {
   line-height: 22px;
-}
-
-.lab_test_price {
-  color: #2745f0;
-  width: 250px;
-  text-align: center;
-  padding-top: 125px;
-  font-weight: bold;
-}
-
-.lab_test_price p {
-  font-size: 20px;
 }
 
 .lab_buttons_select {
@@ -217,10 +209,11 @@
   border-radius: 4px;
 }
 .No_cart_item {
+  width: 23%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 3rem;
+
   color: #4200ff;
 }
 
@@ -229,3 +222,30 @@
   justify-content: center;
   align-items: center;
 } */
+@media screen and (max-width: 1000px) {
+  .lab_content {
+    padding: 5%;
+  }
+  .lab_samp1 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .lab_samp1 {
+    flex-direction: column;
+  }
+
+  .lab_sam_img1 {
+    width: 100%;
+  }
+  .lab_sam_img1 img {
+    width: 100%;
+    height: 250px;
+  }
+  .labtest_desc {
+    margin-top: 20px;
+    width: 100%;
+    justify-content: center;
+  }
+}

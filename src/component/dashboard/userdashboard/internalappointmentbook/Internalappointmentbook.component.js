@@ -332,9 +332,9 @@ export default function Internalappointmentbook(prop) {
                     /> */}
                     <h4>{formatDate(toeditdata.appointmentdate)}</h4>
                 </div>
-                <div className="form-group col-md-12">
+                <div className="form-group col-md-6">
                     <label htmlFor="time">Time</label>
-                    <input type="time" placeholder="select time" id="appointmenttime" name="appointmenttime" className="form-control"
+                    <input type="time" placeholder="select time" id="appointmenttime" name="appointmenttime" 
                         onChange={(e) => {
                             handleeditchange(e)
                         }}

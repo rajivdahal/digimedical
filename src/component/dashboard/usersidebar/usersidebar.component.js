@@ -13,9 +13,6 @@ export default function Usersidebar(props) {
     const navigateMedicalreports = () => {
         props.props.push("/dashboard/medical-reports")
     }
-    // const navigateLabtest=()=>{
-    //     props.props.push("/dashboard/lab-test")
-    // }
     const loadHospitals=()=>{
         props.props.push("/dashboard/hospitals")
     }
@@ -59,43 +56,7 @@ export default function Usersidebar(props) {
                             </ul>
                         </div>
                     </li>
-                    {/* <li className="nav-item">
-                        <a className="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                            <i className="fas fa-money-check-alt menu-icon"></i>
-                            <span className="menu-title">Payments</span>
-                            <i className="menu-arrow"></i>
-                        </a>
-                        <div className="collapse" id="auth">
-                            <ul className="nav flex-column sub-menu">
-                                <Link to="/dashboard/all-payments">
-                                    <li className="nav-item"> <a className="nav-link" href=""> All Payments </a></li>
-                                </Link>
-                                <Link to="/dashboard/add-payments">
-                                    <li className="nav-item"> <a className="nav-link" href=""> Add Payment </a></li>
-                                </Link>
-                                <Link to="/dashboard/invoice">
-                                    <li className="nav-item"> <a className="nav-link" href=""> Invoice </a></li>
-                                </Link>
-                            </ul>
-                        </div>
-                    </li> */}
-                    
 
-
-                    {/* <li className="nav-item">
-                        <a className="nav-link" data-toggle="collapse" href="#medicalreports" aria-expanded="false" aria-controls="medicalreports">
-                        <i className="fas fa-file-medical menu-icon"></i>
-                            <span className="menu-title">Medical Reports</span>
-                            <i className="menu-arrow"></i>
-                        </a>
-                        <div className="collapse" id="medicalreports">
-                            <ul className="nav flex-column sub-menu">
-                                <Link to="/dashboard/lab-reports">
-                                    <li className="nav-item"> <a className="nav-link" href="">Lab Reports</a></li>
-                                </Link>
-                            </ul>
-                        </div>
-                    </li> */}
                     <li className="nav-item">
                         <a className="nav-link" data-toggle="collapse" href="#labreports" aria-expanded="false" aria-controls="labreports">
                         <i className="fas fa-file-medical menu-icon"></i>
@@ -110,7 +71,7 @@ export default function Usersidebar(props) {
                             </ul>
                             <ul className="nav flex-column sub-menu">
                                 <Link to="/dashboard/view-lab-test">
-                                    <li className="nav-item"> <a className="nav-link" href="">Booked Lab tests</a></li>
+                                    <li className="nav-item"> <a className="nav-link" href="">My Lab Tests</a></li>
                                 </Link>
                             </ul>
                         </div>

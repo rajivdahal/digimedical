@@ -218,7 +218,7 @@ const EditProfile = (props) => {
                             <Row>
                                 <Col md={3} >
                                     <div className="image-wrapper" >
-                                        <Image src={selectedImage} fluid roundedCircle></Image>
+                                        <Image src={selectedImage} fluid roundedCircle className="imag-profile"></Image>
                                         <Button variant="secondary" onClick={handleAddImage} className="change-photo">Change Photo</Button>
                                         <input onChange={(e) => handleChangeImage(e, setFieldValue)} type="file" name="image"
                                             style={{ display: "none" }} ref={imageSelectRef}  ></input>

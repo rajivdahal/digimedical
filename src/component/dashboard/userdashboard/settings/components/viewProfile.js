@@ -4,11 +4,8 @@ import Avatar from "../../../../../assets/avatars.png"
 import "../userprofile.css"
 import "./editProfile.css"
 const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
-
 const ViewProfile = (props) => {
-
     const [selectedImage, setImage] = useState("");
-
     const getUser = () => {
         let id = localStorage.getItem('userid');
         let url = REACT_APP_BASE_URL+"download/" + id;
@@ -25,10 +22,9 @@ const ViewProfile = (props) => {
         <Container>
             <Row>
                 <Col md={3} >
-                    <div >                        
+                    <div>                        
                         <div className="image-profile textAlign-center" >
-                            <Image src={selectedImage.status == false ? Avatar : selectedImage } fluid roundedCircle></Image>
-
+                            <Image src={selectedImage?selectedImage:Avatar} fluid roundedCircle className="imag-profile"></Image>
                         </div>
                         <div className="textAlign-center">
                             <div className="credentials-name">{props.firstname} {props.middlename} {props.lastname}</div>
