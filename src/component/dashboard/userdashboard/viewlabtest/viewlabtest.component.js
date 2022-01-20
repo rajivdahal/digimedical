@@ -1,26 +1,89 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
-import { notify } from '../../../../services/notify'
+import { useState } from 'react'
 import { TimeandDate } from '../../../../services/timeanddate'
+import { CompletedLabTests } from './completedLabTest.component'
+import { CancelledLabTest } from './cancelledLabTest.component'
+import { LabTestImages } from './labTestImages.component'
 import { httpClient } from '../../../../utils/httpClient'
-import MaterialTable from 'material-table';
-import { Add, Edit, Clear, DeleteOutline } from "@material-ui/icons";
-
-import Tableicons from "../../../../utils/materialicons";
+const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
 
 export default function Viewlabtest() {
-    let [labtests, setlabtests] = useState([])
+    
+    // let [isDynamicCompletedClass,setisDynamicCompletedClass]=useState(true)
+    let [isDynamicCompletedClass,setisDynamicCompletedClass]=useState(true)
+    let [isDynamicPendingClass,setisDynamicPendingClass]=useState(false)
+    const [showModel,setShowModel]=useState(false)
     let [today,settoday]=useState(TimeandDate.today())
-    useEffect(() => {
-        httpClient.GET("lab-booking/get-booking/0", false, true)
-            .then(resp => {
-                setlabtests(resp.data.data)
-
+    const [labTestReport,setLabTestReport]=useState([])
+    const [downloadLabLabReport,setDownloadLabLabReport]=useState([])
+    const [fromDownload,setFromDOwnload]=useState(false)
+  
+    const handleCompletedClass=()=>{
+        setisDynamicCompletedClass(true)
+        setisDynamicPendingClass(false)
+    }
+    const handlePendingClass=()=>{
+        setisDynamicCompletedClass(false)
+        setisDynamicPendingClass(true)
+    }
+    const getImage=async (data,identifier)=>{
+        setLabTestReport([])
+        setDownloadLabLabReport([])
+        setFromDOwnload(true)
+        console.log("identifier is",identifier)
+         httpClient.GET("lab-report/get-all/"+data.labtestbookingid,false,true)
+        .then((resp)=>{
+            let lab=[]
+            resp.data.data.map((item)=>{
+                console.log(item.labtestreportid)
+                lab.push(item.labtestreportid)
             })
-            .catch(err => {
-                notify.error("Error in fetching lab test")
-            })
-    }, [])
+            if(identifier){
+               return setDownloadLabLabReport(lab)
+            }
+             setLabTestReport(lab)
+        })
+        .catch(err=>{
+            console.log("Something error occurred")
+        })
+        .finally(()=>{
+            if(!identifier){
+                setShowModel(!showModel)
+            }
+        })
+    }
+    const showLabTest=(data,signal)=>{
+        console.log("e and data are",data,signal)
+        if(data && signal){
+            getImage(data)
+        }
+        if(!signal){
+            setLabTestReport([])
+            setShowModel(!showModel)
+        }
+    }
+    const download=async(data)=>{
+        getImage(data,"download")  
+    }
+    if(fromDownload && downloadLabLabReport.length){
+        downloadLabLabReport.map(async(item)=>{
+            console.log("inside map")
+            const originalImage= REACT_APP_BASE_URL+"lab-report/download/"+item;
+            console.log("original name is",originalImage)
+            const image =  await fetch(originalImage);
+            const nameSplit=originalImage.split("/");
+            const duplicateName=nameSplit.pop();
+            const imageBlog = await image.blob()
+            const imageURL = URL.createObjectURL(imageBlog)
+            const link = document.createElement('a')
+            link.href = imageURL;
+            link.download = ""+duplicateName+"";
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+        })
+    }
+    console.log("labtestreports are",labTestReport)
     return (
         <div className="container-fluid page-body-wrapper">
             <div id="right-sidebar" className="settings-panel">
@@ -128,7 +191,6 @@ export default function Viewlabtest() {
                                             <button className="btn btn-sm btn-light bg-white dropdown-toggle" type="button" id="dropdownMenuDate2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 <i className="mdi mdi-calendar"></i>Today- {today}
                                             </button>
-
                                         </div>
                                     </div>
                                 </div>
@@ -136,71 +198,39 @@ export default function Viewlabtest() {
                         </div>
                     </div>
 
-                    <MaterialTable
-                 data={labtests}
-                 title="All Labtests Details"
-                 icons={Tableicons}
-                    columns={[
-                        { title: 'Name', field: 'labtestname' },
-                        { title: 'description', field: 'description' },
-                        { title: 'price', field: 'price' },
-                        
-                    ]}
-                    actions={[
 
-                
-                        {
-                            icon: Edit,
-                            tooltip: 'Edit Service',
-                            // onClick: (e, rowData) => { handleEditDoctor(e, rowData) }
-                        },
-
-                    ]}
-
-                    // isLoading={}
-                    options={{
-                        actionsColumnIndex: -1,
-                        pageSize: 20,
-                        filtering: false,
-                        sorting: true,
-                        headerStyle: {
-                            backgroundColor: '#2745F0',
-                            color: '#FFF'
-                        }
-                    }}
-                />
-
-                    {/* <div className="row">
-                        <table class="table">
-                            <caption>List of users</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">S.No.</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    labtests?
-                                    labtests.map((item, index) => {
-                                        return <tr>
-                                            <th scope="row">{index+1}</th>
-                                            <td>{item.labtestname}</td>
-                                            <td>{item.description}</td>
-                                            <td>{item.price}</td>
-                                            <td>Pending</td>
-                                            <td>  </td>
-                                        </tr>
-                                    }):<p>No data found</p>
-                                }
-                            </tbody>
-                        </table>
-                    </div> */}
+                    <div className="row" >
+                            <div className="col-md-12 grid-margin stretch-card">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <div className="title-header">
+                                            <p
+                                             className=
+                                             {`card-title ${isDynamicCompletedClass ? "title-focus" : null}`}
+                                              onClick={handleCompletedClass}
+                                             >Completed Labtest</p>
+                                            <p
+                                             className={`card-title ${isDynamicPendingClass ? "title-focus" : null}`} 
+                                             onClick={handlePendingClass}
+                                             >Pending Labtest</p>
+                                        </div>
+                                        {       
+                                               isDynamicCompletedClass?<CompletedLabTests showLabTest={showLabTest} download={download}></CompletedLabTests>
+                                                    : isDynamicPendingClass?<CancelledLabTest></CancelledLabTest>
+                                                        : <h1>Please book your Lab Tests</h1>
+                                        }
+                                        {
+                                    showModel?
+                                    <LabTestImages
+                                    showLabTest={showLabTest}
+                                    labTestData={labTestReport}
+                                    >
+                                    </LabTestImages>:null
+                                         }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
 
             </div>

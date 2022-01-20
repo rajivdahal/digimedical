@@ -80,7 +80,8 @@ var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
     year: dt.getFullYear(),
     month: dt.getMonth()+1,
-    day: dt.getDate()})
+    day: dt.getDate()
+  })
     const [minDate, setminDate] = useState({
       year: dt.getFullYear(),
       month: dt.getMonth()+1,

@@ -5,8 +5,9 @@ import { httpClient } from "../../../../utils/httpClient";
 import { Col, Row, Card } from "react-bootstrap";
 import "./appointment.component.css";
 import { notify } from "../../../../services/notify";
-// import Select from 'react-select';
+
 const Appointment = (props) => {
+
   const [appointmentDetail, setAppointmentDetail] = useState([]);
   const [title, setTitle] = useState("Upcoming Appointment");
   const [status, setStatus] = useState(0);

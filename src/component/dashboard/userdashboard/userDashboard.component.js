@@ -6,9 +6,6 @@ import { useEffect } from "react"
 import { http, httpClient } from "../../../utils/httpClient"
 import { notify } from "../../../services/notify"
 import { useState } from "react"
-import TimePicker from 'react-time-picker';
-import { Weather } from "../../common/weather description/weather.component"
-
 const Userdashboard = (props) => {
   let [pendingappointment, setpendingappointments] = useState(0)
   let [completedappointments, setcompletedappointments] = useState(0)
@@ -37,27 +34,7 @@ const Userdashboard = (props) => {
       .then(resp => {
         setcancelledappointments(resp.data.data.length)
       })
-    // Weather.getWeather(function(err,done){
-    //   console.log("inside callback")
-    //   if(!err){
-    //     console.log("not found")
-    //   }
-    //   if(err){
-    //     console.log("error occurred",err)
-    //   }
-    //   else{
-    //     console.log("done is",done)
-    //   }
-    // })
-    //  console.log(object) typeof(Weather.getWeather())
-    // .then(resp=>{
-    //   console.log("response is",resp)
-    // })
-    // .catch(err=>{
-    //   console.log("error is",err)
-    // })
-
-    // console.log("after calling weather output is",response)
+      
     navigator.geolocation.getCurrentPosition(function(done,err){
       if(done){
           let latitude=done.coords.latitude

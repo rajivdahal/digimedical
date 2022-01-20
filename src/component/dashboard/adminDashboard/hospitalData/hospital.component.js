@@ -48,7 +48,7 @@ const Hospital = (props) => {
         let data = resp.data.data;
 
         if (data) {
-          let url = REACT_APP_BASE_URL+"hospital/download/" + id;
+          let url = REACT_APP_BASE_URL + "hospital/download/" + id;
           setImage(url);
           setHospitalData({
             name: data.name,
@@ -190,7 +190,7 @@ const Hospital = (props) => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.touched.establishedDate &&
-                formik.errors.establishedDate ? (
+                  formik.errors.establishedDate ? (
                   <div className="error-message">
                     {formik.errors.establishedDate}
                   </div>
@@ -351,7 +351,7 @@ const Hospital = (props) => {
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.confirmPassword &&
-                  formik.touched.confirmPassword ? (
+                    formik.touched.confirmPassword ? (
                     <div className="error-message">
                       {formik.errors.confirmPassword}
                     </div>
@@ -380,11 +380,14 @@ const Hospital = (props) => {
             <Col md={5}>
               <Image src={selectedImage} fluid className="image ml-3"></Image>
             </Col>
-            <Col md={2}>
-              <span style={{ color: "red" }} className="removeBtn" onClick={removeImage}>
-                x
-              </span>
-            </Col>
+            {selectedImage ?
+              <Col md={2}>
+                <span style={{ color: "red" }} className="removeBtn" onClick={removeImage}>
+                  x
+                </span>
+              </Col> : <></>
+            }
+
           </Row>
 
           {loading == true ? (

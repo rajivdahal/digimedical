@@ -67,34 +67,26 @@ const Role = (props) => {
 
     })
 
-    const createRole = (values) => {
+    const createRole =async (values) => {
         setLoading(true)
         try {
-            let data = {
-                roleName: values.name,
-                roleDescription: values.description
+            let resp = await UserManagementApi.createRole(values);
+            if(resp.data.status){
+                notify.success(resp.data.message)
+                formik.resetForm();
+                getAllRoles()
             }
-            console.log(data)
-            httpClient.POST("role/create", data, false, true)
-                .then(resp => {
-                    notify.success(resp.data.message)
-                    formik.resetForm();
-                    getAllRoles()
-                    setLoading(false)
-                })
-                .catch(err => {
-                    console.log(err)
-                    notify.error(err.response.data.message)
-                })
         }
         catch (err) {
-            console.log(err);
-            setLoading(false)
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+              }
         }
+        setLoading(false)
+
     }
 
     const setEditRoleData = (e, data) => {
-        console.log(data)
         setRoleID(data.id);
         setRoleData({
             name: data.name,
@@ -104,36 +96,26 @@ const Role = (props) => {
 
     }
 
-    const editRoleData = (values) => {
+    const editRoleData = async(values) => {
         setLoading(true)
         try {
-            let data = {
-                roleName: values.name,
-                roleDescription: values.description
-            }
-            console.log(data)
-            httpClient.PUT("role/update/" + roleID, data, false, true)
-                .then(resp => {
-                    console.log(resp)
+            let resp = await UserManagementApi.editRole(values,roleID)
+                if(resp.data.status){
                     notify.success(resp.data.message)
-                    formik.resetForm();
                     setRoleData({
                         name: "",
                         description: "",
                     })
                     getAllRoles()
-                    setLoading(false)
                     setRoleID(null)
-                })
-                .catch(err => {
-                    console.log(err)
-                    notify.error(err.response.data.message)
-                })
+                }
         }
         catch (err) {
-            console.log(err)
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+              }
+            }
             setLoading(false)
-        }
     }
 
     const handleCancelEdit = () => {

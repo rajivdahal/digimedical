@@ -139,31 +139,22 @@ const Createdoctor = (props) => {
   };
 
   const getDoctorById = async (id, allServices) => {
-    console.log(id);
     let resp;
     try {
       if (props.isHospital) {
-        console.log("hospital doctor");
-        console.log(id);
         resp = await doctorApi.getHospitalDoctorById(id);
       } else {
-        console.log(id);
         resp = await doctorApi.getAdminDoctorBYId(id);
       }
 
-      console.log(resp);
       if (resp.data.status) {
         // get doctor services + basic details
         let responseData = resp.data.data;
         let data = responseData.basicDetails;
         let serviceData = responseData.services;
-        console.log(serviceData);
-        console.log(data);
-
         let selectedDays = [];
         if (data.availabledays) {
           let dayArr = data.availabledays.split(",");
-          console.log(dayArr);
           days.forEach((day) => {
             let foundDay = dayArr.filter((item) => {
               return item == day.value;
@@ -173,8 +164,6 @@ const Createdoctor = (props) => {
             }
           });
         }
-
-        console.log(selectedDays);
         // get services details from service data
         let savedServices = [];
         allServices.forEach((service) => {
@@ -188,8 +177,6 @@ const Createdoctor = (props) => {
             });
           }
         });
-        console.log(savedServices);
-        console.log(data);
 
         if (data) {
           let url = REACT_APP_BASE_URL + "doctor/download/" + id;
@@ -480,13 +467,18 @@ const Createdoctor = (props) => {
                     className="image ml-3"
                     roundedCircle
                   ></Image>
-                  <div>{selectedImgName}</div>
+                  {/* <div>{selectedImgName}</div> */}
                 </Col>
-                <Col md={2}>
-                  <span style={{ color: "red" }} onClick={removeImage}>
-                    x
-                  </span>
-                </Col>
+                {selectedImage ?
+                  <Col md={2}>
+                    <span style={{ color: "red" }} className="removeBtn" onClick={removeImage}>
+                      x
+                    </span>
+                  </Col>
+                  :
+                  <></>
+                }
+
               </Row>
             </Col>
           </Row>
@@ -626,7 +618,7 @@ const Createdoctor = (props) => {
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.confirmPassword &&
-                  formik.touched.confirmPassword ? (
+                    formik.touched.confirmPassword ? (
                     <div className="error-message">
                       {formik.errors.confirmPassword}
                     </div>
