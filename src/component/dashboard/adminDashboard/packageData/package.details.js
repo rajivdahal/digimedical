@@ -276,7 +276,7 @@ const MembershipPackageDetails = (props) => {
 
                 <MaterialTable
                     columns={[
-                        { title: "ID", field: "id" },
+                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
                         { title: "Name", field: "name" },
                         { title: "Points", field: "points" },
                     ]}

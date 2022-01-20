@@ -365,7 +365,7 @@ const Labtest = (props) => {
                     icons={Tableicons}
                     data={allLabtest}
                     columns={[
-                        { title: "ID", field: "id" },
+                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
                         { title: 'Name', field: 'name' },
                         { title: 'Description', field: 'description' },
                         {

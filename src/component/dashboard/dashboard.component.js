@@ -53,6 +53,7 @@ import AddFamilyMember from "./userdashboard/familyMember/addFamilyMember.compon
 import MembershipPackage from "./adminDashboard/packageData/membership.package"
 import MembershipPackageDetails from "./adminDashboard/packageData/package.details"
 import LabtestReport from "./adminDashboard/allLabtestData/labtest.report"
+import CorporateUser from "./corporatedashboard/addmembers/corporate.user"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -206,6 +207,8 @@ const Dashboard = (props) => {
                           <ProtectedRoute component={Corporatedashboard} props={props}></ProtectedRoute> :
                           props.location.pathname == "/dashboard/corporate/add-members" ?
                           <ProtectedRoute component={Corporateaddmember} props={props}></ProtectedRoute>:
+                          props.location.pathname == "/dashboard/corporate/add-users" ?
+                          <ProtectedRoute component={CorporateUser} props={props}></ProtectedRoute>:
                           props.location.pathname == "/dashboard/corporate/viewappointment" ?
                           <ProtectedRoute component={Viewcorporateappointment} props={props}></ProtectedRoute>:
                           props.location.pathname == "/dashboard/corporate/bookappointment" ?

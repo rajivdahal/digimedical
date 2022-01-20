@@ -38,7 +38,6 @@ const ViewProfile = (props) => {
                 </Col>
 
                 <Col md={9}>
-                    {/* <Container> */}
                     <Row>
                         <Col md={6}>
                             <div className="info-block">
@@ -114,8 +113,6 @@ const ViewProfile = (props) => {
                         </Col>
 
                     </Row>
-
-                    {/* </Container> */}
                 </Col>
 
             </Row>
