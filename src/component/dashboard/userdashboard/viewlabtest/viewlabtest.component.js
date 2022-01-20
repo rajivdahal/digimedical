@@ -4,6 +4,8 @@ import { TimeandDate } from '../../../../services/timeanddate'
 import { CompletedLabTests } from './completedLabTest.component'
 import { CancelledLabTest } from './cancelledLabTest.component'
 import { LabTestImages } from './labTestImages.component'
+import { httpClient } from '../../../../utils/httpClient'
+const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
 
 export default function Viewlabtest() {
     
@@ -12,7 +14,8 @@ export default function Viewlabtest() {
     let [isDynamicPendingClass,setisDynamicPendingClass]=useState(false)
     const [showModel,setShowModel]=useState(false)
     let [today,settoday]=useState(TimeandDate.today())
-    const [labTestData,setLabTestData]=useState({})
+    const [labTestReport,setLabTestReport]=useState([])
+    const [downloadLabLabReport,setDownloadLabLabReport]=useState([])
   
     const handleCompletedClass=()=>{
         setisDynamicCompletedClass(true)
@@ -22,44 +25,63 @@ export default function Viewlabtest() {
         setisDynamicCompletedClass(false)
         setisDynamicPendingClass(true)
     }
-    const showLabTest=(data)=>{
-        // console.log("e and data are",data)
-       
-        setLabTestData(data)
-        setShowModel(!showModel) 
-        httpClient.GET("lab-report/get-all/"+props.labTestData.labtestbookingid,false,true)
-        .then(resp=>{
+    const getImage=async (data,identifier)=>{
+        setLabTestReport([])
+        setDownloadLabLabReport([])
+        console.log("identifier is",identifier)
+         httpClient.GET("lab-report/get-all/"+data.labtestbookingid,false,true)
+        .then((resp)=>{
+            let lab=[]
             resp.data.data.map((item)=>{
-                httpClient.GET("lab-report/download/"+item.labtestreportid)
-                .then(resp=>{
-                    console.log("response is",resp)
-                    lab.push(resp.data)
-                    // lab.push(URL.createObjectURL(resp.data))
-                    // debugger
-                    //   var reader=new FileReader()
-                    // reader.readAsDataURL(resp.data)
-                    // reader.onload=()=>{
-                    //     var base64=reader.result
-                    //     console.log("base 64 is",base64)
-                    //     lab.push(base64)
-                    // }
-                    // reader.onerror=(error)=>{
-                    //     console.log("error while reading url",error)
-                    // }
-                })
-                .catch(err=>{
-                    console.log("error occurred while fetching the image")
-                })
+                console.log(item.labtestreportid)
+                lab.push(item.labtestreportid)
             })
-            console.log("response is",resp.data)
+            if(identifier){
+               return setDownloadLabLabReport(lab)
+            }
+             setLabTestReport(lab)
         })
         .catch(err=>{
-            console.log("Something went wrong")
+            console.log("Something error occurred")
         })
         .finally(()=>{
-            setlabTestReportId(lab)
-        })  
+            if(!identifier){
+                setShowModel(!showModel)
+            }
+        })
     }
+    const showLabTest=(data,signal)=>{
+        console.log("e and data are",data,signal)
+        if(data && signal){
+            getImage(data)
+        }
+        if(!signal){
+            setLabTestReport([])
+            setShowModel(!showModel)
+        }
+    }
+    const download=async(data)=>{
+        getImage(data,"download")  
+    }
+    if(downloadLabLabReport.length){
+        downloadLabLabReport.map(async(item)=>{
+            console.log("inside map")
+            const originalImage= REACT_APP_BASE_URL+"lab-report/download/"+item;
+            console.log("original name is",originalImage)
+            const image =  await fetch(originalImage);
+            const nameSplit=originalImage.split("/");
+            const duplicateName=nameSplit.pop();
+            const imageBlog = await image.blob()
+            const imageURL = URL.createObjectURL(imageBlog)
+            const link = document.createElement('a')
+            link.href = imageURL;
+            link.download = ""+duplicateName+"";
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+        })
+    }
+    console.log("labtestreports are",labTestReport)
     return (
         <div className="container-fluid page-body-wrapper">
             <div id="right-sidebar" className="settings-panel">
@@ -191,19 +213,18 @@ export default function Viewlabtest() {
                                              >Pending Labtest</p>
                                         </div>
                                         {       
-                                               isDynamicCompletedClass?<CompletedLabTests showLabTest={showLabTest}></CompletedLabTests>
+                                               isDynamicCompletedClass?<CompletedLabTests showLabTest={showLabTest} download={download}></CompletedLabTests>
                                                     : isDynamicPendingClass?<CancelledLabTest></CancelledLabTest>
                                                         : <h1>Please book your Lab Tests</h1>
                                         }
                                         {
-                    showModel?
-                    <LabTestImages
-                    showLabTest={showLabTest}
-                    labTestData={labTestData}
-
-                    >
-                    </LabTestImages>:null
-                }
+                                    showModel?
+                                    <LabTestImages
+                                    showLabTest={showLabTest}
+                                    labTestData={labTestReport}
+                                    >
+                                    </LabTestImages>:null
+                                         }
                                     </div>
                                 </div>
                             </div>
