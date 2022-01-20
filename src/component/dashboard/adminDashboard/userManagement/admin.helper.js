@@ -52,7 +52,7 @@ const validateAdmin = ( values, isEdit = false ) =>{
             errors.confirmPassword = "Password doesn't match!"
         }
     }
-    console.log(errors)
+    // console.log(errors)
     return errors;   
 }
 

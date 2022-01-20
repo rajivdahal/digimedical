@@ -31,12 +31,7 @@
 .hospital_doc_checkroute p:hover {
   cursor: pointer;
 }
-.doc_appoint_main {
-  flex-direction: column;
-}
-.doc_appoint_main1 {
-  display: flex;
-}
+
 /* content for appointment */
 
 .take_doc_appoint {
@@ -100,16 +95,25 @@ form.doc_example::after {
   border-radius: 10px;
   margin-top: 3rem;
   background: #f5faff;
-  width: fit-content;
+  width: 100%;
 }
 .doc_apoint_card1 {
-  height: 100%;
+  border: 1px solid #d0d7e2;
+  border-radius: 10px;
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+}
+.doc_card_img {
+  width: 150px;
+  height: 164px;
 
   display: flex;
+
+  align-items: center;
 }
 .doc_card_img img {
-  margin-left: 0px;
-  margin-top: 5px;
+  object-fit: cover;
 }
 
 .doc_about_desc {
@@ -129,14 +133,14 @@ form.doc_example::after {
   display: flex;
 }
 #doc_name_card {
-  padding-top: 10px;
   font-weight: 700;
   font-size: 16px;
-  line-height: 10px;
+  line-height: 20px;
   color: black;
 }
 
 #doc_edu_brief {
+  margin-top: 8px;
   margin-left: 20px;
   padding: 4px;
   background: #e1f0ff;
@@ -155,15 +159,24 @@ form.doc_example::after {
   font-weight: 500;
   color: black;
 }
-.hosp_card_but {
-  width: fit-content;
-  height: fit-content;
-  margin-top: 6.5rem;
-  margin-left: 2.5rem;
-}
 
-#hosp_card_but {
-  margin: 0px;
+#doc_card_but {
+  width: 200px;
+  height: 40px;
+
+  margin-top: 62%;
+  border: 1px solid #2745f0;
+  color: #2745f0;
+  background: white;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 15px;
+  transition: 0.5s;
+}
+#doc_card_but:hover {
+  background-color: #2745f0;
+  color: #fff;
 }
 /* form for appointment */
 .click_book_action {
@@ -201,8 +214,10 @@ form.doc_appoin_form2::after {
 #appoint_dt {
   width: 215px;
 }
+
+/* hospital description card */
 .doc_appoin_hosp_desc {
-  margin-top: 20px;
+  margin-top: 1%;
   width: 280px;
   margin-left: 50px;
 }
@@ -210,9 +225,15 @@ form.doc_appoin_form2::after {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 10px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .hosp_desc_hosp img {
   width: 150px;
+  object-fit: cover;
 }
 .hosp_desc_hosp p {
   color: #596579;
@@ -239,6 +260,10 @@ form.doc_appoin_form2::after {
   width: 250px;
   border-radius: 15px;
 }
+.doc_appoint_main1 {
+  display: flex;
+  flex-direction: column;
+}
 .doc_appoint_main1_user {
   display: flex;
   width: 80%;
@@ -255,4 +280,68 @@ form.doc_appoin_form2::after {
   background-color: #0b7dda;
   color: #fff;
   margin: 30px;
+}
+@media screen and (max-width: 1354px) {
+  .doc_appoint_main1_user {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .doc_appoin_hosp_desc {
+    margin: 0;
+    margin-top: 20px;
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  .take_doc_appoint {
+    width: 90%;
+  }
+  .doc_apoint_card {
+    width: 100%;
+  }
+  .doc_apoint_card1 {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 965px) {
+  .doc_appoint_main1_user {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .doc_about_desc {
+    width: 30%;
+  }
+
+  #doc_card_but {
+    margin-top: 80%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .doc_apoint_card1 {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .doc_about_desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+  }
+
+  .doc_about_desc p {
+    text-align: center;
+  }
+  #doc_card_but {
+    margin-top: 0%;
+  }
+  .doc_appoin_hosp_desc {
+    width: 90%;
+  }
 }

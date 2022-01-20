@@ -16,7 +16,7 @@ import HomeLabtest from "../home/Labtest/labtest";
 import Hospitalbooking from "../home/Hospital Booking/hospital.booking.component";
 import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component";
 import OurServices from "../DoctorAtHome/DoctorAtHome";
-
+import Digi_doctors from "../home/Digimedical doctors/Digimedical_doctors";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -27,6 +27,11 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/about" component={AboutPage}></PublicRoute>
         <PublicRoute exact path="/services" component={Service}></PublicRoute>
         <PublicRoute exact path="/contact" component={ContactUs}></PublicRoute>
+        <PublicRoute
+          exact
+          path="/digimedical_doctors"
+          component={Digi_doctors}
+        ></PublicRoute>
         <PublicRoute
           exact
           path="/our-services/:subservice"
@@ -117,9 +122,16 @@ export const Approuting = (props) => {
           path="/dashboard/lab-reports"
           component={Dashboard}
         ></ProtectedRoute>
+
         <ProtectedRoute
           exact
           path="/dashboard/view-lab-test"
+          component={Dashboard}
+        ></ProtectedRoute>
+
+        <ProtectedRoute
+          exact
+          path="/dashboard/view-lab-test/:id"
           component={Dashboard}
         ></ProtectedRoute>
         <ProtectedRoute
@@ -210,8 +222,7 @@ export const Approuting = (props) => {
           exact
           path="/dashboard/add-institute"
           component={Dashboard}
-        >
-        </ProtectedRoute>
+        ></ProtectedRoute>
         <ProtectedRoute
           exact
           path="/dashboard/hospital-table"
@@ -225,6 +236,21 @@ export const Approuting = (props) => {
         <ProtectedRoute
           exact
           path="/dashboard/corporate"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/membership"
+          component={Dashboard}
+        ></ProtectedRoute>
+           <ProtectedRoute
+          exact
+          path="/dashboard/package-details"
+          component={Dashboard}
+        ></ProtectedRoute>
+         <ProtectedRoute
+          exact
+          path="/dashboard/labtest-report"
           component={Dashboard}
         ></ProtectedRoute>
 

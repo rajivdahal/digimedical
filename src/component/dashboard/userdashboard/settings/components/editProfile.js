@@ -5,8 +5,13 @@ import { httpClient } from "../../../../../utils/httpClient"
 import Avatar from "../../../../../assets/avatars.png"
 import { notify } from "../../../../../services/notify";
 import { useHistory } from "react-router-dom";
+import Select from "react-select";
+
 import "./editProfile.css"
 import "../userprofile.css"
+import { BLOODGROUP } from "../../../../../constants/constants";
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
+
 const EditProfile = (props) => {
     let history = useHistory()
     const userstatus = localStorage.getItem("status")
@@ -98,10 +103,9 @@ const EditProfile = (props) => {
 
     const getUser = () => {
         let id = localStorage.getItem('userid');
-        // console.log(id)
-        console.log(props);
         if (props) {
-            let url = "http://103.90.86.77:8082/api/download/" + id;
+            console.log(props)
+            let url = REACT_APP_BASE_URL + "download/"+ id;
             setImage(url)
             setUserProfile({
                 firstName: props.firstname,
@@ -115,7 +119,7 @@ const EditProfile = (props) => {
                 weight: props.weight,
                 previousDisease: props.disease,
                 fatherName: props.fathername,
-                bloodGroup: props.bloodgroup ?? "A+", 
+                bloodGroup: props.bloodgroup ?? "A+",
                 gender: props.gender ?? "0",
             })
         }
@@ -136,7 +140,7 @@ const EditProfile = (props) => {
         if (values.previousDisease) {
             formData.append("previousDisease", values.previousDisease)
         }
-        
+
         formData.append("firstName", values.firstName);
         formData.append("lastName", values.lastName);
         formData.append("email", values.email);
@@ -145,7 +149,6 @@ const EditProfile = (props) => {
         formData.append("height", values.height);
         formData.append("gender", values.gender);
         formData.append("bloodGroup", values.bloodGroup)
-
         formData.append("dobAd", values.dob);
         formData.append("mobileNumber", values.contactNo);
         formData.append("fatherName", values.fatherName);
@@ -153,18 +156,23 @@ const EditProfile = (props) => {
         console.log(formData)
         httpClient.PUT("update-user", formData, false, true, "formdata")
             .then(resp => {
-                console.log(resp);
-                notify.success(resp.data.message)
-                history.push("/dashboard")
-                // getUser();
+                if (resp.data.status) {
+                    notify.success(resp.data.message);
+                    props.gotoView();
+                }
             })
             .catch(err => {
-                console.log(err.response)
+                if (err && err.response && err.response.data) {
+                    notify.error(err.response.data.message || "Something went wrong");
+                }
             })
     }
 
     const cancelProfileEdit = () => {
         setUserProfile({
+            firstName: "",
+            middleName: "",
+            lastName: "",
             name: "",
             address: "",
             email: "",
@@ -174,8 +182,9 @@ const EditProfile = (props) => {
             weight: "",
             previousDisease: "",
             fatherName: "",
-            gender: "",
+            gender: "0",
             image: "",
+            bloodGroup: "A+"
         })
     }
 
@@ -204,16 +213,15 @@ const EditProfile = (props) => {
                         updateProfile(values);
                     }}
                 >
-                    {({ errors, touched, setFieldValue }) => (
+                    {({values, errors, touched, setFieldValue }) => (
                         <Form>
                             <Row>
                                 <Col md={3} >
                                     <div className="image-wrapper" >
-                                        <Image src={selectedImage} fluid roundedCircle></Image>
+                                        <Image src={selectedImage} fluid roundedCircle className="imag-profile"></Image>
                                         <Button variant="secondary" onClick={handleAddImage} className="change-photo">Change Photo</Button>
                                         <input onChange={(e) => handleChangeImage(e, setFieldValue)} type="file" name="image"
                                             style={{ display: "none" }} ref={imageSelectRef}  ></input>
-
                                     </div>
 
                                 </Col>
@@ -224,14 +232,14 @@ const EditProfile = (props) => {
                                             <Col md={4}>
                                                 <div className=" form-group select-label">
                                                     <label > First Name : </label>
-                                                    <Field name="firstName" className="form-control profile-field" />
+                                                    <Field name="firstName" className="form-control profile-field" disabled/>
                                                     {errors.name && touched.name && <div className="error-message">{errors.name}</div>}
                                                 </div>
                                             </Col>
                                             <Col md={4}>
                                                 <div className=" form-group select-label">
                                                     <label > Middle Name : </label>
-                                                    <Field name="middleName" className="form-control profile-field" disabled/>
+                                                    <Field name="middleName" className="form-control profile-field" disabled />
                                                 </div>
                                             </Col>
                                             <Col md={4}>
@@ -259,7 +267,7 @@ const EditProfile = (props) => {
                                             </Col>
                                             <Col md={4}>
                                                 <label >Gender : </label>
-                                                <Field class="form-control profile-field" as='select' name="gender" value={userProfile.gender}>
+                                                <Field class="select-control profile-field" as='select' name="gender" value={values.gender}>
                                                     <option value="0">Male</option>
                                                     <option value="1">Female</option>
                                                     <option value="2">Other</option>
@@ -268,7 +276,7 @@ const EditProfile = (props) => {
                                             </Col>
                                             <Col md={4}>
                                                 <label >Blood Group : </label>
-                                                <Field class="form-control profile-field" as='select' name="bloodGroup" value={userProfile.bloodGroup}>
+                                                <Field class="select-control profile-field" as='select' name="bloodGroup" value={values.bloodGroup}>                                       
                                                     <option value="A+">A-postivie</option>
                                                     <option value="A-">A-negative</option>
                                                     <option value="B+">B-postive</option>
@@ -278,7 +286,6 @@ const EditProfile = (props) => {
                                                     <option value="AB+">AB-postive</option>
                                                     <option value="AB-">AB-negative</option>
                                                 </Field>
-
                                             </Col>
                                             <Col md={4}>
                                                 <div className=" form-group">
@@ -319,11 +326,10 @@ const EditProfile = (props) => {
                                                 userstatus === "300" ? null : <Col md={6}>
                                                     <div className=" form-group">
                                                         <label >Previous Diseases : </label>
-                                                        <Field name="previousDisease" className="form-control profile-field" />
+                                                        <Field name="previousDisease" className="form-control profile-field"/>
                                                     </div>
                                                 </Col>
                                             }
-
                                         </Row>
                                     </Container>
                                 </Col>
@@ -332,12 +338,12 @@ const EditProfile = (props) => {
 
                             <Row className="mb-4">
                                 <div className="textAlign-right">
-                                    <Button type="button" className="cancel-btn" onClick={cancelProfileEdit}>
+                                    <button type="button" className="cancel-btn" onClick={cancelProfileEdit}>
                                         Cancel
-                                    </Button>
-                                    <Button className="change-btn" type="submit">
+                                    </button>
+                                    <button className="change-btn" type="submit">
                                         Save Changes
-                                    </Button>
+                                    </button>
                                 </div>
                             </Row>
 

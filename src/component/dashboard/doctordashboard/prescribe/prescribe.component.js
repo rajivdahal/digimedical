@@ -361,16 +361,6 @@ export default function Prescribe(props) {
                         </Form>
                     </Formik>
                 </Modal.Footer>
-                {/* <Formik initialValues={initialValues} onSubmit={handleNext}>
-                    <Form>
-                        {
-                            lining.confirm ? <div className="prescription-form">
-
-                                <Prescribefooter handleCancel={closeoverlappingmodel} label="Confirm"></Prescribefooter>
-                            </div> : null
-                        }
-                    </Form>
-                </Formik> */}
             </Modal>
         </>
     )

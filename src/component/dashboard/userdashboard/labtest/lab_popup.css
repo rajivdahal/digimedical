@@ -1,10 +1,10 @@
 #pop_checkout {
   position: absolute;
-  left: 235px;
+  left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  height: 100rem;
+  height: 110%;
   background: rgba(0, 0, 0, 0.644);
   z-index: 1;
 }
@@ -82,17 +82,13 @@
 }
 #lab_labtest_span_cross {
   float: right;
-  border: 0.75px solid #a7b2c3;
+  color: #2745f0;
   display: inline-block;
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  font-size: 20px;
 }
-#lab_labtest_span_cross p {
-  margin-left: 5px;
-  margin-top: -2px;
-  color: #2745f0;
-}
+
 .pop_lab_cont3 {
   margin-left: 18px;
   width: 90%;
@@ -149,4 +145,16 @@
 .popup_lab .popup_lab_close:hover {
   text-decoration: none;
   color: #2c2f46;
+}
+
+@media screen and (max-width: 600px) {
+  #pop_checkout {
+    width: 100%;
+  }
+  .popup_lab {
+    left: 5%;
+  }
+  .popup_lab1 {
+    width: 90%;
+  }
 }

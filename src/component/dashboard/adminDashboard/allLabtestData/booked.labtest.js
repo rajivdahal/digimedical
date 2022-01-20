@@ -4,6 +4,7 @@ import MaterialTable from 'material-table'
 import Tableicons from "../../../../utils/materialicons";
 import { Container } from "react-bootstrap";
 import { httpClient } from '../../../../utils/httpClient';
+import { Visibility } from "@material-ui/icons";
 
 const BookedLabtest=(props)=>{
 
@@ -34,6 +35,10 @@ const BookedLabtest=(props)=>{
         })
     }
 
+    const showLabtestReport=(e,data)=>{
+        props.history.push("/dashboard/labtest-report",data)
+    }
+
     useEffect(()=>{
         getBookedLabtest(0);
     },[])
@@ -42,13 +47,11 @@ const BookedLabtest=(props)=>{
             <Container>
                 <MaterialTable
                     columns={[
-                        // { title: "ID", field: "labtestid" },
+                        { title: "ID", field: "labtestbookingid" },
                         { title: 'Patient Name', field: 'patientname'},
-                        // { title: 'Age', field: 'age'},
                         { title: 'Lab Test', field: 'labtestname', },
                         { title: 'Subcategory', field: 'labtestcategoryname'},
                         { title: 'Price', field: 'priceString' },
-                        // { title: 'Date', field: 'date' },
                         
                     ]}
                     data={bookedLabtest}
@@ -63,6 +66,17 @@ const BookedLabtest=(props)=>{
                             color: '#FFF'
                         }
                     }}
+
+                    actions={[
+                        {
+                          icon: () => <Visibility fontSize="small" className="action-button"/>,
+                          tooltip: "View Details",
+                          onClick: (e, rowData) => {
+                            showLabtestReport(e, rowData);
+                          },
+                          
+                        }, 
+                      ]}
                     isLoading={loading}
 
                 />

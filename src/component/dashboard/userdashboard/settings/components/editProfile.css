@@ -40,6 +40,7 @@
     font-weight: 500;
     line-height: 14.51px;
     width: 12%;
+    height: 45px;
     text-align: center;
   }
   .cancel-btn:hover{
@@ -56,10 +57,15 @@
     font-weight: 500;
     line-height: 14.51px;
     margin-left: 8px;
-    width: 12%;
+    width: 15%;
+    height: 45px;
+
   }
   .change-btn:hover{
     background-color: #2745F0;
     border : 2px solid #2745F0;
     color: white;
+  }
+  .imag-profile{
+    height: 10rem;
   }
