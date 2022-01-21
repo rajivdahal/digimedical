@@ -22,33 +22,26 @@ const UserProfile = (props) => {
                 console.log(resp)
                 if (resp.data.status) {
                     let details = resp.data.data;
-                    // console.log("user details is",details);
                     setUserDetails(details);
                 }
             })
             .catch(err => {
-                // console.log(err.response.data)
                 console.log(err)
             })
     }
-
     useEffect(() => {
         getUserDetails();
     }, [])
-
     useEffect(() => {
         if(!isEdit){
             getUserDetails();
         }
     }, [isEdit])
-
     const gotoView = ( ) => activateProfile(false);
-    
-
     return (
 
         <div className="container-fluid page-body-wrapper">
-            <div className="main-panel">
+            <div className="main-panel newdash_content">
                 <div className="content-wrapper">
                     <div className="profile-block">
                     <div className="profile-selection">

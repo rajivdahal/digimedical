@@ -47,7 +47,7 @@ export default function Hospitalbookingcomponent(props) {
   };
   //   "/dashboard/hospitals"?
   return (
-    <div className="hospital_main_cont">
+    <div className="hospital_main_cont newdash_content">
       <div className="hospital_booking">
         {props.location ? (
           (props.location.pathname = "/dashboard/hospitals" ? null : null)
