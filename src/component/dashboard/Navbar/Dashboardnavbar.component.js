@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { httpClient } from "../../../utils/httpClient";
 import dashavatar from "../../../assets/avatars.png";
 import "./dashboardnavbar.component.css";
-import logo from "../../../assets/logo.png"
+import logo from "../../../assets/logo.png";
 
-const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 export const Dashboardnavbar = (props) => {
   const [userImage, setImage] = useState("");
   let [username, setusername] = useState("");
@@ -51,23 +51,26 @@ export const Dashboardnavbar = (props) => {
     await httpClient
       .GET("user-profile", false, true)
       .then((resp) => {
-        console.log(resp)
-        const name = resp.data.data.profileInfo.name
+        console.log(resp);
+        const name = resp.data.data.profileInfo.name;
         setusername(name);
         getImage();
       })
       .catch((err) => {
         notify.error("something went wrong");
-      })
-  },[])
+      });
+  }, []);
 
   return (
     <>
-    <div className="newdash_nav">
-       <Link to="/">
-        <div className="newdash_nav_img">
-          <img src={logo} alt="" />
-        </div>
+      <div className="newdash_nav">
+        <a className="newdash_hamburger" href="#show_new_dash">
+          <i class="fas fa-bars"></i>
+        </a>
+        <Link to="/">
+          <div className="newdash_nav_img">
+            <img src={logo} alt="" />
+          </div>
         </Link>
         <div className="Welcome_client">
           <p>Welcome {username}</p>
@@ -107,20 +110,20 @@ export const Dashboardnavbar = (props) => {
           </div>
         </div>
         {logoutstate.logout ? (
-              <div className="logout-container">
-                <div className="logout">
-                  <p>Are you sure you want to Logout?</p>
-                  <div className="buttons">
-                    <button className="yes-logout" onClick={logoutyes}>
-                      Yes
-                    </button>
-                    <button className="no-logout" onClick={logoutno}>
-                      No
-                    </button>
-                  </div>
-                </div>
+          <div className="logout-container">
+            <div className="logout">
+              <p>Are you sure you want to Logout?</p>
+              <div className="buttons">
+                <button className="yes-logout" onClick={logoutyes}>
+                  Yes
+                </button>
+                <button className="no-logout" onClick={logoutno}>
+                  No
+                </button>
               </div>
-            ) : null}
+            </div>
+          </div>
+        ) : null}
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 .main_div_user_lab {
+  z-index: -1;
   position: absolute;
   left: 15.4%;
   top: 5%;

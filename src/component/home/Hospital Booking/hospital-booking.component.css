@@ -1,8 +1,9 @@
 .hospital_main_cont {
+  z-index: -1;
   width: 100%;
 }
 .hospital_booking {
-  overflow: hidden;
+  overflow-y: hidden;
   width: 100%;
 }
 .hospital_carousel_main {
