@@ -20,10 +20,7 @@ export default function Corporateaddmember(props) {
 
     let [addmember, setaddmember] = useState(false)
     let [members, setmembers] = useState([])
-    let [ismemberadded, setismemberadded] = useState(false)
-    let initialValues = {
-        email: ""
-    }
+    
     const getuser = () => {
         setLoading(true)
         httpClient.GET("corporate/get/members", false, true)
@@ -47,9 +44,7 @@ export default function Corporateaddmember(props) {
         {
             title: "Email", field: "email"
         },
-        // {
-        //     title: "Contact No", field: "email"
-        // },
+        
         {
             title: "Gender", field: "gender",
             render: (rowData) =>
@@ -71,28 +66,9 @@ export default function Corporateaddmember(props) {
         },
     ]
 
-    const handleSubmit = (values, onsubmittingprops) => {
-        httpClient.POST("corporate/add/members", values, false, true)
-            .then(resp => {
-                getuser()
-                notify.success("Member added successfully")
-            })
-            .catch(err => {
-                notify.error(err.response.data.message)
-            })
-            .finally(() => {
-                setaddmember(!addmember)
-                onsubmittingprops.resetForm()
-            })
-    }
-
     const handleAdd = () => {
-        setaddmember(!addmember)
+        props.history.push("/dashboard/corporate/add-users")
     }
-
-    const validateSchema = Yup.object().shape({
-        email: Yup.string().email('Invalid email').required('Required'),
-    });
 
     const handleClose = () => setShowModal(false);
 
@@ -125,25 +101,6 @@ export default function Corporateaddmember(props) {
 
     return (
         <div className='content-wrapper adjust-height-width custom-content-wrapper'>
-            {
-                addmember ? <>
-                    <Formik initialValues={initialValues} validationSchema={validateSchema} onSubmit={handleSubmit} validateOnMount>
-                        {
-                            (values) => {
-                                console.log("values in formik are", values)
-                                return (
-                                    <Form>
-                                        <Field name="email"></Field>
-                                        <button type="submit" disabled={values.errors.email}>Add Member</button>
-                                    </Form>
-                                )
-
-                            }
-                        }
-
-                    </Formik>
-                </> : null
-            }
 
             <MaterialTable
                 title="Members"
@@ -177,7 +134,7 @@ export default function Corporateaddmember(props) {
                         tooltip: 'Add Member',
                         position: "toolbar",
                         // className:"add-button",
-                        // isFreeAction: true,
+                        isFreeAction: true,
                         onClick: (e, rowData) => { handleAdd() }
                     },
                 ]}
@@ -185,9 +142,9 @@ export default function Corporateaddmember(props) {
 
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header >
-                    <Modal.Title><b>Institute Status</b></Modal.Title>
+                    <Modal.Title><b>Member Status</b></Modal.Title>
                 </Modal.Header>
-                <Modal.Body >Do you really want to change this institute status ?</Modal.Body>
+                <Modal.Body >Do you really want to change this member status ?</Modal.Body>
                 <Modal.Footer>
                     {isLoading == true ?
                         <Cliploader isLoading={isLoading} />

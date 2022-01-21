@@ -52,7 +52,7 @@ const Corporatesidebar = (props) => {
             <div className="collapse" id="members">
               <ul className="nav flex-column sub-menu">
               <Link to="/dashboard/corporate/add-members">
-                  <li className="nav-item"><a className="nav-link" href="">Add Members</a></li>
+                  <li className="nav-item"><a className="nav-link" href="">Members Table</a></li>
                 </Link>
                 <Link to="/dashboard/corporate/add-users">
                 <li className="nav-item"><a className="nav-link" href="">Add Users</a></li>
