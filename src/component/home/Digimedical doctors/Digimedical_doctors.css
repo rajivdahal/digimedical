@@ -11,6 +11,9 @@ p {
 .digidoctor_apoint_card {
   margin-top: 3rem;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .digidoctor_apoint_card1 {
   border: 1px solid #d0d7e2;
