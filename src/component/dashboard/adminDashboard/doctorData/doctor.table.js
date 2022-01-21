@@ -98,7 +98,7 @@ const DoctorTable = (props) => {
             title="All Doctor Details"
             icons={Tableicons}
             columns={[
-              { title: "ID", field: "doctorid" },
+              { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
               { title: "Prefix", field: "prefix" },
               { title: "Name", field: "doctorname" },
               { title: "Service Name", field: "service" },
