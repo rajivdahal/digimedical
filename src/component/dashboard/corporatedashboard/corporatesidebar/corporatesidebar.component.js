@@ -5,6 +5,10 @@ const Corporatesidebar = (props) => {
   const navigateDashboard = () => {
     history.push("/dashboard/")
   }
+  const navigateAddMembers=()=>{
+    history.push("/dashboard/corporate/add-members")
+
+  }
   return (
     <>
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
@@ -39,14 +43,15 @@ const Corporatesidebar = (props) => {
               </div>
             </Link>
           </li>
-          <li className="nav-item" style={{ cursor: "pointer" }}>
+          {/* <Link to="/"> */}
+          <li className="nav-item" style={{ cursor: "pointer" }} onClick={navigateAddMembers}>
             <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
               <i class="fas fa-users menu-icon"></i>
-              <Link to="/dashboard/corporate/add-members"> <span className="menu-title">Members</span></Link>
+               <span className="menu-title">Members</span>
             </a>
           </li>
 
-
+          {/* </Link> */}
 
         </ul>
       </nav>
