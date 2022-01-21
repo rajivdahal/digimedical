@@ -75,7 +75,7 @@ const HospitalTable = (props) => {
       <Container>
         <MaterialTable
           columns={[
-            { title: "ID", field: "id" },
+            { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
             { title: "Name", field: "name" },
             { title: "PAN Number", field: "panno" },
             { title: "Contact", field: "contactnumber" },
