@@ -5,7 +5,37 @@ import doctor1 from "../../../assets/client1.png";
 import badge from "../../../assets/badge.png";
 import handheart from "../../../assets/handheart.png";
 import Pagination from "../../common/pagination/pagination.component";
-function Digimedical_doctors() {
+import DigiMedicalDoctorCard from "./digi.doctor.card";
+import { httpClient } from "../../../utils/httpClient"
+import { useEffect, useState } from "react";
+
+function Digimedical_doctors(props) {
+
+  const [allDigiDoctors, setAllDigiDoctors] = useState([]);
+
+  const getAllDigiDoctors = async () => {
+    try {
+      let resp = await httpClient.GET("doctor/digi/get-four");
+      console.log(resp)
+      if (resp.data.status) {
+        let data = resp.data.data;
+
+        // data.forEach((item)=>{
+        //   item.doctordescription = item.doctordescription.substring(0,35)+"...";
+        // })
+        setAllDigiDoctors(data)
+        console.log(data)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+
+  useEffect(() => {
+    getAllDigiDoctors();
+  }, [])
+
   return (
     <div>
       <Navbar></Navbar>
@@ -13,7 +43,7 @@ function Digimedical_doctors() {
         <div className="take_doc_appoint">
           <div className="doc_appoint_head">
             <div className="digidoc_head_txt">
-              <h1>Digimedical doctors</h1>
+              <h1>Our doctors</h1>
               <p>Select or search available doctors</p>
             </div>
             <div className="doc_booksearch">
@@ -29,152 +59,56 @@ function Digimedical_doctors() {
               </form>
             </div>
           </div>
+
+
           <div className="doc_appoint_main">
-            <div className="digidoctor_apoint_card">
-              <div className="digidoctor_apoint_card1">
-                <div className="digidoc_card_img">
-                  <img
-                    src={doctor1}
-                    alt=""
-                    style={{
-                      height: "140px",
-                      width: "140px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </div>
-                <div className="digidoctor_about_desc">
-                  <div className="doc_about_desc_head">
-                    <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-                    <p id="doc_edu_brief">Mbbs,MD</p>
-                  </div>
+            {allDigiDoctors.map((item, index) => {
+              return <>
+                <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix}
+                  specialist={item.specialist} desc={item.doctordescription} doctorId={item.doctorid} />
 
-                  <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-                </div>
+              </>
+            })}
+          </div>
 
-                <div className="digidoctor_card_but">
-                  {" "}
-                  <button id="digidoctor_card_but">Book an appointment</button>
+          <div className="digidoctor_whychooseus">
+            <div className="digidpc_whycus">
+              <h1>Why choose Us?</h1>
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <img src={handheart} alt="" />
                 </div>
+                <p>Safest digital heath platform</p>
               </div>
-              <div className="digidoctor_apoint_card1">
-                <div className="digidoc_card_img">
-                  <img
-                    src={doctor1}
-                    alt=""
-                    style={{
-                      height: "140px",
-                      width: "140px",
-                      borderRadius: "50%",
-                    }}
-                  />
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <i class="fas fa-star-of-life" style={{ color: "#52B2E5" }}></i>
                 </div>
-                <div className="digidoctor_about_desc">
-                  <div className="doc_about_desc_head">
-                    <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-                    <p id="doc_edu_brief">Mbbs,MD</p>
-                  </div>
-
-                  <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-                </div>
-
-                <div className="digidoctor_card_but">
-                  {" "}
-                  <button id="digidoctor_card_but">Book an appointment</button>
-                </div>
+                <p>Emergency service 24/7</p>
               </div>
-              <div className="digidoctor_apoint_card1">
-                <div className="digidoc_card_img">
-                  <img
-                    src={doctor1}
-                    alt=""
-                    style={{
-                      height: "140px",
-                      width: "140px",
-                      borderRadius: "50%",
-                    }}
-                  />
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <img src={badge} alt="" />
                 </div>
-                <div className="digidoctor_about_desc">
-                  <div className="doc_about_desc_head">
-                    <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-                    <p id="doc_edu_brief">Mbbs,MD</p>
-                  </div>
-
-                  <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-                </div>
-
-                <div className="digidoctor_card_but">
-                  {" "}
-                  <button id="digidoctor_card_but">Book an appointment</button>
-                </div>
+                <p>Trusted by thousands</p>
               </div>
-              <div className="digidoctor_apoint_card1">
-                <div className="digidoc_card_img">
-                  <img
-                    src={doctor1}
-                    alt=""
-                    style={{
-                      height: "140px",
-                      width: "140px",
-                      borderRadius: "50%",
-                    }}
-                  />
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <i class="fas fa-piggy-bank" style={{ color: "#52B2E5" }}></i>
                 </div>
-                <div className="digidoctor_about_desc">
-                  <div className="doc_about_desc_head">
-                    <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-                    <p id="doc_edu_brief">Mbbs,MD</p>
-                  </div>
-
-                  <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-                </div>
-
-                <div className="digidoctor_card_but">
-                  {" "}
-                  <button id="digidoctor_card_but">Book an appointment</button>
-                </div>
+                <p>Affordable to all patient.</p>
               </div>
+            </div>
+            <div className="digidoc_emergency_call">
+              <p>Do you need Emergency Medical care?</p>
+              <h4>Call 01-5909141</h4>
             </div>
           </div>
         </div>
-        <div className="digidoctor_whychooseus">
-          <div className="digidpc_whycus">
-            <h1>Why choose Us?</h1>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <img src={handheart} alt="" />
-              </div>
-              <p>Safest digital heath platform</p>
-            </div>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <i class="fas fa-star-of-life" style={{ color: "#52B2E5" }}></i>
-              </div>
-              <p>Emergency service 24/7</p>
-            </div>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <img src={badge} alt="" />
-              </div>
-              <p>Trusted by thousands</p>
-            </div>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <i class="fas fa-piggy-bank" style={{ color: "#52B2E5" }}></i>
-              </div>
-              <p>Affordable to all patient.</p>
-            </div>
-          </div>
-          <div className="digidoc_emergency_call">
-            <p>Do you need Emergency Medical care?</p>
-            <h4>Call 01-5909141</h4>
-          </div>
+        <Pagination></Pagination>
         </div>
       </div>
-      <Pagination></Pagination>
-    </div>
-  );
+      );
 }
 
-export default Digimedical_doctors;
+      export default Digimedical_doctors;
