@@ -91,19 +91,19 @@ export default function Hospitalbookingcomponent(props) {
                       <h1>{item.name}</h1>
                       <p2>{item.address}</p2>
                       <p2>{item.description.slice(0, 50)}.....</p2>
-                      <button
-                        id={
-                          props.location
-                            ? (props.location.pathname = "/dashboard/hospitals"
-                                ? "hosp_card_but_user"
-                                : "hosp_card_but_user")
-                            : "hosp_card_but"
-                        }
-                        onClick={() => showDoctors(item)}
-                      >
-                        Book an appointment
-                      </button>
                     </div>
+                    <button
+                      id={
+                        props.location
+                          ? (props.location.pathname = "/dashboard/hospitals"
+                              ? "hosp_card_but_user"
+                              : "hosp_card_but_user")
+                          : "hosp_card_but"
+                      }
+                      onClick={() => showDoctors(item)}
+                    >
+                      Book an appointment
+                    </button>
                   </div>
                 );
               })
@@ -120,17 +120,17 @@ export default function Hospitalbookingcomponent(props) {
                       <p2>{item.address}</p2>
                       <p2>{item.description.slice(0, 50)}.....</p2>
                       {/* <p2>{item.description}</p2> */}
-                      <button
-                        id={
-                          (props.location.pathname = "/dashboard/hospitals"
-                            ? "hosp_card_but_user"
-                            : "hosp_card_but")
-                        }
-                        onClick={() => showDoctors(item)}
-                      >
-                        Book an appointment
-                      </button>
                     </div>
+                    <button
+                      id={
+                        (props.location.pathname = "/dashboard/hospitals"
+                          ? "hosp_card_but_user"
+                          : "hosp_card_but")
+                      }
+                      onClick={() => showDoctors(item)}
+                    >
+                      Book an appointment
+                    </button>
                   </div>
                 );
               })
@@ -138,21 +138,21 @@ export default function Hospitalbookingcomponent(props) {
               <h1>Not found</h1>
             )}
           </div>
-        </div>
-        <div className="pagination_hosp">
-          {hospitals.length ? (
-            <Pagination></Pagination>
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <h1>No any hospitals found</h1>
-            </div>
-          )}
+          <div className="pagination_hosp">
+            {hospitals.length ? (
+              <Pagination></Pagination>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <h1>No any hospitals found</h1>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
