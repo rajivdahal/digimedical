@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DoctorDetailComponent from "./doctorComponent/doctor.component.js";
 import { httpClient } from "../../../utils/httpClient"
-import { notify } from "../../../services/notify"
 import "./doctors_home.component.css"
-import { Col, Row, Card } from "react-bootstrap";
 
-export default function Doctorshome() {
+export default function Doctorshome(props) {
 
   const [allDoctors, setAllDoctors] = useState([]);
 
@@ -42,8 +40,8 @@ export default function Doctorshome() {
     
       {allDoctors.map((item, index) => {
         return <>
-          <DoctorDetailComponent key={index} name={item.doctorname} prefix={item.prefix} 
-          specialist={item.specialist} desc={item.doctordescription}/>
+          <DoctorDetailComponent key={index} {...props} name={item.doctorname} prefix={item.prefix} 
+          specialist={item.specialist} desc={item.doctordescription} doctorId={item.doctorid}/>
         </>
       })}
 

@@ -5,7 +5,37 @@ import doctor1 from "../../../assets/client1.png";
 import badge from "../../../assets/badge.png";
 import handheart from "../../../assets/handheart.png";
 import Pagination from "../../common/pagination/pagination.component";
-function Digimedical_doctors() {
+import DigiMedicalDoctorCard from "./digi.doctor.card";
+import { httpClient } from "../../../utils/httpClient"
+import { useEffect, useState } from "react";
+
+function Digimedical_doctors(props) {
+
+  const [allDigiDoctors, setAllDigiDoctors] = useState([]);
+
+  const getAllDigiDoctors = async () => {
+    try {
+      let resp = await httpClient.GET("doctor/digi/get-four");
+      console.log(resp)
+      if (resp.data.status) {
+        let data = resp.data.data;
+        
+        // data.forEach((item)=>{
+        //   item.doctordescription = item.doctordescription.substring(0,35)+"...";
+        // })
+        setAllDigiDoctors(data)
+        console.log(data)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+
+  useEffect(() => {
+    getAllDigiDoctors();
+  }, [])
+
   return (
     <div>
       <Navbar></Navbar>
@@ -29,114 +59,19 @@ function Digimedical_doctors() {
               </form>
             </div>
           </div>
+
+
           <div className="doc_appoint_main">
-            <div className="digidoctor_apoint_card">
-              <div className="digidoctor_apoint_card1">
-                <div className="digidoc_card_img">
-                  <img
-                    src={doctor1}
-                    alt=""
-                    style={{
-                      height: "140px",
-                      width: "140px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </div>
-                <div className="digidoctor_about_desc">
-                  <div className="doc_about_desc_head">
-                    <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-                    <p id="doc_edu_brief">Mbbs,MD</p>
-                  </div>
-
-                  <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-                </div>
-
-                <div className="digidoctor_card_but">
-                  {" "}
-                  <button id="digidoctor_card_but">Book an appointment</button>
-                </div>
-              </div>
-              <div className="digidoctor_apoint_card1">
-                <div className="digidoc_card_img">
-                  <img
-                    src={doctor1}
-                    alt=""
-                    style={{
-                      height: "140px",
-                      width: "140px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </div>
-                <div className="digidoctor_about_desc">
-                  <div className="doc_about_desc_head">
-                    <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-                    <p id="doc_edu_brief">Mbbs,MD</p>
-                  </div>
-
-                  <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-                </div>
-
-                <div className="digidoctor_card_but">
-                  {" "}
-                  <button id="digidoctor_card_but">Book an appointment</button>
-                </div>
-              </div>
-              <div className="digidoctor_apoint_card1">
-                <div className="digidoc_card_img">
-                  <img
-                    src={doctor1}
-                    alt=""
-                    style={{
-                      height: "140px",
-                      width: "140px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </div>
-                <div className="digidoctor_about_desc">
-                  <div className="doc_about_desc_head">
-                    <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-                    <p id="doc_edu_brief">Mbbs,MD</p>
-                  </div>
-
-                  <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-                </div>
-
-                <div className="digidoctor_card_but">
-                  {" "}
-                  <button id="digidoctor_card_but">Book an appointment</button>
-                </div>
-              </div>
-              <div className="digidoctor_apoint_card1">
-                <div className="digidoc_card_img">
-                  <img
-                    src={doctor1}
-                    alt=""
-                    style={{
-                      height: "140px",
-                      width: "140px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </div>
-                <div className="digidoctor_about_desc">
-                  <div className="doc_about_desc_head">
-                    <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-                    <p id="doc_edu_brief">Mbbs,MD</p>
-                  </div>
-
-                  <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-                </div>
-
-                <div className="digidoctor_card_but">
-                  {" "}
-                  <button id="digidoctor_card_but">Book an appointment</button>
-                </div>
-              </div>
-            </div>
+            {allDigiDoctors.map((item,index)=>{
+              return <>
+            <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix} 
+          specialist={item.specialist} desc={item.doctordescription} doctorId={item.doctorid}/>
+              
+              </>
+            })}
           </div>
+
+
         </div>
         <div className="digidoctor_whychooseus">
           <div className="digidpc_whycus">

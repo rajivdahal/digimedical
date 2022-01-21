@@ -54,6 +54,7 @@ import MembershipPackage from "./adminDashboard/packageData/membership.package"
 import MembershipPackageDetails from "./adminDashboard/packageData/package.details"
 import LabtestReport from "./adminDashboard/allLabtestData/labtest.report"
 import CorporateUser from "./corporatedashboard/addmembers/corporate.user"
+import CorporateTypes from "./corporatedashboard/masterData/corporate.types"
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status")
@@ -213,6 +214,8 @@ const Dashboard = (props) => {
                           <ProtectedRoute component={Viewcorporateappointment} props={props}></ProtectedRoute>:
                           props.location.pathname == "/dashboard/corporate/bookappointment" ?
                           <ProtectedRoute component={Internalappointmentbook} props={props} fromcorporateappointment={true}></ProtectedRoute>:
+                          props.location.pathname == "/dashboard/add/corporate-types" ?
+                          <ProtectedRoute component={CorporateTypes} props={props}></ProtectedRoute>:
                           <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </> :

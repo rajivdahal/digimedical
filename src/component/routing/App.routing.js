@@ -277,6 +277,12 @@ export const Approuting = (props) => {
           component={Dashboard}
         ></ProtectedRoute>
 
+        <ProtectedRoute
+          exact
+          path="/dashboard/add/corporate-types"
+          component={Dashboard}
+        ></ProtectedRoute>
+
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
     </BrowserRouter>

@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
+import WysiwygRoundedIcon from '@mui/icons-material/WysiwygRounded';
+
 const Corporatesidebar = (props) => {
   const history = useHistory()
   const navigateDashboard = () => {
@@ -59,7 +61,22 @@ const Corporatesidebar = (props) => {
             </div>
           </li>
 
-
+          <li className="nav-item">
+            <a className="nav-link" data-toggle="collapse" href="#masterdata" aria-expanded="false" aria-controls="masterdata">
+              {/* <i className="icon-columns menu-icon"></i> */}
+              <WysiwygRoundedIcon className="dash-icon"></WysiwygRoundedIcon>
+              <span className="menu-title">Master Data</span>
+              <i className="menu-arrow"></i>
+            </a>
+            <div className="collapse" id="masterdata">
+              <ul className="nav flex-column sub-menu">
+                <Link to="/dashboard/add/corporate-types">
+                  <li className="nav-item"> <a className="nav-link" href="">Add Corporate Types</a></li>
+                </Link>
+                
+              </ul>
+            </div>
+          </li>
 
         </ul>
       </nav>

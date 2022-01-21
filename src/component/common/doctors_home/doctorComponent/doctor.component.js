@@ -1,9 +1,16 @@
 import doctor1 from "../../../../assets/client1.png";
+import { useHistory } from "react-router-dom";
 
 const DoctorDetailComponent=(props)=>{
 
+  let history = useHistory();
+
   const consultDoctor=()=>{
-    
+    history.push({
+      pathname: "/digimedical_doctors",
+      state: { doctorID : props.doctorId }
+    })
+
   }
     return (
         <div className="hospital_book_card">
