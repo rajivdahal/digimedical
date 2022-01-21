@@ -1,14 +1,13 @@
-.added-css{
-    height: 100vh;
-    padding-top: 40px;
+.added-css {
+  height: 100vh;
+  padding-top: 40px;
 }
-.bookappointment{
-    margin-left: 20px !important;
+.bookappointment {
+  margin-left: 20px !important;
 }
-.bookappimage{
-    height: 35rem;
-    position: absolute;
-    left: 120%;
-    top: -20%;
-
+.bookappimage {
+  height: 35rem;
+  position: absolute;
+  left: 120%;
+  top: -20%;
 }
