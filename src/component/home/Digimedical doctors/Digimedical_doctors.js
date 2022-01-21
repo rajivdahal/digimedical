@@ -19,7 +19,7 @@ function Digimedical_doctors(props) {
       console.log(resp)
       if (resp.data.status) {
         let data = resp.data.data;
-        
+
         // data.forEach((item)=>{
         //   item.doctordescription = item.doctordescription.substring(0,35)+"...";
         // })
@@ -62,54 +62,53 @@ function Digimedical_doctors(props) {
 
 
           <div className="doc_appoint_main">
-            {allDigiDoctors.map((item,index)=>{
+            {allDigiDoctors.map((item, index) => {
               return <>
-            <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix} 
-          specialist={item.specialist} desc={item.doctordescription} doctorId={item.doctorid}/>
-              
+                <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix}
+                  specialist={item.specialist} desc={item.doctordescription} doctorId={item.doctorid} />
+
               </>
             })}
           </div>
 
-
+          <div className="digidoctor_whychooseus">
+            <div className="digidpc_whycus">
+              <h1>Why choose Us?</h1>
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <img src={handheart} alt="" />
+                </div>
+                <p>Safest digital heath platform</p>
+              </div>
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <i class="fas fa-star-of-life" style={{ color: "#52B2E5" }}></i>
+                </div>
+                <p>Emergency service 24/7</p>
+              </div>
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <img src={badge} alt="" />
+                </div>
+                <p>Trusted by thousands</p>
+              </div>
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <i class="fas fa-piggy-bank" style={{ color: "#52B2E5" }}></i>
+                </div>
+                <p>Affordable to all patient.</p>
+              </div>
+            </div>
+            <div className="digidoc_emergency_call">
+              <p>Do you need Emergency Medical care?</p>
+              <h4>Call 01-5909141</h4>
+            </div>
+          </div>
         </div>
-        <div className="digidoctor_whychooseus">
-          <div className="digidpc_whycus">
-            <h1>Why choose Us?</h1>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <img src={handheart} alt="" />
-              </div>
-              <p>Safest digital heath platform</p>
-            </div>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <i class="fas fa-star-of-life" style={{ color: "#52B2E5" }}></i>
-              </div>
-              <p>Emergency service 24/7</p>
-            </div>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <img src={badge} alt="" />
-              </div>
-              <p>Trusted by thousands</p>
-            </div>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <i class="fas fa-piggy-bank" style={{ color: "#52B2E5" }}></i>
-              </div>
-              <p>Affordable to all patient.</p>
-            </div>
-          </div>
-          <div className="digidoc_emergency_call">
-            <p>Do you need Emergency Medical care?</p>
-            <h4>Call 01-5909141</h4>
-          </div>
+        <Pagination></Pagination>
         </div>
       </div>
-      <Pagination></Pagination>
-    </div>
-  );
+      );
 }
 
-export default Digimedical_doctors;
+      export default Digimedical_doctors;
