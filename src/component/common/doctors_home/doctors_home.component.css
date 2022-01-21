@@ -28,3 +28,9 @@
   background-color: #2745f0;
   color: #fff;
 }
+
+@media screen and (max-width: 600px) {
+  #digidoc_card_but {
+    margin-top: 10%;
+  }
+}
