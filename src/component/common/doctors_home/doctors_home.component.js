@@ -1,123 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import doctor1 from "../../../assets/client1.png";
-import "./doctors_home.component.css";
+import DoctorDetailComponent from "./doctorComponent/doctor.component.js";
+import { httpClient } from "../../../utils/httpClient"
+import { notify } from "../../../services/notify"
+import "./doctors_home.component.css"
+import { Col, Row, Card } from "react-bootstrap";
 
 export default function Doctorshome() {
+
+  const [allDoctors, setAllDoctors] = useState([]);
+
+  const getAllDoctors = async () => {
+    try {
+      let resp = await httpClient.GET("doctor/digi/get-four");
+      console.log(resp)
+      if (resp.data.status) {
+        let data = resp.data.data;
+        
+        data.forEach((item)=>{
+          item.doctordescription = item.doctordescription.substring(0,35)+"...";
+        })
+        setAllDoctors(data)
+        console.log(data)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+
+  useEffect(() => {
+    getAllDoctors();
+  }, [])
+
   return (
     <div className="hosp_hom_cont">
       <div className="hosp_hom_head">
-        <p>Our professionals</p>
-        <h1>Digimedical Doctors</h1>
+        {/* <p>Our professionals</p> */}
+        <h1>Our Doctors</h1>
       </div>
+    
+      {allDoctors.map((item, index) => {
+        return <>
+          <DoctorDetailComponent key={index} name={item.doctorname} prefix={item.prefix} 
+          specialist={item.specialist} desc={item.doctordescription}/>
+        </>
+      })}
 
-      <div className="hospital_book_card">
-        <div className="hospital_book_card1">
-          {" "}
-          <div className="digidoc_card_img">
-            <img
-              src={doctor1}
-              alt=""
-              style={{
-                height: "140px",
-                width: "140px",
-                borderRadius: "50%",
-              }}
-            />
-          </div>
-          <div className="digidoc_about_desc">
-            <div className="doc_about_desc_head">
-              <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-              <p id="doc_edu_brief">Mbbs,MD</p>
-            </div>
-
-            <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-          </div>
-          <div className="digidoc_card_but">
-            {" "}
-            <button id="digidoc_card_but">Book an appointment</button>
-          </div>
-        </div>
-        <div className="hospital_book_card1">
-          {" "}
-          <div className="digidoc_card_img">
-            <img
-              src={doctor1}
-              alt=""
-              style={{
-                height: "140px",
-                width: "140px",
-                borderRadius: "50%",
-              }}
-            />
-          </div>
-          <div className="digidoc_about_desc">
-            <div className="doc_about_desc_head">
-              <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-              <p id="doc_edu_brief">Mbbs,MD</p>
-            </div>
-
-            <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-          </div>
-          <div className="digidoc_card_but">
-            {" "}
-            <button id="digidoc_card_but">Book an appointment</button>
-          </div>
-        </div>
-        <div className="hospital_book_card1">
-          {" "}
-          <div className="digidoc_card_img">
-            <img
-              src={doctor1}
-              alt=""
-              style={{
-                height: "140px",
-                width: "140px",
-                borderRadius: "50%",
-              }}
-            />
-          </div>
-          <div className="digidoc_about_desc">
-            <div className="doc_about_desc_head">
-              <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-              <p id="doc_edu_brief">Mbbs,MD</p>
-            </div>
-
-            <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-          </div>
-          <div className="digidoc_card_but">
-            {" "}
-            <button id="digidoc_card_but">Book an appointment</button>
-          </div>
-        </div>
-        <div className="hospital_book_card1">
-          {" "}
-          <div className="digidoc_card_img">
-            <img
-              src={doctor1}
-              alt=""
-              style={{
-                height: "140px",
-                width: "140px",
-                borderRadius: "50%",
-              }}
-            />
-          </div>
-          <div className="digidoc_about_desc">
-            <div className="doc_about_desc_head">
-              <p id="doc_name_card">Rameshwor Shrestha Acharya</p>
-              <p id="doc_edu_brief">Mbbs,MD</p>
-            </div>
-
-            <p id="digidoc_exp"> Gynaecologist & Obstetrician </p>
-          </div>
-          <div className="digidoc_card_but">
-            {" "}
-            <button id="digidoc_card_but">Book an appointment</button>
-          </div>
-        </div>
-      </div>
-      <Link to="/hospitals" className="link_hosp_home">
+      <Link to="/digimedical_doctors" className="link_hosp_home">
         <div className="view_hosp_home">
           <p id="arrow_hosp_hom">View All</p>
           <p id="arrow_hosp_hom1">&nbsp; &#8594; </p>

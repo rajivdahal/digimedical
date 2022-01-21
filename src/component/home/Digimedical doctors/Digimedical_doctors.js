@@ -13,7 +13,7 @@ function Digimedical_doctors() {
         <div className="take_doc_appoint">
           <div className="doc_appoint_head">
             <div className="digidoc_head_txt">
-              <h1>Digimedical doctors</h1>
+              <h1>Our doctors</h1>
               <p>Select or search available doctors</p>
             </div>
             <div className="doc_booksearch">
