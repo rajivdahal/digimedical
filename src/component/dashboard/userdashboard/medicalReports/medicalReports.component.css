@@ -1,3 +1,46 @@
 .report-container{
-    margin-top: 4rem;
+    margin-top: 6%;
+    margin-left: 15%;
+}
+.previous-reports-wrapper{
+    background-color: #fff;
+    border: 2px solid #f1f0f0;
+    border-radius: 5px;
+    /* padding: 20px; */
+    /* display: flex; */
+    /* border: 10px solid red; */
+    width: 90%;
+    height: 20rem;
+    position: relative;
+}
+.medical-form{
+    position: absolute;
+    left: 2%;
+    display: flex;
+    justify-content: center;
+    top: 10%;
+}
+.form-items-margin{
+    margin-top: 20px;
+}
+.inner-content{
+    display: flex;
+}
+.margin-adjuster{
+    margin-left: 10rem;
+}
+.button-submit{
+    height: 4rem;
+    width: 10rem;
+    z-index: 10;
+    position: absolute;
+    cursor: pointer;
+    background-color: #2745F0;
+    border: none;
+    border-radius: 5%;
+    margin-top: 2%;
+    margin-left: 10%;
+}
+.material-table{
+    width: 90%;
 }

@@ -503,7 +503,7 @@ export default function Hospital_doctors(props) {
                 {props.location.state.mobilenumber}
               </p>
               <p>
-                <i class="fas fa-envelope"></i>&nbsp; info@norvichospital.com
+                <i class="fas fa-envelope"></i>&nbsp;{props.location.state.address}
               </p>
               <p id="hosp_ph_no">
                 {props.location.state.establisheddate ? (
