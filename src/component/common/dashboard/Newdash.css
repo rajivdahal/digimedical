@@ -218,9 +218,6 @@ d
   text-decoration: underline;
 }
 .newdash_content {
-  position: relative;
-  top: 1%;
-  width: 100%;
 }
 
 @media screen and (max-width: 1232px) {
