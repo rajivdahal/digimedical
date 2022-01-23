@@ -5,35 +5,38 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import logo from "./../../../assets/logo.png";
 import dashavatar from "./../../../assets/avatars.png";
 export default function Usersidebar(props) {
-  console.log("props in sidebar is", props);
-  const navigateLabreport = () => {
-    props.props.push("/dashboard/lab-reports");
-  };
-  const navigateDashboard = () => {
-    props.props.push("/dashboard");
-  };
-  const navigateMedicalreports = () => {
-    props.props.push("/dashboard/medical-reports");
-  };
-  const loadHospitals = () => {
-    props.props.push("/dashboard/hospitals");
-  };
-  const navigateFamilyMember = () => {
-    props.props.push("/dashboard/add-member");
-  };
-  return (
-    <div>
-      <div className="newdash_body">
-        <div className="newdash_dash_main" id="show_new_dash">
-          <div className="newdash_dash1">
-            <div className="newdash_dash1_dashboard">
-              <div className="newdash_dash1_cont1">
-                <div
-                  className="newdash_dash1_cont1p"
-                  onClick={navigateDashboard}
-                  style={{ cursor: "pointer" }}
-                >
-                  <p id="newdash_dash1_cont1p">
+    console.log("props in sidebar is", props)
+    const navigateLabreport = () => {
+        props.props.push("/dashboard/lab-reports")
+    }
+    const navigateDashboard = () => {
+        props.props.push("/dashboard")
+    }
+    const navigateMedicalreports = () => {
+        props.props.push("/dashboard/medical-reports")
+    }
+    const loadHospitals=()=>{
+        props.props.push("/dashboard/hospitals")
+    }
+    const navigateFamilyMember=()=>{
+        props.props.push("/dashboard/add-member")
+    }
+    const loadMedicalReport=()=>{
+      props.props.push("/dashboard/medical-reports")
+    }
+    return (
+        <div >
+
+<div className="newdash_body">
+
+      <div className="newdash_dash_main">
+        <div className="newdash_dash1">
+          <div className="newdash_dash1_dashboard">
+            <div className="newdash_dash1_cont1">
+              <div className="newdash_dash1_cont1p" onClick={navigateDashboard}  style={{cursor:"pointer"}}>
+                <p id="newdash_dash1_cont1p">
+                  {" "}
+
                     {" "}
                     <span id="newdash_bar_ico">
                       {" "}
@@ -124,7 +127,25 @@ export default function Usersidebar(props) {
                 </div>
               </div>
             </div>
+            <div
+              className="newdash_dash1_dashboard"
+              onClick={loadMedicalReport}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="newdash_dash1_cont1">
+                <div className="newdash_dash1_cont1p">
+                  {" "}
+                  <p id="newdash_dash1_cont1p">
+                    <span id="newdash_bar_ico">
+                      <i class="fas fa-hospital"></i>
+                    </span>{" "}
+                    Medical Reports
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
     </div>

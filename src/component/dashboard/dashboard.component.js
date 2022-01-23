@@ -55,6 +55,7 @@ import MembershipPackageDetails from "./adminDashboard/packageData/package.detai
 import LabtestReport from "./adminDashboard/allLabtestData/labtest.report"
 import CorporateUser from "./corporatedashboard/addmembers/corporate.user"
 import CorporateTypes from "./corporatedashboard/masterData/corporate.types"
+import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.component";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -94,6 +95,8 @@ const Dashboard = (props) => {
                                     <ProtectedRoute component={Hospital_doctors}></ProtectedRoute> :
                                     props.location.pathname === "/dashboard/add-member" ?
                                     <ProtectedRoute component={AddFamilyMember}></ProtectedRoute>:
+                                    props.location.pathname === "/dashboard/medical-reports" ?
+                                    <ProtectedRoute component={MedicalReports}></ProtectedRoute>:
                                     null
               }
             </> :
