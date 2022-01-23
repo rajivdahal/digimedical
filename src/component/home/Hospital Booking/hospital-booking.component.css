@@ -1,9 +1,15 @@
 .hospital_main_cont {
+  z-index: -1;
+
   width: 100%;
 }
 .hospital_booking {
   overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .hospital_carousel_main {
   width: 100%;
@@ -21,7 +27,7 @@
   width: 80%;
   position: absolute;
   left: 10%;
-  top: 20%;
+  top: 1%;
   display: flex;
   justify-content: space-between;
 }
@@ -49,16 +55,14 @@
 
 .hospital_bookcont {
   width: 80%;
-  margin: auto;
 
   justify-content: center;
   align-items: center;
 }
 .hospital_bookcont_from_user {
-  width: 83%;
-  margin-left: 250px;
-  position: relative;
-  top: 4rem;
+  width: 80%;
+  margin-left: 245px;
+  margin-top: 10%;
 }
 
 .hospital_bookconthead {
@@ -114,6 +118,7 @@ form.example::after {
 /* hospital card here 
 asasdas*/
 .hospital_book_card {
+  margin: auto;
   width: 100%;
   margin-top: 40px;
   display: grid;
@@ -193,7 +198,9 @@ asasdas*/
   background: #2745f0;
   color: white;
 }
-
+/* .hospital_bookcont_from_user .pagination_hosp {
+  margin-top: 30%;
+} */
 .pagination_hosp {
   margin-top: 10%;
   height: 100px;

@@ -217,7 +217,7 @@ form.doc_appoin_form2::after {
 
 /* hospital description card */
 .doc_appoin_hosp_desc {
-  margin-top: 1%;
+  margin-top: 10%;
   width: 280px;
   margin-left: 50px;
 }

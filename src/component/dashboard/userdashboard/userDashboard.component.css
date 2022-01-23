@@ -1,84 +1,83 @@
-.head_styling{
-   margin: 20px !important;
-}
-.icon-style{
-   color:white !important;
-   position:relative !important;
-   bottom:8px !important;
-   left: 8px;
-   background-color: #52B2E5;
-   padding: 5px 14px;
-   border-radius: 0px 40px 40px 0px;
-   cursor: pointer !important;
-   border: 1px solid white;
-}
-.cursor{
-   cursor: pointer !important;
-   z-index: 10;
-}
-.header-color{
-   color:#f0f0f0;
-}
-.tablehead-color{
-   background-color: aqua!important;
-}
-.menu-icon-style{
-   position: relative;
-   bottom: 4px;
-}
-.adj-width{
-   width: 20rem;
-   position: relative;
-   left: -30px;
-}
-.sec-color{
-   color:#E04F5F;
+.row {
+  z-index: -1;
 }
 
+.head_styling {
+  margin: 20px !important;
+}
+.icon-style {
+  color: white !important;
+  position: relative !important;
+  bottom: 8px !important;
+  left: 8px;
+  background-color: #52b2e5;
+  padding: 5px 14px;
+  border-radius: 0px 40px 40px 0px;
+  cursor: pointer !important;
+  border: 1px solid white;
+}
+.cursor {
+  cursor: pointer !important;
+  z-index: 10;
+}
+.header-color {
+  color: #f0f0f0;
+}
+.tablehead-color {
+  background-color: aqua !important;
+}
+.menu-icon-style {
+  position: relative;
+  bottom: 4px;
+}
+.adj-width {
+  width: 20rem;
+  position: relative;
+  left: -30px;
+}
+.sec-color {
+  color: #e04f5f;
+}
 
-.logout-container{
-   height: 10rem !important;
-   width: 250px;
-   padding: 10px;  
-   position: absolute;
-   z-index: 30;
-   background-color: white;
-   top: 4rem ;
-   right: 6rem;
-   text-align: center;
-   border-radius: 10px;
-   box-shadow: 1px 1px 10px #666666;
-   
+.logout-container {
+  height: 10rem !important;
+  width: 250px;
+  padding: 10px;
+  position: absolute;
+  z-index: 30;
+  background-color: white;
+  top: 4rem;
+  right: 6rem;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px #666666;
 }
-.logout{
-   margin-top: 20px;
+.logout {
+  margin-top: 20px;
 }
-.buttons{
-   display: flex;
-   justify-content: space-around;
+.buttons {
+  display: flex;
+  justify-content: space-around;
 }
-.logout p{
-   font-size: 17px;
-   padding: 10px;
-   color: black;
-   
+.logout p {
+  font-size: 17px;
+  padding: 10px;
+  color: black;
 }
-.yes-logout{
-   background-color: red;
-   border: none;
-   padding: 10px;
-   border-radius: 5px;
-   color: white;
+.yes-logout {
+  background-color: red;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
 }
-.no-logout{
-   background-color: #2745F0;
-   border: none;
-   padding: 5px 10px;
-   border-radius: 5px;
-   color: white;
-
-
+.no-logout {
+  background-color: #2745f0;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
 }
-.menu-icon{
-   color: blueviolet !important;
+.menu-icon {
+  color: blueviolet !important;
 }
