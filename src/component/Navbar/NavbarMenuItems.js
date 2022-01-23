@@ -87,33 +87,32 @@ const NavbarMenuItems = () => {
             <nav>
               <h3>Categories</h3>
               <div className="categories_nav_mob">
-              {
-                  !localStorage.getItem("dm-access_token")? <Link
-                  id="link_cat_nav_mob"
-                  to="/register"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  Register
-                </Link>:null
-                }
+                {!localStorage.getItem("dm-access_token") ? (
+                  <Link
+                    id="link_cat_nav_mob"
+                    to="/register"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    Register
+                  </Link>
+                ) : null}
 
-                {
-                  !localStorage.getItem("dm-access_token")? 
-                   <Link to="/login">
-                  <div>
-                    <span style={{color:"#fff"}}>Login</span>
-                  </div>
-                </Link>:null
-                }
-                {
-                  localStorage.getItem("dm-access_token")?<Link
-                  id="link_cat_nav_mob"
-                  to="/dashboard"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  Dashboard
-                </Link>:null
-                }
+                {!localStorage.getItem("dm-access_token") ? (
+                  <Link to="/login">
+                    <div>
+                      <span style={{ color: "#fff" }}>Login</span>
+                    </div>
+                  </Link>
+                ) : null}
+                {localStorage.getItem("dm-access_token") ? (
+                  <Link
+                    id="link_cat_nav_mob"
+                    to="/dashboard"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    Dashboard
+                  </Link>
+                ) : null}
                 <Link
                   id="link_cat_nav_mob"
                   to="/"
@@ -159,7 +158,7 @@ const NavbarMenuItems = () => {
                 </Link>
 
                 {localStorage.getItem("dm-access_token") ? (
-                  <div onClick={Logout}>
+                  <div onClick={Logout} id="link_cat_nav_mob">
                     <img
                       src={login}
                       style={{
@@ -203,7 +202,7 @@ const NavbarMenuItems = () => {
           <img
             src={logo}
             style={{
-              height: "3.5rem",
+              height: "100%",
             }}
           ></img>
         </Link>
@@ -344,7 +343,6 @@ const NavbarMenuItems = () => {
               </div>
             </div>
           </div>
-          
           <span className="menu-item">
             <Link
               to="/digimedical_doctors"

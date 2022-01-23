@@ -2,16 +2,19 @@
   background-color: #2745f0;
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
 .logcontainer_nav {
+  margin-left: 6vw;
   display: flex;
+  justify-content: space-between;
+  width: 86%;
 }
 .logcontainer_nav img {
-  margin-left: 5vw;
+  object-fit: cover;
 }
 .menu {
-  margin-left: 12vw;
   align-items: center;
   justify-content: center;
   color: white;
@@ -99,7 +102,7 @@ p {
   width: 30px;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   .root_nav {
     position: fixed;
     top: 0;
@@ -113,6 +116,9 @@ p {
 
   .menu {
     display: none;
+  }
+  .logcontainer_nav img {
+    margin-left: 15vw;
   }
 }
 
@@ -190,7 +196,7 @@ p {
 
   position: absolute;
   top: 0;
-  left: 0;
+  left: -30px;
   overflow: auto;
   width: 40%;
   height: 100vh;

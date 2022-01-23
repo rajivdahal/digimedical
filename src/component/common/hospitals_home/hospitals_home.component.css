@@ -46,10 +46,14 @@
 }
 
 /* get appointment button on hospital homepage */
+.hosp_card_but_hom {
+  display: flex;
+
+  align-items: flex-end;
+}
 #hosp_card_but_hom {
-  width: 200px;
-  height: 40px;
-  margin-top: 23%;
+  width: auto;
+  height: 45px;
 
   border: 1px solid #2745f0;
   color: #2745f0;
