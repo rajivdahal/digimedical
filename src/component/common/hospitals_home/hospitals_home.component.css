@@ -18,7 +18,7 @@
 .hosp_hom_head p {
   font-size: 16px;
   line-height: 30px;
-
+  text-align: center;
   color: #596579;
 }
 
@@ -49,8 +49,8 @@
 #hosp_card_but_hom {
   width: 200px;
   height: 40px;
-  margin-top: 5%;
-  margin-left: 9vw;
+  margin-top: 23%;
+
   border: 1px solid #2745f0;
   color: #2745f0;
   background: white;
@@ -66,9 +66,9 @@
   color: white;
 }
 
-@media only screen and (max-width: 1300px) {
-  .hospital_card_text #hosp_card_but_hom {
-    width: fit-content;
-    margin: auto;
+@media only screen and (max-width: 1500px) {
+  #hosp_card_but_hom {
+    margin-top: 0;
+    margin-top: 11%;
   }
 }

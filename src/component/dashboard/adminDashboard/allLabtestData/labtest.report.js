@@ -132,12 +132,6 @@ const LabtestReport = (props) => {
                                     :
                                     <></>
                                 }
-
-                                {/* <Image
-                                    src={selectedImage}
-                                    fluid
-                                    className="image ml-3"
-                                ></Image> */}
                                 {/* <div>{selectedImgName}</div> */}
                             </Col>
                             {selectedImage ?

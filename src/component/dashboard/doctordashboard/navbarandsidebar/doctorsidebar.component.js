@@ -6,10 +6,55 @@ const Doctorsidebar = (props) => {
   }
   return (
     <>
+<div className="newdash_body">
+      
+      <div className="newdash_dash_main">
+        <div className="newdash_dash1">
+          <div className="newdash_dash1_dashboard">
+            <div className="newdash_dash1_cont1">
+              <div className="newdash_dash1_cont1p" onClick={navigateDashboard}  style={{cursor:"pointer"}}>
+                <p id="newdash_dash1_cont1p">
+                  {" "}
+                  <span id="newdash_bar_ico">
+                    {" "}
+                    <i class="fas fa-bars"></i>
+                  </span>{" "}
+                  Dashboard
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="newdash_dash1_dashboard">
+            <div className="newdash_dash1_cont1">
+              <div className="newdash_dash1_cont2p">
+                {" "}
+                <p id="newdash_dash1_cont1p">
+                  {" "}
+                  <span id="newdash_bar_ico">
+                    <i class="fas fa-user-clock"></i>
+                  </span>
+                  Appointments
+                  <span id="newdash_arrow">
+                    <i class="fas fa-chevron-right"></i>
+                  </span>
+                </p>
+              </div>
 
-      <nav className="sidebar sidebar-offcanvas" id="sidebar">
+              <div className="newdash_dash1_cont2">
+              <Link to="/dashboard/viewappointment" style={{ textDecoration: "none", color: "inherit" }}>
+                <p style={{cursor:"pointer"}}>View Appointment</p>
+                </Link>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+       
+      </div>
+    </div>
+      {/* <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <p className="centered mt-3"><div href="profile.html">
-          {/* <img className="img-circle user-img-circle img-fluid" width="80" /> */}
+
         </div></p>
         <ul className="nav">
           <li className="nav-item" onClick={navigateDashboard} style={{ cursor: "pointer" }}>
@@ -49,52 +94,9 @@ const Doctorsidebar = (props) => {
               </ul>
             </div>
           </li>
-          {/* <li className="nav-item">
-              <div className="nav-link" data-toggle="collapse" href="#rooms" aria-expanded="false" aria-controls="rooms">
-                <i className="icon-contract menu-icon"></i>
-                <span className="menu-title">Room Allotment</span>
-                <i className="menu-arrow"></i>
-              </div>
-              <div className="collapse" id="rooms">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"> <div className="nav-link" href="">Alloted Rooms</div></li>
-                  <li className="nav-item"> <div className="nav-link" href="">New Rooms</div></li>
-                </ul>
-              </div>
-            </li>
-            <li className="nav-item">
-              <div className="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <i className="icon-head menu-icon"></i>
-                <span className="menu-title">Payments</span>
-                <i className="menu-arrow"></i>
-              </div>
-              <div className="collapse" id="auth">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"> <div className="nav-link" href=""> All Payments </div></li>
-                  <li className="nav-item"> <div className="nav-link" href=""> Add Payment </div></li>
-                  <li className="nav-item"> <div className="nav-link" href=""> INvoice </div></li>
-                </ul>
-              </div>
-            </li>
-
-            <li className="nav-item">
-              <div className="nav-link" data-toggle="collapse" href="#masterdata" aria-expanded="false" aria-controls="masterdata">
-                <i className="icon-layout menu-icon"></i>
-                <span className="menu-title">Master Data</span>
-                <i className="menu-arrow"></i>
-              </div>
-
-              <div className="collapse" id="masterdata">
-                <ul className="nav flex-column sub-menu">
-                  <Link to="/dashboard/create-services">
-                    <li className="nav-item"> <div className="nav-link" href="">Services</div></li>
-                  </Link>
-                </ul>
-              </div>
-            </li> */}
-
+         
         </ul>
-      </nav>
+      </nav> */}
 
     </>
   )

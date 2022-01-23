@@ -41,13 +41,13 @@ export default function Hospitalshome() {
                     <h1>{item.name}</h1>
                     <p2>{item.address}</p2>
                     <p2>{item.description.slice(0, 50)}.....</p2>
-                    <button
-                      id="hosp_card_but_hom"
-                      onClick={() => showDoctors(item)}
-                    >
-                      Book an appointment
-                    </button>
                   </div>
+                  <button
+                    id="hosp_card_but_hom"
+                    onClick={() => showDoctors(item)}
+                  >
+                    Book an appointment
+                  </button>
                 </div>
               );
           })

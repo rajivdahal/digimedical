@@ -47,7 +47,7 @@ const BookedLabtest=(props)=>{
             <Container>
                 <MaterialTable
                     columns={[
-                        { title: "ID", field: "labtestbookingid" },
+                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
                         { title: 'Patient Name', field: 'patientname'},
                         { title: 'Lab Test', field: 'labtestname', },
                         { title: 'Subcategory', field: 'labtestcategoryname'},

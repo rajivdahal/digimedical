@@ -8,7 +8,7 @@ export default function Hospitalbooking() {
     <div>
       <Navbar></Navbar>
       <Hospitalbookingcomponent></Hospitalbookingcomponent>
-      <Footer></Footer>
+      <Footer></Footer> 
     </div>
   );
 }
