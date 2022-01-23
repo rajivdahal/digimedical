@@ -5,7 +5,6 @@ export const MedicalReports=(props)=>{
         <>
         <div className="main-panel newdash_content report-container">
             <h2>Update your previous report here</h2>
-
         </div>
         </>
     )

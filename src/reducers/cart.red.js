@@ -20,7 +20,6 @@ export const Cartreducer = (state, action) => {
                     cartvalue: 0,
                     labs: []
                 }
-
             }
             else {
                 cart = JSON.parse(localStorage.getItem("cart"))
@@ -29,30 +28,12 @@ export const Cartreducer = (state, action) => {
             console.log("cart is",cart)
 
             let cartitems = state.cartitems
-            // debugger
             console.log("cartvalues are", cartitems)
             let payload=action.payload
-            // action.payload.map((item)=>{
-            //     console.log("item in reducer is",item)
-            //     cartitems.push(item)
-            //     console.log("cartitem is",cartitems)
-            // })
 
-// {"cartvalue":2,"labs":
-// [[   {"name":"Abnormal Hb Test","subcategory":"pcr test","company":"Apex Pharmaceuticals Pvt. Ltd.","price":"2000","labId":2,"medicalInstituteId":4},
-//      {"name":"Abnormal Hb Test","subcategory":"abc","company":"OM hospital","price":"2000","labId":1,"medicalInstituteId":1}],
-// [    {"name":"Abnormal Hb Test","subcategory":"pcr test","company":"Apex Pharmaceuticals Pvt. Ltd.","price":"2000","labId":2,"medicalInstituteId":4},
-//      {"name":"Abnormal Hb Test","subcategory":"abc","company":"OM hospital","price":"2000","labId":1,"medicalInstituteId":1}]]}
-
-            // cart.cartvalue = parseInt(localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")).cartvalue : "0") + 1
-            // {"cartvalue":1,"labs":[[[{"price":"100","labId":4,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab4"},{"price":"1200","labId":1,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab1"},{"price":"1044","labId":3,"medicalInstituteId":3,"medicalname":"institute3","category":"labtest2`","subcategoryname":"lab3"}]]]}
-            // [[{"cartvalue":1,"labs":[[{"price":"100","labId":4,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab4"},{"price":"1200","labId":1,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab1"}],
-            // [[{"price":"100","labId":4,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab4"},{"price":"1200","labId":1,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab1"},{"price":"1044","labId":3,"medicalInstituteId":3,"medicalname":"institute3","category":"labtest2`","subcategoryname":"lab3"}]]
-            // ]}
             let isinside=false
             let arrayinsidelabs=localStorage.getItem("cart")?JSON.parse(localStorage.getItem("cart")).labs:[]
             let changedIndex=null
-            let newarr=[]
             console.log("array inside labs is",arrayinsidelabs)
             payload.map((item,index)=>{
                 console.log("inside map",item)
@@ -61,6 +42,7 @@ export const Cartreducer = (state, action) => {
                                 labItem.map((labObject,labObjectIndex)=>{
                                     if(labObject.subcategoryname===item.subcategoryname){
                                         isinside=labObject.subcategoryname
+                                        notify.error(labObject.subcategoryname+"has already been added")
                                     }
                                 })
                                 if(labIndex===cart.labs.length-1 && !isinside){
@@ -70,51 +52,40 @@ export const Cartreducer = (state, action) => {
                                             changedIndex=labIndex+1
                                         }
                                     })
-                                    if(index==payload.length-1){
-                                        console.log("inside olelelel")
-                                        arrayinsidelabs.push(payload)
-                                    }
+
                                 }
                             })
-                            // if(!isinside){
-                            //     console.log("item is inside elseeee first elseee",item)
-                            //     arrayinsidelabs.push(item)
-                            //     cart.cartvalue=cart.cartvalue+1
-                            //     console.log("array inside lab is",arrayinsidelabs)
-                            // }
+                            if(index==payload.length-1 && !isinside && !changedIndex){
+                                arrayinsidelabs.push(payload)
+                            }
                 }
                 else{
-                    console.log("item is inside elseeee",item)
                     arrayinsidelabs.push(item)
                     cart.cartvalue=1
-                    console.log("array inside lab is",arrayinsidelabs)
                 }
-                // arrayinsidelabs.push(item)
             })
             if(changedIndex){
-                console.log("cart lab before splice is",cart.labs)
                 cart.labs.splice(changedIndex-1,1)
-                console.log("cart lab after splice is",cart.labs)
                 cart.labs=[]
                  arrayinsidelabs.map((item,index)=>{
                     cart.labs.push(item)
                       localStorage.setItem("cart", JSON.stringify(cart))
                 })
+                notify.success("Added to cart")
             }
             else{
-                console.log("cart before is",cart.labs)
-                console.log("array inside labs is",arrayinsidelabs)
-                cart.labs.push(arrayinsidelabs)
-                console.log("caet after is",cart.labs)
-                localStorage.setItem("cart", JSON.stringify(cart))
+                if(!cart.labs.length){
+                    cart.labs.push(arrayinsidelabs)
+                }
+                else{
+                    cart.cartvalue=cart.cartvalue+1
+                    cart.labs=arrayinsidelabs
+                }
+                if(!isinside){
+                    localStorage.setItem("cart", JSON.stringify(cart))
+                    notify.success("Added to cart")
+                }
             }
-            // if(arrayinsidelabs.length){
-
-            //     notify.success("Added to cart");
-            // }
-            // else{
-            //     notify.error(` ${isinside} is already in the cart`);
-            // }
             return {
                 ...state,
                 cartvalue: state.cartvalue + 1,
@@ -131,7 +102,7 @@ export const Cartreducer = (state, action) => {
                 allabtest: action.payload
             }
         case labtestActionTypes.SET_TEMP_TOTAL:
-            // console.log("action payload is",action.payload)
+
             return {
                 ...state,
                 tempdata: {
@@ -139,7 +110,6 @@ export const Cartreducer = (state, action) => {
                 }
             }
         case labtestActionTypes.CLEAR_TEMP_TOTAL:
-            // console.log("action payload is",action.payload)
             return {
                 ...state,
                 tempdata: {
@@ -147,8 +117,6 @@ export const Cartreducer = (state, action) => {
                 }
             }
         case labtestActionTypes.SET_RESET_CHECKBOX:
-            // console.log("action payload is",action.payload)
-            console.log("payload in reducers>>>>>>", action.payload)
             let allabtest = state.allabtest.map((item, index) => {
                 if (index == action.payload.categoryindex) {
                     item.subcategory.map((item, index) => {
@@ -164,30 +132,24 @@ export const Cartreducer = (state, action) => {
                 allabtest: allabtest
             }
         case labtestActionTypes.ADD_TO_CART_SIGNAL:
-            // console.log("action payload is",action.payload)
             return {
                 ...state,
                 addtocartsignal: action.payload
             }
         case labtestActionTypes.CHECKOUT:
-            console.log("checkout triggered>>>>>>>>>>>>>>>>>", action.payload)
             return {
                 ...state,
                 checkoutsignal: action.payload
             }
         case labtestActionTypes.REMOVE_PRODUCT_STATUS:
-            console.log("inside removeproduct statuss reducer", action.payload)
             return {
                 ...state,
                 removeproductsign: action.payload
             }
         case labtestActionTypes.REMOVE_PRODUCT:
             let data = action.payload
-            console.log("data in remove product reducers are", data)
-
             return {
                 ...state
-                // removeproductstatus: action.payload
             }
         case labtestActionTypes.CART_POP_UP:
 
