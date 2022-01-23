@@ -14,14 +14,17 @@ export const Cartreducer = (state, action) => {
             }
         case cartActionTypes.SET_IS_CART_ADDED:
             var cart
+
             if (!localStorage.getItem("cart")) {
                 cart = {
                     cartvalue: 0,
                     labs: []
                 }
+
             }
             else {
                 cart = JSON.parse(localStorage.getItem("cart"))
+
             }
             console.log("cart is",cart)
 
@@ -33,7 +36,7 @@ export const Cartreducer = (state, action) => {
             //     console.log("item in reducer is",item)
             //     cartitems.push(item)
             //     console.log("cartitem is",cartitems)
-            // })  
+            // })
 
 // {"cartvalue":2,"labs":
 // [[   {"name":"Abnormal Hb Test","subcategory":"pcr test","company":"Apex Pharmaceuticals Pvt. Ltd.","price":"2000","labId":2,"medicalInstituteId":4},
@@ -42,46 +45,76 @@ export const Cartreducer = (state, action) => {
 //      {"name":"Abnormal Hb Test","subcategory":"abc","company":"OM hospital","price":"2000","labId":1,"medicalInstituteId":1}]]}
 
             // cart.cartvalue = parseInt(localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")).cartvalue : "0") + 1
-            let arrayinsidelabs=[]
+            // {"cartvalue":1,"labs":[[[{"price":"100","labId":4,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab4"},{"price":"1200","labId":1,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab1"},{"price":"1044","labId":3,"medicalInstituteId":3,"medicalname":"institute3","category":"labtest2`","subcategoryname":"lab3"}]]]}
+            // [[{"cartvalue":1,"labs":[[{"price":"100","labId":4,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab4"},{"price":"1200","labId":1,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab1"}],
+            // [[{"price":"100","labId":4,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab4"},{"price":"1200","labId":1,"medicalInstituteId":1,"medicalname":"institute1","category":"labtest2`","subcategoryname":"lab1"},{"price":"1044","labId":3,"medicalInstituteId":3,"medicalname":"institute3","category":"labtest2`","subcategoryname":"lab3"}]]
+            // ]}
             let isinside=false
-            payload.map((item)=>{
+            let arrayinsidelabs=localStorage.getItem("cart")?JSON.parse(localStorage.getItem("cart")).labs:[]
+            let changedIndex=null
+            let newarr=[]
+            console.log("array inside labs is",arrayinsidelabs)
+            payload.map((item,index)=>{
                 console.log("inside map",item)
                 if(cart.labs.length){
-                    console.log("inside ifff statement")
                             cart.labs.map((labItem,labIndex)=>{
-                                console.log("item is inside first loop",labItem)
                                 labItem.map((labObject,labObjectIndex)=>{
-                                    console.log("the object is",labObject)
                                     if(labObject.subcategoryname===item.subcategoryname){
                                         isinside=labObject.subcategoryname
-                                        console.log("is inside true is indeed true")
                                     }
                                 })
-                                console.log("labindex and length is",labIndex,cart.labs.length-1)
                                 if(labIndex===cart.labs.length-1 && !isinside){
-                                    console.log("about to push")
-                                    arrayinsidelabs.push(item)
-                                    cart.cartvalue=JSON.parse(localStorage.getItem("cart")).cartvalue+1
-                                }    
+                                    arrayinsidelabs.map((labItem,labIndex)=>{
+                                        if(labItem[0].category===item.category){
+                                            arrayinsidelabs[labIndex].push(item)
+                                            changedIndex=labIndex+1
+                                        }
+                                    })
+                                    if(index==payload.length-1){
+                                        console.log("inside olelelel")
+                                        arrayinsidelabs.push(payload)
+                                    }
+                                }
                             })
-                            
+                            // if(!isinside){
+                            //     console.log("item is inside elseeee first elseee",item)
+                            //     arrayinsidelabs.push(item)
+                            //     cart.cartvalue=cart.cartvalue+1
+                            //     console.log("array inside lab is",arrayinsidelabs)
+                            // }
                 }
                 else{
-                    console.log("inside elseeeeeeee")
+                    console.log("item is inside elseeee",item)
                     arrayinsidelabs.push(item)
                     cart.cartvalue=1
-                    console.log("arrayinsidelabtests are",arrayinsidelabs,cart.cartvalue)
+                    console.log("array inside lab is",arrayinsidelabs)
                 }
                 // arrayinsidelabs.push(item)
             })
-            if(arrayinsidelabs.length){
-                cart.labs.push(arrayinsidelabs)
-                localStorage.setItem("cart", JSON.stringify(cart))
-                notify.success("Added to cart");
+            if(changedIndex){
+                console.log("cart lab before splice is",cart.labs)
+                cart.labs.splice(changedIndex-1,1)
+                console.log("cart lab after splice is",cart.labs)
+                cart.labs=[]
+                 arrayinsidelabs.map((item,index)=>{
+                    cart.labs.push(item)
+                      localStorage.setItem("cart", JSON.stringify(cart))
+                })
             }
             else{
-                notify.error(` ${isinside} is already in the cart`);
+                console.log("cart before is",cart.labs)
+                console.log("array inside labs is",arrayinsidelabs)
+                cart.labs.push(arrayinsidelabs)
+                console.log("caet after is",cart.labs)
+                localStorage.setItem("cart", JSON.stringify(cart))
             }
+            // if(arrayinsidelabs.length){
+
+            //     notify.success("Added to cart");
+            // }
+            // else{
+            //     notify.error(` ${isinside} is already in the cart`);
+            // }
             return {
                 ...state,
                 cartvalue: state.cartvalue + 1,
@@ -157,12 +190,12 @@ export const Cartreducer = (state, action) => {
                 // removeproductstatus: action.payload
             }
         case labtestActionTypes.CART_POP_UP:
-         
+
             return {
                 ...state,
                 cartpopupsign:action.payload
             }
-            
+
         default:
             return {
                 ...state
