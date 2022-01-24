@@ -4,13 +4,14 @@
 
 /* navbar css here */
 .newdash_nav {
+  position: relative;
+  z-index: 100;
   display: flex;
   width: 100%;
   background: #2745f0;
   height: 58px;
   color: white;
   position: fixed;
-  z-index: 10;
 }
 
 .newdash_hamburger {
@@ -127,9 +128,11 @@ d
 
 .newdash_dash_main {
   width: 100%;
+  height: 100%;
   display: grid;
   grid-template-columns: 1.5fr 8.5fr;
-  z-index: 100;
+  position: relative;
+  z-index: 90;
 }
 
 .newdash_dash1 {

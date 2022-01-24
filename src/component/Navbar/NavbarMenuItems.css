@@ -50,7 +50,7 @@
 .dropdown_hp_content {
   z-index: 1;
   position: absolute;
-  top: 15.8%;
+  top: 120px;
   left: 20;
 
   width: 540px;
@@ -94,6 +94,7 @@ p {
   margin-top: 10px;
   margin-left: 10px;
 }
+
 .nav_search {
   position: relative;
   top: 20px;
@@ -197,7 +198,7 @@ p {
   position: absolute;
   top: 0;
   left: -30px;
-  overflow: auto;
+
   width: 40%;
   height: 100vh;
   margin: 0;
