@@ -25,9 +25,8 @@
 }
 .hospitalbook_img {
   width: 80%;
-  position: absolute;
-  left: 10%;
-  top: 23%;
+  margin-left: 10%;
+  margin-top: -40%;
   display: flex;
   justify-content: space-between;
 }
@@ -55,7 +54,7 @@
 
 .hospital_bookcont {
   width: 80%;
-
+  margin-top: 10%;
   justify-content: center;
   align-items: center;
 }
@@ -162,10 +161,13 @@ asasdas*/
   color: #596579;
 }
 
+.hosp_card_but_main {
+  display: flex;
+  align-items: flex-end;
+}
 #hosp_card_but {
-  width: 200px;
-  height: 40px;
-  margin-top: 23%;
+  width: auto;
+  height: 45px;
 
   border: 1px solid #2745f0;
   color: #2745f0;
@@ -179,7 +181,6 @@ asasdas*/
 #hosp_card_but_user {
   width: 155px;
   height: 40px;
-  margin-top: 22%;
 
   border: 1px solid #2745f0;
   color: #2745f0;
@@ -208,8 +209,72 @@ asasdas*/
 
 /* responsive design query */
 
+@media only screen and (max-width: 1496px) {
+  .hospital_bookcont_from_user {
+    width: 80%;
+  }
+  .hospital_book_card {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 1260px) {
+  .hospital_bookcont_from_user {
+    width: 70%;
+  }
+  .hospital_bookconthead {
+    width: 100%;
+  }
+  .hospital_book_card {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .hospital_book_card1 {
+    width: 100%;
+  }
+  .hospital_bookcont_from_user {
+    margin-left: 25%;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .hospital_bookcont_from_user {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .hospitalbook_img {
+    margin-top: -70%;
+  }
+  .hospital_bookconthead h2 {
+    font-size: 25px;
+  }
+  .hospital_booksearch {
+    width: 200px;
+  }
+  .hospital_bookcont_from_user {
+    margin: auto;
+  }
+  .hospital_book_card {
+    justify-content: center;
+  }
+  #hosp_card_but {
+    width: auto;
+  }
+  #hosp_card_but_user {
+    width: auto;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .hospitalbook_img {
+    margin-top: -100%;
     flex-direction: column;
   }
   .hospitalbook_img img {
@@ -252,71 +317,5 @@ asasdas*/
   .hospital_card_text p2 {
     margin-top: -10px;
     margin-bottom: 10px;
-  }
-}
-
-@media only screen and (max-width: 1496px) {
-  .hospital_bookcont_from_user {
-    width: 80%;
-  }
-  .hospital_book_card {
-    display: flex;
-    flex-direction: column;
-  }
-
-  #hosp_card_but_user {
-    margin-top: 16.5%;
-  }
-  #hosp_card_but {
-    margin-top: 35vh;
-  }
-}
-
-@media only screen and (max-width: 1260px) {
-  .hospital_bookcont_from_user {
-    width: 70%;
-  }
-  .hospital_bookconthead {
-    width: 100%;
-  }
-  .hospital_book_card {
-    display: flex;
-
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  .hospital_book_card1 {
-    width: 100%;
-  }
-  .hospital_bookcont_from_user {
-    margin-left: 25%;
-  }
-}
-
-@media only screen and (max-width: 900px) {
-  .hospital_bookconthead h2 {
-    font-size: 25px;
-  }
-  .hospital_booksearch {
-    width: 200px;
-  }
-  .hospital_bookcont_from_user {
-    margin: auto;
-  }
-  .hospital_book_card {
-    justify-content: center;
-  }
-
-  #hosp_card_but_user {
-    margin-top: 20.5%;
-  }
-}
-
-@media only screen and (max-width: 1000px) {
-  .hospital_bookcont_from_user {
-    width: 90%;
-    margin: auto;
   }
 }

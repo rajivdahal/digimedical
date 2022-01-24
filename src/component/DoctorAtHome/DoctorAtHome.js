@@ -113,7 +113,7 @@ const Ourservices = (props) => {
         <Navigate>
           <span className="home"> Home</span>
           <span className="arrow">
-            <MdOutlineKeyboardArrowRight />
+            <MdOutlineKeyboardArrowRight/>
           </span>
           <Link to="/services"> <span className="service"> Service </span></Link>
           <span className="arrow">
@@ -124,9 +124,7 @@ const Ourservices = (props) => {
               return <span>{item+'\xa0'}</span>
             }) : null
           }
-          {/* <span className="doctorAtHome"> Doctor at Home</span> */}
         </Navigate>
-
         <Heading>{
           heading.length ? heading.map((item) => {
             return <span>{` ${item+'\xa0'}`}</span>

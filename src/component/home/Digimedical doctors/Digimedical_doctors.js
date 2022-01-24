@@ -12,30 +12,35 @@ import { useEffect, useState } from "react";
 function Digimedical_doctors(props) {
 
   const [allDigiDoctors, setAllDigiDoctors] = useState([]);
-
   const getAllDigiDoctors = async () => {
+    let id= props.location.state.doctorID;
+    console.log(props)
     try {
-      let resp = await httpClient.GET("doctor/digi/get-four");
-      console.log(resp)
+      let resp = await httpClient.GET("doctor/digi/get-all");
       if (resp.data.status) {
         let data = resp.data.data;
+        let selectedDoctor = data.find((doctor,index)=>{
+          return doctor.doctorid == id
+        })
+        console.log(selectedDoctor)
 
-        // data.forEach((item)=>{
-        //   item.doctordescription = item.doctordescription.substring(0,35)+"...";
-        // })
-        setAllDigiDoctors(data)
-        console.log(data)
+        let filteredDr = data.filter((doctor,index)=>{
+          return doctor.doctorid != id
+        })
+        console.log(filteredDr)
+        filteredDr.unshift(selectedDoctor);
+        setAllDigiDoctors(filteredDr)
       }
     } catch (err) {
       console.log(err)
     }
-
   }
-
   useEffect(() => {
     getAllDigiDoctors();
   }, [])
-
+setTimeout(() => {
+  console.log("all digimedical doctors are",allDigiDoctors)
+}, 3000);
   return (
     <div>
       <Navbar></Navbar>
@@ -62,13 +67,8 @@ function Digimedical_doctors(props) {
 
 
           <div className="doc_appoint_main">
-            {allDigiDoctors.map((item, index) => {
-              return <>
-                <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix}
-                  specialist={item.specialist} desc={item.doctordescription} doctorId={item.doctorid} />
+                <DigiMedicalDoctorCard allDigiDoctors={allDigiDoctors}/>
 
-              </>
-            })}
           </div>
 
           <div className="digidoctor_whychooseus">

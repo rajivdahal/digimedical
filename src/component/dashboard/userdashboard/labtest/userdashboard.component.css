@@ -152,7 +152,7 @@
 
 .lab_add_to_cart_samp1 {
   margin-bottom: 45px;
-
+  height: 200px;
   background-color: #f5faff;
   border: 1px solid #d0d7e2;
   border-radius: 10px;
@@ -171,6 +171,7 @@
 .active_lab_add_to_cart_samp1 {
   margin-bottom: 45px;
   padding: 10px;
+  height: 200px;
   background-color: #f5faff;
   border: 3px solid #2745f0;
   /* border: 3px solid red; */

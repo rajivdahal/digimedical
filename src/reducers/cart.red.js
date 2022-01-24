@@ -3,7 +3,6 @@ import { labtestActionTypes } from "../actions/cart.ac";
 import { notify } from "../services/notify";
 
 export const Cartreducer = (state, action) => {
-
     console.log("reducers atate is", state)
     console.log("action.type is", action.type, action.payload)
     switch (action.type) {
