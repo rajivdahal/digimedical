@@ -1,15 +1,21 @@
-.title-header{
-    display: flex;
-    justify-content: space-between;
+.title-header {
+  display: flex;
+  justify-content: space-between;
 }
-.title-focus{
-    background-color: #2745F0;
-    padding: 10px;
-    color: white !important;
-    border-radius: 10px;
-    
-    z-index: 10;
+.title-focus {
+  background-color: #2745f0;
+  padding: 10px;
+  color: white !important;
+  border-radius: 10px;
+
+  z-index: 10;
 }
-.card-title{
-    cursor: pointer;
+.card-title {
+  cursor: pointer;
+}
+
+.container-fluid {
+  position: relative;
+  top: 0;
+  z-index: 1;
 }

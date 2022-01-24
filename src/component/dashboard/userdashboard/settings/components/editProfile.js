@@ -5,19 +5,21 @@ import { httpClient } from "../../../../../utils/httpClient"
 import Avatar from "../../../../../assets/avatars.png"
 import { notify } from "../../../../../services/notify";
 import { useHistory } from "react-router-dom";
-import Select from "react-select";
-
 import "./editProfile.css"
 import "../userprofile.css"
-import { BLOODGROUP } from "../../../../../constants/constants";
+import { useSelector,useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+// import { loginUser } from "../../../../../actions/User.ac";
+import {editProfile} from "../../../../../actions/User.ac";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
-
 const EditProfile = (props) => {
-    let history = useHistory()
+    const user=useSelector((state)=>state.user)
+    const dispatch=useDispatch()
+    const editprofile=bindActionCreators(editProfile,dispatch)
+    console.log("fetch profile image issss",editProfile)
     const userstatus = localStorage.getItem("status")
     const imageSelectRef = useRef();
     const [selectedImage, setImage] = useState("");
-    const [userID, setUserID] = useState("")
     const [userProfile, setUserProfile] = useState({
         firstName: "",
         middleName: "",
@@ -130,7 +132,6 @@ const EditProfile = (props) => {
 
     const updateProfile = (values) => {
         let formData = new FormData();
-
         if (values.image) {
             formData.append("image", values.image);
         }
@@ -140,7 +141,6 @@ const EditProfile = (props) => {
         if (values.previousDisease) {
             formData.append("previousDisease", values.previousDisease)
         }
-
         formData.append("firstName", values.firstName);
         formData.append("lastName", values.lastName);
         formData.append("email", values.email);
@@ -152,13 +152,13 @@ const EditProfile = (props) => {
         formData.append("dobAd", values.dob);
         formData.append("mobileNumber", values.contactNo);
         formData.append("fatherName", values.fatherName);
-
         console.log(formData)
         httpClient.PUT("update-user", formData, false, true, "formdata")
             .then(resp => {
                 if (resp.data.status) {
                     notify.success(resp.data.message);
                     props.gotoView();
+                    editprofile(true)
                 }
             })
             .catch(err => {
@@ -276,7 +276,7 @@ const EditProfile = (props) => {
                                             </Col>
                                             <Col md={4}>
                                                 <label >Blood Group : </label>
-                                                <Field class="select-control profile-field" as='select' name="bloodGroup" value={values.bloodGroup}>                                       
+                                                <Field class="select-control profile-field" as='select' name="bloodGroup" value={values.bloodGroup}>
                                                     <option value="A+">A-postivie</option>
                                                     <option value="A-">A-negative</option>
                                                     <option value="B+">B-postive</option>

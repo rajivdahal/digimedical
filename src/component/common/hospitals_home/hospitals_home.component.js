@@ -42,12 +42,14 @@ export default function Hospitalshome() {
                     <p2>{item.address}</p2>
                     <p2>{item.description.slice(0, 50)}.....</p2>
                   </div>
-                  <button
-                    id="hosp_card_but_hom"
-                    onClick={() => showDoctors(item)}
-                  >
-                    Book an appointment
-                  </button>
+                  <div className="hosp_card_but_hom">
+                    <button
+                      id="hosp_card_but_hom"
+                      onClick={() => showDoctors(item)}
+                    >
+                      Book an appointment
+                    </button>
+                  </div>
                 </div>
               );
           })

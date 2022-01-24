@@ -7,14 +7,13 @@ const initialState = {
     user:{
         profileImage:"",
         userId:null,
-        isupdated:false,
+        isProfileChanged:false
     },
     cart:{
         allabtest:[],
         cartitems:[],
         cartnumber:null,
         cartvalue:parseInt(localStorage.getItem("cartvalue"))||0,
-
         tempdata:{
             totalamount:0
         },

@@ -27,6 +27,11 @@
   text-align: left;
 }
 
+.digidoc_card_but {
+  display: flex;
+  align-items: flex-end;
+}
+
 #digidoc_card_but {
   height: 40px;
   margin-top: 60%;

@@ -1,7 +1,8 @@
 .ul_docathome_feat {
   margin-top: 10px;
-  margin-left: 300px;
-  width: 1000px;
+
+  margin-left: 25%;
+
   height: 250px;
   color: grey;
 }
@@ -10,6 +11,16 @@
   width: 400px;
   float: left;
 }
-#render{
-  color: gray;
+
+@media screen and (max-width: 1430px) {
+  .ul_docathome_feat {
+    margin-left: 40%;
+    height: 520px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .ul_docathome_feat {
+    margin-left: 20%;
+  }
 }

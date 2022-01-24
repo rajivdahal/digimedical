@@ -10,12 +10,13 @@ import { bindActionCreators } from "redux";
 import { loginUser } from "../../../actions/User.ac";
 // const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 export const Dashboardnavbar = (props) => {
-  const [userImage, setImage] = useState("");
+  console.log("store is updates in navbarr")
   let [username, setusername] = useState("");
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
   });
   const user=useSelector((state)=>state.user)
+  console.log("user iss",user)
   const dispatch=useDispatch()
   const fetchProfileImage=bindActionCreators(loginUser,dispatch)
   console.log("store state is",user)
@@ -24,7 +25,6 @@ export const Dashboardnavbar = (props) => {
       logout: true,
     });
   };
-
   const logoutyes = () => {
     localStorage.removeItem("dm-access_token");
     localStorage.removeItem("timeout");
@@ -46,17 +46,8 @@ export const Dashboardnavbar = (props) => {
     props.props.push("/dashboard/settings/change-password");
   };
 
-  // const getImage = () => {
-  //   let id = localStorage.getItem("userid");
-  //   fetch()
-  //   // let url = REACT_APP_BASE_URL + "download/" + id;
-  //   // setImage(url);
-  //   // setTimeout(() => {
-  //   //   console.log("image is",userImage)
-  //   // }, 2000);
-  // };
-
   useEffect(async () => {
+    console.log("inside useeffect")
     fetchProfileImage()
     await httpClient
       .GET("user-profile", false, true)
@@ -64,18 +55,19 @@ export const Dashboardnavbar = (props) => {
         console.log(resp);
         const name = resp.data.data.profileInfo.name;
         setusername(name);
-
       })
       .catch((err) => {
         notify.error("something went wrong");
       });
-
-  }, []);
+  },[]);
   setTimeout(() => {
     console.log("user profile image is",user)
   }, 2000);
   return (
     <>
+{
+  console.log("rerendered navbar")
+}
       <div className="newdash_nav">
         <a className="newdash_hamburger" href="#show_new_dash">
           <i class="fas fa-bars"></i>
