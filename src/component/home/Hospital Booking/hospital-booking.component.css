@@ -25,8 +25,9 @@
 }
 .hospitalbook_img {
   width: 80%;
-  margin-left: 10%;
-  margin-top: -40%;
+  position: absolute;
+  left: 10%;
+  top: 23%;
   display: flex;
   justify-content: space-between;
 }
@@ -114,7 +115,7 @@ form.example::after {
   clear: both;
   display: table;
 }
-/* hospital card here 
+/* hospital card here
 asasdas*/
 .hospital_book_card {
   margin: auto;

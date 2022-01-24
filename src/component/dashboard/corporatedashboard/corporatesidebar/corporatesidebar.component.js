@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
+import WysiwygRoundedIcon from '@mui/icons-material/WysiwygRounded';
+
 const Corporatesidebar = (props) => {
   const history = useHistory()
   const navigateDashboard = () => {
@@ -43,19 +45,45 @@ const Corporatesidebar = (props) => {
               </div>
             </Link>
           </li>
-          {/* <Link to="/"> */}
-          <li className="nav-item" style={{ cursor: "pointer" }} onClick={navigateAddMembers}>
-            <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
-              <i class="fas fa-users menu-icon"></i>
-               <span className="menu-title">Members</span>
+
+
+          <li className="nav-item">
+            <a className="nav-link" data-toggle="collapse" href="#members" aria-expanded="false" aria-controls="members">
+            <i class="fas fa-users menu-icon"></i>
+              <span className="menu-title">Members</span>
+              <i className="menu-arrow"></i>
             </a>
+            <div className="collapse" id="members">
+              <ul className="nav flex-column sub-menu">
+              <Link to="/dashboard/corporate/add-members">
+                  <li className="nav-item"><a className="nav-link" href="">Members Table</a></li>
+                </Link>
+                <Link to="/dashboard/corporate/add-users">
+                <li className="nav-item"><a className="nav-link" href="">Add Users</a></li>
+                </Link>
+              </ul>
+            </div>
           </li>
 
-          {/* </Link> */}
+          <li className="nav-item">
+            <a className="nav-link" data-toggle="collapse" href="#masterdata" aria-expanded="false" aria-controls="masterdata">
+              {/* <i className="icon-columns menu-icon"></i> */}
+              <WysiwygRoundedIcon className="dash-icon"></WysiwygRoundedIcon>
+              <span className="menu-title">Master Data</span>
+              <i className="menu-arrow"></i>
+            </a>
+            <div className="collapse" id="masterdata">
+              <ul className="nav flex-column sub-menu">
+                <Link to="/dashboard/add/corporate-types">
+                  <li className="nav-item"> <a className="nav-link" href="">Add Corporate Types</a></li>
+                </Link>
+                
+              </ul>
+            </div>
+          </li>
 
         </ul>
       </nav>
-
     </>
   )
 }

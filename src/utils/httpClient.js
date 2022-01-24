@@ -74,7 +74,7 @@ const PUT = (url, data,grant_type,getheaders,headerType = "json",params = {}) =>
 
 //incoming change
 
-const UPLOAD = (method, url, data = {}, grant_type, files = []) => {
+const UPLOAD = (method, url, data = {}, grant_type, files = [],getheaders) => {
     if (grant_type) {
         data.grant_type = grant_type
     }
@@ -97,8 +97,15 @@ const UPLOAD = (method, url, data = {}, grant_type, files = []) => {
             }
         }
 
-        xhr.open(method, REACT_APP_BASE_URL_LOGIN)
-        xhr.setRequestHeader("Authorization", `Basic Y2xpZW50aWQ6c2VjcmV0`);
+        xhr.open(method, !getheaders?REACT_APP_BASE_URL_LOGIN:BASE_URL+url)
+        if(getheaders){
+            const token = localStorage.getItem('dm-access_token')
+            xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+        }
+        else{
+            xhr.setRequestHeader("Authorization", `Basic Y2xpZW50aWQ6c2VjcmV0`);
+        }
+
         xhr.send(formData)
 
 

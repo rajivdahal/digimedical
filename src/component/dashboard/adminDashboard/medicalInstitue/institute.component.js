@@ -97,7 +97,6 @@ const MedicalInstitute = (props) => {
 
         }
         catch (err) {
-            console.log(err)
             notify.error("Something went wrong.")
             setIsLoading(false)
         }
@@ -298,7 +297,7 @@ const MedicalInstitute = (props) => {
 
                 <MaterialTable
                     columns={[
-                        { title: "ID", field: "id" },
+                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
                         { title: 'Name', field: 'name', },
                         { title: 'Contact', field: 'contactno' },
                         { title: 'State', field: 'province' },
