@@ -137,7 +137,7 @@ export default function Usersidebar(props) {
                   {" "}
                   <p id="newdash_dash1_cont1p">
                     <span id="newdash_bar_ico">
-                      <i class="fas fa-hospital"></i>
+                      <i class="fas fa-file-alt"></i>
                     </span>{" "}
                     Medical Reports
                   </p>

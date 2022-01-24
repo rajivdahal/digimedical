@@ -21,6 +21,11 @@
 
 @media screen and (max-width: 600px) {
   .ul_docathome_feat {
-    margin-left: 20%;
+    margin-left: 10%;
+    width: auto;
+  }
+  .ul_docathome_feat li {
+    width: auto;
+    float: left;
   }
 }
