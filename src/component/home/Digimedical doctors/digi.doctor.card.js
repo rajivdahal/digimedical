@@ -17,7 +17,7 @@ const DigiMedicalDoctorCard = (props) => {
         mblNumber: "",
         serviceId: "",
     })
-
+    console.log("propsss are,,,",props)
     const [showForm, setForm] = useState(false);
 
     useEffect(() => {
@@ -42,35 +42,42 @@ const DigiMedicalDoctorCard = (props) => {
 
     return (
         <div className="digidoctor_apoint_card">
+            {
+                props.allDigiDoctors.map((item,index)=>{
+                    if(item){
+                        return <div className="digidoctor_apoint_card1">
+                        <div className="digidoc_card_img">
+                            <img
+                                src={REACT_APP_BASE_URL + "doctor/download/" + item.doctorId}
+                                alt=""
+                                style={{
+                                    height: "140px",
+                                    width: "140px",
+                                    borderRadius: "50%",
+                                }}
+                            />
+                        </div>
+                        <div className="digidoctor_about_desc">
+                            <div className="doc_about_desc_head">
+                                <p id="doc_name_card">{item.name}</p>
+                                <p id="doc_edu_brief">{item.prefix}</p>
+                            </div>
 
-            <div className="digidoctor_apoint_card1">
-                <div className="digidoc_card_img">
-                    <img
-                        src={REACT_APP_BASE_URL + "doctor/download/" + props.doctorId}
-                        alt=""
-                        style={{
-                            height: "140px",
-                            width: "140px",
-                            borderRadius: "50%",
-                        }}
-                    />
-                </div>
-                <div className="digidoctor_about_desc">
-                    <div className="doc_about_desc_head">
-                        <p id="doc_name_card">{props.name}</p>
-                        <p id="doc_edu_brief">{props.prefix}</p>
+                            <p id="digidoc_exp"> {item.specialist} </p>
+                            <p >{item.desc}</p>
+
+                        </div>
+
+                        <div className="digidoctor_card_but">
+                            {" "}
+                            <button id="digidoctor_card_but" onClick={bookAppointment}>Book an appointment</button>
+                        </div>
                     </div>
+                    }
 
-                    <p id="digidoc_exp"> {props.specialist} </p>
-                    <p >{props.desc}</p>
 
-                </div>
-
-                <div className="digidoctor_card_but">
-                    {" "}
-                    <button id="digidoctor_card_but" onClick={bookAppointment}>Book an appointment</button>
-                </div>
-            </div>
+                })
+            }
 
             {showForm === true ?
                 <form onSubmit={formik.handleSubmit}>
@@ -98,7 +105,7 @@ const DigiMedicalDoctorCard = (props) => {
                                     id="middleName"
                                     onChange={formik.handleChange}
                                 />
-                            
+
                             </div>
                             <div class="digidoc_appoin_form1">
                                 <p>Last Name</p>
