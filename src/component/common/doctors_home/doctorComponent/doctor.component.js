@@ -1,5 +1,6 @@
 import doctor1 from "../../../../assets/client1.png";
 import { useHistory } from "react-router-dom";
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const DoctorDetailComponent = (props) => {
 
@@ -13,13 +14,12 @@ const DoctorDetailComponent = (props) => {
 
   }
   return (
-    <div>
       <div className="hospital_book_card">
         <div className="hospital_book_card1">
           {" "}
           <div className="digidoc_card_img">
             <img
-              src={doctor1}
+              src={REACT_APP_BASE_URL +"doctor/download/" +props.doctorId}
               alt=""
               style={{
                 height: "140px",
@@ -48,7 +48,6 @@ const DoctorDetailComponent = (props) => {
         </div>
       </div>
 
-    </div>
   );
 };
 

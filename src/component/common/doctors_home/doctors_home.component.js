@@ -34,7 +34,6 @@ export default function Doctorshome(props) {
   return (
     <div className="hosp_hom_cont">
       <div className="hosp_hom_head">
-        {/* <p>Our professionals</p> */}
         <h1>Our Doctors</h1>
       </div>
     

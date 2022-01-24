@@ -121,7 +121,6 @@ function Newdash() {
             </div>
           </div>
         </div>
-        <div className="newdash_content"></div>
       </div>
     </div>
   );

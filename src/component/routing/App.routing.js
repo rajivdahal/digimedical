@@ -17,7 +17,7 @@ import Hospitalbooking from "../home/Hospital Booking/hospital.booking.component
 import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component";
 import OurServices from "../DoctorAtHome/DoctorAtHome";
 import Digi_doctors from "../home/Digimedical doctors/Digimedical_doctors";
-import Newdash from "../common/dashboard/Newdash";
+import Newdash from "../common/dashboard/Newdash.js";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -33,7 +33,7 @@ export const Approuting = (props) => {
           path="/digimedical_doctors"
           component={Digi_doctors}
         ></PublicRoute>
-        <PublicRoute exact path="/newdash" component={Newdash}></PublicRoute>
+        {/* <PublicRoute exact path="/newdash" component={Newdash}></PublicRoute> */}
         <PublicRoute
           exact
           path="/our-services/:subservice"
@@ -99,6 +99,11 @@ export const Approuting = (props) => {
           path="/dashboard/hospitals"
           component={Dashboard}
         ></ProtectedRoute>
+                <ProtectedRoute
+          exact
+          path="/dashboard/medical-reports"
+          component={Dashboard}
+        ></ProtectedRoute>
         <ProtectedRoute
           exact
           path="/dashboard/hospitals/view-doctors"
@@ -141,11 +146,6 @@ export const Approuting = (props) => {
           path="/dashboard/add-member"
           component={Dashboard}
         ></ProtectedRoute>
-        {/* <ProtectedRoute
-          exact
-          path="/dashboard/medical-reports"
-          component={Dashboard}
-        ></ProtectedRoute> */}
         <ProtectedRoute
           exact
           path="/dashboard/all-patients"
@@ -172,9 +172,6 @@ export const Approuting = (props) => {
           exact="/dashboard/settings/change-password"
           component={Dashboard}
         ></ProtectedRoute>
-        {/* <ProtectedRoute exact path="/dashboard/userprofile" component={Dashboard}></ProtectedRoute> */}
-
-        {/* admin route */}
         <ProtectedRoute
           exact
           path="/dashboard/doctor-table"

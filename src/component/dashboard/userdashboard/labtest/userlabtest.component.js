@@ -267,7 +267,7 @@ class userlabtestcomponent extends Component {
     };
     return (
       <div className=" main_div_user_lab">
-        {checkoutsignal ? <Checkoutpopup /> : null}
+        {checkoutsignal ? <Checkoutpopup props={this.props.history}/> : null}
         {this.state.active ? <Cartpopup></Cartpopup> : null}
         <div className="lab_add_to_cart">
           <div className="lab_add_to_cart1">

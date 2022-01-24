@@ -9,9 +9,24 @@
   background: #2745f0;
   height: 58px;
   color: white;
+  position: fixed;
+  z-index: 10;
 }
 
+.newdash_hamburger {
+  display: none;
+
+  color: white;
+
+  width: 40px;
+  text-align: center;
+}
+.newdash_hamburger i {
+  line-height: 50px;
+  font-size: 25px;
+}
 .newdash_nav_img {
+  width: 30%;
   height: 100%;
 }
 
@@ -20,13 +35,26 @@
   width: 230px;
   object-fit: cover;
 }
+
+.Welcome_client {
+  text-align: center;
+  margin-left: 1%;
+  width: 30%;
+
+  overflow: hidden;
+}
+.Welcome_client p {
+  font-size: 20px;
+  text-align: center;
+  font-weight: 900;
+}
 .newdash_user {
-  width: 20%;
+  width: 30%;
+
   display: flex;
   flex-direction: column;
-
-  gap: 10px;
-  margin-left: 50%;
+  gap: 18px;
+  margin-left: 20%;
 }
 .newdash_user_img {
   width: 50px;
@@ -47,9 +75,13 @@
 }
 .newdash_user_optionmain {
   display: none;
-  width: 70%;
+  width: 50%;
   margin-left: auto;
   margin-right: 0;
+  margin-top: -10px;
+  z-index: 10;
+  background-color: #fff;
+  position: relative;
 }
 
 .newdash_user_option {
@@ -62,10 +94,19 @@
   color: black;
   -webkit-box-shadow: 0 0 15px 54#5965794f;
   box-shadow: 0 0 15px #5965794f;
+  z-index: 100;
 }
 .newdash_user_option1 {
   display: flex;
   gap: 10px;
+  z-index: 10;
+  cursor: pointer;
+  padding-left: 10px;
+  border-radius: 10px;
+}
+.newdash_user_option1:hover {
+  background: #52b2e5;
+  color: white;
 }
 .newdash_user_icon {
   width: 20px;
@@ -74,6 +115,7 @@
 
 .newdash_user:hover .newdash_user_optionmain {
   display: block;
+  z-index: 10;
 }
 /* a Sidebar css here
 a
@@ -82,23 +124,29 @@ b
 c
 d
 */
+
 .newdash_dash_main {
   width: 100%;
   display: grid;
   grid-template-columns: 1.5fr 8.5fr;
+  z-index: 100;
 }
 
 .newdash_dash1 {
-  padding-top: 20px;
+  padding-top: 70px;
   -webkit-box-shadow: 0 0 15px 54#5965794f;
   box-shadow: 0 0 15px #5965794f;
+  height: 100vh;
+  position: fixed;
+  width: 230px;
+  background-color: #fff;
 }
 
 .newdash_dash1_cont1 {
   display: flex;
   flex-direction: column;
   margin-left: 10px;
-  width: 90%;
+  width: 80%;
 }
 .newdash_dash1_cont1p {
   display: flex;
@@ -111,6 +159,7 @@ d
 }
 .newdash_dash1_cont2p {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 50px;
@@ -139,14 +188,16 @@ d
   color: white;
   background: #52b2e5;
   display: none;
-
+  transition: 1s linear;
   padding-left: 25%;
+  /* height: 0px;  */
 }
 
 .newdash_dash1_cont2 p {
   line-height: 30px;
 }
 .newdash_dash1_cont1:hover .newdash_dash1_cont2 {
+  height: 100%;
   display: block;
 }
 
@@ -165,4 +216,61 @@ d
 }
 .newdash_dash1_cont2 p:hover {
   text-decoration: underline;
+}
+.newdash_content {
+}
+
+@media screen and (max-width: 1232px) {
+  .newdash_user {
+    position: absolute;
+    margin-left: 0;
+    left: 55%;
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .newdash_hamburger {
+    display: block;
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+
+  .newdash_dash_main {
+    display: none;
+  }
+  .newdash_dash_main:target {
+    display: block;
+    width: 100%;
+    background: grey;
+  }
+
+  @media screen and (max-width: 900px) {
+    .newdash_user {
+      position: absolute;
+      margin-left: 0;
+      left: 45%;
+      width: 50%;
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .newdash_hamburger {
+    margin-left: 0px;
+  }
+  .newdash_nav_img img {
+    width: 130px;
+    object-fit: contain;
+  }
+  .Welcome_client {
+  }
+  .Welcome_client p {
+    font-size: 14px;
+  }
+  .newdash_user {
+    position: absolute;
+    margin-left: 0;
+    left: 110px;
+    width: 70%;
+  }
 }

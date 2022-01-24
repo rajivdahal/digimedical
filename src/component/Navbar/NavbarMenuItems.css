@@ -12,38 +12,44 @@
 }
 .menu {
   margin-left: 12vw;
-  margin-top: 2.1vh;
+  align-items: center;
+  justify-content: center;
   color: white;
   display: flex;
 }
 .menu .menu-item {
-  height: 20px;
+  height: 100%;
   margin-left: 3vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .menu-item:hover {
-  border-bottom: 1px solid white;
+  text-decoration: underline;
 }
 .menu-item Link {
   cursor: pointer;
 }
 .menu-item_nav {
-  margin-top: -16px;
-  height: 60px;
-  margin-left: 40px;
+  height: 100%;
+  margin-left: 3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .dropbtn {
-  margin-top: 15px;
   border: none;
   color: white;
 
-  background-color: rgba(255, 99, 71, 0);
+  background-color: rgba(182, 62, 41, 0);
 }
 .dropdown_hp_content {
   z-index: 1;
   position: absolute;
+  top: 15.8%;
   left: 20;
-  margin-top: 21px;
-  margin-right: 300px;
+
   width: 540px;
   height: 275px;
   display: none;
@@ -232,4 +238,10 @@ p {
 
 .m-menu__toggle:checked ~ .m-menu__backdrop {
   opacity: 1;
+}
+
+@media screen and (max-width: 1300px) {
+  .menu {
+    margin-left: 5vw;
+  }
 }

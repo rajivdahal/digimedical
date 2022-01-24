@@ -10,22 +10,25 @@ import { Modal, Button } from 'react-bootstrap';
 import ClipLoader from "../../../../utils/clipLoader";
 import { Field, Form, Formik } from "formik";
 
-const BodyCheckup = (props) => {
+const CorporateTypes = (props) => {
     const [loading, setLoading] = useState(false);
-    const [checkupId, setCheckupId] = useState(null);
-    const [checkupStatus, setCheckupStatus] = useState("");
-    const [allBodyCheckup, setAllCheckup] = useState([]);
+    // const [tpeId, setServiceStatusId] = useState(null);
+    const [typeId, setTypeId] = useState(null);
+    const [typeStatus, setTypeStatus] = useState("");
+    const [allCorporatesTypes, setTypes] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [bodyCheckup, setCheckup] = useState({
-        name: "",
-        description: "",
+    const [corporateType, setCorporateType] = useState({
+        typeName: "",
+        typeDescription: "",
+        activeStatus: "",
     })
 
-    const getAllCheckup = () => {
-        httpClient.GET("body-checkup/get-all", false, true)
+    const getCorporateType = () => {
+        httpClient.GET("corporate-types/get-all", false, true)
             .then(resp => {
                 if (resp.data.status) {
-                    setAllCheckup(resp.data.data);
+                    console.log(resp.data.data)
+                    setTypes(resp.data.data);
                 }
             })
             .catch(err => {
@@ -34,22 +37,22 @@ const BodyCheckup = (props) => {
     }
 
     useEffect(() => {
-        getAllCheckup();
+        getCorporateType();
     }, [])
 
     const handleSubmit = async (values, resetForm) => {
         setLoading(true)
         try {
-            let checkupData = {
-                name: values.name,
-                description: values.description
+            let corporateData = {
+                name: values.typeName,
+                description: values.typeDescription
             }
 
-            let resp = await httpClient.POST("body-checkup/create", checkupData, false, true)
+            let resp = await httpClient.POST("corporate-types/create", corporateData, false, true)
 
             if (resp.data.status) {
                 resetForm();
-                getAllCheckup();
+                getCorporateType();
                 notify.success(resp.data.message)
             }
         }
@@ -62,71 +65,72 @@ const BodyCheckup = (props) => {
 
     }
 
-    const editBodyCheckup = (e, data) => {
-        setCheckupId(data.id)
+    const editCorporateType = (e, data) => {
+        setTypeId(data.id)
+        // console.log(data.id);
         if (data) {
-            setCheckup({
-                name: data.name,
-                description: data.description,
+            setCorporateType({
+                typeName: data.name,
+                typeDescription: data.description,
 
             })
             window.scrollTo(0, 0)
         }
     }
 
-    const handleEditCheckup = (values) => {
+    const handleEditType = (values, resetForm) => {
         setLoading(true)
-        let checkupData = {
-            name: values.name,
-            description: values.description
+        let corporateData = {
+            name: values.typeName,
+            description: values.typeDescription
         }
 
-        httpClient.PUT("body-checkup/update/" + checkupId, checkupData, false, true)
+        httpClient.PUT("corporate-types/update/" + typeId, corporateData, false, true)
             .then(resp => {
                 if (resp.data.status) {
-                    setCheckup({
-                        name: "",
-                        description: "",
+                    setCorporateType({
+                        typeName: "",
+                        typeDescription: "",
                     })
-                    setCheckupId(null);
-                    getAllCheckup();
+                    setTypeId(null);
+                    getCorporateType();
                     notify.success(resp.data.message)
                     setLoading(false)
                 }
             })
             .catch(err => {
-                notify.error(err.response.data.message)
+                console.log(err.response)
                 setLoading(false)
             })
     }
 
     const handleCancelEdit = () => {
-        setCheckupId(null);
-        setCheckup({
-            name: "",
-            description: ""
+        setTypeId(null);
+        setCorporateType({
+            typeName: "",
+            typeDescription: ""
         })
     }
 
     const handleClose = () => setShowModal(false)
 
-    const disableCheckup = (e, data) => {
-        setCheckupId(data.id);
+    const handleCancelType = (e, data) => {
+        setTypeId(data.id);
         setShowModal(true);
-        setCheckupStatus(data.status);
+        setTypeStatus(data.status);
     }
 
-    const changeCheckupStatus = () => {
+    const changeTypeStatus = () => {
         setLoading(true)
-        let tempStatus = checkupStatus == true ? false : true
+        let tempTypeStatus = typeStatus == true ? false : true
 
 
-        httpClient.PUT("body-checkup/change/" + checkupId + "/" + tempStatus, {}, false, true)
+        httpClient.PUT("corporate-types/change/" + typeId + "/" + tempTypeStatus, {}, false, true)
             .then(resp => {
                 // console.log(resp)
                 if (resp.data.status) {
                     notify.success(resp.data.message)
-                    getAllCheckup();
+                    getCorporateType();
                     handleClose();
                     setLoading(false)
                 }
@@ -158,12 +162,12 @@ const BodyCheckup = (props) => {
         <>
             <div className="container" >
                 <Formik enableReinitialize={true}
-                    initialValues={bodyCheckup}
+                    initialValues={corporateType}
 
                     onSubmit={(values, { resetForm }) => {
                         {
-                            checkupId ?
-                                handleEditCheckup(values, resetForm)
+                            typeId ?
+                                handleEditType(values, resetForm)
                                 :
                                 handleSubmit(values, resetForm)
                         }
@@ -172,18 +176,18 @@ const BodyCheckup = (props) => {
                     {({ errors, touched }) => (
                         <Form className="mb-4">
                             <div className=" form-group select-label">
-                                <label >Body Checkup Name : </label>
-                                <Field name="name" validate={validateName} className="form-control" />
-                                {errors.name && touched.name && <div className="error-message">{errors.name}</div>}
+                                <label >Corporate Type : </label>
+                                <Field name="typeName" validate={validateName} className="form-control" />
+                                {errors.typeName && touched.typeName && <div className="error-message">{errors.typeName}</div>}
                             </div>
 
                             <div className="form-group select-label">
-                                <label>Description : </label>
-                                <Field name="description" validate={validateDescription} className="form-control" />
-                                {errors.description && touched.description && <div className="error-message">{errors.description}</div>}
+                                <label>Corporate Type Description : </label>
+                                <Field name="typeDescription" validate={validateDescription} className="form-control" />
+                                {errors.typeDescription && touched.typeDescription && <div className="error-message">{errors.typeDescription}</div>}
                             </div>
 
-                            {checkupId ?
+                            {typeId ?
 
                                 <div>
                                     {loading == true ?
@@ -222,9 +226,9 @@ const BodyCheckup = (props) => {
 
                 <Modal show={showModal} onHide={handleClose}>
                     <Modal.Header >
-                        <Modal.Title><b>Body Checkup Status</b></Modal.Title>
+                        <Modal.Title><b>Corporate Type Status</b></Modal.Title>
                     </Modal.Header>
-                    <Modal.Body >Do you really want to change this checkup status ?</Modal.Body>
+                    <Modal.Body >Do you really want to change this corporate type status ?</Modal.Body>
                     <Modal.Footer>
                         {loading == true ?
                             <ClipLoader isLoading={loading} />
@@ -233,7 +237,7 @@ const BodyCheckup = (props) => {
                                 <Button variant="danger" onClick={handleClose}>
                                     Close
                                 </Button>
-                                <Button variant="info" onClick={changeCheckupStatus} style={{ marginLeft: '8px' }} >
+                                <Button variant="info" onClick={changeTypeStatus} style={{ marginLeft: '8px' }} >
                                     Change Status
                                 </Button>
                             </div>
@@ -244,8 +248,8 @@ const BodyCheckup = (props) => {
                 <MaterialTable
                     columns={[
                         { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
-                        { title: 'Name', field: 'name', },
-                        { title: 'Description', field: 'description'},
+                        { title: 'Type Name', field: 'name', },
+                        { title: 'Type Description', field: 'description', sorting: false },
                         {
                             title: 'Status', field: 'status',
                             render: rowData => rowData.status == true ?
@@ -256,19 +260,19 @@ const BodyCheckup = (props) => {
                         },
                     ]}
                     // loading={isLoading}
-                    data={allBodyCheckup}
-                    title="Body Checkup"
+                    data={allCorporatesTypes}
+                    title="Corporate Types"
                     icons={Tableicons}
                     actions={[
                         {
                             icon: Edit,
-                            tooltip: 'Edit Body Checkup',
-                            onClick: (e, rowData) => { editBodyCheckup(e, rowData) }
+                            tooltip: 'Edit Service',
+                            onClick: (e, rowData) => { editCorporateType(e, rowData) }
                         },
                         {
                             icon: DeleteOutline,
                             tooltip: 'Change Status',
-                            onClick: (e, rowData) => { disableCheckup(e, rowData) }
+                            onClick: (e, rowData) => { handleCancelType(e, rowData) }
                         },
                     ]}
                     options={{
@@ -282,8 +286,9 @@ const BodyCheckup = (props) => {
                 />
 
             </div>
+
         </>
     )
 
 }
-export default BodyCheckup
+export default CorporateTypes
