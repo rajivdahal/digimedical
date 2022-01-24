@@ -13,40 +13,42 @@ const DoctorDetailComponent = (props) => {
 
   }
   return (
-    <div className="hospital_book_card">
-      <div className="hospital_book_card1">
-        {" "}
-        <div className="digidoc_card_img">
-          <img
-            src={doctor1}
-            alt=""
-            style={{
-              height: "140px",
-              width: "140px",
-              borderRadius: "50%",
-            }}
-          />
-        </div>
-        <div className="digidoc_about_desc">
-          <div className="doc_about_desc_head">
-            <p id="doc_name_card">{props.name}</p>
-            <p id="doc_edu_brief">{props.prefix}</p>
+    <div>
+      <div className="hospital_book_card">
+        <div className="hospital_book_card1">
+          {" "}
+          <div className="digidoc_card_img">
+            <img
+              src={doctor1}
+              alt=""
+              style={{
+                height: "140px",
+                width: "140px",
+                borderRadius: "50%",
+              }}
+            />
           </div>
-          <div>
-            <p>
-              <b>{props.specialist}</b>
-            </p>
-            <p>{props.desc}</p>
+          <div className="digidoc_about_desc">
+            <div className="doc_about_desc_head">
+              <p id="doc_name_card">{props.name}</p>
+              <p id="doc_edu_brief">{props.prefix}</p>
+            </div>
+            <div>
+              <p>
+                <b>{props.specialist}</b>
+              </p>
+              <p>{props.desc}</p>
+            </div>
           </div>
-        </div>
-        <div className="digidoc_card_but">
+          <div className="digidoctor_card_but">
             {" "}
-            <button id="digidoc_card_but" onClick={consultDoctor}>Consult</button>
+            <button id="digidoctor_card_but" onClick={consultDoctor}>Consult</button>
           </div>
 
+        </div>
       </div>
+
     </div>
-    // </div>
   );
 };
 

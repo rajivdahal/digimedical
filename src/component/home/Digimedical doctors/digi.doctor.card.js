@@ -1,10 +1,11 @@
 import doctor1 from "../../../assets/client1.png";
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const DigiMedicalDoctorCard = (props) => {
     return (
         <div className="digidoctor_apoint_card">
 
-            <div className="digidoctor_apoint_card1">
+             <div className="digidoctor_apoint_card1">
                 <div className="digidoc_card_img">
                     <img
                         src={doctor1}
@@ -33,6 +34,8 @@ const DigiMedicalDoctorCard = (props) => {
                 </div>
             </div>
 
+
+            
         </div>
     )
 }
