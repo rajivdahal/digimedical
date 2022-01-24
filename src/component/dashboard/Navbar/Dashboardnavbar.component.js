@@ -5,14 +5,20 @@ import { httpClient } from "../../../utils/httpClient";
 import dashavatar from "../../../assets/avatars.png";
 import "./dashboardnavbar.component.css";
 import logo from "../../../assets/logo.png";
-
-const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+import { useSelector,useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { loginUser } from "../../../actions/User.ac";
+// const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 export const Dashboardnavbar = (props) => {
   const [userImage, setImage] = useState("");
   let [username, setusername] = useState("");
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
   });
+  const user=useSelector((state)=>state.user)
+  const dispatch=useDispatch()
+  const fetchProfileImage=bindActionCreators(loginUser,dispatch)
+  console.log("store state is",user)
   const Logout = (e) => {
     setlogoutstate({
       logout: true,
@@ -40,27 +46,34 @@ export const Dashboardnavbar = (props) => {
     props.props.push("/dashboard/settings/change-password");
   };
 
-  const getImage = () => {
-    let id = localStorage.getItem("userid");
-    let url = REACT_APP_BASE_URL + "download/" + id;
-    console.log(url);
-    setImage(url);
-  };
+  // const getImage = () => {
+  //   let id = localStorage.getItem("userid");
+  //   fetch()
+  //   // let url = REACT_APP_BASE_URL + "download/" + id;
+  //   // setImage(url);
+  //   // setTimeout(() => {
+  //   //   console.log("image is",userImage)
+  //   // }, 2000);
+  // };
 
   useEffect(async () => {
+    fetchProfileImage()
     await httpClient
       .GET("user-profile", false, true)
       .then((resp) => {
         console.log(resp);
         const name = resp.data.data.profileInfo.name;
         setusername(name);
-        getImage();
+
       })
       .catch((err) => {
         notify.error("something went wrong");
       });
-  }, []);
 
+  }, []);
+  setTimeout(() => {
+    console.log("user profile image is",user)
+  }, 2000);
   return (
     <>
       <div className="newdash_nav">
@@ -77,7 +90,7 @@ export const Dashboardnavbar = (props) => {
         </div>
         <div className="newdash_user">
           <div className="newdash_user_img">
-            <img src={dashavatar} alt="" />
+            <img src={user.profileImage?user.profileImage:dashavatar} alt="" />
           </div>
           <div className="newdash_user_optionmain">
             {" "}

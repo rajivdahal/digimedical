@@ -18,28 +18,41 @@ export const MedicalReports=(props)=>{
         description:""
     }
 
-    let [image,setImage]=useState(null)
+    let [image,setImage]=useState([])
     const[ data,setData]=useState([])
-    const upload=(values,{resetForm})=>{
-        console.log(values,image)
-        httpClient.UPLOAD("post","medical-records/create",values,false,[image],true)
-        .then(resp=>{
-            notify.success("Success")
-            resetForm({})
-        })
-        .catch(err=>{
-            notify.error("Something went wrong")
-        })
-    }
-    useEffect(()=>{
+    const fetchdata=()=>{
         httpClient.GET("medical-records/get-all",false,true)
         .then(resp=>{
             setData(resp.data.data)
         })
+    }
+    const upload=(values,{resetForm})=>{
+        console.log(values,image)
+        httpClient.UPLOAD("post","medical-records/create",values,false,image,true)
+        .then(resp=>{
+            notify.success("Success")
+            fetchdata()
+            resetForm()
+        })
+        .catch(err=>{
+            notify.error("Something went wrong",err)
+        })
+    }
+    const handleImageChange=(event)=>{
+        let file=[]
+        file.push(event.target.files[0])
+        console.log(file)
+        setImage(file)
+    }
+    setTimeout(() => {
+        console.log(image)
+    }, 3000);
+    useEffect(()=>{
+        fetchdata()
     },[])
     return(
         <>
-        <div className="main-panel newdash_content report-container">
+        <div className="main-psetImage(event.currentTarget.files[0])anel newdash_content report-container">
             <h2>Update your previous report here</h2>
             <div className="previous-reports-wrapper">
                 <Formik initialValues={medicalReport} onSubmit={upload}>
@@ -69,7 +82,7 @@ export const MedicalReports=(props)=>{
                                         <label htmlFor="name">Image of Report:</label>
                                         <input name="image" className="prescription-input" type={"file"}
                                         onChange={(event)=>{
-                                            setImage(event.currentTarget.files[0])
+                                            handleImageChange(event)
                                         }}
                                         ></input>
                             </div>

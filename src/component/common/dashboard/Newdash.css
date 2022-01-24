@@ -26,14 +26,15 @@
   font-size: 25px;
 }
 .newdash_nav_img {
-  width: 30%;
+  width: 50%;
   height: 100%;
 }
 
 .newdash_nav_img img {
   height: 100%;
-  width: 230px;
+  width: 300px;
   object-fit: cover;
+  border-radius: 20%;
 }
 
 .Welcome_client {
@@ -69,9 +70,10 @@
 }
 
 .newdash_user_img img {
-  width: 50px;
+  width: 61px;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
 }
 .newdash_user_optionmain {
   display: none;
@@ -119,7 +121,7 @@
 }
 /* a Sidebar css here
 a
-a 
+a
 b
 c
 d

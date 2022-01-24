@@ -1,19 +1,14 @@
 import { userActionTypes } from "../actions/User.ac"
 
 export const UserReducer = (state, action) => {
-    // // console.log('at reducer>>>>', action)
-    // console.log("state iin user reducer is>>", state)
+    console.log("inside user reducerrrr",state,action.payload)
     switch (action.type) {
-        case userActionTypes.SET_IS_LOGIN_LOADING:
+        case userActionTypes.SET_IS_FETCH_PROFILE:
+            // let url=
             return {
                 ...state,
-                isuserloginloading: action.payload
-            }
-        case userActionTypes.USER_LOGGED_IN:
-            return {
-                ...state,
-                email: action.payload.email,
-                // password:action.payload.password
+                profileImage:action.payload.imgUrl,
+                userId:action.payload.id
             }
         default:
             return {
