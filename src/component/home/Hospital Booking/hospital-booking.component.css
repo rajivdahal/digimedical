@@ -25,9 +25,8 @@
 }
 .hospitalbook_img {
   width: 80%;
-  position: absolute;
-  left: 10%;
-  top: 23%;
+  margin-left: 10%;
+  margin-top: -40%;
   display: flex;
   justify-content: space-between;
 }

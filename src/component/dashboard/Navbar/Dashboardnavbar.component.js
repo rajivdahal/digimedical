@@ -69,7 +69,7 @@ export const Dashboardnavbar = (props) => {
   console.log("rerendered navbar")
 }
       <div className="newdash_nav">
-        <a className="newdash_hamburger" href="#show_new_dash">
+        <a className="newdash_hamburger"  href="#show_new_dash">
           <i class="fas fa-bars"></i>
         </a>
         <Link to="/">

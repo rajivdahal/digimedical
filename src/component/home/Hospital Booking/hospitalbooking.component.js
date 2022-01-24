@@ -5,7 +5,7 @@ import Pagination from "../../common/pagination/pagination.component";
 import { useEffect, useState } from "react";
 import { httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
-import { useHistory,useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import Hospitaltopheader from "./hospitalheader.component";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -18,7 +18,7 @@ export default function Hospitalbookingcomponent(props) {
   let location = useLocation();
 
   useEffect(() => {
-    console.log("location is",location)
+    console.log("location is", location);
     httpClient
       .GET("hospital/get-all")
       .then((resp) => {
@@ -40,17 +40,23 @@ export default function Hospitalbookingcomponent(props) {
   };
   const showDoctors = (item) => {
     history.push({
-      pathname:localStorage.getItem("dm-access_token")?"/dashboard/hospitals/view-doctors":"/hospitals/view-doctors",
+      pathname: localStorage.getItem("dm-access_token")
+        ? "/dashboard/hospitals/view-doctors"
+        : "/hospitals/view-doctors",
       // pathname:location.pathname = "/dashboard/hospitals"
       //       ? "/dashboard/hospitals/view-doctors"
       //       : "/hospitals/dashboard/view-doctors",
-       state: item,
+      state: item,
     });
     console.log("data is", item);
   };
   //   "/dashboard/hospitals"?
   return (
-    <div className={location?"hospital_main_cont newdash_content":"hospital_main_cont"}>
+    <div
+      className={
+        location ? "hospital_main_cont newdash_content" : "hospital_main_cont"
+      }
+    >
       <div className="hospital_booking">
         {location ? (
           (location.pathname = "/dashboard/hospitals" ? null : null)
@@ -95,18 +101,21 @@ export default function Hospitalbookingcomponent(props) {
                       <p2>{item.address}</p2>
                       <p2>{item.description.slice(0, 50)}.....</p2>
                     </div>
-                    <button
-                      id={
-                        location
-                          ? (location.pathname = "/dashboard/hospitals"
-                              ? "hosp_card_but_user"
-                              : "hosp_card_but_user")
-                          : "hosp_card_but"
-                      }
-                      onClick={() => showDoctors(item)}
-                    >
-                      Book an appointment
-                    </button>
+                    <div className="hosp_card_but_main">
+                      {" "}
+                      <button
+                        id={
+                          props.location
+                            ? (props.location.pathname = "/dashboard/hospitals"
+                                ? "hosp_card_but_user"
+                                : "hosp_card_but_user")
+                            : "hosp_card_but"
+                        }
+                        onClick={() => showDoctors(item)}
+                      >
+                        Book an appointment
+                      </button>
+                    </div>
                   </div>
                 );
               })
