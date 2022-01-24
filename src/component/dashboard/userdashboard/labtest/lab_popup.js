@@ -19,7 +19,7 @@ class Checkoutpopupcomponent extends Component {
       removeproductsign,
     } = this.props;
     const cart = JSON.parse(localStorage.getItem("cart"));
-    console.log("cart is", cart);
+    console.log("props are",this.props);
     const removecartproduct = (category, toremoveindex) => {
       console.log("to remove category and index is", category, toremoveindex);
       if (cart) {
@@ -62,6 +62,7 @@ class Checkoutpopupcomponent extends Component {
               .then((resp) => {
                 notify.success("Lab test booked successfully");
                 localStorage.removeItem("cart");
+
                 this.props.checkout(!checkoutsignal);
                 this.props.props.push("/dashboard/view-lab-test");
               })

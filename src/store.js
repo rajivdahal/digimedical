@@ -1,13 +1,13 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './reducers';
-
 const middlewares = [thunk]
+
 const initialState = {
-    login:{
-        username:'',
-        email:'',
-        isuserloginloading:false
+    user:{
+        profileImage:"",
+        userId:null,
+        isupdated:false,
     },
     cart:{
         allabtest:[],

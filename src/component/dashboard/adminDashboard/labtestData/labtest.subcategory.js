@@ -415,7 +415,7 @@ const LabtestSubcategory = (props) => {
 
                 <MaterialTable
                     columns={[
-                        { title: "ID", field: "id" },
+                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
                         { title: 'LabTest', field: 'labtestname', },
                         { title: 'Subcategory', field: 'name', sorting: false },
                         { title: 'Description', field: 'description' },

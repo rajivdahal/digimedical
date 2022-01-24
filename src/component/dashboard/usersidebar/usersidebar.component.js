@@ -21,6 +21,9 @@ export default function Usersidebar(props) {
   const navigateFamilyMember = () => {
     props.props.push("/dashboard/add-member");
   };
+  const loadMedicalReport = () => {
+    props.props.push("/dashboard/medical-reports");
+  };
   return (
     <div>
       <div className="newdash_body">
@@ -120,6 +123,23 @@ export default function Usersidebar(props) {
                       <i class="fas fa-hospital"></i>
                     </span>{" "}
                     Hospitals
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              className="newdash_dash1_dashboard"
+              onClick={loadMedicalReport}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="newdash_dash1_cont1">
+                <div className="newdash_dash1_cont1p">
+                  {" "}
+                  <p id="newdash_dash1_cont1p">
+                    <span id="newdash_bar_ico">
+                      <i class="fas fa-hospital"></i>
+                    </span>{" "}
+                    Medical Reports
                   </p>
                 </div>
               </div>

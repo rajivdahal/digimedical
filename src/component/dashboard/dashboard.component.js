@@ -1,47 +1,47 @@
-import { Redirect } from "react-router"
-import AdminDashboard from "./adminDashboard/adminDashboard.component"
-import { Dashboardnavbar } from "./Navbar/Dashboardnavbar.component"
-import Userdashboard from "./userdashboard/userDashboard.component"
-import Usersidebar from "./usersidebar/usersidebar.component"
+import { Redirect } from "react-router";
+import AdminDashboard from "./adminDashboard/adminDashboard.component";
+import { Dashboardnavbar } from "./Navbar/Dashboardnavbar.component";
+import Userdashboard from "./userdashboard/userDashboard.component";
+import Usersidebar from "./usersidebar/usersidebar.component";
 import ProtectedRoute from "./../routing/Protectedroute.component";
-import { Viewappointment } from "./viewappointment/Viewappointment.component"
-import Internalappointmentbook from "./userdashboard/internalappointmentbook/Internalappointmentbook.component"
-import Nav from "./adminDashboard/navbarandsidebar/nav.component"
-import Adminsidebar from "./adminDashboard/navbarandsidebar/sidebar.component"
-import DoctorTable from "./adminDashboard/doctorData/doctor.table"
-import Createdoctor from "./adminDashboard/doctorData/doctor.component"
-import Createservices from "./adminDashboard/servicesData/services.component"
-import { Dashboardpagenotfound } from "./dashboardpagenotfound/dashboardpagenotfound.component"
-import Doctornavbar from "./doctordashboard/navbarandsidebar/doctornavbar.component"
-import Doctorsidebar from "./doctordashboard/navbarandsidebar/doctorsidebar.component"
-import { Doctordashboard } from "./doctordashboard/doctordashboard/doctordashboard.component"
-import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappointment.component"
+import { Viewappointment } from "./viewappointment/Viewappointment.component";
+import Internalappointmentbook from "./userdashboard/internalappointmentbook/Internalappointmentbook.component";
+import Nav from "./adminDashboard/navbarandsidebar/nav.component";
+import Adminsidebar from "./adminDashboard/navbarandsidebar/sidebar.component";
+import DoctorTable from "./adminDashboard/doctorData/doctor.table";
+import Createdoctor from "./adminDashboard/doctorData/doctor.component";
+import Createservices from "./adminDashboard/servicesData/services.component";
+import { Dashboardpagenotfound } from "./dashboardpagenotfound/dashboardpagenotfound.component";
+import Doctornavbar from "./doctordashboard/navbarandsidebar/doctornavbar.component";
+import Doctorsidebar from "./doctordashboard/navbarandsidebar/doctorsidebar.component";
+import { Doctordashboard } from "./doctordashboard/doctordashboard/doctordashboard.component";
+import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappointment.component";
 
-import Appointment from "./adminDashboard/appointmentPage/appointment.component"
-import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component"
-import Prescribe from "./doctordashboard/prescribe/prescribe.component"
-import Labtest from "./adminDashboard/labtestData/labtest.component"
-import LabtestSubcategory from "./adminDashboard/labtestData/labtest.subcategory"
-import UserProfile from "./userdashboard/settings/profileupdate.component"
-import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list"
-import { Userlabtest } from "./userdashboard/labtest/userlabtest.component"
-import Viewlabtest from "./userdashboard/viewlabtest/viewlabtest.component"
-import BookedLabtest from "./adminDashboard/allLabtestData/booked.labtest"
-import MedicalInstitute from "./adminDashboard/medicalInstitue/institute.component"
-import Hospital from "./adminDashboard/hospitalData/hospital.component"
-import HospitalTable from "./adminDashboard/hospitalData/hospital.table"
-import CorporatePage from "./adminDashboard/corporateData/corporate.component"
-import Role from "./adminDashboard/userManagement/role.component"
-import CreateAdmin from "./adminDashboard/userManagement/admin.component"
+import Appointment from "./adminDashboard/appointmentPage/appointment.component";
+import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component";
+import Prescribe from "./doctordashboard/prescribe/prescribe.component";
+import Labtest from "./adminDashboard/labtestData/labtest.component";
+import LabtestSubcategory from "./adminDashboard/labtestData/labtest.subcategory";
+import UserProfile from "./userdashboard/settings/profileupdate.component";
+import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list";
+import { Userlabtest } from "./userdashboard/labtest/userlabtest.component";
+import Viewlabtest from "./userdashboard/viewlabtest/viewlabtest.component";
+import BookedLabtest from "./adminDashboard/allLabtestData/booked.labtest";
+import MedicalInstitute from "./adminDashboard/medicalInstitue/institute.component";
+import Hospital from "./adminDashboard/hospitalData/hospital.component";
+import HospitalTable from "./adminDashboard/hospitalData/hospital.table";
+import CorporatePage from "./adminDashboard/corporateData/corporate.component";
+import Role from "./adminDashboard/userManagement/role.component";
+import CreateAdmin from "./adminDashboard/userManagement/admin.component";
 
-import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component"
-import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component"
-import Hospitalbookingcomponent from "../home/Hospital Booking/hospitalbooking.component"
-import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component"
-import Corporatenavbar from "./corporatedashboard/corporatenavbar/corporatenavbar.component"
-import Corporatesidebar from "./corporatedashboard/corporatesidebar/corporatesidebar.component"
-import { Corporatedashboard } from "./corporatedashboard/corporatedashboard/corporatedashboard.component"
-import Corporateaddmember from "./corporatedashboard/addmembers/corporateaddmembers.component"
+import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component";
+import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component";
+import Hospitalbookingcomponent from "../home/Hospital Booking/hospitalbooking.component";
+import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component";
+import Corporatenavbar from "./corporatedashboard/corporatenavbar/corporatenavbar.component";
+import Corporatesidebar from "./corporatedashboard/corporatesidebar/corporatesidebar.component";
+import { Corporatedashboard } from "./corporatedashboard/corporatedashboard/corporatedashboard.component";
+import Corporateaddmember from "./corporatedashboard/addmembers/corporateaddmembers.component";
 
 import HospitalDashboard from "./hospitaldashboard/hospitalDashboard"
 import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor"
@@ -53,10 +53,13 @@ import AddFamilyMember from "./userdashboard/familyMember/addFamilyMember.compon
 import MembershipPackage from "./adminDashboard/packageData/membership.package"
 import MembershipPackageDetails from "./adminDashboard/packageData/package.details"
 import LabtestReport from "./adminDashboard/allLabtestData/labtest.report"
+import CorporateUser from "./corporatedashboard/addmembers/corporate.user"
+import CorporateTypes from "./corporatedashboard/masterData/corporate.types"
+import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.component";
 
 const Dashboard = (props) => {
-  const statusCode = localStorage.getItem("status")
-  console.log("props in dashboard is", props)
+  const statusCode = localStorage.getItem("status");
+  console.log("props in dashboard is", props);
   return (
     <>
       {
@@ -92,6 +95,8 @@ const Dashboard = (props) => {
                                     <ProtectedRoute component={Hospital_doctors}></ProtectedRoute> :
                                     props.location.pathname === "/dashboard/add-member" ?
                                     <ProtectedRoute component={AddFamilyMember}></ProtectedRoute>:
+                                    props.location.pathname === "/dashboard/medical-reports" ?
+                                    <ProtectedRoute component={MedicalReports}></ProtectedRoute>:
                                     null
               }
             </> :
@@ -206,16 +211,20 @@ const Dashboard = (props) => {
                           <ProtectedRoute component={Corporatedashboard} props={props}></ProtectedRoute> :
                           props.location.pathname == "/dashboard/corporate/add-members" ?
                           <ProtectedRoute component={Corporateaddmember} props={props}></ProtectedRoute>:
+                          props.location.pathname == "/dashboard/corporate/add-users" ?
+                          <ProtectedRoute component={CorporateUser} props={props}></ProtectedRoute>:
                           props.location.pathname == "/dashboard/corporate/viewappointment" ?
                           <ProtectedRoute component={Viewcorporateappointment} props={props}></ProtectedRoute>:
                           props.location.pathname == "/dashboard/corporate/bookappointment" ?
                           <ProtectedRoute component={Internalappointmentbook} props={props} fromcorporateappointment={true}></ProtectedRoute>:
+                          props.location.pathname == "/dashboard/add/corporate-types" ?
+                          <ProtectedRoute component={CorporateTypes} props={props}></ProtectedRoute>:
                           <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </> :
                     <Redirect to="/login" timeoutMsg="Please login again"></Redirect>
       }
     </>
-  )
-}
-export default Dashboard
+  );
+};
+export default Dashboard;

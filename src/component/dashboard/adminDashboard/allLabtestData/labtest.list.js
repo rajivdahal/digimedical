@@ -109,7 +109,7 @@ const LabTestDetail = (props) => {
                         title={title}
                         icons={Tableicons}
                         columns={[
-                            { title: 'Booking ID', field: 'labtestbookingid' },
+                            { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
                             { title: 'Patient', field: 'patientname' },
                             { title: 'Email', field: 'email' },
                             { title: 'Labtest', field: 'labtestname' },

@@ -1,71 +1,93 @@
-.image-wrapper{
-    text-align: center;
-    position: relative;
-    margin-top: 50px;
-    border-radius: 50%;
-    overflow: hidden;
-    max-height: 150px;
-    max-width: 150px;
-  }
+.photo_editprof {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.image-wrapper {
+  text-align: center;
 
-  .change-photo{
-    /* margin-top: 20px; */
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0.8;
-    width: 100%;
-    border-radius: 0;
-    color: white;
-    height: 50px;
-  }
+  margin-top: 50px;
 
-  .profile-field{
-    border-radius: 8px;
-  }
+  overflow: hidden;
+}
 
-  .submit-button{
-    background-color: '#2745F0';
-    color: "#fff";
-  }
+.change-photo {
+  /* margin-top: 20px; */
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.8;
+  width: 100%;
+  border-radius: 0;
+  color: white;
+  height: 50px;
+}
 
-  .cancel-btn{
-    background-color: white;
-    border : 2px solid #2745F0;
-    color: #2745F0;
-    border-radius: 5px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 14.51px;
-    width: 12%;
-    height: 45px;
-    text-align: center;
-  }
-  .cancel-btn:hover{
-    background-color: white;
-    border : 2px solid #2745F0;
-    color: #2745F0;
-  }
-  .change-btn{
-    background-color: #2745F0;
-    border : 2px solid #2745F0;
-    color: white;
-    border-radius: 5px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 14.51px;
-    margin-left: 8px;
-    width: 15%;
-    height: 45px;
+.profile-field {
+  border-radius: 8px;
+}
 
-  }
-  .change-btn:hover{
-    background-color: #2745F0;
-    border : 2px solid #2745F0;
-    color: white;
-  }
-  .imag-profile{
-    height: 10rem;
-  }
+.submit-button {
+  background-color: "#2745F0";
+  color: "#fff";
+}
+
+.cancel-btn {
+  background-color: white;
+  border: 2px solid #2745f0;
+  color: #2745f0;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 14.51px;
+
+  height: 45px;
+  text-align: center;
+}
+.cancel-btn:hover {
+  background-color: #2745f0;
+  border: 2px solid #2745f0;
+  color: white;
+}
+.change-btn {
+  background-color: #2745f0;
+  border: 2px solid #2745f0;
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 14.51px;
+  margin-left: 8px;
+
+  height: 45px;
+}
+.change-btn:hover {
+  background-color: #162daf;
+}
+.imag-profile {
+  height: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* //viewprofile css here */
+
+.image-profile {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about_user_viewp {
+  padding: 10px;
+  margin-top: 80px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
