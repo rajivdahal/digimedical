@@ -1,14 +1,12 @@
 .ul_docathome_feat {
   margin-top: 10px;
-
-  margin-left: 25%;
-
   height: 250px;
   color: grey;
+  margin-left: 10%;
 }
 
 .ul_docathome_feat li {
-  width: 400px;
+  width: 50%;
   float: left;
 }
 

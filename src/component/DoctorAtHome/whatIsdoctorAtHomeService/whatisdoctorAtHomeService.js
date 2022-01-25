@@ -40,35 +40,39 @@ const Details = styled.div`
 `;
 
 const WhatisdoctorAtHomeService = (props) => {
-  const heading = props.heading
-  const params = props.params
-  const description = whatIsMapper(params)
-  const details=detailsFeature(params)
-  useEffect(()=>{
-    let dom=document.getElementById("render")
-    const element = new DOMParser().parseFromString(details, 'text/html');
-    const child = element.documentElement.querySelector('body');
-    child.style.color = 'gray';
-    dom.appendChild(child)
-  },[])
+  const heading = props.heading;
+  const params = props.params;
+  const description = whatIsMapper(params);
+  const details = detailsFeature(params);
+  useEffect(() => {
+    let dom = document.getElementById("render");
+    const element = new DOMParser().parseFromString(details, "text/html");
+    const child = element.documentElement.querySelector("body");
+    child.style.color = "gray";
+    dom.appendChild(child);
+  }, []);
   return (
     <Root>
       <ContentContainor>
-        <Heading>What is {
-          heading.length ? heading.map((item) => {
-            return <span>{` ${item + '\xa0'}`}</span>
-          }) : null
-        } service?</Heading>
-        <Details>
-          {description}
+        <Heading>
+          What is{" "}
+          {heading.length
+            ? heading.map((item) => {
+                return <span>{` ${item + "\xa0"}`}</span>;
+              })
+            : null}{" "}
+          service?
+        </Heading>
+        <Details>{description}</Details>
 
-        </Details>
-
-        <Heading>{
-          heading.length ? heading.map((item) => {
-            return <span>{` ${item + '\xa0'}`}</span>
-          }) : null
-        }  Details or Features </Heading>
+        <Heading>
+          {heading.length
+            ? heading.map((item) => {
+                return <span>{` ${item + "\xa0"}`}</span>;
+              })
+            : null}{" "}
+          Details or Features{" "}
+        </Heading>
         <Details>
           <div id="render"></div>
 

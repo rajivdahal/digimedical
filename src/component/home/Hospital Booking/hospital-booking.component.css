@@ -248,6 +248,7 @@ asasdas*/
   .hospital_bookcont_from_user {
     width: 90%;
     margin: auto;
+    margin-top: 10%;
   }
 }
 
@@ -261,9 +262,10 @@ asasdas*/
   .hospital_booksearch {
     width: 200px;
   }
-  .hospital_bookcont_from_user {
+  /* .hospital_bookcont_from_user {
     margin: auto;
-  }
+    margin-top: 10%;
+  } */
   .hospital_book_card {
     justify-content: center;
   }
@@ -272,6 +274,12 @@ asasdas*/
   }
   #hosp_card_but_user {
     width: auto;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .hospital_bookcont_from_user {
+    margin-top: 20%;
   }
 }
 

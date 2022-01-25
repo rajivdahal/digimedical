@@ -8,7 +8,8 @@ import logo from "../../../assets/logo.png";
 import { useSelector,useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { loginUser } from "../../../actions/User.ac";
-// const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+import { dashboardClose, dashboardOpen } from "../../../actions/dashboard.ac";
+
 export const Dashboardnavbar = (props) => {
   console.log("store is updates in navbarr")
   let [username, setusername] = useState("");
@@ -16,9 +17,12 @@ export const Dashboardnavbar = (props) => {
     logout: false,
   });
   const user=useSelector((state)=>state.user)
-  console.log("user iss",user)
+  const sidebar=useSelector((state)=>state.sidebar)
+  console.log("sidebar isssss",sidebar)
   const dispatch=useDispatch()
   const fetchProfileImage=bindActionCreators(loginUser,dispatch)
+  const openDashboard=bindActionCreators(dashboardOpen,dispatch)
+  const closeDashboard=bindActionCreators(dashboardClose,dispatch)
   console.log("store state is",user)
   const Logout = (e) => {
     setlogoutstate({
@@ -60,16 +64,19 @@ export const Dashboardnavbar = (props) => {
         notify.error("something went wrong");
       });
   },[]);
-  setTimeout(() => {
-    console.log("user profile image is",user)
-  }, 2000);
+  const showDashboard=()=>{
+    if(sidebar.isopen){
+      return closeDashboard()
+    }
+    openDashboard()
+  }
   return (
     <>
 {
   console.log("rerendered navbar")
 }
       <div className="newdash_nav">
-        <a className="newdash_hamburger"  href="#show_new_dash">
+        <a className="newdash_hamburger" onClick={showDashboard}>
           <i class="fas fa-bars"></i>
         </a>
         <Link to="/">

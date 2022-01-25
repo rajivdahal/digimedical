@@ -12,7 +12,7 @@ import { Link, useHistory } from "react-router-dom";
 // import DatePicker from "react-modern-calendar-datepicker";
 import { Field, Formik, Form } from "formik";
 import { notify } from "../../../services/notify";
-const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 // import hospital_ico from "../../../assets/hospital_icon.png";
 export default function Hospital_doctors(props) {
   console.log("props are", props);
@@ -503,7 +503,8 @@ export default function Hospital_doctors(props) {
                 {props.location.state.mobilenumber}
               </p>
               <p>
-                <i class="fas fa-envelope"></i>&nbsp;{props.location.state.address}
+                <i class="fas fa-envelope"></i>&nbsp;
+                {props.location.state.address}
               </p>
               <p id="hosp_ph_no">
                 {props.location.state.establisheddate ? (

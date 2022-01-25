@@ -85,7 +85,7 @@ const NavbarMenuItems = () => {
           </div>
           <div class="m-menu__content">
             <nav>
-              <h3>Categories</h3>
+              <h3 id="categories_m-menu">Categories</h3>
               <div className="categories_nav_mob">
                 {!localStorage.getItem("dm-access_token") ? (
                   <Link
@@ -93,6 +93,10 @@ const NavbarMenuItems = () => {
                     to="/register"
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
+                    <span>
+                      {" "}
+                      <i class="fas fa-file-alt"></i> &nbsp;{" "}
+                    </span>
                     Register
                   </Link>
                 ) : null}
@@ -100,7 +104,11 @@ const NavbarMenuItems = () => {
                 {!localStorage.getItem("dm-access_token") ? (
                   <Link id="link_cat_nav_mob" to="/login">
                     <div>
-                      <span style={{ color: "#fff" }}>Login</span>
+                      <span>
+                        {" "}
+                        <i class="fas fa-sign-in-alt"></i> &nbsp;{" "}
+                      </span>
+                      Login
                     </div>
                   </Link>
                 ) : null}
@@ -110,6 +118,10 @@ const NavbarMenuItems = () => {
                     to="/dashboard"
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
+                    <span>
+                      {" "}
+                      <i class="fas fa-th-large"></i> &nbsp;{" "}
+                    </span>
                     Dashboard
                   </Link>
                 ) : null}
@@ -118,6 +130,11 @@ const NavbarMenuItems = () => {
                   to="/"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-home"></i> &nbsp;{" "}
+                  </span>
                   Home{" "}
                 </Link>
                 <Link
@@ -125,6 +142,10 @@ const NavbarMenuItems = () => {
                   to="/about"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
+                  <span>
+                    {" "}
+                    <i class="fas fa-address-card"></i> &nbsp;{" "}
+                  </span>
                   About
                 </Link>
                 <Link
@@ -132,6 +153,11 @@ const NavbarMenuItems = () => {
                   to="/services"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-toolbox"></i> &nbsp;{" "}
+                  </span>
                   Services
                 </Link>
                 <Link
@@ -139,6 +165,11 @@ const NavbarMenuItems = () => {
                   to="/lab-test"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-file-medical"></i> &nbsp;{" "}
+                  </span>
                   Lab Test
                 </Link>
                 <Link
@@ -146,6 +177,11 @@ const NavbarMenuItems = () => {
                   to="/contact"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-address-book"></i> &nbsp;{" "}
+                  </span>
                   Contact
                 </Link>
 
@@ -154,6 +190,11 @@ const NavbarMenuItems = () => {
                   to="/digimedical_doctors"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-user-md"></i> &nbsp;{" "}
+                  </span>
                   Digimedical Doctors
                 </Link>
 
