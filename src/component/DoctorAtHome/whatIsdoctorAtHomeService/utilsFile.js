@@ -62,15 +62,15 @@ export function detailsFeature(params) {
             <li>Dentist</li>
             <li>Psychiatrists</li>
             <li>Dentist</li>
-<li>Dermatologist</li>
-<li>Ophthalmologist</li>
-<li>ENT (Otorhinolaryngologist</li>
-<li>Orthopedic </li>
-<li>Radiologist</li>
-<li>Rheumatologist</li>
-<li>Gastroenterologist</li>
-<li>Haematologist</li>
-<li>General medicine </li>
+            <li>Dermatologist</li>
+            <li>Ophthalmologist</li>
+            <li>ENT (Otorhinolaryngologist</li>
+            <li>Orthopedic </li>
+            <li>Radiologist</li>
+            <li>Rheumatologist</li>
+            <li>Gastroenterologist</li>
+            <li>Haematologist</li>
+            <li>General medicine </li>
 
     </ul>
             `;
