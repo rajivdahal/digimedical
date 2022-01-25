@@ -10,13 +10,13 @@ const BookedLabtest=(props)=>{
 
     const[bookedLabtest,setBookedLabtest] = useState([])
     const [loading, setLoading] = useState(false)
+
     const getBookedLabtest=async(status)=>{
 
         setLoading(false);
 
         await httpClient.GET("lab-booking/get-all/" + status, false, true)
         .then(resp => {
-            console.log(resp)
             let bookedLabtest = resp.data.data;
             bookedLabtest.forEach((item) => {
                 if(item.date){
@@ -25,12 +25,10 @@ const BookedLabtest=(props)=>{
                 item.priceString = "Rs." + item.price;
 
             })
-            console.log(bookedLabtest)
             setBookedLabtest(bookedLabtest)
             setLoading(false)
         })
         .catch(err => {
-            console.log(err)
             setLoading(false)
         })
     }

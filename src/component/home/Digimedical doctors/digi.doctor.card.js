@@ -1,12 +1,15 @@
+import Select from "react-select";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import { validateAppointment } from "./appointment.helper";
+import { http, httpClient } from "../../../utils/httpClient";
+import { notify } from "../../../services/notify";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const DigiMedicalDoctorCard = (props) => {
-
+    const [doctorServices, setDoctorService] = useState([]);
     const [appointmentData, setData] = useState({
         firstName: "",
         lastName: "",
@@ -15,18 +18,71 @@ const DigiMedicalDoctorCard = (props) => {
         appointmentTime: "",
         appointmentDate: "",
         mblNumber: "",
-        serviceId: "",
+        serviceID: "",
+        selectedServices: [],
     })
 
     const [showForm, setForm] = useState(false);
 
     useEffect(() => {
-        console.log(props)
-    })
+        if (props.services.length > 0) {
+            let serviceid = props.doctorServices.split(",");
+            console.log(serviceid);
+            console.log(props.services)
+
+            let savedServices = [];
+
+            props.services.forEach((service) => {
+                let found = serviceid.filter((item) => {
+                    return item.toString() === service.id.toString();
+                });
+                if (found.length > 0) {
+                    savedServices.push({
+                        label: service.servicename,
+                        value: service.id,
+                    });
+                }
+            });
+            console.log(savedServices)
+            setDoctorService(savedServices)
+        }
+
+    }, [props.services])
 
     const bookAppointment = () => {
         let tempForm = showForm === true ? false : true
         setForm(tempForm);
+    }
+
+    const submitAppointment = async (values) => {
+        let id = values.selectedServices.value;
+
+        let data = {
+            firstName: values.firstName,
+            middleName: values.middleName,
+            lastName: values.lastName,
+            email: values.email,
+            mobileNumber: values.mblNumber,
+            appointmentDate: values.appointmentDate,
+            appointmentTime: values.appointmentTime,
+            servicesId : id,
+            doctorId: props.doctorId
+
+        }
+        console.log(data)
+        try {
+            let resp = await httpClient.POST("create-external-user",data,false,false);
+            console.log(resp)
+            if(resp.data.status){
+                notify.success(resp.data.message);
+                setForm(false)
+            }
+
+        } catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+            }
+        }
     }
 
     const formik = useFormik({
@@ -34,14 +90,21 @@ const DigiMedicalDoctorCard = (props) => {
         initialValues: appointmentData,
         onSubmit: async (values) => {
             console.log(values)
+            submitAppointment(values)
         },
         validate: (values) => {
             return validateAppointment(values);
         },
     });
 
+    const handleServiceChange = (item) => {
+        console.log(item);
+        formik.setFieldValue("selectedServices", item);
+    };
+
     return (
-        <div className="digidoctor_apoint_card">
+        <>
+            {/* <div className="digidoctor_apoint_card"> */}
 
             <div className="digidoctor_apoint_card1">
                 <div className="digidoc_card_img">
@@ -71,6 +134,8 @@ const DigiMedicalDoctorCard = (props) => {
                     <button id="digidoctor_card_but" onClick={bookAppointment}>Book an appointment</button>
                 </div>
             </div>
+            {/* </div> */}
+
 
             {showForm === true ?
                 <form onSubmit={formik.handleSubmit}>
@@ -98,7 +163,7 @@ const DigiMedicalDoctorCard = (props) => {
                                     id="middleName"
                                     onChange={formik.handleChange}
                                 />
-                            
+
                             </div>
                             <div class="digidoc_appoin_form1">
                                 <p>Last Name</p>
@@ -167,16 +232,12 @@ const DigiMedicalDoctorCard = (props) => {
                             </div>
                             <div class="digidoc_appoin_form1">
                                 <p>Select Service Type</p>
-                                <select name="cars" id="cars">
-                                    <optgroup label="Swedish Cars">
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                    </optgroup>
-                                    <optgroup label="German Cars">
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
-                                    </optgroup>
-                                </select>
+                                <Select
+                                    value={formik.values.selectedServices}
+                                    options={doctorServices}
+                                    name="serviceID"
+                                    onChange={handleServiceChange}
+                                ></Select>
                             </div>
                             <div class="digidoc_appoin_form1">
                                 <button type="submit" className="submit-buttons">
@@ -189,7 +250,8 @@ const DigiMedicalDoctorCard = (props) => {
                 :
                 <></>
             }
-        </div>
+
+        </>
     )
 }
 

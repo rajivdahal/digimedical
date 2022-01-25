@@ -27,12 +27,13 @@ const CorporateTypes = (props) => {
         httpClient.GET("corporate-types/get-all", false, true)
             .then(resp => {
                 if (resp.data.status) {
-                    console.log(resp.data.data)
                     setTypes(resp.data.data);
                 }
             })
             .catch(err => {
-                console.log(err.response)
+                if (err && err.response && err.response.data) {
+                    notify.error(err.response.data.message || "Something went wrong");
+                }
             })
     }
 

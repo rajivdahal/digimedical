@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import DoctorDetailComponent from "./doctorComponent/doctor.component.js";
 import { httpClient } from "../../../utils/httpClient"
 import "./doctors_home.component.css"
+import { notify } from "../../../services/notify.js";
 
 export default function Doctorshome(props) {
 
@@ -11,18 +12,19 @@ export default function Doctorshome(props) {
   const getAllDoctors = async () => {
     try {
       let resp = await httpClient.GET("doctor/digi/get-four");
-      console.log(resp)
       if (resp.data.status) {
         let data = resp.data.data;
-        
-        data.forEach((item)=>{
-          item.doctordescription = item.doctordescription.substring(0,35)+"...";
+
+        data.forEach((item) => {
+          item.doctordescription = item.doctordescription.substring(0, 35) + "...";
         })
         setAllDoctors(data)
-        console.log(data)
-      }
+      } 
+
     } catch (err) {
-      console.log(err)
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
     }
 
   }
@@ -36,13 +38,16 @@ export default function Doctorshome(props) {
       <div className="hosp_hom_head">
         <h1>Our Doctors</h1>
       </div>
-    
+
+      <div className="hospital_book_card">
+
       {allDoctors.map((item, index) => {
         return <>
-          <DoctorDetailComponent key={index} {...props} name={item.doctorname} prefix={item.prefix} 
-          specialist={item.specialist} desc={item.doctordescription} doctorId={item.doctorid}/>
+          <DoctorDetailComponent key={index} {...props} name={item.doctorname} prefix={item.prefix}
+            specialist={item.specialist} desc={item.doctordescription} doctorId={item.doctorid} />
         </>
       })}
+      </div>
 
       <Link to="/digimedical_doctors" className="link_hosp_home">
         <div className="view_hosp_home">

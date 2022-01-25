@@ -14,7 +14,6 @@ const DoctorDetailComponent = (props) => {
 
   }
   return (
-      <div className="hospital_book_card">
         <div className="hospital_book_card1">
           {" "}
           <div className="digidoc_card_img">
@@ -46,7 +45,6 @@ const DoctorDetailComponent = (props) => {
           </div>
 
         </div>
-      </div>
 
   );
 };
