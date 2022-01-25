@@ -139,6 +139,27 @@ const Adminsidebar = (props) => {
           </li>
 
           <li className="nav-item">
+            <a className="nav-link" data-toggle="collapse" href="#package" aria-expanded="false" aria-controls="package">
+              <CorporateFareOutlinedIcon className="dash-icon"></CorporateFareOutlinedIcon>
+              <span className="menu-title">Packages</span>
+              <i className="menu-arrow"></i>
+            </a>
+            <div className="collapse" id="package">
+              <ul className="nav flex-column sub-menu">
+              <Link to="/dashboard/package-description">
+                <li className="nav-item"><a className="nav-link" href="">Package Description</a></li>
+                </Link>
+              <Link to="/dashboard/membership-package">
+                <li className="nav-item"><a className="nav-link" href="">Package Offer</a></li>
+                </Link>
+                <Link to="/dashboard/package-details">
+                <li className="nav-item"><a className="nav-link" href="">Package Details</a></li>
+                </Link>
+              </ul>
+            </div>
+          </li>
+
+          <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#masterdata" aria-expanded="false" aria-controls="masterdata">
               {/* <i className="icon-columns menu-icon"></i> */}
               <WysiwygRoundedIcon className="dash-icon"></WysiwygRoundedIcon>
@@ -159,12 +180,7 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/add-institute">
                   <li className="nav-item"><a className="nav-link" href="">Lab Centers</a></li>
                 </Link>
-                <Link to="/dashboard/membership-package">
-                <li className="nav-item"><a className="nav-link" href="">Add Package</a></li>
-                </Link>
-                <Link to="/dashboard/package-details">
-                <li className="nav-item"><a className="nav-link" href="">Add Package Details</a></li>
-                </Link>
+                
                 <Link to="/dashboard/body-checkup">
                 <li className="nav-item"><a className="nav-link" href="">Add Body Checkup</a></li>
                 </Link>

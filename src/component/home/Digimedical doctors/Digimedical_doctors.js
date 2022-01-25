@@ -8,35 +8,66 @@ import Pagination from "../../common/pagination/pagination.component";
 import DigiMedicalDoctorCard from "./digi.doctor.card";
 import { httpClient } from "../../../utils/httpClient"
 import { useEffect, useState } from "react";
+import { notify } from "../../../services/notify";
 
 function Digimedical_doctors(props) {
 
   const [allDigiDoctors, setAllDigiDoctors] = useState([]);
+  const [allService, setServices] = useState([]);
+
   const getAllDigiDoctors = async () => {
-    let id= props.location.state.doctorID;
-    console.log(props)
+    let id = "";
+    if (props.location && props.location.state && props.location.state.doctorID) {
+      id = props.location.state.doctorID;
+    }
     try {
-      let resp = await httpClient.GET("doctor/digi/get-all");
+      let resp = await httpClient.GET("doctor/digi/get-four");
+      console.log(resp)
       if (resp.data.status) {
         let data = resp.data.data;
-        let selectedDoctor = data.find((doctor,index)=>{
-          return doctor.doctorid == id
-        })
-        console.log(selectedDoctor)
+        if (id) {
+          let selectedDoctor = data.find((doctor, index) => {
+            return doctor.doctorid == id
+          })
 
-        let filteredDr = data.filter((doctor,index)=>{
-          return doctor.doctorid != id
-        })
-        console.log(filteredDr)
-        filteredDr.unshift(selectedDoctor);
-        setAllDigiDoctors(filteredDr)
+          let filteredDr = data.filter((doctor, index) => {
+            return doctor.doctorid != id
+          })
+          filteredDr.unshift(selectedDoctor);
+          setAllDigiDoctors(filteredDr)
+        } else {
+          setAllDigiDoctors(data)
+        }
+
       }
     } catch (err) {
-      console.log(err)
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
     }
   }
+
+    const getServices = async () => {
+      try{
+        await httpClient
+          .GET("services/get/true", false, false)
+          .then((resp) => {
+            console.log(resp);
+            if (resp.data && resp.data.status && resp.data.data) {
+              let data = resp.data.data;
+              setServices(data);
+
+            }
+          })
+        }catch(err){
+          console.log("inside catch block");
+          return [];
+        }
+      };
+
   useEffect(() => {
     getAllDigiDoctors();
+    getServices();
   }, [])
 setTimeout(() => {
   console.log("all digimedical doctors are",allDigiDoctors)
@@ -67,8 +98,16 @@ setTimeout(() => {
 
 
           <div className="doc_appoint_main">
-                <DigiMedicalDoctorCard allDigiDoctors={allDigiDoctors}/>
+            <div className="digidoctor_apoint_card">
 
+              {allDigiDoctors.map((item, index) => {
+                return <>
+                  <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix} services={allService}
+                    specialist={item.specialist} desc={item.doctordescription}
+                    doctorId={item.doctorid} doctorServices={item.allServicesId}/>
+                </>
+              })}
+            </div>
           </div>
 
           <div className="digidoctor_whychooseus">
@@ -106,9 +145,9 @@ setTimeout(() => {
           </div>
         </div>
         <Pagination></Pagination>
-        </div>
       </div>
-      );
+    </div>
+  );
 }
 
-      export default Digimedical_doctors;
+export default Digimedical_doctors;

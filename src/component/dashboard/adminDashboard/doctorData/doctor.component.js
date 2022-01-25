@@ -73,18 +73,15 @@ const Createdoctor = (props) => {
     let allServices = await httpClient
       .GET("services/true", false, true)
       .then((resp) => {
-        console.log(resp);
         if (resp.data.status) {
           let data = resp.data.data;
           return data;
         }
       })
       .catch((err) => {
-        console.log("inside catch block");
         return [];
       });
 
-    console.log(allServices);
     let options = allServices.map((service, index) => {
       return {
         label: service.serviceName,
