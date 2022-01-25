@@ -24,6 +24,9 @@ export default function Usersidebar(props) {
   const loadMedicalReport = () => {
     props.props.push("/dashboard/medical-reports");
   };
+  const loadBodyCheckup=()=>{
+    props.props.push("/dashboard/body-checkup");
+  }
   return (
     <div>
       <div className="newdash_body">
@@ -143,6 +146,12 @@ export default function Usersidebar(props) {
                   </p>
                 </div>
               </div>
+            </div>
+            <div
+              className="newdash_dash1_dashboard"
+              onClick={loadBodyCheckup}
+              style={{ cursor: "pointer" }}
+            >
             </div>
           </div>
         </div>

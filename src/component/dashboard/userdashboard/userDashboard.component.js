@@ -145,7 +145,6 @@ const Userdashboard = (props) => {
                     <div className="card-body">
                       <p className="mb-4">Total Pending Appointments</p>
                       <p className="fs-30 mb-2">{pendingappointment}</p>
-                      {/* <p>22.00% (30 days)</p> */}
                     </div>
                   </div>
                 </div>
