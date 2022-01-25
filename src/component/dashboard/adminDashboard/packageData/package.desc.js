@@ -9,56 +9,31 @@ import { notify } from "../../../../services/notify";
 import PackageApi from "./package.service";
 import { validatePackage } from "./package.helper";
 import { Edit, Clear } from "@material-ui/icons";
-import "./package.css";
+import "./package.css"
 
-const MembershipPackageDetails = (props) => {
+const PackageDescription = (props) => {
 
     const [loading, setLoading] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const [allPackages, setAllPackages] = useState([]);
-    const [packageDetail, setPackageDetail] = useState([]);
     const [detailID, setDetailID] = useState("");
+    const [packageStatus,setPackageStatus] = useState("");
+    const [showModal, setShowModal] = useState(false);
     const [packageData, setPackageData] = useState({
-
-        packageId: "",
-        selectedPackage: [],
-        details: "",
-        allDetails: [],
+        name: "",
+        description: "",
+        purpose: "",
+        allPurpose: [],
     })
-
-
-    const getPackages = async () => {
-        setLoading(true);
-        try {
-            let resp = await PackageApi.getAllPackage();
-            if (resp.data.status) {
-                let truePackage = resp.data.data;
-                let option = truePackage.map((item, index) => {
-                    return {
-                        label: item.name,
-                        value: item.id,
-                    }
-                })
-                setAllPackages(option)
-
-            }
-        }
-        catch (err) {
-            if (err && err.response && err.response.data) {
-                notify.error(err.response.data.message || "Something went wrong");
-            }
-        }
-        setLoading(false)
-    }
 
     const getPackageDetails = async () => {
         setLoading(true);
         try {
-            let resp = await PackageApi.getPackageDetails();
+            let resp = await PackageApi.getPackageDesc();
             if (resp.data.status) {
                 let data = resp.data.data;
                 console.log(data)
-                setPackageDetail(data)
+                setAllPackages(data)
             }
         }
         catch (err) {
@@ -70,19 +45,18 @@ const MembershipPackageDetails = (props) => {
     }
 
     useEffect(() => {
-        getPackages();
         getPackageDetails();
     }, [])
 
     const createPackageDetails = async (values) => {
         setLoading(true);
         try {
-            let resp = await PackageApi.createPackageDetail(values);
+            let resp = await PackageApi.createPackageDesc(values);
             if (resp.data.status) {
                 notify.success(resp.data.message)
                 formik.resetForm();
                 getPackageDetails();
-                formik.setFieldValue("allDetails", [])
+                formik.setFieldValue("allPurpose", [])
             }
 
         } catch (err) {
@@ -90,6 +64,7 @@ const MembershipPackageDetails = (props) => {
                 notify.error(err.response.data.message || "Something went wrong");
             }
         }
+        setLoading(false)
     }
 
     const formik = useFormik({
@@ -110,28 +85,22 @@ const MembershipPackageDetails = (props) => {
 
     const handleAddDetails = (values) => {
 
-        if (!values.details) return;
-        let tempArr = values.allDetails;
-        tempArr.push(values.details);
-        formik.setFieldValue('allDetails', tempArr)
-        formik.setFieldValue('details', "")
-    }
-
-    const handlePackageChange = (item) => {
-        formik.setFieldValue('selectedPackage', item)
+        if (!values.purpose) return;
+        let tempArr = values.allPurpose;
+        tempArr.push(values.purpose);
+        formik.setFieldValue('allPurpose', tempArr)
+        formik.setFieldValue('purpose', "")
     }
 
     const editPackageDetail = (e, data) => {
         console.log(data);
         setDetailID(data.id)
         if (data) {
-            let packageData = {
-                label: data.name,
-                value: data.membershippackageid
-            }
+
             setPackageData({
-                selectedPackage: packageData,
-                details: data.points
+                name: data.name,
+                description: data.description,
+                purpose: data.purpose
 
             })
             window.scrollTo(0, 0)
@@ -141,15 +110,15 @@ const MembershipPackageDetails = (props) => {
     const handleEditDetails = async (values) => {
         setLoading(true);
         try {
-            let resp = await PackageApi.editPackageDetails(values, detailID);
+            let resp = await PackageApi.editPackageDesc(values, detailID);
             if (resp.data.status) {
                 notify.success(resp.data.message);
                 setDetailID(null);
                 setPackageData({
-                    packageId: "",
-                    selectedPackage: [],
-                    details: "",
-                    allDetails: [],
+                    name: "",
+                    description: "",
+                    purpose: "",
+                    allPurpose: [],
                 })
                 getPackageDetails();
             }
@@ -159,25 +128,50 @@ const MembershipPackageDetails = (props) => {
                 notify.error(err.response.data.message || "Something went wrong");
             }
         }
+        setLoading(false)
     }
 
 
     const handleCancelEdit = () => {
         setDetailID(null);
         setPackageData({
-            packageId: "",
-            selectedPackage: [],
-            details: "",
-            allDetails: [],
+            name: "",
+            description: "",
+            purpose: "",
+            allPurpose: [],
         })
     }
 
     const removeDetail = (index) => {
         console.log(index)
-        let tempArr = [...formik.values.allDetails];
+        let tempArr = [...formik.values.allPurpose];
         console.log(tempArr)
-        tempArr.splice(index,1);
-        formik.setFieldValue('allDetails',tempArr)
+        tempArr.splice(index, 1);
+        formik.setFieldValue('allPurpose', tempArr)
+    }
+
+    const handleClose = () => setShowModal(false)
+    const disablePackage = (e,data) => {
+        setShowModal(true);
+        setPackageStatus(data.status)
+        setDetailID(data.id)
+    }
+
+    const changePackageStatus=async()=>{
+        setLoading(true)
+        try {
+            let resp = await PackageApi.packageStatus(detailID, packageStatus);
+            if (resp.data.status) {
+                notify.success(resp.data.message)
+                getPackageDetails();
+            }
+        } catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+            }
+        }
+        setLoading(false)
+        handleClose();
     }
 
     return (
@@ -188,23 +182,36 @@ const MembershipPackageDetails = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Package Name</Form.Label>
-                                <Select
-                                    value={formik.values.selectedPackage}
-                                    options={allPackages}
-                                    name="packageId"
-                                    onChange={handlePackageChange}
-                                >
-                                </Select>
+                                <Form.Control type="text" name="name" onChange={formik.handleChange}
+                                    value={formik.values.name} onBlur={formik.handleBlur} />
+                                {formik.touched.name && formik.errors.name ?
+                                    <div className="error-message">{formik.errors.name}</div>
+                                    : null}
                             </Form.Group>
                         </Col>
 
+                        <Col md={8}>
+                            <Form.Group>
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control type="text" name="description" onChange={formik.handleChange}
+                                    value={formik.values.description} onBlur={formik.handleBlur} />
+                                {formik.touched.description && formik.errors.description ?
+                                    <div className="error-message">{formik.errors.description}</div>
+                                    : null}
+                            </Form.Group>
+                        </Col>
+
+                    </Row>
+
+
+                    <Row>
                         <Col md={6}>
                             <Form.Group >
-                                <Form.Label>Details : </Form.Label>
-                                <Form.Control type="text" name="details" onChange={formik.handleChange}
-                                    value={formik.values.details} onBlur={formik.handleBlur} />
-                                {formik.touched.details && formik.errors.details ?
-                                    <div className="error-message">{formik.errors.details}</div>
+                                <Form.Label>Purpose : </Form.Label>
+                                <Form.Control type="text" name="purpose" onChange={formik.handleChange}
+                                    value={formik.values.purpose} onBlur={formik.handleBlur} />
+                                {formik.touched.purpose && formik.errors.purpose ?
+                                    <div className="error-message">{formik.errors.purpose}</div>
                                     : null}
                             </Form.Group>
                         </Col>
@@ -216,20 +223,17 @@ const MembershipPackageDetails = (props) => {
                             :
                             <></>
                         }
-
                     </Row>
-
                     <Row>
-                        <Col md={4}></Col>
-                        <Col md={8}>
-                            {formik.values && formik.values.allDetails ?
+                        <Col md={6}>
+                            {formik.values && formik.values.allPurpose ?
                                 <ul>
-                                    {formik.values && formik.values.allDetails.map((item,index) => {
+                                    {formik.values && formik.values.allPurpose.map((item, index) => {
                                         return <div className='clearfix'>
                                             <li>
                                                 <span className='flaotLeft'>{item}</span>
-                                                <span style={{ color: "red" }} className="removeBtn remove-button" 
-                                                onClick={()=>removeDetail(index)}>x</span>
+                                                <span style={{ color: "red" }} className="removeBtn remove-button"
+                                                    onClick={() => removeDetail(index)}>x</span>
                                             </li>
                                         </div>
                                     })}
@@ -240,6 +244,8 @@ const MembershipPackageDetails = (props) => {
 
                         </Col>
                     </Row>
+
+
 
                     <div className="mb-5" >
                         {detailID ?
@@ -276,14 +282,24 @@ const MembershipPackageDetails = (props) => {
 
                 <MaterialTable
                     columns={[
-                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
+                        { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
                         { title: "Name", field: "name" },
-                        { title: "Points", field: "points" },
+                        { title: "Description", field: "description" },
+                        {
+                            title: "Status",
+                            field: "status",
+                            render: (rowData) =>
+                                rowData.status.toString() === true.toString() ? (
+                                    <span style={{ color: "#18af69" }}>Active</span>
+                                ) : (
+                                    <span style={{ color: "red" }}>inActive</span>
+                                ),
+                        },
                     ]}
-                    data={packageDetail}
-                    title="Pacakges Details"
+                    data={allPackages}
+                    title="Pacakges Description"
                     icons={Tableicons}
-
+                    loading={loading}
                     options={{
                         actionsColumnIndex: -1,
                         pageSize: 10,
@@ -303,15 +319,40 @@ const MembershipPackageDetails = (props) => {
                                 editPackageDetail(e, rowData);
                             },
                         },
+                        {
+                            icon: Clear,
+                            tooltip: "Change Status",
+                            onClick: (e, rowData) => {
+                                disablePackage(e, rowData);
+                            },
+                        },
 
                     ]}
                 />
 
+                <Modal show={showModal} onHide={handleClose}>
+                    <Modal.Header>
+                        <Modal.Title>
+                            <b>Doctor Status</b>
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Do you really want to change this doctor status ?
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="danger" onClick={handleClose}>
+                            Close
+                        </Button>
+                        <Button variant="info" onClick={changePackageStatus}>
+                            Change Status
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </Container>
 
 
-        </div>
+        </div >
     )
 }
 
-export default MembershipPackageDetails
+export default PackageDescription

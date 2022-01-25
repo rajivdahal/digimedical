@@ -41,7 +41,7 @@ const validateAppointment = (values) => {
         errors.email = "Invalid email format!"
     }
 
-    console.log(errors);
+    // console.log(errors);
     return errors;
 }
 

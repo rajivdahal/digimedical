@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import Select from 'react-select'
 import { useState, useEffect } from "react";
 import { Container, Form, Row, Col, Button,Modal } from "react-bootstrap";
 import Cliploader from "../../../../utils/clipLoader";
@@ -13,17 +14,45 @@ const MembershipPackage = (props) => {
 
     const [loading, setLoading] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
+    const [packages, setPackages] = useState([]);
     const [allPackages, setAllPackages] = useState([]);
     const [packageID, setPackageID] = useState("");
     const [packageStatus,setPackageStatus] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [packageData, setPackageData] = useState({
+
+        packageId: "",
+        selectedPackage: [],
         packageName: "",
         price: "",
         launchingOffer: "",
         labDiscount: "",
 
     })
+
+    const getAllPackages = async () => {
+        setLoading(true);
+        try {
+            let resp = await PackageApi.getAllPackage();
+            if (resp.data.status) {
+                let truePackage = resp.data.data;
+                let option = truePackage.map((item, index) => {
+                    return {
+                        label: item.name,
+                        value: item.id,
+                    }
+                })
+                setPackages(option)
+
+            }
+        }
+        catch (err) {
+            if (err && err.response && err.response.data) {
+                notify.error(err.response.data.message || "Something went wrong");
+            }
+        }
+        setLoading(false)
+    }
 
     const getPackages = async () => {
         setLoading(true);
@@ -43,6 +72,7 @@ const MembershipPackage = (props) => {
 
     useEffect(() => {
         getPackages();
+        getAllPackages()
     }, [])
 
     const formik = useFormik({
@@ -157,14 +187,32 @@ const MembershipPackage = (props) => {
         setPackageData(null)
     }
 
+    const handlePackageChange = (item) => {
+        formik.setFieldValue('selectedPackage', item)
+    }
+
     return (
         <div>
             <Container>
                 <Form onSubmit={formik.handleSubmit}>
                     <Row className="mb-3">
-                        <Col md={6}>
+
+                    <Col md={4}>
                             <Form.Group>
-                                <Form.Label>Package Name :</Form.Label>
+                                <Form.Label>Package Name</Form.Label>
+                                <Select
+                                    value={formik.values.selectedPackage}
+                                    options={packages}
+                                    name="packageId"
+                                    onChange={handlePackageChange}
+                                >
+                                </Select>
+                            </Form.Group>
+                        </Col>
+
+                        <Col md={4}>
+                            <Form.Group>
+                                <Form.Label>Sub Package Name :</Form.Label>
                                 <Form.Control type="text" name="packageName" onChange={formik.handleChange}
                                     value={formik.values.packageName} onBlur={formik.handleBlur} />
                                 {formik.errors.packageName && formik.touched.packageName ?
@@ -173,14 +221,14 @@ const MembershipPackage = (props) => {
                             </Form.Group>
                         </Col>
 
-                        <Col md={6}>
+                        <Col md={4}>
                             <Form.Group >
                                 <Form.Label>Actual Price :</Form.Label>
                                 <Form.Control type="text" name="price" onChange={formik.handleChange}
                                     value={formik.values.price} onBlur={formik.handleBlur} />
-                                {formik.touched.price && formik.errors.price ?
+                                {/* {formik.touched.price && formik.errors.price ?
                                     <div className="error-message">{formik.errors.price}</div>
-                                    : null}
+                                    : null} */}
                             </Form.Group>
                         </Col>
                     </Row>

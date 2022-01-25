@@ -57,6 +57,8 @@ import CorporateUser from "./corporatedashboard/addmembers/corporate.user"
 import BodyCheckup from "./adminDashboard/bodyCheckup/bodyCheckup";
 import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.component";
 import CorporateTypes from "./adminDashboard/corporateData/corporate.type";
+import BodyCheckUp from "./userdashboard/commonupcomingappointment/bodyCheckup/bodyCheckUp.component";
+import PackageDescription from "./adminDashboard/packageData/package.desc";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -98,6 +100,8 @@ const Dashboard = (props) => {
                                       <ProtectedRoute component={AddFamilyMember}></ProtectedRoute> :
                                       props.location.pathname === "/dashboard/medical-reports" ?
                                         <ProtectedRoute component={MedicalReports}></ProtectedRoute> :
+                                        props.location.pathname === "/dashboard/body-checkup" ?
+                                        <ProtectedRoute component={BodyCheckUp}></ProtectedRoute> :
                                         null
               }
             </> :
@@ -151,6 +155,8 @@ const Dashboard = (props) => {
                                                         <ProtectedRoute component={MembershipPackage} />
                                                         : props.location.pathname === "/dashboard/package-details" ?
                                                           <ProtectedRoute component={MembershipPackageDetails} />
+                                                          : props.location.pathname === "/dashboard/package-description" ?
+                                                          <ProtectedRoute component={PackageDescription} />
                                                           : props.location.pathname === "/dashboard/labtest-report" ?
                                                             <ProtectedRoute component={LabtestReport} />
                                                             : props.location.pathname === "/dashboard/body-checkup" ?

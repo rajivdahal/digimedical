@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
 import { useHistory, useLocation } from "react-router-dom";
-
 import Hospitaltopheader from "./hospitalheader.component";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -54,15 +53,11 @@ export default function Hospitalbookingcomponent(props) {
   return (
     <div
       className={
-        location ? "hospital_main_cont newdash_content" : "hospital_main_cont"
+        location.pathname=="/dashboard/hospitals" ? "hospital_main_cont newdash_content" : "hospital_main_cont"
       }
     >
       <div className="hospital_booking">
-        {location ? (
-          (location.pathname = "/dashboard/hospitals" ? null : null)
-        ) : (
-          <Hospitaltopheader></Hospitaltopheader>
-        )}
+      <Hospitaltopheader></Hospitaltopheader>
         <div
           className={
             location ? "hospital_bookcont_from_user" : "hospital_bookcont"

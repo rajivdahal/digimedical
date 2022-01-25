@@ -342,17 +342,6 @@ export default function Internalappointmentbook(prop) {
             onChange={(value) => handleeditchange(value, "appointmentdate")}
             minimumDate={minDate}
           ></DatePicker>
-          {/* <input
-                        type="date"
-                        className="form-control"
-                        id="appointmentdate"
-                        name="appointmentdate"
-                        placeholder="dd/mm/yyyy"
-                        min={Todaydate()}
-                        onChange={(e) => {
-                            handleeditchange(e)
-                        }}
-                    /> */}
           <h4>{formatDate(toeditdata.appointmentdate)}</h4>
         </div>
         <div className="form-group col-md-6">

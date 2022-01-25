@@ -137,3 +137,24 @@
     width: 50%;
   }
 }
+
+.medical-report-button{
+  margin-top: 2rem;
+  border-top: 1px solid #c4c3c3;
+  padding-top: 2rem;
+}
+.err-message{
+  color: red;
+  position: relative;
+  top: -15%;
+  left: 35%;
+}
+.select-category{
+  width: 335px;
+}
+.err-message-bottom{
+  color: red;
+position: relative;
+top: -5%;
+left: 35%;
+}
