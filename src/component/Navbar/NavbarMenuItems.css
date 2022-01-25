@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  z-index: 1000;
 }
 
 .logcontainer_nav {
@@ -108,8 +109,9 @@ p {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 5;
+    z-index: 1000;
     width: 100%;
+
   }
   .logcontainer_nav .m-menu {
     display: block;

@@ -142,7 +142,7 @@ export default function Usersidebar(props) {
                     <span id="newdash_bar_ico">
                       <i class="fas fa-file-alt"></i>
                     </span>{" "}
-                    Medical Reports
+                    Update Medical Info
                   </p>
                 </div>
               </div>
