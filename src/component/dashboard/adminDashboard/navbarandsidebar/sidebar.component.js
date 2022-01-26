@@ -20,12 +20,12 @@ const Adminsidebar = (props) => {
         <p className="centered mt-3"><a href="profile.html">
         </a></p>
         <ul className="nav">
-          <li className="nav-item" onClick={navigatedashboard} style={{cursor:"pointer"}}>
+          {/* <li className="nav-item" onClick={navigatedashboard} style={{cursor:"pointer"}}>
             <a className="nav-link" >
               <DashboardIcon className="dash-icon"></DashboardIcon>
               <span className="menu-title">Dashboard</span>
             </a>
-          </li>
+          </li> */}
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
               <AssignmentIndOutlinedIcon className="dash-icon "></AssignmentIndOutlinedIcon>
@@ -131,7 +131,30 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/corporate">
                 <li className="nav-item"><a className="nav-link" href="">Add Corporate</a></li>
                 </Link>
-              
+                <Link to="/dashboard/add/corporate-types">
+                  <li className="nav-item"> <a className="nav-link" href="">Add Corporate Types</a></li>
+                </Link>
+              </ul>
+            </div>
+          </li>
+
+          <li className="nav-item">
+            <a className="nav-link" data-toggle="collapse" href="#package" aria-expanded="false" aria-controls="package">
+              <CorporateFareOutlinedIcon className="dash-icon"></CorporateFareOutlinedIcon>
+              <span className="menu-title">Packages</span>
+              <i className="menu-arrow"></i>
+            </a>
+            <div className="collapse" id="package">
+              <ul className="nav flex-column sub-menu">
+              <Link to="/dashboard/package-description">
+                <li className="nav-item"><a className="nav-link" href="">Package Description</a></li>
+                </Link>
+              <Link to="/dashboard/membership-package">
+                <li className="nav-item"><a className="nav-link" href="">Package Offer</a></li>
+                </Link>
+                <Link to="/dashboard/package-details">
+                <li className="nav-item"><a className="nav-link" href="">Package Details</a></li>
+                </Link>
               </ul>
             </div>
           </li>
@@ -157,11 +180,9 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/add-institute">
                   <li className="nav-item"><a className="nav-link" href="">Lab Centers</a></li>
                 </Link>
-                <Link to="/dashboard/membership-package">
-                <li className="nav-item"><a className="nav-link" href="">Add Package</a></li>
-                </Link>
-                <Link to="/dashboard/package-details">
-                <li className="nav-item"><a className="nav-link" href="">Add Package Details</a></li>
+                
+                <Link to="/dashboard/body-checkup">
+                <li className="nav-item"><a className="nav-link" href="">Add Body Checkup</a></li>
                 </Link>
               </ul>
             </div>

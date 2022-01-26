@@ -117,7 +117,7 @@
 }
 /* a Sidebar css here
 a
-a 
+a
 b
 c
 d
@@ -229,7 +229,7 @@ d
   .newdash_hamburger {
     display: block;
     margin-top: 5px;
-    margin-left: 10px;
+    margin-left: 100px;
   }
 
   .newdash_dash_main {

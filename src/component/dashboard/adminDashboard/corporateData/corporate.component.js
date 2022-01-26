@@ -1,3 +1,4 @@
+import Select from 'react-select'
 import { useState, useEffect } from "react"
 import { Form, Button, Container, Row, Col, Modal, Nav, Image } from "react-bootstrap";
 import { notify } from "../../../../services/notify";
@@ -5,7 +6,7 @@ import { httpClient } from "../../../../utils/httpClient";
 import { useFormik } from "formik";
 import { validateCorporate } from "./corporate.helper";
 import MaterialTable from 'material-table'
-import { Add, Edit, Clear } from "@material-ui/icons";
+import { Edit, Clear } from "@material-ui/icons";
 import Cliploader from "../../../../utils/clipLoader";
 import Tableicons from "../../../../utils/materialicons";
 import "../button.css"
@@ -15,7 +16,8 @@ const CorporatePage = (props) => {
     const [corporateID, setCorporateID] = useState("");
     const [corporateStatus, setCorporateStatus] = useState("");
     const [loading, setLoading] = useState(false);
-    const [corporateData, setCorporateData] = useState([])
+    const [corporateData, setCorporateData] = useState([]);
+    const [corporateType, setCorporateTypes] = useState([]);
     const [corporateInfo, setCorporateInfo] = useState({
         name: "",
         status: "",
@@ -28,6 +30,8 @@ const CorporatePage = (props) => {
         password: "",
         confirmPassword: "",
         mobileNum: "",
+        selectedType: {},
+        typeId: "",
     })
 
 
@@ -42,13 +46,41 @@ const CorporatePage = (props) => {
                 console.log(err)
             })
     }
+
+    const getCorporateType = async () => {
+        let labtest = await httpClient.GET("corporate-types/get-all", false, true)
+            .then(resp => {
+                if (resp.data.status) {
+                    let result = resp.data.data;
+                    return result;
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        let trueLabtest = labtest.filter((item, index) => {
+            return (item.status == true)
+        })
+        let options = trueLabtest.map((test, index) => {
+            return {
+                label: test.name,
+                value: test.id
+            }
+        })
+        setCorporateTypes(options)
+    }
+
     useEffect(() => {
         getAllCorporate();
+        getCorporateType();
     }, [])
 
     const createCorporate = (values) => {
         try {
             setLoading(true)
+            let corporateId = formik.values.selectedType.value;
+            console.log(corporateId)
             let data = {
                 name: values.name,
                 // status : values.status,
@@ -59,6 +91,7 @@ const CorporatePage = (props) => {
                 contactPersonName: values.personName,
                 mobileNumber: values.mobileNum,
                 email: values.email,
+                corporateTypeId : corporateId,
                 password: values.password,
                 confirmPassword: values.confirmPassword,
             }
@@ -200,7 +233,6 @@ const CorporatePage = (props) => {
                     handleClose();
                     getAllCorporate();
                     setLoading(false)
-
                 }
 
             })
@@ -212,6 +244,11 @@ const CorporatePage = (props) => {
             .finally(() => {
                 setLoading(false)
             })
+    }
+
+    const handleTypeChange=(item)=>{
+        console.log(item);
+        formik.setFieldValue('selectedType', item)
     }
     return (
         <div>
@@ -232,12 +269,14 @@ const CorporatePage = (props) => {
 
                         <Col md={4}>
                             <Form.Group >
-                                <Form.Label>Address</Form.Label>
-                                <Form.Control type="text" name="address"
-                                    onChange={formik.handleChange} value={formik.values.address} onBlur={formik.handleBlur} />
-                                {formik.errors.address && formik.touched.address ?
-                                    <div className="error-message">{formik.errors.address}</div>
-                                    : null}
+                                <Form.Label>Type</Form.Label>
+                                <Select
+                                    value={formik.values.selectedType}
+                                    options={corporateType}
+                                    name="typeId"
+                                    onChange={handleTypeChange}
+                                >
+                                </Select>
                             </Form.Group>
                         </Col>
 
@@ -289,7 +328,17 @@ const CorporatePage = (props) => {
                     </Row>
 
                     <Row className="mb-3">
-                        <Col md={6}>
+                        <Col md={4}>
+                            <Form.Group >
+                                <Form.Label>Address</Form.Label>
+                                <Form.Control type="text" name="address"
+                                    onChange={formik.handleChange} value={formik.values.address} onBlur={formik.handleBlur} />
+                                {formik.errors.address && formik.touched.address ?
+                                    <div className="error-message">{formik.errors.address}</div>
+                                    : null}
+                            </Form.Group>
+                        </Col>
+                        <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Mobile Number</Form.Label>
                                 <Form.Control type="text" name="mobileNum" value={formik.values.mobileNum}
@@ -302,7 +351,7 @@ const CorporatePage = (props) => {
                         {corporateID ?
                             <></>
                             :
-                            <Col md={6}>
+                            <Col md={4}>
 
                                 <Form.Group>
                                     <Form.Label>Email</Form.Label>

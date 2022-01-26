@@ -1,3 +1,8 @@
 .style-yourself:hover .dashboard-styling .menu-title{
     color: white;
 }
+.mobile-dashboard{
+    background-color: white;
+    position: absolute;
+    z-index: 10;
+}

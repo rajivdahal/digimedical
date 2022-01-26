@@ -11008,7 +11008,7 @@ textarea.tt-hint {
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 5;
+
   display: none;
   max-width: 100%;
   padding: 0.25rem 0.5rem;

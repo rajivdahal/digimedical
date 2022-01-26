@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  z-index: 1000;
 }
 
 .logcontainer_nav {
@@ -106,9 +107,10 @@ p {
 @media screen and (max-width: 1000px) {
   .root_nav {
     position: fixed;
+
     top: 0;
     left: 0;
-    z-index: 5;
+    z-index: 1000;
     width: 100%;
   }
   .logcontainer_nav .m-menu {
@@ -212,7 +214,7 @@ p {
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.75);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }
 
@@ -250,7 +252,10 @@ p {
 .m-menu__toggle:checked ~ .m-menu__backdrop {
   opacity: 1;
 }
-
+.logout-container {
+  margin-top: 20%;
+  left: 100%;
+}
 @media screen and (max-width: 1300px) {
   .menu {
     margin-left: 5vw;
@@ -266,5 +271,12 @@ p {
   }
   .categories_nav_mob #link_cat_nav_mob {
     font-size: 14px;
+  }
+  .logout-container {
+    margin-top: 30%;
+    left: 40%;
+  }
+  #logout_cont {
+    width: 70vw;
   }
 }

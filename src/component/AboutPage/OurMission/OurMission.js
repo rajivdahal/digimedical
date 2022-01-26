@@ -196,7 +196,7 @@ const OurMission = () => {
         <div className="doc_video_play">
           {" "}
           <iframe
-            src="https://www.youtube.com/embed/bFGbnjxNvBk"
+            src="https://www.youtube.com/watch?v=CTmtmQgD88U"
             title="Digimedical"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
