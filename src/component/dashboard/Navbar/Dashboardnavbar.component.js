@@ -125,7 +125,7 @@ export const Dashboardnavbar = (props) => {
           </div>
         </div>
         {logoutstate.logout ? (
-          <div className="logout-container">
+          <div className="logout-containerr">
             <div className="logout">
               <p>Are you sure you want to Logout?</p>
               <div className="buttons">
