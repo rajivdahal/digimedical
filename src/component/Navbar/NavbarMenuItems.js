@@ -75,7 +75,7 @@ const NavbarMenuItems = () => {
     });
   };
   return (
-    <Root style={{ height: "60px" }} className="root_nav">
+    <Root style={{ height: "70px" }} className="root_nav">
       <LogMenuItemsContainor className="logcontainer_nav">
         {/* for mobile view dashboard  */}
         <div class="m-menu">
@@ -252,7 +252,10 @@ const NavbarMenuItems = () => {
           <span className="menu-item">
             <Link
               to="/services"
-              style={{ textDecoration: "none", color: "inherit" }}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
             >
               Our Services{" "}
             </Link>
