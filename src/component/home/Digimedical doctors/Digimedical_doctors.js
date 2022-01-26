@@ -9,11 +9,14 @@ import DigiMedicalDoctorCard from "./digi.doctor.card";
 import { httpClient } from "../../../utils/httpClient"
 import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
+import Footer from "../../Footer/Footer";
 
 function Digimedical_doctors(props) {
 
   const [allDigiDoctors, setAllDigiDoctors] = useState([]);
-  const [allService, setServices] = useState([]);
+  const [searcheddoctors, setsearcheddoctors] = useState([]);
+  const [issearched, setIssearched] = useState(false);
+  const [searchName, setSearchName] = useState("");
 
   const getAllDigiDoctors = async () => {
     let id = "";
@@ -34,9 +37,11 @@ function Digimedical_doctors(props) {
             return doctor.doctorid != id
           })
           filteredDr.unshift(selectedDoctor);
-          setAllDigiDoctors(filteredDr)
+          setAllDigiDoctors(filteredDr);
+          setsearcheddoctors(filteredDr);
         } else {
-          setAllDigiDoctors(data)
+          setAllDigiDoctors(data);
+          setsearcheddoctors(data);
         }
 
       }
@@ -45,33 +50,27 @@ function Digimedical_doctors(props) {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
+
   }
-
-    const getServices = async () => {
-      try{
-        await httpClient
-          .GET("services/get/true", false, false)
-          .then((resp) => {
-            console.log(resp);
-            if (resp.data && resp.data.status && resp.data.data) {
-              let data = resp.data.data;
-              setServices(data);
-
-            }
-          })
-        }catch(err){
-          console.log("inside catch block");
-          return [];
-        }
-      };
 
   useEffect(() => {
     getAllDigiDoctors();
-    getServices();
   }, [])
-setTimeout(() => {
-  console.log("all digimedical doctors are",allDigiDoctors)
-}, 3000);
+
+  const handleChange = (e) => {
+    setSearchName(e.target.value);
+    searchDigiDoctors(e.target.value)
+  }
+
+  const searchDigiDoctors = (name) => {
+    setIssearched(true);
+    let searched = allDigiDoctors.filter((item, index) => {
+      return item.doctorname.toLowerCase().includes(name.toLowerCase())
+    });
+    console.log(searched)
+    setsearcheddoctors(searched);
+  };
+
   return (
     <div>
       <Navbar></Navbar>
@@ -83,13 +82,15 @@ setTimeout(() => {
               <p>Select or search available doctors</p>
             </div>
             <div className="doc_booksearch">
-              <form class="doc_example" action="/action_page.php">
+              <form class="doc_example">
+
                 <input
                   type="text"
                   placeholder="Search Doctors .."
-                  name="search"
+                  name="searchName"
+                  onChange={handleChange}
                 />
-                <button>
+                <button type="button" onClick={() => searchDigiDoctors(searchName)}>
                   <i class="fa fa-search"></i>
                 </button>
               </form>
@@ -99,18 +100,23 @@ setTimeout(() => {
 
           <div className="doc_appoint_main">
             <div className="digidoctor_apoint_card">
-
-              {allDigiDoctors.map((item, index) => {
-                return <>
-                  <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix} services={allService}
-                    specialist={item.specialist} desc={item.doctordescription}
-                    doctorId={item.doctorid} doctorServices={item.allServicesId}/>
-                </>
-              })}
+              {searcheddoctors.length > 0 ?
+                searcheddoctors.map((item, index) => {
+                  return <>
+                    <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix}
+                      specialist={item.specialist} desc={item.doctordescription}
+                      doctorId={item.doctorid} doctorServices={item.serviceid} />
+                  </>
+                })
+                :
+                <h4>No any doctors found</h4>
+              }
             </div>
           </div>
 
-          <div className="digidoctor_whychooseus">
+
+        </div>
+        <div className="digidoctor_whychooseus">
             <div className="digidpc_whycus">
               <h1>Why choose Us?</h1>
               <div className="digidoctor_whychooseus_cont">
@@ -143,9 +149,11 @@ setTimeout(() => {
               <h4>Call 01-5909141</h4>
             </div>
           </div>
-        </div>
-        <Pagination></Pagination>
       </div>
+
+      <Pagination></Pagination>
+      <br/>
+      <Footer/>
     </div>
   );
 }

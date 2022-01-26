@@ -84,7 +84,7 @@ const WhaiIsDegimediacal = () => {
         <RightContainer>
           <DescriptionContainer>
             <span>About Us</span>
-            <h2>What is Digimedical ?</h2>
+            <h2>What is Digi Medical ?</h2>
             <p>
               Digi Medical Sewa is an emerging healthcare service established to
               provide world-class quality health care to the citizen of Nepal
@@ -101,7 +101,9 @@ const WhaiIsDegimediacal = () => {
               uphold human values.
             </p>
           </DescriptionContainer>
-        <Link to="/about"><Button type="button">Read More</Button></Link>  
+          <Link to="/about">
+            <Button type="button">Read More</Button>
+          </Link>
         </RightContainer>
       </AboutUsContainer>
     </>

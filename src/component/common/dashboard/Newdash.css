@@ -7,8 +7,10 @@
   color: white;
   position: fixed;
   top: 0;
-
-  z-index: 10;
+  z-index: 1000;
+}
+.react-time-picker__clock {
+  z-index: 100;
 }
 
 .newdash_hamburger {

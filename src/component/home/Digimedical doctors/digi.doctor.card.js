@@ -9,7 +9,6 @@ import { notify } from "../../../services/notify";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const DigiMedicalDoctorCard = (props) => {
-    const [doctorServices, setDoctorService] = useState([]);
     const [appointmentData, setData] = useState({
         firstName: "",
         lastName: "",
@@ -18,36 +17,9 @@ const DigiMedicalDoctorCard = (props) => {
         appointmentTime: "",
         appointmentDate: "",
         mblNumber: "",
-        serviceID: "",
-        selectedServices: [],
     })
 
     const [showForm, setForm] = useState(false);
-
-    useEffect(() => {
-        if (props.services.length > 0) {
-            let serviceid = props.doctorServices.split(",");
-            console.log(serviceid);
-            console.log(props.services)
-
-            let savedServices = [];
-
-            props.services.forEach((service) => {
-                let found = serviceid.filter((item) => {
-                    return item.toString() === service.id.toString();
-                });
-                if (found.length > 0) {
-                    savedServices.push({
-                        label: service.servicename,
-                        value: service.id,
-                    });
-                }
-            });
-            console.log(savedServices)
-            setDoctorService(savedServices)
-        }
-
-    }, [props.services])
 
     const bookAppointment = () => {
         let tempForm = showForm === true ? false : true
@@ -55,7 +27,7 @@ const DigiMedicalDoctorCard = (props) => {
     }
 
     const submitAppointment = async (values) => {
-        let id = values.selectedServices.value;
+        let serviceid = props.doctorServices;
 
         let data = {
             firstName: values.firstName,
@@ -65,7 +37,7 @@ const DigiMedicalDoctorCard = (props) => {
             mobileNumber: values.mblNumber,
             appointmentDate: values.appointmentDate,
             appointmentTime: values.appointmentTime,
-            servicesId : id,
+            servicesId : serviceid,
             doctorId: props.doctorId
 
         }
@@ -96,11 +68,6 @@ const DigiMedicalDoctorCard = (props) => {
             return validateAppointment(values);
         },
     });
-
-    const handleServiceChange = (item) => {
-        console.log(item);
-        formik.setFieldValue("selectedServices", item);
-    };
 
     return (
         <>
@@ -230,15 +197,7 @@ const DigiMedicalDoctorCard = (props) => {
                                     <div className="error-message">{formik.errors.appointmentTime}</div>
                                     : null}
                             </div>
-                            <div class="digidoc_appoin_form1">
-                                <p>Select Service Type</p>
-                                <Select
-                                    value={formik.values.selectedServices}
-                                    options={doctorServices}
-                                    name="serviceID"
-                                    onChange={handleServiceChange}
-                                ></Select>
-                            </div>
+
                             <div class="digidoc_appoin_form1">
                                 <button type="submit" className="submit-buttons">
                                     Submit

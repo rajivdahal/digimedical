@@ -1,13 +1,15 @@
 import { Formik, Form, Field,ErrorMessage } from "formik";
 import "./medicalReports.component.css";
 import { useEffect, useState } from "react";
-import MaterialTable from "material-table";
-import Tableicons from "../../../../utils/materialicons";
 import { httpClient } from "../../../../utils/httpClient";
 import { notify } from "../../../../services/notify";
-import { Visibility } from "@material-ui/icons";
 import * as Yup from "yup";
 import Select from "react-select";
+import { useSelector ,useDispatch} from "react-redux";
+import { bindActionCreators } from "redux";
+import { setMedicalReportOpen, setUtilsInfoOpen } from "../../../../actions/medicalReports.ac";
+import {CommonMedicalreportTable} from "./commonMedicalreportTable";
+import { CommonUtilityreportTable } from "./commonMedicalreportTable";
 
 export const MedicalReports = (props) => {
   const medicalReport = {
@@ -43,7 +45,17 @@ export const MedicalReports = (props) => {
   const [bodyCheckUpCategories,setBodyCHeckUpCategories]=useState([])
   const [bodyCheckUp,setBodyCHeckUp]=useState([])
   const [bodyCheckUpCategoryId,setBodyCheckUpCategoryId]=useState(null)
-  let combineInfo
+  const tableVisibilityInfo=useSelector((state)=>state.medicalReports)
+  const dispatch=useDispatch()
+  const setIsMedicalReportOpen=bindActionCreators(setMedicalReportOpen,dispatch)
+  const setIsUtilityOpen=bindActionCreators(setUtilsInfoOpen,dispatch)
+
+  const showMedicalInformation = (e) => {
+    setIsMedicalReportOpen(true)
+  }
+const showUtilityInformation = (e) => {
+  setIsUtilityOpen(true)
+}
   const fetchdata = () => {
     httpClient.GET("medical-records/get-all", false, true).then((resp) => {
       let revisedMedicalData= resp.data.data.map((item)=>{
@@ -94,19 +106,15 @@ export const MedicalReports = (props) => {
       setBodyCHeckUp(bodyCheckUpData)
     })
   }
-  const combineMedicalInfoAndBodyInfo=()=>{
-    let newCombineInfo=[...medicalData,...bodyCheckUp]
-    combineInfo=newCombineInfo
-
-  }
   const upload = (values, { resetForm }) => {
-    console.log(values, image);
+
     httpClient
       .UPLOAD("post", "medical-records/create", values, false, image, true)
       .then((resp) => {
         notify.success("Success");
         fetchdata();
         resetForm();
+        setIsMedicalReportOpen()
       })
       .catch((err) => {
         notify.error("Something went wrong", err);
@@ -121,6 +129,8 @@ export const MedicalReports = (props) => {
       notify.success("saved")
       fetchUserBodyCheckup()
       resetForm()
+      setIsUtilityOpen()
+
     })
     .catch(err=>{
       notify.error("Error in updating")
@@ -142,16 +152,10 @@ export const MedicalReports = (props) => {
     fetchUserBodyCheckup()
 
   }, []);
-  const viewPopUp=(data)=>{
-    console.log("data is",data)
-  }
-  combineMedicalInfoAndBodyInfo()
-  console.log("combine info is",combineInfo)
   return (
     <div className="med_repo_main">
       <div className="main-psetImage newdash_content report-container">
         <h2>Update your previous report here</h2>
-
         <div className="previous-reports-wrapper">
           <h4>Update Utility Information</h4>
         <Formik initialValues={bodyCheckUpValues} onSubmit={updateBodyCheckUp} validationSchema={bodyCheckUpSchema}>
@@ -170,7 +174,6 @@ export const MedicalReports = (props) => {
                       className="prescription_input"
                       placeholder="2020-01-01"
                     ></Field>
-
                   </div>
                   <ErrorMessage name="checkUpDate" render={msg => <div className="err-message-bottom">{msg}</div>}/>
                 </div>
@@ -184,7 +187,6 @@ export const MedicalReports = (props) => {
                       className="prescription_input"
                       placeholder="120/80 mm"
                     ></Field>
-
                   </div>
                   <ErrorMessage name="checkUpDate" render={msg => <div className="err-message-bottom">{msg}</div>}/>
 
@@ -283,44 +285,23 @@ export const MedicalReports = (props) => {
           </Formik>
           </div>
         </div>
-        <div className="material-table">
-          <p id="medical_table_head">Report</p>
-          <MaterialTable
-            data={combineInfo}
-            title="Previous Details"
-            icons={Tableicons}
-            columns={[
-              { title: "Category",field: "category" },
-              { title: "Doctor Name", field: "doctorname" },
-              { title: "Hospital Name", field: "hospitalname" },
-              { title: "CheckUp Date", field: "visiteddate" },
-              { title: "FollowUp Date", field: "followupdate" },
-              { title: "Description/Value", field:"description",},
-            ]}
-            // actions={[
-            //   (rowData) => {
-            //     return {
-            //       icon: "bug_report",
-            //       tooltip: "View",
-            //       disabled: rowData.category === "General information",
-            //       // hidden: rowData.status === "active",
-            //       onClick: (event, rowData) =>
-            //           viewPopUp(rowData)
-            //     };
-            //   }
-            // ]}
-            options={{
-              actionsColumnIndex: -1,
-              pageSize: 20,
-              filtering: false,
-              sorting: true,
-              headerStyle: {
-                backgroundColor: "#2745F0",
-                color: "#FFF",
-              },
-            }}
-          />
-        </div>
+                         <div className="row" >
+                            <div className="col-md-12 grid-margin stretch-card">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <div className="title-header">
+                                         <p className={`card-title ${tableVisibilityInfo.reports  ? "title-focus" : null}`} onClick={showMedicalInformation}>Medical Information</p>
+                                            <p className={`card-title ${tableVisibilityInfo.utilsInfo ? "title-focus" : null}`} onClick={showUtilityInformation}>Utility Information</p>
+                                        </div>
+                                        {
+                                            tableVisibilityInfo.reports ? <CommonMedicalreportTable medicalData={medicalData}></CommonMedicalreportTable>
+                                                :tableVisibilityInfo.utilsInfo?<CommonUtilityreportTable bodyCheckUp={bodyCheckUp}></CommonUtilityreportTable> :<h1>You don't have any appointments</h1>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
       </div>
     </div>
   );

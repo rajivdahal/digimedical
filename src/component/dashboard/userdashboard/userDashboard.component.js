@@ -104,10 +104,7 @@ const Userdashboard = (props) => {
                      <div className="d-flex">
                      <div>
                        <h2 className="mb-0 font-weight-normal">
-                         <img
-                           src={`http://openweathermap.org/img/w/${weatherDescription.icon}.png`}
-                           style={{ height: "70px", width: "70px" }}
-                         />
+
                          {currentTemperature.slice(0, 6)}
                          <sup>C</sup>
                        </h2>

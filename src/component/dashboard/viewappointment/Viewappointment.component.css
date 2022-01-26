@@ -10,12 +10,36 @@
 
   z-index: 10;
 }
-.card-title {
+.card-title1 {
   cursor: pointer;
+  font-size: 18px;
+}
+.card-title{
+  cursor: pointer;
+}
+.edit-time-picker .time-picker{
+  width: 300px;
 }
 
 .container-fluid {
   position: relative;
   top: 0;
   z-index: 1;
+}
+.internal-appointment-datepicker-edit .Datepicker .DatePicker__input{
+  width: 330px;
+}
+@media screen and (max-width: 600px) {
+  .card-body {
+    padding: 0;
+  }
+  .title-header {
+    width: 100%;
+  }
+  .card-title1 {
+    font-size: 10px;
+  }
+  .title-focus {
+    padding: 5px;
+  }
 }

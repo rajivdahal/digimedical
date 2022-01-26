@@ -24,9 +24,9 @@ const HomeLabtest = (props) => {
         notify.error("Something went wrong");
       });
   }, []);
-  const redirectlogin = () => {
-    history.push("/dashboard/lab-test");
-  };
+  // const redirectlogin = () => {
+  //   history.push("/dashboard/lab-test");
+  // };
   return (
     <>
       <Navbar></Navbar>
@@ -47,7 +47,7 @@ const HomeLabtest = (props) => {
             labTestData.map((item, index) => {
               return (
                 <>
-                  <div className="lab_samp1" onClick={redirectlogin}>
+                  <div className="lab_samp1">
                     <div className="lab_sam_img1">
                       <img
                         src={

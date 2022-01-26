@@ -16,7 +16,7 @@
 }
 
 .marginadj {
-  margin-top: 10%;
+  margin-top: 0%;
   margin-left: 30%;
   position: absolute;
   display: flex;
@@ -48,7 +48,7 @@
   border-radius: 5px;
   margin-left: 20px;
   left: -80%;
-  top: 180%;
+  top: 290%;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 
@@ -69,9 +69,10 @@
 .time-picker {
   height: 40px;
   width: 100%;
+  border: none;
 }
 
-.DatePicker__input {
+.internal-appointment-datepicker .DatePicker .DatePicker__input{
   background: #fff;
   border: 1px solid #ddd;
   padding: 0.4em 0.8em;
@@ -80,8 +81,23 @@
   font-size: 13px;
   height: 3rem;
   z-index: -10;
-  width: 109%;
+  width: 200%
 }
+.internal-appointment-datepicker-edit .DatePicker .DatePicker__input{
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 0.4em 0.8em;
+  font-family: inherit;
+  text-align: center;
+  font-size: 13px;
+  height: 3rem;
+  z-index: -10;
+  width: 180%
+}
+
+/* .DatePicker__input {
+
+} */
 
 .manageZIndex {
   position: absolute;

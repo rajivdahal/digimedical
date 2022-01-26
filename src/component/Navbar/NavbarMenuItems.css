@@ -51,7 +51,7 @@
 .dropdown_hp_content {
   z-index: 1;
   position: absolute;
-  top: 120px;
+  top: 150px;
   left: 20;
 
   width: 540px;
@@ -112,7 +112,6 @@ p {
     left: 0;
     z-index: 1000;
     width: 100%;
-
   }
   .logcontainer_nav .m-menu {
     display: block;
@@ -253,7 +252,10 @@ p {
 .m-menu__toggle:checked ~ .m-menu__backdrop {
   opacity: 1;
 }
-
+/* .logout-container {
+  margin-top: 20%;
+  left: 100%;
+} */
 @media screen and (max-width: 1300px) {
   .menu {
     margin-left: 5vw;
@@ -269,5 +271,12 @@ p {
   }
   .categories_nav_mob #link_cat_nav_mob {
     font-size: 14px;
+  }
+  /* .logout-container {
+    margin-top: 30%;
+    left: 40%;
+  } */
+  #logout_cont {
+    width: 70vw;
   }
 }
