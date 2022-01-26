@@ -24,7 +24,7 @@ const Heading = styled.div`
   margin-left: 6vw;
 
   width: 86%;
-  height: 60px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
 

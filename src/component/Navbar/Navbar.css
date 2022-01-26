@@ -13,7 +13,7 @@ nav {
   position: fixed;
   top: 0px;
   left: 0px;
-  min-height: 10vh;
+  min-height: 12vh;
   align-items: center;
   font-family: "Montserrat", sans-serif;
   /* -webkit-backdrop-filter: blur(8px);
