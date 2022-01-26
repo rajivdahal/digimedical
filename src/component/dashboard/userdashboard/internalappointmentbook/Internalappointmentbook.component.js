@@ -291,6 +291,7 @@ export default function Internalappointmentbook(prop) {
   let formcontent = toeditdata ? (
     <div>
       {prop.location.pathname == "/dashboard/corporate/bookappointment" ? (
+
         <div className="form-row">
           <label htmlFor="service">Select Member</label>
           <select
@@ -339,7 +340,7 @@ export default function Internalappointmentbook(prop) {
         <div className="form-group col-md-12">
           <label htmlFor="appointment">Appointment Date.</label>
           <br/>
-
+          <div className="internal-appointment-datepicker-edit">
           <DatePicker
             className="form-control"
             shouldHighlightWeekends
@@ -347,11 +348,11 @@ export default function Internalappointmentbook(prop) {
             onChange={(value) => handleeditchange(value, "appointmentdate")}
             minimumDate={minDate}
           ></DatePicker>
-
+</div>
 
           <h4>{formatDate(toeditdata.appointmentdate)}</h4>
         </div>
-        <div className="form-group col-md-6">
+        <div className="form-group col-md-12">
           <label htmlFor="time">Time</label>
           <input
             type="time"
@@ -361,9 +362,11 @@ export default function Internalappointmentbook(prop) {
             onChange={(e) => {
               handleeditchange(e);
             }}
+            style={{width:"330px",position:"absolute", height:"50px",marginLeft:"-30px"}}
           ></input>
-          <h4>{toeditdata.appointmenttime}</h4>
+
         </div>
+        <h4>{toeditdata.appointmenttime}</h4>
       </div>
     </div>
   ) : (
@@ -419,6 +422,7 @@ export default function Internalappointmentbook(prop) {
 
         <div className="form-group col-md-12">
           <label htmlFor="time">Time</label>
+
           <div>
             <TimePicker
               onChange={onChange}

@@ -14,13 +14,21 @@
   cursor: pointer;
   font-size: 18px;
 }
+.card-title{
+  cursor: pointer;
+}
+.edit-time-picker .time-picker{
+  width: 300px;
+}
 
 .container-fluid {
   position: relative;
   top: 0;
   z-index: 1;
 }
-
+.internal-appointment-datepicker-edit .Datepicker .DatePicker__input{
+  width: 330px;
+}
 @media screen and (max-width: 600px) {
   .card-body {
     padding: 0;

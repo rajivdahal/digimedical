@@ -91,62 +91,7 @@ export const Viewappointment = (props) => {
                             </div>
                         </div>
 
-            <div className="row"></div>
 
-            <div className="row">
-              <div className="col-md-12 grid-margin stretch-card">
-                <div className="card">
-                  <div className="card-body card_viewapp">
-                    <div className="title-header">
-                      <p
-                        className={`card-title1 ${
-                          isdynamicupcomingclass ? "title-focus" : null
-                        }`}
-                        onClick={handleupcomingclass}
-                      >
-                        Upcoming Appointment
-                      </p>
-                      {props.fromcorporatecomponent ? null : (
-                        <p
-                          className={`card-title1 ${
-                            isdynamicbookedclass ? "title-focus" : null
-                          }`}
-                          onClick={handlebookedclass}
-                        >
-                          Completed Appointment
-                        </p>
-                      )}
-                      <p
-                        className={`card-title1 ${
-                          isdynamicCancelledclass ? "title-focus" : null
-                        }`}
-                        onClick={handleCancelledclass}
-                      >
-                        Cancelled Appointment
-                      </p>
-                    </div>
-                    {upcomingappointment ? (
-                      <Upcomingappointment
-                        props={props.history ? props.history : props.props}
-                        fromdoctorcomponent={fromdoctorcomponent}
-                        fromcorporatecomponent={fromcorporatecomponent}
-                      ></Upcomingappointment>
-                    ) : pendingappointment ? (
-                      <Completedappointment
-                        fromdoctorcomponent={fromdoctorcomponent}
-                      ></Completedappointment>
-                    ) : cancelledappointment ? (
-                      <Cancelledappointment
-                        fromdoctorcomponent={fromdoctorcomponent}
-                        fromcorporatecomponent={fromcorporatecomponent}
-                      ></Cancelledappointment>
-                    ) : (
-                      <h1>You don't have any appointments</h1>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
