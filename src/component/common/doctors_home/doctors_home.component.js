@@ -49,7 +49,7 @@ export default function Doctorshome(props) {
       })}
       </div>
 
-      <Link to="/digimedical_doctors" className="link_hosp_home">
+      <Link to="/digimedical-doctors" className="link_hosp_home">
         <div className="view_hosp_home">
           <p id="arrow_hosp_hom">View All</p>
           <p id="arrow_hosp_hom1">&nbsp; &#8594; </p>

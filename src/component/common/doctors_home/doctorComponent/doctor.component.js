@@ -8,7 +8,7 @@ const DoctorDetailComponent = (props) => {
 
   const consultDoctor = () => {
     history.push({
-      pathname: "/digimedical_doctors",
+      pathname: "/digimedical-doctors",
       state: { doctorID: props.doctorId }
     })
 

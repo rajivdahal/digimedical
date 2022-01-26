@@ -13,7 +13,9 @@ import { notify } from "../../../services/notify";
 function Digimedical_doctors(props) {
 
   const [allDigiDoctors, setAllDigiDoctors] = useState([]);
-  const [allService, setServices] = useState([]);
+  const [searcheddoctors, setsearcheddoctors] = useState([]);
+  const [issearched, setIssearched] = useState(false);
+  const [searchName, setSearchName] = useState("");
 
   const getAllDigiDoctors = async () => {
     let id = "";
@@ -34,9 +36,11 @@ function Digimedical_doctors(props) {
             return doctor.doctorid != id
           })
           filteredDr.unshift(selectedDoctor);
-          setAllDigiDoctors(filteredDr)
+          setAllDigiDoctors(filteredDr);
+          setsearcheddoctors(filteredDr);
         } else {
-          setAllDigiDoctors(data)
+          setAllDigiDoctors(data);
+          setsearcheddoctors(data);
         }
 
       }
@@ -48,28 +52,23 @@ function Digimedical_doctors(props) {
 
   }
 
-    const getServices = async () => {
-      try{
-        await httpClient
-          .GET("services/get/true", false, false)
-          .then((resp) => {
-            console.log(resp);
-            if (resp.data && resp.data.status && resp.data.data) {
-              let data = resp.data.data;
-              setServices(data);
-
-            }
-          })
-        }catch(err){
-          console.log("inside catch block");
-          return [];
-        }
-      };
-
   useEffect(() => {
     getAllDigiDoctors();
-    getServices();
   }, [])
+
+  const handleChange = (e) => {
+    setSearchName(e.target.value);
+    searchDigiDoctors(e.target.value)
+  }
+
+  const searchDigiDoctors = (name) => {
+    setIssearched(true);
+    let searched = allDigiDoctors.filter((item, index) => {
+      return item.doctorname.toLowerCase().includes(name.toLowerCase())
+    });
+    console.log(searched)
+    setsearcheddoctors(searched);
+  };
 
   return (
     <div>
@@ -82,13 +81,15 @@ function Digimedical_doctors(props) {
               <p>Select or search available doctors</p>
             </div>
             <div className="doc_booksearch">
-              <form class="doc_example" action="/action_page.php">
+              <form class="doc_example">
+
                 <input
                   type="text"
                   placeholder="Search Doctors .."
-                  name="search"
+                  name="searchName"
+                  onChange={handleChange}
                 />
-                <button>
+                <button type="button" onClick={() => searchDigiDoctors(searchName)}>
                   <i class="fa fa-search"></i>
                 </button>
               </form>
@@ -98,14 +99,17 @@ function Digimedical_doctors(props) {
 
           <div className="doc_appoint_main">
             <div className="digidoctor_apoint_card">
-
-              {allDigiDoctors.map((item, index) => {
-                return <>
-                  <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix} services={allService}
-                    specialist={item.specialist} desc={item.doctordescription} 
-                    doctorId={item.doctorid} doctorServices={item.allServicesId}/>
-                </>
-              })}
+              {searcheddoctors.length > 0 ?
+                searcheddoctors.map((item, index) => {
+                  return <>
+                    <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix}
+                      specialist={item.specialist} desc={item.doctordescription}
+                      doctorId={item.doctorid} doctorServices={item.serviceid} />
+                  </>
+                })
+                :
+                <h4>No any doctors found</h4>
+              }
             </div>
           </div>
 

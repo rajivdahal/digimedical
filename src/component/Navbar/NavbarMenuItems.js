@@ -347,7 +347,7 @@ const NavbarMenuItems = () => {
           
           <span className="menu-item">
             <Link
-              to="/digimedical_doctors"
+              to="/digimedical-doctors"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Our Doctors

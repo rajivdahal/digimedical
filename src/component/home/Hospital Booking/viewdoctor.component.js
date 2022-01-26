@@ -173,6 +173,7 @@ export default function Hospital_doctors(props) {
                 </form>
               </div>
             </div>
+            
             <div className="doc_appoint_main">
               {!searcheddoctors.length && !issearched ? (
                 alldoctors.length ? (
