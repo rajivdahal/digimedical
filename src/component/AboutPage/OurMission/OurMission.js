@@ -91,10 +91,10 @@ const ImageContainor = styled.div`
       margin-left: 0;
       margin-top:10px;
       width:100%;
-    
+
     }
     .yt-video {
-    
+
       border-radius: 10px;
       @media screen and (max-width: 700px){
         width:100%;
@@ -105,7 +105,7 @@ const ImageContainor = styled.div`
 
 
 
-  
+
     }
   }
 `;
@@ -236,7 +236,7 @@ const OurMission = () => {
           <div className="image-name-main-div">
             <div className="image-name-div">
               <div>
-                <img src={reviewer} className="image"></img>
+                <img src="/images/bigyan.jpg" className="image"></img>
               </div>
               <div className="name-div">
                 <span className="name">Bigyan Shrestha</span>

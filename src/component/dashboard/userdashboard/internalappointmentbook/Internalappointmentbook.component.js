@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { notify } from "../../../../services/notify";
 import { formatDate } from "../../../../services/timeanddate";
-import { Todaydate } from "../../../../services/todaydate";
 import Clear from "@material-ui/icons/Clear";
 import TimePicker from "react-time-picker";
 import Select from "react-select";
@@ -52,11 +51,18 @@ export default function Internalappointmentbook(prop) {
     httpClient
       .POST(url, values, false, true)
       .then((resp) => {
-        let message = resp.data.message;
-        setappointmentsuccess(resp.data.message);
+        if(prop.location.pathname == "/dashboard/corporate/bookappointment"){
+          prop.history.push("/dashboard/corporate/viewappointment");
+          notify.success("Appointment booked successfully");
+        }
+        else{
+          prop.history.push("/dashboard/viewappointment");
+          notify.success("Appointment booked successfully");
+        }
       })
       .catch((err) => {
         setappointmentfailed("Something went wrong");
+        notify.error("Appointment unable to book")
       });
   };
   useEffect(() => {
@@ -64,12 +70,14 @@ export default function Internalappointmentbook(prop) {
       .GET("services/get/true", false, true)
       .then((resp) => {
         let allServices = resp.data.data;
+        console.log("all services are",allServices)
         let options = allServices.map((service, index) => {
           return {
-            label: service.serviceName,
+            label: service.servicename,
             value: service.id,
           };
         });
+        console.log("services arreee",services)
         setservices(options);
       })
       .catch((err) => {
@@ -231,15 +239,11 @@ export default function Internalappointmentbook(prop) {
         });
     }
     if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
-      callapi("create-appointment/corporate", formik.values);
-      notify.success("Appointment booked successfully");
-
-      return prop.history.push("/dashboard/corporate/viewappointment");
+      return callapi("create-appointment/corporate", formik.values);
     }
     console.log(formik.values);
-    callapi("create-appointment", formik.values);
-    prop.history.push("/dashboard/viewappointment");
-    notify.success("Appointment booked successfully");
+   return callapi("create-appointment", formik.values);
+
   };
   const getdoctorinfo = (doctorid) => {
     if (!doctorid) {
@@ -334,7 +338,8 @@ export default function Internalappointmentbook(prop) {
       <div className="form-row">
         <div className="form-group col-md-12">
           <label htmlFor="appointment">Appointment Date.</label>
-          <br />
+          <br/>
+
           <DatePicker
             className="form-control"
             shouldHighlightWeekends
@@ -342,6 +347,8 @@ export default function Internalappointmentbook(prop) {
             onChange={(value) => handleeditchange(value, "appointmentdate")}
             minimumDate={minDate}
           ></DatePicker>
+
+
           <h4>{formatDate(toeditdata.appointmentdate)}</h4>
         </div>
         <div className="form-group col-md-6">
@@ -390,36 +397,19 @@ export default function Internalappointmentbook(prop) {
         </div>
       ) : null}
       <div className="form-row">
-        <div className="form-group col-md-6">
-          <label htmlFor="service">Select Service</label>
-          <Select options={services} onChange={handleChange} />
-          {formik.errors.servicesId && formik.touched.servicesId ? (
-            <div style={{ color: "red" }} className="errmsg">
-              {formik.errors.servicesId}{" "}
-            </div>
-          ) : null}
-        </div>
-        <div className="form-group col-md-6">
-          <label htmlFor="doctor">Select Doctor</label>
-          <Select options={doctors} onChange={handleDoctorChange} />
-          {formik.errors.doctorId && formik.touched.doctorId ? (
-            <div style={{ color: "red" }} className="errmsg">
-              {formik.errors.doctorId}
-            </div>
-          ) : null}
-        </div>
-      </div>
-      <div className="form-row">
         <div className="form-group col-md-12">
           <label htmlFor="appointment">Appointment Date.</label>
           <br />
+          <div className="internal-appointment-datepicker">
           <DatePicker
-            className="form-control"
+            // className="form-control"
+            style={{width:"12rem"}}
             shouldHighlightWeekends
             value={selectedDay}
             onChange={handleDateChange}
             minimumDate={minDate}
           ></DatePicker>
+          </div>
           {formik.errors.appointmentDate && formik.touched.appointmentDate ? (
             <div style={{ color: "red" }} className="errmsg">
               {formik.errors.appointmentDate}{" "}
@@ -444,6 +434,27 @@ export default function Internalappointmentbook(prop) {
           ) : null}
         </div>
       </div>
+      <div className="form-row">
+        <div className="form-group col-md-12">
+          <label htmlFor="service">Select Service</label>
+          <Select options={services} onChange={handleChange} />
+          {formik.errors.servicesId && formik.touched.servicesId ? (
+            <div style={{ color: "red" }} className="errmsg">
+              {formik.errors.servicesId}{" "}
+            </div>
+          ) : null}
+        </div>
+        <div className="form-group col-md-12">
+          <label htmlFor="doctor">Select Doctor</label>
+          <Select options={doctors} onChange={handleDoctorChange} />
+          {formik.errors.doctorId && formik.touched.doctorId ? (
+            <div style={{ color: "red" }} className="errmsg">
+              {formik.errors.doctorId}
+            </div>
+          ) : null}
+        </div>
+      </div>
+
     </div>
   );
   return (

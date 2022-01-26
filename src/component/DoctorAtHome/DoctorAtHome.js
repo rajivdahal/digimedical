@@ -9,7 +9,7 @@ import WhatisdoctorAtHomeService from "./whatIsdoctorAtHomeService/whatisdoctorA
 import FrequentlyAsked from "../FrequentlyAsked/FrequentlyAsked";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 const Root = styled.div`
   padding-left: 9rem;
@@ -90,7 +90,9 @@ const FormContainor = styled.div`
 
 const Ourservices = (props) => {
   let [heading, setHeading] = useState([])
+  let history=useHistory()
   useEffect(() => {
+
     const paramsValue = props.match.params.subservice.split("-")
     let title = paramsValue.map((item,index) => {
       return item[0].toUpperCase() + item.substring(1)
