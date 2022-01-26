@@ -11,8 +11,8 @@ const DoctorDetailComponent = (props) => {
       pathname: "/digimedical_doctors",
       state: { doctorID: props.doctorId }
     })
-
   }
+
   return (
         <div className="hospital_book_card1">
           {" "}

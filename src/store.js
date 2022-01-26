@@ -24,6 +24,10 @@ const initialState = {
     },
     sidebar:{
         isopen:null
+    },
+    medicalReports:{
+        reports:true,
+        utilsInfo:false
     }
 }
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))

@@ -15,6 +15,7 @@ export default function Hospitalbookingcomponent(props) {
   let [issearched, setIssearched] = useState(false);
   const history = useHistory();
   let location = useLocation();
+  console.log("location is",location)
 
   useEffect(() => {
     console.log("location is", location);
@@ -42,14 +43,10 @@ export default function Hospitalbookingcomponent(props) {
       pathname: localStorage.getItem("dm-access_token")
         ? "/dashboard/hospitals/view-doctors"
         : "/hospitals/view-doctors",
-      // pathname:location.pathname = "/dashboard/hospitals"
-      //       ? "/dashboard/hospitals/view-doctors"
-      //       : "/hospitals/dashboard/view-doctors",
       state: item,
     });
     console.log("data is", item);
   };
-  //   "/dashboard/hospitals"?
   return (
     <div
       className={
@@ -57,7 +54,11 @@ export default function Hospitalbookingcomponent(props) {
       }
     >
       <div className="hospital_booking">
-      <Hospitaltopheader></Hospitaltopheader>
+        {
+          location.pathname=="/hospitals"?
+            <Hospitaltopheader></Hospitaltopheader>:
+            null
+        }
         <div
           className={
             location ? "hospital_bookcont_from_user" : "hospital_bookcont"
@@ -101,7 +102,7 @@ export default function Hospitalbookingcomponent(props) {
                       <button
                         id={
                           props.location
-                            ? (props.location.pathname = "/dashboard/hospitals"
+                            ? (props.location.pathname === "/dashboard/hospitals"
                                 ? "hosp_card_but_user"
                                 : "hosp_card_but_user")
                             : "hosp_card_but"
@@ -130,7 +131,7 @@ export default function Hospitalbookingcomponent(props) {
                     </div>
                     <button
                       id={
-                        (location.pathname = "/dashboard/hospitals"
+                        (location.pathname ==="/dashboard/hospitals"
                           ? "hosp_card_but_user"
                           : "hosp_card_but")
                       }

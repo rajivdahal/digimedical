@@ -5,10 +5,8 @@ import { useState } from "react"
 import { Cancelledappointment } from "./cancelledappointment/Cancelledappointment.component"
 import { Completedappointment } from "./completedappointment/completedappointment.component"
 export const Viewappointment = (props) => {
-    console.log("props in viewappointment is", props)
     const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
     const fromcorporatecomponent = props.fromcorporatecomponent ? props.fromcorporatecomponent : null
-    console.log("from corporate component", fromcorporatecomponent)
     const [pendingappointment, setpendingappointment] = useState(false)
     const [cancelledappointment, setcancelledappointment] = useState(false)
     const [upcomingappointment, setupcomingappointment] = useState(true)
@@ -42,8 +40,6 @@ export const Viewappointment = (props) => {
     return (
         <>
             <div className="container-fluid page--wrapper ">
-               
-
                 <div className="main-panel newdash_content">
                     <div className="content-wrapper">
                         <div className="row">
