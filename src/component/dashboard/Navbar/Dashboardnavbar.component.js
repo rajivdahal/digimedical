@@ -25,6 +25,7 @@ export const Dashboardnavbar = (props) => {
   const closeDashboard=bindActionCreators(dashboardClose,dispatch)
   console.log("store state is",user)
   const Logout = (e) => {
+    console.log("inside logoutttt")
     setlogoutstate({
       logout: true,
     });
@@ -70,6 +71,7 @@ export const Dashboardnavbar = (props) => {
     }
     openDashboard()
   }
+  console.log("logoutstate is",logoutstate)
   return (
     <>
 {
@@ -121,8 +123,13 @@ export const Dashboardnavbar = (props) => {
             </div>
           </div>
         </div>
-        {logoutstate.logout ? (
+        {logoutstate.logout ?
+
+        (
+
+
           <div className="logout-container">
+
             <div className="logout">
               <p>Are you sure you want to Logout?</p>
               <div className="buttons">

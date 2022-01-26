@@ -174,6 +174,18 @@ const NavbarMenuItems = () => {
                 </Link>
                 <Link
                   id="link_cat_nav_mob"
+                  to="/hospitals"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-hospital"></i> &nbsp;{" "}
+                  </span>
+                  Hospitals
+                </Link>
+                <Link
+                  id="link_cat_nav_mob"
                   to="/contact"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
@@ -205,16 +217,7 @@ const NavbarMenuItems = () => {
                   </div>
                 ) : null}
                 {logoutstate.logout ? (
-                  <div
-                    className="logout-container"
-                    id="logout_cont"
-                    style={{
-                      width: "15rem",
-                      top: "10rem",
-                      left: "8rem",
-                      height: "12rem !important",
-                    }}
-                  >
+                  <div className="logout-container" id="logout_cont">
                     <div className="logout">
                       <p>Are you sure you want to Logout?</p>
                       <div className="buttons">
@@ -247,24 +250,11 @@ const NavbarMenuItems = () => {
         <div className="menu">
           {" "}
           <span className="menu-item">
-            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-              Home{" "}
-            </Link>
-          </span>
-          <span className="menu-item">
-            <Link
-              to="/about"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              About
-            </Link>
-          </span>
-          <span className="menu-item">
             <Link
               to="/services"
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              Services{" "}
+              Our Services{" "}
             </Link>
           </span>
           <span className="menu-item">
@@ -272,19 +262,11 @@ const NavbarMenuItems = () => {
               to="/lab-test"
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              Lab Test{" "}
-            </Link>
-          </span>
-          <span className="menu-item">
-            <Link
-              to="/hospitals"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              Hospital{" "}
+              For Business
             </Link>
           </span>
           <div className="menu-item_nav">
-            <button className="dropbtn">Health Packages</button>
+            <button className="dropbtn">For Family</button>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
                 <a href="#">
@@ -306,16 +288,7 @@ const NavbarMenuItems = () => {
                   ></img>
                   <p>Pregnency Care Packages</p>{" "}
                 </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Corporate Care Package</p>{" "}
-                </a>
+
                 <a href="#">
                   {" "}
                   <img
@@ -385,6 +358,14 @@ const NavbarMenuItems = () => {
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Our Doctors
+            </Link>
+          </span>
+          <span className="menu-item">
+            <Link
+              to="/about"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              About Us
             </Link>
           </span>
           <span className="menu-item">
