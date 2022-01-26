@@ -1,6 +1,7 @@
 import { httpClient } from "../../../../utils/httpClient";
 
 const PackageApi = {
+    // create membership package
     createPackage: (values) => {
         let selectedId = values.selectedPackage.value;
 
@@ -10,7 +11,6 @@ const PackageApi = {
             lunchingOfferPrice: values.launchingOffer,
             laboratoryPercentage: values.labDiscount,
             packageId : selectedId,
-
         }
         console.log(data)
         return httpClient.POST("membership-packages/create", data, false, true)
@@ -39,6 +39,7 @@ const PackageApi = {
 
     },
 
+    // crud for package details
     createPackageDetail:(values)=>{
         let selectedId = values.selectedPackage.value;
             let  data ={
@@ -59,8 +60,14 @@ const PackageApi = {
             }
         return httpClient.PUT("membership-packages-details/update",data,false,true)
     },
+
+    // crud for master package
     getPackageDesc: () => {
         return httpClient.GET("master-package/get-all", false, true)
+    },
+
+    getPackageByID : (id) =>{
+        return httpClient.GET("master-package/get/"+id,false,true)
     },
 
     createPackageDesc:(values)=>{

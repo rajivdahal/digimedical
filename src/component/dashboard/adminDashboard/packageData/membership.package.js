@@ -235,7 +235,6 @@ const MembershipPackage = (props) => {
 
                     <Row className="mb-3">
 
-
                         <Col md={6}>
                             <Form.Group >
                                 <Form.Label>Launching Offer</Form.Label>
