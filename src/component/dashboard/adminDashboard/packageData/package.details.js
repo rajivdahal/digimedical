@@ -32,7 +32,10 @@ const MembershipPackageDetails = (props) => {
         try {
             let resp = await PackageApi.getAllPackage();
             if (resp.data.status) {
-                let truePackage = resp.data.data;
+                let tempPackage = resp.data.data;
+                let truePackage = tempPackage.filter((item)=>{
+                    return item.status == true
+                })
                 let option = truePackage.map((item, index) => {
                     return {
                         label: item.name,
@@ -188,7 +191,7 @@ const MembershipPackageDetails = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Package Name</Form.Label>
-                                <Select
+                                <Select className="roleSelect"
                                     value={formik.values.selectedPackage}
                                     options={allPackages}
                                     name="packageId"

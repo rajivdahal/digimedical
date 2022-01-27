@@ -331,12 +331,11 @@ const LabtestSubcategory = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Lab Test Name</Form.Label>
-                                <Select
+                                <Select className="roleSelect"
                                     value={formik.values.selectedLabtest}
                                     options={allLabtest}
                                     name="labtestID"
                                     onChange={handleLabtestChange}
-                                    defaultInputValue="Please Select One value"
                                 >
                                 </Select>
                             </Form.Group>
@@ -356,7 +355,7 @@ const LabtestSubcategory = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Institute</Form.Label>
-                                <Select
+                                <Select className="roleSelect"
                                     value={formik.values.selectedInstitute}
                                     options={allInstitue}
                                     name="instituteId"

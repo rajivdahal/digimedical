@@ -14,7 +14,7 @@ const MembershipPackage = (props) => {
 
     const [loading, setLoading] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
-    const [packages, setPackages] = useState([]);
+    const [masterPackages, setMasterPackages] = useState([]);
     const [allPackages, setAllPackages] = useState([]);
     const [packageID, setPackageID] = useState("");
     const [packageStatus,setPackageStatus] = useState("");
@@ -33,16 +33,20 @@ const MembershipPackage = (props) => {
     const getAllPackages = async () => {
         setLoading(true);
         try {
-            let resp = await PackageApi.getAllPackage();
+            let resp = await PackageApi.getPackageDesc();
+            console.log(resp)
             if (resp.data.status) {
-                let truePackage = resp.data.data;
+                let  tempPackage= resp.data.data;
+                let truePackage = tempPackage.filter((item)=>{
+                    return item.status == true
+                })
                 let option = truePackage.map((item, index) => {
                     return {
                         label: item.name,
                         value: item.id,
                     }
                 })
-                setPackages(option)
+                setMasterPackages(option)
 
             }
         }
@@ -58,6 +62,7 @@ const MembershipPackage = (props) => {
         setLoading(true);
         try {
             let resp = await PackageApi.getAllPackage();
+            console.log(resp)
             if (resp.data.status) {
                 setAllPackages(resp.data.data)
             }
@@ -143,17 +148,24 @@ const MembershipPackage = (props) => {
 
     const setEditPackageData = (e,data)=>{
         setPackageID(data.id);
+        console.log(data)
+        let masterPackage = {
+            label: data.masterPackageName,
+            value: data.masterPackageId
+        }
         setPackageData({
             packageName : data.name ?? "",
             price : data.amount ?? 0,
             labDiscount : data.laboratoryPercentage ?? 0,
             launchingOffer : data.lunchingOfferPrice ?? 0,
+            selectedPackage : masterPackage
         })
         window.scrollTo(0,0);
     }
 
 
     const handleEditPackage = async (values) => {
+        console.log(values)
         setLoading(true)
         try {
             let resp = await PackageApi.editPackage(values,packageID);
@@ -164,8 +176,9 @@ const MembershipPackage = (props) => {
                     price: "",
                     launchingOffer: "",
                     labDiscount: "",
+                    packageId: "",
+                    selectedPackage: [],
                 })
-                setPackageData(null)
                 getPackages();
             }
         }
@@ -183,6 +196,8 @@ const MembershipPackage = (props) => {
             price: "",
             launchingOffer: "",
             labDiscount: "",
+            packageId: "",
+            selectedPackage: [],
         })
         setPackageData(null)
     }
@@ -200,9 +215,9 @@ const MembershipPackage = (props) => {
                     <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Package Name</Form.Label>
-                                <Select
+                                <Select className="roleSelect"
                                     value={formik.values.selectedPackage}
-                                    options={packages}
+                                    options={masterPackages}
                                     name="packageId"
                                     onChange={handlePackageChange}
                                 >

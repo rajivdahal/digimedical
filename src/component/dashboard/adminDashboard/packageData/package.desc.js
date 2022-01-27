@@ -17,8 +17,12 @@ const PackageDescription = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [allPackages, setAllPackages] = useState([]);
     const [detailID, setDetailID] = useState("");
-    const [packageStatus,setPackageStatus] = useState("");
+    const [packageStatus, setPackageStatus] = useState("");
     const [showModal, setShowModal] = useState(false);
+    const [purposeEdit, setPurposeEdit] = useState({
+        isEdit: false,
+        editIndex: null,
+    })
     const [packageData, setPackageData] = useState({
         name: "",
         description: "",
@@ -30,6 +34,7 @@ const PackageDescription = (props) => {
         setLoading(true);
         try {
             let resp = await PackageApi.getPackageDesc();
+            console.log(resp)
             if (resp.data.status) {
                 let data = resp.data.data;
                 console.log(data)
@@ -92,19 +97,27 @@ const PackageDescription = (props) => {
         formik.setFieldValue('purpose', "")
     }
 
-    const editPackageDetail = (e, data) => {
+    const editPackageDetail = async (e, data) => {
         console.log(data);
         setDetailID(data.id)
-        if (data) {
+        try {
+            let resp = await PackageApi.getPackageByID(data.id);
+            console.log(resp);
+            if (resp.data.status) {
+                let packageData = resp.data.data.MasterPackage;
+                let purposeArr = resp.data.data.Purposes;
+                setPackageData({
+                    name: packageData.name,
+                    description: packageData.description,
+                    allPurpose: purposeArr
+                })
 
-            setPackageData({
-                name: data.name,
-                description: data.description,
-                purpose: data.purpose
-
-            })
-            window.scrollTo(0, 0)
+            }
+        } catch (err) {
+            console.log(err)
         }
+        window.scrollTo(0, 0)
+
     }
 
     const handleEditDetails = async (values) => {
@@ -140,6 +153,31 @@ const PackageDescription = (props) => {
             purpose: "",
             allPurpose: [],
         })
+        setPurposeEdit({
+            isEdit: false,
+            editIndex: null,
+        })
+    }
+
+    const editPurpose = (index) => {
+        console.log(index)
+        setPurposeEdit({
+            isEdit: true,
+            editIndex: index
+        })
+        formik.setFieldValue('purpose', formik.values.allPurpose[index])
+    }
+
+    const handleEditPurpose=(values)=>{
+        if (!values.purpose) return;
+        let tempArr = values.allPurpose;
+        tempArr.splice(purposeEdit.editIndex,1,values.purpose);
+        formik.setFieldValue('allPurpose', tempArr)
+        formik.setFieldValue('purpose', " ")
+        setPurposeEdit({
+            isEdit: false,
+            editIndex: null,
+        })
     }
 
     const removeDetail = (index) => {
@@ -150,14 +188,15 @@ const PackageDescription = (props) => {
         formik.setFieldValue('allPurpose', tempArr)
     }
 
-    const handleClose = () => setShowModal(false)
-    const disablePackage = (e,data) => {
+    const handleClose = () => setShowModal(false);
+
+    const disablePackage = (e, data) => {
         setShowModal(true);
         setPackageStatus(data.status)
         setDetailID(data.id)
     }
 
-    const changePackageStatus=async()=>{
+    const changePackageStatus = async () => {
         setLoading(true)
         try {
             let resp = await PackageApi.packageStatus(detailID, packageStatus);
@@ -200,7 +239,6 @@ const PackageDescription = (props) => {
                                     : null}
                             </Form.Group>
                         </Col>
-
                     </Row>
 
 
@@ -215,23 +253,27 @@ const PackageDescription = (props) => {
                                     : null}
                             </Form.Group>
                         </Col>
-                        {!detailID ?
-                            <Col md={2}>
-                                <br></br>
+
+                        <Col md={2}>
+                            <br></br>
+                            {purposeEdit.isEdit === true ?
+                                <Button variant="info" onClick={() => handleEditPurpose(formik.values)}>Edit</Button>
+                                :
                                 <Button variant="info" onClick={() => handleAddDetails(formik.values)}>Add</Button>
-                            </Col>
-                            :
-                            <></>
-                        }
+                            }
+                        </Col>
+
                     </Row>
                     <Row>
                         <Col md={6}>
+
                             {formik.values && formik.values.allPurpose ?
                                 <ul>
                                     {formik.values && formik.values.allPurpose.map((item, index) => {
                                         return <div className='clearfix'>
                                             <li>
                                                 <span className='flaotLeft'>{item}</span>
+                                                <span onClick={() => editPurpose(index)} className='removeBtn'>Edit</span>
                                                 <span style={{ color: "red" }} className="removeBtn remove-button"
                                                     onClick={() => removeDetail(index)}>x</span>
                                             </li>
@@ -241,11 +283,8 @@ const PackageDescription = (props) => {
                                 :
                                 <></>
                             }
-
                         </Col>
                     </Row>
-
-
 
                     <div className="mb-5" >
                         {detailID ?
@@ -255,7 +294,7 @@ const PackageDescription = (props) => {
                                     :
                                     <div className="textAlign-right">
                                         <Button variant="info" type="submit">
-                                            Edit
+                                            Save
                                         </Button>
                                         <Button variant="danger" style={{ marginLeft: '10px' }} onClick={handleCancelEdit}>
                                             Cancel

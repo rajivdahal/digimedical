@@ -268,29 +268,6 @@ const Labtest = (props) => {
                         </Col>
                     </Row>
 
-                    <Row className="mb-3">
-                        {/* <Col md={6}>
-                            <Form.Group>
-                                <Form.Label>Date</Form.Label>
-                                <Form.Control type="date" name="date" onChange={formik.handleChange}
-                                    value={formik.values.date} onBlur={formik.handleBlur} />
-                                {formik.errors.date && formik.touched.date ?
-                                    <div className="error-message">{formik.errors.date}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col> */}
-                        {/* <Col md={6}>
-                            <Form.Group >
-                                <Form.Label>Price</Form.Label>
-                                <Form.Control type="text" name="price" onChange={formik.handleChange}
-                                    value={formik.values.price} onBlur={formik.handleBlur} />
-                                {formik.errors.price && formik.touched.price ?
-                                    <div className="error-message">{formik.errors.price}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col> */}
-                    </Row>
-
                     <Row>
                         <Col md={4}>
                             <Form.Label>Choose Photo :  </Form.Label><br></br>
