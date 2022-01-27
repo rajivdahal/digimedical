@@ -27,6 +27,7 @@
   margin-top: 20px;
 }
 .medical_repo_form {
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
 }
@@ -55,14 +56,18 @@
   border: 0.75px solid #d0d7e2;
   border-radius: 6px;
 }
-
+.prescription_input:focus {
+  border: 2px solid #2745f0;
+}
 .prescription_inputimage {
   width: 65%;
   height: 80px;
   border: 0.75px solid #d0d7e2;
   border-radius: 6px;
 }
-
+.prescription_inputimage:focus {
+  border: 2px solid #2745f0;
+}
 .prescription_inputdesc {
   width: 65%;
   height: 100px;
@@ -70,6 +75,9 @@
   border-radius: 6px;
 }
 
+.prescription_inputdesc:focus {
+  border: 2px solid #2745f0;
+}
 .button-submit {
   padding: 10px 30px 10px 30px;
   cursor: pointer;
@@ -94,7 +102,7 @@
   width: 90%;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   .med_repo_main {
     width: 100%;
     margin-left: 0;
@@ -107,6 +115,9 @@
   }
   .previous-reports-wrapper {
     width: 100%;
+  }
+  .report-container .umi_row {
+    width: 105%;
   }
   .material-table {
     margin-top: 50px;
@@ -136,25 +147,32 @@
   .prescription_inputdesc {
     width: 50%;
   }
+  .labrepo_text_form .select-category {
+    width: 50%;
+  }
 }
 
-.medical-report-button{
+.medical-report-button {
   margin-top: 2rem;
   border-top: 1px solid #c4c3c3;
   padding-top: 2rem;
 }
-.err-message{
+.err-message {
   color: red;
   position: relative;
   top: -15%;
   left: 35%;
 }
-.select-category{
-  width: 335px;
+.select-category {
+  width: 65%;
 }
-.err-message-bottom{
+.err-message-bottom {
   color: red;
-position: relative;
-top: -5%;
-left: 35%;
+  position: relative;
+  top: -5%;
+  left: 35%;
+}
+
+.umi_row {
+  width: 92.5%;
 }

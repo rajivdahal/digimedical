@@ -1,14 +1,17 @@
-import { Formik, Form, Field,ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./medicalReports.component.css";
 import { useEffect, useState } from "react";
 import { httpClient } from "../../../../utils/httpClient";
 import { notify } from "../../../../services/notify";
 import * as Yup from "yup";
 import Select from "react-select";
-import { useSelector ,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { setMedicalReportOpen, setUtilsInfoOpen } from "../../../../actions/medicalReports.ac";
-import {CommonMedicalreportTable} from "./commonMedicalreportTable";
+import {
+  setMedicalReportOpen,
+  setUtilsInfoOpen,
+} from "../../../../actions/medicalReports.ac";
+import { CommonMedicalreportTable } from "./commonMedicalreportTable";
 import { CommonUtilityreportTable } from "./commonMedicalreportTable";
 
 export const MedicalReports = (props) => {
@@ -19,123 +22,113 @@ export const MedicalReports = (props) => {
     followUpDate: "",
     description: "",
   };
-  const bodyCheckUpValues={
-    bodyCheckupId:null,
-    checkUpDate:"",
-    value:""
-  }
+  const bodyCheckUpValues = {
+    bodyCheckupId: null,
+    checkUpDate: "",
+    value: "",
+  };
   const bodyCheckUpSchema = Yup.object().shape({
-    checkUpDate: Yup.string()
-      .required('Required!'),
-       value: Yup.string()
-      .required('Required!'),
+    checkUpDate: Yup.string().required("Required!"),
+    value: Yup.string().required("Required!"),
   });
-  const medicalReportSchema=Yup.object().shape({
-    hospitalName: Yup.string()
-    .required('Required!'),
-    doctorName: Yup.string()
-    .required('Required!'),
-    visitedDate:Yup.string()
-    .required('Required!'),
-    followUpDate:Yup.string()
-    .required('Required!')
-  })
+  const medicalReportSchema = Yup.object().shape({
+    hospitalName: Yup.string().required("Required!"),
+    doctorName: Yup.string().required("Required!"),
+    visitedDate: Yup.string().required("Required!"),
+    followUpDate: Yup.string().required("Required!"),
+  });
   let [image, setImage] = useState([]);
   const [medicalData, setMedicalData] = useState([]);
-  const [bodyCheckUpCategories,setBodyCHeckUpCategories]=useState([])
-  const [bodyCheckUp,setBodyCHeckUp]=useState([])
-  const [bodyCheckUpCategoryId,setBodyCheckUpCategoryId]=useState(null)
-  const tableVisibilityInfo=useSelector((state)=>state.medicalReports)
-  const dispatch=useDispatch()
-  const setIsMedicalReportOpen=bindActionCreators(setMedicalReportOpen,dispatch)
-  const setIsUtilityOpen=bindActionCreators(setUtilsInfoOpen,dispatch)
+  const [bodyCheckUpCategories, setBodyCHeckUpCategories] = useState([]);
+  const [bodyCheckUp, setBodyCHeckUp] = useState([]);
+  const [bodyCheckUpCategoryId, setBodyCheckUpCategoryId] = useState(null);
+  const tableVisibilityInfo = useSelector((state) => state.medicalReports);
+  const dispatch = useDispatch();
+  const setIsMedicalReportOpen = bindActionCreators(
+    setMedicalReportOpen,
+    dispatch
+  );
+  const setIsUtilityOpen = bindActionCreators(setUtilsInfoOpen, dispatch);
 
   const showMedicalInformation = (e) => {
-    setIsMedicalReportOpen(true)
-  }
-const showUtilityInformation = (e) => {
-  setIsUtilityOpen(true)
-}
+    setIsMedicalReportOpen(true);
+  };
+  const showUtilityInformation = (e) => {
+    setIsUtilityOpen(true);
+  };
   const fetchdata = () => {
     httpClient.GET("medical-records/get-all", false, true).then((resp) => {
-      let revisedMedicalData= resp.data.data.map((item)=>{
-        item.category="Medical report"
-        if(!item.description.length)
-              item.description="none"
-        if(!item.followupdate)
-              item.followupdate="none"
-        if(!item.visiteddate)
-              item.visiteddate="none"
-        if(!item.hospitalname)
-              item.hospitalname="none"
-        if(!item.doctorname)
-              item.doctorname="none"
-        return item
-      })
+      let revisedMedicalData = resp.data.data.map((item) => {
+        item.category = "Medical report";
+        if (!item.description.length) item.description = "none";
+        if (!item.followupdate) item.followupdate = "none";
+        if (!item.visiteddate) item.visiteddate = "none";
+        if (!item.hospitalname) item.hospitalname = "none";
+        if (!item.doctorname) item.doctorname = "none";
+        return item;
+      });
       setMedicalData(revisedMedicalData);
     });
   };
-  const fetchBodyCheckUpCategories=()=>{
-    httpClient.GET("body-checkup/get-all",false,true)
-    .then(resp=>{
-      let checkUpCategoryOnly = resp.data.data.map((item) => {
-        return {
-          label: item.name,
-          value: item.id,
-        };
-      });
-      setBodyCHeckUpCategories(checkUpCategoryOnly)
-    })
-    .catch(err=>{
-      notify.error("Something went wrong")
-    })
-
-  }
-  const fetchUserBodyCheckup=()=>{
-    httpClient.GET("body-checkup/detail/get-all",false,true)
-    .then(resp=>{
-      let bodyCheckUpData=resp.data.data.map((item)=>{
-        item.category="General information"
-        item.description=item.value
-        item.visiteddate=item.checkupdate
-        item.hospitalname="none"
-        item.doctorName="none"
-        item.followupdate="none"
-        return item
+  const fetchBodyCheckUpCategories = () => {
+    httpClient
+      .GET("body-checkup/get-all", false, true)
+      .then((resp) => {
+        let checkUpCategoryOnly = resp.data.data.map((item) => {
+          return {
+            label: item.name,
+            value: item.id,
+          };
+        });
+        setBodyCHeckUpCategories(checkUpCategoryOnly);
       })
-      setBodyCHeckUp(bodyCheckUpData)
-    })
-  }
+      .catch((err) => {
+        notify.error("Something went wrong");
+      });
+  };
+  const fetchUserBodyCheckup = () => {
+    httpClient.GET("body-checkup/detail/get-all", false, true).then((resp) => {
+      let bodyCheckUpData = resp.data.data.map((item) => {
+        item.category = "General information";
+        item.description = item.value;
+        item.visiteddate = item.checkupdate;
+        item.hospitalname = "none";
+        item.doctorName = "none";
+        item.followupdate = "none";
+        return item;
+      });
+      setBodyCHeckUp(bodyCheckUpData);
+    });
+  };
   const upload = (values, { resetForm }) => {
-
     httpClient
       .UPLOAD("post", "medical-records/create", values, false, image, true)
       .then((resp) => {
         notify.success("Success");
         fetchdata();
         resetForm();
-        setIsMedicalReportOpen()
+        setIsMedicalReportOpen();
       })
       .catch((err) => {
         notify.error("Something went wrong", err);
       });
   };
 
-  const updateBodyCheckUp=(values,{resetForm})=>{
-    let finaldata=values
-    finaldata.bodyCheckupId=bodyCheckUpCategoryId
-    httpClient.POST("body-checkup/detail/create",finaldata,false,true)
-    .then(resp=>{
-      notify.success("saved")
-      fetchUserBodyCheckup()
-      resetForm()
-      setIsUtilityOpen()
-
-    })
-    .catch(err=>{
-      notify.error("Error in updating")
-    })
-  }
+  const updateBodyCheckUp = (values, { resetForm }) => {
+    let finaldata = values;
+    finaldata.bodyCheckupId = bodyCheckUpCategoryId;
+    httpClient
+      .POST("body-checkup/detail/create", finaldata, false, true)
+      .then((resp) => {
+        notify.success("saved");
+        fetchUserBodyCheckup();
+        resetForm();
+        setIsUtilityOpen();
+      })
+      .catch((err) => {
+        notify.error("Error in updating");
+      });
+  };
 
   const handleImageChange = (event) => {
     let file = [];
@@ -143,28 +136,35 @@ const showUtilityInformation = (e) => {
     console.log(file);
     setImage(file);
   };
-  const handleCategoryChange=(value)=>{
-    setBodyCheckUpCategoryId(value.value)
-  }
+  const handleCategoryChange = (value) => {
+    setBodyCheckUpCategoryId(value.value);
+  };
   useEffect(() => {
     fetchdata();
-    fetchBodyCheckUpCategories()
-    fetchUserBodyCheckup()
-
+    fetchBodyCheckUpCategories();
+    fetchUserBodyCheckup();
   }, []);
   return (
     <div className="med_repo_main">
-      <div className="main-psetImage newdash_content report-container">
+      <div className="main-psetImage  report-container">
         <h2>Update your previous report here</h2>
         <div className="previous-reports-wrapper">
           <h4>Update Utility Information</h4>
-        <Formik initialValues={bodyCheckUpValues} onSubmit={updateBodyCheckUp} validationSchema={bodyCheckUpSchema}>
+          <Formik
+            initialValues={bodyCheckUpValues}
+            onSubmit={updateBodyCheckUp}
+            validationSchema={bodyCheckUpSchema}
+          >
             {() => (
               <Form className=" medical_repo_form">
                 <div className="margin-adjuster1">
                   <div className="labrepo_text_form">
                     <label htmlFor="name">Category:</label>
-                    <Select options={bodyCheckUpCategories} onChange={handleCategoryChange} className="select-category"/>
+                    <Select
+                      options={bodyCheckUpCategories}
+                      onChange={handleCategoryChange}
+                      className="select-category"
+                    />
                   </div>
                   <div className="labrepo_text_form">
                     <label htmlFor="name">Measured Date:</label>
@@ -175,10 +175,14 @@ const showUtilityInformation = (e) => {
                       placeholder="2020-01-01"
                     ></Field>
                   </div>
-                  <ErrorMessage name="checkUpDate" render={msg => <div className="err-message-bottom">{msg}</div>}/>
+                  <ErrorMessage
+                    name="checkUpDate"
+                    render={(msg) => (
+                      <div className="err-message-bottom">{msg}</div>
+                    )}
+                  />
                 </div>
                 <div className="margin-adjuster2">
-
                   <div className="labrepo_text_form">
                     <label htmlFor="name">Value:</label>
                     <Field
@@ -188,7 +192,12 @@ const showUtilityInformation = (e) => {
                       placeholder="120/80 mm"
                     ></Field>
                   </div>
-                  <ErrorMessage name="checkUpDate" render={msg => <div className="err-message-bottom">{msg}</div>}/>
+                  <ErrorMessage
+                    name="checkUpDate"
+                    render={(msg) => (
+                      <div className="err-message-bottom">{msg}</div>
+                    )}
+                  />
 
                   <button type="submit" className="button-submit">
                     Update
@@ -198,110 +207,147 @@ const showUtilityInformation = (e) => {
             )}
           </Formik>
 
+          <div className="medical-report-button">
+            <h4>Update Medical Information</h4>
 
-
-
-           <div className="medical-report-button">
-          <h4>Update Medical Information</h4>
-
-          <Formik initialValues={medicalReport} onSubmit={upload} validationSchema={medicalReportSchema}>
-
-            {() => (
-              <Form className=" medical_repo_form ">
-
-                <div className="margin-adjuster1">
-                  <div className="labrepo_text_form ">
-                    <label htmlFor="name">Hospital Name:</label>
-                    <Field
+            <Formik
+              initialValues={medicalReport}
+              onSubmit={upload}
+              validationSchema={medicalReportSchema}
+            >
+              {() => (
+                <Form className=" medical_repo_form ">
+                  <div className="margin-adjuster1">
+                    <div className="labrepo_text_form ">
+                      <label htmlFor="name">Hospital Name:</label>
+                      <Field
+                        name="hospitalName"
+                        id="hospitalName"
+                        className="prescription_input"
+                      ></Field>
+                    </div>
+                    <ErrorMessage
                       name="hospitalName"
-                      id="hospitalName"
-                      className="prescription_input"
-                    ></Field>
-                  </div>
-                  <ErrorMessage name="hospitalName" render={msg => <div className="err-message-bottom">{msg}</div>}/>
+                      render={(msg) => (
+                        <div className="err-message-bottom">{msg}</div>
+                      )}
+                    />
 
-                  <div className="labrepo_text_form">
-                    <label htmlFor="name">Doctor Name:</label>
-                    <Field
+                    <div className="labrepo_text_form">
+                      <label htmlFor="name">Doctor Name:</label>
+                      <Field
+                        name="doctorName"
+                        id="doctorName"
+                        className="prescription_input"
+                      ></Field>
+                    </div>
+                    <ErrorMessage
                       name="doctorName"
-                      id="doctorName"
-                      className="prescription_input"
-                    ></Field>
+                      render={(msg) => (
+                        <div className="err-message-bottom">{msg}</div>
+                      )}
+                    />
 
-                  </div>
-                  <ErrorMessage name="doctorName" render={msg => <div className="err-message-bottom">{msg}</div>}/>
-
-                  <div className="labrepo_text_form">
-                    <label htmlFor="name">Visited Date:</label>
-                    <Field
+                    <div className="labrepo_text_form">
+                      <label htmlFor="name">Visited Date:</label>
+                      <Field
+                        name="visitedDate"
+                        id="visitedDate"
+                        className="prescription_input"
+                        placeholder="2020-01-01"
+                      ></Field>
+                    </div>
+                    <ErrorMessage
                       name="visitedDate"
-                      id="visitedDate"
-                      className="prescription_input"
-                      placeholder="2020-01-01"
-                    ></Field>
-                  </div>
-                  <ErrorMessage name="visitedDate" render={msg => <div className="err-message-bottom">{msg}</div>}/>
+                      render={(msg) => (
+                        <div className="err-message-bottom">{msg}</div>
+                      )}
+                    />
 
-                  <div className="labrepo_text_form">
-                    <label htmlFor="name">Follow Up Date:</label>
-                    <Field
+                    <div className="labrepo_text_form">
+                      <label htmlFor="name">Follow Up Date:</label>
+                      <Field
+                        name="followUpDate"
+                        id="followUpDate"
+                        className="prescription_input"
+                        placeholder="2020-01-01"
+                      ></Field>
+                    </div>
+                    <ErrorMessage
                       name="followUpDate"
-                      id="followUpDate"
-                      className="prescription_input"
-                      placeholder="2020-01-01"
-                    ></Field>
+                      render={(msg) => (
+                        <div className="err-message-bottom">{msg}</div>
+                      )}
+                    />
                   </div>
-                  <ErrorMessage name="followUpDate" render={msg => <div className="err-message-bottom">{msg}</div>}/>
+                  <div className="margin-adjuster2">
+                    <div className="labrepo_text_form">
+                      <label htmlFor="name">Image of Report:</label>
+                      <input
+                        name="image"
+                        className="prescription_inputimage"
+                        type={"file"}
+                        onChange={(event) => {
+                          handleImageChange(event);
+                        }}
+                      ></input>
+                    </div>
 
-                </div>
-                <div className="margin-adjuster2">
-                  <div className="labrepo_text_form">
-                    <label htmlFor="name">Image of Report:</label>
-                    <input
-                      name="image"
-                      className="prescription_inputimage"
-                      type={"file"}
-                      onChange={(event) => {
-                        handleImageChange(event);
-                      }}
-                    ></input>
+                    <div className="labrepo_text_form">
+                      <label htmlFor="name">Description:</label>
+                      <Field
+                        name="description"
+                        className="prescription_inputdesc"
+                        style={{ height: "100px" }}
+                      ></Field>
+                    </div>
+
+                    <button type="submit" className="button-submit">
+                      Update
+                    </button>
                   </div>
-
-                  <div className="labrepo_text_form">
-                    <label htmlFor="name">Description:</label>
-                    <Field
-                      name="description"
-                      className="prescription_inputdesc"
-                      style={{ height: "100px" }}
-                    ></Field>
-                  </div>
-
-                  <button type="submit" className="button-submit">
-                    Update
-                  </button>
-                </div>
-              </Form>
-            )}
-          </Formik>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
-                         <div className="row" >
-                            <div className="col-md-12 grid-margin stretch-card">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <div className="title-header">
-                                         <p className={`card-title ${tableVisibilityInfo.reports  ? "title-focus" : null}`} onClick={showMedicalInformation}>Medical Information</p>
-                                            <p className={`card-title ${tableVisibilityInfo.utilsInfo ? "title-focus" : null}`} onClick={showUtilityInformation}>Utility Information</p>
-                                        </div>
-                                        {
-                                            tableVisibilityInfo.reports ? <CommonMedicalreportTable medicalData={medicalData}></CommonMedicalreportTable>
-                                                :tableVisibilityInfo.utilsInfo?<CommonUtilityreportTable bodyCheckUp={bodyCheckUp}></CommonUtilityreportTable> :<h1>You don't have any appointments</h1>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+        <div className="row umi_row">
+          <div className="col-md-12 grid-margin stretch-card">
+            <div className="card">
+              <div className="card-body">
+                <div className="title-header">
+                  <p
+                    className={`card-title ${
+                      tableVisibilityInfo.reports ? "title-focus" : null
+                    }`}
+                    onClick={showMedicalInformation}
+                  >
+                    Medical Information
+                  </p>
+                  <p
+                    className={`card-title ${
+                      tableVisibilityInfo.utilsInfo ? "title-focus" : null
+                    }`}
+                    onClick={showUtilityInformation}
+                  >
+                    Utility Information
+                  </p>
+                </div>
+                {tableVisibilityInfo.reports ? (
+                  <CommonMedicalreportTable
+                    medicalData={medicalData}
+                  ></CommonMedicalreportTable>
+                ) : tableVisibilityInfo.utilsInfo ? (
+                  <CommonUtilityreportTable
+                    bodyCheckUp={bodyCheckUp}
+                  ></CommonUtilityreportTable>
+                ) : (
+                  <h1>You don't have any appointments</h1>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

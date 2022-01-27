@@ -4,9 +4,9 @@ import "./usersidebar.component.css";
 import { useSelector } from "react-redux";
 export default function Usersidebar(props) {
   console.log("props in sidebar is", props);
-  const sidebar=useSelector((state)=>state.sidebar)
-  const isSidebaropen=sidebar.isopen
-  console.log("is sidebar open or not",isSidebaropen)
+  const sidebar = useSelector((state) => state.sidebar);
+  const isSidebaropen = sidebar.isopen;
+  console.log("is sidebar open or not", isSidebaropen);
   const navigateDashboard = () => {
     props.props.push("/dashboard");
   };
@@ -16,13 +16,13 @@ export default function Usersidebar(props) {
   const loadMedicalReport = () => {
     props.props.push("/dashboard/medical-reports");
   };
-  const loadBodyCheckup=()=>{
+  const loadBodyCheckup = () => {
     props.props.push("/dashboard/body-checkup");
-  }
+  };
   return (
     <div>
       <div className="newdash_body">
-        <div className="newdash_dash_main" id="show_new_dash">
+        <div className="newdash_dash_main">
           <div className="newdash_dash1">
             <div className="newdash_dash1_dashboard">
               <div className="newdash_dash1_cont1">
@@ -143,143 +143,137 @@ export default function Usersidebar(props) {
               className="newdash_dash1_dashboard"
               onClick={loadBodyCheckup}
               style={{ cursor: "pointer" }}
-            >
-            </div>
+            ></div>
           </div>
         </div>
-
-
 
         {/* mobile view sidebar */}
-      {
-        isSidebaropen?<div class="mobile-dashboard" >
-        <div className="newdash_dash1">
-          <div className="newdash_dash1_dashboard">
-            <div className="newdash_dash1_cont1">
+        {isSidebaropen ? (
+          <div class="mobile-dashboard">
+            <div className="newdash_dash1">
+              <div className="newdash_dash1_dashboard">
+                <div className="newdash_dash1_cont1">
+                  <div
+                    className="newdash_dash1_cont1p"
+                    onClick={navigateDashboard}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <p id="newdash_dash1_cont1p">
+                      {" "}
+                      <span id="newdash_bar_ico">
+                        {" "}
+                        <i class="fas fa-bars"></i>
+                      </span>{" "}
+                      Dashboard
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="newdash_dash1_dashboard">
+                <div className="newdash_dash1_cont1">
+                  <div className="newdash_dash1_cont2p">
+                    {" "}
+                    <p id="newdash_dash1_cont1p">
+                      {" "}
+                      <span id="newdash_bar_ico">
+                        <i class="fas fa-user-clock"></i>
+                      </span>
+                      Appointments
+                      <span id="newdash_arrow">
+                        <i class="fas fa-chevron-right"></i>
+                      </span>
+                    </p>
+                  </div>
+
+                  <div className="newdash_dash1_cont2">
+                    <Link
+                      to="/dashboard/viewappointment"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <p style={{ cursor: "pointer" }}>View Appointment</p>
+                    </Link>
+                    <Link
+                      to="/dashboard/bookappointment"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <p style={{ cursor: "pointer" }}> Book Appointment</p>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <div className="newdash_dash1_dashboard">
+                <div className="newdash_dash1_cont1">
+                  <div className="newdash_dash1_cont2p">
+                    <p id="newdash_dash1_cont1p">
+                      {" "}
+                      <span id="newdash_bar_ico">
+                        {" "}
+                        <i class="fas fa-file-medical"></i>
+                      </span>{" "}
+                      Labtest
+                      <span id="newdash_arrow">
+                        <i class="fas fa-chevron-right"></i>
+                      </span>
+                    </p>
+                  </div>
+                  <div className="newdash_dash1_cont2">
+                    <Link
+                      to="/dashboard/lab-test"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <p style={{ cursor: "pointer" }}>Book Lab Tests</p>
+                    </Link>
+                    <Link
+                      to="/dashboard/view-lab-test"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <p style={{ cursor: "pointer" }}>My Lab Tests</p>
+                    </Link>
+                  </div>
+                </div>
+              </div>
               <div
-                className="newdash_dash1_cont1p"
-                onClick={navigateDashboard}
+                className="newdash_dash1_dashboard"
+                onClick={loadHospitals}
                 style={{ cursor: "pointer" }}
               >
-                <p id="newdash_dash1_cont1p">
-                  {" "}
-                  <span id="newdash_bar_ico">
+                <div className="newdash_dash1_cont1">
+                  <div className="newdash_dash1_cont1p">
                     {" "}
-                    <i class="fas fa-bars"></i>
-                  </span>{" "}
-                  Dashboard
-                </p>
+                    <p id="newdash_dash1_cont1p">
+                      <span id="newdash_bar_ico">
+                        <i class="fas fa-hospital"></i>
+                      </span>{" "}
+                      Hospitals
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="newdash_dash1_dashboard">
-            <div className="newdash_dash1_cont1">
-              <div className="newdash_dash1_cont2p">
-                {" "}
-                <p id="newdash_dash1_cont1p">
-                  {" "}
-                  <span id="newdash_bar_ico">
-                    <i class="fas fa-user-clock"></i>
-                  </span>
-                  Appointments
-                  <span id="newdash_arrow">
-                    <i class="fas fa-chevron-right"></i>
-                  </span>
-                </p>
-              </div>
-
-              <div className="newdash_dash1_cont2">
-                <Link
-                  to="/dashboard/viewappointment"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <p style={{ cursor: "pointer" }}>View Appointment</p>
-                </Link>
-                <Link
-                  to="/dashboard/bookappointment"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <p style={{ cursor: "pointer" }}> Book Appointment</p>
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className="newdash_dash1_dashboard">
-            <div className="newdash_dash1_cont1">
-              <div className="newdash_dash1_cont2p">
-                <p id="newdash_dash1_cont1p">
-                  {" "}
-                  <span id="newdash_bar_ico">
+              <div
+                className="newdash_dash1_dashboard"
+                onClick={loadMedicalReport}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="newdash_dash1_cont1">
+                  <div className="newdash_dash1_cont1p">
                     {" "}
-                    <i class="fas fa-file-medical"></i>
-                  </span>{" "}
-                  Labtest
-                  <span id="newdash_arrow">
-                    <i class="fas fa-chevron-right"></i>
-                  </span>
-                </p>
+                    <p id="newdash_dash1_cont1p">
+                      <span id="newdash_bar_ico">
+                        <i class="fas fa-file-alt"></i>
+                      </span>{" "}
+                      Update Medical Info
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="newdash_dash1_cont2">
-                <Link
-                  to="/dashboard/lab-test"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <p style={{ cursor: "pointer" }}>Book Lab Tests</p>
-                </Link>
-                <Link
-                  to="/dashboard/view-lab-test"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <p style={{ cursor: "pointer" }}>My Lab Tests</p>
-                </Link>
-              </div>
+              <div
+                className="newdash_dash1_dashboard"
+                onClick={loadBodyCheckup}
+                style={{ cursor: "pointer" }}
+              ></div>
             </div>
           </div>
-          <div
-            className="newdash_dash1_dashboard"
-            onClick={loadHospitals}
-            style={{ cursor: "pointer" }}
-          >
-            <div className="newdash_dash1_cont1">
-              <div className="newdash_dash1_cont1p">
-                {" "}
-                <p id="newdash_dash1_cont1p">
-                  <span id="newdash_bar_ico">
-                    <i class="fas fa-hospital"></i>
-                  </span>{" "}
-                  Hospitals
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            className="newdash_dash1_dashboard"
-            onClick={loadMedicalReport}
-            style={{ cursor: "pointer" }}
-          >
-            <div className="newdash_dash1_cont1">
-              <div className="newdash_dash1_cont1p">
-                {" "}
-                <p id="newdash_dash1_cont1p">
-                  <span id="newdash_bar_ico">
-                    <i class="fas fa-file-alt"></i>
-                  </span>{" "}
-                  Update Medical Info
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            className="newdash_dash1_dashboard"
-            onClick={loadBodyCheckup}
-            style={{ cursor: "pointer" }}
-          >
-          </div>
-        </div>
-        </div>:null
-      }
-
-
+        ) : null}
 
         {/* mobile view sidebar */}
       </div>
