@@ -272,7 +272,7 @@ const Permission = (props) => {
                     icons={Tableicons}
                     data={allPermission}
                     columns={[
-                        { title: 'ID', field: 'id' },
+                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
                         { title: 'Screen Name', field: 'screens' },
                         { title: 'Role Name', field: 'rolename' },
                         {

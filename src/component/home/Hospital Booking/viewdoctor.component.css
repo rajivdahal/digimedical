@@ -42,6 +42,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: flex-end;
 }
 .doc_appoint_head div h1 {
   font-weight: bold;
@@ -54,9 +55,7 @@
   color: #596579;
 }
 .doc_booksearch {
-  margin-top: 40px;
   width: 260px;
-  height: 10px;
 }
 form.doc_example input[type="text"] {
   padding: 8px;
@@ -103,6 +102,7 @@ form.doc_example::after {
   display: flex;
   padding: 10px;
   justify-content: space-between;
+  align-items: flex-end;
 }
 .doc_card_img {
   width: 150px;
@@ -129,7 +129,6 @@ form.doc_example::after {
 }
 
 .doc_about_desc_head {
-  width: fit-content;
   display: flex;
 }
 #doc_name_card {
@@ -151,8 +150,8 @@ form.doc_example::after {
 }
 #doc_available_days {
   padding-top: 8px;
-  line-height: 10px;
-  min-width: 25rem;
+  line-height: 20px;
+
   /* border: 1px solid red; */
 }
 #span1_doc_card {
@@ -164,7 +163,6 @@ form.doc_example::after {
   width: 200px;
   height: 40px;
 
-  margin-top: 62%;
   border: 1px solid #2745f0;
   color: #2745f0;
   background: white;
@@ -287,9 +285,10 @@ form.doc_appoin_form2::after {
     justify-content: center;
     align-items: center;
   }
+
   .doc_appoin_hosp_desc {
     margin: 0;
-    margin-top: 20px;
+    margin-top: 60px;
     width: 70%;
   }
 }
@@ -314,10 +313,6 @@ form.doc_appoin_form2::after {
   .doc_about_desc {
     width: 30%;
   }
-
-  #doc_card_but {
-    margin-top: 80%;
-  }
 }
 
 @media screen and (max-width: 700px) {
@@ -328,20 +323,24 @@ form.doc_appoin_form2::after {
   }
   .doc_about_desc {
     display: flex;
+    padding: 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 90%;
+    width: auto;
   }
-
+  .doc_appoint_main {
+    margin-top: 100px;
+  }
   .doc_about_desc p {
     text-align: center;
   }
-  #doc_card_but {
-    margin-top: 0%;
-  }
+
   .doc_appoin_hosp_desc {
     width: 90%;
+  }
+  #doc_card_but {
+    width: auto;
   }
 }

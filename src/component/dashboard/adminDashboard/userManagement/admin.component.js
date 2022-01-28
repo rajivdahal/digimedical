@@ -480,7 +480,7 @@ const CreateAdmin = (props) => {
           icons={Tableicons}
           data={allAdmin}
           columns={[
-            { title: "ID", field: "id" },
+            { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
             { title: "Name", field: "adminName" },
             { title: "Mobile Number", field: "mobileNumber" },
             { title: "email", field: "email" },

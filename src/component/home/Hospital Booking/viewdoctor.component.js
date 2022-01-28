@@ -3,22 +3,20 @@ import Footer from "../../Footer/Footer";
 import Navbar from "../../Navbar/Navbar";
 import Pagination from "../../common/pagination/pagination.component";
 import "./viewdoctor.component.css";
-import doctor1 from "../../../assets/client1.png";
 import phone from "../../../assets/phone.png";
 import { httpClient } from "../../../utils/httpClient";
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-// import "react-modern-calendar-datepicker/lib/DatePicker.css";
-// import DatePicker from "react-modern-calendar-datepicker";
-import { Field, Formik, Form } from "formik";
+import '@amir04lm26/react-modern-calendar-date-picker/lib/DatePicker.css';
+import DatePicker from '@amir04lm26/react-modern-calendar-date-picker';
+import { Field, Formik, Form ,ErrorMessage} from "formik";
 import { notify } from "../../../services/notify";
-const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
-// import hospital_ico from "../../../assets/hospital_icon.png";
+import * as yup from 'yup';
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+
 export default function Hospital_doctors(props) {
   console.log("props are", props);
-  // const [props.location.state,setprops.location.state]=useState(props.location.state)
   let [alldoctors, setallDoctors] = useState([]);
-  const [selectedDay, setSelectedDay] = useState(null);
   let [searcheddoctors, setsearcheddoctors] = useState([]);
   let [issearched, setIssearched] = useState(false);
   const history = useHistory();
@@ -30,6 +28,7 @@ export default function Hospital_doctors(props) {
         setallDoctors(resp.data.data);
       });
   }, []);
+
   let [doctorappointmentindex, setdoctorappointmentindex] = useState(null);
   const showappointment = (item, index) => {
     console.log("doctor appointment index is", doctorappointmentindex);
@@ -38,6 +37,16 @@ export default function Hospital_doctors(props) {
     }
     setdoctorappointmentindex(null);
   };
+  var dt = new Date();
+  const [selectedDay, setSelectedDay] = useState({
+    year: dt.getFullYear(),
+    month: dt.getMonth()+1,
+    day: dt.getDate()
+  })
+  const [minDate, setminDate] = useState({
+    year: dt.getFullYear(),
+    month: dt.getMonth()+1,
+    day: dt.getDate()})
   const initialValues = {
     firstName: "",
     middleName: "",
@@ -47,6 +56,11 @@ export default function Hospital_doctors(props) {
     appointmentDate: "",
     appointmentTime: "",
   };
+
+  let schema = yup.object().shape({
+    appointmentTime: yup.string().required("Required"),
+  });
+
   const handleSubmit = (values, doctor, index) => {
     console.log("values are", values);
     let finaldata = {};
@@ -118,6 +132,13 @@ export default function Hospital_doctors(props) {
     });
     setsearcheddoctors(searched);
   };
+  const datechange=(value,status)=>{
+    let date=""
+    date=value.year+"-"+value.month+"-"+value.day
+    initialValues.appointmentDate=date
+    setSelectedDay(value)
+    console.log("initialValues",initialValues)
+  }
   return (
     <div>
       {props.match.url == "/dashboard/hospitals/view-doctors" ? null : (
@@ -173,13 +194,12 @@ export default function Hospital_doctors(props) {
                 </form>
               </div>
             </div>
-            
+
             <div className="doc_appoint_main">
               {!searcheddoctors.length && !issearched ? (
                 alldoctors.length ? (
                   alldoctors.map((doctor, doctorindex) => {
                     return (
-                      // doctor card here
                       <div className="doc_apoint_card">
                         <div className="doc_apoint_card1">
                           <div className="doc_card_img">
@@ -189,6 +209,7 @@ export default function Hospital_doctors(props) {
                                 "doctor/download/" +
                                 doctor.doctorid
                               }
+                              onError={(e)=>{e.target.onerror = null; e.target.src="/images/doctor.jpeg"}}
                               alt=""
                               style={{
                                 height: "140px",
@@ -230,13 +251,13 @@ export default function Hospital_doctors(props) {
                             </button>
                           </div>
                         </div>
-                        {/* after clicking book an appointment */}
                         {doctorappointmentindex == doctorindex + 1 ? (
                           <Formik
                             initialValues={initialValues}
                             onSubmit={(values) =>
                               handleSubmit(values, doctor, doctorindex)
                             }
+                            validationSchema={schema}
                           >
                             {(values) => {
                               console.log("form values are", values);
@@ -295,19 +316,15 @@ export default function Hospital_doctors(props) {
 
                                   <div class="doc_appoin_form1">
                                     <p>Appointment Date</p>
-                                    {/* <DatePicker
+                                    <DatePicker
                                   value={selectedDay}
-                                  onChange={setSelectedDay}
+                                  minimumDate={minDate}
+                                  onChange={datechange}
                                   inputPlaceholder="Select a day"
                                   shouldHighlightWeekends
                                   name="appointmentDate"
                                   id="appointmentDate"
-                                /> */}
-                                    <Field
-                                      type="date"
-                                      name="appointmentDate"
-                                      id="appointmentDate"
-                                    />
+                                />
                                   </div>
                                   <div class="doc_appoin_form1">
                                     <p>Appointment Time</p>
@@ -316,6 +333,7 @@ export default function Hospital_doctors(props) {
                                       name="appointmentTime"
                                       id="appointmentTime"
                                     />
+                                <ErrorMessage name="appointmentTime" render={msg =><div className="err-message-bottom">{msg}</div>}></ErrorMessage>
                                   </div>
                                   <button
                                     type="submit"
@@ -346,6 +364,8 @@ export default function Hospital_doctors(props) {
                               "doctor/download/" +
                               doctor.doctorid
                             }
+                            onError={(e)=>{e.target.onerror = null; e.target.src="/images/doctor.jpeg"}}
+
                             alt=""
                             style={{
                               height: "142px",
@@ -485,6 +505,8 @@ export default function Hospital_doctors(props) {
                   "hospital/download/" +
                   props.location.state.id
                 }
+                onError={(e)=>{e.target.onerror = null; e.target.src="/images/hospital.jpeg"}}
+
                 alt="hospital book image"
                 style={{
                   height: "160px",
@@ -504,7 +526,8 @@ export default function Hospital_doctors(props) {
                 {props.location.state.mobilenumber}
               </p>
               <p>
-                <i class="fas fa-envelope"></i>&nbsp;{props.location.state.address}
+                <i class="fas fa-envelope"></i>&nbsp;
+                {props.location.state.address}
               </p>
               <p id="hosp_ph_no">
                 {props.location.state.establisheddate ? (

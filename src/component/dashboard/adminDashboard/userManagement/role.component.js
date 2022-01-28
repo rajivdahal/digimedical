@@ -193,7 +193,7 @@ const Role = (props) => {
                     icons={Tableicons}
                     data={allRoles}
                     columns={[
-                        { title: 'ID', field: 'id' },
+                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
                         { title: 'Name', field: 'name' },
                         { title: 'Description', field: 'description' },
 

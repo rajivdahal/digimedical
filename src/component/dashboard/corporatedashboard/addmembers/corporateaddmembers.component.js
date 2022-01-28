@@ -3,7 +3,6 @@ import "./corporateaddmembers.component.css"
 import MaterialTable from 'material-table'
 import { Clear, Add } from "@material-ui/icons";
 import { Formik, Field, Form } from 'formik';
-import * as Yup from 'yup';
 import { httpClient } from '../../../../utils/httpClient';
 import { notify } from '../../../../services/notify';
 import { Button, Modal } from "react-bootstrap";
@@ -20,7 +19,7 @@ export default function Corporateaddmember(props) {
 
     let [addmember, setaddmember] = useState(false)
     let [members, setmembers] = useState([])
-    
+
     const getuser = () => {
         setLoading(true)
         httpClient.GET("corporate/get/members", false, true)
@@ -44,7 +43,7 @@ export default function Corporateaddmember(props) {
         {
             title: "Email", field: "email"
         },
-        
+
         {
             title: "Gender", field: "gender",
             render: (rowData) =>

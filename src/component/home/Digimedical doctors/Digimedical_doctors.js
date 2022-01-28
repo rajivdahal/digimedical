@@ -9,6 +9,7 @@ import DigiMedicalDoctorCard from "./digi.doctor.card";
 import { httpClient } from "../../../utils/httpClient"
 import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
+import Footer from "../../Footer/Footer";
 
 function Digimedical_doctors(props) {
 
@@ -113,12 +114,16 @@ function Digimedical_doctors(props) {
             </div>
           </div>
 
-          <div className="digidoctor_whychooseus">
+
+        </div>
+        <div className="digidoctor_whychooseus">
             <div className="digidpc_whycus">
               <h1>Why choose Us?</h1>
               <div className="digidoctor_whychooseus_cont">
                 <div className="whychooseus_contimg">
-                  <img src={handheart} alt="" />
+                  <img src={handheart} alt=""
+
+                  />
                 </div>
                 <p>Safest digital heath platform</p>
               </div>
@@ -146,9 +151,11 @@ function Digimedical_doctors(props) {
               <h4>Call 01-5909141</h4>
             </div>
           </div>
-        </div>
-        <Pagination></Pagination>
       </div>
+
+      <Pagination></Pagination>
+      <br/>
+      <Footer/>
     </div>
   );
 }

@@ -981,7 +981,7 @@ button::-moz-focus-inner {
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 5;
+  /* z-index: 5; */
 }
 .tox .tox-comment__reply {
   display: flex;

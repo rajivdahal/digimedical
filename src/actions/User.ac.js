@@ -1,24 +1,32 @@
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 export const userActionTypes = {
-
-    SET_IS_LOGIN_LOADING: 'SET_IS_LOGIN_LOADING',
-    USER_LOGGED_IN: 'USER_LOGGED_IN',
+    SET_IS_FETCH_PROFILE: 'SET_IS_FETCH_PROFILE',
+    SET_IS_EDIT_PROFILE:"SET_IS_EDIT_PROFILE"
 }
-export const loginuser=params=>{
-    // console.log("at action file inc data is>>",params)
+export const loginUser=params=>{
+    console.log("inside action",params)
     return(dispatch)=>{
+        let id=localStorage.getItem("userid")
+        console.log("id is",id)
+        let imgUrl=REACT_APP_BASE_URL + "download/" + id;
+        console.log("image url is",imgUrl)
         dispatch({
-            type:userActionTypes.SET_IS_LOGIN_LOADING,
-            payload:true
-        })
-        dispatch({
-            type:userActionTypes.USER_LOGGED_IN,
-            payload:params
-        })
-        //http call
-        //TODO
-        dispatch({
-            type:userActionTypes.SET_IS_LOGIN_LOADING,
-            payload:false
+            type:userActionTypes.SET_IS_FETCH_PROFILE,
+            payload:{
+                imgUrl:imgUrl,
+                id:id,
+            }
         })
     }
+}
+
+export const editProfile=params=>{
+    console.log("inside edit profile action file")
+    return(dispatch)=>{
+      dispatch({
+          type:userActionTypes.SET_IS_EDIT_PROFILE,
+          payload:true
+      })
+    }
+
 }

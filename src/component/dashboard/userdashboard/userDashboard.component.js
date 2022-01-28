@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { http, httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
 import { useState } from "react";
+// import { LoadingIndicator } from "react-select/dist/declarations/src/components/indicators";
 const Userdashboard = (props) => {
   let [pendingappointment, setpendingappointments] = useState(0);
   let [completedappointments, setcompletedappointments] = useState(0);
@@ -13,8 +14,10 @@ const Userdashboard = (props) => {
   let [weather, setWeather] = useState({});
   let [weatherDescription, setWeatherDescription] = useState({});
   let [currentTemperature, setCurrentTemperature] = useState("");
+  let [isWeatherLoading,setIsWeatherLoading]=useState(false)
   const [totalappointments, settotalappointments] = useState();
   useEffect(() => {
+
     httpClient
       .GET("totoal-appointments-patients", false, true)
       .then((resp) => {
@@ -33,6 +36,7 @@ const Userdashboard = (props) => {
       .then((resp) => {
         setcompletedappointments(resp.data.data.length);
       });
+    setIsWeatherLoading(true)
     httpClient
       .GET("get-user-canceled-appointments", false, true)
       .then((resp) => {
@@ -52,10 +56,12 @@ const Userdashboard = (props) => {
             setWeather(resp.data);
             setWeatherDescription(resp.data.weather[0]);
             setCurrentTemperature((resp.data.main.temp - 273.15).toString());
+
           })
           .catch((err) => {
             console.log("error in fetching the data after api");
-          });
+          })
+          .finally(setIsWeatherLoading(false));
       } else {
         console.log("geolocation is not working", err);
       }
@@ -93,30 +99,30 @@ const Userdashboard = (props) => {
                 <div className="card-people mt-auto">
                   <img src="/images/dashboard/people.svg" alt="people" />
                   <div className="weather-info">
-                    <div className="d-flex">
-                      <div>
-                        <h2 className="mb-0 font-weight-normal">
-                          <img
-                            src={`http://openweathermap.org/img/w/${weatherDescription.icon}.png`}
-                            style={{ height: "70px", width: "70px" }}
-                          />
-                          {currentTemperature.slice(0, 6)}
-                          <sup>C</sup>
-                        </h2>
-                      </div>
-                      <div className="ml-2">
-                        <h4 className="location font-weight-normal">
-                          {weather.name}
-                        </h4>
-                        {weather.sys ? (
-                          <h6 className="font-weight-normal">
-                            {weather.sys.country}
-                          </h6>
-                        ) : (
-                          <h6 className="font-weight-normal">Nepal</h6>
-                        )}
-                      </div>
-                    </div>
+                   {
+                     isWeatherLoading?<div style={{color:"orange"}}>Loading.....</div>:
+                     <div className="d-flex">
+                     <div>
+                       <h2 className="mb-0 font-weight-normal">
+
+                         {currentTemperature.slice(0, 6)}
+                         <sup>C</sup>
+                       </h2>
+                     </div>
+                     <div className="ml-2">
+                       <h4 className="location font-weight-normal">
+                         {weather.name}
+                       </h4>
+                       {weather.sys ? (
+                         <h6 className="font-weight-normal">
+                           {weather.sys.country}
+                         </h6>
+                       ) : (
+                         <h6 className="font-weight-normal">Nepal</h6>
+                       )}
+                     </div>
+                   </div>
+                   }
                   </div>
                 </div>
               </div>
@@ -136,7 +142,6 @@ const Userdashboard = (props) => {
                     <div className="card-body">
                       <p className="mb-4">Total Pending Appointments</p>
                       <p className="fs-30 mb-2">{pendingappointment}</p>
-                      {/* <p>22.00% (30 days)</p> */}
                     </div>
                   </div>
                 </div>

@@ -57,6 +57,7 @@ import CorporateUser from "./corporatedashboard/addmembers/corporate.user"
 import BodyCheckup from "./adminDashboard/bodyCheckup/bodyCheckup";
 import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.component";
 import CorporateTypes from "./adminDashboard/corporateData/corporate.type";
+import BodyCheckUp from "./userdashboard/commonupcomingappointment/bodyCheckup/bodyCheckUp.component";
 import PackageDescription from "./adminDashboard/packageData/package.desc";
 
 const Dashboard = (props) => {
@@ -99,6 +100,8 @@ const Dashboard = (props) => {
                                       <ProtectedRoute component={AddFamilyMember}></ProtectedRoute> :
                                       props.location.pathname === "/dashboard/medical-reports" ?
                                         <ProtectedRoute component={MedicalReports}></ProtectedRoute> :
+                                        props.location.pathname === "/dashboard/body-checkup" ?
+                                        <ProtectedRoute component={BodyCheckUp}></ProtectedRoute> :
                                         null
               }
             </> :
@@ -157,7 +160,7 @@ const Dashboard = (props) => {
                                                           : props.location.pathname === "/dashboard/labtest-report" ?
                                                             <ProtectedRoute component={LabtestReport} />
                                                             : props.location.pathname === "/dashboard/body-checkup" ?
-                                                              <ProtectedRoute component={BodyCheckup} />          
+                                                              <ProtectedRoute component={BodyCheckup} />
                                                               : props.location.pathname == "/dashboard/add/corporate-types" ?
                                                               <ProtectedRoute component={CorporateTypes} props={props}></ProtectedRoute>
 
@@ -229,7 +232,7 @@ const Dashboard = (props) => {
                                 <ProtectedRoute component={Viewcorporateappointment} props={props}></ProtectedRoute> :
                                 props.location.pathname == "/dashboard/corporate/bookappointment" ?
                                   <ProtectedRoute component={Internalappointmentbook} props={props} fromcorporateappointment={true}></ProtectedRoute> :
-                        
+
                                     <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </> :

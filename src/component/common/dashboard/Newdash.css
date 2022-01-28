@@ -1,7 +1,3 @@
-.newdash_body {
-  width: 100%;
-}
-
 /* navbar css here */
 .newdash_nav {
   display: flex;
@@ -10,7 +6,11 @@
   height: 58px;
   color: white;
   position: fixed;
-  z-index: 10;
+  top: 0;
+  z-index: 1001;
+}
+.react-time-picker__clock {
+  z-index: 1;
 }
 
 .newdash_hamburger {
@@ -49,39 +49,41 @@
   font-weight: 900;
 }
 .newdash_user {
-  width: 30%;
+  width: 50px;
 
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  margin-left: 20%;
+  gap: 32px;
+  margin-left: auto;
+  margin-right: 2.5%;
 }
 .newdash_user_img {
-  width: 50px;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 
   margin-left: auto;
-  margin-top: 4px;
+  margin-top: 0;
   margin-right: 0;
-  border-radius: 50%;
 }
 
 .newdash_user_img img {
   width: 50px;
-  height: 100%;
+  height: 50px;
   object-fit: cover;
+  border-radius: 50%;
 }
 .newdash_user_optionmain {
+  position: fixed;
+  top: 58px;
+  right: 2.5%;
+  background: white;
   display: none;
-  width: 50%;
+  width: 250px;
   margin-left: auto;
   margin-right: 0;
-  margin-top: -10px;
-  z-index: 10;
-  background-color: #fff;
-  position: relative;
 }
 
 .newdash_user_option {
@@ -94,12 +96,11 @@
   color: black;
   -webkit-box-shadow: 0 0 15px 54#5965794f;
   box-shadow: 0 0 15px #5965794f;
-  z-index: 100;
 }
 .newdash_user_option1 {
   display: flex;
   gap: 10px;
-  z-index: 10;
+
   cursor: pointer;
   padding-left: 10px;
   border-radius: 10px;
@@ -115,25 +116,27 @@
 
 .newdash_user:hover .newdash_user_optionmain {
   display: block;
-  z-index: 10;
 }
 /* a Sidebar css here
 a
-a 
+a
 b
 c
 d
 */
-
+.newdash_body {
+  margin-top: 58px;
+  position: fixed;
+  z-index: 1000;
+}
 .newdash_dash_main {
-  width: 100%;
   display: grid;
   grid-template-columns: 1.5fr 8.5fr;
-  z-index: 100;
+  background-color: #fff;
 }
 
 .newdash_dash1 {
-  padding-top: 70px;
+  padding-top: 20px;
   -webkit-box-shadow: 0 0 15px 54#5965794f;
   box-shadow: 0 0 15px #5965794f;
   height: 100vh;
@@ -199,6 +202,7 @@ d
 .newdash_dash1_cont1:hover .newdash_dash1_cont2 {
   height: 100%;
   display: block;
+  cursor: pointer;
 }
 
 .newdash_dash1_cont1:hover p #newdash_arrow {
@@ -208,11 +212,13 @@ d
 .newdash_dash1_cont1:hover .newdash_dash1_cont1p {
   color: white;
   background: #2745f0;
+  cursor: pointer;
 }
 
 .newdash_dash1_cont1:hover .newdash_dash1_cont2p {
   color: white;
   background: #2745f0;
+  cursor: pointer;
 }
 .newdash_dash1_cont2 p:hover {
   text-decoration: underline;
@@ -222,10 +228,6 @@ d
 
 @media screen and (max-width: 1232px) {
   .newdash_user {
-    position: absolute;
-    margin-left: 0;
-    left: 55%;
-    width: 40%;
   }
 }
 
@@ -234,43 +236,56 @@ d
     display: block;
     margin-top: 5px;
     margin-left: 10px;
+    color: white;
   }
 
   .newdash_dash_main {
     display: none;
   }
-  .newdash_dash_main:target {
-    display: block;
-    width: 100%;
-    background: grey;
-  }
 
   @media screen and (max-width: 900px) {
     .newdash_user {
-      position: absolute;
-      margin-left: 0;
-      left: 45%;
-      width: 50%;
+    }
+    .Welcome_client {
+      width: 38%;
     }
   }
 }
 @media screen and (max-width: 600px) {
   .newdash_hamburger {
     margin-left: 0px;
+    width: 20px;
+  }
+  .newdash_hamburger i {
+    font-size: 14px;
+  }
+  .newdash_nav_img {
+    width: 20%;
   }
   .newdash_nav_img img {
-    width: 130px;
+    height: 100%;
+    width: 100;
+    object-fit: cover;
+  }
+  .newdash_nav_img img {
+    width: 110px;
     object-fit: contain;
   }
   .Welcome_client {
+    width: 40%;
   }
   .Welcome_client p {
-    font-size: 14px;
+    font-size: 12px;
+    line-height: 14px;
   }
   .newdash_user {
-    position: absolute;
-    margin-left: 0;
-    left: 110px;
-    width: 70%;
+    margin-right: 0;
+  }
+  .newdash_user_optionmain {
+    width: 50%;
+    right: 0;
+  }
+  .newdash_dash1 {
+    width: 210px;
   }
 }

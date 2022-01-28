@@ -75,7 +75,7 @@ const NavbarMenuItems = () => {
     });
   };
   return (
-    <Root style={{ height: "60px" }} className="root_nav">
+    <Root style={{ height: "70px" }} className="root_nav">
       <LogMenuItemsContainor className="logcontainer_nav">
         {/* for mobile view dashboard  */}
         <div class="m-menu">
@@ -85,101 +85,127 @@ const NavbarMenuItems = () => {
           </div>
           <div class="m-menu__content">
             <nav>
-              <h3>Categories</h3>
+              <h3 id="categories_m-menu">Categories</h3>
               <div className="categories_nav_mob">
-              {
-                  !localStorage.getItem("dm-access_token")? <Link
-                  id="link_cat_nav_mob"
-                  to="/register"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  Register
-                </Link>:null
-                }
+                {!localStorage.getItem("dm-access_token") ? (
+                  <Link
+                    id="link_cat_nav_mob"
+                    to="/register"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <span>
+                      {" "}
+                      <i class="fas fa-file-alt"></i> &nbsp;{" "}
+                    </span>
+                    Register
+                  </Link>
+                ) : null}
 
-                {
-                  !localStorage.getItem("dm-access_token")? 
-                   <Link to="/login">
-                  <div>
-                    <span style={{color:"#fff"}}>Login</span>
-                  </div>
-                </Link>:null
-                }
-                {
-                  localStorage.getItem("dm-access_token")?<Link
-                  id="link_cat_nav_mob"
-                  to="/dashboard"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  Dashboard
-                </Link>:null
-                }
+                {!localStorage.getItem("dm-access_token") ? (
+                  <Link id="link_cat_nav_mob" to="/login">
+                    <div>
+                      <span>
+                        {" "}
+                        <i class="fas fa-sign-in-alt"></i> &nbsp;{" "}
+                      </span>
+                      Login
+                    </div>
+                  </Link>
+                ) : null}
+                {localStorage.getItem("dm-access_token") ? (
+                  <Link
+                    id="link_cat_nav_mob"
+                    to="/dashboard"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <span>
+                      {" "}
+                      <i class="fas fa-th-large"></i> &nbsp;{" "}
+                    </span>
+                    Dashboard
+                  </Link>
+                ) : null}
                 <Link
                   id="link_cat_nav_mob"
-                  to="/"
+                  to="/services"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  Home{" "}
-                </Link>
-                <Link
-                  id="link_cat_nav_mob"
-                  to="/about"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  About
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-toolbox"></i> &nbsp;{" "}
+                  </span>
+                  Our Services
                 </Link>
                 <Link
                   id="link_cat_nav_mob"
                   to="/services"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  Services
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-toolbox"></i> &nbsp;{" "}
+                  </span>
+                  For Business
                 </Link>
                 <Link
                   id="link_cat_nav_mob"
-                  to="/lab-test"
+                  to="/services"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  Lab Test
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-toolbox"></i> &nbsp;{" "}
+                  </span>
+                  For Family
                 </Link>
-                <Link
-                  id="link_cat_nav_mob"
-                  to="/contact"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  Contact
-                </Link>
-
                 <Link
                   id="link_cat_nav_mob"
                   to="/digimedical_doctors"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  Digimedical Doctors
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-user-md"></i> &nbsp;{" "}
+                  </span>
+                  Our Doctors
+                </Link>
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/about"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <span>
+                    {" "}
+                    <i class="fas fa-address-card"></i> &nbsp;{" "}
+                  </span>
+                  About
+                </Link>
+
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/contact"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-address-book"></i> &nbsp;{" "}
+                  </span>
+                  Contact
                 </Link>
 
                 {localStorage.getItem("dm-access_token") ? (
-                  <div onClick={Logout}>
-                    <img
-                      src={login}
-                      style={{
-                        height: "13px",
-                        marginLeft: "1rem",
-                        marginRight: "0.5rem",
-                      }}
-                    ></img>
-                    <span style={{ color: "#fff" }}>Logout</span>
+                  <div onClick={Logout} id="link_cat_nav_mob">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span style={{ color: "#fff" }}>&nbsp; Logout</span>
                   </div>
                 ) : null}
                 {logoutstate.logout ? (
-                  <div
-                    className="logout-container"
-                    style={{
-                      width: "10rem",
-                      top: "10rem",
-                      height: "12rem !important",
-                    }}
-                  >
+                  <div className="logout-container1" id="logout_cont">
                     <div className="logout">
                       <p>Are you sure you want to Logout?</p>
                       <div className="buttons">
@@ -203,7 +229,7 @@ const NavbarMenuItems = () => {
           <img
             src={logo}
             style={{
-              height: "3.5rem",
+              height: "100%",
             }}
           ></img>
         </Link>
@@ -211,45 +237,149 @@ const NavbarMenuItems = () => {
         {/* for desktop navbar */}
         <div className="menu">
           {" "}
-          <span className="menu-item">
-            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-              Home{" "}
-            </Link>
-          </span>
-          <span className="menu-item">
+          <div className="menu-item_nav">
             <Link
-              to="/about"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              About
-            </Link>
-          </span>
-          <span className="menu-item">
-            <Link
+              className="link_home_nav"
               to="/services"
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              Services{" "}
+              Our Services
             </Link>
-          </span>
-          <span className="menu-item">
-            <Link
-              to="/lab-test"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              Lab Test{" "}
-            </Link>
-          </span>
-          <span className="menu-item">
-            <Link
-              to="/hospitals"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              Hospital{" "}
-            </Link>
-          </span>
+            <div className="dropdown_hp_content">
+              <div className="dropdown_hp_content1">
+                <a href="#">
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Lab Test</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Doctor at Home</p>{" "}
+                </a>
+
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Online Medical Consulation</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>24/7 Nursing Service at Home</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>PCR at Home</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>MRI Service</p>
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>{" "}
+                  <p>CT Scan Service</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>{" "}
+                  <p>USG Service at Home</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>{" "}
+                  <p>USG| ECG | ECHO Service at Home</p>{" "}
+                </a>
+              </div>
+            </div>
+          </div>
           <div className="menu-item_nav">
-            <button className="dropbtn">Health Packages</button>
+            <Link
+              className="link_home_nav"
+              to="/services"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              For Business
+            </Link>
+            <div className="dropdown_hp_content">
+              <div className="dropdown_hp_content1">
+                <a href="#">
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Corporate Package</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>School/College Care Package</p>{" "}
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item_nav">
+            <Link
+              className="link_home_nav"
+              to="/services"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              For Family
+            </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
                 <a href="#">
@@ -271,16 +401,7 @@ const NavbarMenuItems = () => {
                   ></img>
                   <p>Pregnency Care Packages</p>{" "}
                 </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Corporate Care Package</p>{" "}
-                </a>
+
                 <a href="#">
                   {" "}
                   <img
@@ -344,13 +465,20 @@ const NavbarMenuItems = () => {
               </div>
             </div>
           </div>
-          
           <span className="menu-item">
             <Link
               to="/digimedical-doctors"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Our Doctors
+            </Link>
+          </span>
+          <span className="menu-item">
+            <Link
+              to="/about"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              About Us
             </Link>
           </span>
           <span className="menu-item">

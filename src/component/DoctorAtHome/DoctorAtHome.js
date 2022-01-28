@@ -9,7 +9,7 @@ import WhatisdoctorAtHomeService from "./whatIsdoctorAtHomeService/whatisdoctorA
 import FrequentlyAsked from "../FrequentlyAsked/FrequentlyAsked";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 const Root = styled.div`
   padding-left: 9rem;
@@ -90,7 +90,9 @@ const FormContainor = styled.div`
 
 const Ourservices = (props) => {
   let [heading, setHeading] = useState([])
+  let history=useHistory()
   useEffect(() => {
+
     const paramsValue = props.match.params.subservice.split("-")
     let title = paramsValue.map((item,index) => {
       return item[0].toUpperCase() + item.substring(1)
@@ -113,7 +115,7 @@ const Ourservices = (props) => {
         <Navigate>
           <span className="home"> Home</span>
           <span className="arrow">
-            <MdOutlineKeyboardArrowRight />
+            <MdOutlineKeyboardArrowRight/>
           </span>
           <Link to="/services"> <span className="service"> Service </span></Link>
           <span className="arrow">
@@ -124,16 +126,17 @@ const Ourservices = (props) => {
               return <span>{item+'\xa0'}</span>
             }) : null
           }
-          {/* <span className="doctorAtHome"> Doctor at Home</span> */}
         </Navigate>
-
         <Heading>{
           heading.length ? heading.map((item) => {
             return <span>{` ${item+'\xa0'}`}</span>
           }) : null
         }</Heading>
         <FormContainor>
-          <DoctorAtHomeForm />
+          {
+            !localStorage.getItem("dm-access_token")?<DoctorAtHomeForm />:<p>We provide you the best doctor at home service</p>
+          }
+
         </FormContainor>
       </Root>
       <WhatisdoctorAtHomeService heading={heading} params={props.match.params.subservice}/>

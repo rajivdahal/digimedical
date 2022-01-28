@@ -3,7 +3,6 @@ import { labtestActionTypes } from "../actions/cart.ac";
 import { notify } from "../services/notify";
 
 export const Cartreducer = (state, action) => {
-
     console.log("reducers atate is", state)
     console.log("action.type is", action.type, action.payload)
     switch (action.type) {
@@ -42,7 +41,7 @@ export const Cartreducer = (state, action) => {
                                 labItem.map((labObject,labObjectIndex)=>{
                                     if(labObject.subcategoryname===item.subcategoryname){
                                         isinside=labObject.subcategoryname
-                                        notify.error(labObject.subcategoryname+"has already been added")
+                                        notify.error(labObject.subcategoryname+" has already been added")
                                     }
                                 })
                                 if(labIndex===cart.labs.length-1 && !isinside){

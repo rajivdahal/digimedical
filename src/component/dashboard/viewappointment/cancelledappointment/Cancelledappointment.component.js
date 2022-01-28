@@ -19,7 +19,7 @@ export const Cancelledappointment = (props) => {
     const [refresh, setrefresh] = useState()
 
     const httpcall=(url)=>{
-        // debugger
+
         httpClient.GET(url, false, true)
         .then(resp => {
             console.log("inside then",resp.data)
@@ -29,7 +29,7 @@ export const Cancelledappointment = (props) => {
                 item.appointmentTime = item.appointmenttime?item.appointmenttime.slice(0, 5):item.appointmentTime.slice(0, 5)
                 return item
             })
-            console.log(data)   
+            console.log(data)
             setpendingData(resp.data.data)
             setisloading(false)
         })
@@ -52,7 +52,7 @@ export const Cancelledappointment = (props) => {
             httpcall("get-user-canceled-appointments")
         }
     }, [])
-    
+
     const columns =  props.fromdoctorcomponent ? [
         {
             title: "Patient Name", field: "patientsName"
@@ -148,7 +148,7 @@ export const Cancelledappointment = (props) => {
                             }
 
                         }}
-                       
+
                     ></MaterialTable>
 
 

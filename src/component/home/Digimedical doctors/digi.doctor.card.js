@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const DigiMedicalDoctorCard = (props) => {
+    var dt = new Date();
     let history = useHistory();
     const [userLogin, setUserLogin] = useState(false);
 
@@ -19,29 +20,20 @@ const DigiMedicalDoctorCard = (props) => {
         middleName: "",
         email: "",
         appointmentTime: "",
-        appointmentDate: "",
-        mblNumber: "",
+        appointmentDate: dt.getFullYear()+"-"+dt.getMonth()+1+"-"+dt.getDate(),
+        mobileNumber: "",
     })
-
 
     useEffect(() => {
         const userLoginStatus = localStorage.getItem("status");
-        console.log(userLoginStatus)
         if (userLoginStatus == 200) {
             setUserLogin(true)
         } else {
             setUserLogin(false)
         }
     }, [])
-    const [showForm, setForm] = useState(false);
 
-    const disablePastDate = () => {
-        const today = new Date();
-        const dd = String(today.getDate() + 1).padStart(2, "0");
-        const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-        const yyyy = today.getFullYear();
-        return yyyy + "-" + mm + "-" + dd;
-    };
+    const [showForm, setForm] = useState(false);
 
     const bookAppointment = () => {
         let tempForm = showForm === true ? false : true
@@ -49,6 +41,7 @@ const DigiMedicalDoctorCard = (props) => {
     }
 
     const submitAppointment = async (values) => {
+        console.log(values)
         let serviceid = props.doctorServices;
         if (userLogin === true) {
             let data = {
@@ -77,12 +70,12 @@ const DigiMedicalDoctorCard = (props) => {
                 middleName: values.middleName,
                 lastName: values.lastName,
                 email: values.email,
-                mobileNumber: values.mblNumber,
+                mobileNumber: values.mobileNumber,
                 appointmentDate: values.appointmentDate,
                 appointmentTime: values.appointmentTime,
                 servicesId: serviceid,
                 doctorId: props.doctorId
-    
+
             }
             try {
                 let resp = await httpClient.POST("create-external-user", data, false, false);
@@ -90,15 +83,15 @@ const DigiMedicalDoctorCard = (props) => {
                     notify.success(resp.data.message);
                     setForm(false)
                 }
-    
+
             } catch (err) {
                 if (err && err.response && err.response.data && err.response.data.message) {
                     // notify.error(err.response.data.message || "Something went wrong");
-    
+
                     if (localStorage.getItem("status") == 200) {
                         notify.error("Email already exists,please book appointment internally")
                         history.push("/dashboard")
-    
+
                     } else {
                         notify.error("Email already exist please login and book internally")
                         history.push("/login")
@@ -120,16 +113,15 @@ const DigiMedicalDoctorCard = (props) => {
             let isLogin = userLogin ? true : false;
             return validateAppointment(values,isLogin);
         },
-    });
+    })
 
     return (
         <>
-            {/* <div className="digidoctor_apoint_card"> */}
-
             <div className="digidoctor_apoint_card1">
                 <div className="digidoc_card_img">
                     <img
                         src={REACT_APP_BASE_URL + "doctor/download/" + props.doctorId}
+                        onError={(e)=>{e.target.onerror = null; e.target.src="/images/doctor.jpeg"}}
                         alt=""
                         style={{
                             height: "140px",
@@ -165,6 +157,7 @@ const DigiMedicalDoctorCard = (props) => {
                                 <div className="digidoc_appoin_form1">
                                     <p>First Name</p>
                                     <input
+                                        value={formik.values.firstName}
                                         type="text"
                                         placeholder="Enter First Name"
                                         name="firstName"
@@ -182,6 +175,7 @@ const DigiMedicalDoctorCard = (props) => {
                                         placeholder="Enter Middle Name"
                                         name="middleName"
                                         id="middleName"
+                                        value={formik.values.middleName}
                                         onChange={formik.handleChange}
                                     />
 
@@ -194,6 +188,7 @@ const DigiMedicalDoctorCard = (props) => {
                                         name="lastName"
                                         id="lastName"
                                         onChange={formik.handleChange}
+                                        value={formik.values.lastName}
                                     />
                                     {formik.touched.lastName && formik.errors.lastName ?
                                         <div className="error-message">{formik.errors.lastName}</div>
@@ -207,6 +202,7 @@ const DigiMedicalDoctorCard = (props) => {
                                         name="email"
                                         id="email"
                                         onChange={formik.handleChange}
+                                        value={formik.values.email}
                                     />
                                     {formik.touched.email && formik.errors.email ?
                                         <div className="error-message">{formik.errors.email}</div>
@@ -217,12 +213,13 @@ const DigiMedicalDoctorCard = (props) => {
                                     <input
                                         type="text"
                                         placeholder="Enter Phone no."
-                                        name="mblNumber"
+                                        name="mobileNumber"
                                         id="mobileNumber"
                                         onChange={formik.handleChange}
+                                        value={formik.values.mobileNumber}
                                     />
-                                    {formik.touched.mblNumber && formik.errors.mblNumber ?
-                                        <div className="error-message">{formik.errors.mblNumber}</div>
+                                    {formik.touched.mobileNumber && formik.errors.mobileNumber ?
+                                        <div className="error-message">{formik.errors.mobileNumber}</div>
                                         : null}
                                 </div>
 
@@ -233,8 +230,9 @@ const DigiMedicalDoctorCard = (props) => {
                                         type="date"
                                         name="appointmentDate"
                                         id="appointmentDate"
+                                        value={formik.values.appointmentDate}
                                         onChange={formik.handleChange}
-                                        min={disablePastDate()}
+                                        min={dt.getFullYear()+"-"+dt.getMonth()+1+"-"+dt.getDate()}
                                     />
                                     {formik.touched.appointmentDate && formik.errors.appointmentDate ?
                                         <div className="error-message">{formik.errors.appointmentDate}</div>
@@ -246,6 +244,7 @@ const DigiMedicalDoctorCard = (props) => {
                                         type="time"
                                         name="appointmentTime"
                                         id="appointmentTime"
+                                        value={formik.values.appointmentTime}
                                         onChange={formik.handleChange}
                                     />
                                     {formik.touched.appointmentTime && formik.errors.appointmentTime ?
@@ -271,7 +270,8 @@ const DigiMedicalDoctorCard = (props) => {
                                 name="appointmentDate"
                                 id="appointmentDate"
                                 onChange={formik.handleChange}
-                                min={disablePastDate()}
+                                min={dt.getFullYear()+"-"+dt.getMonth()+1+"-"+dt.getDate()}
+                                
                             />
                             {formik.touched.appointmentDate && formik.errors.appointmentDate ?
                                 <div className="error-message">{formik.errors.appointmentDate}</div>

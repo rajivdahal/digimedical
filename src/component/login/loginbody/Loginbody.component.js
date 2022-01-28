@@ -9,7 +9,7 @@ import Submitbtn from "../../common/Submitbtn/Submitbtn.component"
 import { useState } from "react"
 import "./Loginbody.component.css"
 const Loginbodycomponent = (props) => {
-    console.log("props are in loginbody are",props.history.location.fromexternaluser)
+    console.log("props are in loginbody are",props)
     const fromexternaluser=props.history.location.fromexternaluser?props.history.location.fromexternaluser:false
     const externaluseremail=props.history.location.email?props.history.location.email:null
     const [isLoading, setisLoading] = useState(false)
@@ -56,6 +56,7 @@ const Loginbodycomponent = (props) => {
                         return setisLoading(false)
                     }
                     // seterrMsg(error.message)
+                    console.log("error msg is",err)
                     let error = JSON.parse(err)
                     formik.errors.password = error.message
                     setisLoading(false)
@@ -161,16 +162,15 @@ const vieworhidepassword=()=>{
 }
 
 const mapStateToProps = rootstore => {
-    return {
-        a: 'abcd',
-        usernameinfo: rootstore.login.username,
-        // isloading:rootstore.product.isLoading,
-    }
+    // return {
+    //     a: 'abcd',
+    //     usernameinfo: rootstore.user.profileImage
+    // }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        loginaction: (params) => dispatch(loginuser(params))
-    }
+    // return {
+    //     loginaction: (params) => dispatch(loginuser(params))
+    // }
 }
 export const Loginbody = connect(mapStateToProps, mapDispatchToProps)(Loginbodycomponent)

@@ -19,7 +19,7 @@ export default function Doctorshome(props) {
           item.doctordescription = item.doctordescription.substring(0, 35) + "...";
         })
         setAllDoctors(data)
-      } 
+      }
 
     } catch (err) {
       if (err && err.response && err.response.data) {

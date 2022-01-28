@@ -26,6 +26,7 @@ const Createdoctor = (props) => {
     firstName: "",
     lastName: "",
     middleName: "",
+    gender: "0",
     email: "",
     prefix: "MD",
     nmcNumber: "",
@@ -62,8 +63,6 @@ const Createdoctor = (props) => {
       } else if (props.location.state.id != null) {
         id = props.location.state.id;
       }
-
-      console.log(id);
       setDoctorId(id);
       await getDoctorById(id, allServices);
     }
@@ -73,6 +72,7 @@ const Createdoctor = (props) => {
     let allServices = await httpClient
       .GET("services/true", false, true)
       .then((resp) => {
+        console.log(resp)
         if (resp.data.status) {
           let data = resp.data.data;
           return data;
@@ -84,7 +84,7 @@ const Createdoctor = (props) => {
 
     let options = allServices.map((service, index) => {
       return {
-        label: service.serviceName,
+        label: service.servicename,
         value: service.id,
       };
     });
@@ -169,7 +169,7 @@ const Createdoctor = (props) => {
           });
           if (found.length > 0) {
             savedServices.push({
-              label: service.serviceName,
+              label: service.servicename,
               value: service.id,
             });
           }
@@ -184,6 +184,7 @@ const Createdoctor = (props) => {
             description: data.description,
             mobileNumber: data.mobilenumber,
             doctorServices: savedServices,
+            gender : data.gender,
             serviceID: null,
           };
           if (props.isHospital) {
@@ -212,8 +213,6 @@ const Createdoctor = (props) => {
               },
             };
           }
-          console.log("dataa");
-          console.log(docData);
           setDoctorData(docData);
           setImgName(data.image);
         }
@@ -256,6 +255,7 @@ const Createdoctor = (props) => {
       middleName: "",
       email: "",
       prefix: "MD",
+      gender : "0",
       nmcNumber: "",
       specialist: "",
       description: "",
@@ -372,7 +372,25 @@ const Createdoctor = (props) => {
           </Row>
 
           <Row className="mb-3">
-            <Col md={4}>
+            <Col md={3}>
+              <Form.Group>
+                <Form.Label>Gender</Form.Label>
+                <select
+                  class="select-control"
+                  aria-label="Default select example"
+                  name="gender"
+                  onChange={formik.handleChange}
+                  value={formik.values.gender}
+                  onBlur={formik.handleBlur}
+                >
+                  <option value="0">Male</option>
+                  <option value="1">Female</option>
+                  <option value="2">Other</option>
+                </select>
+              </Form.Group>
+            </Col>
+
+            <Col md={3}>
               <Form.Group>
                 <Form.Label>NMC Number</Form.Label>
                 <Form.Control
@@ -387,7 +405,7 @@ const Createdoctor = (props) => {
                 ) : null}
               </Form.Group>
             </Col>
-            <Col md={4}>
+            <Col md={3}>
               <Form.Group>
                 <Form.Label>Mobile Number</Form.Label>
                 <Form.Control
@@ -405,7 +423,7 @@ const Createdoctor = (props) => {
               </Form.Group>
             </Col>
 
-            <Col md={4}>
+            <Col md={3}>
               <Form.Group>
                 <Form.Label>Registered Date</Form.Label>
                 <Form.Control

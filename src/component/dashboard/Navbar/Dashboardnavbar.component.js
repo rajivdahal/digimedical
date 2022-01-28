@@ -5,20 +5,31 @@ import { httpClient } from "../../../utils/httpClient";
 import dashavatar from "../../../assets/avatars.png";
 import "./dashboardnavbar.component.css";
 import logo from "../../../assets/logo.png";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { loginUser } from "../../../actions/User.ac";
+import { dashboardClose, dashboardOpen } from "../../../actions/dashboard.ac";
 
-const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 export const Dashboardnavbar = (props) => {
-  const [userImage, setImage] = useState("");
+  console.log("store is updates in navbarr");
   let [username, setusername] = useState("");
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
   });
+  const user = useSelector((state) => state.user);
+  const sidebar = useSelector((state) => state.sidebar);
+  console.log("sidebar isssss", sidebar);
+  const dispatch = useDispatch();
+  const fetchProfileImage = bindActionCreators(loginUser, dispatch);
+  const openDashboard = bindActionCreators(dashboardOpen, dispatch);
+  const closeDashboard = bindActionCreators(dashboardClose, dispatch);
+  console.log("store state is", user);
   const Logout = (e) => {
+    console.log("inside logoutttt");
     setlogoutstate({
       logout: true,
     });
   };
-
   const logoutyes = () => {
     localStorage.removeItem("dm-access_token");
     localStorage.removeItem("timeout");
@@ -40,33 +51,34 @@ export const Dashboardnavbar = (props) => {
     props.props.push("/dashboard/settings/change-password");
   };
 
-  const getImage = () => {
-    let id = localStorage.getItem("userid");
-    let url = REACT_APP_BASE_URL + "download/" + id;
-    console.log(url);
-    setImage(url);
-  };
-
   useEffect(async () => {
+    console.log("inside useeffect");
+    fetchProfileImage();
     await httpClient
       .GET("user-profile", false, true)
       .then((resp) => {
         console.log(resp);
         const name = resp.data.data.profileInfo.name;
         setusername(name);
-        getImage();
       })
       .catch((err) => {
         notify.error("something went wrong");
       });
   }, []);
-
+  const showDashboard = () => {
+    if (sidebar.isopen) {
+      return closeDashboard();
+    }
+    openDashboard();
+  };
+  console.log("logoutstate is", logoutstate);
   return (
     <>
+      {console.log("rerendered navbar")}
       <div className="newdash_nav">
-        <a className="newdash_hamburger" href="#show_new_dash">
+        <div className="newdash_hamburger" onClick={showDashboard}>
           <i class="fas fa-bars"></i>
-        </a>
+        </div>
         <Link to="/">
           <div className="newdash_nav_img">
             <img src={logo} alt="" />
@@ -77,7 +89,10 @@ export const Dashboardnavbar = (props) => {
         </div>
         <div className="newdash_user">
           <div className="newdash_user_img">
-            <img src={dashavatar} alt="" />
+            <img
+              src={user.profileImage ? user.profileImage : dashavatar}
+              alt=""
+            />
           </div>
           <div className="newdash_user_optionmain">
             {" "}
@@ -110,7 +125,7 @@ export const Dashboardnavbar = (props) => {
           </div>
         </div>
         {logoutstate.logout ? (
-          <div className="logout-container">
+          <div className="logout-containerr">
             <div className="logout">
               <p>Are you sure you want to Logout?</p>
               <div className="buttons">

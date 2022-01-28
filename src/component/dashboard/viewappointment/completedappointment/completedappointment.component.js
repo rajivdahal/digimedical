@@ -6,7 +6,6 @@ import { formatDate } from "../../../../services/timeanddate";
 import { Modal, Button, Image, Row, Col } from "react-bootstrap";
 import MaterialTable from "material-table";
 import Cliploader from "../../../../utils/clipLoader";
-import Edit from "@material-ui/icons/Edit";
 import DigiMedicalLogo from "../../../../assets/logo.png";
 import { Visibility } from "@material-ui/icons";
 import "./prescriptionView.css";
@@ -196,19 +195,19 @@ export const Completedappointment = (props) => {
           actions={[
             {
               icon: () => (
-                
+
                 <Visibility fontSize="medium"
-               
+
                   className="action-button"
                 />
               ),
               tooltip: "View prescription",
-              
+
               onClick: (e, rowData) => {
                 showPrescriptionModal(e, rowData);
               },
-              
-            }, 
+
+            },
           ]}
         ></MaterialTable>
       )}

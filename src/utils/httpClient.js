@@ -74,37 +74,39 @@ const PUT = (url, data,grant_type,getheaders,headerType = "json",params = {}) =>
 
 //incoming change
 
-const UPLOAD = (method, url, data = {}, grant_type, files = [],getheaders) => {
+const UPLOAD = (method, url, data = {}, grant_type, files,getheaders) => {
     if (grant_type) {
         data.grant_type = grant_type
     }
-    console.log("inside http")
+    console.log("inside http upload",method,url,data,grant_type,files,getheaders)
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
+        console.log("xhr is",xhr)
         const formData = new FormData();
+        if(files){
+            files.forEach(item => {
+                console.log("inside image loop",item)
+                formData.append('image', item, item.name)
+            })
+        }
         for (let key in data) {
+            console.log("key and data are",key,data)
             formData.append(key, data[key])
         }
-        xhr.onreadystatechange = () => {
+        console.log("formdata is",formData)
 
+        xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    // console.log("res:",xhr.response)
                     resolve(xhr.response)
                 } else {
                     reject(xhr.response)
                 }
             }
         }
-
-        xhr.open(method, !getheaders?REACT_APP_BASE_URL_LOGIN:BASE_URL+url)
-        if(getheaders){
-            const token = localStorage.getItem('dm-access_token')
-            xhr.setRequestHeader("Authorization", `Bearer ${token}`);
-        }
-        else{
-            xhr.setRequestHeader("Authorization", `Basic Y2xpZW50aWQ6c2VjcmV0`);
-        }
+        // xhr.open(method, !getheaders?REACT_APP_BASE_URL_LOGIN:BASE_URL+url)
+        xhr.open(method,getheaders?BASE_URL+url:REACT_APP_BASE_URL_LOGIN)
+        xhr.setRequestHeader("Authorization", getheaders?`Bearer ${localStorage.getItem('dm-access_token')}`:`Basic Y2xpZW50aWQ6c2VjcmV0`);
 
         xhr.send(formData)
 

@@ -5,7 +5,7 @@ import Pagination from "../../common/pagination/pagination.component";
 import { useEffect, useState } from "react";
 import { httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Hospitaltopheader from "./hospitalheader.component";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -14,7 +14,11 @@ export default function Hospitalbookingcomponent(props) {
   let [searchedoutput, setSearchedoutput] = useState([]);
   let [issearched, setIssearched] = useState(false);
   const history = useHistory();
+  let location = useLocation();
+  console.log("location is", location);
+
   useEffect(() => {
+    console.log("location is", location);
     httpClient
       .GET("hospital/get-all")
       .then((resp) => {
@@ -36,27 +40,30 @@ export default function Hospitalbookingcomponent(props) {
   };
   const showDoctors = (item) => {
     history.push({
-      pathname: props.location
-        ? (props.location.pathname = "/dashboard/hospitals"
-            ? "/dashboard/hospitals/view-doctors"
-            : "/hospitals/dashboard/view-doctors")
+      pathname: localStorage.getItem("dm-access_token")
+        ? "/dashboard/hospitals/view-doctors"
         : "/hospitals/view-doctors",
       state: item,
     });
     console.log("data is", item);
   };
-  //   "/dashboard/hospitals"?
   return (
-    <div className={props.location?"hospital_main_cont newdash_content":"hospital_main_cont"}>
+    <div
+      className={
+        location.pathname === "/dashboard/hospitals"
+          ? "hospital_main_cont_user"
+          : "hospital_main_cont"
+      }
+    >
       <div className="hospital_booking">
-        {props.location ? (
-          (props.location.pathname = "/dashboard/hospitals" ? null : null)
-        ) : (
+        {location.pathname == "/hospitals" ? (
           <Hospitaltopheader></Hospitaltopheader>
-        )}
+        ) : null}
         <div
           className={
-            props.location ? "hospital_bookcont_from_user" : "hospital_bookcont"
+            location.pathname === "/dashboard/hospitals"
+              ? "hospital_bookcont_from_user"
+              : "hospital_bookcont"
           }
         >
           <div className="hospital_bookconthead">
@@ -84,7 +91,8 @@ export default function Hospitalbookingcomponent(props) {
                 return (
                   <div className="hospital_book_card1">
                     <img
-                      src={REACT_APP_BASE_URL + "hospital/download/" + item.id}
+                      src={REACT_APP_BASE_URL+"hospital/download/"+item.id}
+                      onError={(e)=>{e.target.onerror = null; e.target.src="/images/hospital.jpeg"}}
                       alt=""
                     />
                     <div className="hospital_card_text">
@@ -92,18 +100,21 @@ export default function Hospitalbookingcomponent(props) {
                       <p2>{item.address}</p2>
                       <p2>{item.description.slice(0, 50)}.....</p2>
                     </div>
-                    <button
-                      id={
-                        props.location
-                          ? (props.location.pathname = "/dashboard/hospitals"
+                    <div className="hosp_card_but_main">
+                      {" "}
+                      <button
+                        id={
+                          props.location
+                            ? props.location.pathname === "/dashboard/hospitals"
                               ? "hosp_card_but_user"
-                              : "hosp_card_but_user")
-                          : "hosp_card_but"
-                      }
-                      onClick={() => showDoctors(item)}
-                    >
-                      Book an appointment
-                    </button>
+                              : "hosp_card_but_user"
+                            : "hosp_card_but"
+                        }
+                        onClick={() => showDoctors(item)}
+                      >
+                        Book an appointment
+                      </button>
+                    </div>
                   </div>
                 );
               })
@@ -123,9 +134,9 @@ export default function Hospitalbookingcomponent(props) {
                     </div>
                     <button
                       id={
-                        (props.location.pathname = "/dashboard/hospitals"
+                        location.pathname === "/dashboard/hospitals"
                           ? "hosp_card_but_user"
-                          : "hosp_card_but")
+                          : "hosp_card_but"
                       }
                       onClick={() => showDoctors(item)}
                     >

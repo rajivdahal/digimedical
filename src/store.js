@@ -1,20 +1,19 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './reducers';
-
 const middlewares = [thunk]
+
 const initialState = {
-    login:{
-        username:'',
-        email:'',
-        isuserloginloading:false
+    user:{
+        profileImage:"",
+        userId:null,
+        isProfileChanged:false
     },
     cart:{
         allabtest:[],
         cartitems:[],
         cartnumber:null,
         cartvalue:parseInt(localStorage.getItem("cartvalue"))||0,
-
         tempdata:{
             totalamount:0
         },
@@ -22,6 +21,13 @@ const initialState = {
         checkoutsignal:false,
         removeproductsign:true,
         cartpopupsign:false
+    },
+    sidebar:{
+        isopen:null
+    },
+    medicalReports:{
+        reports:true,
+        utilsInfo:false
     }
 }
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))

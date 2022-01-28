@@ -432,7 +432,7 @@ const CorporatePage = (props) => {
                     title="Corporate Details"
                     icons={Tableicons}
                     columns={[
-                        { title: 'ID', field: 'id' },
+                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
                         { title: 'Name', field: 'name' },
                         { title: 'PAN', field: 'panno' },
                         { title: 'Address', field: 'address', },

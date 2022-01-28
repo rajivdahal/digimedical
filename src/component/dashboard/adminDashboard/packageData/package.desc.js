@@ -26,6 +26,7 @@ const PackageDescription = (props) => {
     const [packageData, setPackageData] = useState({
         name: "",
         description: "",
+        packageType: "0",
         purpose: "",
         allPurpose: [],
     })
@@ -109,7 +110,8 @@ const PackageDescription = (props) => {
                 setPackageData({
                     name: packageData.name,
                     description: packageData.description,
-                    allPurpose: purposeArr
+                    allPurpose: purposeArr,
+                    packageType: packageData.packagetypes
                 })
 
             }
@@ -131,6 +133,7 @@ const PackageDescription = (props) => {
                     name: "",
                     description: "",
                     purpose: "",
+                    packageType: "0",
                     allPurpose: [],
                 })
                 getPackageDetails();
@@ -151,6 +154,8 @@ const PackageDescription = (props) => {
             name: "",
             description: "",
             purpose: "",
+            packageType: "0",
+
             allPurpose: [],
         })
         setPurposeEdit({
@@ -168,10 +173,10 @@ const PackageDescription = (props) => {
         formik.setFieldValue('purpose', formik.values.allPurpose[index])
     }
 
-    const handleEditPurpose=(values)=>{
+    const handleEditPurpose = (values) => {
         if (!values.purpose) return;
         let tempArr = values.allPurpose;
-        tempArr.splice(purposeEdit.editIndex,1,values.purpose);
+        tempArr.splice(purposeEdit.editIndex, 1, values.purpose);
         formik.setFieldValue('allPurpose', tempArr)
         formik.setFieldValue('purpose', " ")
         setPurposeEdit({
@@ -243,6 +248,22 @@ const PackageDescription = (props) => {
 
 
                     <Row>
+                        <Col md={4}>
+                            <Form.Group >
+                                <Form.Label>Package Type : </Form.Label>
+                                <select
+                                    class="select-control"
+                                    aria-label="Default select example"
+                                    name="packageType"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.packageType}
+                                    onBlur={formik.handleBlur}
+                                >
+                                    <option value="0">Corporate Package</option>
+                                    <option value="1">Family Package</option>
+                                </select>
+                            </Form.Group>
+                        </Col>
                         <Col md={6}>
                             <Form.Group >
                                 <Form.Label>Purpose : </Form.Label>

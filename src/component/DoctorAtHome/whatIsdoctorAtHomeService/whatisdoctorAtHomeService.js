@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import "./whatisdoctorAtHomeService.css";
-import { Mapper } from "./utilsFile";
+import { whatIsMapper } from "./utilsFile";
+import { detailsFeature } from "./utilsFile";
 
 const Root = styled.div`
   padding-left: 9rem;
@@ -38,31 +39,45 @@ const Details = styled.div`
   box-sizing: border-box;
 `;
 
-const whatisdoctorAtHomeService = (props) => {
-  const heading = props.heading
-  const params = props.params
-  const description = Mapper(params)
+const WhatisdoctorAtHomeService = (props) => {
+  const heading = props.heading;
+  const params = props.params;
+  const description = whatIsMapper(params);
+  const details = detailsFeature(params);
+  useEffect(() => {
+    let dom = document.getElementById("render");
+    const element = new DOMParser().parseFromString(details, "text/html");
+    const child = element.documentElement.querySelector("body");
+    child.style.color = "gray";
+    dom.appendChild(child);
+  }, []);
   return (
     <Root>
       <ContentContainor>
-        <Heading>What is {
-          heading.length ? heading.map((item) => {
-            return <span>{` ${item + '\xa0'}`}</span>
-          }) : null
-        } service?</Heading>
-        <Details>
-          {description}
+        <Heading>
+          What is{" "}
+          {heading.length
+            ? heading.map((item) => {
+                return <span>{` ${item + "\xa0"}`}</span>;
+              })
+            : null}{" "}
+          service?
+        </Heading>
+        <Details>{description}</Details>
 
-        </Details>
-
-        <Heading>{
-          heading.length ? heading.map((item) => {
-            return <span>{` ${item + '\xa0'}`}</span>
-          }) : null
-        }  Details or Features </Heading>
+        <Heading>
+          {heading.length
+            ? heading.map((item) => {
+                return <span>{` ${item + "\xa0"}`}</span>;
+              })
+            : null}{" "}
+          Details or Features{" "}
+        </Heading>
         <Details>
-          You don't have to leave the home, though the doctor will come to your
-          home and assess, diagnose and treat you depending on the condition of
+          <div id="render"></div>
+
+          {/* You don't have to leave the home, though the doctor will come to your
+          home and assess,diagnose and treat you depending on the condition of
           your health. Our experienced doctors have years of experience in their
           specialized medical field and will treat you with patience and
           compassion. Digimedical service is ready to serve you with our
@@ -76,7 +91,6 @@ const whatisdoctorAtHomeService = (props) => {
             <li>Obstetrician and Gynecologist</li>
             <li>Pediatrician</li>
             <li>Physiotherapist</li>
-
             <li>Oncologist</li>
             <li>Endocrinologist</li>
             <li>Neurologist</li>
@@ -91,11 +105,11 @@ const whatisdoctorAtHomeService = (props) => {
             <li>Gastroenterologist</li>
             <li>Haematologist</li>
             <li>General medicine </li>
-          </ul>
+          </ul> */}
         </Details>
       </ContentContainor>
     </Root>
   );
 };
 
-export default whatisdoctorAtHomeService;
+export default WhatisdoctorAtHomeService;
