@@ -99,6 +99,8 @@ const Ourservices = (props) => {
     })
     console.log("title is", title)
     setHeading(title)
+    console.log("inside useeffect")
+    window.scrollTo(0, 0);
   }, [])
 
   return (

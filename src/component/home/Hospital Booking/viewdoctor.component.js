@@ -27,7 +27,8 @@ export default function Hospital_doctors(props) {
         console.log("data after fetching API are", alldoctors);
         setallDoctors(resp.data.data);
       });
-  }, []);
+      window.scrollTo(0,0)
+      }, []);
 
   let [doctorappointmentindex, setdoctorappointmentindex] = useState(null);
   const showappointment = (item, index) => {

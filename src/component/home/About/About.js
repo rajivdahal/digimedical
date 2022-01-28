@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../../../assets/about.png";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 const AboutUsContainer = styled.div`
   margin-top: 8rem;
   padding-left: 140px;
@@ -77,6 +78,9 @@ const Button = styled.div`
   border-radius: 5px;
 `;
 const WhaiIsDegimediacal = () => {
+  useEffect(()=>{
+window.scrollTo(0,0)
+  },[])
   return (
     <>
       <AboutUsContainer>
