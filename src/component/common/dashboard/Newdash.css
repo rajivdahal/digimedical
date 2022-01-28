@@ -202,6 +202,7 @@ d
 .newdash_dash1_cont1:hover .newdash_dash1_cont2 {
   height: 100%;
   display: block;
+  cursor: pointer;
 }
 
 .newdash_dash1_cont1:hover p #newdash_arrow {
@@ -211,11 +212,13 @@ d
 .newdash_dash1_cont1:hover .newdash_dash1_cont1p {
   color: white;
   background: #2745f0;
+  cursor: pointer;
 }
 
 .newdash_dash1_cont1:hover .newdash_dash1_cont2p {
   color: white;
   background: #2745f0;
+  cursor: pointer;
 }
 .newdash_dash1_cont2 p:hover {
   text-decoration: underline;
