@@ -76,9 +76,9 @@ export const Dashboardnavbar = (props) => {
     <>
       {console.log("rerendered navbar")}
       <div className="newdash_nav">
-        <a className="newdash_hamburger" onClick={showDashboard}>
+        <div className="newdash_hamburger" onClick={showDashboard}>
           <i class="fas fa-bars"></i>
-        </a>
+        </div>
         <Link to="/">
           <div className="newdash_nav_img">
             <img src={logo} alt="" />

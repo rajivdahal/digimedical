@@ -1,7 +1,8 @@
 .photo_editprof {
   display: flex;
-  flex-direction: column;
+
   align-items: center;
+  justify-content: center;
 }
 
 .image-wrapper {
@@ -67,7 +68,8 @@
   background-color: #162daf;
 }
 .imag-profile {
-  height: 10rem;
+  height: 130px;
+  width: 130px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -80,11 +82,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .about_user_viewp {
   padding: 10px;
-  margin-top: 80px;
+  margin-top: 60px;
 
   display: flex;
   flex-direction: column;
