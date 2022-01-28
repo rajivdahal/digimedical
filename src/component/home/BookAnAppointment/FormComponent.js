@@ -55,7 +55,6 @@ const FormSection = styled.div`
 `;
 
 function FormComponent(props) {
-
   const today = Todaydate();
   const prop = props.history.history
     ? props.history.history
@@ -74,8 +73,6 @@ function FormComponent(props) {
   });
 
 var dt = new Date();
-// var date = dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate();
-// console.log("today date is",date)
   const [isdoctorblurred, setisdoctorblurred] = useState(false);
   const [selectedDay, setSelectedDay] = useState({
     year: dt.getFullYear(),
@@ -165,11 +162,9 @@ var dt = new Date();
           }, 3000);
         })
         .catch((err) => {
-          console.log(err.response);
           if (!err) {
             return setappointmentfailed("something went wrong");
           }
-          console.log("inside error");
           if (err.response.data.message === "Email already exists") {
             setappointmentfailed(
               err.response.data.message + " redirecting to dashboard...."
@@ -191,14 +186,12 @@ var dt = new Date();
         });
     },
   });
-  console.log(formik.values);
   const handleChange = (e) => {
     let serviceid = e.target.value;
     httpClient
       .GET(`doctor/get-related-doctor/${serviceid}`, false, false)
       .then((resp) => {
         setdoctors(resp.data.data);
-        console.log(resp.data.data);
       })
       .catch((err) => {
         setdoctors([]);
@@ -210,7 +203,6 @@ var dt = new Date();
     if (!doctorid) {
       return setisdoctorblurred(false);
     }
-    console.log(doctorid);
     let image = BASE_URL + "doctor/download/" + doctorid;
     httpClient
       .GET(`doctor/public-info/${doctorid}`)
@@ -224,26 +216,64 @@ var dt = new Date();
           description: description,
         });
         setisdoctorblurred(true);
-        console.log(resp.data.data);
       })
       .catch((err) => {
         notify.error("something went wrong");
       });
 
-    // console.log("values are", e.target.value)
   };
   const clearpopup = () => {
     setisdoctorblurred(false);
   };
-  const datechange=(value)=>{
+  const datechange=(value,status)=>{
     let date=""
     date=value.year+"-"+value.month+"-"+value.day
+
+    if(status){
+      return  formikForLoggedInUser.values.appointmentDate=date
+    }
     setSelectedDay(value)
     formik.values.appointmentDate=date
   }
+  const formikForLoggedInUser=useFormik({
+    initialValues:{
+      servicesId:"",
+      doctorId:"",
+      appointmentDate:"",
+      appointmentTime:""
+    },
+    validate:(values)=>{
+      let errors={}
+      if(!values.servicesId){
+        errors.serviceId="Required"
+      }
+      if(!values.doctorId){
+        errors.doctorId="Required"
+      }
+      if(!values.appointmentDate){
+        errors.appointmentDate="Required"
+      }
+      if(!values.appointmentTime){
+        errors.appointmentTime="Required"
+      }
+      return errors
+    },
+    onSubmit:(value)=>{
+        httpClient.POST("create-appointment",value,false,true)
+        .then(resp=>{
+          notify.success("Appointment booked successfully")
+        })
+        .catch((err)=>notify.error("Error in appointment booking"))
+    }
+  })
+  const handleSubmitIsLoggedIn=()=>{
+
+  }
   return (
     <FormSection>
-      <form onSubmit={formik.handleSubmit}>
+      {
+        !localStorage.getItem("dm-access_token")?
+        <form onSubmit={formik.handleSubmit}>
         <div className="form-row">
           <div className="form-group col-md-4">
             <label htmlFor="fname">First Name<span style={{ color: 'red' }}>*</span></label>
@@ -331,7 +361,7 @@ var dt = new Date();
               {services.map((item, index) => {
                 return (
                   <option key={index} value={item.id}>
-                    {item.serviceName}
+                    {item.servicename}
                   </option>
                 );
               })}
@@ -374,7 +404,7 @@ var dt = new Date();
             shouldHighlightWeekends
             value={selectedDay}
             onChange={datechange}
-            minimumDate={minDate} 
+            minimumDate={minDate}
             style={{width:"40px"}}
             ></DatePicker>
             {formik.errors.appointmentDate && formik.touched.appointmentDate ? (
@@ -383,7 +413,7 @@ var dt = new Date();
               </div>
             ) : null}
           </div>
-              
+
           <div className="form-group col-md-6" style={{marginTop:""}}>
             <label htmlFor="time">Time<span style={{ color: 'red' }}>*</span></label>
             <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formik.getFieldProps("appointmentTime")}></input>
@@ -436,7 +466,91 @@ var dt = new Date();
         <div className="form-text">
           We value your privacy. Your details are safe with us.
         </div>
+      </form>:
+      <form onSubmit={formikForLoggedInUser.handleSubmit}>
+      <div className="form-row">
+          <div className="form-group col-md-6">
+            <label htmlFor="service">Select Service<span style={{ color: 'red' }}>*</span></label>
+            <select id="serviceIdLoggedIn" className="form-control" {...formikForLoggedInUser.getFieldProps("servicesId")} style={{ color: "black" }}
+              onChange={(e) => {
+                formikForLoggedInUser.handleChange(e);
+                handleChange(e);
+              }}
+            >
+              <option value={null}></option>
+              {services.map((item, index) => {
+                return (
+                  <option key={index} value={item.id}>
+                    {item.servicename}
+                  </option>
+                );
+              })}
+            </select>
+            {formikForLoggedInUser.errors.servicesId && formikForLoggedInUser.touched.servicesId ? (
+              <div style={{ color: "red" }} className="errmsg">
+                {formikForLoggedInUser.errors.servicesId}{" "}
+              </div>
+            ) : null}
+          </div>
+          <div className="form-group col-md-6">
+            <label htmlFor="doctor">Select Doctor<span style={{ color: 'red' }}>*</span></label>
+            <select id="doctorId" className="form-control" {...formikForLoggedInUser.getFieldProps("doctorId")} style={{ color: "black" }}
+              onChange={(e) => {
+                formikForLoggedInUser.handleChange(e);
+                getdoctorinfo(e);
+              }}
+            >
+              <option value={null}></option>
+              {doctors.map((item, index) => {
+                return (
+                  <option key={index} value={item.id}>
+                    {item.name}
+                  </option>
+                );
+              })}
+            </select>
+            {formikForLoggedInUser.errors.doctorId && formikForLoggedInUser.touched.doctorId ? (
+              <div style={{ color: "red" }} className="errmsg">
+                {formikForLoggedInUser.errors.doctorId}
+              </div>
+            ) : null}
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="form-group col-md-6">
+            <label htmlFor="appointment">Appointment Date<span style={{ color: 'red' }}>*</span></label>
+            <DatePicker
+            className="form-control"
+            shouldHighlightWeekends
+            value={selectedDay}
+            onChange={(value)=>datechange(value,"fromLoggedInForm")}
+            minimumDate={minDate}
+            style={{width:"40px"}}
+            ></DatePicker>
+            {formikForLoggedInUser.errors.appointmentDate && formikForLoggedInUser.touched.appointmentDate ? (
+              <div style={{ color: "red" }} className="errmsg">
+                {formikForLoggedInUser.errors.appointmentDate}{" "}
+              </div>
+            ) : null}
+          </div>
+          <div className="form-group col-md-6" style={{marginTop:""}}>
+            <label htmlFor="time">Time<span style={{ color: 'red' }}>*</span></label>
+            <input type="time" placeholder="select time" id="appointmentTime" className="form-control" {...formikForLoggedInUser.getFieldProps("appointmentTime")}></input>
+            {formikForLoggedInUser.errors.appointmentTime && formikForLoggedInUser.touched.appointmentTime ? <div style={{ color: "red" }} className="errmsg">{formikForLoggedInUser.errors.appointmentTime}  </div> : null}
+          </div>
+        </div>
+        <div className="col-md-12 col-sm-12 col-xs-12 ">
+          {isloading ? (
+            <Cliploader></Cliploader>
+          ) : (
+            <button type="submit" className="btn btn-primary btn-block">
+              Make Appointment
+            </button>
+          )}
+          </div>
       </form>
+      }
+
 
       {isdoctorblurred ? (
         <div class="docs">

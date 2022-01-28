@@ -82,7 +82,6 @@ const HospitalTable = (props) => {
             { title: "Mobile No", field: "mobilenumber" },
             { title: "Description", field: "description" },
             { title: "Address", field: "address" },
-
             {
               title: "Status",
               field: "activeStatus",

@@ -133,7 +133,10 @@ const Ourservices = (props) => {
           }) : null
         }</Heading>
         <FormContainor>
-          <DoctorAtHomeForm />
+          {
+            !localStorage.getItem("dm-access_token")?<DoctorAtHomeForm />:<p>We provide you the best doctor at home service</p>
+          }
+
         </FormContainor>
       </Root>
       <WhatisdoctorAtHomeService heading={heading} params={props.match.params.subservice}/>

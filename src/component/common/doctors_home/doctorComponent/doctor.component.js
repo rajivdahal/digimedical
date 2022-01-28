@@ -18,6 +18,8 @@ const DoctorDetailComponent = (props) => {
       <div className="digidoc_card_img">
         <img
           src={REACT_APP_BASE_URL + "doctor/download/" + props.doctorId}
+          onError={(e)=>{e.target.onerror = null; e.target.src="/images/doctor.jpeg"}}
+
           alt=""
           style={{
             height: "140px",

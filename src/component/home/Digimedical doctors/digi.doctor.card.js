@@ -9,13 +9,15 @@ import { notify } from "../../../services/notify";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const DigiMedicalDoctorCard = (props) => {
+    var dt = new Date();
+    const [today, setToday] = useState(dt.getFullYear()+"-"+dt.getMonth()+1+"-"+dt.getDate())
     const [appointmentData, setData] = useState({
         firstName: "",
         lastName: "",
         middleName: "",
         email: "",
         appointmentTime: "",
-        appointmentDate: "",
+        appointmentDate:dt.getFullYear()+"-"+dt.getMonth+"-"+dt.getDate(),
         mblNumber: "",
     })
 
@@ -68,15 +70,19 @@ const DigiMedicalDoctorCard = (props) => {
             return validateAppointment(values);
         },
     });
-
+const handleDateChange=(e,value)=>{
+    setToday(e.target.value)
+    formik.values.appointmentDate=e.target.value
+    console.log("value is",e.target.value);
+}
+console.log("formik values are",formik.values)
     return (
         <>
-            {/* <div className="digidoctor_apoint_card"> */}
-
             <div className="digidoctor_apoint_card1">
                 <div className="digidoc_card_img">
                     <img
                         src={REACT_APP_BASE_URL + "doctor/download/" + props.doctorId}
+                        onError={(e)=>{e.target.onerror = null; e.target.src="/images/doctor.jpeg"}}
                         alt=""
                         style={{
                             height: "140px",
@@ -130,7 +136,6 @@ const DigiMedicalDoctorCard = (props) => {
                                     id="middleName"
                                     onChange={formik.handleChange}
                                 />
-
                             </div>
                             <div class="digidoc_appoin_form1">
                                 <p>Last Name</p>
@@ -179,7 +184,8 @@ const DigiMedicalDoctorCard = (props) => {
                                     type="date"
                                     name="appointmentDate"
                                     id="appointmentDate"
-                                    onChange={formik.handleChange}
+                                    value={today}
+                                    onChange={(e,value)=>handleDateChange(e,value)}
                                 />
                                 {formik.touched.appointmentDate && formik.errors.appointmentDate ?
                                     <div className="error-message">{formik.errors.appointmentDate}</div>
