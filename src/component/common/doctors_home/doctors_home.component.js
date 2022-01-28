@@ -26,7 +26,6 @@ export default function Doctorshome(props) {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-
   }
 
   useEffect(() => {

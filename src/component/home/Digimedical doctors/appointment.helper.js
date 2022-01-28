@@ -1,8 +1,19 @@
 import { REGEX } from "../../../constants/constants";
 
-const validateAppointment = (values) => {
+const validateAppointment = (values, isLogin) => {
     let errors = {};
 
+    if(isLogin){
+        if (!values.appointmentTime) {
+            errors.appointmentTime = 'Required!'
+        }
+    
+        if (!values.appointmentDate) {
+            errors.appointmentDate = 'Required!'
+        }
+        return errors;
+    }
+    
     if (!values.firstName) {
         errors.firstName = 'Required!'
     }
@@ -41,7 +52,8 @@ const validateAppointment = (values) => {
         errors.email = "Invalid email format!"
     }
 
-    // console.log(errors);
+
+    console.log(errors);
     return errors;
 }
 

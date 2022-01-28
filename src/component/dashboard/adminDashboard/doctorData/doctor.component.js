@@ -431,7 +431,7 @@ const Createdoctor = (props) => {
                   <Form.Label>Service </Form.Label>
                   <Select
                     value={formik.values.doctorServices}
-                    isMulti
+                    isMulti className="roleSelect"
                     options={services}
                     name="serviceID"
                     onChange={handleServiceChange}

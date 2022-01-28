@@ -10,7 +10,7 @@ const PackageApi = {
             amount: values.price,
             lunchingOfferPrice: values.launchingOffer,
             laboratoryPercentage: values.labDiscount,
-            packageId : selectedId,
+            masterPackageId : selectedId,
         }
         console.log(data)
         return httpClient.POST("membership-packages/create", data, false, true)
@@ -21,11 +21,14 @@ const PackageApi = {
     },
 
     editPackage: (values, id) => {
+        let selectedId = values.selectedPackage.value;
         let data = {
             name: values.packageName,
             amount: values.price,
             lunchingOfferPrice: values.launchingOffer,
-            laboratoryPercentage: values.labDiscount
+            laboratoryPercentage: values.labDiscount,
+            masterPackageId : selectedId,
+
         }
         return httpClient.PUT("membership-packages/" + id, data, false, true)
     },

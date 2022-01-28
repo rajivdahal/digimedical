@@ -68,7 +68,8 @@ const CreateAdmin = (props) => {
     try {
       let resp = await UserManagementApi.getRole();
       if (resp.data.status) {
-        let result = resp.data.data;
+        let result = resp.data.data; 
+        
         let options = result.map((item) => {
           return {
             label: item.name,
