@@ -21,19 +21,19 @@ const validateAppointment = (values, isLogin) => {
         errors.lastName = 'Required!'
     }
 
-    if (!values.mblNumber) {
-        errors.mblNumber = "Required!"
+    if (!values.mobileNumber) {
+        errors.mobileNumber = "Required!"
     }
 
-    if (!REGEX.DECIMAL.test(values.mblNumber)) {
-        errors.mblNumber = "Must be a number!";
+    if (!REGEX.DECIMAL.test(values.mobileNumber)) {
+        errors.mobileNumber = "Must be a number!";
     }
 
-    if (("" + values.mblNumber).length != 10) {
-        errors.mblNumber = "Mobile Number must be of 10 digits!"
+    if (("" + values.mobileNumber).length != 10) {
+        errors.mobileNumber = "Mobile Number must be of 10 digits!"
     }
-    if (("" + values.mblNumber).includes('-')) {
-        errors.mblNumber = "Mobile Number can't be Negative!"
+    if (("" + values.mobileNumber).includes('-')) {
+        errors.mobileNumber = "Mobile Number can't be Negative!"
     }
 
     if (!values.appointmentTime) {

@@ -11,7 +11,6 @@ const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const DigiMedicalDoctorCard = (props) => {
     var dt = new Date();
-    const [today, setToday] = useState(dt.getFullYear()+"-"+dt.getMonth()+1+"-"+dt.getDate())
     let history = useHistory();
     const [userLogin, setUserLogin] = useState(false);
 
@@ -21,27 +20,20 @@ const DigiMedicalDoctorCard = (props) => {
         middleName: "",
         email: "",
         appointmentTime: "",
-        appointmentDate:dt.getFullYear()+"-"+dt.getMonth+"-"+dt.getDate(),
-        mblNumber: "",
+        appointmentDate: dt.getFullYear()+"-"+dt.getMonth()+1+"-"+dt.getDate(),
+        mobileNumber: "",
     })
+
     useEffect(() => {
         const userLoginStatus = localStorage.getItem("status");
-        console.log(userLoginStatus)
         if (userLoginStatus == 200) {
             setUserLogin(true)
         } else {
             setUserLogin(false)
         }
     }, [])
-    const [showForm, setForm] = useState(false);
 
-    const disablePastDate = () => {
-        const today = new Date();
-        const dd = String(today.getDate() + 1).padStart(2, "0");
-        const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-        const yyyy = today.getFullYear();
-        return yyyy + "-" + mm + "-" + dd;
-    };
+    const [showForm, setForm] = useState(false);
 
     const bookAppointment = () => {
         let tempForm = showForm === true ? false : true
@@ -49,6 +41,7 @@ const DigiMedicalDoctorCard = (props) => {
     }
 
     const submitAppointment = async (values) => {
+        console.log(values)
         let serviceid = props.doctorServices;
         if (userLogin === true) {
             let data = {
@@ -76,7 +69,7 @@ const DigiMedicalDoctorCard = (props) => {
                 middleName: values.middleName,
                 lastName: values.lastName,
                 email: values.email,
-                mobileNumber: values.mblNumber,
+                mobileNumber: values.mobileNumber,
                 appointmentDate: values.appointmentDate,
                 appointmentTime: values.appointmentTime,
                 servicesId: serviceid,
@@ -118,13 +111,8 @@ const DigiMedicalDoctorCard = (props) => {
             let isLogin = userLogin ? true : false;
             return validateAppointment(values,isLogin);
         },
-    });
-const handleDateChange=(e,value)=>{
-    setToday(e.target.value)
-    formik.values.appointmentDate=e.target.value
-    console.log("value is",e.target.value);
-}
-console.log("formik values are",formik.values)
+    })
+
     return (
         <>
             <div className="digidoctor_apoint_card1">
@@ -160,105 +148,114 @@ console.log("formik values are",formik.values)
 
 
             {showForm === true ?
-                <form onSubmit={formik.handleSubmit}>
-                    <div className="form_digi_doc">
-                        <div className="form_digidoc">
-                            <div className="digidoc_appoin_form1">
-                                <p>First Name</p>
-                                <input
-                                    type="text"
-                                    placeholder="Enter First Name"
-                                    name="firstName"
-                                    id="firstName"
-                                    onChange={formik.handleChange}
-                                />
-                                {formik.touched.firstName && formik.errors.firstName ?
-                                    <div className="error-message">{formik.errors.firstName}</div>
-                                    : null}
-                            </div>
-                            <div class="digidoc_appoin_form1">
-                                <p>Middle Name</p>
-                                <input
-                                    type="text"
-                                    placeholder="Enter Middle Name"
-                                    name="middleName"
-                                    id="middleName"
-                                    onChange={formik.handleChange}
-                                />
-                            </div>
-                            <div class="digidoc_appoin_form1">
-                                <p>Last Name</p>
-                                <input
-                                    type="text"
-                                    placeholder="Enter Last Name"
-                                    name="lastName"
-                                    id="lastName"
-                                    onChange={formik.handleChange}
-                                />
-                                {formik.touched.lastName && formik.errors.lastName ?
-                                    <div className="error-message">{formik.errors.lastName}</div>
-                                    : null}
-                            </div>
-                            <div class="digidoc_appoin_form1">
-                                <p>Email Address</p>
-                                <input
-                                    type="text"
-                                    placeholder="Enter Email Address"
-                                    name="email"
-                                    id="email"
-                                    onChange={formik.handleChange}
-                                />
-                                {formik.touched.email && formik.errors.email ?
-                                    <div className="error-message">{formik.errors.email}</div>
-                                    : null}
-                            </div>
-                            <div class="digidoc_appoin_form1">
-                                <p>Phone No.</p>
-                                <input
-                                    type="text"
-                                    placeholder="Enter Phone no."
-                                    name="mblNumber"
-                                    id="mobileNumber"
-                                    onChange={formik.handleChange}
-                                />
-                                {formik.touched.mblNumber && formik.errors.mblNumber ?
-                                    <div className="error-message">{formik.errors.mblNumber}</div>
-                                    : null}
-                            </div>
+                userLogin === false ?
+                    <form onSubmit={formik.handleSubmit}>
+                        <div className="form_digi_doc">
+                            <div className="form_digidoc">
+                                <div className="digidoc_appoin_form1">
+                                    <p>First Name</p>
+                                    <input
+                                        value={formik.values.firstName}
+                                        type="text"
+                                        placeholder="Enter First Name"
+                                        name="firstName"
+                                        id="firstName"
+                                        onChange={formik.handleChange}
+                                    />
+                                    {formik.touched.firstName && formik.errors.firstName ?
+                                        <div className="error-message">{formik.errors.firstName}</div>
+                                        : null}
+                                </div>
+                                <div class="digidoc_appoin_form1">
+                                    <p>Middle Name</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Middle Name"
+                                        name="middleName"
+                                        id="middleName"
+                                        value={formik.values.middleName}
+                                        onChange={formik.handleChange}
+                                    />
 
-                            <div class="digidoc_appoin_form1">
-                                <p>Appointment Date</p>
+                                </div>
+                                <div class="digidoc_appoin_form1">
+                                    <p>Last Name</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Last Name"
+                                        name="lastName"
+                                        id="lastName"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.lastName}
+                                    />
+                                    {formik.touched.lastName && formik.errors.lastName ?
+                                        <div className="error-message">{formik.errors.lastName}</div>
+                                        : null}
+                                </div>
+                                <div class="digidoc_appoin_form1">
+                                    <p>Email Address</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Email Address"
+                                        name="email"
+                                        id="email"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.email}
+                                    />
+                                    {formik.touched.email && formik.errors.email ?
+                                        <div className="error-message">{formik.errors.email}</div>
+                                        : null}
+                                </div>
+                                <div class="digidoc_appoin_form1">
+                                    <p>Phone No.</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Phone no."
+                                        name="mobileNumber"
+                                        id="mobileNumber"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.mobileNumber}
+                                    />
+                                    {formik.touched.mobileNumber && formik.errors.mobileNumber ?
+                                        <div className="error-message">{formik.errors.mobileNumber}</div>
+                                        : null}
+                                </div>
 
-                                <input
-                                    type="date"
-                                    name="appointmentDate"
-                                    id="appointmentDate"
-                                    value={today}
-                                    onChange={(e,value)=>handleDateChange(e,value)}
-                                />
-                                {formik.touched.appointmentDate && formik.errors.appointmentDate ?
-                                    <div className="error-message">{formik.errors.appointmentDate}</div>
-                                    : null}
-                            </div>
-                            <div class="digidoc_appoin_form1">
-                                <p>Appointment Time</p>
-                                <input
-                                    type="time"
-                                    name="appointmentTime"
-                                    id="appointmentTime"
-                                    onChange={formik.handleChange}
-                                />
-                                {formik.touched.appointmentTime && formik.errors.appointmentTime ?
-                                    <div className="error-message">{formik.errors.appointmentTime}</div>
-                                    : null}
-                            </div>
+                                <div class="digidoc_appoin_form1">
+                                    <p>Appointment Date</p>
 
-                            <div class="digidoc_appoin_form1">
-                                <button type="submit" className="submit-buttons">
-                                    Submit
-                                </button>
+                                    <input
+                                        type="date"
+                                        name="appointmentDate"
+                                        id="appointmentDate"
+                                        value={formik.values.appointmentDate}
+                                        onChange={formik.handleChange}
+                                        min={dt.getFullYear()+"-"+dt.getMonth()+1+"-"+dt.getDate()}
+                                    />
+                                    {formik.touched.appointmentDate && formik.errors.appointmentDate ?
+                                        <div className="error-message">{formik.errors.appointmentDate}</div>
+                                        : null}
+                                </div>
+                                <div class="digidoc_appoin_form1">
+                                    <p>Appointment Time</p>
+                                    <input
+                                        type="time"
+                                        name="appointmentTime"
+                                        id="appointmentTime"
+                                        value={formik.values.appointmentTime}
+                                        onChange={formik.handleChange}
+                                    />
+                                    {formik.touched.appointmentTime && formik.errors.appointmentTime ?
+                                        <div className="error-message">{formik.errors.appointmentTime}</div>
+                                        : null}
+                                </div>
+
+                                <div class="digidoc_appoin_form1">
+                                    <button type="submit" className="submit-buttons">
+                                        Submit
+                                    </button>
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </form>
                     :
@@ -271,7 +268,8 @@ console.log("formik values are",formik.values)
                                 name="appointmentDate"
                                 id="appointmentDate"
                                 onChange={formik.handleChange}
-                                min={disablePastDate()}
+                                min={dt.getFullYear()+"-"+dt.getMonth()+1+"-"+dt.getDate()}
+                                
                             />
                             {formik.touched.appointmentDate && formik.errors.appointmentDate ?
                                 <div className="error-message">{formik.errors.appointmentDate}</div>
@@ -296,7 +294,8 @@ console.log("formik values are",formik.values)
                             </button>
                         </div>
                     </form>
-
+                :
+                <></>
             }
         </>
     )
