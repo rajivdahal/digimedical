@@ -2,3 +2,7 @@
   font-family: objective;
   src: url(./Objective-Regular.otf);
 }
+
+body {
+  font-family: cursive;
+}
