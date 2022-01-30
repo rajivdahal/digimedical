@@ -18,6 +18,7 @@ import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component";
 import OurServices from "../DoctorAtHome/DoctorAtHome";
 import Digi_doctors from "../home/Digimedical doctors/Digimedical_doctors";
 import Newdash from "../common/dashboard/Newdash.js";
+import Family_care_p from "../home/For Family/Family_Care_Package/Family_care_p";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -48,6 +49,11 @@ export const Approuting = (props) => {
           exact
           path="/change-password"
           component={Changepassword}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/Family_care_p"
+          component={Family_care_p}
         ></PublicRoute>
         <PublicRoute
           exact
@@ -99,12 +105,12 @@ export const Approuting = (props) => {
           path="/dashboard/hospitals"
           component={Dashboard}
         ></ProtectedRoute>
-                <ProtectedRoute
+        <ProtectedRoute
           exact
           path="/dashboard/medical-reports"
           component={Dashboard}
         ></ProtectedRoute>
-                        <ProtectedRoute
+        <ProtectedRoute
           exact
           path="/dashboard/body-checkup"
           component={Dashboard}
