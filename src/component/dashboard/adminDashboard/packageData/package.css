@@ -1,9 +1,31 @@
-.flaotLeft{
+.floatLeft{
     float: left;
 }
-.flaotRight{
+.floatRight{
     float:right
 }
-.remove-button{
-    margin-left: 150px;
+
+.purposeList{
+    margin-bottom: 9px;
+}
+.formControl{
+    margin-top: 10px;
+}
+.removeBtn{
+    color: white;
+    margin-left: 15px;
+    cursor: pointer;
+    background-color: rgb(240, 112, 95);
+    padding: 2px 15px;
+    font-size: 12px;
+    border-radius: 6px;
+}
+
+.editBtn{
+    cursor: pointer;
+    background-color: rgb(142, 193, 252);
+    padding: 2px 15px;
+    color: white;
+    font-size: 12px;
+    border-radius: 6px;
 }

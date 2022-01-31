@@ -1,0 +1,6 @@
+.lab_arrow_num1,
+.lab_arrow_num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

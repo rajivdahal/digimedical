@@ -35,6 +35,8 @@ export default function Hospitalshome() {
                 <div className="hospital_book_card1">
                   <img
                     src={REACT_APP_BASE_URL + "hospital/download/" + item.id}
+                    onError={(e)=>{e.target.onerror = null; e.target.src="/images/hospital.jpeg"}}
+
                     alt=""
                   />
                   <div className="hospital_card_text">

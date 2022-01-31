@@ -20,6 +20,7 @@ const doctorApi = {
     formData.append("middleName", values.middleName);
     formData.append("lastName", values.lastName);
     formData.append("email", values.email);
+    formData.append("gender", values.gender);
     formData.append("prefix", values.prefix);
     formData.append("nmcNo", values.nmcNumber);
     formData.append("specialist", values.specialist);
@@ -52,6 +53,7 @@ const doctorApi = {
     formData.append("middleName", values.middleName);
     formData.append("lastName", values.lastName);
     formData.append("email", values.email);
+    formData.append("gender", values.gender);
     formData.append("prefix", values.prefix);
     formData.append("nmcNo", values.nmcNumber);
     formData.append("specialist", values.specialist);
@@ -88,6 +90,7 @@ const doctorApi = {
     formData.append("middleName", values.middleName);
     formData.append("lastName", values.lastName);
     formData.append("prefix", values.prefix);
+    formData.append("gender", values.gender);
     formData.append("nmcNo", values.nmcNumber);
     formData.append("specialist", values.specialist);
     formData.append("description", values.description);
@@ -123,6 +126,7 @@ const doctorApi = {
     formData.append("middleName", values.middleName);
     formData.append("lastName", values.lastName);
     formData.append("prefix", values.prefix);
+    formData.append("gender", values.gender);
     formData.append("nmcNo", values.nmcNumber);
     formData.append("specialist", values.specialist);
     formData.append("description", values.description);

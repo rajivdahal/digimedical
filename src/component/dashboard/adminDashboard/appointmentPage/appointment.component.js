@@ -88,6 +88,7 @@ const Appointment = (props) => {
             title={title}
             icons={Tableicons}
             columns={[
+              { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
               { title: "NMC", field: "nmcNo" },
               { title: "Doctor Name", field: "doctorsName" },
               { title: "Patient Name", field: "patientsName" },

@@ -213,7 +213,7 @@ const MedicalInstitute = (props) => {
                             <Form.Group>
                                 <Form.Label>Name</Form.Label>
                                 <Form.Control type="text" name="name" onChange={formik.handleChange}
-                                    value={formik.values.name} onBlur={formik.handleBlur} />
+                                    value={formik.values.name} onBlur={formik.handleBlur} className='formControl' />
                                 {formik.touched.name && formik.errors.name ?
                                     <div className="error-message">{formik.errors.name}</div>
                                     : null}
@@ -224,7 +224,7 @@ const MedicalInstitute = (props) => {
                             <Form.Group >
                                 <Form.Label>Contact</Form.Label>
                                 <Form.Control type="text" name="contactNo" onChange={formik.handleChange}
-                                    value={formik.values.contactNo} onBlur={formik.handleBlur} />
+                                    value={formik.values.contactNo} onBlur={formik.handleBlur} className='formControl' />
                                 {formik.touched.contactNo && formik.errors.contactNo ?
                                     <div className="error-message">{formik.errors.contactNo}</div>
                                     : null}
@@ -237,7 +237,7 @@ const MedicalInstitute = (props) => {
                         <Col md={4}>
                             <Form.Group >
                                 <Form.Label>State</Form.Label>
-                                <select class="select-control" name="province" onChange={formik.handleChange}
+                                <select class="select-control formControl" name="province" onChange={formik.handleChange}
                                     value={formik.values.province} onBlur={formik.handleBlur} >
                                     <option value="0">Province No.1</option>
                                     <option value="1">Province No.2</option>
@@ -254,7 +254,7 @@ const MedicalInstitute = (props) => {
                             <Form.Group >
                                 <Form.Label>City</Form.Label>
                                 <Form.Control type="text" name="city" onChange={formik.handleChange}
-                                    value={formik.values.city} onBlur={formik.handleBlur} />
+                                    value={formik.values.city} onBlur={formik.handleBlur} className='formControl' />
                                 {formik.touched.city && formik.errors.city ?
                                     <div className="error-message">{formik.errors.city}</div>
                                     : null}
@@ -265,7 +265,7 @@ const MedicalInstitute = (props) => {
                             <Form.Group >
                                 <Form.Label>Street</Form.Label>
                                 <Form.Control type="text" name="street" onChange={formik.handleChange}
-                                    value={formik.values.street} onBlur={formik.handleBlur} />
+                                    value={formik.values.street} onBlur={formik.handleBlur} className='formControl'/>
                                 {formik.errors.street && formik.touched.street ?
                                     <div className="error-message">{formik.errors.street}</div>
                                     : null}

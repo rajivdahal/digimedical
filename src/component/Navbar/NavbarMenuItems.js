@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import package_logo from "../../assets/hospital.png";
@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import "./NavbarMenuItems.css";
 import login_signup from "../../component/common/login component/login_signup";
 import login from "./../../assets/login.png";
-import { useState } from "react";
 import { notify } from "../../services/notify";
 import { useHistory } from "react-router-dom";
+import { httpClient } from "../../utils/httpClient";
 
 const Root = styled.div`
   // background-color: #2745F0;
@@ -47,7 +47,14 @@ const Menuitems = styled.div``;
 //   padding: 0.4rem;
 // `;
 
+
+
+
 const NavbarMenuItems = () => {
+
+  const [corporateType, setCorporateType] = useState([]);
+  const [FamilyType, setFamilyType] = useState([]);
+
   const history = useHistory();
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -74,6 +81,54 @@ const NavbarMenuItems = () => {
       logoutno: true,
     });
   };
+
+
+  const getBusinessPackage = async () => {
+    try {
+      let resp = await httpClient.GET("master-package/get-types/0");
+      console.log(resp);
+      if (resp.data.status) {
+        setCorporateType(resp.data.data)
+      }
+    }
+    catch (err) {
+      if (
+        err &&
+        err.response &&
+        err.response.data &&
+        err.response.data.message
+      ) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+
+  }
+
+  const getFamilyPackage = async () => {
+    try {
+      let resp = await httpClient.GET("master-package/get-types/1");
+      console.log(resp)
+      if (resp.data.status) {
+        setFamilyType(resp.data.data)
+      }
+    }
+    catch (err) {
+      if (
+        err &&
+        err.response &&
+        err.response.data &&
+        err.response.data.message
+      ) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+  }
+
+  useEffect(() => {
+    getBusinessPackage();
+    getFamilyPackage();
+  }, [])
+
   return (
     <Root style={{ height: "70px" }} className="root_nav">
       <LogMenuItemsContainor className="logcontainer_nav">
@@ -127,15 +182,51 @@ const NavbarMenuItems = () => {
                 ) : null}
                 <Link
                   id="link_cat_nav_mob"
-                  to="/"
+                  to="/services"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   {" "}
                   <span>
                     {" "}
-                    <i class="fas fa-home"></i> &nbsp;{" "}
+                    <i class="fas fa-toolbox"></i> &nbsp;{" "}
                   </span>
-                  Home{" "}
+                  Our Services
+                </Link>
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/services"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-toolbox"></i> &nbsp;{" "}
+                  </span>
+                  For Business
+                </Link>
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/services"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-toolbox"></i> &nbsp;{" "}
+                  </span>
+                  For Family
+                </Link>
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/digimedical_doctors"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {" "}
+                  <span>
+                    {" "}
+                    <i class="fas fa-user-md"></i> &nbsp;{" "}
+                  </span>
+                  Our Doctors
                 </Link>
                 <Link
                   id="link_cat_nav_mob"
@@ -148,42 +239,7 @@ const NavbarMenuItems = () => {
                   </span>
                   About
                 </Link>
-                <Link
-                  id="link_cat_nav_mob"
-                  to="/services"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {" "}
-                  <span>
-                    {" "}
-                    <i class="fas fa-toolbox"></i> &nbsp;{" "}
-                  </span>
-                  Services
-                </Link>
-                <Link
-                  id="link_cat_nav_mob"
-                  to="/lab-test"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {" "}
-                  <span>
-                    {" "}
-                    <i class="fas fa-file-medical"></i> &nbsp;{" "}
-                  </span>
-                  Lab Test
-                </Link>
-                <Link
-                  id="link_cat_nav_mob"
-                  to="/hospitals"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {" "}
-                  <span>
-                    {" "}
-                    <i class="fas fa-hospital"></i> &nbsp;{" "}
-                  </span>
-                  Hospitals
-                </Link>
+
                 <Link
                   id="link_cat_nav_mob"
                   to="/contact"
@@ -197,19 +253,6 @@ const NavbarMenuItems = () => {
                   Contact
                 </Link>
 
-                <Link
-                  id="link_cat_nav_mob"
-                  to="/digimedical_doctors"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {" "}
-                  <span>
-                    {" "}
-                    <i class="fas fa-user-md"></i> &nbsp;{" "}
-                  </span>
-                  Digimedical Doctors
-                </Link>
-
                 {localStorage.getItem("dm-access_token") ? (
                   <div onClick={Logout} id="link_cat_nav_mob">
                     <i class="fas fa-sign-out-alt"></i>
@@ -217,7 +260,7 @@ const NavbarMenuItems = () => {
                   </div>
                 ) : null}
                 {logoutstate.logout ? (
-                  <div className="logout-container" id="logout_cont">
+                  <div className="logout-container1" id="logout_cont">
                     <div className="logout">
                       <p>Are you sure you want to Logout?</p>
                       <div className="buttons">
@@ -249,27 +292,14 @@ const NavbarMenuItems = () => {
         {/* for desktop navbar */}
         <div className="menu">
           {" "}
-          <span className="menu-item">
+          <div className="menu-item_nav">
             <Link
+              className="link_home_nav"
               to="/services"
-              style={{
-                textDecoration: "none",
-                color: "inherit",
-              }}
-            >
-              Our Services{" "}
-            </Link>
-          </span>
-          <span className="menu-item">
-            <Link
-              to="/lab-test"
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              For Business
+              Our Services
             </Link>
-          </span>
-          <div className="menu-item_nav">
-            <button className="dropbtn">For Family</button>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
                 <a href="#">
@@ -279,8 +309,141 @@ const NavbarMenuItems = () => {
                       height: "1.5rem",
                     }}
                   ></img>
-                  <p>Family Care Package</p>{" "}
+                  <p>Lab Test</p>{" "}
                 </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Doctor at Home</p>{" "}
+                </a>
+
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Online Medical Consulation</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>24/7 Nursing Service at Home</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>PCR at Home</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>MRI Service</p>
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>{" "}
+                  <p>CT Scan Service</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>{" "}
+                  <p>USG Service at Home</p>{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>{" "}
+                  <p>USG| ECG | ECHO Service at Home</p>{" "}
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="menu-item_nav">
+            <Link
+              className="link_home_nav"
+              // to="/services"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              For Business
+            </Link>
+            <div className="dropdown_hp_content">
+              <div className="dropdown_hp_content1">
+
+                {corporateType.map((item, index) => {
+                  return <>
+                   <Link key={index} to={{
+                      pathname: "corporate-package",
+                      state:{ packageId: item.id,packageName : item.name }
+                    }}>
+                      <img
+                        src={package_logo}
+                        style={{
+                          height: "1.5rem",
+                        }}
+                      ></img>
+                      <p>{item.name}</p>{" "}
+                    </Link>
+                  </>
+                })}
+              </div>
+            </div>
+          </div>
+          <div className="menu-item_nav">
+            <Link
+              className="link_home_nav"
+              // to="/services"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              For Family
+            </Link>
+            <div className="dropdown_hp_content">
+              <div className="dropdown_hp_content1">
+                <Link to="/Family_care_p">
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Family Care Package</p>{" "}
+                </Link>
                 <a href="#">
                   {" "}
                   <img
@@ -292,66 +455,23 @@ const NavbarMenuItems = () => {
                   <p>Pregnency Care Packages</p>{" "}
                 </a>
 
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>School/College Care Package</p>{" "}
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Personal Care Package</p>{" "}
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Child Care Package</p>{" "}
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Parents Care Package</p>
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>{" "}
-                  <p>Husband/Wife Care Packages</p>{" "}
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>{" "}
-                  <p>Husband/Wife Care Packages</p>{" "}
-                </a>
+                {FamilyType.map((item, index) => {
+                  return <>
+                    <Link key={index} to={{
+                      pathname: "family-package",
+                      state:{ packageId: item.id,packageName : item.name }
+                    }}>
+                      <img
+                        src={package_logo}
+                        style={{
+                          height: "1.5rem",
+                        }}
+                      ></img>
+                      <p>{item.name}</p>{" "}
+                    </Link>
+                  </>
+                })}
+
               </div>
             </div>
           </div>
@@ -386,7 +506,7 @@ const NavbarMenuItems = () => {
       </div> */}
       {/* <SearchContainor>
       </SearchContainor> */}
-    </Root>
+    </Root >
   );
 };
 export default NavbarMenuItems;

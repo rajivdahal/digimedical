@@ -41,7 +41,7 @@ export const Cartreducer = (state, action) => {
                                 labItem.map((labObject,labObjectIndex)=>{
                                     if(labObject.subcategoryname===item.subcategoryname){
                                         isinside=labObject.subcategoryname
-                                        notify.error(labObject.subcategoryname+"has already been added")
+                                        notify.error(labObject.subcategoryname+" has already been added")
                                     }
                                 })
                                 if(labIndex===cart.labs.length-1 && !isinside){

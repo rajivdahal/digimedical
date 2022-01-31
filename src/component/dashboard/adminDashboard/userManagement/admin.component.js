@@ -68,7 +68,8 @@ const CreateAdmin = (props) => {
     try {
       let resp = await UserManagementApi.getRole();
       if (resp.data.status) {
-        let result = resp.data.data;
+        let result = resp.data.data; 
+        
         let options = result.map((item) => {
           return {
             label: item.name,
@@ -258,7 +259,7 @@ const CreateAdmin = (props) => {
                 <Form.Label>First Name</Form.Label>
                 <Form.Control
                   type="text"
-                  name="firstName"
+                  name="firstName" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.firstName}
                   onBlur={formik.handleBlur}
@@ -273,7 +274,7 @@ const CreateAdmin = (props) => {
                 <Form.Label>Middle Name</Form.Label>
                 <Form.Control
                   type="text"
-                  name="middleName"
+                  name="middleName" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.middleName}
                   onBlur={formik.handleBlur}
@@ -291,7 +292,7 @@ const CreateAdmin = (props) => {
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
                   type="text"
-                  name="lastName"
+                  name="lastName" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.lastName}
                   onBlur={formik.handleBlur}
@@ -309,7 +310,7 @@ const CreateAdmin = (props) => {
                 <Form.Label>Date Of Birth</Form.Label>
                 <Form.Control
                   type="date"
-                  name="dob"
+                  name="dob" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.dob}
                   onBlur={formik.handleBlur}
@@ -325,7 +326,7 @@ const CreateAdmin = (props) => {
                 <Select
                   value={formik.values.selectedRole}
                   options={allRole}
-                  name="roleID"
+                  name="roleID" className="roleSelect formControl"
                   onChange={handleRoleChange}
                 ></Select>
               </Form.Group>
@@ -336,7 +337,7 @@ const CreateAdmin = (props) => {
                 <Form.Label>Mobile Number</Form.Label>
                 <Form.Control
                   type="text"
-                  name="mobileNumber"
+                  name="mobileNumber" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.mobileNumber}
                   onBlur={formik.handleBlur}
@@ -361,7 +362,7 @@ const CreateAdmin = (props) => {
                       <Form.Label>Email</Form.Label>
                       <Form.Control
                         type="email"
-                        name="email"
+                        name="email" className='formControl'
                         onChange={formik.handleChange}
                         value={formik.values.email}
                         onBlur={formik.handleBlur}
@@ -379,7 +380,7 @@ const CreateAdmin = (props) => {
                       <Form.Label>Password</Form.Label>
                       <Form.Control
                         type="password"
-                        name="password"
+                        name="password" className='formControl'
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -395,7 +396,7 @@ const CreateAdmin = (props) => {
                     <Form.Group>
                       <Form.Label>Confirm Password</Form.Label>
                       <Form.Control
-                        type="password"
+                        type="password" className='formControl'
                         name="confirmPassword"
                         value={formik.values.confirmPassword}
                         onChange={formik.handleChange}
@@ -438,10 +439,15 @@ const CreateAdmin = (props) => {
                 roundedCircle
               ></Image>
             </Col>
+            {selectedImage ? 
             <Col md={2}>
-              <span style={{ color: 'red' }} className="removeBtn" onClick={removeImage}>x</span>
+            <span style={{ color: 'red',cursor: 'pointer' }} onClick={removeImage}>x</span>
 
-            </Col>
+          </Col>
+          :
+          <></>
+            }
+            
           </Row>
           <div className="textAlign-right  mb-5">
             {loading == true ? (
@@ -479,7 +485,7 @@ const CreateAdmin = (props) => {
           icons={Tableicons}
           data={allAdmin}
           columns={[
-            { title: "ID", field: "id" },
+            { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
             { title: "Name", field: "adminName" },
             { title: "Mobile Number", field: "mobileNumber" },
             { title: "email", field: "email" },

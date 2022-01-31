@@ -26,7 +26,6 @@ export default function Doctorshome(props) {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-
   }
 
   useEffect(() => {
@@ -44,6 +43,7 @@ export default function Doctorshome(props) {
       {allDoctors.map((item, index) => {
         return <>
           <DoctorDetailComponent key={index} {...props} name={item.doctorname} prefix={item.prefix}
+          gender={item.gender+1}
             specialist={item.specialist} desc={item.doctordescription} doctorId={item.doctorid} />
         </>
       })}

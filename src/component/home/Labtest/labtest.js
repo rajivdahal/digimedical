@@ -23,6 +23,7 @@ const HomeLabtest = (props) => {
       .catch((err) => {
         notify.error("Something went wrong");
       });
+      window.scrollTo(0,0)
   }, []);
   // const redirectlogin = () => {
   //   history.push("/dashboard/lab-test");

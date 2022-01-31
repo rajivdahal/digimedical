@@ -54,6 +54,7 @@ function Digimedical_doctors(props) {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     getAllDigiDoctors();
   }, [])
 
@@ -105,6 +106,7 @@ function Digimedical_doctors(props) {
                   return <>
                     <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix}
                       specialist={item.specialist} desc={item.doctordescription}
+                      gender={item.gender+1}
                       doctorId={item.doctorid} doctorServices={item.serviceid} />
                   </>
                 })
@@ -121,7 +123,8 @@ function Digimedical_doctors(props) {
               <h1>Why choose Us?</h1>
               <div className="digidoctor_whychooseus_cont">
                 <div className="whychooseus_contimg">
-                  <img src={handheart} alt="" />
+                  <img src={handheart} alt=""
+                  />
                 </div>
                 <p>Safest digital heath platform</p>
               </div>

@@ -1,97 +1,139 @@
+.formcompo_home {
+  width: 100%;
+  display: flex;
+}
 
 .docs {
-    width: 500px;
-    height: 180px;
-    position: relative;
-    bottom: 15rem;
-    left: 25rem;
-    z-index: 10;
+  margin-top: 50px;
+  width: 49%;
+  z-index: 100;
+}
+
+.docs .doc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bubble {
+  position: relative;
+  background: white;
+  padding: 20px;
+  color: black;
+  border-radius: 5px;
+  margin-left: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.bubble::after {
+  display: block;
+  position: absolute;
+  left: -24px;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 25px solid white;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+.imag1 img {
+  border-radius: 50%;
+  object-fit: cover;
+  height: 140px;
+  width: 140px;
+}
+
+.description {
+  padding-left: 20px;
+}
+
+#doc_name {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+#doc_skill {
+  font-weight: normal;
+  font-size: 14px;
+  color: #596579;
+  line-height: 20px;
+}
+
+#doc_edu {
+  font-weight: normal;
+  font-size: 14px;
+  color: #7b8698;
+  line-height: 22px;
+  margin-top: 10px;
+  padding: 5px;
+  width: fit-content;
+  border-radius: 5px;
+  background: #e1f0ff;
+}
+
+#doc_exp {
+  font-weight: bold;
+  font-size: 16px;
+  color: #596579;
+  margin-top: -5px;
+}
+
+.clear-icon {
+  position: absolute;
+  right: 2%;
+  top: 2%;
+  cursor: pointer;
+}
+.clear-icon:hover {
+  color: #596579;
+}
+.formcompo_datepicker {
+  width: 100%;
+}
+
+.formcompo_datepicker .DatePicker .DatePicker__input {
+  width: 100%;
+  height: 45px;
+  border-radius: 8px;
+  position: relative;
+  top: 0;
+  z-index: 1;
+}
+
+.formcompo_datepicker .DatePicker {
+  width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  .formcompo_home {
+    flex-direction: column;
   }
-  
-  .docs .doc {
+  .docs {
+    margin-top: 2px;
+
+    margin-left: -2%;
     width: 100%;
-    height: 100%;
-    margin-bottom: 20px;
-    display: flex;
   }
-  
-  .doc .doc p {
-    margin: 0 0 10px 0;
-  }
-  
-  .bubble {
-    position: relative;
-    background: white;
-    padding: 20px;
-    color: black;
-    border-radius: 5px;
-    margin-left: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  }
-  
   .bubble::after {
-    content: "";
-    display: block;
-    position: absolute;
-    left: -24px;
-    top: 20px;
-    width: 0;
-    height: 0;
-    border-top: 12px solid transparent;
-    border-bottom: 12px solid transparent;
-    border-right: 25px solid white;
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    display: none;
   }
-  
-  .imag1 img {
-    border-radius: 50%;
-    position: relative;
-    left: 5px;
-    top: 5px;
-    height: 140px;
-    width: 140px;
+}
+@media screen and (max-width: 900px) {
+  .docs .doc {
+    flex-direction: column;
   }
-  
+  .doc p {
+    text-align: center;
+  }
   .description {
-    font-family: "nunito",sans-serif;
-    position: relative;
-    top: 7px;
-    left: 35px;
-    width: 348px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
-  
-  #doc_name {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-  
-  #doc_skill {
-    font-weight: normal;
-    font-size: 14px;
-    color: #596579;
-    line-height: 20px;
-  }
-  
-  #doc_edu {
-    font-weight: normal;
-    font-size: 14px;
-    color: #7b8698;
-    line-height: 22px;
-    margin-top: 10px;
-  }
-  
-  #doc_exp {
-    font-weight: bold;
-    font-size: 16px;
-    color: #596579;
-    margin-top: -5px;
-  }
-  
-  .clear-icon{
-    position: absolute;
-   right: 2%;
-   top: 2%;
-   cursor: pointer;
-  }
+}

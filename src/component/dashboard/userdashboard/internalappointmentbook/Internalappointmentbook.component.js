@@ -51,18 +51,17 @@ export default function Internalappointmentbook(prop) {
     httpClient
       .POST(url, values, false, true)
       .then((resp) => {
-        if(prop.location.pathname == "/dashboard/corporate/bookappointment"){
+        if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
           prop.history.push("/dashboard/corporate/viewappointment");
           notify.success("Appointment booked successfully");
-        }
-        else{
+        } else {
           prop.history.push("/dashboard/viewappointment");
           notify.success("Appointment booked successfully");
         }
       })
       .catch((err) => {
         setappointmentfailed("Something went wrong");
-        notify.error("Appointment unable to book")
+        notify.error("Appointment unable to book");
       });
   };
   useEffect(() => {
@@ -70,14 +69,14 @@ export default function Internalappointmentbook(prop) {
       .GET("services/get/true", false, true)
       .then((resp) => {
         let allServices = resp.data.data;
-        console.log("all services are",allServices)
+        console.log("all services are", allServices);
         let options = allServices.map((service, index) => {
           return {
             label: service.servicename,
             value: service.id,
           };
         });
-        console.log("services arreee",services)
+        console.log("services arreee", services);
         setservices(options);
       })
       .catch((err) => {
@@ -242,8 +241,7 @@ export default function Internalappointmentbook(prop) {
       return callapi("create-appointment/corporate", formik.values);
     }
     console.log(formik.values);
-   return callapi("create-appointment", formik.values);
-
+    return callapi("create-appointment", formik.values);
   };
   const getdoctorinfo = (doctorid) => {
     if (!doctorid) {
@@ -291,13 +289,12 @@ export default function Internalappointmentbook(prop) {
   let formcontent = toeditdata ? (
     <div>
       {prop.location.pathname == "/dashboard/corporate/bookappointment" ? (
-
         <div className="form-row">
           <label htmlFor="service">Select Member</label>
           <select
             id="email"
             name="email"
-            className="form-control"
+            className=""
             onChange={(e) => {
               formik.handleChange(e);
             }}
@@ -339,16 +336,16 @@ export default function Internalappointmentbook(prop) {
       <div className="form-row">
         <div className="form-group col-md-12">
           <label htmlFor="appointment">Appointment Date.</label>
-          <br/>
+          <br />
           <div className="internal-appointment-datepicker-edit">
-          <DatePicker
-            className="form-control"
-            shouldHighlightWeekends
-            value={selectedDay}
-            onChange={(value) => handleeditchange(value, "appointmentdate")}
-            minimumDate={minDate}
-          ></DatePicker>
-</div>
+            <DatePicker
+              className="form-control"
+              shouldHighlightWeekends
+              value={selectedDay}
+              onChange={(value) => handleeditchange(value, "appointmentdate")}
+              minimumDate={minDate}
+            ></DatePicker>
+          </div>
 
           <h4>{formatDate(toeditdata.appointmentdate)}</h4>
         </div>
@@ -362,9 +359,13 @@ export default function Internalappointmentbook(prop) {
             onChange={(e) => {
               handleeditchange(e);
             }}
-            style={{width:"330px",position:"absolute", height:"50px",marginLeft:"-30px"}}
+            style={{
+              width: "330px",
+              position: "absolute",
+              height: "50px",
+              marginLeft: "-30px",
+            }}
           ></input>
-
         </div>
         <h4>{toeditdata.appointmenttime}</h4>
       </div>
@@ -401,17 +402,18 @@ export default function Internalappointmentbook(prop) {
       ) : null}
       <div className="form-row">
         <div className="form-group col-md-12">
-          <label htmlFor="appointment">Appointment Date.</label>
+          <label htmlFor="appointment">Appointment Date</label>
+
           <br />
           <div className="internal-appointment-datepicker">
-          <DatePicker
-            // className="form-control"
-            style={{width:"12rem"}}
-            shouldHighlightWeekends
-            value={selectedDay}
-            onChange={handleDateChange}
-            minimumDate={minDate}
-          ></DatePicker>
+            <DatePicker
+              // className="form-control"
+              style={{}}
+              shouldHighlightWeekends
+              value={selectedDay}
+              onChange={handleDateChange}
+              minimumDate={minDate}
+            ></DatePicker>
           </div>
           {formik.errors.appointmentDate && formik.touched.appointmentDate ? (
             <div style={{ color: "red" }} className="errmsg">
@@ -423,7 +425,7 @@ export default function Internalappointmentbook(prop) {
         <div className="form-group col-md-12">
           <label htmlFor="time">Time</label>
 
-          <div>
+          <div className="intappoin_timepicker">
             <TimePicker
               onChange={onChange}
               value={value}
@@ -458,11 +460,10 @@ export default function Internalappointmentbook(prop) {
           ) : null}
         </div>
       </div>
-
     </div>
   );
   return (
-    <>
+    <div className="Hello_w">
       <div className="marginadj">
         <form className="form-width-adjust">
           {formcontent}
@@ -535,6 +536,6 @@ export default function Internalappointmentbook(prop) {
           className="bookappimage"
         ></img>
       </div>
-    </>
+    </div>
   );
 }

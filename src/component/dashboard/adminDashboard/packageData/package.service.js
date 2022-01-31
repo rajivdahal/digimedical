@@ -10,7 +10,8 @@ const PackageApi = {
             amount: values.price,
             lunchingOfferPrice: values.launchingOffer,
             laboratoryPercentage: values.labDiscount,
-            packageId : selectedId,
+            masterPackageId : selectedId,
+            description : values.description,
         }
         console.log(data)
         return httpClient.POST("membership-packages/create", data, false, true)
@@ -21,11 +22,14 @@ const PackageApi = {
     },
 
     editPackage: (values, id) => {
+        let selectedId = values.selectedPackage.value;
         let data = {
             name: values.packageName,
             amount: values.price,
             lunchingOfferPrice: values.launchingOffer,
-            laboratoryPercentage: values.labDiscount
+            laboratoryPercentage: values.labDiscount,
+            masterPackageId : selectedId,
+            description : values.description,
         }
         return httpClient.PUT("membership-packages/" + id, data, false, true)
     },
@@ -75,6 +79,7 @@ const PackageApi = {
                 name : values.name,
                 description : values.description,
                 purpose : values.allPurpose,
+                packageType : values.packageType
             }
         return httpClient.POST("master-package/create",data,false,true)
     },
@@ -84,13 +89,14 @@ const PackageApi = {
                 name : values.name,
                 description : values.description,
                 purpose : values.allPurpose,
+                packageType : values.packageType
+
             }
         return httpClient.PUT("master-package/update/"+detailID,data,false,true)
     },
 
     packageStatus: (packageid, status) => {
           let tempStatus = status.toString() === true.toString() ? false : true;
-            console.log(tempStatus)
         return httpClient.PUT("master-package/change/" + packageid +"/"+tempStatus,{}, false, true)
         
       },

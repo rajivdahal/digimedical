@@ -32,7 +32,10 @@ const MembershipPackageDetails = (props) => {
         try {
             let resp = await PackageApi.getAllPackage();
             if (resp.data.status) {
-                let truePackage = resp.data.data;
+                let tempPackage = resp.data.data;
+                let truePackage = tempPackage.filter((item)=>{
+                    return item.status == true
+                })
                 let option = truePackage.map((item, index) => {
                     return {
                         label: item.name,
@@ -188,7 +191,7 @@ const MembershipPackageDetails = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Package Name</Form.Label>
-                                <Select
+                                <Select className="roleSelect formControl"
                                     value={formik.values.selectedPackage}
                                     options={allPackages}
                                     name="packageId"
@@ -201,7 +204,7 @@ const MembershipPackageDetails = (props) => {
                         <Col md={6}>
                             <Form.Group >
                                 <Form.Label>Details : </Form.Label>
-                                <Form.Control type="text" name="details" onChange={formik.handleChange}
+                                <Form.Control className='formControl' type="text" name="details" onChange={formik.handleChange}
                                     value={formik.values.details} onBlur={formik.handleBlur} />
                                 {formik.touched.details && formik.errors.details ?
                                     <div className="error-message">{formik.errors.details}</div>
@@ -221,15 +224,15 @@ const MembershipPackageDetails = (props) => {
 
                     <Row>
                         <Col md={4}></Col>
-                        <Col md={8}>
+                        <Col md={6}>
                             {formik.values && formik.values.allDetails ?
                                 <ul>
                                     {formik.values && formik.values.allDetails.map((item,index) => {
                                         return <div className='clearfix'>
-                                            <li>
+                                            <li className='purposeList'>
                                                 <span className='flaotLeft'>{item}</span>
-                                                <span style={{ color: "red" }} className="removeBtn remove-button" 
-                                                onClick={()=>removeDetail(index)}>x</span>
+                                                <span className="removeBtn floatRight" 
+                                                onClick={()=>removeDetail(index)}>Remove</span>
                                             </li>
                                         </div>
                                     })}

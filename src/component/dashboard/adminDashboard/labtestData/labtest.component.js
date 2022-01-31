@@ -250,7 +250,7 @@ const Labtest = (props) => {
                             <Form.Group>
                                 <Form.Label>Lab Test Name</Form.Label>
                                 <Form.Control type="text" name="name" onChange={formik.handleChange}
-                                    value={formik.values.name} onBlur={formik.handleBlur} />
+                                    value={formik.values.name} onBlur={formik.handleBlur} className='formControl'/>
                                 {formik.errors.name && formik.touched.name ?
                                     <div className="error-message">{formik.errors.name}</div>
                                     : null}
@@ -260,7 +260,7 @@ const Labtest = (props) => {
                             <Form.Group >
                                 <Form.Label>Lab Test Description</Form.Label>
                                 <Form.Control type="text" name="description" onChange={formik.handleChange}
-                                    value={formik.values.description} onBlur={formik.handleBlur} />
+                                    value={formik.values.description} onBlur={formik.handleBlur} className='formControl'/>
                                 {formik.touched.description && formik.errors.description ?
                                     <div className="error-message">{formik.errors.description}</div>
                                     : null}
@@ -268,33 +268,10 @@ const Labtest = (props) => {
                         </Col>
                     </Row>
 
-                    <Row className="mb-3">
-                        {/* <Col md={6}>
-                            <Form.Group>
-                                <Form.Label>Date</Form.Label>
-                                <Form.Control type="date" name="date" onChange={formik.handleChange}
-                                    value={formik.values.date} onBlur={formik.handleBlur} />
-                                {formik.errors.date && formik.touched.date ?
-                                    <div className="error-message">{formik.errors.date}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col> */}
-                        {/* <Col md={6}>
-                            <Form.Group >
-                                <Form.Label>Price</Form.Label>
-                                <Form.Control type="text" name="price" onChange={formik.handleChange}
-                                    value={formik.values.price} onBlur={formik.handleBlur} />
-                                {formik.errors.price && formik.touched.price ?
-                                    <div className="error-message">{formik.errors.price}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col> */}
-                    </Row>
-
                     <Row>
                         <Col md={4}>
                             <Form.Label>Choose Photo :  </Form.Label><br></br>
-                            <Button variant="info" onClick={handleAddImage}>Browse</Button>
+                            <Button variant="info" onClick={handleAddImage} className='formControl'>Browse</Button>
                             <input onChange={(e) => handleChangeImage(e)} type="file" name="image" style={{ display: "none" }} ref={imageSelectRef}  ></input>
                         </Col>
 

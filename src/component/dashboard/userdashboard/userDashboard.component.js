@@ -14,10 +14,9 @@ const Userdashboard = (props) => {
   let [weather, setWeather] = useState({});
   let [weatherDescription, setWeatherDescription] = useState({});
   let [currentTemperature, setCurrentTemperature] = useState("");
-  let [isWeatherLoading,setIsWeatherLoading]=useState(false)
+  let [isWeatherLoading, setIsWeatherLoading] = useState(false);
   const [totalappointments, settotalappointments] = useState();
   useEffect(() => {
-
     httpClient
       .GET("totoal-appointments-patients", false, true)
       .then((resp) => {
@@ -36,7 +35,7 @@ const Userdashboard = (props) => {
       .then((resp) => {
         setcompletedappointments(resp.data.data.length);
       });
-    setIsWeatherLoading(true)
+    setIsWeatherLoading(true);
     httpClient
       .GET("get-user-canceled-appointments", false, true)
       .then((resp) => {
@@ -56,7 +55,6 @@ const Userdashboard = (props) => {
             setWeather(resp.data);
             setWeatherDescription(resp.data.weather[0]);
             setCurrentTemperature((resp.data.main.temp - 273.15).toString());
-
           })
           .catch((err) => {
             console.log("error in fetching the data after api");
@@ -99,30 +97,30 @@ const Userdashboard = (props) => {
                 <div className="card-people mt-auto">
                   <img src="/images/dashboard/people.svg" alt="people" />
                   <div className="weather-info">
-                   {
-                     isWeatherLoading?<div style={{color:"orange"}}>Loading.....</div>:
-                     <div className="d-flex">
-                     <div>
-                       <h2 className="mb-0 font-weight-normal">
-
-                         {currentTemperature.slice(0, 6)}
-                         <sup>C</sup>
-                       </h2>
-                     </div>
-                     <div className="ml-2">
-                       <h4 className="location font-weight-normal">
-                         {weather.name}
-                       </h4>
-                       {weather.sys ? (
-                         <h6 className="font-weight-normal">
-                           {weather.sys.country}
-                         </h6>
-                       ) : (
-                         <h6 className="font-weight-normal">Nepal</h6>
-                       )}
-                     </div>
-                   </div>
-                   }
+                    {isWeatherLoading ? (
+                      <div style={{ color: "orange" }}>Loading.....</div>
+                    ) : (
+                      <div className="d-flex">
+                        <div>
+                          <h2 className="mb-0 font-weight-normal">
+                            {currentTemperature.slice(0, 6)}
+                            <sup>C</sup>
+                          </h2>
+                        </div>
+                        <div className="ml-2">
+                          <h4 className="location font-weight-normal">
+                            {weather.name}
+                          </h4>
+                          {weather.sys ? (
+                            <h6 className="font-weight-normal">
+                              {weather.sys.country}
+                            </h6>
+                          ) : (
+                            <h6 className="font-weight-normal">Nepal</h6>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
