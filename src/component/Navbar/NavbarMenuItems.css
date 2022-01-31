@@ -10,20 +10,21 @@
   margin-left: 6vw;
   display: flex;
   justify-content: space-between;
-  width: 86%;
+  width: 90%;
 }
 .logcontainer_nav img {
   object-fit: cover;
 }
 .menu {
-  align-items: center;
-  justify-content: center;
+  width: 65%;
+
   color: white;
   display: flex;
 }
 .menu .menu-item {
+  width: 16.67%;
   height: 100%;
-  margin-left: 3vw;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,7 +37,8 @@
 }
 .menu-item_nav {
   height: 100%;
-  margin-left: 3vw;
+  width: 16.67%;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,6 +51,7 @@
   align-items: center;
   justify-content: center;
 }
+/* menu of dropping down content */
 .dropdown_hp_content {
   z-index: 1;
   position: absolute;

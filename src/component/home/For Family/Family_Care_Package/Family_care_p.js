@@ -1,8 +1,12 @@
 import React from "react";
+import Fcp_main_img from "../../../../assets/amico.svg";
+import Footer from "../../../Footer/Footer";
+import Navbar from "../../../Navbar/Navbar";
 import "./family_care_p.css";
 function family_care_p() {
   return (
     <div className="package-page">
+      <Navbar></Navbar>
       <div class="top-container">
         <div class="up">
           <a href="url" id="healthpackages">
@@ -19,7 +23,10 @@ function family_care_p() {
               Give your family a healthy gift in this covid situation.
             </p>
           </div>
-          <img src="amico.png" className="person-with-masks" />
+          <div className="fcp_main_img">
+            {" "}
+            <img src={Fcp_main_img} />
+          </div>
         </div>
       </div>
       <div className="mid-container">
@@ -160,6 +167,7 @@ function family_care_p() {
           <button className="button">Get Started</button>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 }

@@ -382,7 +382,7 @@ const NavbarMenuItems = () => {
             </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
-                <a href="#">
+                <Link to="/Family_care_p">
                   <img
                     src={package_logo}
                     style={{
@@ -390,7 +390,7 @@ const NavbarMenuItems = () => {
                     }}
                   ></img>
                   <p>Family Care Package</p>{" "}
-                </a>
+                </Link>
                 <a href="#">
                   {" "}
                   <img

@@ -37,11 +37,13 @@
 }
 
 .Welcome_client {
-  text-align: center;
   margin-left: 1%;
-  width: 30%;
+  width: 40%;
+  height: 100%;
 
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 .Welcome_client p {
   font-size: 20px;
