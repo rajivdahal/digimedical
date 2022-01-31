@@ -221,125 +221,135 @@ const PackageDescription = (props) => {
     return (
         <div>
             <Container>
-                <Form onSubmit={formik.handleSubmit}>
-                    <Row className="mb-3">
-                        <Col md={4}>
-                            <Form.Group>
-                                <Form.Label>Package Name</Form.Label>
-                                <Form.Control type="text" name="name" onChange={formik.handleChange}
-                                    value={formik.values.name} onBlur={formik.handleBlur} />
-                                {formik.touched.name && formik.errors.name ?
-                                    <div className="error-message">{formik.errors.name}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col>
+                <Row>
+                    <Col md={2}></Col>
+                    <Col md={8}>
+                        <Form onSubmit={formik.handleSubmit}>
+                            <Row className="mb-3">
+                            <Col md={6}>
+                                    <Form.Group >
+                                        <Form.Label>Package Type : </Form.Label>
+                                        <select
+                                            class="select-control formControl"
+                                            aria-label="Default select example"
+                                            name="packageType"
+                                            onChange={formik.handleChange}
+                                            value={formik.values.packageType}
+                                            onBlur={formik.handleBlur}
+                                        >
+                                            <option value="0">Corporate Package</option>
+                                            <option value="1">Family Package</option>
+                                        </select>
+                                    </Form.Group>
+                                </Col>
+                                <Col md={6}>
+                                    <Form.Group>
 
-                        <Col md={8}>
-                            <Form.Group>
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control type="text" name="description" onChange={formik.handleChange}
-                                    value={formik.values.description} onBlur={formik.handleBlur} />
-                                {formik.touched.description && formik.errors.description ?
-                                    <div className="error-message">{formik.errors.description}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col>
-                    </Row>
+                                        <Form.Label>Package Name</Form.Label>
+                                        <Form.Control className='formControl' type="text" name="name" onChange={formik.handleChange}
+                                            value={formik.values.name} onBlur={formik.handleBlur} />
+                                        {formik.touched.name && formik.errors.name ?
+                                            <div className="error-message">{formik.errors.name}</div>
+                                            : null}
+                                    </Form.Group>
+                                </Col>
+
+                            </Row>
 
 
-                    <Row>
-                        <Col md={4}>
-                            <Form.Group >
-                                <Form.Label>Package Type : </Form.Label>
-                                <select
-                                    class="select-control"
-                                    aria-label="Default select example"
-                                    name="packageType"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.packageType}
-                                    onBlur={formik.handleBlur}
-                                >
-                                    <option value="0">Corporate Package</option>
-                                    <option value="1">Family Package</option>
-                                </select>
-                            </Form.Group>
-                        </Col>
-                        <Col md={6}>
-                            <Form.Group >
-                                <Form.Label>Purpose : </Form.Label>
-                                <Form.Control type="text" name="purpose" onChange={formik.handleChange}
-                                    value={formik.values.purpose} onBlur={formik.handleBlur} />
-                                {formik.touched.purpose && formik.errors.purpose ?
-                                    <div className="error-message">{formik.errors.purpose}</div>
-                                    : null}
-                            </Form.Group>
-                        </Col>
+                            <Row className='mb-3'>
+                            <Col md={12}>
+                                    <Form.Group>
+                                        <Form.Label>Description</Form.Label>
+                                        <Form.Control className='formControl' as="textarea" rows={2} name="description" onChange={formik.handleChange}
+                                            value={formik.values.description} onBlur={formik.handleBlur} />
+                                        {formik.touched.description && formik.errors.description ?
+                                            <div className="error-message">{formik.errors.description}</div>
+                                            : null}
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
-                        <Col md={2}>
-                            <br></br>
-                            {purposeEdit.isEdit === true ?
-                                <Button variant="info" onClick={() => handleEditPurpose(formik.values)}>Edit</Button>
-                                :
-                                <Button variant="info" onClick={() => handleAddDetails(formik.values)}>Add</Button>
-                            }
-                        </Col>
+                            <Row className='mb-3'>
+                                <Col md={10}>
+                                    <Form.Group >
+                                        <Form.Label>Purpose : </Form.Label>
+                                        <Form.Control className='formControl' type="text" name="purpose" onChange={formik.handleChange}
+                                            value={formik.values.purpose} onBlur={formik.handleBlur} />
+                                        {formik.touched.purpose && formik.errors.purpose ?
+                                            <div className="error-message">{formik.errors.purpose}</div>
+                                            : null}
+                                    </Form.Group>
+                                </Col>
 
-                    </Row>
-                    <Row>
-                        <Col md={6}>
+                                <Col md={2}>
+                                    <br></br>
+                                    {purposeEdit.isEdit === true ?
+                                        <Button variant="info" onClick={() => handleEditPurpose(formik.values)}>Edit</Button>
+                                        :
+                                        <Button variant="info" onClick={() => handleAddDetails(formik.values)}>Add</Button>
+                                    }
+                                </Col>
 
+                            </Row>
+                            
+                            <Row className='mb-3'>
+                            <Col md={10}>
                             {formik.values && formik.values.allPurpose ?
-                                <ul>
-                                    {formik.values && formik.values.allPurpose.map((item, index) => {
-                                        return <div className='clearfix'>
-                                            <li>
-                                                <span className='flaotLeft'>{item}</span>
-                                                <span onClick={() => editPurpose(index)} className='removeBtn'>Edit</span>
-                                                <span style={{ color: "red" }} className="removeBtn remove-button"
-                                                    onClick={() => removeDetail(index)}>x</span>
-                                            </li>
-                                        </div>
-                                    })}
-                                </ul>
-                                :
-                                <></>
-                            }
-                        </Col>
-                    </Row>
+                                        <ul>
+                                            {formik.values && formik.values.allPurpose.map((item, index) => {
+                                                return <div className='clearfix'>
+                                                    <li className='purposeList'>
+                                                        <span className='flaotLeft'>{item}</span>
+                                                        <span  className="removeBtn floatRight "
+                                                            onClick={() => removeDetail(index)}>Remove</span>
+                                                        <span onClick={() => editPurpose(index)} className="editBtn floatRight">Edit</span>
+                                                    </li>
+                                                </div>
+                                            })}
+                                        </ul>
+                                        :
+                                        <></>
+                                    }
+                            </Col>
+                            
+                            </Row>
 
-                    <div className="mb-5" >
-                        {detailID ?
-                            <div>
-                                {isLoading == true ?
-                                    <Cliploader isLoading={isLoading} />
+                            <div className="mb-5" >
+                                {detailID ?
+                                    <div>
+                                        {isLoading == true ?
+                                            <Cliploader isLoading={isLoading} />
+                                            :
+                                            <div className="textAlign-right">
+                                                <Button variant="info" type="submit">
+                                                    Save
+                                                </Button>
+                                                <Button variant="danger" style={{ marginLeft: '10px' }} onClick={handleCancelEdit}>
+                                                    Cancel
+                                                </Button>
+                                            </div>
+                                        }
+                                    </div>
                                     :
-                                    <div className="textAlign-right">
-                                        <Button variant="info" type="submit">
-                                            Save
-                                        </Button>
-                                        <Button variant="danger" style={{ marginLeft: '10px' }} onClick={handleCancelEdit}>
-                                            Cancel
-                                        </Button>
+                                    <div>
+                                        {isLoading == true ?
+                                            <Cliploader isLoading={isLoading} />
+                                            :
+                                            <div className="textAlign-right">
+                                                <Button variant="info" type="submit">
+                                                    Create
+                                                </Button>
+                                            </div>
+                                        }
                                     </div>
                                 }
-                            </div>
-                            :
-                            <div>
-                                {isLoading == true ?
-                                    <Cliploader isLoading={isLoading} />
-                                    :
-                                    <div className="textAlign-right">
-                                        <Button variant="info" type="submit">
-                                            Create
-                                        </Button>
-                                    </div>
-                                }
-                            </div>
-                        }
 
-                    </div>
-                </Form>
-
+                            </div>
+                        </Form>
+                    </Col>
+                </Row>
+                
                 <MaterialTable
                     columns={[
                         { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },

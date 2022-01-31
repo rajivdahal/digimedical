@@ -16,7 +16,6 @@ import Doctornavbar from "./doctordashboard/navbarandsidebar/doctornavbar.compon
 import Doctorsidebar from "./doctordashboard/navbarandsidebar/doctorsidebar.component";
 import { Doctordashboard } from "./doctordashboard/doctordashboard/doctordashboard.component";
 import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappointment.component";
-
 import Appointment from "./adminDashboard/appointmentPage/appointment.component";
 import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component";
 import Prescribe from "./doctordashboard/prescribe/prescribe.component";

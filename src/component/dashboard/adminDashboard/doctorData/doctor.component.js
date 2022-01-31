@@ -314,7 +314,7 @@ const Createdoctor = (props) => {
               <Form.Group>
                 <Form.Label>Prefix</Form.Label>
                 <select
-                  class="select-control"
+                  class="select-control formControl"
                   aria-label="Default select example"
                   name="prefix"
                   onChange={formik.handleChange}
@@ -331,7 +331,7 @@ const Createdoctor = (props) => {
               <Form.Group>
                 <Form.Label>First Name</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="text" className='formControl'
                   name="firstName"
                   onChange={formik.handleChange}
                   value={formik.values.firstName}
@@ -346,7 +346,7 @@ const Createdoctor = (props) => {
               <Form.Group>
                 <Form.Label>Middle Name</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="text" className='formControl'
                   name="middleName"
                   onChange={formik.handleChange}
                   value={formik.values.middleName}
@@ -358,7 +358,7 @@ const Createdoctor = (props) => {
               <Form.Group>
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="text" className='formControl'
                   name="lastName"
                   onChange={formik.handleChange}
                   value={formik.values.lastName}
@@ -376,7 +376,7 @@ const Createdoctor = (props) => {
               <Form.Group>
                 <Form.Label>Gender</Form.Label>
                 <select
-                  class="select-control"
+                  class="select-control formControl"
                   aria-label="Default select example"
                   name="gender"
                   onChange={formik.handleChange}
@@ -394,7 +394,7 @@ const Createdoctor = (props) => {
               <Form.Group>
                 <Form.Label>NMC Number</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="text" className='formControl'
                   name="nmcNumber"
                   onChange={formik.handleChange}
                   value={formik.values.nmcNumber}
@@ -409,7 +409,7 @@ const Createdoctor = (props) => {
               <Form.Group>
                 <Form.Label>Mobile Number</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="text" className='formControl'
                   name="mobileNumber"
                   onChange={formik.handleChange}
                   value={formik.values.mobileNumber}
@@ -427,7 +427,7 @@ const Createdoctor = (props) => {
               <Form.Group>
                 <Form.Label>Registered Date</Form.Label>
                 <Form.Control
-                  type="date"
+                  type="date" className='formControl'
                   name="licensedDate"
                   onChange={formik.handleChange}
                   value={formik.values.licensedDate}
@@ -447,9 +447,9 @@ const Createdoctor = (props) => {
               <Row>
                 <Col md={11}>
                   <Form.Label>Service </Form.Label>
-                  <Select
+                  <Select 
                     value={formik.values.doctorServices}
-                    isMulti className="roleSelect"
+                    isMulti className="roleSelect formControl"
                     options={services}
                     name="serviceID"
                     onChange={handleServiceChange}
@@ -503,7 +503,7 @@ const Createdoctor = (props) => {
               <Form.Group>
                 <Form.Label>Specialist</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="text" className='formControl'
                   name="specialist"
                   onChange={formik.handleChange}
                   value={formik.values.specialist}
@@ -519,8 +519,8 @@ const Createdoctor = (props) => {
             <Col md={6}>
               <Form.Group>
                 <Form.Label>Description</Form.Label>
-                <Form.Control
-                  type="text"
+                <Form.Control 
+                  type="text" className='formControl'
                   name="description"
                   onChange={formik.handleChange}
                   value={formik.values.description}
@@ -541,7 +541,7 @@ const Createdoctor = (props) => {
                   <Form.Label>Available Days</Form.Label>
                   <Select
                     value={formik.values.availableDays}
-                    isMulti
+                    isMulti className="formControl select-control"
                     options={DAYS}
                     name="availableDays"
                     onChange={handleChooseDays}
@@ -552,7 +552,7 @@ const Createdoctor = (props) => {
                 <Form.Group>
                   <Form.Label>Start Time</Form.Label>
                   <Form.Control
-                    type="time"
+                    type="time" className='formControl'
                     name="startTime"
                     onChange={formik.handleChange}
                     value={formik.values.startTime}
@@ -569,7 +569,7 @@ const Createdoctor = (props) => {
                 <Form.Group>
                   <Form.Label>End Time</Form.Label>
                   <Form.Control
-                    type="time"
+                    type="time" className='formControl'
                     name="endTime"
                     onChange={formik.handleChange}
                     value={formik.values.endTime}
@@ -593,7 +593,7 @@ const Createdoctor = (props) => {
                 <Form.Group>
                   <Form.Label>Email</Form.Label>
                   <Form.Control
-                    type="email"
+                    type="email" className='formControl'
                     name="email"
                     onChange={formik.handleChange}
                     value={formik.values.email}
@@ -609,7 +609,7 @@ const Createdoctor = (props) => {
                 <Form.Group>
                   <Form.Label>Password</Form.Label>
                   <Form.Control
-                    type="password"
+                    type="password" className='formControl'
                     name="password"
                     value={formik.values.password}
                     onChange={formik.handleChange}
@@ -626,7 +626,7 @@ const Createdoctor = (props) => {
                 <Form.Group>
                   <Form.Label>Confirm Password</Form.Label>
                   <Form.Control
-                    type="password"
+                    type="password" className='formControl'
                     name="confirmPassword"
                     value={formik.values.confirmPassword}
                     onChange={formik.handleChange}

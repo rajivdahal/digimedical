@@ -294,7 +294,7 @@ export default function Internalappointmentbook(prop) {
           <select
             id="email"
             name="email"
-            className="form-control"
+            className=""
             onChange={(e) => {
               formik.handleChange(e);
             }}
