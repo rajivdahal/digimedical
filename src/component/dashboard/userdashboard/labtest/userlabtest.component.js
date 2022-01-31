@@ -267,7 +267,7 @@ class userlabtestcomponent extends Component {
     };
     return (
       <div className=" main_div_user_lab">
-        {checkoutsignal ? <Checkoutpopup props={this.props.history}/> : null}
+        {checkoutsignal ? <Checkoutpopup props={this.props.history} /> : null}
         {this.state.active ? <Cartpopup></Cartpopup> : null}
         <div className="lab_add_to_cart">
           <div className="lab_add_to_cart1">
@@ -329,89 +329,21 @@ class userlabtestcomponent extends Component {
                       <p id="labtest_desc_txt2">What it include :</p>
                       <div className="labtest_desc1">
                         <div className="labtest_desc_detail">
-                          {category.isactiveclass ? (
-                            <form id="lab_test_detail">
-                              {category.subcategory.map(
-                                (subcategory, index) => (
-                                  <>
-                                    <input
-                                      type={"checkbox"}
-                                      onChange={(e) =>
-                                        handleChange(e, subcategory, index)
-                                      }
-                                      name={category.id}
-                                    ></input>
-                                    <label
-                                      className="label_userlabtest"
-                                      style={{
-                                        position: "inherit",
-                                        zIndex: "10",
-                                      }}
-                                    >
-                                      {subcategory.categoryname}{" "}
-                                    </label>
-                                    <div id={index}>
-                                      {this.state.datas.map((item) => {
-                                        if (
-                                          item.name == subcategory.categoryname
-                                        ) {
-                                          console.log(
-                                            "inside if statement",
-                                            item
-                                          );
-                                          return item.data.map(
-                                            (item, index) => {
-                                              return (
-                                                <>
-                                                  <input
-                                                    className="input_subcat"
-                                                    type={"radio"}
-                                                    onChange={() =>
-                                                      handleRadioChange(
-                                                        item,
-                                                        index,
-                                                        subcategory,
-                                                        category
-                                                      )
-                                                    }
-                                                    name={
-                                                      subcategory.categoryname
-                                                    }
-                                                  ></input>
-                                                  <label className="label_userlabtest1">
-                                                    {item.medicalinstitutename}
-                                                  </label>
-                                                  <span
-                                                    style={{
-                                                      marginLeft: "40px",
-                                                      color: "blue",
-                                                    }}
-                                                  >
-                                                    Rs.{item.price}
-                                                  </span>
-                                                  <br />
-                                                </>
-                                              );
-                                            }
-                                          );
-                                        }
-                                      })}
-                                    </div>
-                                  </>
-                                )
-                              )}
-                            </form>
-                          ) : (
-                            <ul id="lab_test_detail">
-                              {category.subcategory.map((item, index) => {
-                                return (
-                                  <>
-                                    <li>{item.categoryname}</li>
-                                  </>
-                                );
-                              })}
-                            </ul>
-                          )}
+                          <ul className="ul_labtest_dash">
+                            <li>&nbsp; abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+
+                            <li>&nbsp; abc test abc test abc test</li>
+
+                            <li> &nbsp;abc test</li>
+                          </ul>
                         </div>
                       </div>
                     </div>
@@ -505,3 +437,94 @@ export const Userlabtest = connect(
   mapStateToProps,
   mapDispatchToProps
 )(userlabtestcomponent);
+
+/*
+a
+b
+v
+c
+d
+deleted labtest item
+ {/* {category.isactiveclass ? (
+                            <form id="lab_test_detail">
+                              {category.subcategory.map(
+                                (subcategory, index) => (
+                                  <>
+                                    <input
+                                      type={"checkbox"}
+                                      onChange={(e) =>
+                                        handleChange(e, subcategory, index)
+                                      }
+                                      name={category.id}
+                                    ></input>
+                                    <label
+                                      className="label_userlabtest"
+                                      style={{
+                                        position: "inherit",
+                                        zIndex: "10",
+                                      }}
+                                    >
+                                      {subcategory.categoryname}{" "}
+                                    </label>
+                                    <div id={index}>
+                                      {this.state.datas.map((item) => {
+                                        if (
+                                          item.name == subcategory.categoryname
+                                        ) {
+                                          console.log(
+                                            "inside if statement",
+                                            item
+                                          );
+                                          return item.data.map(
+                                            (item, index) => {
+                                              return (
+                                                <>
+                                                  <input
+                                                    className="input_subcat"
+                                                    type={"radio"}
+                                                    onChange={() =>
+                                                      handleRadioChange(
+                                                        item,
+                                                        index,
+                                                        subcategory,
+                                                        category
+                                                      )
+                                                    }
+                                                    name={
+                                                      subcategory.categoryname
+                                                    }
+                                                  ></input>
+                                                  <label className="label_userlabtest1">
+                                                    {item.medicalinstitutename}
+                                                  </label>
+                                                  <span
+                                                    style={{
+                                                      marginLeft: "40px",
+                                                      color: "blue",
+                                                    }}
+                                                  >
+                                                    Rs.{item.price}
+                                                  </span>
+                                                  <br />
+                                                </>
+                                              );
+                                            }
+                                          );
+                                        }
+                                      })}
+                                    </div>
+                                  </>
+                                )
+                              )}
+                            </form>
+                          ) : (
+                            <ul id="lab_test_detail">
+                              {category.subcategory.map((item, index) => {
+                                return (
+                                  <>
+                                    <li>{item.categoryname}</li>
+                                  </>
+                                );
+                              })}
+                            </ul>
+                          )} */

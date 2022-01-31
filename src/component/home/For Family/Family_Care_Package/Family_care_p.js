@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
+import Fcp_main_img from "../../../../assets/amico.svg";
+import Footer from "../../../Footer/Footer";
+import Navbar from "../../../Navbar/Navbar";
 import "./family_care_p.css";
 
 function FamilyPackage(props) {
@@ -62,6 +65,7 @@ function FamilyPackage(props) {
 
   return (
     <div className="package-page">
+      <Navbar></Navbar>
       <div class="top-container">
         <div class="up">
           <a href="url" id="healthpackages">
@@ -78,7 +82,10 @@ function FamilyPackage(props) {
               Give your family a healthy gift in this covid situation.
             </p>
           </div>
-          <img src="amico.png" className="person-with-masks" />
+          <div className="fcp_main_img">
+            {" "}
+            <img src={Fcp_main_img} />
+          </div>
         </div>
       </div>
 
@@ -133,6 +140,7 @@ function FamilyPackage(props) {
           </>
         })}
       </div>
+      <Footer></Footer>
     </div>
   );
 }

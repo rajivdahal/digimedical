@@ -64,7 +64,7 @@ function BookAnAppointment(props) {
   `;
 
   const LeftSection = styled.div`
-    width: 60%;
+    width: 70%;
     // height: auto;
     // margin-bottom: 20px;
     @media screen and (max-width: 1077px) {

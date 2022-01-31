@@ -181,24 +181,46 @@
 }
 
 .lab_add_to_cart_samp_img1 {
+  height: 100%;
   width: 20%;
 }
 
 .lab_add_to_cart_samp_img1 img {
   border-radius: 5px;
   width: 185px;
-  height: 170px;
+  height: 100%;
   line-height: 160px;
   object-fit: cover;
 }
 
 .lab_add_to_cart_test_desc {
-  width: 35vw;
+  width: 60%;
 
   margin-left: 10px;
   border-right: 1px solid #8797a87e;
 }
 
+.ul_labtest_dash {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 8px 20px;
+  list-style: none;
+}
+
+.ul_labtest_dash li {
+  display: flex;
+
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: -12%;
+}
+/* big ul list style */
+.ul_labtest_dash li:before {
+  content: "•";
+  font-size: 30pt;
+}
 .label_userlabtest {
   margin-left: 4px;
   font-size: 15px;
@@ -321,9 +343,7 @@
     width: 100%;
     overflow-y: scroll;
   }
-  .labtest_desc1 {
-    justify-content: start;
-  }
+
   .lab_add_to_cart_samp_img1 {
     width: 100%;
   }

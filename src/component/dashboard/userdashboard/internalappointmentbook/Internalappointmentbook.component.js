@@ -425,7 +425,7 @@ export default function Internalappointmentbook(prop) {
         <div className="form-group col-md-12">
           <label htmlFor="time">Time</label>
 
-          <div>
+          <div className="intappoin_timepicker">
             <TimePicker
               onChange={onChange}
               value={value}

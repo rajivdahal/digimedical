@@ -63,16 +63,20 @@
 .time-picker {
   height: 40px;
   width: 100%;
-  border: none;
+}
+
+.intappoin_timepicker .react-time-picker .react-time-picker__wrapper {
+  border-radius: 5px;
+  border: 1px solid hsl(0, 0%, 80%);
 }
 
 .internal-appointment-datepicker .DatePicker .DatePicker__input {
   background: #fff;
-  border: 1px solid #ddd;
-
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 5px;
   text-align: center;
   font-size: 13px;
-  height: 3rem;
+  height: 2.5rem;
   z-index: -10;
   width: 350px;
 }

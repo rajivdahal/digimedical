@@ -435,6 +435,25 @@ const NavbarMenuItems = () => {
             </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
+                <Link to="/Family_care_p">
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Family Care Package</p>{" "}
+                </Link>
+                <a href="#">
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Pregnency Care Packages</p>{" "}
+                </a>
 
                 {FamilyType.map((item, index) => {
                   return <>
