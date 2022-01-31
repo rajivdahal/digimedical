@@ -42,7 +42,6 @@ import Corporatenavbar from "./corporatedashboard/corporatenavbar/corporatenavba
 import Corporatesidebar from "./corporatedashboard/corporatesidebar/corporatesidebar.component";
 import { Corporatedashboard } from "./corporatedashboard/corporatedashboard/corporatedashboard.component";
 import Corporateaddmember from "./corporatedashboard/addmembers/corporateaddmembers.component";
-
 import HospitalDashboard from "./hospitaldashboard/hospitalDashboard"
 import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor"
 import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor"
