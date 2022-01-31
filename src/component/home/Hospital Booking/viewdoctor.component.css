@@ -177,24 +177,8 @@ form.doc_example::after {
   color: #fff;
 }
 /* form for appointment */
-.click_book_action {
-  display: flex;
-  flex-wrap: wrap;
-  transition: 1s linear;
-}
-form.doc_appoin_form1 input {
-  padding: 8px;
-  font-size: 17px;
-  border: 1px solid #d0d7e2;
-  float: left;
-  border-radius: 15px;
-}
-form.doc_appoin_form1::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-.doc_appoin_form2 {
+
+/* .doc_appoin_form2 {
   margin-left: 90px;
 }
 form.doc_appoin_form2 input {
@@ -211,6 +195,59 @@ form.doc_appoin_form2::after {
 }
 #appoint_dt {
   width: 215px;
+} */
+.form_doc {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 30px;
+  padding: 10px;
+}
+.doc_appoin_form1 input {
+  padding: 8px;
+  font-size: 17px;
+  border: 1px solid #d0d7e2;
+  width: 100%;
+  border-radius: 15px;
+  height: 40px;
+}
+.doc_appoint_main1 {
+  display: flex;
+  flex-direction: column;
+}
+.doc_appoint_main1_user {
+  display: flex;
+  width: 80%;
+  margin-left: 17%;
+}
+
+.doc_appoin_form1 .DatePicker {
+  width: 100%;
+  height: 40px;
+  border-radius: 15px;
+}
+.doc_appoin_form1 .DatePicker .DatePicker__input {
+  width: 100%;
+  height: 100%;
+}
+.hospdoc_sub_but {
+  display: flex;
+
+  align-items: flex-end;
+}
+.submit-button {
+  width: 50%;
+  float: inline-end;
+  height: 3rem;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #2745f0;
+  border: 1px solid #2745f0;
+  transition: 0.5s;
+}
+.submit-button:hover {
+  background: #2745f0;
+  color: white;
 }
 
 /* hospital description card */
@@ -244,41 +281,7 @@ form.doc_appoin_form2::after {
 #hosp_ph_no img {
   width: 14px;
 }
-.form_doc {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 30px;
-  padding: 10px;
-}
-.doc_appoin_form1 input {
-  padding: 8px;
-  font-size: 17px;
-  border: 1px solid #d0d7e2;
-  width: 250px;
-  border-radius: 15px;
-}
-.doc_appoint_main1 {
-  display: flex;
-  flex-direction: column;
-}
-.doc_appoint_main1_user {
-  display: flex;
-  width: 80%;
-  margin-left: 17%;
-}
-.doc_appoin_form1::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-.submit-button {
-  height: 2rem;
-  border-radius: 4%;
-  background-color: #0b7dda;
-  color: #fff;
-  margin: 30px;
-}
+
 @media screen and (max-width: 1354px) {
   .doc_appoint_main1_user {
     flex-direction: column;
@@ -342,5 +345,10 @@ form.doc_appoin_form2::after {
   }
   #doc_card_but {
     width: auto;
+  }
+  .form_doc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 }
