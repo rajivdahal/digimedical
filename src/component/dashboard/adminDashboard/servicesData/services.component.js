@@ -193,13 +193,13 @@ const Createservices = (props) => {
                         <Form className="mb-4">
                             <div className=" form-group select-label">
                                 <label >Service Name : </label>
-                                <Field name="serviceName" validate={validateName} className="form-control" />
+                                <Field name="serviceName" validate={validateName} className="form-control formControl" />
                                 {errors.serviceName && touched.serviceName && <div className="error-message">{errors.serviceName}</div>}
                             </div>
 
                             <div className="form-group select-label">
                                 <label>Service Description : </label>
-                                <Field name="serviceDescription" validate={validateDescription} className="form-control" />
+                                <Field name="serviceDescription" validate={validateDescription} className="form-control formControl" />
                                 {errors.serviceDescription && touched.serviceDescription && <div className="error-message">{errors.serviceDescription}</div>}
                             </div>
 

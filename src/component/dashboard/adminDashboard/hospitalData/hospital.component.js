@@ -169,7 +169,7 @@ const Hospital = (props) => {
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
-                  name="name"
+                  name="name" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.name}
                   onBlur={formik.handleBlur}
@@ -183,7 +183,7 @@ const Hospital = (props) => {
               <Form.Group>
                 <Form.Label>Established Date</Form.Label>
                 <Form.Control
-                  type="date"
+                  type="date" className='formControl'
                   name="establishedDate"
                   onChange={formik.handleChange}
                   value={formik.values.establishedDate}
@@ -203,7 +203,7 @@ const Hospital = (props) => {
                 <Form.Label>PAN Number</Form.Label>
                 <Form.Control
                   type="text"
-                  name="panNo"
+                  name="panNo" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.panNo}
                   onBlur={formik.handleBlur}
@@ -221,7 +221,7 @@ const Hospital = (props) => {
                 <Form.Label>Address</Form.Label>
                 <Form.Control
                   type="text"
-                  name="address"
+                  name="address" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.address}
                   onBlur={formik.handleBlur}
@@ -237,7 +237,7 @@ const Hospital = (props) => {
                 <Form.Label>Contact Number</Form.Label>
                 <Form.Control
                   type="text"
-                  name="contactNumber"
+                  name="contactNumber" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.contactNumber}
                   onBlur={formik.handleBlur}
@@ -255,7 +255,7 @@ const Hospital = (props) => {
                 <Form.Label>Mobile Number</Form.Label>
                 <Form.Control
                   type="text"
-                  name="mobileNumber"
+                  name="mobileNumber" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.mobileNumber}
                   onBlur={formik.handleBlur}
@@ -275,7 +275,7 @@ const Hospital = (props) => {
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   type="text"
-                  name="description"
+                  name="description" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.description}
                   onBlur={formik.handleBlur}
@@ -293,7 +293,7 @@ const Hospital = (props) => {
                 <Form.Label>Link</Form.Label>
                 <Form.Control
                   type="text"
-                  name="link"
+                  name="link" className='formControl'
                   onChange={formik.handleChange}
                   value={formik.values.link}
                   onBlur={formik.handleBlur}
@@ -314,7 +314,7 @@ const Hospital = (props) => {
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
-                    name="email"
+                    name="email" className='formControl'
                     onChange={formik.handleChange}
                     value={formik.values.email}
                     onBlur={formik.handleBlur}
@@ -330,7 +330,7 @@ const Hospital = (props) => {
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
-                    name="password"
+                    name="password" className='formControl'
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -345,7 +345,7 @@ const Hospital = (props) => {
                 <Form.Group>
                   <Form.Label>Confirm Password</Form.Label>
                   <Form.Control
-                    type="password"
+                    type="password" className='formControl'
                     name="confirmPassword"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}

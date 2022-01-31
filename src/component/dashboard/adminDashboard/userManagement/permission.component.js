@@ -216,7 +216,7 @@ const Permission = (props) => {
                                 <Col md={6}>
                                     <Form.Group>
                                         <Form.Label>Role</Form.Label>
-                                        <Select className="roleSelect"
+                                        <Select className="roleSelect formControl"
                                             value={formik.values.role}
                                             options={allRoles}
                                             name="roleId"
@@ -230,7 +230,7 @@ const Permission = (props) => {
                                         <Form.Label>Screen </Form.Label>
                                         <Select
                                             value={formik.values.screens}
-                                            isMulti className="roleSelect"
+                                            isMulti className="roleSelect formControl"
                                             options={allScreens}
                                             name="screenId"
                                             onChange={handleScreenChange}

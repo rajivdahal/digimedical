@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { notify } from "../../../../services/notify";
-import { httpClient } from "../../../../utils/httpClient";
-import "./family_care_p.css";
+import { notify } from "../../../services/notify";
+import { httpClient } from "../../../utils/httpClient";
+// import "../../../family_care_p.css";
 
-function FamilyPackage(props) {
+function CorporatePackage(props) {
 
   const [packageData, setPackageData] = useState([]);
   const [subPackageData, setSubPackageData] = useState([]);
@@ -14,6 +14,7 @@ function FamilyPackage(props) {
     if (props && props.location && props.location.state) {
       id = props.location.state.packageId;
     }
+
     try {
       let resp = await httpClient.GET("master-package/get-for-public/" + id);
       if (resp.data.status) {
@@ -137,4 +138,4 @@ function FamilyPackage(props) {
   );
 }
 
-export default FamilyPackage;
+export default CorporatePackage;

@@ -259,7 +259,7 @@ const CorporatePage = (props) => {
                         <Col md={4}>
                             <Form.Group >
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" name="name"
+                                <Form.Control type="text" name="name" className='formControl'
                                     onChange={formik.handleChange} value={formik.values.name} onBlur={formik.handleBlur} />
                                 {formik.touched.name && formik.errors.name ?
                                     <div className="error-message">{formik.errors.name}</div>
@@ -283,7 +283,7 @@ const CorporatePage = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Established Date</Form.Label>
-                                <Form.Control type="date" name="establishDate"
+                                <Form.Control type="date" name="establishDate" className='formControl'
                                     onChange={formik.handleChange} value={formik.values.establishDate} onBlur={formik.handleBlur} />
                                 {formik.errors.establishDate && formik.touched.establishDate ?
                                     <div className="error-message">{formik.errors.establishDate}</div>
@@ -297,7 +297,7 @@ const CorporatePage = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>PAN Number</Form.Label>
-                                <Form.Control type="text" name="panNumber"
+                                <Form.Control type="text" name="panNumber" className='formControl'
                                     onChange={formik.handleChange} value={formik.values.panNumber} onBlur={formik.handleBlur} />
                                 {formik.errors.panNumber && formik.touched.panNumber ?
                                     <div className="error-message">{formik.errors.panNumber}</div>
@@ -307,7 +307,7 @@ const CorporatePage = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Contact Number</Form.Label>
-                                <Form.Control type="text" name="contactNumber"
+                                <Form.Control type="text" name="contactNumber" className='formControl'
                                     onChange={formik.handleChange} value={formik.values.contactNumber} onBlur={formik.handleBlur} />
                                 {formik.errors.contactNumber && formik.touched.contactNumber ?
                                     <div className="error-message">{formik.errors.contactNumber}</div>
@@ -318,7 +318,7 @@ const CorporatePage = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Contact Person Name</Form.Label>
-                                <Form.Control type="text" name="personName"
+                                <Form.Control type="text" name="personName" className='formControl'
                                     onChange={formik.handleChange} value={formik.values.personName} onBlur={formik.handleBlur} />
                                 {formik.errors.personName && formik.touched.personName ?
                                     <div className="error-message">{formik.errors.personName}</div>
@@ -331,7 +331,7 @@ const CorporatePage = (props) => {
                         <Col md={4}>
                             <Form.Group >
                                 <Form.Label>Address</Form.Label>
-                                <Form.Control type="text" name="address"
+                                <Form.Control type="text" name="address" className='formControl'
                                     onChange={formik.handleChange} value={formik.values.address} onBlur={formik.handleBlur} />
                                 {formik.errors.address && formik.touched.address ?
                                     <div className="error-message">{formik.errors.address}</div>
@@ -342,7 +342,7 @@ const CorporatePage = (props) => {
                             <Form.Group>
                                 <Form.Label>Mobile Number</Form.Label>
                                 <Form.Control type="text" name="mobileNum" value={formik.values.mobileNum}
-                                    onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                    onChange={formik.handleChange} onBlur={formik.handleBlur} className='formControl'/>
                                 {formik.errors.mobileNum && formik.touched.mobileNum ?
                                     <div className="error-message">{formik.errors.mobileNum}</div>
                                     : null}
@@ -355,7 +355,7 @@ const CorporatePage = (props) => {
 
                                 <Form.Group>
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" name="email"
+                                    <Form.Control type="email" name="email" className='formControl'
                                         onChange={formik.handleChange} value={formik.values.email} onBlur={formik.handleBlur} />
                                     {formik.errors.email && formik.touched.email ?
                                         <div className="error-message">{formik.errors.email}</div>
@@ -378,7 +378,7 @@ const CorporatePage = (props) => {
                                         <Form.Group>
                                             <Form.Label>Password</Form.Label>
                                             <Form.Control type="password" name="password" value={formik.values.password}
-                                                onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                                onChange={formik.handleChange} onBlur={formik.handleBlur} className='formControl'/>
                                             {formik.errors.password && formik.touched.password ?
                                                 <div className="error-message">{formik.errors.password}</div>
                                                 : null}
@@ -388,7 +388,7 @@ const CorporatePage = (props) => {
                                         <Form.Group>
                                             <Form.Label>Confirm Password</Form.Label>
                                             <Form.Control type="password" name="confirmPassword" value={formik.values.confirmPassword}
-                                                onChange={formik.handleChange} onBlur={formik.handleBlur} />
+                                                onChange={formik.handleChange} onBlur={formik.handleBlur} className='formControl'/>
                                             {formik.errors.confirmPassword && formik.touched.confirmPassword ?
                                                 <div className="error-message">{formik.errors.confirmPassword}</div>
                                                 : null}

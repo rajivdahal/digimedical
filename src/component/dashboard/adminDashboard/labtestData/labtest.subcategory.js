@@ -331,7 +331,7 @@ const LabtestSubcategory = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Lab Test Name</Form.Label>
-                                <Select className="roleSelect"
+                                <Select className="roleSelect formControl"
                                     value={formik.values.selectedLabtest}
                                     options={allLabtest}
                                     name="labtestID"
@@ -345,7 +345,7 @@ const LabtestSubcategory = (props) => {
                             <Form.Group >
                                 <Form.Label>Sub Category</Form.Label>
                                 <Form.Control type="text" name="subCategory" onChange={formik.handleChange}
-                                    value={formik.values.subCategory} onBlur={formik.handleBlur} />
+                                    value={formik.values.subCategory} onBlur={formik.handleBlur} className='formControl' />
                                 {formik.touched.subCategory && formik.errors.subCategory ?
                                     <div className="error-message">{formik.errors.subCategory}</div>
                                     : null}
@@ -355,7 +355,7 @@ const LabtestSubcategory = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Institute</Form.Label>
-                                <Select className="roleSelect"
+                                <Select className="roleSelect formControl"
                                     value={formik.values.selectedInstitute}
                                     options={allInstitue}
                                     name="instituteId"
@@ -371,7 +371,7 @@ const LabtestSubcategory = (props) => {
                             <Form.Group >
                                 <Form.Label>Sub Category Description</Form.Label>
                                 <Form.Control type="text" name="description" onChange={formik.handleChange}
-                                    value={formik.values.description} onBlur={formik.handleBlur} />
+                                    value={formik.values.description} onBlur={formik.handleBlur} className='formControl'/>
                                 {formik.touched.description && formik.errors.description ?
                                     <div className="error-message">{formik.errors.description}</div>
                                     : null}
@@ -382,7 +382,7 @@ const LabtestSubcategory = (props) => {
                             <Form.Group >
                                 <Form.Label>Price</Form.Label>
                                 <Form.Control type="text" name="price" onChange={formik.handleChange}
-                                    value={formik.values.price} onBlur={formik.handleBlur} />
+                                    value={formik.values.price} onBlur={formik.handleBlur} className='formControl'/>
                                 {formik.errors.price && formik.touched.price ?
                                     <div className="error-message">{formik.errors.price}</div>
                                     : null}
