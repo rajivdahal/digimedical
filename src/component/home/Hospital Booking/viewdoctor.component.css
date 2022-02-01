@@ -232,7 +232,7 @@ form.doc_appoin_form2::after {
 }
 .hospdoc_sub_but {
   display: flex;
-
+  justify-content: center;
   align-items: flex-end;
 }
 .submit-button {

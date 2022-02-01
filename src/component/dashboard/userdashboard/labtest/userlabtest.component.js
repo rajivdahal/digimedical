@@ -342,37 +342,150 @@ class userlabtestcomponent extends Component {
 
                             <li>&nbsp; abc test abc test abc test</li>
 
-                            <li> &nbsp;abc test</li>
+                            <li>abc test</li>
                           </ul>
                         </div>
                       </div>
                     </div>
+                    <div className="lab_samp_sel">
+                      <a href="#choose_the_ltest" className="lab_samp_sel1">
+                        Select
+                      </a>
+                    </div>
+                    <div id="choose_the_ltest" className="ctlt_popup">
+                      <div className="ctlt_popup_cont">
+                        <div className="ctlt_head">
+                          <div className="ctlt_head1">
+                            <h3>Blood Test</h3>
+                          </div>
 
-                    {category.isactiveclass ? (
-                      <div className="lab_add_to_cart_price">
-                        {this.state.totaltoshow.length ? (
-                          this.state.totaltoshow.map((item, index) => {
-                            total = total + parseInt(item.price);
-                            if (index == this.state.totaltoshow.length - 1) {
-                              return <p>Rs. {total}</p>;
-                            }
-                          })
-                        ) : (
-                          <p>Rs.0</p>
-                        )}
-                        <div className="lab_add_to_cart_atc">
-                          {this.state.totaltoshow.length ? (
-                            <button onClick={() => addtocart()}>
-                              <p>Add to Cart</p>
+                          <a class="close_ctlt" href="#">
+                            <i class="far fa-times-circle"></i>
+                          </a>
+                        </div>
+
+                        <div className="ctlt_institute">
+                          <p>Please select the lab.</p>
+                          <div className="ctlt_institute1">
+                            <div className="ctlt_institute_radio">
+                              <input
+                                type="radio"
+                                id="institute"
+                                name="fav_language"
+                                value="institute"
+                              />
+                              <label for="html">&nbsp; Institute1</label>
+                            </div>
+                            <div className="ctlt_institute_radio">
+                              <input
+                                type="radio"
+                                id="institute"
+                                name="fav_language"
+                                value="institute"
+                              />
+                              <label for="html">&nbsp; Institute1</label>
+                            </div>
+                            <div className="ctlt_institute_radio">
+                              <input
+                                type="radio"
+                                id="institute"
+                                name="fav_language"
+                                value="institute"
+                              />
+                              <label for="html">&nbsp; Institute1</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="ctlt_labtest">
+                          <p>What it include:</p>
+                          <div>
+                            <div className="ctlt_institute_radio">
+                              <input
+                                type="checkbox"
+                                id="selectall"
+                                name="fav_language"
+                                value="allsel"
+                              />
+                              <label for="html">&nbsp; Select all</label>
+                            </div>
+                            <div className="ctlt_checklt">
+                              <div>
+                                {" "}
+                                <input
+                                  type="checkbox"
+                                  id="labtest"
+                                  name="fav_language"
+                                  value="labtest1"
+                                />
+                                <label for="html">&nbsp; labtest1</label>
+                              </div>
+                              <div className="lt_price">Rs.200</div>
+                            </div>
+                            <div className="ctlt_checklt">
+                              <div>
+                                {" "}
+                                <input
+                                  type="checkbox"
+                                  id="labtest"
+                                  name="fav_language"
+                                  value="labtest1"
+                                />
+                                <label for="html">&nbsp; labtest1</label>
+                              </div>
+                              <div className="lt_price">Rs.200</div>
+                            </div>
+                            <div className="ctlt_checklt">
+                              <div>
+                                {" "}
+                                <input
+                                  type="checkbox"
+                                  id="labtest"
+                                  name="fav_language"
+                                  value="labtest1"
+                                />
+                                <label for="html">&nbsp; labtest1</label>
+                              </div>
+                              <div className="lt_price">Rs.200</div>
+                            </div>
+                            <div className="ctlt_checklt">
+                              <div>
+                                {" "}
+                                <input
+                                  type="checkbox"
+                                  id="labtest"
+                                  name="fav_language"
+                                  value="labtest1"
+                                />
+                                <label for="html">&nbsp; labtest1</label>
+                              </div>
+                              <div className="lt_price">Rs.200</div>
+                            </div>
+                            <div className="ctlt_checklt">
+                              <div>
+                                {" "}
+                                <input
+                                  type="checkbox"
+                                  id="labtest"
+                                  name="fav_language"
+                                  value="labtest1"
+                                />
+                                <label for="html">&nbsp; labtest1</label>
+                              </div>
+                              <div className="lt_price">Rs.200</div>
+                            </div>
+                          </div>
+                          <div className="ctlt_total_price">
+                            <p>
+                              {" "}
+                              Your total : <span id="rupees_ctlt">Rs 200</span>
+                            </p>
+                            <button className="ctlt_atc_but">
+                              Add to cart
                             </button>
-                          ) : null}
+                          </div>
                         </div>
                       </div>
-                    ) : (
-                      <div className="No_cart_item">
-                        <h3>Select a Test</h3>
-                      </div>
-                    )}
+                    </div>
                   </div>
                 );
               })}
