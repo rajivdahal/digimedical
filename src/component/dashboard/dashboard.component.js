@@ -59,6 +59,7 @@ import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.co
 import CorporateTypes from "./adminDashboard/corporateData/corporate.type";
 import BodyCheckUp from "./userdashboard/commonupcomingappointment/bodyCheckup/bodyCheckUp.component";
 import PackageDescription from "./adminDashboard/packageData/package.desc";
+import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoctor";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -102,6 +103,8 @@ const Dashboard = (props) => {
                                         <ProtectedRoute component={MedicalReports}></ProtectedRoute> :
                                         props.location.pathname === "/dashboard/body-checkup" ?
                                         <ProtectedRoute component={BodyCheckUp}></ProtectedRoute> :
+                                        props.location.pathname === "/dashboard/digi-doctor" ?
+                                        <ProtectedRoute component={DigimedicalDoctor}></ProtectedRoute> :
                                         null
               }
             </> :

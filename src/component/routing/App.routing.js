@@ -20,6 +20,7 @@ import Digi_doctors from "../home/Digimedical doctors/Digimedical_doctors";
 import Newdash from "../common/dashboard/Newdash.js";
 import FamilyPackage from "../home/For Family/Family_Care_Package/Family_care_p";
 import CorporatePackage from "../home/forCorporate/corporatePackagePage";
+import DigimedicalDoctor from "../dashboard/userdashboard/digimedicalDoctor/digiMedicalDoctor";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -56,7 +57,7 @@ export const Approuting = (props) => {
           path="/family-package"
           component={FamilyPackage}
         ></PublicRoute>
-         <PublicRoute
+        <PublicRoute
           exact
           path="/corporate-package"
           component={CorporatePackage}
@@ -189,6 +190,12 @@ export const Approuting = (props) => {
           exact="/dashboard/settings/change-password"
           component={Dashboard}
         ></ProtectedRoute>
+
+        <ProtectedRoute
+          exact="/dashboard/digi-doctorF"
+          component={DigimedicalDoctor}
+        ></ProtectedRoute>
+
         <ProtectedRoute
           exact
           path="/dashboard/doctor-table"
