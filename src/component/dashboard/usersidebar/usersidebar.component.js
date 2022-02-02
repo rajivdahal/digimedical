@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./usersidebar.component.css";
 import { useSelector } from "react-redux";
+import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
+
 export default function Usersidebar(props) {
   console.log("props in sidebar is", props);
   const sidebar = useSelector((state) => state.sidebar);
@@ -16,6 +18,10 @@ export default function Usersidebar(props) {
   const loadMedicalReport = () => {
     props.props.push("/dashboard/medical-reports");
   };
+
+  const loadDigiDoctors=()=>{
+    props.props.push("/dashboard/digi-doctor");
+  }
   const loadBodyCheckup = () => {
     props.props.push("/dashboard/body-checkup");
   };
@@ -122,6 +128,25 @@ export default function Usersidebar(props) {
                 </div>
               </div>
             </div>
+
+            <div
+              className="newdash_dash1_dashboard"
+              onClick={loadDigiDoctors}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="newdash_dash1_cont1">
+                <div className="newdash_dash1_cont1p">
+                  {" "}
+                  <p id="newdash_dash1_cont1p">
+                    <span id="newdash_bar_ico">
+                      <i class="fas fa-hospital"></i>
+                    </span>{" "}
+                    Doctors
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <div
               className="newdash_dash1_dashboard"
               onClick={loadMedicalReport}

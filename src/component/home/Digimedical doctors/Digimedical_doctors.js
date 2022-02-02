@@ -68,7 +68,6 @@ function Digimedical_doctors(props) {
     let searched = allDigiDoctors.filter((item, index) => {
       return item.doctorname.toLowerCase().includes(name.toLowerCase())
     });
-    console.log(searched)
     setsearcheddoctors(searched);
   };
 

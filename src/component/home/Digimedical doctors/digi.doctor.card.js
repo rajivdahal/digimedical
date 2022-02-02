@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import { validateAppointment } from "./appointment.helper";
-import { http, httpClient } from "../../../utils/httpClient";
+import { httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
 import { useHistory } from "react-router-dom";
 
@@ -20,8 +20,7 @@ const DigiMedicalDoctorCard = (props) => {
     middleName: "",
     email: "",
     appointmentTime: "",
-    appointmentDate:
-      dt.getFullYear() + "-" + dt.getMonth() + 1 + "-" + dt.getDate(),
+    appointmentDate: dt.getFullYear()+"-"+dt.getMonth()+1+"-"+dt.getDate(),
     mobileNumber: "",
   });
 
@@ -260,14 +259,8 @@ const DigiMedicalDoctorCard = (props) => {
                     id="appointmentDate"
                     value={formik.values.appointmentDate}
                     onChange={formik.handleChange}
-                    min={
-                      dt.getFullYear() +
-                      "-" +
-                      dt.getMonth() +
-                      1 +
-                      "-" +
-                      dt.getDate()
-                    }
+                    min={dt.getFullYear()+"-"+dt.getMonth()+1+"-"+dt.getDate()}
+
                   />
                   {formik.touched.appointmentDate &&
                   formik.errors.appointmentDate ? (

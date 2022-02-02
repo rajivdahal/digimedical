@@ -92,16 +92,15 @@ const Ourservices = (props) => {
   let [heading, setHeading] = useState([])
   let history=useHistory()
   useEffect(() => {
-
     const paramsValue = props.match.params.subservice.split("-")
     let title = paramsValue.map((item,index) => {
       return item[0].toUpperCase() + item.substring(1)
-    })
+    })  
     console.log("title is", title)
     setHeading(title)
     console.log("inside useeffect")
     window.scrollTo(0, 0);
-  }, [])
+  }, [props.match.params.subservice])
 
   return (
     <>

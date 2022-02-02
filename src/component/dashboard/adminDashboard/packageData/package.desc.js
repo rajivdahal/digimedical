@@ -222,8 +222,8 @@ const PackageDescription = (props) => {
         <div>
             <Container>
                 <Row>
-                    <Col md={2}></Col>
-                    <Col md={8}>
+                    <Col md={1}></Col>
+                    <Col md={10}>
                         <Form onSubmit={formik.handleSubmit}>
                             <Row className="mb-3">
                             <Col md={6}>
@@ -245,7 +245,7 @@ const PackageDescription = (props) => {
                                 <Col md={6}>
                                     <Form.Group>
 
-                                        <Form.Label>Package Name</Form.Label>
+                                        <Form.Label>Master Package Name</Form.Label>
                                         <Form.Control className='formControl' type="text" name="name" onChange={formik.handleChange}
                                             value={formik.values.name} onBlur={formik.handleBlur} />
                                         {formik.touched.name && formik.errors.name ?
@@ -253,9 +253,7 @@ const PackageDescription = (props) => {
                                             : null}
                                     </Form.Group>
                                 </Col>
-
                             </Row>
-
 
                             <Row className='mb-3'>
                             <Col md={12}>
@@ -285,9 +283,9 @@ const PackageDescription = (props) => {
                                 <Col md={2}>
                                     <br></br>
                                     {purposeEdit.isEdit === true ?
-                                        <Button variant="info" onClick={() => handleEditPurpose(formik.values)}>Edit</Button>
+                                        <Button variant="info" className='formControl' onClick={() => handleEditPurpose(formik.values)}>Edit</Button>
                                         :
-                                        <Button variant="info" onClick={() => handleAddDetails(formik.values)}>Add</Button>
+                                        <Button variant="info" className='formControl' onClick={() => handleAddDetails(formik.values)}>Add</Button>
                                     }
                                 </Col>
 

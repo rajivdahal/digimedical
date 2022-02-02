@@ -7,11 +7,8 @@ import Navbar from "../../../Navbar/Navbar";
 import "./family_care_p.css";
 
 function FamilyPackage(props) {
-
   const [packageData, setPackageData] = useState([]);
   const [subPackageData, setSubPackageData] = useState([]);
-
-
   const getPackageData = async () => {
     let id = "";
     if (props && props.location && props.location.state) {

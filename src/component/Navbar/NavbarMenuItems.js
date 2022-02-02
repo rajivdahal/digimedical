@@ -302,7 +302,8 @@ const NavbarMenuItems = () => {
             </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
-                <a href="#">
+                <Link to={"/lab-test"}>
+                <a >
                   <img
                     src={package_logo}
                     style={{
@@ -311,7 +312,9 @@ const NavbarMenuItems = () => {
                   ></img>
                   <p>Lab Test</p>{" "}
                 </a>
-                <a href="#">
+                </Link>
+                <Link to={"/our-services/doctor-at-home"}>
+                <a>
                   {" "}
                   <img
                     src={package_logo}
@@ -321,8 +324,10 @@ const NavbarMenuItems = () => {
                   ></img>
                   <p>Doctor at Home</p>{" "}
                 </a>
+                </Link>
+                <Link to={"/our-services/online-medical-consultation"}>
 
-                <a href="#">
+                <a >
                   {" "}
                   <img
                     src={package_logo}
@@ -332,7 +337,9 @@ const NavbarMenuItems = () => {
                   ></img>
                   <p>Online Medical Consulation</p>{" "}
                 </a>
-                <a href="#">
+                </Link>
+                <Link to={"/our-services/nursing-at-home"}>
+                <a >
                   {" "}
                   <img
                     src={package_logo}
@@ -342,7 +349,9 @@ const NavbarMenuItems = () => {
                   ></img>
                   <p>24/7 Nursing Service at Home</p>{" "}
                 </a>
-                <a href="#">
+                </Link>
+                <Link to={"/our-services/pcr-at-home"}>
+                <a >
                   {" "}
                   <img
                     src={package_logo}
@@ -352,7 +361,9 @@ const NavbarMenuItems = () => {
                   ></img>
                   <p>PCR at Home</p>{" "}
                 </a>
-                <a href="#">
+                </Link>
+                <Link to={"/our-services/utility-at-home"}>
+                <a >
                   {" "}
                   <img
                     src={package_logo}
@@ -362,7 +373,10 @@ const NavbarMenuItems = () => {
                   ></img>
                   <p>MRI Service</p>
                 </a>
-                <a href="#">
+                </Link>
+                <Link to={"/our-services/utility-at-home"}>
+
+                <a >
                   {" "}
                   <img
                     src={package_logo}
@@ -372,7 +386,10 @@ const NavbarMenuItems = () => {
                   ></img>{" "}
                   <p>CT Scan Service</p>{" "}
                 </a>
-                <a href="#">
+                </Link>
+                <Link to={"/our-services/utility-at-home"}>
+
+                <a >
                   {" "}
                   <img
                     src={package_logo}
@@ -382,7 +399,10 @@ const NavbarMenuItems = () => {
                   ></img>{" "}
                   <p>USG Service at Home</p>{" "}
                 </a>
-                <a href="#">
+                </Link>
+                <Link to={"/our-services/utility-at-home"}>
+
+                <a >
                   {" "}
                   <img
                     src={package_logo}
@@ -392,17 +412,15 @@ const NavbarMenuItems = () => {
                   ></img>{" "}
                   <p>USG| ECG | ECHO Service at Home</p>{" "}
                 </a>
+                </Link>
+
               </div>
             </div>
           </div>
           <div className="menu-item_nav">
-            <Link
-              className="link_home_nav"
-              // to="/services"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
+
               For Business
-            </Link>
+
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
 
@@ -426,13 +444,8 @@ const NavbarMenuItems = () => {
             </div>
           </div>
           <div className="menu-item_nav">
-            <Link
-              className="link_home_nav"
-              // to="/services"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
+
               For Family
-            </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
                 <Link to="/Family_care_p">
@@ -444,7 +457,7 @@ const NavbarMenuItems = () => {
                   ></img>
                   <p>Family Care Package</p>{" "}
                 </Link>
-                <a href="#">
+                <a >
                   {" "}
                   <img
                     src={package_logo}
