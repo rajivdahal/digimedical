@@ -28,14 +28,14 @@ export const MedicalReports = (props) => {
     value: "",
   };
   const bodyCheckUpSchema = Yup.object().shape({
-    checkUpDate: Yup.string().required("Required!"),
-    value: Yup.string().required("Required!"),
+    checkUpDate: Yup.string().required("Checkup date is required!"),
+    value: Yup.string().required("Value is required!"),
   });
   const medicalReportSchema = Yup.object().shape({
-    hospitalName: Yup.string().required("Required!"),
-    doctorName: Yup.string().required("Required!"),
-    visitedDate: Yup.string().required("Required!"),
-    followUpDate: Yup.string().required("Required!"),
+    hospitalName: Yup.string().required("Hospital name is required!"),
+    doctorName: Yup.string().required("Doctor name is required!"),
+    visitedDate: Yup.string().required("Visited Date required!"),
+    followUpDate: Yup.string().required("Follow up date is required!"),
   });
   let [image, setImage] = useState([]);
   const [medicalData, setMedicalData] = useState([]);
@@ -115,6 +115,7 @@ export const MedicalReports = (props) => {
   };
 
   const updateBodyCheckUp = (values, { resetForm }) => {
+    console.log("inside body checkup",values)
     let finaldata = values;
     finaldata.bodyCheckupId = bodyCheckUpCategoryId;
     httpClient
@@ -127,9 +128,8 @@ export const MedicalReports = (props) => {
       })
       .catch((err) => {
         notify.error("Error in updating");
-      });
+      })
   };
-
   const handleImageChange = (event) => {
     let file = [];
     file.push(event.target.files[0]);
@@ -144,6 +144,61 @@ export const MedicalReports = (props) => {
     fetchBodyCheckUpCategories();
     fetchUserBodyCheckup();
   }, []);
+  const formikContent=<Formik
+  initialValues={bodyCheckUpValues}
+    onSubmit={updateBodyCheckUp}
+    validationSchema={bodyCheckUpSchema}
+  >
+  {() => (
+    <Form className=" medical_repo_form">
+      <div className="margin-adjuster1">
+        <div className="labrepo_text_form">
+          <label htmlFor="name">Category:</label>
+          <Select
+            options={bodyCheckUpCategories}
+            onChange={handleCategoryChange}
+            className="select-category"
+          />
+        </div>
+        <div className="labrepo_text_form">
+          <label htmlFor="name">Measured Date:</label>
+          <Field
+            name="checkUpDate"
+            id="checkUpDate"
+            className="prescription_input"
+            placeholder="2020-01-01"
+          ></Field>
+        </div>
+        <ErrorMessage
+          name="checkUpDate"
+          render={(msg) => (
+            <div >{msg}</div>
+           )}
+        />
+      </div>
+      <div className="margin-adjuster2">
+        <div className="labrepo_text_form">
+          <label htmlFor="name">Value:</label>
+          <Field
+            name="value"
+            id="value"
+            className="prescription_input"
+            placeholder="120/80 mm"
+          ></Field>
+        </div>
+        <ErrorMessage
+          name="checkUpDate"
+          render={(msg) => (
+            <div >{msg}</div>
+          )}
+        />
+        <button type="submit" className="button-submit">
+          Update
+        </button>
+      </div>
+    </Form>
+  )}
+</Formik>
   return (
     <div className="med_repo_main">
       <div className="main-psetImage  report-container">
@@ -172,9 +227,7 @@ export const MedicalReports = (props) => {
                 </div>
                 {tableVisibilityInfo.reports ? (
                   <>
-
-            <h4>Update Medical Information</h4>
-
+                    <h4>Update Medical Information</h4>
                     <Formik
                       initialValues={medicalReport}
                       onSubmit={upload}
@@ -281,62 +334,9 @@ export const MedicalReports = (props) => {
                 ) : tableVisibilityInfo.utilsInfo ? (
                   <>
                   <h4>Update Utility Information</h4>
-                    <Formik
-            initialValues={bodyCheckUpValues}
-            onSubmit={updateBodyCheckUp}
-            validationSchema={bodyCheckUpSchema}
-          >
-            {() => (
-              <Form className=" medical_repo_form">
-                <div className="margin-adjuster1">
-                  <div className="labrepo_text_form">
-                    <label htmlFor="name">Category:</label>
-                    <Select
-                      options={bodyCheckUpCategories}
-                      onChange={handleCategoryChange}
-                      className="select-category"
-                    />
-                  </div>
-                  <div className="labrepo_text_form">
-                    <label htmlFor="name">Measured Date:</label>
-                    <Field
-                      name="checkUpDate"
-                      id="checkUpDate"
-                      className="prescription_input"
-                      placeholder="2020-01-01"
-                    ></Field>
-                  </div>
-                  <ErrorMessage
-                    name="checkUpDate"
-                    render={(msg) => (
-                      <div className="err-message-bottom">{msg}</div>
-                    )}
-                  />
-                </div>
-                <div className="margin-adjuster2">
-                  <div className="labrepo_text_form">
-                    <label htmlFor="name">Value:</label>
-                    <Field
-                      name="value"
-                      id="value"
-                      className="prescription_input"
-                      placeholder="120/80 mm"
-                    ></Field>
-                  </div>
-                  <ErrorMessage
-                    name="checkUpDate"
-                    render={(msg) => (
-                      <div className="err-message-bottom">{msg}</div>
-                    )}
-                  />
-
-                  <button type="submit" className="button-submit">
-                    Update
-                  </button>
-                </div>
-              </Form>
-            )}
-          </Formik>
+                    {
+                      formikContent
+                    }
                   <CommonUtilityreportTable
                     bodyCheckUp={bodyCheckUp}
                   ></CommonUtilityreportTable>

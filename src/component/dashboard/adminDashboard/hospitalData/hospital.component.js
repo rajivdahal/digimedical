@@ -24,6 +24,7 @@ const Hospital = (props) => {
     hospitalImage: "",
     link: "",
     email: "",
+    country  :"Nepal",
     password: "",
     confirmPassword: "",
   });
@@ -234,6 +235,20 @@ const Hospital = (props) => {
 
             <Col md={4}>
               <Form.Group>
+                <Form.Label>Country</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="country" className='formControl'
+                  // onChange={formik.handleChange}
+                  value={formik.values.country}
+                  onBlur={formik.handleBlur}
+                  disabled
+                />
+              </Form.Group>
+            </Col>
+
+            <Col md={4}>
+              <Form.Group>
                 <Form.Label>Contact Number</Form.Label>
                 <Form.Control
                   type="text"
@@ -245,6 +260,28 @@ const Hospital = (props) => {
                 {formik.errors.contactNumber && formik.touched.contactNumber ? (
                   <div className="error-message">
                     {formik.errors.contactNumber}
+                  </div>
+                ) : null}
+              </Form.Group>
+            </Col>
+
+
+          </Row>
+
+          <Row className="mb-3">
+            <Col md={4}>
+              <Form.Group>
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="description" className='formControl'
+                  onChange={formik.handleChange}
+                  value={formik.values.description}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.description && formik.errors.description ? (
+                  <div className="error-message">
+                    {formik.errors.description}
                   </div>
                 ) : null}
               </Form.Group>
@@ -267,28 +304,8 @@ const Hospital = (props) => {
                 ) : null}
               </Form.Group>
             </Col>
-          </Row>
 
-          <Row className="mb-3">
-            <Col md={6}>
-              <Form.Group>
-                <Form.Label>Description</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="description" className='formControl'
-                  onChange={formik.handleChange}
-                  value={formik.values.description}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.description && formik.errors.description ? (
-                  <div className="error-message">
-                    {formik.errors.description}
-                  </div>
-                ) : null}
-              </Form.Group>
-            </Col>
-
-            <Col md={6}>
+            <Col md={4}>
               <Form.Group>
                 <Form.Label>Link</Form.Label>
                 <Form.Control

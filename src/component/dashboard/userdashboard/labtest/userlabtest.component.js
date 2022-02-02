@@ -265,7 +265,7 @@ class userlabtestcomponent extends Component {
       }, 2000);
     };
     const fetchAllDetails=(value)=>{
-      console.log("value is",value)
+      
     }
     return (
       <div className=" main_div_user_lab">

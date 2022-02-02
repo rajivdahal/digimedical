@@ -95,7 +95,7 @@ const Ourservices = (props) => {
     const paramsValue = props.match.params.subservice.split("-")
     let title = paramsValue.map((item,index) => {
       return item[0].toUpperCase() + item.substring(1)
-    })
+    })  
     console.log("title is", title)
     setHeading(title)
     console.log("inside useeffect")

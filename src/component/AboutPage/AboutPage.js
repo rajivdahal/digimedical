@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import aboutwall from "../../assets/aboutwall.png";
@@ -82,6 +82,10 @@ const GetAppointment = styled.a`
 `;
 
 const AboutPage = () => {
+  useEffect(()=>{
+    window.scrollTo(0,0)
+
+  },[])
   return (
     <>
       <Navbar></Navbar>

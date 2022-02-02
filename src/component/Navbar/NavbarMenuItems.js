@@ -418,13 +418,9 @@ const NavbarMenuItems = () => {
             </div>
           </div>
           <div className="menu-item_nav">
-            <Link
-              className="link_home_nav"
-              // to="/services"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
+
               For Business
-            </Link>
+
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
 
@@ -448,13 +444,8 @@ const NavbarMenuItems = () => {
             </div>
           </div>
           <div className="menu-item_nav">
-            <Link
-              className="link_home_nav"
-              // to="/services"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
+
               For Family
-            </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
                 <Link to="/Family_care_p">

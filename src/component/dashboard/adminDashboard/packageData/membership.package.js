@@ -219,8 +219,8 @@ const MembershipPackage = (props) => {
 
                         <Col md={4}>
                             <Form.Group>
-                                <Form.Label>Package Name</Form.Label>
-                                <Select className="roleSelect fromControl"
+                                <Form.Label>Master Package Name</Form.Label>
+                                <Select className="roleSelect formControl"
                                     value={formik.values.selectedPackage}
                                     options={masterPackages}
                                     name="packageId"
@@ -232,7 +232,7 @@ const MembershipPackage = (props) => {
 
                         <Col md={4}>
                             <Form.Group>
-                                <Form.Label>Sub Package Name :</Form.Label>
+                                <Form.Label>Package Name :</Form.Label>
                                 <Form.Control className='formControl' type="text" name="packageName" onChange={formik.handleChange}
                                     value={formik.values.packageName} onBlur={formik.handleBlur} />
                                 {formik.errors.packageName && formik.touched.packageName ?
