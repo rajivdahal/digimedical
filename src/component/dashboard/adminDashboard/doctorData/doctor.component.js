@@ -28,7 +28,7 @@ const Createdoctor = (props) => {
     middleName: "",
     gender: "0",
     email: "",
-    prefix: "0",
+    prefix: "MD",
     nmcNumber: "",
     specialist: "",
     description: "",
@@ -254,7 +254,7 @@ const Createdoctor = (props) => {
       lastName: "",
       middleName: "",
       email: "",
-      prefix: "0",
+      prefix: "MD",
       gender : "0",
       nmcNumber: "",
       specialist: "",
@@ -321,11 +321,11 @@ const Createdoctor = (props) => {
                   value={formik.values.prefix}
                   onBlur={formik.handleBlur}
                 >
-                  <option value="0">MD</option>
-                  <option value="1">MS</option>
-                  <option value="2">MBBS</option>
-                  <option value="3">MBBS MD</option>
-                  <option value="4">MBBS MS</option>
+                  <option value="MD">MD</option>
+                  <option value="MS">MS</option>
+                  <option value="MBBS">MBBS</option>
+                  <option value="MBBS_MD">MBBS MD</option>
+                  <option value="MBBS_MS">MBBS MS</option>
                 </select>
               </Form.Group>
             </Col>
