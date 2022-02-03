@@ -448,7 +448,7 @@ const NavbarMenuItems = () => {
               For Family
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
-                <Link to="/Family_care_p">
+                {/* <Link to="/family-package">
                   <img
                     src={package_logo}
                     style={{
@@ -456,7 +456,7 @@ const NavbarMenuItems = () => {
                     }}
                   ></img>
                   <p>Family Care Package</p>{" "}
-                </Link>
+                </Link> */}
                 <a >
                   {" "}
                   <img

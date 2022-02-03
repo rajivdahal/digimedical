@@ -13,9 +13,10 @@ class Cartpopupcomponent extends Component {
     const cart = JSON.parse(localStorage.getItem("cart"));
     console.log("cart items arfter pop up is", cart);
     const removemappedproduct = (toremoveitemcategory) => {
+      console.log("to remove is",toremoveitemcategory)
       if (cart) {
         cart.labs.map((item, index) => {
-          if (item[0].category == toremoveitemcategory) {
+          if (item[0].mainCategoryName == toremoveitemcategory) {
             cart.labs.splice(index, 1);
             cart.cartvalue = cart.cartvalue - 1;
             localStorage.setItem("cart", JSON.stringify(cart));
@@ -33,10 +34,10 @@ class Cartpopupcomponent extends Component {
         let subcategoryarray = {};
         mainarray.map((item, index) => {
           if (index == 0) {
-            subcategoryarray.category = item.category;
-            subcategories.push(item.subcategoryname);
+            subcategoryarray.category = item.mainCategoryName;
+            subcategories.push(item.labcategoryname);
           } else {
-            subcategories.push(item.subcategoryname);
+            subcategories.push(item.labcategoryname);
           }
           if (index == mainarray.length - 1) {
             subcategoryarray.subcategories = subcategories;
@@ -45,6 +46,7 @@ class Cartpopupcomponent extends Component {
         });
       });
     }
+    console.log("main category iss",maincategories);
     return (
       <>
         <div>

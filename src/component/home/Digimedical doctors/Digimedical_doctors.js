@@ -1,7 +1,6 @@
 import React from "react";
 import "./Digimedical_doctors.css";
 import Navbar from "../../Navbar/Navbar";
-import doctor1 from "../../../assets/client1.png";
 import badge from "../../../assets/badge.png";
 import handheart from "../../../assets/handheart.png";
 import Pagination from "../../common/pagination/pagination.component";

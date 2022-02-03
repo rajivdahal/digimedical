@@ -17,7 +17,7 @@ const HomeLabtest = (props) => {
     httpClient
       .GET("labtest/category/get", false, false)
       .then((resp) => {
-        // console.log(resp.data.data)
+        console.log(resp.data.data)
         setlabTestData(resp.data.data);
       })
       .catch((err) => {
@@ -64,7 +64,7 @@ const HomeLabtest = (props) => {
                         <div className="labtest_desc_detail">
                           <ul>
                             {item.subcategory.map((item, index) => {
-                              return <li>{item.categoryname}</li>;
+                              return <li style={{marginLeft:"20px"}}>{item.categoryname}</li>;
                             })}
                           </ul>
                         </div>
