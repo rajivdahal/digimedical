@@ -66,13 +66,13 @@ const Loginbodycomponent = (props) => {
         validate: values => {
             let errors = {}
             if (!values.username) {
-                errors.username = "Email required!"
+                errors.username = "Email is required!"
             }
             else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.username)) {
                 errors.username = "Invalid email format"
             }
             if (!values.password) {
-                errors.password = "Password required!"
+                errors.password = "Password is required!"
             }
             return errors
         },

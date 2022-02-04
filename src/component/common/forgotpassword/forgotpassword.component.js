@@ -13,10 +13,9 @@ export const Forgotpassword = (props) => {
     const formik = useFormik({
         initialValues: {
             username: '',
-            // password: '',
-            // confirmPassword: '',
         },
         onSubmit: values => {
+            // debugger
             console.log(values)
             setisLoading(true)
             httpClient.PUT('forget-password', values)
@@ -28,7 +27,9 @@ export const Forgotpassword = (props) => {
                     )
                 })
                 .catch(err => {
-                    notify.error("error occurred")
+
+                    console.log("error is",err.response)
+                    notify.error(err.response.data.message)
                 })
                 .finally(() => {
                     setisLoading(false)
