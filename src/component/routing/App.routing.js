@@ -196,6 +196,7 @@ export const Approuting = (props) => {
           component={DigimedicalDoctor}
         ></ProtectedRoute>
 
+        {/* adminRoutes */}
         <ProtectedRoute
           exact
           path="/dashboard/doctor-table"
@@ -304,6 +305,9 @@ export const Approuting = (props) => {
           component={Dashboard}
         ></ProtectedRoute>
 
+
+
+        {/* CorporateRoutes */}
         <ProtectedRoute
           exact
           path="/dashboard/corporate/add-users"
@@ -316,6 +320,12 @@ export const Approuting = (props) => {
           component={Dashboard}
         ></ProtectedRoute>
 
+
+        <ProtectedRoute
+          exact
+          path="dashboard/corporate/book-packages"
+          component={Dashboard}
+        ></ProtectedRoute>
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
     </BrowserRouter>

@@ -76,10 +76,10 @@ const Labtest = (props) => {
         validate: (values) => {
             let errors = {};
             if (!values.name) {
-                errors.name = 'Required!'
+                errors.name = 'Lab Test Name is required!'
             }
             if (!values.description) {
-                errors.description = 'Required!'
+                errors.description = 'Description is required!'
             }
             return errors;
         },

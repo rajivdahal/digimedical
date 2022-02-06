@@ -28,7 +28,7 @@ const UserManagementApi={
 
     createAdmin : (values)=>{
         let roleid = values.selectedRole.value;
-        console.log(roleid);
+
         let formData = new FormData();
   
         if (values.adminImage) {
@@ -46,6 +46,7 @@ const UserManagementApi={
     },
 
     editAdmin:(values,id)=>{
+        let roleid = values.selectedRole.value;
         let formData = new FormData();
 
         if (values.adminImage) {
@@ -55,7 +56,9 @@ const UserManagementApi={
         formData.append("lastName", values.lastName);
         formData.append("dob", values.dob);
         formData.append("mobileNumber", values.mobileNumber);
-            return httpClient.PUT("admin/update/" + id, formData, false, true, "formdata")
+        formData.append("role", roleid);
+
+        return httpClient.PUT("admin/update/" + id, formData, false, true, "formdata")
     },
 
     changeAdminStatus:(status,id)=>{

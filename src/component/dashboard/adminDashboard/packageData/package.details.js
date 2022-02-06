@@ -7,7 +7,7 @@ import Tableicons from '../../../../utils/materialicons';
 import MaterialTable from 'material-table';
 import { notify } from "../../../../services/notify";
 import PackageApi from "./package.service";
-import { validatePackage } from "./package.helper";
+import { validatePackage, validatePackageDetails } from "./package.helper";
 import { Edit, Clear } from "@material-ui/icons";
 import "./package.css";
 
@@ -21,7 +21,7 @@ const MembershipPackageDetails = (props) => {
     const [packageData, setPackageData] = useState({
 
         packageId: "",
-        selectedPackage: [],
+        selectedPackage: {},
         details: "",
         allDetails: [],
     })
@@ -108,6 +108,10 @@ const MembershipPackageDetails = (props) => {
 
             }
         },
+        validate: (values) => {
+            let isEdit = detailID ? true : false;
+            return validatePackageDetails(values,isEdit);
+        },
 
     })
 
@@ -150,7 +154,7 @@ const MembershipPackageDetails = (props) => {
                 setDetailID(null);
                 setPackageData({
                     packageId: "",
-                    selectedPackage: [],
+                    selectedPackage: {},
                     details: "",
                     allDetails: [],
                 })
@@ -169,7 +173,7 @@ const MembershipPackageDetails = (props) => {
         setDetailID(null);
         setPackageData({
             packageId: "",
-            selectedPackage: [],
+            selectedPackage: {},
             details: "",
             allDetails: [],
         })
@@ -198,6 +202,9 @@ const MembershipPackageDetails = (props) => {
                                     onChange={handlePackageChange}
                                 >
                                 </Select>
+                                {formik.errors.selectedPackage && formik.touched.selectedPackage ?
+                                    <div className="error-message">{formik.errors.selectedPackage}</div>
+                                    : null}
                             </Form.Group>
                         </Col>
 
@@ -214,7 +221,7 @@ const MembershipPackageDetails = (props) => {
                         {!detailID ?
                             <Col md={2}>
                                 <br></br>
-                                <Button variant="info" onClick={() => handleAddDetails(formik.values)}>Add</Button>
+                                <Button variant="info"  className='formControl' onClick={() => handleAddDetails(formik.values)}>Add</Button>
                             </Col>
                             :
                             <></>

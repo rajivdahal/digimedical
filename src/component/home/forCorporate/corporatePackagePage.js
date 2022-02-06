@@ -106,9 +106,10 @@ function CorporatePackage(props) {
           </>
         })}
 
+      </div>
 
       <p className="question">Packages details</p>
-      </div>
+
       <div className="bottom-container">
 
         {subPackageData.map((item, index) => {

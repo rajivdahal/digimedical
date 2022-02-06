@@ -7,7 +7,7 @@ import Tableicons from '../../../../utils/materialicons';
 import MaterialTable from 'material-table';
 import { notify } from "../../../../services/notify";
 import PackageApi from "./package.service";
-import { validatePackage } from "./package.helper";
+import { validateMasterPackage, validatePackage } from "./package.helper";
 import { Edit, Clear } from "@material-ui/icons";
 import "./package.css"
 
@@ -87,6 +87,11 @@ const PackageDescription = (props) => {
             }
         },
 
+        validate: (values) => {
+            let isEdit = detailID ? true : false;
+            return validateMasterPackage(values,isEdit);
+        },
+
     })
 
     const handleAddDetails = (values) => {
@@ -155,7 +160,6 @@ const PackageDescription = (props) => {
             description: "",
             purpose: "",
             packageType: "0",
-
             allPurpose: [],
         })
         setPurposeEdit({

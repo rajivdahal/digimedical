@@ -16,11 +16,13 @@ function Digimedical_doctors(props) {
   const [searcheddoctors, setsearcheddoctors] = useState([]);
   const [issearched, setIssearched] = useState(false);
   const [searchName, setSearchName] = useState("");
+  const [selectedId,setSelectedId] = useState("");
 
   const getAllDigiDoctors = async () => {
     let id = "";
     if (props.location && props.location.state && props.location.state.doctorID) {
       id = props.location.state.doctorID;
+      setSelectedId(id);
     }
     try {
       let resp = await httpClient.GET("doctor/digi/get-four");
@@ -102,9 +104,10 @@ function Digimedical_doctors(props) {
               {searcheddoctors.length > 0 ?
                 searcheddoctors.map((item, index) => {
                   return <>
-                    <DigiMedicalDoctorCard key={index} name={item.doctorname} prefix={item.prefix}
-                      specialist={item.specialist} desc={item.doctordescription}
-                      gender={item.gender+1}
+                    <DigiMedicalDoctorCard key={index}
+                      selected={item.doctorid == selectedId} prefix={item.prefix}
+                      name={item.doctorname} desc={item.doctordescription}
+                      specialist={item.specialist} gender={item.gender+1}  
                       doctorId={item.doctorid} doctorServices={item.serviceid} />
                   </>
                 })

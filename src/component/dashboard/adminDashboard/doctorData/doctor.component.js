@@ -116,7 +116,7 @@ const Createdoctor = (props) => {
       if (props.isHospital) {
         let hospitalId = localStorage.getItem("userid");
         console.log(hospitalId);
-        resp = await doctorApi.createHospitalDoctor(values);
+        resp = await doctorApi.createHospitalDoctor(values, hospitalId);
       } else {
         resp = await doctorApi.createAdminDoctor(values);
       }
@@ -184,7 +184,7 @@ const Createdoctor = (props) => {
             description: data.description,
             mobileNumber: data.mobilenumber,
             doctorServices: savedServices,
-            gender : data.gender,
+            gender: data.gender,
             serviceID: null,
           };
           if (props.isHospital) {
@@ -255,7 +255,7 @@ const Createdoctor = (props) => {
       middleName: "",
       email: "",
       prefix: "MD",
-      gender : "0",
+      gender: "0",
       nmcNumber: "",
       specialist: "",
       description: "",
@@ -449,13 +449,16 @@ const Createdoctor = (props) => {
               <Row>
                 <Col md={11}>
                   <Form.Label>Service </Form.Label>
-                  <Select 
+                  <Select
                     value={formik.values.doctorServices}
                     isMulti className="roleSelect formControl"
                     options={services}
                     name="serviceID"
                     onChange={handleServiceChange}
                   ></Select>
+                  {formik.errors.doctorServices && formik.touched.doctorServices ?
+                    <div className="error-message">{formik.errors.doctorServices}</div>
+                    : null}
                 </Col>
               </Row>
             </Col>
@@ -521,7 +524,7 @@ const Createdoctor = (props) => {
             <Col md={6}>
               <Form.Group>
                 <Form.Label>Description</Form.Label>
-                <Form.Control 
+                <Form.Control
                   type="text" className='formControl'
                   name="description"
                   onChange={formik.handleChange}
@@ -543,7 +546,7 @@ const Createdoctor = (props) => {
                   <Form.Label>Available Days</Form.Label>
                   <Select
                     value={formik.values.availableDays}
-                    isMulti className="formControl select-control"
+                    isMulti className="formControl roleSelect"
                     options={DAYS}
                     name="availableDays"
                     onChange={handleChooseDays}

@@ -46,13 +46,18 @@ const DigiMedicalDoctorCard = (props) => {
     }
   }, []);
 
+  useEffect(()=>{
+    if(props.selected){
+      setForm(true);
+    }
+  },[props.selected])
+
   const bookAppointment = () => {
     let tempForm = showForm === true ? false : true;
     setForm(tempForm);
   };
 
   const handleDateChange = (value) => {
-    console.log(value)
     let date = "";
     date = value.year + "-" + value.month + "-" + value.day;
 
