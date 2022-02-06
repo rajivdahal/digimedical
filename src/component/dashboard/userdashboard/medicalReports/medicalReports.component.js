@@ -115,9 +115,10 @@ export const MedicalReports = (props) => {
   };
 
   const updateBodyCheckUp = (values, { resetForm }) => {
-    console.log("inside body checkup",values)
+    // console.log("inside body checkup",values)
     let finaldata = values;
     finaldata.bodyCheckupId = bodyCheckUpCategoryId;
+    console.log("finaldata",finaldata)
     httpClient
       .POST("body-checkup/detail/create", finaldata, false, true)
       .then((resp) => {
@@ -144,11 +145,13 @@ export const MedicalReports = (props) => {
     fetchBodyCheckUpCategories();
     fetchUserBodyCheckup();
   }, []);
-  const formikContent=<Formik
-  initialValues={bodyCheckUpValues}
+  const formikContent=
+  <Formik
+    initialValues={bodyCheckUpValues}
     onSubmit={updateBodyCheckUp}
     validationSchema={bodyCheckUpSchema}
   >
+
   {() => (
     <Form className=" medical_repo_form">
       <div className="margin-adjuster1">
@@ -170,9 +173,10 @@ export const MedicalReports = (props) => {
           ></Field>
         </div>
         <ErrorMessage
+          // style={{color:"red"}}
           name="checkUpDate"
           render={(msg) => (
-            <div >{msg}</div>
+            <div style={{color:"red"}}>{msg}</div>
            )}
         />
       </div>
@@ -187,9 +191,9 @@ export const MedicalReports = (props) => {
           ></Field>
         </div>
         <ErrorMessage
-          name="checkUpDate"
+          name="value"
           render={(msg) => (
-            <div >{msg}</div>
+            <div style={{color:"red"}}>{msg}</div>
           )}
         />
         <button type="submit" className="button-submit">
