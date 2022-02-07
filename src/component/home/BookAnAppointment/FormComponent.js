@@ -243,16 +243,16 @@ function FormComponent(props) {
     validate: (values) => {
       let errors = {};
       if (!values.servicesId) {
-        errors.serviceId = "Required";
+        errors.serviceId = "Service is required";
       }
       if (!values.doctorId) {
-        errors.doctorId = "Required";
+        errors.doctorId = "Doctor is required";
       }
       if (!values.appointmentDate) {
-        errors.appointmentDate = "Required";
+        errors.appointmentDate = "Appointment Date required";
       }
       if (!values.appointmentTime) {
-        errors.appointmentTime = "Required";
+        errors.appointmentTime = "Appointment Time is required";
       }
       return errors;
     },
