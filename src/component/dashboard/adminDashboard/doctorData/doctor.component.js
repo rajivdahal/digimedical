@@ -10,6 +10,8 @@ import Avatar from "../../../../assets/avatars.png";
 import Select from "react-select";
 import doctorApi from "./doctor.services";
 import { DAYS } from "../../../../constants/constants";
+import ServiceApi from "../servicesData/services.service";
+
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Createdoctor = (props) => {
@@ -49,6 +51,8 @@ const Createdoctor = (props) => {
   };
 
   useEffect(() => {
+    console.log(props)
+
     initialize();
   }, []);
 
@@ -69,27 +73,38 @@ const Createdoctor = (props) => {
   };
 
   const getServices = async () => {
-    let allServices = await httpClient
-      .GET("services/true", false, true)
-      .then((resp) => {
-        console.log(resp)
-        if (resp.data.status) {
-          let data = resp.data.data;
-          return data;
-        }
-      })
-      .catch((err) => {
-        return [];
-      });
+    let resp;
+    try {
+      if (props.isHospital) {
+        resp = await ServiceApi.getHospitalServices();
+      } else {
+        resp = await ServiceApi.getAllServices();
+      }
+      console.log(resp)
+      if (resp.data.status) {
+        let data = resp.data.data;
+        let trueService = data.filter((item)=>{
+          return item.activestatus == true
+        })
+        console.log(trueService)
+        let options = trueService.map((service) => {
+          return {
+            label: service.servicename,
+            value: service.id,
+          };
+        });
+        console.log(options)
+        setServices(options);
+      }
 
-    let options = allServices.map((service, index) => {
-      return {
-        label: service.servicename,
-        value: service.id,
-      };
-    });
-    setServices(options);
-    return allServices;
+      return resp;
+    }
+    
+    catch (err) {
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
   };
 
   const formik = useFormik({
@@ -451,7 +466,7 @@ const Createdoctor = (props) => {
                   <Form.Label>Service </Form.Label>
                   <Select
                     value={formik.values.doctorServices}
-                    isMulti className="roleSelect formControl"
+                    isMulti className="serviceSelect formControl"
                     options={services}
                     name="serviceID"
                     onChange={handleServiceChange}

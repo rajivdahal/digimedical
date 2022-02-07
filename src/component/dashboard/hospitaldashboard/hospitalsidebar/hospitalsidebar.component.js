@@ -55,6 +55,22 @@ const Hospitalsidebar = (props) => {
             </div>
           </li>
          
+          <li className="nav-item">
+            <a className="nav-link " data-toggle="collapse" href="#services" aria-expanded="false" aria-controls="services">
+              <CoPresentRounded className="dash-icon"></CoPresentRounded>
+              <span className="menu-title">Services</span>
+              <i className="menu-arrow"></i>
+            </a>
+            <div className="collapse" id="services">
+              <ul className="nav flex-column sub-menu">
+                <Link to="/dashboard/hospital-service">
+                  <li className="nav-item"><a className="nav-link" href="">Add Services</a></li>
+                </Link>
+                
+              </ul>
+            </div>
+          </li>
+         
 
         </ul>
       </nav>

@@ -61,6 +61,7 @@ import BodyCheckUp from "./userdashboard/commonupcomingappointment/bodyCheckup/b
 import PackageDescription from "./adminDashboard/packageData/package.desc";
 import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoctor";
 import BookPackage from "./corporatedashboard/packages/package.component";
+import HospitalService from "./hospitalDashboard/hospitalService/hospitalService";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -215,6 +216,8 @@ const Dashboard = (props) => {
                                   <ProtectedRoute component={AddDoctor}></ProtectedRoute>
                                   : props.location.pathname === "/dashboard/hospital-appointment" ?
                                     <ProtectedRoute component={HospitalAppointment}></ProtectedRoute>
+                                    : props.location.pathname === "/dashboard/hospital-service" ?
+                                    <ProtectedRoute component={HospitalService}></ProtectedRoute>
                                     : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                           }
                         </div>
