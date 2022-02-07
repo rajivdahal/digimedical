@@ -25,6 +25,10 @@ export default function Usersidebar(props) {
   const loadBodyCheckup = () => {
     props.props.push("/dashboard/body-checkup");
   };
+  const loadUtilsInfo=()=>{
+    props.props.push("/dashboard/utils-info");
+
+  }
   return (
     <div>
       <div className="newdash_body">
@@ -163,12 +167,26 @@ export default function Usersidebar(props) {
                   </p>
                 </div>
               </div>
+
             </div>
             <div
               className="newdash_dash1_dashboard"
-              onClick={loadBodyCheckup}
+              onClick={loadUtilsInfo}
               style={{ cursor: "pointer" }}
-            ></div>
+            >
+              <div className="newdash_dash1_cont1">
+                <div className="newdash_dash1_cont1p">
+                  {" "}
+                  <p id="newdash_dash1_cont1p">
+                    <span id="newdash_bar_ico">
+                      <i class="fas fa-file-alt"></i>
+                    </span>{" "}
+                    Update Utils Info
+                  </p>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
 

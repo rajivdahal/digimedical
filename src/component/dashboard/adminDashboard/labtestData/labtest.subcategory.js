@@ -9,6 +9,7 @@ import Tableicons from "../../../../utils/materialicons";
 import { httpClient } from '../../../../utils/httpClient';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import { Container, Form, Row, Col, Button, Modal, Image } from "react-bootstrap";
+import { REGEX } from '../../../../constants/constants';
 
 const LabtestSubcategory = (props) => {
 
@@ -131,25 +132,26 @@ const LabtestSubcategory = (props) => {
         validate: (values) => {
             let errors = {};
 
-            if (!values.description) {
-                errors.description = 'Required!'
-            }
-            let decimalREGEX = /^\d*\.?\d*$/;
-
             if (!values.subCategory) {
-                errors.subCategory = "Required!"
+                errors.subCategory = "Subcategory Name is required!"
             }
             if (!values.description) {
-                errors.description = 'Required!'
+                errors.description = 'Description is required!'
             }
-            if (!decimalREGEX.test(values.price)) {
-                errors.price = "Must be a number";
+            if (!REGEX.DECIMAL.test(values.price)) {
+                errors.price = "Price must be a number";
             }
             if (!values.price) {
-                errors.price = "Required!"
+                errors.price = "Price is required!"
             }
             if (values.price < 0) {
-                errors.price = "Must be positive!"
+                errors.price = "Price must be positive!"
+            }
+            if (!values.selectedLabtest.value) {
+                errors.selectedLabtest = "Labtest Name is required"
+            }
+            if (!values.selectedInstitute.value) {
+                errors.selectedInstitute = "Institute Name is required"
             }
             return errors;
         },
@@ -338,6 +340,9 @@ const LabtestSubcategory = (props) => {
                                     onChange={handleLabtestChange}
                                 >
                                 </Select>
+                                {formik.errors.selectedLabtest && formik.touched.selectedLabtest ?
+                                    <div className="error-message">{formik.errors.selectedLabtest}</div>
+                                    : null}
                             </Form.Group>
                         </Col>
 
@@ -362,6 +367,9 @@ const LabtestSubcategory = (props) => {
                                     onChange={handleInstituteChange}
                                 >
                                 </Select>
+                                {formik.errors.selectedInstitute && formik.touched.selectedInstitute ?
+                                    <div className="error-message">{formik.errors.selectedInstitute}</div>
+                                    : null}
                             </Form.Group>
                         </Col>
                     </Row>

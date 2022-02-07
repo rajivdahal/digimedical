@@ -3,26 +3,26 @@ const validateInstitute = ( values, isEdit = false ) =>{
     let decimalREGEX = /^\d*\.?\d*$/;
 
     if (!values.name) {
-        errors.name = 'Required!'
-    }
-
-    if (!values.contactNo) {
-        errors.contactNo = "Required!"
+        errors.name = 'Medical Institute Name is Required!'
     }
 
     if(!decimalREGEX.test(values.contactNo)){
-        errors.contactNo = "Must be a number!";
+        errors.contactNo = "Contact Number must be a number!";
     }
     
-    else if (("" + values.contactNo).includes('-')) {
+    if (("" + values.contactNo).includes('-')) {
         errors.contactNo = "Contact Number can't be Negative!"
     }
 
+    if (!values.contactNo) {
+        errors.contactNo = "Contact Number is required!"
+    }
+
     if (!values.city) {
-        errors.city = 'Required!'
+        errors.city = 'City is required!'
     }
     if (!values.street) {
-        errors.street = 'Required!'
+        errors.street = 'Street is required!'
     }
 
     return errors;   

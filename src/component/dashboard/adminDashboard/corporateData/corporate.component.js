@@ -273,10 +273,13 @@ const CorporatePage = (props) => {
                                 <Select
                                     value={formik.values.selectedType}
                                     options={corporateType}
-                                    name="typeId"
+                                    name="typeId" className='formControl roleSelect'
                                     onChange={handleTypeChange}
                                 >
                                 </Select>
+                                {formik.errors.selectedType && formik.touched.selectedType ?
+                                    <div className="error-message">{formik.errors.selectedType}</div>
+                                    : null}
                             </Form.Group>
                         </Col>
 
