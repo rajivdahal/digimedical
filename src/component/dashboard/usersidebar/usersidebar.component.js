@@ -274,6 +274,25 @@ export default function Usersidebar(props) {
                   </div>
                 </div>
               </div>
+
+              <div
+              className="newdash_dash1_dashboard"
+              onClick={loadDigiDoctors}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="newdash_dash1_cont1">
+                <div className="newdash_dash1_cont1p">
+                  {" "}
+                  <p id="newdash_dash1_cont1p">
+                    <span id="newdash_bar_ico">
+                      <i class="fas fa-hospital"></i>
+                    </span>{" "}
+                    Doctors
+                  </p>
+                </div>
+              </div>
+            </div>
+            
               <div
                 className="newdash_dash1_dashboard"
                 onClick={loadMedicalReport}

@@ -51,8 +51,6 @@ const Createdoctor = (props) => {
   };
 
   useEffect(() => {
-    console.log(props)
-
     initialize();
   }, []);
 
@@ -80,24 +78,19 @@ const Createdoctor = (props) => {
       } else {
         resp = await ServiceApi.getAllServices();
       }
-      console.log(resp)
       if (resp.data.status) {
         let data = resp.data.data;
         let trueService = data.filter((item)=>{
           return item.activestatus == true
         })
-        console.log(trueService)
         let options = trueService.map((service) => {
           return {
             label: service.servicename,
             value: service.id,
           };
-        });
-        console.log(options)
+        })
         setServices(options);
       }
-
-      return resp;
     }
     
     catch (err) {
