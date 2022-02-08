@@ -84,7 +84,7 @@ const UserDoctorCard = (props) => {
         validate: (values) => {
             let errors= {};
             if (!values.appointmentTime) {
-                errors.appointmentTime = 'Required!'
+                errors.appointmentTime = 'Appointment Time is required!'
             }
           return errors;
         },
@@ -119,6 +119,8 @@ const UserDoctorCard = (props) => {
                 </div>
                 <div className="hosp_card_but_main">
                     {" "}
+                    <div>Rs.{props.price}</div>
+
                     <button id="hosp_card_but_user" onClick={bookAppointment}>
                         Book an appointment
                     </button>

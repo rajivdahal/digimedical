@@ -77,7 +77,7 @@ const DigimedicalDoctor = (props) => {
                                 return <>
                                     <UserDoctorCard key={index} name={item.doctorname} prefix={item.prefix}
                                         specialist={item.specialist} desc={item.doctordescription}
-                                        gender={item.gender + 1}
+                                        gender={item.gender + 1} price = {item.price}
                                         doctorId={item.doctorid} doctorServices={item.serviceid} />
                                 </>
                             })

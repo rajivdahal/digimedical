@@ -106,7 +106,7 @@ function Digimedical_doctors(props) {
                   return <>
                     <DigiMedicalDoctorCard key={index}
                       selected={item.doctorid == selectedId} prefix={item.prefix}
-                      name={item.doctorname} desc={item.doctordescription}
+                      name={item.doctorname} desc={item.doctordescription} price={item.price}
                       specialist={item.specialist} gender={item.gender+1}  
                       doctorId={item.doctorid} doctorServices={item.serviceid} />
                   </>

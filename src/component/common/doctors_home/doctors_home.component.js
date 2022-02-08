@@ -42,7 +42,7 @@ export default function Doctorshome(props) {
 
       {allDoctors.map((item, index) => {
         return <>
-          <DoctorDetailComponent key={index} {...props} name={item.doctorname} prefix={item.prefix}
+          <DoctorDetailComponent key={index} {...props} name={item.doctorname} prefix={item.prefix} price={item.price}
           gender={item.gender+1} specialist={item.specialist} desc={item.doctordescription} doctorId={item.doctorid} />
         </>
       })}

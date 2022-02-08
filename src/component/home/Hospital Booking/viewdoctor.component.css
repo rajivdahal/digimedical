@@ -162,7 +162,6 @@ form.doc_example::after {
 #doc_card_but {
   width: 200px;
   height: 40px;
-
   border: 1px solid #2745f0;
   color: #2745f0;
   background: white;
@@ -171,6 +170,11 @@ form.doc_example::after {
   font-size: 14px;
   line-height: 15px;
   transition: 0.5s;
+}
+
+.hospitalDr-price{
+  text-align: right;
+  margin-bottom: 50px;
 }
 #doc_card_but:hover {
   background-color: #2745f0;

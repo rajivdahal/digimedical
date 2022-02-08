@@ -16,7 +16,7 @@ const Adminsidebar = (props) => {
   }
   return (
     <div>
-      <nav className="sidebar sidebar-offcanvas" id="sidebar">
+      <nav className="sidebar sidebar-scroll sidebar-offcanvas" id="sidebar">
         <p className="centered mt-3"><a href="profile.html">
         </a></p>
         <ul className="nav">
