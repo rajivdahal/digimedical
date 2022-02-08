@@ -145,7 +145,7 @@ const CorporateTypes = (props) => {
     function validateName(value) {
         let error;
         if (!value) {
-            error = 'Required!';
+            error = 'Corporate Type is required!';
         }
         return error;
     }
@@ -153,7 +153,7 @@ const CorporateTypes = (props) => {
     function validateDescription(value) {
         let error;
         if (!value) {
-            error = 'Required!';
+            error = 'Description is required!';
         }
         return error;
     }

@@ -117,6 +117,11 @@ export const Approuting = (props) => {
           path="/dashboard/medical-reports"
           component={Dashboard}
         ></ProtectedRoute>
+         <ProtectedRoute
+          exact
+          path="/dashboard/utils-info"
+          component={Dashboard}
+        ></ProtectedRoute>
         <ProtectedRoute
           exact
           path="/dashboard/body-checkup"
@@ -164,6 +169,7 @@ export const Approuting = (props) => {
           path="/dashboard/add-member"
           component={Dashboard}
         ></ProtectedRoute>
+
         <ProtectedRoute
           exact
           path="/dashboard/all-patients"
@@ -196,6 +202,7 @@ export const Approuting = (props) => {
           component={DigimedicalDoctor}
         ></ProtectedRoute>
 
+        {/* adminRoutes */}
         <ProtectedRoute
           exact
           path="/dashboard/doctor-table"
@@ -304,6 +311,9 @@ export const Approuting = (props) => {
           component={Dashboard}
         ></ProtectedRoute>
 
+
+
+        {/* CorporateRoutes */}
         <ProtectedRoute
           exact
           path="/dashboard/corporate/add-users"
@@ -316,6 +326,12 @@ export const Approuting = (props) => {
           component={Dashboard}
         ></ProtectedRoute>
 
+
+        <ProtectedRoute
+          exact
+          path="dashboard/corporate/book-packages"
+          component={Dashboard}
+        ></ProtectedRoute>
         <PublicRoute path="/" component={Pagenotfound}></PublicRoute>
       </Switch>
     </BrowserRouter>

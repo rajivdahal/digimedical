@@ -140,7 +140,7 @@ const BodyCheckup = (props) => {
     function validateName(value) {
         let error;
         if (!value) {
-            error = 'Required!';
+            error = 'Body Checkup Name is required!';
         }
         return error;
     }
@@ -148,7 +148,7 @@ const BodyCheckup = (props) => {
     function validateDescription(value) {
         let error;
         if (!value) {
-            error = 'Required!';
+            error = 'Description is required!';
         }
         return error;
     }

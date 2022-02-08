@@ -81,10 +81,13 @@ const UserDoctorCard = (props) => {
             console.log(values);
             submitAppointment(values);
         },
-        // validate: (values) => {
-        //   let isLogin = userLogin ? true : false;
-        //   return validateAppointment(values, isLogin);
-        // },
+        validate: (values) => {
+            let errors= {};
+            if (!values.appointmentTime) {
+                errors.appointmentTime = 'Required!'
+            }
+          return errors;
+        },
     });
     return (
         <div className="outerCard">

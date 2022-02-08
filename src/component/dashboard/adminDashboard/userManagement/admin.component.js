@@ -28,6 +28,7 @@ const CreateAdmin = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setImage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [adminId, setAdminId] = useState("");
   const [adminStatus, setAdminStatus] = useState("");
   const [allAdmin, setAllAdmin] = useState([]);
@@ -38,7 +39,7 @@ const CreateAdmin = (props) => {
     mobileNumber: "",
     dob: "",
     adminImage: "",
-    selectedRole: "",
+    selectedRole: {},
     roleID: "",
     email: "",
     password: "",
@@ -61,6 +62,7 @@ const CreateAdmin = (props) => {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
+    setLoading(false)
   }
 
   const getAllRoles = async () => {
@@ -68,8 +70,8 @@ const CreateAdmin = (props) => {
     try {
       let resp = await UserManagementApi.getRole();
       if (resp.data.status) {
-        let result = resp.data.data; 
-        
+        let result = resp.data.data;
+
         let options = result.map((item) => {
           return {
             label: item.name,
@@ -93,7 +95,7 @@ const CreateAdmin = (props) => {
   }, []);
 
   const createAdmin = async (values) => {
-    setLoading(true);
+    setIsLoading(true);
     try {
       let resp = await UserManagementApi.createAdmin(values);
       if (resp.data.status) {
@@ -107,7 +109,7 @@ const CreateAdmin = (props) => {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-    setLoading(false)
+    setIsLoading(false)
   };
 
 
@@ -156,7 +158,7 @@ const CreateAdmin = (props) => {
   };
 
   const editAdminInfo = async (values) => {
-    setLoading(true);
+    setIsLoading(true);
     try {
 
       let resp = await UserManagementApi.editAdmin(values, adminId);
@@ -171,6 +173,8 @@ const CreateAdmin = (props) => {
           mobileNumber: "",
           email: "",
           dob: "",
+          selectedRole: {},
+          roleID: "",
         });
       }
     }
@@ -179,7 +183,7 @@ const CreateAdmin = (props) => {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-    setLoading(false);
+    setIsLoading(false);
   };
 
   const handleCancelEdit = () => {
@@ -191,6 +195,8 @@ const CreateAdmin = (props) => {
       email: "",
       dob: "",
       adminImage: "",
+      selectedRole: {},
+    roleID: "",
     });
     setImage(null);
   };
@@ -224,11 +230,11 @@ const CreateAdmin = (props) => {
     setShowModal(true);
   };
 
-  const changeAdminStatus = async() => {
+  const changeAdminStatus = async () => {
     setLoading(true);
 
-    try{
-      let resp = await UserManagementApi.changeAdminStatus(adminStatus,adminId);
+    try {
+      let resp = await UserManagementApi.changeAdminStatus(adminStatus, adminId);
       if (resp.data.status) {
         notify.success(resp.data.message);
         setLoading(false);
@@ -236,7 +242,7 @@ const CreateAdmin = (props) => {
         handleClose();
       }
     }
-    catch(err){
+    catch (err) {
       if (err && err.response && err.response.data) {
         notify.error(err.response.data.message || "Something went wrong");
       }
@@ -329,6 +335,9 @@ const CreateAdmin = (props) => {
                   name="roleID" className="roleSelect formControl"
                   onChange={handleRoleChange}
                 ></Select>
+                {formik.errors.selectedRole && formik.touched.selectedRole ?
+                  <div className="error-message">{formik.errors.selectedRole}</div>
+                  : null}
               </Form.Group>
             </Col>
 
@@ -439,19 +448,19 @@ const CreateAdmin = (props) => {
                 roundedCircle
               ></Image>
             </Col>
-            {selectedImage ? 
-            <Col md={2}>
-            <span style={{ color: 'red',cursor: 'pointer' }} onClick={removeImage}>x</span>
+            {selectedImage ?
+              <Col md={2}>
+                <span style={{ color: 'red', cursor: 'pointer' }} onClick={removeImage}>x</span>
 
-          </Col>
-          :
-          <></>
+              </Col>
+              :
+              <></>
             }
-            
+
           </Row>
           <div className="textAlign-right  mb-5">
-            {loading == true ? (
-              <Cliploader isLoading={loading} />
+            {isLoading == true ? (
+              <Cliploader isLoading={isLoading} />
             ) : (
               <div>
                 {adminId ? (
@@ -485,7 +494,7 @@ const CreateAdmin = (props) => {
           icons={Tableicons}
           data={allAdmin}
           columns={[
-            { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
+            { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
             { title: "Name", field: "adminName" },
             { title: "Mobile Number", field: "mobileNumber" },
             { title: "email", field: "email" },

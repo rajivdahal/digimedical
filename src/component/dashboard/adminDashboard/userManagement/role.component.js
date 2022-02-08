@@ -57,10 +57,10 @@ const Role = (props) => {
         validate: (values) => {
             let errors = {};
             if (!values.name) {
-                errors.name = 'Required!'
+                errors.name = 'Role Name is required!'
             }
             if (!values.description) {
-                errors.description = 'Required!'
+                errors.description = 'Description is required!'
             }
             return errors;
         },

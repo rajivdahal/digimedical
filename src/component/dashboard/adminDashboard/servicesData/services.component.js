@@ -153,7 +153,7 @@ const Createservices = (props) => {
     function validateName(value) {
         let error;
         if (!value) {
-            error = 'Required!';
+            error = 'Service Name is required!';
         }
         return error;
     }
@@ -161,7 +161,7 @@ const Createservices = (props) => {
     function validatePrice(value) {
         let error;
         if (!value) {
-            error = 'Required!';
+            error = 'Price is required!';
         }
         return error;
     }
@@ -169,7 +169,7 @@ const Createservices = (props) => {
     function validateDescription(value) {
         let error;
         if (!value) {
-            error = 'Required!';
+            error = 'Description is required!';
         }
         return error;
     }

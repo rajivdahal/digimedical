@@ -33,7 +33,7 @@ const doctorApi = {
 
     return httpClient.POST("doctor/create", formData, false, true, "formdata");
   },
-  createHospitalDoctor: (values) => {
+  createHospitalDoctor: (values,hospitalId) => {
     let selectedId = [];
     values.doctorServices.forEach((service, index) => {
       selectedId.push(service.value);
@@ -66,6 +66,7 @@ const doctorApi = {
     formData.append("startTime", values.startTime);
     formData.append("endTime", values.endTime);
     formData.append("serviceId", selectedId);
+    formData.append("hospitalId", hospitalId);
 
     return httpClient.POST(
       "doctor/hospital/create",

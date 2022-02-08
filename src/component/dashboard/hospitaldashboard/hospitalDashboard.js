@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { TimeandDate } from '../../../services/timeanddate';
 import { httpClient } from '../../../utils/httpClient';
 
-
 const HospitalDashboard = (props) => {
   const[totalAppointments,setTotalAppointment] = useState("");
   let [today,settoday]=useState(TimeandDate.today())
@@ -61,7 +60,7 @@ const HospitalDashboard = (props) => {
             </div>
           </div>
         </div>
-        
+
         <div className="col-md-6 grid-margin transparent">
           <div className="row">
             <div className="col-md-6 mb-4 stretch-card transparent">

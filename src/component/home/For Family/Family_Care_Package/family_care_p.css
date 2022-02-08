@@ -170,7 +170,7 @@
   margin-right: 0px;
   padding-right: 0px;
   display: flex;
-
+  flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
 }
