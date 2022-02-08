@@ -160,6 +160,8 @@ asasdas*/
 .hosp_card_but_main {
   display: flex;
   align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: end;
 }
 #hosp_card_but {
   width: auto;

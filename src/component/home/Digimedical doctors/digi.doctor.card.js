@@ -46,11 +46,11 @@ const DigiMedicalDoctorCard = (props) => {
     }
   }, []);
 
-  useEffect(()=>{
-    if(props.selected){
+  useEffect(() => {
+    if (props.selected) {
       setForm(true);
     }
-  },[props.selected])
+  }, [props.selected])
 
   const bookAppointment = () => {
     let tempForm = showForm === true ? false : true;
@@ -63,7 +63,7 @@ const DigiMedicalDoctorCard = (props) => {
 
     setSelectedDay(value);
     formik.values.appointmentDate = date;
-};
+  };
   const submitAppointment = async (values) => {
     console.log(values);
     let serviceid = props.doctorServices;
@@ -188,9 +188,12 @@ const DigiMedicalDoctorCard = (props) => {
 
         <div className="digidoctor_card_but">
           {" "}
-          <button id="digidoctor_card_but" onClick={bookAppointment}>
+          <div>Rs.{props.price}</div>
+
+          <div><button id="digidoctor_card_but" onClick={bookAppointment}>
             Book an appointment
           </button>
+          </div>
         </div>
       </div>
 

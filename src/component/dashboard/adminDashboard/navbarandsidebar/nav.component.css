@@ -19,3 +19,7 @@
 .logoimg {
   object-fit: cover;
 }
+
+.sidebar-scroll{
+  overflow-y: scroll;
+}

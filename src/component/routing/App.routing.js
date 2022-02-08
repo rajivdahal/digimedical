@@ -310,7 +310,11 @@ export const Approuting = (props) => {
           path="/dashboard/hospital-appointment"
           component={Dashboard}
         ></ProtectedRoute>
-
+        <ProtectedRoute
+          exact
+          path="/dashboard/hospital-service"
+          component={Dashboard}
+        ></ProtectedRoute>
 
 
         {/* CorporateRoutes */}

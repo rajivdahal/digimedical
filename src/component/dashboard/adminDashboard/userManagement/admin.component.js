@@ -251,9 +251,8 @@ const CreateAdmin = (props) => {
   }
 
   const handleRoleChange = (item) => {
-    console.log(item);
     formik.setFieldValue("selectedRole", item);
-  };
+  }
 
   return (
     <div>
@@ -458,6 +457,7 @@ const CreateAdmin = (props) => {
             }
 
           </Row>
+          
           <div className="textAlign-right  mb-5">
             {isLoading == true ? (
               <Cliploader isLoading={isLoading} />
