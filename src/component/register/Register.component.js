@@ -102,8 +102,9 @@ const RegisterComponent = (props) => {
         setispassword(!ispassword)
     }
     const responseGoogle = (response) => {
+
         console.log("response from google login is",response);
-      }
+    }
     return (
         <>
             <Navbar></Navbar>
@@ -212,9 +213,6 @@ const RegisterComponent = (props) => {
                                                         onSuccess={responseGoogle}
                                                         onFailure={responseGoogle}
                                                         cookiePolicy={'single_host_origin'}
-                                                        render={renderProps => (
-                                                            <button onClick={renderProps.onClick} style={{}}>This is my custom Google button</button>
-                                                          )}
                                                     />
                                                     <a href="#"><i className="fab fa-google-plus-g"></i></a>
                                                 </li>

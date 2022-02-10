@@ -172,6 +172,12 @@
   top: -5%;
   left: 35%;
 }
+.err-message-bottom-doctor {
+  color: red;
+  position: relative;
+  top: 6%;
+  left: 0%;
+}
 
 .umi_row {
   width: 92.5%;
