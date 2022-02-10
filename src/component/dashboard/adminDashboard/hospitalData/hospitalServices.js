@@ -42,7 +42,7 @@ const hospitalApi = {
   },
   
   getAllHospital : ()=>{
-    return httpClient.GET("hospital/get-all", false, true);
+    return httpClient.GET("hospital/get-all/admin", false, true);
   },
 
   getHospitalById : (id)=>{

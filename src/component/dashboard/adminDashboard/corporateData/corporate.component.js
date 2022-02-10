@@ -80,7 +80,6 @@ const CorporatePage = (props) => {
         try {
             setLoading(true)
             let corporateId = formik.values.selectedType.value;
-            console.log(corporateId)
             let data = {
                 name: values.name,
                 // status : values.status,
@@ -91,7 +90,7 @@ const CorporatePage = (props) => {
                 contactPersonName: values.personName,
                 mobileNumber: values.mobileNum,
                 email: values.email,
-                corporateTypeId : corporateId,
+                corporateTypeId: corporateId,
                 password: values.password,
                 confirmPassword: values.confirmPassword,
             }
@@ -123,15 +122,21 @@ const CorporatePage = (props) => {
 
     const getEditInfo = (e, data) => {
         setCorporateID(data.id);
+        console.log(data)
+        let corporateType = {
+            label: data.corporatetypename,
+            value: data.corporatetypeid
+        }
         if (data) {
             setCorporateInfo({
                 name: data.name,
                 address: data.address,
                 contactNumber: data.contactnumber,
-                personName: data.contactpersonname,
+                contactPersonName: data.contactpersonname,
                 panNumber: data.panno,
                 establishDate: data.establishdate,
-                mobileNum: data.mobileNumber
+                mobileNum: data.mobilenumber,
+                selectedType: corporateType,
             })
             window.scrollTo(0, 0)
         }
@@ -139,7 +144,8 @@ const CorporatePage = (props) => {
 
     const editCorporateInfo = (values) => {
         try {
-            setLoading(true)
+            setLoading(true);
+            let corporateId = formik.values.selectedType.value;
             let data = {
                 name: values.name,
                 address: values.address,
@@ -147,7 +153,9 @@ const CorporatePage = (props) => {
                 contactNumber: values.contactNumber,
                 establishDate: values.establishDate,
                 contactPersonName: values.personName,
-                mobileNumber: values.mobileNum
+                mobileNumber: values.mobileNum,
+                corporateTypeId: corporateId,
+
             }
             httpClient.PUT("corporate/" + corporateID, data, false, true)
                 .then(resp => {
@@ -163,13 +171,14 @@ const CorporatePage = (props) => {
                             panNumber: "",
                             contactNumber: "",
                             mobileNum: "",
-                            personName: "",
+                            contactPersonName: "",
+
                         })
+                        setCorporateID(null);
+
                     }
                 })
                 .catch(err => {
-                    console.log(err.response)
-                    console.log(err.response.data.message)
                     notify.error(err.response.data.message || "Something went wrong")
                     setLoading(false)
                 })
@@ -179,7 +188,6 @@ const CorporatePage = (props) => {
                 })
         }
         catch (err) {
-            console.log(err)
             notify.error(err)
         }
     }
@@ -193,7 +201,7 @@ const CorporatePage = (props) => {
             panNumber: "",
             contactNumber: "",
             mobileNum: "",
-            personName: "",
+            contactPersonName: "",
         })
 
     }
@@ -246,7 +254,7 @@ const CorporatePage = (props) => {
             })
     }
 
-    const handleTypeChange=(item)=>{
+    const handleTypeChange = (item) => {
         console.log(item);
         formik.setFieldValue('selectedType', item)
     }
@@ -321,10 +329,10 @@ const CorporatePage = (props) => {
                         <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Contact Person Name</Form.Label>
-                                <Form.Control type="text" name="personName" className='formControl'
-                                    onChange={formik.handleChange} value={formik.values.personName} onBlur={formik.handleBlur} />
-                                {formik.errors.personName && formik.touched.personName ?
-                                    <div className="error-message">{formik.errors.personName}</div>
+                                <Form.Control type="text" name="contactPersonName" className='formControl'
+                                    onChange={formik.handleChange} value={formik.values.contactPersonName} onBlur={formik.handleBlur} />
+                                {formik.errors.contactPersonName && formik.touched.contactPersonName ?
+                                    <div className="error-message">{formik.errors.contactPersonName}</div>
                                     : null}
                             </Form.Group>
                         </Col>
@@ -345,7 +353,7 @@ const CorporatePage = (props) => {
                             <Form.Group>
                                 <Form.Label>Mobile Number</Form.Label>
                                 <Form.Control type="text" name="mobileNum" value={formik.values.mobileNum}
-                                    onChange={formik.handleChange} onBlur={formik.handleBlur} className='formControl'/>
+                                    onChange={formik.handleChange} onBlur={formik.handleBlur} className='formControl' />
                                 {formik.errors.mobileNum && formik.touched.mobileNum ?
                                     <div className="error-message">{formik.errors.mobileNum}</div>
                                     : null}
@@ -381,7 +389,7 @@ const CorporatePage = (props) => {
                                         <Form.Group>
                                             <Form.Label>Password</Form.Label>
                                             <Form.Control type="password" name="password" value={formik.values.password}
-                                                onChange={formik.handleChange} onBlur={formik.handleBlur} className='formControl'/>
+                                                onChange={formik.handleChange} onBlur={formik.handleBlur} className='formControl' />
                                             {formik.errors.password && formik.touched.password ?
                                                 <div className="error-message">{formik.errors.password}</div>
                                                 : null}
@@ -391,7 +399,7 @@ const CorporatePage = (props) => {
                                         <Form.Group>
                                             <Form.Label>Confirm Password</Form.Label>
                                             <Form.Control type="password" name="confirmPassword" value={formik.values.confirmPassword}
-                                                onChange={formik.handleChange} onBlur={formik.handleBlur} className='formControl'/>
+                                                onChange={formik.handleChange} onBlur={formik.handleBlur} className='formControl' />
                                             {formik.errors.confirmPassword && formik.touched.confirmPassword ?
                                                 <div className="error-message">{formik.errors.confirmPassword}</div>
                                                 : null}
@@ -435,7 +443,7 @@ const CorporatePage = (props) => {
                     title="Corporate Details"
                     icons={Tableicons}
                     columns={[
-                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
+                        { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
                         { title: 'Name', field: 'name' },
                         { title: 'PAN', field: 'panno' },
                         { title: 'Address', field: 'address', },
