@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom"
+import { Link,useHistory } from "react-router-dom"
 import CoPresentRounded from "@mui/icons-material/CoPresentRounded";
 import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
 
 const Hospitalsidebar = (props) => {
+  const history=useHistory()
+  console.log("props in sidebar is",props)
   const navigateDashboard = () => {
-    // props.props.push("/dashboard/")
-    console.log("navbar clicked")
+    history.push("/dashboard/")
   }
   return (
     <>
@@ -54,7 +55,7 @@ const Hospitalsidebar = (props) => {
               </ul>
             </div>
           </li>
-         
+
           <li className="nav-item">
             <a className="nav-link " data-toggle="collapse" href="#services" aria-expanded="false" aria-controls="services">
               <CoPresentRounded className="dash-icon"></CoPresentRounded>
@@ -66,11 +67,11 @@ const Hospitalsidebar = (props) => {
                 <Link to="/dashboard/hospital-service">
                   <li className="nav-item"><a className="nav-link" href="">Add Services</a></li>
                 </Link>
-                
+
               </ul>
             </div>
           </li>
-         
+
 
         </ul>
       </nav>
