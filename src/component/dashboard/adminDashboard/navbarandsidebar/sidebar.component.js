@@ -20,12 +20,12 @@ const Adminsidebar = (props) => {
         <p className="centered mt-3"><a href="profile.html">
         </a></p>
         <ul className="nav">
-          {/* <li className="nav-item" onClick={navigatedashboard} style={{cursor:"pointer"}}>
+          <li className="nav-item" onClick={navigatedashboard} style={{cursor:"pointer"}}>
             <a className="nav-link" >
               <DashboardIcon className="dash-icon"></DashboardIcon>
               <span className="menu-title">Dashboard</span>
             </a>
-          </li> */}
+          </li>
           <li className="nav-item">
             <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
               <AssignmentIndOutlinedIcon className="dash-icon "></AssignmentIndOutlinedIcon>
@@ -147,10 +147,10 @@ const Adminsidebar = (props) => {
             <div className="collapse" id="package">
               <ul className="nav flex-column sub-menu">
               <Link to="/dashboard/package-description">
-                <li className="nav-item"><a className="nav-link" href="">Package Description</a></li>
+                <li className="nav-item"><a className="nav-link" href="">Master Package</a></li>
                 </Link>
               <Link to="/dashboard/membership-package">
-                <li className="nav-item"><a className="nav-link" href="">Package Offer</a></li>
+                <li className="nav-item"><a className="nav-link" href="">Package </a></li>
                 </Link>
                 <Link to="/dashboard/package-details">
                 <li className="nav-item"><a className="nav-link" href="">Package Details</a></li>

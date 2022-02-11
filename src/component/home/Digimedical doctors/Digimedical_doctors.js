@@ -1,7 +1,6 @@
 import React from "react";
 import "./Digimedical_doctors.css";
 import Navbar from "../../Navbar/Navbar";
-import doctor1 from "../../../assets/client1.png";
 import badge from "../../../assets/badge.png";
 import handheart from "../../../assets/handheart.png";
 import Pagination from "../../common/pagination/pagination.component";
@@ -68,7 +67,6 @@ function Digimedical_doctors(props) {
     let searched = allDigiDoctors.filter((item, index) => {
       return item.doctorname.toLowerCase().includes(name.toLowerCase())
     });
-    console.log(searched)
     setsearcheddoctors(searched);
   };
 

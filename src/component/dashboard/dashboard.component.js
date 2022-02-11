@@ -16,7 +16,6 @@ import Doctornavbar from "./doctordashboard/navbarandsidebar/doctornavbar.compon
 import Doctorsidebar from "./doctordashboard/navbarandsidebar/doctorsidebar.component";
 import { Doctordashboard } from "./doctordashboard/doctordashboard/doctordashboard.component";
 import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappointment.component";
-
 import Appointment from "./adminDashboard/appointmentPage/appointment.component";
 import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component";
 import Prescribe from "./doctordashboard/prescribe/prescribe.component";
@@ -42,7 +41,6 @@ import Corporatenavbar from "./corporatedashboard/corporatenavbar/corporatenavba
 import Corporatesidebar from "./corporatedashboard/corporatesidebar/corporatesidebar.component";
 import { Corporatedashboard } from "./corporatedashboard/corporatedashboard/corporatedashboard.component";
 import Corporateaddmember from "./corporatedashboard/addmembers/corporateaddmembers.component";
-
 import HospitalDashboard from "./hospitaldashboard/hospitalDashboard"
 import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor"
 import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor"
@@ -59,6 +57,7 @@ import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.co
 import CorporateTypes from "./adminDashboard/corporateData/corporate.type";
 import BodyCheckUp from "./userdashboard/commonupcomingappointment/bodyCheckup/bodyCheckUp.component";
 import PackageDescription from "./adminDashboard/packageData/package.desc";
+import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoctor";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -102,6 +101,8 @@ const Dashboard = (props) => {
                                         <ProtectedRoute component={MedicalReports}></ProtectedRoute> :
                                         props.location.pathname === "/dashboard/body-checkup" ?
                                         <ProtectedRoute component={BodyCheckUp}></ProtectedRoute> :
+                                        props.location.pathname === "/dashboard/digi-doctor" ?
+                                        <ProtectedRoute component={DigimedicalDoctor}></ProtectedRoute> :
                                         null
               }
             </> :

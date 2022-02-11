@@ -1,18 +1,31 @@
-import Select from "react-select";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
 import { validateAppointment } from "./appointment.helper";
-import { http, httpClient } from "../../../utils/httpClient";
+import { httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
 import { useHistory } from "react-router-dom";
+import { getCurrentDate } from "../../../utils/dateHelper";
+import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const DigiMedicalDoctorCard = (props) => {
-  var dt = new Date();
   let history = useHistory();
   const [userLogin, setUserLogin] = useState(false);
+  const [showForm, setForm] = useState(false);
+
+  var dt = new Date();
+  const [selectedDay, setSelectedDay] = useState({
+    year: dt.getFullYear(),
+    month: dt.getMonth() + 1,
+    day: dt.getDate(),
+  });
+  const [minDate, setminDate] = useState({
+    year: dt.getFullYear(),
+    month: dt.getMonth() + 1,
+    day: dt.getDate(),
+  });
+  const date = selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
 
   const [appointmentData, setData] = useState({
     firstName: "",
@@ -20,8 +33,7 @@ const DigiMedicalDoctorCard = (props) => {
     middleName: "",
     email: "",
     appointmentTime: "",
-    appointmentDate:
-      dt.getFullYear() + "-" + dt.getMonth() + 1 + "-" + dt.getDate(),
+    appointmentDate: date,
     mobileNumber: "",
   });
 
@@ -34,13 +46,19 @@ const DigiMedicalDoctorCard = (props) => {
     }
   }, []);
 
-  const [showForm, setForm] = useState(false);
-
   const bookAppointment = () => {
     let tempForm = showForm === true ? false : true;
     setForm(tempForm);
   };
 
+  const handleDateChange = (value) => {
+    console.log(value)
+    let date = "";
+    date = value.year + "-" + value.month + "-" + value.day;
+
+    setSelectedDay(value);
+    formik.values.appointmentDate = date;
+};
   const submitAppointment = async (values) => {
     console.log(values);
     let serviceid = props.doctorServices;
@@ -60,6 +78,7 @@ const DigiMedicalDoctorCard = (props) => {
         );
         if (resp.data.status) {
           notify.success(resp.data.message);
+          formik.resetForm();
           setForm(false);
         }
       } catch (err) {
@@ -102,7 +121,6 @@ const DigiMedicalDoctorCard = (props) => {
           err.response.data &&
           err.response.data.message
         ) {
-          // notify.error(err.response.data.message || "Something went wrong");
 
           if (localStorage.getItem("status") == 200) {
             notify.error(
@@ -130,8 +148,8 @@ const DigiMedicalDoctorCard = (props) => {
     validate: (values) => {
       let isLogin = userLogin ? true : false;
       return validateAppointment(values, isLogin);
-    },
-  });
+    }
+  })
 
   return (
     <>
@@ -170,7 +188,6 @@ const DigiMedicalDoctorCard = (props) => {
           </button>
         </div>
       </div>
-      {/* </div> */}
 
       {showForm === true ? (
         userLogin === false ? (
@@ -253,24 +270,18 @@ const DigiMedicalDoctorCard = (props) => {
 
                 <div class="digidoc_appoin_form1">
                   <p>Appointment Date</p>
-
-                  <input
-                    type="date"
+                  <DatePicker
+                    className="form-control"
+                    shouldHighlightWeekends
                     name="appointmentDate"
                     id="appointmentDate"
-                    value={formik.values.appointmentDate}
-                    onChange={formik.handleChange}
-                    min={
-                      dt.getFullYear() +
-                      "-" +
-                      dt.getMonth() +
-                      1 +
-                      "-" +
-                      dt.getDate()
-                    }
-                  />
+                    value={selectedDay}
+                    onChange={handleDateChange}
+                    minimumDate={minDate}
+                    style={{ width: "40px" }}
+                  ></DatePicker>
                   {formik.touched.appointmentDate &&
-                  formik.errors.appointmentDate ? (
+                    formik.errors.appointmentDate ? (
                     <div className="error-message">
                       {formik.errors.appointmentDate}
                     </div>
@@ -286,7 +297,7 @@ const DigiMedicalDoctorCard = (props) => {
                     onChange={formik.handleChange}
                   />
                   {formik.touched.appointmentTime &&
-                  formik.errors.appointmentTime ? (
+                    formik.errors.appointmentTime ? (
                     <div className="error-message">
                       {formik.errors.appointmentTime}
                     </div>
@@ -308,22 +319,18 @@ const DigiMedicalDoctorCard = (props) => {
               <div class="digidoc_appoin_form1">
                 <p>Appointment Date</p>
 
-                <input
-                  type="date"
+                <DatePicker
+                  className="form-control"
+                  shouldHighlightWeekends
                   name="appointmentDate"
                   id="appointmentDate"
-                  onChange={formik.handleChange}
-                  min={
-                    dt.getFullYear() +
-                    "-" +
-                    dt.getMonth() +
-                    1 +
-                    "-" +
-                    dt.getDate()
-                  }
-                />
+                  value={selectedDay}
+                  onChange={handleDateChange}
+                  minimumDate={minDate}
+                  style={{ width: "40px" }}
+                ></DatePicker>
                 {formik.touched.appointmentDate &&
-                formik.errors.appointmentDate ? (
+                  formik.errors.appointmentDate ? (
                   <div className="error-message">
                     {formik.errors.appointmentDate}
                   </div>
@@ -338,7 +345,7 @@ const DigiMedicalDoctorCard = (props) => {
                   onChange={formik.handleChange}
                 />
                 {formik.touched.appointmentTime &&
-                formik.errors.appointmentTime ? (
+                  formik.errors.appointmentTime ? (
                   <div className="error-message">
                     {formik.errors.appointmentTime}
                   </div>

@@ -135,7 +135,7 @@ const Role = (props) => {
                             <Form.Group>
                                 <Form.Label>Role Name :</Form.Label>
                                 <Form.Control type="text" name="name" onChange={formik.handleChange}
-                                    value={formik.values.name} onBlur={formik.handleBlur} />
+                                    value={formik.values.name} onBlur={formik.handleBlur} className='formControl' />
                                 {formik.errors.name && formik.touched.name ?
                                     <div className="error-message">{formik.errors.name}</div>
                                     : null}
@@ -147,7 +147,7 @@ const Role = (props) => {
                             <Form.Group >
                                 <Form.Label>Role Description :</Form.Label>
                                 <Form.Control type="text" name="description" onChange={formik.handleChange}
-                                    value={formik.values.description} onBlur={formik.handleBlur} />
+                                    value={formik.values.description} onBlur={formik.handleBlur} className='formControl'/>
                                 {formik.touched.description && formik.errors.description ?
                                     <div className="error-message">{formik.errors.description}</div>
                                     : null}

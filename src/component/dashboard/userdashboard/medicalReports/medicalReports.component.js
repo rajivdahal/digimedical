@@ -28,14 +28,14 @@ export const MedicalReports = (props) => {
     value: "",
   };
   const bodyCheckUpSchema = Yup.object().shape({
-    checkUpDate: Yup.string().required("Required!"),
-    value: Yup.string().required("Required!"),
+    checkUpDate: Yup.string().required("Checkup date is required!"),
+    value: Yup.string().required("Value is required!"),
   });
   const medicalReportSchema = Yup.object().shape({
-    hospitalName: Yup.string().required("Required!"),
-    doctorName: Yup.string().required("Required!"),
-    visitedDate: Yup.string().required("Required!"),
-    followUpDate: Yup.string().required("Required!"),
+    hospitalName: Yup.string().required("Hospital name is required!"),
+    doctorName: Yup.string().required("Doctor name is required!"),
+    visitedDate: Yup.string().required("Visited Date required!"),
+    followUpDate: Yup.string().required("Follow up date is required!"),
   });
   let [image, setImage] = useState([]);
   const [medicalData, setMedicalData] = useState([]);
@@ -115,6 +115,7 @@ export const MedicalReports = (props) => {
   };
 
   const updateBodyCheckUp = (values, { resetForm }) => {
+    console.log("inside body checkup",values)
     let finaldata = values;
     finaldata.bodyCheckupId = bodyCheckUpCategoryId;
     httpClient
@@ -127,9 +128,8 @@ export const MedicalReports = (props) => {
       })
       .catch((err) => {
         notify.error("Error in updating");
-      });
+      })
   };
-
   const handleImageChange = (event) => {
     let file = [];
     file.push(event.target.files[0]);
@@ -144,173 +144,65 @@ export const MedicalReports = (props) => {
     fetchBodyCheckUpCategories();
     fetchUserBodyCheckup();
   }, []);
+  const formikContent=<Formik
+  initialValues={bodyCheckUpValues}
+    onSubmit={updateBodyCheckUp}
+    validationSchema={bodyCheckUpSchema}
+  >
+  {() => (
+    <Form className=" medical_repo_form">
+      <div className="margin-adjuster1">
+        <div className="labrepo_text_form">
+          <label htmlFor="name">Category:</label>
+          <Select
+            options={bodyCheckUpCategories}
+            onChange={handleCategoryChange}
+            className="select-category"
+          />
+        </div>
+        <div className="labrepo_text_form">
+          <label htmlFor="name">Measured Date:</label>
+          <Field
+            name="checkUpDate"
+            id="checkUpDate"
+            className="prescription_input"
+            placeholder="2020-01-01"
+          ></Field>
+        </div>
+        <ErrorMessage
+          name="checkUpDate"
+          render={(msg) => (
+            <div >{msg}</div>
+           )}
+        />
+      </div>
+      <div className="margin-adjuster2">
+        <div className="labrepo_text_form">
+          <label htmlFor="name">Value:</label>
+          <Field
+            name="value"
+            id="value"
+            className="prescription_input"
+            placeholder="120/80 mm"
+          ></Field>
+        </div>
+        <ErrorMessage
+          name="checkUpDate"
+          render={(msg) => (
+            <div >{msg}</div>
+          )}
+        />
+        <button type="submit" className="button-submit">
+          Update
+        </button>
+      </div>
+    </Form>
+  )}
+</Formik>
   return (
     <div className="med_repo_main">
       <div className="main-psetImage  report-container">
         <h2>Update your previous report here</h2>
-        <div className="previous-reports-wrapper">
-          <h4>Update Utility Information</h4>
-          <Formik
-            initialValues={bodyCheckUpValues}
-            onSubmit={updateBodyCheckUp}
-            validationSchema={bodyCheckUpSchema}
-          >
-            {() => (
-              <Form className=" medical_repo_form">
-                <div className="margin-adjuster1">
-                  <div className="labrepo_text_form">
-                    <label htmlFor="name">Category:</label>
-                    <Select
-                      options={bodyCheckUpCategories}
-                      onChange={handleCategoryChange}
-                      className="select-category"
-                    />
-                  </div>
-                  <div className="labrepo_text_form">
-                    <label htmlFor="name">Measured Date:</label>
-                    <Field
-                      name="checkUpDate"
-                      id="checkUpDate"
-                      className="prescription_input"
-                      placeholder="2020-01-01"
-                    ></Field>
-                  </div>
-                  <ErrorMessage
-                    name="checkUpDate"
-                    render={(msg) => (
-                      <div className="err-message-bottom">{msg}</div>
-                    )}
-                  />
-                </div>
-                <div className="margin-adjuster2">
-                  <div className="labrepo_text_form">
-                    <label htmlFor="name">Value:</label>
-                    <Field
-                      name="value"
-                      id="value"
-                      className="prescription_input"
-                      placeholder="120/80 mm"
-                    ></Field>
-                  </div>
-                  <ErrorMessage
-                    name="checkUpDate"
-                    render={(msg) => (
-                      <div className="err-message-bottom">{msg}</div>
-                    )}
-                  />
-
-                  <button type="submit" className="button-submit">
-                    Update
-                  </button>
-                </div>
-              </Form>
-            )}
-          </Formik>
-
-          <div className="medical-report-button">
-            <h4>Update Medical Information</h4>
-
-            <Formik
-              initialValues={medicalReport}
-              onSubmit={upload}
-              validationSchema={medicalReportSchema}
-            >
-              {() => (
-                <Form className=" medical_repo_form ">
-                  <div className="margin-adjuster1">
-                    <div className="labrepo_text_form ">
-                      <label htmlFor="name">Hospital Name:</label>
-                      <Field
-                        name="hospitalName"
-                        id="hospitalName"
-                        className="prescription_input"
-                      ></Field>
-                    </div>
-                    <ErrorMessage
-                      name="hospitalName"
-                      render={(msg) => (
-                        <div className="err-message-bottom">{msg}</div>
-                      )}
-                    />
-
-                    <div className="labrepo_text_form">
-                      <label htmlFor="name">Doctor Name:</label>
-                      <Field
-                        name="doctorName"
-                        id="doctorName"
-                        className="prescription_input"
-                      ></Field>
-                    </div>
-                    <ErrorMessage
-                      name="doctorName"
-                      render={(msg) => (
-                        <div className="err-message-bottom">{msg}</div>
-                      )}
-                    />
-
-                    <div className="labrepo_text_form">
-                      <label htmlFor="name">Visited Date:</label>
-                      <Field
-                        name="visitedDate"
-                        id="visitedDate"
-                        className="prescription_input"
-                        placeholder="2020-01-01"
-                      ></Field>
-                    </div>
-                    <ErrorMessage
-                      name="visitedDate"
-                      render={(msg) => (
-                        <div className="err-message-bottom">{msg}</div>
-                      )}
-                    />
-
-                    <div className="labrepo_text_form">
-                      <label htmlFor="name">Follow Up Date:</label>
-                      <Field
-                        name="followUpDate"
-                        id="followUpDate"
-                        className="prescription_input"
-                        placeholder="2020-01-01"
-                      ></Field>
-                    </div>
-                    <ErrorMessage
-                      name="followUpDate"
-                      render={(msg) => (
-                        <div className="err-message-bottom">{msg}</div>
-                      )}
-                    />
-                  </div>
-                  <div className="margin-adjuster2">
-                    <div className="labrepo_text_form">
-                      <label htmlFor="name">Image of Report:</label>
-                      <input
-                        name="image"
-                        className="prescription_inputimage"
-                        type={"file"}
-                        onChange={(event) => {
-                          handleImageChange(event);
-                        }}
-                      ></input>
-                    </div>
-
-                    <div className="labrepo_text_form">
-                      <label htmlFor="name">Description:</label>
-                      <Field
-                        name="description"
-                        className="prescription_inputdesc"
-                        style={{ height: "100px" }}
-                      ></Field>
-                    </div>
-
-                    <button type="submit" className="button-submit">
-                      Update
-                    </button>
-                  </div>
-                </Form>
-              )}
-            </Formik>
-          </div>
-        </div>
         <div className="row umi_row">
           <div className="col-md-12 grid-margin stretch-card">
             <div className="card">
@@ -334,13 +226,121 @@ export const MedicalReports = (props) => {
                   </p>
                 </div>
                 {tableVisibilityInfo.reports ? (
+                  <>
+                    <h4>Update Medical Information</h4>
+                    <Formik
+                      initialValues={medicalReport}
+                      onSubmit={upload}
+                      validationSchema={medicalReportSchema}
+                    >
+                      {() => (
+                        <Form className=" medical_repo_form ">
+                          <div className="margin-adjuster1">
+                            <div className="labrepo_text_form ">
+                              <label htmlFor="name">Hospital Name:</label>
+                              <Field
+                                name="hospitalName"
+                                id="hospitalName"
+                                className="prescription_input"
+                              ></Field>
+                            </div>
+                            <ErrorMessage
+                              name="hospitalName"
+                              render={(msg) => (
+                                <div className="err-message-bottom">{msg}</div>
+                              )}
+                            />
+
+                            <div className="labrepo_text_form">
+                              <label htmlFor="name">Doctor Name:</label>
+                              <Field
+                                name="doctorName"
+                                id="doctorName"
+                                className="prescription_input"
+                              ></Field>
+                            </div>
+                            <ErrorMessage
+                              name="doctorName"
+                              render={(msg) => (
+                                <div className="err-message-bottom">{msg}</div>
+                              )}
+                            />
+
+                            <div className="labrepo_text_form">
+                              <label htmlFor="name">Visited Date:</label>
+                              <Field
+                                name="visitedDate"
+                                id="visitedDate"
+                                className="prescription_input"
+                                placeholder="2020-01-01"
+                              ></Field>
+                            </div>
+                            <ErrorMessage
+                              name="visitedDate"
+                              render={(msg) => (
+                                <div className="err-message-bottom">{msg}</div>
+                              )}
+                            />
+
+                            <div className="labrepo_text_form">
+                              <label htmlFor="name">Follow Up Date:</label>
+                              <Field
+                                name="followUpDate"
+                                id="followUpDate"
+                                className="prescription_input"
+                                placeholder="2020-01-01"
+                              ></Field>
+                            </div>
+                            <ErrorMessage
+                              name="followUpDate"
+                              render={(msg) => (
+                                <div className="err-message-bottom">{msg}</div>
+                              )}
+                            />
+                          </div>
+                          <div className="margin-adjuster2">
+                            <div className="labrepo_text_form">
+                              <label htmlFor="name">Image of Report:</label>
+                              <input
+                                name="image"
+                                className="prescription_inputimage"
+                                type={"file"}
+                                onChange={(event) => {
+                                  handleImageChange(event);
+                                }}
+                              ></input>
+                            </div>
+
+                            <div className="labrepo_text_form">
+                              <label htmlFor="name">Description:</label>
+                              <Field
+                                name="description"
+                                className="prescription_inputdesc"
+                                style={{ height: "100px" }}
+                              ></Field>
+                            </div>
+
+                            <button type="submit" className="button-submit">
+                              Update
+                            </button>
+                          </div>
+                        </Form>
+                      )}
+                    </Formik>
                   <CommonMedicalreportTable
                     medicalData={medicalData}
                   ></CommonMedicalreportTable>
+                  </>
                 ) : tableVisibilityInfo.utilsInfo ? (
+                  <>
+                  <h4>Update Utility Information</h4>
+                    {
+                      formikContent
+                    }
                   <CommonUtilityreportTable
                     bodyCheckUp={bodyCheckUp}
                   ></CommonUtilityreportTable>
+                  </>
                 ) : (
                   <h1>You don't have any appointments</h1>
                 )}

@@ -18,7 +18,10 @@ import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component";
 import OurServices from "../home/Our Services/DoctorAtHome/DoctorAtHome";
 import Digi_doctors from "../home/Digimedical doctors/Digimedical_doctors";
 import Newdash from "../common/dashboard/Newdash.js";
-import Family_care_p from "../home/For Family/Family_Care_Package/Family_care_p";
+import FamilyPackage from "../home/For Family/Family_Care_Package/Family_care_p";
+import CorporatePackage from "../home/forCorporate/corporatePackagePage";
+import DigimedicalDoctor from "../dashboard/userdashboard/digimedicalDoctor/digiMedicalDoctor";
+import ForBusiness from "../home/For Business/forbusiness";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -52,8 +55,18 @@ export const Approuting = (props) => {
         ></PublicRoute>
         <PublicRoute
           exact
-          path="/Family_care_p"
-          component={Family_care_p}
+          path="/forbusiness"
+          component={ForBusiness}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/family-package"
+          component={FamilyPackage}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/corporate-package"
+          component={CorporatePackage}
         ></PublicRoute>
         <PublicRoute
           exact
@@ -183,6 +196,12 @@ export const Approuting = (props) => {
           exact="/dashboard/settings/change-password"
           component={Dashboard}
         ></ProtectedRoute>
+
+        <ProtectedRoute
+          exact="/dashboard/digi-doctorF"
+          component={DigimedicalDoctor}
+        ></ProtectedRoute>
+
         <ProtectedRoute
           exact
           path="/dashboard/doctor-table"

@@ -26,7 +26,8 @@ class Checkoutpopupcomponent extends Component {
         cart.labs.length
           ? cart.labs.map((mainarray, mainarrayindex) => {
               console.log("inside mapper");
-              if (mainarray[0].category == category.category) {
+              // debugger
+              if (mainarray[0].mainCategoryName == category.category) {
                 cart.labs.splice(mainarrayindex, 1);
                 cart.cartvalue = cart.cartvalue - 1;
                 localStorage.setItem("cart", JSON.stringify(cart));
@@ -53,9 +54,11 @@ class Checkoutpopupcomponent extends Component {
         let labdatatocheckout = [];
         cartitems.labs.map((mainarray, mainarrayindex) => {
           mainarray.map((insideobject, insideobjectitem) => {
+            insideobject.labId=insideobject.id
             labdatatocheckout.push(insideobject);
           });
         });
+        console.log("to checkout data are",labdatatocheckout)
         labdatatocheckout.length
           ? httpClient
               .POST("lab-booking/create", labdatatocheckout, false, true)
@@ -85,10 +88,10 @@ class Checkoutpopupcomponent extends Component {
         let subcategoryarray = {};
         mainarray.map((item, index) => {
           if (index == 0) {
-            subcategoryarray.category = item.category;
-            subcategories.push(item.subcategoryname);
+            subcategoryarray.category = item.mainCategoryName;
+            subcategories.push(item.labcategoryname);
           } else {
-            subcategories.push(item.subcategoryname);
+            subcategories.push(item.labcategoryname);
           }
           if (index == mainarray.length - 1) {
             subcategoryarray.subcategories = subcategories;

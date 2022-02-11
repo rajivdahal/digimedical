@@ -11,6 +11,7 @@ const PackageApi = {
             lunchingOfferPrice: values.launchingOffer,
             laboratoryPercentage: values.labDiscount,
             masterPackageId : selectedId,
+            description : values.description,
         }
         console.log(data)
         return httpClient.POST("membership-packages/create", data, false, true)
@@ -28,7 +29,7 @@ const PackageApi = {
             lunchingOfferPrice: values.launchingOffer,
             laboratoryPercentage: values.labDiscount,
             masterPackageId : selectedId,
-
+            description : values.description,
         }
         return httpClient.PUT("membership-packages/" + id, data, false, true)
     },

@@ -6,7 +6,7 @@ import MaterialTable from 'material-table'
 import Edit from '@material-ui/icons/Edit';
 import Tableicons from "../../../../utils/materialicons";
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Row, Col } from 'react-bootstrap';
 import "./services.component.css"
 import ClipLoader from "../../../../utils/clipLoader";
 import { Field, Form, Formik } from "formik";
@@ -21,6 +21,7 @@ const Createservices = (props) => {
     const [service, setService] = useState({
         serviceName: "",
         serviceDescription: "",
+        price: "",
         activeStatus: "",
     }
     )
@@ -47,7 +48,8 @@ const Createservices = (props) => {
         setLoading(true)
         let serviceData = {
             serviceName: values.serviceName,
-            serviceDescription: values.serviceDescription
+            serviceDescription: values.serviceDescription,
+            price: values.price,
         }
 
         await httpClient.POST("services/create", serviceData, false, true)
@@ -63,7 +65,6 @@ const Createservices = (props) => {
             .catch(err => {
                 setLoading(false)
                 notify.error(err.response.data.message)
-
             })
     }
 
@@ -74,9 +75,10 @@ const Createservices = (props) => {
             setService({
                 serviceName: data.serviceName,
                 serviceDescription: data.serviceDescription,
+                price: data.price,
 
             })
-            window.scrollTo(0,0)
+            window.scrollTo(0, 0)
         }
     }
 
@@ -84,7 +86,9 @@ const Createservices = (props) => {
         setLoading(true)
         let serviceData = {
             serviceName: values.serviceName,
-            serviceDescription: values.serviceDescription
+            serviceDescription: values.serviceDescription,
+            price: values.price,
+
         }
 
         httpClient.PUT("services/" + serviceEditId, serviceData, false, true)
@@ -146,14 +150,15 @@ const Createservices = (props) => {
             })
     }
 
-    const columns = [
-        { title: 'Service Name', field: 'serviceName', },
-        { title: 'Service Description', field: 'serviceDescription', sorting: false },
-        { title: 'Status', field: 'activeStatus', filtering: false, sorting: false },
-    ]
-
-
     function validateName(value) {
+        let error;
+        if (!value) {
+            error = 'Required!';
+        }
+        return error;
+    }
+
+    function validatePrice(value) {
         let error;
         if (!value) {
             error = 'Required!';
@@ -191,17 +196,33 @@ const Createservices = (props) => {
                 >
                     {({ errors, touched }) => (
                         <Form className="mb-4">
-                            <div className=" form-group select-label">
-                                <label >Service Name : </label>
-                                <Field name="serviceName" validate={validateName} className="form-control" />
-                                {errors.serviceName && touched.serviceName && <div className="error-message">{errors.serviceName}</div>}
-                            </div>
+                            <Row>
+                                <Col md="8">
+                                    <div>
+                                        <label >Service Name : </label>
+                                        <Field name="serviceName" validate={validateName} className="form-control formControl" />
+                                        {errors.serviceName && touched.serviceName && <div className="error-message">{errors.serviceName}</div>}
+                                    </div>
+                                </Col>
+                                <Col md="4">
+                                    <div>
+                                        <label >Service Price : </label>
+                                        <Field name="price" validate={validatePrice} className="form-control formControl" />
+                                        {errors.price && touched.price && <div className="error-message">{errors.price}</div>}
+                                    </div>
+                                </Col>
+                            </Row>
 
-                            <div className="form-group select-label">
-                                <label>Service Description : </label>
-                                <Field name="serviceDescription" validate={validateDescription} className="form-control" />
-                                {errors.serviceDescription && touched.serviceDescription && <div className="error-message">{errors.serviceDescription}</div>}
-                            </div>
+                            <Row className="mb-4">
+                                <Col>
+                                    <div>
+                                        <label>Service Description : </label>
+                                        <Field name="serviceDescription" validate={validateDescription} className="form-control formControl" />
+                                        {errors.serviceDescription && touched.serviceDescription && <div className="error-message">{errors.serviceDescription}</div>}
+                                    </div>
+                                </Col>
+                            </Row>
+
 
                             {serviceEditId ?
 
@@ -263,8 +284,9 @@ const Createservices = (props) => {
 
                 <MaterialTable
                     columns={[
-                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
+                        { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
                         { title: 'Service Name', field: 'serviceName', },
+                        { title: 'Service Price', field: 'price', },
                         { title: 'Service Description', field: 'serviceDescription', sorting: false },
                         {
                             title: 'Status', field: 'activeStatus',

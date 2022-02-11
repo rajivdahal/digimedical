@@ -1,0 +1,11 @@
+.digiDoctorForm{
+    border: 1px solid #d0d7e2;
+    background: #f5faff;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+}
+
+.outerCard{
+    width: 100%;
+}

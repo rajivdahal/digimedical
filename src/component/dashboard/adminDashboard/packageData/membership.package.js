@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import Select from 'react-select'
 import { useState, useEffect } from "react";
-import { Container, Form, Row, Col, Button,Modal } from "react-bootstrap";
+import { Container, Form, Row, Col, Button, Modal } from "react-bootstrap";
 import Cliploader from "../../../../utils/clipLoader";
 import Tableicons from '../../../../utils/materialicons';
 import MaterialTable from 'material-table';
@@ -17,13 +17,14 @@ const MembershipPackage = (props) => {
     const [masterPackages, setMasterPackages] = useState([]);
     const [allPackages, setAllPackages] = useState([]);
     const [packageID, setPackageID] = useState("");
-    const [packageStatus,setPackageStatus] = useState("");
+    const [packageStatus, setPackageStatus] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [packageData, setPackageData] = useState({
 
         packageId: "",
         selectedPackage: [],
         packageName: "",
+        description: "",
         price: "",
         launchingOffer: "",
         labDiscount: "",
@@ -36,8 +37,8 @@ const MembershipPackage = (props) => {
             let resp = await PackageApi.getPackageDesc();
             console.log(resp)
             if (resp.data.status) {
-                let  tempPackage= resp.data.data;
-                let truePackage = tempPackage.filter((item)=>{
+                let tempPackage = resp.data.data;
+                let truePackage = tempPackage.filter((item) => {
                     return item.status == true
                 })
                 let option = truePackage.map((item, index) => {
@@ -88,8 +89,8 @@ const MembershipPackage = (props) => {
             if (packageID) {
                 handleEditPackage(values)
             } else {
-            createPackage(values);
-                
+                createPackage(values);
+
             }
         },
 
@@ -121,14 +122,14 @@ const MembershipPackage = (props) => {
 
     const handleClose = () => setShowModal(false)
 
-    const deactivatePackage = async (e,data) => {
+    const deactivatePackage = async (e, data) => {
         console.log(data)
         setShowModal(true)
         setPackageID(data.id);
         setPackageStatus(data.status)
     }
 
-    const changePackageStatus=async()=>{
+    const changePackageStatus = async () => {
         setLoading(true)
         try {
             let resp = await PackageApi.changeStatus(packageID, packageStatus);
@@ -146,7 +147,7 @@ const MembershipPackage = (props) => {
 
     }
 
-    const setEditPackageData = (e,data)=>{
+    const setEditPackageData = (e, data) => {
         setPackageID(data.id);
         console.log(data)
         let masterPackage = {
@@ -154,13 +155,14 @@ const MembershipPackage = (props) => {
             value: data.masterPackageId
         }
         setPackageData({
-            packageName : data.name ?? "",
-            price : data.amount ?? 0,
-            labDiscount : data.laboratoryPercentage ?? 0,
-            launchingOffer : data.lunchingOfferPrice ?? 0,
-            selectedPackage : masterPackage
+            packageName: data.name ?? "",
+            price: data.amount ?? 0,
+            description: data.description ?? "",
+            labDiscount: data.laboratoryPercentage ?? 0,
+            launchingOffer: data.lunchingOfferPrice ?? 0,
+            selectedPackage: masterPackage
         })
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
     }
 
 
@@ -168,7 +170,7 @@ const MembershipPackage = (props) => {
         console.log(values)
         setLoading(true)
         try {
-            let resp = await PackageApi.editPackage(values,packageID);
+            let resp = await PackageApi.editPackage(values, packageID);
             if (resp.data.status) {
                 notify.success(resp.data.message)
                 setPackageData({
@@ -177,8 +179,10 @@ const MembershipPackage = (props) => {
                     launchingOffer: "",
                     labDiscount: "",
                     packageId: "",
+                    description: "",
                     selectedPackage: [],
                 })
+                setPackageID(null)
                 getPackages();
             }
         }
@@ -190,16 +194,17 @@ const MembershipPackage = (props) => {
         setLoading(false)
     }
 
-    const handleCancelEdit=()=>{
+    const handleCancelEdit = () => {
         setPackageData({
             packageName: "",
             price: "",
             launchingOffer: "",
             labDiscount: "",
             packageId: "",
+            description: "",
             selectedPackage: [],
         })
-        setPackageData(null)
+        setPackageID(null)
     }
 
     const handlePackageChange = (item) => {
@@ -212,10 +217,10 @@ const MembershipPackage = (props) => {
                 <Form onSubmit={formik.handleSubmit}>
                     <Row className="mb-3">
 
-                    <Col md={4}>
+                        <Col md={4}>
                             <Form.Group>
-                                <Form.Label>Package Name</Form.Label>
-                                <Select className="roleSelect"
+                                <Form.Label>Master Package Name</Form.Label>
+                                <Select className="roleSelect formControl"
                                     value={formik.values.selectedPackage}
                                     options={masterPackages}
                                     name="packageId"
@@ -227,8 +232,8 @@ const MembershipPackage = (props) => {
 
                         <Col md={4}>
                             <Form.Group>
-                                <Form.Label>Sub Package Name :</Form.Label>
-                                <Form.Control type="text" name="packageName" onChange={formik.handleChange}
+                                <Form.Label>Package Name :</Form.Label>
+                                <Form.Control className='formControl' type="text" name="packageName" onChange={formik.handleChange}
                                     value={formik.values.packageName} onBlur={formik.handleBlur} />
                                 {formik.errors.packageName && formik.touched.packageName ?
                                     <div className="error-message">{formik.errors.packageName}</div>
@@ -238,22 +243,32 @@ const MembershipPackage = (props) => {
 
                         <Col md={4}>
                             <Form.Group >
-                                <Form.Label>Actual Price :</Form.Label>
-                                <Form.Control type="text" name="price" onChange={formik.handleChange}
-                                    value={formik.values.price} onBlur={formik.handleBlur} />
-                                {/* {formik.touched.price && formik.errors.price ?
-                                    <div className="error-message">{formik.errors.price}</div>
-                                    : null} */}
+                                <Form.Label>Description :</Form.Label>
+                                <Form.Control className='formControl' type="text" name="description" onChange={formik.handleChange}
+                                    value={formik.values.description} onBlur={formik.handleBlur} />
+                                {formik.touched.description && formik.errors.description ?
+                                    <div className="error-message">{formik.errors.description}</div>
+                                    : null}
                             </Form.Group>
                         </Col>
                     </Row>
 
                     <Row className="mb-3">
 
-                        <Col md={6}>
+                        <Col md={4}>
+                            <Form.Group >
+                                <Form.Label>Actual Price :</Form.Label>
+                                <Form.Control className='formControl' type="text" name="price" onChange={formik.handleChange}
+                                    value={formik.values.price} onBlur={formik.handleBlur} />
+                                {/* {formik.touched.price && formik.errors.price ?
+                                    <div className="error-message">{formik.errors.price}</div>
+                                    : null} */}
+                            </Form.Group>
+                        </Col>
+                        <Col md={4}>
                             <Form.Group >
                                 <Form.Label>Launching Offer</Form.Label>
-                                <Form.Control type="text" name="launchingOffer" onChange={formik.handleChange}
+                                <Form.Control className='formControl' type="text" name="launchingOffer" onChange={formik.handleChange}
                                     value={formik.values.launchingOffer} onBlur={formik.handleBlur} />
                                 {formik.touched.launchingOffer && formik.errors.launchingOffer ?
                                     <div className="error-message">{formik.errors.launchingOffer}</div>
@@ -261,10 +276,10 @@ const MembershipPackage = (props) => {
                             </Form.Group>
 
                         </Col>
-                        <Col md={6}>
+                        <Col md={4}>
                             <Form.Group>
                                 <Form.Label>Laboratory Discount</Form.Label>
-                                <Form.Control type="text" name="labDiscount" onChange={formik.handleChange}
+                                <Form.Control className='formControl' type="text" name="labDiscount" onChange={formik.handleChange}
                                     value={formik.values.labDiscount} onBlur={formik.handleBlur} />
                                 {formik.errors.labDiscount && formik.touched.labDiscount ?
                                     <div className="error-message">{formik.errors.labDiscount}</div>
@@ -311,7 +326,7 @@ const MembershipPackage = (props) => {
                     icons={Tableicons}
                     data={allPackages}
                     columns={[
-                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
+                        { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
                         { title: 'Name', field: 'name' },
                         { title: 'Actual Price', field: 'amount' },
                         { title: 'Launching Price', field: 'lunchingOfferPrice' },
@@ -338,7 +353,7 @@ const MembershipPackage = (props) => {
                         {
                             icon: Clear,
                             tooltip: "Change Status",
-                            onClick: (e, rowData) => {deactivatePackage(e, rowData) },
+                            onClick: (e, rowData) => { deactivatePackage(e, rowData) },
                         },
 
                     ]}
