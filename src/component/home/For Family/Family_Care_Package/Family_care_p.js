@@ -17,10 +17,9 @@ function FamilyPackage(props) {
     try {
       let resp = await httpClient.GET("master-package/get-for-public/" + id);
       if (resp.data.status) {
-        setPackageData(resp.data.data)
+        setPackageData(resp.data.data);
       }
-    }
-    catch (err) {
+    } catch (err) {
       if (
         err &&
         err.response &&
@@ -30,7 +29,7 @@ function FamilyPackage(props) {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-  }
+  };
 
   const getSubPackages = async () => {
     let id = "";
@@ -38,12 +37,13 @@ function FamilyPackage(props) {
       id = props.location.state.packageId;
     }
     try {
-      let resp = await httpClient.GET("membership-packages/get-package-details/" + id);
+      let resp = await httpClient.GET(
+        "membership-packages/get-package-details/" + id
+      );
       if (resp.data.status) {
-        setSubPackageData(resp.data.data)
+        setSubPackageData(resp.data.data);
       }
-    }
-    catch (err) {
+    } catch (err) {
       if (
         err &&
         err.response &&
@@ -53,12 +53,12 @@ function FamilyPackage(props) {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-  }
+  };
 
   useEffect(() => {
     getPackageData();
     getSubPackages();
-  }, [])
+  }, []);
 
   return (
     <div className="package-page">
@@ -69,7 +69,10 @@ function FamilyPackage(props) {
             Health Packages &nbsp;
           </a>
           <i class="fas fa-chevron-right"></i>
-          <span id="familyhealthpackages"> &nbsp; {props.location.state.packageName}</span>
+          <span id="familyhealthpackages">
+            {" "}
+            &nbsp; {props.location.state.packageName}
+          </span>
         </div>
 
         <div className="down">
@@ -89,52 +92,43 @@ function FamilyPackage(props) {
       <div className="mid-container">
         <p className="question">Why {props.location.state.packageName}?</p>
         {packageData.map((item, index) => {
-          return <>
-            <div className="boxfortext1">
-              <p id="text3">
-                {item.description}
-              </p>
-            </div>
-            <p className="question">Purposes of {item.name}</p>
-            <div className="boxfortext2">
-              <ul>
-                {item.packagePurporses.map((item, index) => {
-                  return <li className="list1">
-                    {item.purposes}
-                  </li>
-                })}
-
-              </ul>
-            </div>
-          </>
+          return (
+            <>
+              <div className="boxfortext1">
+                <p id="text3">{item.description}</p>
+              </div>
+              <p className="question">Purposes of {item.name}</p>
+              <div className="boxfortext2">
+                <ul>
+                  {item.packagePurporses.map((item, index) => {
+                    return <li className="list1">{item.purposes}</li>;
+                  })}
+                </ul>
+              </div>
+            </>
+          );
         })}
 
-
-      <p className="question">Packages details</p>
+        <p className="question">Packages details</p>
       </div>
       <div className="bottom-container">
-
         {subPackageData.map((item, index) => {
-          return <>
-            <div className="boxes">
-
-              <p className="Program">{item.name}</p>
-              <p className="text9">
-                {item.description}
-              </p>
-              <p className="price">Rs.{item.amount}</p>
-              <p className="peryear">per year</p>
-              <ul>
-                {item.membershipDetail.map((item, index) => {
-                  return <li className="list1">
-                    {item}
-                  </li>
-                })}
-              </ul>
-              <button className="button">Get Started</button>
-            </div>
-
-          </>
+          return (
+            <>
+              <div className="boxes">
+                <p className="Program">{item.name}</p>
+                <p className="text9">{item.description}</p>
+                <p className="price">Rs.{item.amount}</p>
+                <p className="peryear">per year</p>
+                <ul>
+                  {item.membershipDetail.map((item, index) => {
+                    return <li className="list1">{item}</li>;
+                  })}
+                </ul>
+                <button className="button">Get Started</button>
+              </div>
+            </>
+          );
         })}
       </div>
       <Footer></Footer>

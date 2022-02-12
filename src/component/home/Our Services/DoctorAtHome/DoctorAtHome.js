@@ -1,16 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-import doctorAtHomewall from "../../assets/doctorAtHomewall.png";
+import doctorAtHomewall from "../../../../assets/doctorAtHomewall.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import DoctorAtHomeForm from "./DoctorAtHomeForm";
-import WhyChooseUs from "../home/WhyChooseUs/WhyChooseUs";
-import OurServices from "../home/About/OurServices";
-import WhatisdoctorAtHomeService from "./whatIsdoctorAtHomeService/whatisdoctorAtHomeService";
-import FrequentlyAsked from "../FrequentlyAsked/FrequentlyAsked";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
-import { Link,useHistory } from "react-router-dom";
+import WhyChooseUs from "../../WhyChooseUs/WhyChooseUs";
+import OurServices from "../../About/OurServices";
+import { useLocation } from "react-router-dom";
+import FrequentlyAsked from "../../../FrequentlyAsked/FrequentlyAsked";
+import Navbar from "../../../Navbar/Navbar";
+import Footer from "../../../Footer/Footer";
+import { Link, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "./doctorAtHome.css";
+import LabtestAtHome from "../labtest at home/labtestAtHome.component";
+import DoctorAtHome from "./doctorathome/doctorAtHome.component";
+import NursingAtHome from "../nursing at home/nursingathome.component";
+import Onlinemedcons from "../onlinemedicalcon/onlinemedcons.component";
+
 const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
@@ -81,26 +87,26 @@ const Heading = styled.div`
   }
 `;
 
-
-
 const FormContainor = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
 `;
 
 const Ourservices = (props) => {
-  let [heading, setHeading] = useState([])
-  let history=useHistory()
+  let [heading, setHeading] = useState([]);
+  let history = useHistory();
+  let location = useLocation();
+  console.log("location is, ", location);
   useEffect(() => {
-    const paramsValue = props.match.params.subservice.split("-")
-    let title = paramsValue.map((item,index) => {
-      return item[0].toUpperCase() + item.substring(1)
-    })  
-    console.log("title is", title)
-    setHeading(title)
-    console.log("inside useeffect")
+    const paramsValue = props.match.params.subservice.split("-");
+    let title = paramsValue.map((item, index) => {
+      return item[0].toUpperCase() + item.substring(1);
+    });
+    console.log("title is", title);
+    setHeading(title);
+    console.log("inside useeffect");
     window.scrollTo(0, 0);
-  }, [props.match.params.subservice])
+  }, []);
 
   return (
     <>
@@ -116,32 +122,48 @@ const Ourservices = (props) => {
         <Navigate>
           <span className="home"> Home</span>
           <span className="arrow">
-            <MdOutlineKeyboardArrowRight/>
+            <MdOutlineKeyboardArrowRight />
           </span>
-          <Link to="/services"> <span className="service"> Service </span></Link>
+          <Link to="/services">
+            {" "}
+            <span className="service"> Service </span>
+          </Link>
           <span className="arrow">
             <MdOutlineKeyboardArrowRight />
           </span>
-          {
-            heading.length ? heading.map((item) => {
-              return <span>{item+'\xa0'}</span>
-            }) : null
-          }
+          {heading.length
+            ? heading.map((item) => {
+                return <span>{item + "\xa0"}</span>;
+              })
+            : null}
         </Navigate>
-        <Heading>{
-          heading.length ? heading.map((item) => {
-            return <span>{` ${item+'\xa0'}`}</span>
-          }) : null
-        }</Heading>
+        <Heading>
+          {heading.length
+            ? heading.map((item) => {
+                return <span>{` ${item + "\xa0"}`}</span>;
+              })
+            : null}
+        </Heading>
         <FormContainor>
-          {
-            !localStorage.getItem("dm-access_token")?<DoctorAtHomeForm />:<p>We provide you the best doctor at home service</p>
-          }
-
+          {!localStorage.getItem("dm-access_token") ? (
+            <DoctorAtHomeForm />
+          ) : (
+            <p>We provide you the best doctor at home service</p>
+          )}
         </FormContainor>
       </Root>
-      <WhatisdoctorAtHomeService heading={heading} params={props.match.params.subservice}/>
+      {location.pathname == "/our-services/doctor-at-home" ? (
+        <DoctorAtHome></DoctorAtHome>
+      ) : location.pathname == "/our-services/labtest-at-home" ? (
+        <LabtestAtHome></LabtestAtHome>
+      ) : location.pathname == "/our-services/nursing-at-home" ? (
+        <NursingAtHome></NursingAtHome>
+      ) : location.pathname == "/our-services/online-medical-consultation" ? (
+        <Onlinemedcons></Onlinemedcons>
+      ) : null}
+
       <WhyChooseUs />
+
       <FrequentlyAsked />
       {/* <OurServices /> */}
       <Footer />
