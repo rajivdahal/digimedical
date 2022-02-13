@@ -12,8 +12,8 @@ export default function Ooscomponent() {
       <div className="digidpc_whycus ourserv-wcu-main">
         <h1>Our Other Services</h1>
         <div className="digidoctor_whychooseus_cont">
-          <p>
-            <span>
+          <p style={{ color: "#374253" }}>
+            <span className="icon-oos">
               <i class="fas fa-file-medical" style={{ color: "#52B2E5" }}></i>
               &nbsp; &nbsp;
             </span>
@@ -21,8 +21,8 @@ export default function Ooscomponent() {
           </p>
         </div>
         <div className="digidoctor_whychooseus_cont">
-          <p>
-            <span>
+          <p style={{ color: "#374253" }}>
+            <span className="icon-oos">
               <i class="fas fa-file-medical" style={{ color: "#52B2E5" }}></i>
               &nbsp; &nbsp;
             </span>
@@ -30,8 +30,8 @@ export default function Ooscomponent() {
           </p>
         </div>
         <div className="digidoctor_whychooseus_cont">
-          <p>
-            <span>
+          <p style={{ color: "#374253" }}>
+            <span className="icon-oos">
               <i class="fas fa-file-medical" style={{ color: "#52B2E5" }}></i>
               &nbsp; &nbsp;
             </span>
@@ -39,17 +39,17 @@ export default function Ooscomponent() {
           </p>
         </div>
         <div className="digidoctor_whychooseus_cont">
-          <p>
-            <span>
+          <p style={{ color: "#374253" }}>
+            <span className="icon-oos">
               <i class="fas fa-file-medical" style={{ color: "#52B2E5" }}></i>
               &nbsp; &nbsp;
             </span>
             PCR At Home
           </p>
         </div>
-        <div className="digidoctor_whychooseus_cont">
-          <p>
-            <span>
+        <div className="digidoctor_whychooseus_cont" style={{ border: "none" }}>
+          <p style={{ color: "#374253" }}>
+            <span className="icon-oos">
               <i class="fas fa-file-medical" style={{ color: "#52B2E5" }}></i>
               &nbsp; &nbsp;
             </span>

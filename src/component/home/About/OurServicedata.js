@@ -41,4 +41,11 @@ export const data = [
       "Ultrasonography(USG), Electrocardiography(ECG), echocardiogram(ECHO) is provided at your home by Digimedical.",
     link: "/our-services/utility-at-home",
   },
+  {
+    img: require("../../../assets/meter.png").default,
+    title: "Physiotherapy at home",
+    description:
+      "Physiotherapy is provided at your Home from DigiMedical,Click here.",
+    link: "/our-services/physiotherapy-at-home",
+  },
 ];

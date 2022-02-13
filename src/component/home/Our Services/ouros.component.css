@@ -5,9 +5,19 @@
   width: 25%;
 }
 
+.ourserv-wcu-main {
+  padding: 10px;
+}
 .emergency-call {
 }
 
 .ourserv-wcu-main {
   margin-top: 50px;
+}
+
+.icon-oos {
+  font-size: 25px;
+}
+.digidoctor_whychooseus_cont p {
+  font-size: 30px;
 }

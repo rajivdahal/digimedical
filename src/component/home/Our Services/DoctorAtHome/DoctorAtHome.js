@@ -14,8 +14,9 @@ import { useState, useEffect } from "react";
 import "./doctorAtHome.css";
 import LabtestAtHome from "../labtest at home/labtestAtHome.component";
 import DoctorAtHome from "./doctorathome/doctorAtHome.component";
-import NursingAtHome from "../nursing at home/nursingathome.component";
+import NursingAtHome from "../nursing at home/nursingAtHome.component";
 import Onlinemedcons from "../onlinemedicalcon/onlinemedcons.component";
+import Physiotherapyathome from "../physiotherapy/physiotherapyathome.component";
 
 const Root = styled.div`
   padding-left: 9rem;
@@ -160,6 +161,8 @@ const Ourservices = (props) => {
         <NursingAtHome></NursingAtHome>
       ) : location.pathname == "/our-services/online-medical-consultation" ? (
         <Onlinemedcons></Onlinemedcons>
+      ) : location.pathname == "/our-services/physiotherapy-at-home" ? (
+        <Physiotherapyathome></Physiotherapyathome>
       ) : null}
 
       <WhyChooseUs />
