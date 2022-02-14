@@ -11,21 +11,20 @@ import { loginUser } from "../../../actions/User.ac";
 import { dashboardClose, dashboardOpen } from "../../../actions/dashboard.ac";
 
 export const Dashboardnavbar = (props) => {
-  console.log("store is updates in navbarr");
   let [username, setusername] = useState("");
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
   });
   const user = useSelector((state) => state.user);
   const sidebar = useSelector((state) => state.sidebar);
-  console.log("sidebar isssss", sidebar);
+
   const dispatch = useDispatch();
+
   const fetchProfileImage = bindActionCreators(loginUser, dispatch);
   const openDashboard = bindActionCreators(dashboardOpen, dispatch);
   const closeDashboard = bindActionCreators(dashboardClose, dispatch);
-  console.log("store state is", user);
+  
   const Logout = (e) => {
-    console.log("inside logoutttt");
     setlogoutstate({
       logout: true,
     });
@@ -52,7 +51,6 @@ export const Dashboardnavbar = (props) => {
   };
 
   useEffect(async () => {
-    console.log("inside useeffect");
     fetchProfileImage();
     await httpClient
       .GET("user-profile", false, true)
@@ -65,16 +63,16 @@ export const Dashboardnavbar = (props) => {
         notify.error("something went wrong");
       });
   }, []);
+
   const showDashboard = () => {
     if (sidebar.isopen) {
       return closeDashboard();
     }
     openDashboard();
-  };
-  console.log("logoutstate is", logoutstate);
+  }
+
   return (
     <>
-      {console.log("rerendered navbar")}
       <div className="newdash_nav">
         <div className="newdash_hamburger" onClick={showDashboard}>
           <i class="fas fa-bars"></i>

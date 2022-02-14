@@ -5,9 +5,13 @@ import { httpClient } from '../../../../utils/httpClient'
 import "./doctornavbar.component.css"
 import { Link } from 'react-router-dom'
 import logo from "./../../../../assets/logo.png"
-import dashavatar from "./../../../../assets/avatars.png"
+import dashavatar from "./../../../../assets/avatars.png";
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+
+
 const Doctornavbar = (props) => {
-    let [username, setusername] = useState("")
+    let [username, setusername] = useState("");
+    let id = localStorage.getItem("userid");
     const [logoutstate, setlogoutstate] = useState({
         logout: false,
     })
@@ -41,7 +45,7 @@ const Doctornavbar = (props) => {
             })
     })
     const gotoProfile = () => {
-        props.props.push('/dashboard/settings/userprofile')
+        props.props.push('/dashboard/settings/doctor-profile')
     }
     const changepassword = () => {
         props.props.push('/dashboard/settings/change-password')
@@ -58,7 +62,7 @@ const Doctornavbar = (props) => {
          </div>
          <div className="newdash_user">
            <div className="newdash_user_img">
-             <img src={dashavatar} alt="" />
+             <img src={id ? REACT_APP_BASE_URL + "doctor/download-profile/" + id : dashavatar} alt="" />
            </div>
            <div className="newdash_user_optionmain">
              {" "}

@@ -107,42 +107,46 @@ function FormComponent(props) {
     },
     validate: (values) => {
       let errors = {};
-      if (!values.firstName) {
-        errors.firstName = "Required!";
-      }
+      
       if (values.firstName.length < 2) {
-        errors.firstName = "Invalid first name.";
+        errors.firstName = "Invalid First Name!";
+      }
+      if (!values.firstName) {
+        errors.firstName = "First Name is required!";
+      }
+      
+      if (values.lastName.length < 2) {
+        errors.lastName = "Invalid Last Name!";
       }
       if (!values.lastName) {
-        errors.lastName = "Required!";
+        errors.lastName = "Last Name is required!";
       }
-      if (values.lastName.length < 2) {
-        errors.lastName = "Invalid last name.";
-      }
-      if (!values.email) {
-        errors.email = "Required!";
-      } else if (
+      if (
         !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)
       ) {
-        errors.email = "Invalid email format";
+        errors.email = "Invalid Email format";
       }
-      if (!values.mobileNumber) {
-        errors.mobileNumber = "Required!";
+      if (!values.email) {
+        errors.email = "Email is required!";
       }
+      
       if (("" + values.mobileNumber).length != 10) {
         errors.mobileNumber = "Mobile Number must be of 10 digits!";
       }
+      if (!values.mobileNumber) {
+        errors.mobileNumber = "Mobile Number is required!";
+      }
       if (!values.servicesId) {
-        errors.servicesId = "Required!";
+        errors.servicesId = "Service is required!";
       }
       if (!values.doctorId) {
-        errors.doctorId = "Required!";
+        errors.doctorId = "Doctor is required!";
       }
       if (!values.appointmentDate) {
-        errors.appointmentDate = "Required!";
+        errors.appointmentDate = "Appointment Date is required!";
       }
       if (!values.appointmentTime) {
-        errors.appointmentTime = "Required!";
+        errors.appointmentTime = "Appointment Time is required!";
       }
       return errors;
     },
@@ -243,16 +247,16 @@ function FormComponent(props) {
     validate: (values) => {
       let errors = {};
       if (!values.servicesId) {
-        errors.serviceId = "Required";
+        errors.serviceId = "Service is required!";
       }
       if (!values.doctorId) {
-        errors.doctorId = "Required";
+        errors.doctorId = "Doctor is required!";
       }
       if (!values.appointmentDate) {
-        errors.appointmentDate = "Required";
+        errors.appointmentDate = "Appointment Date is required!";
       }
       if (!values.appointmentTime) {
-        errors.appointmentTime = "Required";
+        errors.appointmentTime = "Appointment Time is required!";
       }
       return errors;
     },

@@ -10,8 +10,6 @@ const ViewProfile = (props) => {
     let id = localStorage.getItem("userid");
     let url = REACT_APP_BASE_URL + "download/" + id;
     setImage(url);
-    // console.log(id)
-    console.log(props);
   };
   useEffect(() => {
     getUser();

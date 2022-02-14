@@ -1,15 +1,14 @@
 import { Form, Formik, Field } from "formik";
 import { useState, useRef, useEffect } from "react";
 import { Col, Container, Row, Button, Image } from "react-bootstrap";
-import { httpClient } from "../../../../../utils/httpClient";
-import Avatar from "../../../../../assets/avatars.png";
-import { notify } from "../../../../../services/notify";
+import { httpClient } from "../../../../utils/httpClient";
+import Avatar from "../../../../assets/avatars.png";
 import { useHistory } from "react-router-dom";
 import Select from "react-select";
+import { notify } from "../../../../services/notify";
+import { REGEX } from "../../../../constants/constants";
+import { DAYS } from "../../../../constants/constants";
 
-import "./editProfile.css";
-import "../userprofile.css";
-import { BLOODGROUP } from "../../../../../constants/constants";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const EditProfile = (props) => {
@@ -18,23 +17,24 @@ const EditProfile = (props) => {
   const imageSelectRef = useRef();
   const [selectedImage, setImage] = useState("");
   const [userID, setUserID] = useState("");
-  const [userProfile, setUserProfile] = useState({
+  const [doctorProfile, setDoctorProfile] = useState({
+    email: "",
+    specialist: "",
+    gender: "",
+    image: "",
+    prefix: "",
+    nmcNum: "",
+    licenseDate: "",
+    description: "",
+    mobilenumber: "",
     firstName: "",
     middleName: "",
     lastName: "",
-    name: "",
-    address: "",
-    email: "",
-    contactNo: "",
-    dob: "",
-    height: "",
-    weight: "",
-    previousDisease: "",
-    fatherName: "",
-    gender: "0",
-    image: "",
-    bloodGroup: "A+",
+    availableDays: [],
+    starttime: "",
+    endtime: "",
   });
+
 
   function validateEmail(value) {
     let error;
@@ -44,39 +44,57 @@ const EditProfile = (props) => {
     return error;
   }
 
-  function validateContactNo(value) {
+  function validateMobileNum(value) {
     let error;
     if (!value) {
       error = "Required!";
-    } else if (("" + value).length != 10) {
+    } if (("" + value).length != 10) {
       error = "Mobile Number must be of 10 digits!";
-    } else if (("" + value).includes("-")) {
-      error.contactNo = "Mobile Number can't be Negative!";
+    } if (("" + value).includes("-")) {
+      error = "Mobile Number can't be Negative!";
+    }
+    if (!REGEX.DECIMAL.test(value)) {
+      error = "Mobile Number must be a number!";
     }
     return error;
   }
 
-
-
   const getUser = () => {
-    let id = localStorage.getItem("userid");
     if (props) {
-      let url = REACT_APP_BASE_URL + "download/" + id;
+      let id = props.id;
+      let availableday = props.availabledays;
+      let selectedDays = [];
+      if (availableday) {
+        let dayArr = availableday.split(",");
+        DAYS.forEach((day) => {
+          let foundDay = dayArr.filter((item) => {
+            return item == day.value;
+          });
+          if (foundDay.length > 0) {
+            selectedDays.push({
+              label: day.label,
+              value: day.value,
+            });
+          }
+        });
+      }
+      let url = REACT_APP_BASE_URL + "doctor/download/" + id;
       setImage(url);
-      setUserProfile({
+      setDoctorProfile({
         firstName: props.firstname,
         middleName: props.middlename,
         lastName: props.lastname,
-        address: props.address,
         email: props.email,
-        contactNo: props.mobilenumber,
-        dob: props.dateofbirth,
-        height: props.height,
-        weight: props.weight,
-        previousDisease: props.disease,
-        fatherName: props.fathername,
-        bloodGroup: props.bloodgroup ?? "A+",
-        gender: props.gender ?? "0",
+        mobilenumber: props.mobilenumber,
+        prefix: props.prefix,
+        nmcNum: props.nmcno,
+        licenseDate: props.liscencedate,
+        specialist: props.specialist,
+        description: props.description,
+        gender: props.gender,
+        starttime: props.starttime,
+        endtime: props.endtime,
+        availableDays: selectedDays,
       });
     }
   };
@@ -84,64 +102,61 @@ const EditProfile = (props) => {
     getUser();
   }, []);
 
-  const updateProfile = (values) => {
+  const updateProfile = async(values) => {
+    let days = [];
+    if (values.availableDays) {
+      days = values.availableDays.map((day) => day.value);
+    }
     let formData = new FormData();
-
     if (values.image) {
       formData.append("image", values.image);
     }
-    if (values.middleName) {
-      formData.append("middleName", values.middleName);
-    }
-    if (values.previousDisease) {
-      formData.append("previousDisease", values.previousDisease);
-    }
-
-    formData.append("firstName", values.firstName);
-    formData.append("lastName", values.lastName);
+    formData.append("specialist", values.specialist);
+    formData.append("description", values.description);
     formData.append("email", values.email);
-    formData.append("address", values.address);
-    formData.append("weight", values.weight);
-    formData.append("height", values.height);
+    formData.append("liscenceDate", values.licenseDate);
+    formData.append("prefix", values.prefix);
     formData.append("gender", values.gender);
-    formData.append("bloodGroup", values.bloodGroup);
-    formData.append("dobAd", values.dob);
-    formData.append("mobileNumber", values.contactNo);
-    formData.append("fatherName", values.fatherName);
+    formData.append("mobileNumber", values.mobilenumber);
+    if (props.hospitalid) {
+      formData.append("availableDays", days);
+      formData.append("startTime", values.starttime);
+      formData.append("endTime", values.endtime);
+    }
 
-    httpClient
-      .PUT("update-user", formData, false, true, "formdata")
-      .then((resp) => {
-        if (resp.data.status) {
-          notify.success(resp.data.message);
-          props.gotoView();
-        }
-      })
-      .catch((err) => {
-        if (err && err.response && err.response.data) {
-          notify.error(err.response.data.message || "Something went wrong");
-        }
-      });
+    try{
+      let resp ;
+      if(props.hospitalid){
+        resp = await httpClient.PUT("doctor/hospital/update-profile", formData, false, true, "formdata");
+      }else{
+        resp = await httpClient.PUT("doctor/update-profile", formData, false, true, "formdata");
+      }
+      if (resp.data.status) {
+        notify.success(resp.data.message);
+        props.gotoView();
+      }
+
+    }catch(err){
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
   };
 
   const cancelProfileEdit = () => {
-    setUserProfile({
-      firstName: "",
-      middleName: "",
-      lastName: "",
-      name: "",
-      address: "",
+    setDoctorProfile({
       email: "",
-      contactNo: "",
-      dob: "",
-      height: "",
-      weight: "",
-      previousDisease: "",
-      fatherName: "",
-      gender: "0",
+      specialist: "",
+      gender: "",
       image: "",
-      bloodGroup: "A+",
-    })
+      prefix: "",
+      licenseDate: "",
+      description: "",
+      mobilenumber: "",
+      availableDays: [],
+      starttime: "",
+      endtime: "",
+    });
     props.gotoView();
 
   };
@@ -160,13 +175,18 @@ const EditProfile = (props) => {
     reader.readAsDataURL(files);
   };
 
+  const handleChooseDays = (item, setFieldValue) => {
+    setFieldValue("availableDays", item);
+  };
+
   return (
     <div className="edit-profile">
       <Container>
         <Formik
           enableReinitialize={true}
-          initialValues={userProfile}
+          initialValues={doctorProfile}
           onSubmit={(values) => {
+            console.log(values);
             updateProfile(values);
           }}
         >
@@ -176,10 +196,10 @@ const EditProfile = (props) => {
                 <Col md={3} className="photo_editprof">
                   <div className="image-wrapper">
                     <Image
-                      src={selectedImage}
-                      fluid
-                      roundedCircle
-                      className="imag-profile"
+                      src={selectedImage} roundedCircle
+                      className="imag-profile" fluid
+                      accept="image/png, image/jpg, image/jpeg"
+
                     ></Image>
                     <Button
                       variant="secondary"
@@ -209,9 +229,9 @@ const EditProfile = (props) => {
                             className="form-control profile-field"
                             disabled
                           />
-                          
                         </div>
                       </Col>
+
                       <Col md={4}>
                         <div className=" form-group select-label">
                           <label> Middle Name : </label>
@@ -222,6 +242,7 @@ const EditProfile = (props) => {
                           />
                         </div>
                       </Col>
+
                       <Col md={4}>
                         <div className=" form-group select-label">
                           <label> Last Name : </label>
@@ -233,17 +254,7 @@ const EditProfile = (props) => {
                         </div>
                       </Col>
 
-                      <Col md={6}>
-                        <div className=" form-group">
-                          <label>Address : </label>
-                          <Field
-                            name="address"
-                            className="form-control profile-field"
-                          />
-                        </div>
-                      </Col>
-
-                      <Col md={6}>
+                      <Col md={5}>
                         <div className=" form-group ">
                           <label>Email : </label>
                           <Field
@@ -257,12 +268,40 @@ const EditProfile = (props) => {
                           )}
                         </div>
                       </Col>
+
+                      <Col md={4}>
+                        <div className=" form-group">
+                          <label>Prefix : </label>
+                          <Field
+                            as="select" value={values.prefix}
+                            name="prefix"
+                            class="select-control profile-field"
+                          >
+                            <option value="MD">MD</option>
+                            <option value="MS">MS</option>
+                            <option value="MBBS">MBBS</option>
+                            <option value="MBBS_MD">MBBS MD</option>
+                            <option value="MBBS_MS">MBBS MS</option>
+                          </Field>
+                        </div>
+                      </Col>
+
+                      <Col md={3}>
+                        <div className=" form-group ">
+                          <label>NMC Number : </label>
+                          <Field
+                            name="nmcNum"
+                            className="form-control profile-field"
+                            disabled
+                          />
+                        </div>
+                      </Col>
+
                       <Col md={4}>
                         <label>Gender : </label>
                         <Field
                           class="select-control profile-field"
-                          as="select"
-                          name="gender"
+                          as="select" name="gender"
                           value={values.gender}
                         >
                           <option value="0">Male</option>
@@ -270,83 +309,91 @@ const EditProfile = (props) => {
                           <option value="2">Other</option>
                         </Field>
                       </Col>
-                      <Col md={4}>
-                        <label>Blood Group : </label>
-                        <Field
-                          class="select-control profile-field"
-                          as="select"
-                          name="bloodGroup"
-                          value={values.bloodGroup}
-                        >
-                          <option value="A+">A-postivie</option>
-                          <option value="A-">A-negative</option>
-                          <option value="B+">B-postive</option>
-                          <option value="B-">B-negative</option>
-                          <option value="O+">O-positive</option>
-                          <option value="O-">O-negative</option>
-                          <option value="AB+">AB-postive</option>
-                          <option value="AB-">AB-negative</option>
-                        </Field>
-                      </Col>
+
                       <Col md={4}>
                         <div className=" form-group">
-                          <label>Date Of Birth : </label>
+                          <label>Licensed Date : </label>
                           <Field
-                            name="dob"
+                            name="licenseDate"
                             className="form-control profile-field"
                             type="date"
                           />
                         </div>
                       </Col>
-                      <Col md={4}>
-                        <div className=" form-group">
-                          <label>Weight : </label>
-                          <Field
-                            name="weight"
-                            className="form-control profile-field"
-                          />
-                          
-                        </div>
-                      </Col>
-                      <Col md={4}>
-                        <div className=" form-group">
-                          <label>Height : </label>
-                          <Field
-                            name="height"
-                            className="form-control profile-field"
-                          />
-                          
-                        </div>
-                      </Col>
+
                       <Col md={4}>
                         <div className=" form-group">
                           <label>Contact Number : </label>
                           <Field
-                            name="contactNo" validate={validateContactNo}
+                            validate={validateMobileNum}
+                            name="mobilenumber"
+                            className="form-control profile-field"
+                          />
+                          {errors.mobilenumber && touched.mobilenumber && (
+                            <div className="error-message">
+                              {errors.mobilenumber}
+                            </div>
+                          )}
+                        </div>
+                      </Col>
+
+                      <Col md={6}>
+                        <div className=" form-group">
+                          <label>Specialist : </label>
+                          <Field
+                            name="specialist"
                             className="form-control profile-field"
                           />
                         </div>
+
                       </Col>
                       <Col md={6}>
                         <div className=" form-group">
-                          <label>Father's Name : </label>
+                          <label>Description : </label>
                           <Field
-                            name="fatherName"
+                            name="description"
                             className="form-control profile-field"
                           />
                         </div>
                       </Col>
-                      {userstatus === "300" ? null : (
-                        <Col md={6}>
-                          <div className=" form-group">
-                            <label>Previous Diseases : </label>
-                            <Field
-                              name="previousDisease"
-                              className="form-control profile-field"
-                            />
-                          </div>
-                        </Col>
-                      )}
+                      {props.hospitalid ?
+                        <>
+
+                          <Col md={4}>
+                            <div className=" form-group">
+                              <label>Available Days : </label>
+                              <Select
+                                value={values.availableDays}
+                                isMulti className="formControl roleSelect"
+                                options={DAYS}
+                                name="availableDays"
+                                onChange={(item) => handleChooseDays(item, setFieldValue)}
+                              ></Select>
+                            </div>
+
+                          </Col><Col md={4}>
+                            <div className=" form-group">
+                              <label>Start Time : </label>
+                              <Field
+                                name="starttime" type="time"
+                                className="form-control profile-field"
+                              />
+                            </div>
+
+                          </Col><Col md={4}>
+                            <div className=" form-group">
+                              <label>End Time : </label>
+                              <Field
+                                name="endtime" type="time"
+                                className="form-control profile-field"
+                              />
+                            </div>
+                          </Col>
+                        </>
+                        :
+                        <></>
+                      }
+
                     </Row>
                   </Container>
                 </Col>
