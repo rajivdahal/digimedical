@@ -61,6 +61,7 @@ import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoct
 import BookPackage from "./corporatedashboard/packages/package.component";
 import UtilsInfo from "./userdashboard/utilsinformation/utilsInfo.component";
 import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
+import DoctorProfile from "./doctordashboard/profileUpdate/profile.component";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -194,8 +195,8 @@ const Dashboard = (props) => {
                             <ProtectedRoute component={Changepassword}></ProtectedRoute> :
                             props.location.pathname === "/dashboard/settings/change-password" ?
                               <ProtectedRoute component={Changepassword}></ProtectedRoute>
-                              : props.location.pathname === "/dashboard/settings/userprofile" ?
-                                <ProtectedRoute component={UserProfile} />
+                              : props.location.pathname === "/dashboard/settings/doctor-profile" ?
+                                <ProtectedRoute component={DoctorProfile} />
                                 : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                   }
                 </>
@@ -218,8 +219,10 @@ const Dashboard = (props) => {
                                   : props.location.pathname === "/dashboard/hospital-appointment" ?
                                     <ProtectedRoute component={HospitalAppointment}></ProtectedRoute>
                                     : props.location.pathname === "/dashboard/hospital-service" ?
-                                    <ProtectedRoute component={HospitalService}></ProtectedRoute>
-                                    : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                                      <ProtectedRoute component={HospitalService}></ProtectedRoute> :
+                                      props.location.pathname === "/dashboard/settings/change-password" ?
+                                        <ProtectedRoute component={Changepassword}></ProtectedRoute>
+                                        : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                           }
                         </div>
                       </div>
@@ -243,8 +246,8 @@ const Dashboard = (props) => {
                                   props.location.pathname == "/dashboard/corporate/book-packages" ?
                                     <ProtectedRoute component={BookPackage} props={props} /> :
                                     props.location.pathname === "/dashboard/settings/change-password" ?
-                                      <ProtectedRoute component={Changepassword}/> :
-                                    <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                                      <ProtectedRoute component={Changepassword} /> :
+                                      <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
                       }
                     </> :
                     <Redirect to="/login" timeoutMsg="Please login again"></Redirect>

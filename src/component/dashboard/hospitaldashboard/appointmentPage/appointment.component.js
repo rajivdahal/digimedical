@@ -20,8 +20,6 @@ const HospitalAppointment = (props) => {
         false,
         true
       );
-
-      console.log(resp);
       let appointment = [];
       if(resp.data.status){
         appointment = resp.data.data;
@@ -29,7 +27,6 @@ const HospitalAppointment = (props) => {
         appointment.forEach((item) => {
           item.appointmentdate = item.appointmentdate.slice(0, 10);
         });
-        console.log(appointment);
         setAppointmentDetail(appointment);
       }
 

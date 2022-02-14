@@ -49,9 +49,9 @@ const validateDoctor = ( values, isEdit = false,isHospital=false ) => {
         errors.licensedDate = 'Licensed Date is required!'
     }
 
-    // if (!values.doctorServices.value) {
-    //     errors.doctorServices = "Service is required!"
-    // }
+    if (values.doctorServices.length <= 0 ) {
+        errors.doctorServices = "Service is required!"
+    }
 
     if(isHospital){
     

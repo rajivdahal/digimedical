@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import WysiwygRoundedIcon from '@mui/icons-material/WysiwygRounded';
 
 const Corporatesidebar = (props) => {
-  const history = useHistory()
+  const history = useHistory();
   const navigateDashboard = () => {
     history.push("/dashboard/")
   }

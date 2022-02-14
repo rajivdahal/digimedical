@@ -1,11 +1,13 @@
-import { Link,useHistory } from "react-router-dom"
+import { Link,useHistory } from "react-router-dom";
 import CoPresentRounded from "@mui/icons-material/CoPresentRounded";
 import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
 const Hospitalsidebar = (props) => {
-  const history=useHistory()
-  console.log("props in sidebar is",props)
+  const history = useHistory();
+
   const navigateDashboard = () => {
-    history.push("/dashboard/")
+     history.push("/dashboard/")
+
+
   }
   return (
     <>

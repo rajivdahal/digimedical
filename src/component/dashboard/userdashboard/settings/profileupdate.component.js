@@ -3,7 +3,7 @@ import EditProfile from "./components/editProfile";
 import ViewProfile from "./components/viewProfile";
 import { httpClient } from "../../../../utils/httpClient"
 import "./userprofile.css";
-const REACT_APP_BASE_URL=process.env.REACT_APP_BASE_URL
+import { notify } from "../../../../services/notify";
 
 const UserProfile = (props) => {
     const [userDetails, setUserDetails] = useState("");
@@ -18,14 +18,15 @@ const UserProfile = (props) => {
 
         httpClient.GET("get-user-details", false, true)
             .then(resp => {
-                console.log(resp)
                 if (resp.data.status) {
                     let details = resp.data.data;
                     setUserDetails(details);
                 }
             })
             .catch(err => {
-                console.log(err)
+                if (err && err.response && err.response.data) {
+                    notify.error(err.response.data.message || "Something went wrong");
+                  }
             })
     }
     useEffect(() => {
