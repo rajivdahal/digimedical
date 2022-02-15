@@ -63,7 +63,7 @@ const DoctorAtHomeForm = () => {
           <label for="inputAddress">Name</label>
           <input
             type="text"
-            class="form-control"
+            className="form-control"
             id="inputAddress"
             placeholder="Name"
           />

@@ -55,6 +55,7 @@ const CreateAdmin = (props) => {
         data.forEach((admin) => {
           admin.adminName = admin.firstName + " " + admin.lastName;
         });
+        console.log(data)
         setAllAdmin(data);
       }
     } catch (err) {
@@ -98,10 +99,12 @@ const CreateAdmin = (props) => {
     setIsLoading(true);
     try {
       let resp = await UserManagementApi.createAdmin(values);
+      console.log(resp);
       if (resp.data.status) {
         notify.success(resp.data.message);
         formik.resetForm();
         getAllAdmin();
+        setImage(null)
       }
     }
     catch (err) {
@@ -130,28 +133,23 @@ const CreateAdmin = (props) => {
   });
 
   const setAdminEditData = (e, data) => {
+    console.log(data)
     let id = data.userId;
     setAdminId(data.id);
     if (data) {
       let url = REACT_APP_BASE_URL + "admin/download/" + id;
       setImage(url);
-
-      // let admindRole = [];
-      // allRole.forEach((role) => {
-      //   let foundRole = data.roles.filter((item) => {
-      //     return (item.id == role.value)
-      //   });
-      //   if (foundRole.length > 0) {
-      //     admindRole.push(foundRole)
-      //   };
-      // })
+      let adminRole = {
+        label : data.roleName,
+        value : data.roleId
+      }
       setAdminInfo({
         firstName: data.firstName,
         middleName: data.middleName,
         lastName: data.lastName,
         dob: data.dob,
         mobileNumber: data.mobileNumber,
-        // selectedRole: admindRole,
+        selectedRole: adminRole,
       });
       window.scrollTo(0, 0);
     }
@@ -196,7 +194,7 @@ const CreateAdmin = (props) => {
       dob: "",
       adminImage: "",
       selectedRole: {},
-    roleID: "",
+      roleID: "",
     });
     setImage(null);
   };
@@ -259,7 +257,7 @@ const CreateAdmin = (props) => {
       <Container>
         <Form onSubmit={formik.handleSubmit}>
           <Row className="mb-3">
-            <Col md={4}>
+            <Col md={6}>
               <Form.Group>
                 <Form.Label>First Name</Form.Label>
                 <Form.Control
@@ -274,7 +272,7 @@ const CreateAdmin = (props) => {
                 ) : null}
               </Form.Group>
             </Col>
-            <Col md={4}>
+            {/* <Col md={4}>
               <Form.Group>
                 <Form.Label>Middle Name</Form.Label>
                 <Form.Control
@@ -284,15 +282,10 @@ const CreateAdmin = (props) => {
                   value={formik.values.middleName}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.middleName && formik.errors.middleName ? (
-                  <div className="error-message">
-                    {formik.errors.middleName}
-                  </div>
-                ) : null}
               </Form.Group>
-            </Col>
+            </Col> */}
 
-            <Col md={4}>
+            <Col md={6}>
               <Form.Group>
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
@@ -457,7 +450,7 @@ const CreateAdmin = (props) => {
             }
 
           </Row>
-          
+
           <div className="textAlign-right  mb-5">
             {isLoading == true ? (
               <Cliploader isLoading={isLoading} />

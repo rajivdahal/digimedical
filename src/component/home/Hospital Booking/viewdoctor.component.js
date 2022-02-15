@@ -34,7 +34,6 @@ export default function Hospital_doctors(props) {
             })
           }
         })
-        console.log(data)
         setallDoctors(data);
 
       });

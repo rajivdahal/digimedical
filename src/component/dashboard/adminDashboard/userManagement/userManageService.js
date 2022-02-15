@@ -41,8 +41,8 @@ const UserManagementApi={
         formData.append("mobileNumber", values.mobileNumber);
         formData.append("password", values.password);
         formData.append("confirmPassword", values.confirmPassword);
-        // formData.append("role", roleid);
-            return httpClient.POST("admin/create", formData, false, true, "formdata")
+        formData.append("roleId", roleid);
+        return httpClient.POST("admin/create", formData, false, true, "formdata")
     },
 
     editAdmin:(values,id)=>{
@@ -56,7 +56,7 @@ const UserManagementApi={
         formData.append("lastName", values.lastName);
         formData.append("dob", values.dob);
         formData.append("mobileNumber", values.mobileNumber);
-        formData.append("role", roleid);
+        formData.append("roleId", roleid);
 
         return httpClient.PUT("admin/update/" + id, formData, false, true, "formdata")
     },

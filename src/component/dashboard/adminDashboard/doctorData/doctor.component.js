@@ -90,6 +90,7 @@ const Createdoctor = (props) => {
           };
         })
         setServices(options);
+        return options;
       }
     }
     
@@ -151,13 +152,14 @@ const Createdoctor = (props) => {
       } else {
         resp = await doctorApi.getAdminDoctorBYId(id);
       }
-
+      console.log(resp)
       if (resp.data.status) {
         // get doctor services + basic details
         let responseData = resp.data.data;
         let data = responseData.basicDetails;
         let serviceData = responseData.services;
         let selectedDays = [];
+
         if (data.availabledays) {
           let dayArr = data.availabledays.split(",");
           days.forEach((day) => {
@@ -170,15 +172,19 @@ const Createdoctor = (props) => {
           });
         }
         // get services details from service data
+        console.log(allServices)
         let savedServices = [];
         allServices.forEach((service) => {
+          console.log(service)
           let found = serviceData.filter((item) => {
-            return item.id.toString() === service.id.toString();
+            console.log(item)
+            return item.id.toString() === service.value.toString();
           });
+          console.log(found)
           if (found.length > 0) {
             savedServices.push({
-              label: service.servicename,
-              value: service.id,
+              label: service.label,
+              value: service.value,
             });
           }
         });

@@ -18,6 +18,19 @@ const validateCorporate = ( values, isEdit = false ) =>{
     if (!values.contactNumber) {
         errors.contactNumber = "Contact Number is required!"
     }
+
+    if(!REGEX.DECIMAL.test(values.mobileNum)){
+        errors.mobileNum = "Mobile Number must be a number!";
+    }
+
+    if (("" + values.mobileNum).includes('-')) {
+        errors.mobileNum = "Mobile Number can't be Negative!"
+    }
+
+    if (! values.mobileNum) {
+        errors.mobileNum = "Mobile Number is required!"
+    }
+
     if (!values.address) {
         errors.address = 'Address is required!'
     }
@@ -34,8 +47,8 @@ const validateCorporate = ( values, isEdit = false ) =>{
         errors.panNumber = 'PAN Number is required!'
     }
 
-    if (!values.personName) {
-        errors.personName = "Contact person Name is required!"
+    if (!values.contactPersonName) {
+        errors.contactPersonName = "Contact person Name is required!"
     }
 
     if (!values.selectedType.value) {
