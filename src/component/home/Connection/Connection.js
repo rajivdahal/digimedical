@@ -6,6 +6,7 @@ import doctor from "../../../assets/doctor.png";
 import hospital from "../../../assets/hospital.png";
 import medical from "../../../assets/medical.png";
 import CountUp from "react-countup";
+import "./connection.css";
 const Root = styled.div`
   position: absolute;
   // align-items: center;
@@ -57,7 +58,8 @@ const Root = styled.div`
     padding: 1.5rem 1rem 1.5rem 1rem;
   }
   @media screen and (max-width: 484px) {
-    margin-top: 4rem;
+    margin-top: 1rem;
+    bottom: -80px;
   }
 
   @media screen and (max-width: 480px) {
@@ -66,12 +68,10 @@ const Root = styled.div`
 `;
 
 const HappyClient = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 25%;
   .icon {
     width: 2.3rem;
+    margin: auto;
     @media screen and (max-width: 650px) {
       width: 2rem;
     }
@@ -80,13 +80,12 @@ const HappyClient = styled.div`
     }
   }
   .counter {
+    display:block;
     margin-top: 0.5rem;
     font-style: normal;
     font-weight: bold;
     font-size: 1.7rem;
     line-height: 42px;
-    display: flex;
-    align-items: center;
     letter-spacing: 0.01em;
     color: #374253;
     @media screen and (max-width: 650px) {
@@ -100,8 +99,6 @@ const HappyClient = styled.div`
     font-style: normal;
     font-weight: 500;
     font-size: 1rem;
-    display: flex;
-    align-items: center;
     letter-spacing: 0.01em;
     color: #596579;
     @media screen and (max-width: 480px) {
@@ -111,12 +108,10 @@ const HappyClient = styled.div`
 `;
 
 const Doctor = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 25%;
   .icon {
     width: 2.3rem;
+    margin: auto;
     @media screen and (max-width: 650px) {
       width: 2rem;
     }
@@ -125,13 +120,12 @@ const Doctor = styled.div`
     // }
   }
   .counter {
+    display: block;
     margin-top: 0.5rem;
     font-style: normal;
     font-weight: bold;
     font-size: 1.7rem;
     line-height: 42px;
-    display: flex;
-    align-items: center;
     letter-spacing: 0.01em;
     color: #374253;
     @media screen and (max-width: 650px) {
@@ -145,8 +139,6 @@ const Doctor = styled.div`
     font-style: normal;
     font-weight: 400;
     font-size: 1rem;
-    display: flex;
-    align-items: center;
     letter-spacing: 0.01em;
     color: #596579;
     @media screen and (max-width: 480px) {
@@ -155,10 +147,7 @@ const Doctor = styled.div`
   }
 `;
 const Hospital = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width:25%;
   .icon {
     width: 2.3rem;
     @media screen and (max-width: 650px) {
@@ -169,13 +158,12 @@ const Hospital = styled.div`
     }
   }
   .counter {
+    display:block;
     margin-top: 0.5rem;
     font-style: normal;
     font-weight: bold;
     font-size: 1.7rem;
     line-height: 42px;
-    display: flex;
-    align-items: center;
     letter-spacing: 0.01em;
     color: #374253;
     @media screen and (max-width: 650px) {
@@ -186,8 +174,6 @@ const Hospital = styled.div`
     font-style: normal;
     font-weight: 400;
     font-size: 1rem;
-    display: flex;
-    align-items: center;
     letter-spacing: 0.01em;
     color: #596579;
     @media screen and (max-width: 480px) {
@@ -196,10 +182,7 @@ const Hospital = styled.div`
   }
 `;
 const MedicalIndustries = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 25%;
   .icon {
     width: 2.3rem;
     @media screen and (max-width: 650px) {
@@ -210,13 +193,12 @@ const MedicalIndustries = styled.div`
     }
   }
   .counter {
+    display:block;
     margin-top: 0.5rem;
     font-style: normal;
     font-weight: bold;
     font-size: 1.7rem;
     line-height: 42px;
-    display: flex;
-    align-items: center;
     letter-spacing: 0.01em;
     color: #374253;
     @media screen and (max-width: 650px) {
@@ -227,8 +209,6 @@ const MedicalIndustries = styled.div`
     font-style: normal;
     font-weight: 400;
     font-size: 1rem;
-    display: flex;
-    align-items: center;
     letter-spacing: 0.01em;
     color: #596579;
     @media screen and (max-width: 480px) {
@@ -236,7 +216,7 @@ const MedicalIndustries = styled.div`
     }
   }
 `;
-const Conection = () => {
+const Conection = () => { 
   return (
     <Root
       style={{
@@ -246,28 +226,28 @@ const Conection = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <HappyClient>
+      <HappyClient className="floating-item">
         <img src={smile} className="icon"></img>
         <span className="counter">
           <CountUp end={1000} duration={3} />+
         </span>
         <span className="subtitle">Happy clients</span>
       </HappyClient>
-      <Doctor>
+      <Doctor className="floating-item">
         <img src={doctor} className="icon"></img>
         <span className="counter">
           <CountUp end={100} duration={2} />+
         </span>
         <span className="subtitle">Doctors</span>
       </Doctor>
-      <Hospital>
+      <Hospital className="floating-item">
         <img src={hospital} className="icon"></img>
         <span className="counter">
           <CountUp end={50} duration={1} />+
         </span>
         <span className="subtitle">Hospitals</span>
       </Hospital>
-      <MedicalIndustries>
+      <MedicalIndustries className="floating-item">
         <img src={medical} className="icon"></img>
         <span className="counter">
           {" "}

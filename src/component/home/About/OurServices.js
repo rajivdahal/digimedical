@@ -8,10 +8,7 @@ import { useLocation } from "react-router-dom";
 
 const OurServiceContainer = styled.div`
   margin-top: 2.5rem;
-  padding-right: 140px;
-  padding-left: 140px;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding: 3rem 100px;
   @media screen and (max-width: 1210px) {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -19,8 +16,7 @@ const OurServiceContainer = styled.div`
 
 
     .view_serv_home {
-      display: flex;
-      margin-left: 70rem;
+      float: right;
       .link_serv_home:hover {
         text-decoration: none;
       }
@@ -53,6 +49,13 @@ const HeadingContainer = styled.div`
     font-style: normal;
     line-height: 52px;
     font-size: 38px;
+    font-weight: bold;
+    @media screen and (max-width: 767px) {
+    font-size: 1.5rem;
+    }
+  }
+  span{
+    font-size: 14px;
   }
 `;
 const ServiceContainer = styled.div`
@@ -65,13 +68,15 @@ const ServiceContainer = styled.div`
   }
   @media screen and (max-width: 650px) {
     grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1rem;
+    margin-top: 0;
   }
 `;
 const ServicesContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto auto;
   grid-gap: 1.2rem;
-  padding: 1rem 0.5rem 0.5rem 1rem;
+  padding: 0.5rem;
   position: relative;
   top: 0;
   transition: top ease 0.3s;
@@ -88,12 +93,17 @@ const ServicesContainer = styled.div`
       color: #7b8698;
     }
   }
+  @media screen and (max-width: 767px) {
+    grid-template-columns: auto auto;
+    grid-gap: 1.2rem;
+  }
 `;
 const ImageContainer = styled.img`
-  height: 30px;
-  width: 35px;
-  margin-top: 0.2rem;
+  width: 55px;
+  height: 40px;
+  object-fit: contain;
 `;
+
 const DescriptionContainer = styled.div`
   h3 {
     color: #192638;
@@ -108,6 +118,7 @@ const DescriptionContainer = styled.div`
     font-size: 0.9rem;
     line-height: 24px;
     letter-spacing: 0.02em;
+    text-align: left;
   }
 `;
 const View = styled.a`

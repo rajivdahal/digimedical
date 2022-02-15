@@ -197,9 +197,9 @@ const RegisterComponent = (props) => {
                                             <h2 className="fs-title text-center">Login With</h2>
                                             <ul>
                                                 <li>
-                                                    <a href="#"><i className="fab fa-facebook-f"></i></a>
+                                                    <a href="#"><i className="fa fa-facebook-f"></i></a>
                                                 </li>
-                                                <li>
+                                                <li> 
                                                     <a href="#"><i className="fab fa-twitter"></i></a>
                                                 </li>
                                                 <li>

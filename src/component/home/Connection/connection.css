@@ -1,0 +1,6 @@
+.floating-item img {
+  height: 2rem;
+  object-fit: contain;
+  margin: auto;
+  display: block;
+}

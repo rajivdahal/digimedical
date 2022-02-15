@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 .hospital_carousel_main {
   width: 100%;
@@ -56,8 +57,8 @@
 }
 .hospital_bookcont_from_user {
   width: 80%;
-  margin-left: 15%;
-  margin-top: 10%;
+  margin-left: 20%;
+  margin-top: 6%;
 }
 
 .hospital_bookconthead {
@@ -87,13 +88,14 @@ form.example input[type="text"] {
   background: #e6eaf0;
   border-radius: 15px;
 }
-
+form.example {
+  position: relative;
+}
 .hosp_srch {
-  margin-left: -50px;
-  margin-top: -3px;
-  float: left;
-  width: 4%;
-  padding: 10px;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   color: #2745f0;
   font-size: 20px;
@@ -122,7 +124,7 @@ asasdas*/
 }
 
 .hospital_book_card1 {
-  padding: 10px;
+  padding: 16px;
   display: flex;
   justify-content: space-between;
   background: #f5faff;
@@ -175,9 +177,7 @@ asasdas*/
   transition: 0.5s;
 }
 #hosp_card_but_user {
-  width: 155px;
-  height: 40px;
-
+  padding: 16px 24px;
   border: 1px solid #2745f0;
   color: #2745f0;
   /* background: rgb(7, 6, 6); */
@@ -317,12 +317,13 @@ asasdas*/
     align-items: center;
   }
   .hospital_book_card1 img {
-    width: 80%;
+    width: 100%;
   }
   .hospital_card_text {
     margin-top: 20px;
     text-align: center;
     padding: 0px;
+    width: 100%;
   }
   .hospital_card_text p2 {
     margin-top: -10px;

@@ -9,6 +9,7 @@ import line from "../../assets/line.png";
 import login from "../../assets/login.png";
 import user from "../../assets/user.png";
 import NavbarMenuItems from "./NavbarMenuItems";
+import './Navbar.css';
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -21,14 +22,20 @@ const Heading = styled.div`
   @media screen and (max-width: 1000px) {
     display: none;
   }
-  margin-left: 6vw;
-
-  width: 86%;
-  height: 80px;
+  padding: 1.25rem 6.5rem;
   display: flex;
   justify-content: space-between;
 
-  .left-div {
+  ul{
+    margin:0 ;
+    padding: 0;
+  }
+
+  li{
+    list-style: none;
+  }
+
+  .left-div { 
     display: flex;
     align-items: center;
     color: #596579;
@@ -42,17 +49,22 @@ const Heading = styled.div`
   }
   .phone-number-div {
     display: flex;
-
+    flex-direction: column;
     margin-left: 0.528rem;
     font-wight: 400;
     font-size: 13px;
     line-height: 22px;
     letter-spacing: 0.01em;
   }
+  
+  ul.phone-number-div li.number h5{
+    display: inline-block;
+  }
   .email-div {
     margin-left: 2.063rem;
     font-wight: 400;
     font-size: 13px;
+    display: flex;
   }
   //   .email-img: {
   //     height: 10px;
@@ -124,11 +136,15 @@ const Navbar = (props) => {
         <div className="left-div">
           <div className="phone-div">
             <img src={phone} className="phone-img"></img>
-            <div className="phone-number-div">
-              <span style={{ marginRight: "1rem" }}>+977 9843346605</span>
-              <span>|</span>
-              <span style={{ marginLeft: "1rem" }}>01 5909141</span>
-            </div>
+
+            <ul className="phone-number-div">
+              <li className="number">
+                <h5>+977 9843346605</h5>
+              </li>
+              <li className="number">
+                <h5>01 5909141</h5>
+              </li>
+            </ul>
           </div>
           <div className="email-div">
             <img
@@ -191,7 +207,7 @@ const Navbar = (props) => {
           ) : (
             <>
               <Link to="/login">
-                <div>
+                <div className="log-item">
                   {" "}
                   <img
                     src={login}
@@ -205,7 +221,7 @@ const Navbar = (props) => {
                 </div>
               </Link>
               <Link to="/register">
-                <div>
+                <div className="log-item">
                   {" "}
                   <img
                     src={user}

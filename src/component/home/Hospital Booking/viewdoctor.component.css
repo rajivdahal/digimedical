@@ -351,4 +351,12 @@ form.doc_appoin_form2::after {
     flex-direction: column;
     gap: 10px;
   }
+  #doc_name_card {
+    display: block;
+    width: 100%;
+  }
+  #doc_edu_brief {
+    display: block;
+    width: 100%;
+  }
 }

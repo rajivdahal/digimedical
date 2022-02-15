@@ -29,8 +29,12 @@ const FormSection = styled.div`
   @media screen and (max-width: 500px) {
     padding: 1rem;
   }
-  .col-md-6 {
+  ${'' /* .col-md-6 {
     padding: 0px 15px 0px 0px;
+  } */}
+
+  .col-md-12{
+    padding: 0;
   }
   .form-control {
     border-radius: 8px;
@@ -48,7 +52,7 @@ const FormSection = styled.div`
     color: #8797a8;
     text-align: center;
     font-size: 12px;
-    margin-top: 4px;
+    margin-top: 20px;
   }
 `;
 
@@ -424,7 +428,8 @@ function FormComponent(props) {
                   value={selectedDay}
                   onChange={datechange}
                   minimumDate={minDate}
-                  style={{ width: "40px" }}
+                  inputClassName="my-custom-input"
+                  style={{ width: "100%"}}
                 ></DatePicker>
                 {formik.errors.appointmentDate &&
                 formik.touched.appointmentDate ? (
@@ -440,7 +445,7 @@ function FormComponent(props) {
                 </label>
                 <input
                   type="time"
-                  placeholder="select time"
+                  placeholder=""
                   id="appointmentTime"
                   className="form-control"
                   {...formik.getFieldProps("appointmentTime")}
@@ -577,7 +582,8 @@ function FormComponent(props) {
                     value={selectedDay}
                     onChange={(value) => datechange(value, "fromLoggedInForm")}
                     minimumDate={minDate}
-                    style={{ width: "40px" }}
+                    inputClassName="my-custom-input"
+                    style={{ width: "100%"}}
                   ></DatePicker>
                 </div>
 

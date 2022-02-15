@@ -121,5 +121,4 @@ export const httpClient = {
     PUT,
     DELETE,
     UPLOAD,
-
 }

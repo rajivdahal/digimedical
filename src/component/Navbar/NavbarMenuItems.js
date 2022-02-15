@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import package_logo from "../../assets/hospital.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./NavbarMenuItems.css";
 import login_signup from "../../component/common/login component/login_signup";
 import login from "./../../assets/login.png";
@@ -200,7 +200,7 @@ const NavbarMenuItems = () => {
 
                 {localStorage.getItem("dm-access_token") ? (
                   <div onClick={Logout} id="link_cat_nav_mob">
-                    <i class="fas fa-sign-out-alt"></i>
+                    <span><i class="fas fa-sign-out-alt"></i></span>
                     <span style={{ color: "#fff" }}>&nbsp; Logout</span>
                   </div>
                 ) : null}
@@ -235,9 +235,9 @@ const NavbarMenuItems = () => {
         </Link>
 
         {/* for desktop navbar */}
-        <div className="menu">
+        <ul className="menu">
           {" "}
-          <div className="menu-item_nav">
+          <li className="menu-item_nav common-menu">
             <Link
               className="link_home_nav"
               to="/services"
@@ -339,8 +339,8 @@ const NavbarMenuItems = () => {
                 </a>
               </div>
             </div>
-          </div>
-          <div className="menu-item_nav">
+          </li>
+          <li className="menu-item_nav common-menu">
             <Link
               className="link_home_nav"
               to="/services"
@@ -371,8 +371,8 @@ const NavbarMenuItems = () => {
                 </a>
               </div>
             </div>
-          </div>
-          <div className="menu-item_nav">
+          </li>
+          <li className="menu-item_nav common-menu">
             <Link
               className="link_home_nav"
               to="/services"
@@ -464,32 +464,32 @@ const NavbarMenuItems = () => {
                 </a>
               </div>
             </div>
-          </div>
-          <span className="menu-item">
+          </li>
+          <li className="menu-item common-menu">
             <Link
               to="/digimedical-doctors"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Our Doctors
             </Link>
-          </span>
-          <span className="menu-item">
+          </li>
+          <li className="menu-item common-menu">
             <Link
               to="/about"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               About Us
             </Link>
-          </span>
-          <span className="menu-item">
+          </li>
+          <li className="menu-item common-menu">
             <Link
               to="/contact"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Contact
             </Link>
-          </span>
-        </div>
+          </li>
+        </ul>
       </LogMenuItemsContainor>
       {/* <div className="nav_search">
         <Search />

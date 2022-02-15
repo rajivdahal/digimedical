@@ -172,6 +172,7 @@ p {
     text-align: center;
   }
   .digidoc_about_desc_head {
+    flex-wrap: wrap;
     justify-content: center;
   }
 
