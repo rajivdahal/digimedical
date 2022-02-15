@@ -1,0 +1,18 @@
+.table-eld-care tr,
+th,
+td {
+  border: 0.6px solid #596579;
+  color: #596579;
+}
+
+.table-eld-care th {
+  padding: 20px;
+  height: 50px;
+  text-align: center;
+}
+
+.table-eld-care td {
+  font-size: 16px;
+  padding: 20px;
+  text-align: center;
+}

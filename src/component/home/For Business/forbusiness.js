@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import Navbar from "../../Navbar/Navbar";
 import Footer from "../../Footer/Footer";
-import DoctorAtHomeForm from "../Our Services/DoctorAtHome/DoctorAtHomeForm";
+import DoctorAtHomeForm from "../Our Services/ourServicesForm";
 import doctorAtHomewall from "../../../assets/doctorAtHomewall.png";
 import Timechart_fb from "../../../assets/forbusinesstime.png";
 import WhyChooseUs from "../WhyChooseUs/WhyChooseUs";

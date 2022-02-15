@@ -1,23 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import doctorAtHomewall from "../../../../assets/doctorAtHomewall.png";
+import doctorAtHomewall from "../../../assets/doctorAtHomewall.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import DoctorAtHomeForm from "./DoctorAtHomeForm";
-import WhyChooseUs from "../../WhyChooseUs/WhyChooseUs";
-import OurServices from "../../About/OurServices";
+import DoctorAtHomeForm from "./ourServicesForm";
+import WhyChooseUs from "../WhyChooseUs/WhyChooseUs";
+import OurServices from "../About/OurServices";
 import { useLocation } from "react-router-dom";
-import FrequentlyAsked from "../../../FrequentlyAsked/FrequentlyAsked";
-import Navbar from "../../../Navbar/Navbar";
-import Footer from "../../../Footer/Footer";
+import FrequentlyAsked from "../../FrequentlyAsked/FrequentlyAsked";
+import Navbar from "../../Navbar/Navbar";
+import Footer from "../../Footer/Footer";
 import { Link, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "./doctorAtHome.css";
-import LabtestAtHome from "../labtest at home/labtestAtHome.component";
-import DoctorAtHome from "./doctorathome/doctorAtHome.component";
-import NursingAtHome from "../nursing at home/nursingAtHome.component";
-import Onlinemedcons from "../onlinemedicalcon/onlinemedcons.component";
-import Physiotherapyathome from "../physiotherapy/physiotherapyathome.component";
-
+import "./doctor at home/doctorAtHome.css";
+import LabtestAtHome from "./labtest at home/labtestAtHome.component";
+import DoctorAtHome from "./doctor at home/doctorAtHome.component";
+import NursingAtHome from "./nursing at home/nursingAtHome.component";
+import Onlinemedcons from "./onlinemedicalcon/onlinemedcons.component";
+import Physiotherapyathome from "./physiotherapy/physiotherapyathome.component";
+import AltMedAtHome from "./alternate medicine at home/altMedAtHome.component";
+import ElderlyCareAtHome from "./elderly care service/elderlyCareAtHome.component";
 const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
@@ -163,6 +164,10 @@ const Ourservices = (props) => {
         <Onlinemedcons></Onlinemedcons>
       ) : location.pathname == "/our-services/physiotherapy-at-home" ? (
         <Physiotherapyathome></Physiotherapyathome>
+      ) : location.pathname == "/our-services/alternative-medicine-at-home" ? (
+        <AltMedAtHome></AltMedAtHome>
+      ) : location.pathname == "/our-services/elderly-care-at-home" ? (
+        <ElderlyCareAtHome></ElderlyCareAtHome>
       ) : null}
 
       <WhyChooseUs />

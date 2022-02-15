@@ -43,9 +43,92 @@ export const data = [
   },
   {
     img: require("../../../assets/meter.png").default,
-    title: "Physiotherapy at home",
+    title: "Physiotherapy Service at home",
     description:
       "Physiotherapy is provided at your Home from DigiMedical,Click here.",
     link: "/our-services/physiotherapy-at-home",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "Alternative Medicine At Home",
+    description: "We provied medicine at home",
+    link: "/our-services/alternative-medicine-at-home",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "Elderly Care Service at Home",
+    description:
+      "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
+    link: "/our-services/elderly-care-at-home",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "Dental Care at home",
+    description:
+      "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
+    link: "/our-services/dental-care-at-home",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "Minor Procedure at home",
+    description:
+      "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
+    link: "/our-services/minor-procedure-at-home",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "Wound Care/Dressing at Home",
+    description:
+      "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
+    link: "/our-services/wound-care-at-home",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "Vaccination at home",
+    description:
+      "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
+    link: "/our-services/vaccination-at-home",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "MRI/CT Scan at home",
+    description:
+      "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
+    link: "/our-services/MRI-CT-Scan-at-home",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "Ambulance Service",
+    description:
+      "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
+    link: "/our-services/ambulance-service",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "Medicine Delivery",
+    description:
+      "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
+    link: "/our-services/medicine-delivery",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "Medical Equipment at home",
+    description:
+      "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
+    link: "/our-services/medical-equip-at-home",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "Helicopter Services",
+    description:
+      "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
+    link: "/our-services/helicopter-service",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "International Hospital Booking",
+    description:
+      "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
+    link: "/our-services/international-hosp-booking",
   },
 ];
