@@ -65,7 +65,6 @@ const DigiMedicalDoctorCard = (props) => {
     formik.values.appointmentDate = date;
   };
   const submitAppointment = async (values) => {
-    console.log(values);
     let serviceid = props.doctorServices;
     if (userLogin === true) {
       let data = {
@@ -147,7 +146,6 @@ const DigiMedicalDoctorCard = (props) => {
     enableReinitialize: true,
     initialValues: appointmentData,
     onSubmit: async (values) => {
-      console.log(values);
       submitAppointment(values);
     },
     validate: (values) => {

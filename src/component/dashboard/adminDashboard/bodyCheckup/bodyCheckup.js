@@ -123,7 +123,6 @@ const BodyCheckup = (props) => {
 
         httpClient.PUT("body-checkup/change/" + checkupId + "/" + tempStatus, {}, false, true)
             .then(resp => {
-                // console.log(resp)
                 if (resp.data.status) {
                     notify.success(resp.data.message)
                     getAllCheckup();
@@ -133,7 +132,7 @@ const BodyCheckup = (props) => {
 
             })
             .catch(err => {
-                console.log(err.response.data)
+                setLoading(false)
             })
     }
 
