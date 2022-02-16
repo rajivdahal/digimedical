@@ -1,5 +1,5 @@
 import React from "react";
-import "./labtestAtHome.css";
+
 import Ooscomponent from "../ouros.component";
 
 export default function labtestAtHome() {

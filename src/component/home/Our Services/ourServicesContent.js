@@ -19,6 +19,16 @@ import Onlinemedcons from "./onlinemedicalcon/onlinemedcons.component";
 import Physiotherapyathome from "./physiotherapy/physiotherapyathome.component";
 import AltMedAtHome from "./alternate medicine at home/altMedAtHome.component";
 import ElderlyCareAtHome from "./elderly care service/elderlyCareAtHome.component";
+import DentalCareAtHome from "./dental care at home/dentalCareAtHome.component";
+import MinorProcedureAtHome from "./minor procedure at home/minorProcedureAtHome.component";
+import WoundNDressingAtHome from "./wound dressing at home/woundNDressing.component";
+import VaccinationAtHome from "./vaccination at home/vaccinationAtHome.component";
+import MRINCTScanService from "./MRI CT Scan Services/MRINCTScanService.component";
+import AmbulanceService from "./ambulance Services/ambulanceService.component";
+import MedicineDelivery from "./Medicine Delivery/medicineDelivery.component";
+import MedicalEquipmentAtHome from "./Medical Equipment at home/medicalEquipmentAtHome.component";
+import HelicopterService from "./helicopter services/helicopterService.component";
+import IntHospBook from "./international hosp booking/intHospBook.component";
 const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
@@ -168,6 +178,28 @@ const Ourservices = (props) => {
         <AltMedAtHome></AltMedAtHome>
       ) : location.pathname == "/our-services/elderly-care-at-home" ? (
         <ElderlyCareAtHome></ElderlyCareAtHome>
+      ) : location.pathname == "/our-services/dental-care-at-home" ? (
+        <DentalCareAtHome></DentalCareAtHome>
+      ) : location.pathname == "/our-services/minor-procedure-at-home" ? (
+        <MinorProcedureAtHome></MinorProcedureAtHome>
+      ) : location.pathname ==
+        "/our-services/wound-care-and-dressing-at-home" ? (
+        <WoundNDressingAtHome></WoundNDressingAtHome>
+      ) : location.pathname == "/our-services/vaccination-at-home" ? (
+        <VaccinationAtHome></VaccinationAtHome>
+      ) : location.pathname == "/our-services/MRI-and-CT-Scan-at-home" ? (
+        <MRINCTScanService></MRINCTScanService>
+      ) : location.pathname == "/our-services/ambulance-service" ? (
+        <AmbulanceService></AmbulanceService>
+      ) : location.pathname == "/our-services/medicine-delivery" ? (
+        <MedicineDelivery></MedicineDelivery>
+      ) : location.pathname == "/our-services/medical-equipment-at-home" ? (
+        <MedicalEquipmentAtHome></MedicalEquipmentAtHome>
+      ) : location.pathname == "/our-services/helicopter-service" ? (
+        <HelicopterService></HelicopterService>
+      ) : location.pathname ==
+        "/our-services/international-hospital-booking" ? (
+        <IntHospBook></IntHospBook>
       ) : null}
 
       <WhyChooseUs />

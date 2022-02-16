@@ -2,7 +2,7 @@ import React from "react";
 import "./elderlyCareAtHome.css";
 import Ooscomponent from "../ouros.component";
 
-export default function labtestAtHome() {
+export default function elderlyCareAtHome() {
   return (
     <div className="ourserv-cont-main">
       <div className="ourserv-cont-main1">

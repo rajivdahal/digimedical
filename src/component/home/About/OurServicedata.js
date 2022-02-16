@@ -80,7 +80,7 @@ export const data = [
     title: "Wound Care/Dressing at Home",
     description:
       "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
-    link: "/our-services/wound-care-at-home",
+    link: "/our-services/wound-care-and-dressing-at-home",
   },
   {
     img: require("../../../assets/Nurse.png").default,
@@ -94,7 +94,7 @@ export const data = [
     title: "MRI/CT Scan at home",
     description:
       "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
-    link: "/our-services/MRI-CT-Scan-at-home",
+    link: "/our-services/MRI-and-CT-Scan-at-home",
   },
   {
     img: require("../../../assets/Nurse.png").default,
@@ -115,7 +115,7 @@ export const data = [
     title: "Medical Equipment at home",
     description:
       "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
-    link: "/our-services/medical-equip-at-home",
+    link: "/our-services/medical-equipment-at-home",
   },
   {
     img: require("../../../assets/Nurse.png").default,
@@ -129,6 +129,6 @@ export const data = [
     title: "International Hospital Booking",
     description:
       "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
-    link: "/our-services/international-hosp-booking",
+    link: "/our-services/international-hospital-booking",
   },
 ];
