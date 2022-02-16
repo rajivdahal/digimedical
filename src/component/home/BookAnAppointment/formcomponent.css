@@ -107,6 +107,14 @@
 .formcompo_datepicker .DatePicker {
   width: 100%;
 }
+.DatePicker {
+  width: 100%;
+}
+.my-custom-input {
+  padding: 0.875rem 1.375rem;
+  width: 100%;
+  border-radius: 8px;
+}
 
 @media screen and (max-width: 700px) {
   .formcompo_home {

@@ -13,6 +13,10 @@
   z-index: 1;
 }
 
+.newdash_content {
+  margin-left: 250px;
+}
+
 .newdash_hamburger {
   display: none;
 
@@ -72,8 +76,8 @@
 }
 
 .newdash_user_img img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -138,13 +142,14 @@ d
 }
 
 .newdash_dash1 {
-  padding-top: 20px;
   -webkit-box-shadow: 0 0 15px 54#5965794f;
   box-shadow: 0 0 15px #5965794f;
   height: 100vh;
   position: fixed;
-  width: 230px;
+  width: 250px;
   background-color: #fff;
+  margin-left: 5px;
+  padding: 5px 10px;
 }
 
 .newdash_dash1_cont1 {

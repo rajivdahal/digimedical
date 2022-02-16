@@ -58,6 +58,10 @@ const DescriptionContainer = styled.div`
     font-style: normal;
     line-height: 52px;
     font-size: 38px;
+    font-weight: bold;
+    @media screen and (max-width: 767px) {
+    font-size: 1.5rem;
+    }
   }
   p {
     line-height: 25px;
@@ -76,6 +80,7 @@ const Button = styled.div`
   color: #fff;
   background: #2745f0;
   border-radius: 5px;
+  font-size: 14px;
 `;
 const WhaiIsDegimediacal = () => {
   useEffect(()=>{

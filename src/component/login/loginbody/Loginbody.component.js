@@ -119,9 +119,9 @@ const Loginbodycomponent = (props) => {
                                         </a><br />
 
                                         <Link to="/forgot-password"><div className="pt-3 text-center w-100">Forgot Password?
-                                            <br />(request a new one)</div>
+                                            </div>
                                         </Link>
-                                        <p className="text-center w-100 pt-3">OR</p>
+                                        <p className="text-center w-100 pt-3" style={{marginBottom: '20px'}}>OR</p>
                                         <Link to="/register">
 
                                             <button className="btn register-btn br/-0 mt-0">
@@ -133,13 +133,13 @@ const Loginbodycomponent = (props) => {
                                             <h2 className="fs-title text-center">Login With</h2>
                                             <ul>
                                                 <li>
-                                                    <a href="#"><i className="fab fa-facebook-f"></i></a>
+                                                    <a href="#"><i className="fa fa-facebook-f"></i></a>
                                                 </li>
-                                                <li>
+                                                {/* <li>
                                                     <a href="#"><i className="fab fa-twitter"></i></a>
-                                                </li>
+                                                </li> */}
                                                 <li>
-                                                    <a href="#"><i className="fab fa-google-plus-g"></i></a>
+                                                    <a href="#"><i className="fab fa-google"></i></a>
                                                 </li>
                                             </ul>
                                         </div>

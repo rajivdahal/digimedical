@@ -61,6 +61,7 @@ function BookAnAppointment(props) {
     font-style: normal;
     line-height: 52px;
     font-size: 38px;
+    font-weight: bold;
   `;
 
   const LeftSection = styled.div`

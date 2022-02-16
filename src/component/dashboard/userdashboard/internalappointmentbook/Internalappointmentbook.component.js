@@ -391,7 +391,7 @@ console.log("date is",date)
               onChange={handleDateChange}
             ></DatePicker>
           </div>
-          <h4>{formatDate(toeditdata.appointmentdate)}</h4>
+          {/* <h4>{formatDate(toeditdata.appointmentdate)}</h4> */}
         </div>
         <div className="form-group col-md-12">
           <label htmlFor="time">Time</label>
@@ -415,7 +415,7 @@ console.log("date is",date)
             }}
           ></input> */}
         </div>
-        <h4>{toeditdata.appointmenttime}</h4>
+        {/* <h4>{toeditdata.appointmenttime}</h4> */}
       </div>
     </div>
   ) : (

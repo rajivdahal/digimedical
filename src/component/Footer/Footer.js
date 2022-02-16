@@ -3,8 +3,11 @@ import styled from "styled-components";
 import logo from "./footerlogo.png";
 import google from "./googleplay.png";
 import qr from "./qrscanner.png";
-import { FaFacebookSquare, FaTwitterSquare, FaInstagram } from "react-icons/fa";
-import { HiOutlineLocationMarker, HiOutlineMail } from "react-icons/hi";
+import './Footer.css'; 
+import { AiFillInstagram } from "react-icons/ai";
+import { FaEnvelope, FaFacebookF, FaTwitter} from "react-icons/fa";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { MdLocationOn } from "react-icons/md";
 import { BsTelephoneFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 const FooterSection = styled.div`
@@ -14,82 +17,144 @@ const FooterContainer = styled.div`
   padding: 40px 130px;
   color: #fff;
   @media screen and (max-width: 1024px) {
-    padding: 40px 100px;
+    padding: 40px 80px;
   }
   @media screen and (max-width: 650px) {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 2.375rem 1.25rem;
   }
 `;
 const TopFooter = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  @media screen and (max-width: 1024px) {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-gap: 16px;
-  }
+  flex-wrap: wrap;
   @media screen and (max-width: 725px) {
     text-align: center;
     display: flex;
     flex-direction: column;
+    padding: 0 1rem;
   }
 `;
 const LeftContainer = styled.div`
+ 
   @media screen and (max-width: 725px) {
+    width: 100%;
     display: flex;
     flex-direction: column;
-
-    align-items: center;
+    ul{
+      li{
+        &:first-of-type{
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+      }
+    }
+  }
+  ul{
+    li{
+      list-style:none;
+      &:first-of-type{
+        margin-bottom: 3rem;
+      }
+      &:nth-of-type(2){ 
+        svg{
+          font-size: 1.5rem;
+          margin-right: 0.5rem;
+        }
+      }
+    }
   }
   .location {
-    line-height: 30px;
     margin-bottom: 1rem;
     display: flex;
+    svg{
+      margin-right: 1rem;
+      line-height: 0;
+    }
+    span{
+      line-height: 0;
+      p{
+      font-weight: 400;
+      font-size: 14px;
+      margin: 0;
+      color: #f4f7fb;
+      }
+    }
+    ul{
+      li{
+        line-height: 0; 
+        p{
+          font-weight: 400;
+          font-size: 14px;
+          margin: 0;
+          color: #f4f7fb;
+        }
+        &:not(:last-of-type){
+          margin-bottom: 5px;
+        }
+      }
+    }
   }
   .icon {
-    margin-right: 0.7rem;
-    margin-top: 0.5rem;
   }
   .image {
     height: 70px;
+    margin-left: -15px;
+    margin-top: -20px;
   }
 `;
 const AboutContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-
+  h4{
+    margin-bottom: 2rem;
+    font-size:20px;
+    @media and screen(max-width: 767px){
+      margin-bottom: 1rem;
+    }
+  }
   a {
-    padding: 0.4rem;
-    font-size: 0.9rem;
+    font-weight: 400;
+    font-size: 0.875rem;
     cursor: pointer;
-    color: #fff;
+    color: #f4f7fb;
+    &:not(:last-of-type){
+      margin-bottom: 1rem;
+    }
+  }
+  @media and screen(max-width: 767px){
+    width: 100%;
   }
 `;
 const ServiceContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  h4{
+    font-size:20px;
+    margin-bottom: 2rem;
+  }
   a {
-    padding: 0.4rem;
-    font-size: 0.9rem;
+    font-weight: 400;
+    font-size: 0.875rem;
     cursor: pointer;
-    color: #fff;
+    color: #f4f7fb;
+    &:not(:last-of-type){
+      margin-bottom: 1rem;
+    }
   }
   &:hover {
     text-decoration: none;
   }
   @media screen and (max-width: 725px) {
     margin-top: 1rem;
+    width: 100%;
   }
 `;
 const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-
+  h4{
+    font-size:23px;
+    margin-bottom: 1.5rem;
+  }
   .google {
     width: 50%;
   }
@@ -98,11 +163,14 @@ const RightContainer = styled.div`
   }
   @media screen and (max-width: 725px) {
     .qr {
-      height: 40vh;
+      height: 30vh;
+      width: auto;
+      object-fit: contain;
     }
   }
   @media screen and (max-width: 725px) {
     margin-top: 1rem;
+    width: 100%;
   }
 `;
 const BorderLine = styled.div`
@@ -119,6 +187,11 @@ const BottomFooter = styled.div`
   }
   .paraSection {
     margin-top: 2rem;
+    p{
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #F4F7FB;
+    };
   }
   @media screen and (max-width: 768px) {
     text-align: justify;
@@ -134,11 +207,34 @@ const TopBottom = styled.div`
   @media screen and (max-width: 768px) {
     flex-direction: column;
   }
+  p{
+    color: #E0E1E3;
+  }
 `;
 const IconBottom = styled.div`
-  font-size: 1.5rem;
-  .facebook {
-    margin-right: 0.8rem;
+  display:flex;
+  align-items: center;
+  span.icon-container{
+    font-size: 1.5rem;
+    height: 30px;
+    padding: 5px;
+    width: 30px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    border-radius:4px;
+    background-color:#fff;
+    color: #2745F0;
+    &:not(:last-of-type){
+      margin-right:1rem;
+    }
+    svg{
+      height: 100%;
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    padding-top: 1rem;
   }
 `;
 const Footer = () => {
@@ -147,32 +243,41 @@ const Footer = () => {
     <>
       <FooterSection>
         <FooterContainer>
-          <TopFooter>
-            <LeftContainer>
-              <img src={logo} className="image" />
-
-              <div className="location">
-                {" "}
-                <HiOutlineLocationMarker className="icon" />{" "}
-                <span>
-                  Lalupate Marga, Putalisadak,
-                  <br />
-                  Kathmandu, Nepal
-                </span>
-              </div>
-              <div className="location">
-                {" "}
-                <BsTelephoneFill className="icon" />
-                <span>
-                  M / +977 9843346605 <br />T / 01 5909141
-                </span>
-              </div>
-              <div className="location">
-                <HiOutlineMail className="icon" />
-                <span>info@digimedicalsewa.com</span>
-              </div>
+          <TopFooter className="top-footer-wrapper">
+            <LeftContainer className="top-footer-item"> 
+            <ul>
+              <li>
+                <img src={logo} className="image" alt="logo"/>
+              </li>
+              <li>
+                <div className="location">
+                  {" "}
+                  <MdLocationOn className="icon" />{" "}
+                  <ul>
+                    <li><p>Lalupate Marga, Putalisadak,</p></li>
+                    <li><p>Kathmandu, Nepal</p></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div className="location">
+                  {" "}
+                  <BsTelephoneFill className="icon" />
+                  <ul>
+                    <li><p>M / +977 9843346605</p></li>
+                    <li><p>T / 01 5909141</p></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <div className="location">
+                  <FaEnvelope className="icon" />
+                  <span><p>info@digimedicalsewa.com</p></span>
+                </div>
+              </li>
+            </ul>
             </LeftContainer>
-            <AboutContainer>
+            <AboutContainer className="top-footer-item">
               <h4>About Us</h4>
               <Link to="/">Home</Link>
               <Link to="/about">About</Link>
@@ -181,20 +286,20 @@ const Footer = () => {
               <Link to="/">Health Packages</Link>
               <Link to="/">Special Packages</Link>
             </AboutContainer>
-            <ServiceContainer>
+            <ServiceContainer className="top-footer-item">
               <h4>Services</h4>
-              <a >Doctor at home</a>
-              <a >24/7 Nursing service at home</a>
-              <a >Online medical consultation</a>
-              <a >Lab test at home</a>
-              <a >PCR at home</a>
-              <a >UCG/ECG/ECHO at home</a>
+              <a>Doctor at home</a>
+              <a>24/7 Nursing service at home</a>
+              <a>Online medical consultation</a>
+              <a>Lab test at home</a>
+              <a>PCR at home</a>
+              <a>UCG/ECG/ECHO at home</a>
             </ServiceContainer>
 
-            <RightContainer>
+            <RightContainer className="top-footer-item">
               <h4>Mobile App</h4>
-              <img src={google} className="google" />
-              <img src={qr} className="qr" />
+              <img src={google} className="google" alt="google-play"/>
+              <img src={qr} className="qr" alt="scan-photo"/>
             </RightContainer>
           </TopFooter>
           <BorderLine />
@@ -202,9 +307,15 @@ const Footer = () => {
             <TopBottom>
               <p>Privacy & Policy/Terms</p>
               <IconBottom>
-                <FaFacebookSquare className="facebook" />
-                <FaTwitterSquare className="facebook" />
-                <FaInstagram />
+                <span className="icon-container">
+                  <FaFacebookF/>
+                </span>
+                <span className="icon-container">
+                  <FaTwitter/>
+                </span>
+                <span className="icon-container">
+                  <AiFillInstagram />
+                </span>
               </IconBottom>
             </TopBottom>
             <div className="paraSection">

@@ -47,7 +47,7 @@ export const Viewappointment = (props) => {
         <div className="main-panel newdash_content">
           <div className="content-wrapper">
             <div className="row">
-              <div className="col-md-12 grid-margin">
+              <div className="col-md-12">
                 <div className="row">
                   <div className="col-12 col-xl-8 mb-4 mb-xl-0">
                     <h6 className="font-weight-normal mb-0">
@@ -75,7 +75,7 @@ export const Viewappointment = (props) => {
               </div>
             </div>
 
-            <div className="row"></div>
+            {/* <div className="row"></div> */}
 
             <div className="row">
               <div className="col-md-12 grid-margin stretch-card">
