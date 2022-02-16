@@ -89,18 +89,19 @@
 
 .labtest_desc1 {
   height: 62%;
-  margin-left: 40%;
+
   justify-content: left;
   display: flex;
-  overflow-y: scroll;
 }
-
+.labtest_desc_detail {
+  width: 100%;
+}
 .labtest_desc_detail ul li {
   font-weight: 400px;
 
   font-size: 15px;
   color: #596579;
-  line-height: 22px;
+  line-height: 20px;
 }
 
 #lab_test_detail {

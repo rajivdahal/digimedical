@@ -25,6 +25,13 @@ class userlabtestcomponent extends Component {
       issubcategoryloading: false,
       datas: [],
       totaltoshow: [],
+      totalInstitute: [],
+      allSubCategories: [],
+      labId: null,
+      toCheckoutData: [],
+      checkBoxDisableFlag: false,
+      isSelectAllChecked: false,
+      mainCategory: null,
     };
   }
 
@@ -34,17 +41,12 @@ class userlabtestcomponent extends Component {
   render() {
     let total = 0;
     console.log("props in labtest are", this.props);
-    let {
-      allabtest,
+    let { allabtest, checkoutsignal, cartpopupsign } = this.props;
 
-      checkoutsignal,
-      cartpopupsign,
-    } = this.props;
     console.log("cartpopup signal is", cartpopupsign);
     let cart = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : null;
-
     const addtocart = (item) => {
       let totalamount = this.state.totaltoshow;
       let finaldata = totalamount.map((item, index) => {
@@ -197,77 +199,214 @@ class userlabtestcomponent extends Component {
         console.log("total item is", this.state.totaltoshow);
       }, 2000);
     };
-    const handleRadioChange = (item, index, subcategory, category) => {
-      console.log("inside radiochange");
-      console.log("dasdas", item, index, subcategory);
-      let datatopush = {};
-      datatopush.category = category.name;
-      datatopush.subcategoryId = subcategory.id;
-      datatopush.subcategoryname = subcategory.categoryname;
-      datatopush.medicalname = item.medicalinstitutename;
-      datatopush.medicalId = item.id;
-      datatopush.price = item.price;
-      let statetotalarray = this.state.totaltoshow;
-      if (!statetotalarray.length) {
-        console.log("inside if");
-        statetotalarray.push(datatopush);
-      } else {
-        statetotalarray.map((totalitem, totalindex) => {
-          console.log("inside else", totalitem.subcategoryId, subcategory.id);
-          if (
-            totalitem.subcategoryId != subcategory.id &&
-            totalitem.medicalId != item.id
-          ) {
-            console.log("inside first if");
-            console.log(
-              "totalitem length  and index is",
-              totalitem.length,
-              totalindex
-            );
-            if (totalindex === statetotalarray.length - 1) {
-              statetotalarray.push(datatopush);
-            }
-          }
-          if (
-            totalitem.subcategoryId != subcategory.id &&
-            totalitem.medicalId == item.id
-          ) {
-            console.log("inside second if");
-            if (totalindex === statetotalarray.length - 1) {
-              statetotalarray.push(datatopush);
-            }
-          }
-          if (
-            totalitem.subcategoryId == subcategory.id &&
-            totalitem.medicalId != item.id
-          ) {
-            console.log("inside third-if");
-            statetotalarray.splice(totalindex, 1);
-            statetotalarray.push(datatopush);
-          }
-          if (
-            totalitem.subcategoryId == subcategory.id &&
-            totalitem.medicalId == item.id
-          ) {
-            console.log("inside fouth-if");
-            statetotalarray.splice(totalindex, 1);
-            statetotalarray.push(datatopush);
-          }
-        });
-      }
-      this.setState((prev) => {
+    const handleRadioChange = (e, index) => {
+      let value = e.target.value;
+      console.log("inside radiochange", e.target.value, index);
+      let changedIndex = this.state.totalInstitute.map((item, instIndex) => {
+        console.log("index is", index, "and institute index is", instIndex);
+        if (index === instIndex) {
+          item["checked"] = parseInt(value);
+          fetchSubCategoriesWithPrice(
+            this.state.labId,
+            value,
+            this.state.mainCategory
+          );
+        } else {
+          console.log("Inside else");
+          item["checked"] = false;
+        }
+        return item;
+      });
+      console.log("checked index is", changedIndex);
+      this.setState(() => {
         return {
-          ...prev,
-          totaltoshow: statetotalarray,
+          totalInstitute: changedIndex,
+          totalprice: 0,
+          // isSelectAllChecked:false,
+          toCheckoutData: [],
         };
       });
-      setTimeout(() => {
-        console.log("total is", this.state.totaltoshow);
-      }, 2000);
     };
+    const fetchSubCategoriesWithPrice = (
+      labId,
+      medicalInstituteId,
+      mainCategoryName
+    ) => {
+      httpClient
+        .POST(
+          "category-price/get-subcategory",
+          { labTestId: labId, medicalId: medicalInstituteId },
+          false,
+          true
+        )
+        .then((resp) => {
+          let allData = resp.data.data.map((item) => {
+            item.mainCategoryName = mainCategoryName;
+            item.medicalInstituteId = medicalInstituteId;
+            return item;
+          });
+          this.setState(() => {
+            return {
+              allSubCategories: allData,
+            };
+          });
+        })
+        .catch((err) => {
+          console.log("Error occurred during fetching labprice");
+        });
+    };
+    const fetchAllDetails = (value) => {
+      console.log("value is", value);
+      httpClient
+        .GET("category-price/get-medical-institute/" + value.id, false, true)
+        .then((resp) => {
+          let refinedData = resp.data.data.map((item, index) => {
+            if (index == 0) {
+              item.checked = item.medicalinstituteid;
+              fetchSubCategoriesWithPrice(
+                value.id,
+                item.medicalinstituteid,
+                value.name
+              );
+            } else {
+              item.checked = false;
+            }
+            console.log("iteeem is", item);
+            return item;
+          });
+          this.setState(() => {
+            return {
+              totalInstitute: refinedData,
+              labId: value.id,
+              mainCategory: value.name,
+            };
+          });
+        })
+        .catch(() => {
+          notify.error("Error occurred");
+        });
+    };
+    const handleSubCategoryChange = (e) => {
+      let selectAll;
+      let { checked, value } = e.target;
+      value = JSON.parse(value);
+      let checkoutData = this.state.toCheckoutData;
+      let total = this.state.totalprice;
+      console.log("total is", total, "type is", value);
+
+      if (checked) {
+        console.log("inside if");
+        checkoutData.push(value);
+        total = total + parseInt(value.price);
+        console.log("total is", total);
+        selectAll = selectUtility(true, value.id);
+      } else {
+        console.log("inside else");
+        selectAll = selectUtility(false, value.id);
+        checkoutData.map((item, index) => {
+          if (item.id == value.id) {
+            checkoutData.splice(index, 1);
+          }
+        });
+        total = total - parseInt(value.price);
+      }
+      this.setState(() => {
+        return {
+          toCheckoutData: checkoutData,
+          totalprice: total,
+          allSubCategories: selectAll,
+        };
+      });
+      console.log("checked is", checked, "and value is", value);
+    };
+    const selectUtility = (task, partialCheckFlagId) => {
+      let selectAll;
+
+      if (partialCheckFlagId) {
+        let total = this.state.totalprice;
+        return (selectAll = this.state.allSubCategories.map((item, index) => {
+          if (item.id === partialCheckFlagId) {
+            item.checked = task;
+          }
+          return item;
+        }));
+      }
+      let total;
+      if (this.state.totalprice) {
+        if (this.state.toCheckoutData.length) {
+          total = 0;
+        } else {
+          total = this.state.totalprice;
+        }
+        console.log("there is total  in state inside if");
+      } else {
+        console.log("inside elseeeeee");
+        total = 0;
+      }
+      selectAll = this.state.allSubCategories.map((item, index) => {
+        item.checked = task;
+        if (task) {
+          total = total + parseInt(item.price);
+        } else {
+          total = 0;
+        }
+        return item;
+      });
+      return { selectAll, total };
+    };
+    const selectAll = (e) => {
+      let all;
+      let totalPrice;
+      let toCheckoutSubcategories;
+      let checkBoxDisableFlag = this.state.checkBoxDisableFlag;
+      if (e.target.checked) {
+        let { selectAll, total } = selectUtility(true);
+        all = selectAll;
+        totalPrice = total;
+        // adding to all to checkout data
+        toCheckoutSubcategories = this.state.allSubCategories.map((item) => {
+          return item;
+        });
+        // end of adding to checkout data
+      } else {
+        let { selectAll, total } = selectUtility(false);
+        all = selectAll;
+        totalPrice = total;
+        toCheckoutSubcategories = [];
+      }
+
+      this.setState(() => {
+        return {
+          allSubCategories: all,
+          totalprice: totalPrice,
+          checkBoxDisableFlag: !checkBoxDisableFlag,
+          isSelectAllChecked: !this.state.isSelectAllChecked,
+          toCheckoutData: toCheckoutSubcategories,
+        };
+      });
+    };
+    const addToCart = () => {
+      console.log(
+        "add to cart sign triggered and final value is",
+        this.state.toCheckoutData
+      );
+      this.props.addtocart(this.state.toCheckoutData);
+    };
+    const closePopUp = () => {
+      this.setState(() => {
+        return {
+          // totalInstitute:changedIndex;
+          totalprice: 0,
+          toCheckoutData: [],
+        };
+      });
+    };
+    setTimeout(() => {
+      console.log(this.state);
+    }, 2000);
     return (
       <div className=" main_div_user_lab">
-        {checkoutsignal ? <Checkoutpopup props={this.props.history}/> : null}
+        {checkoutsignal ? <Checkoutpopup props={this.props.history} /> : null}
         {this.state.active ? <Cartpopup></Cartpopup> : null}
         <div className="lab_add_to_cart">
           <div className="lab_add_to_cart1">
@@ -310,7 +449,7 @@ class userlabtestcomponent extends Component {
                         : "lab_add_to_cart_samp1"
                     }
                     key={index}
-                    onClick={(e) => assignisactive(e, category, index)}
+                    // onClick={(e) => assignisactive(e, category, index)}
                     ondblclick
                   >
                     <div className="lab_add_to_cart_samp_img1">
@@ -329,118 +468,163 @@ class userlabtestcomponent extends Component {
                       <p id="labtest_desc_txt2">What it include :</p>
                       <div className="labtest_desc1">
                         <div className="labtest_desc_detail">
-                          {category.isactiveclass ? (
-                            <form id="lab_test_detail">
-                              {category.subcategory.map(
-                                (subcategory, index) => (
-                                  <>
-                                    <input
-                                      type={"checkbox"}
-                                      onChange={(e) =>
-                                        handleChange(e, subcategory, index)
-                                      }
-                                      name={category.id}
-                                    ></input>
-                                    <label
-                                      className="label_userlabtest"
-                                      style={{
-                                        position: "inherit",
-                                        zIndex: "10",
-                                      }}
-                                    >
-                                      {subcategory.categoryname}{" "}
-                                    </label>
-                                    <div id={index}>
-                                      {this.state.datas.map((item) => {
-                                        if (
-                                          item.name == subcategory.categoryname
-                                        ) {
-                                          console.log(
-                                            "inside if statement",
-                                            item
-                                          );
-                                          return item.data.map(
-                                            (item, index) => {
-                                              return (
-                                                <>
-                                                  <input
-                                                    className="input_subcat"
-                                                    type={"radio"}
-                                                    onChange={() =>
-                                                      handleRadioChange(
-                                                        item,
-                                                        index,
-                                                        subcategory,
-                                                        category
-                                                      )
-                                                    }
-                                                    name={
-                                                      subcategory.categoryname
-                                                    }
-                                                  ></input>
-                                                  <label className="label_userlabtest1">
-                                                    {item.medicalinstitutename}
-                                                  </label>
-                                                  <span
-                                                    style={{
-                                                      marginLeft: "40px",
-                                                      color: "blue",
-                                                    }}
-                                                  >
-                                                    Rs.{item.price}
-                                                  </span>
-                                                  <br />
-                                                </>
-                                              );
-                                            }
-                                          );
-                                        }
-                                      })}
-                                    </div>
-                                  </>
-                                )
-                              )}
-                            </form>
-                          ) : (
-                            <ul id="lab_test_detail">
-                              {category.subcategory.map((item, index) => {
-                                return (
-                                  <>
-                                    <li>{item.categoryname}</li>
-                                  </>
-                                );
-                              })}
-                            </ul>
-                          )}
+                          <ul className="ul_labtest_dash">
+                            <li>&nbsp; abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+                            <li>&nbsp;abc test</li>
+
+                            <li>&nbsp; abc test abc test abc test</li>
+
+                            <li>abc test</li>
+                          </ul>
                         </div>
                       </div>
                     </div>
+                    <div className="lab_samp_sel">
+                      <a href="#choose_the_ltest" className="lab_samp_sel1">
+                        Select
+                      </a>
+                    </div>
+                    <div id="choose_the_ltest" className="ctlt_popup">
+                      <div className="ctlt_popup_cont">
+                        <div className="ctlt_head">
+                          <div className="ctlt_head1">
+                            <h3>Blood Test</h3>
+                          </div>
 
-                    {category.isactiveclass ? (
-                      <div className="lab_add_to_cart_price">
-                        {this.state.totaltoshow.length ? (
-                          this.state.totaltoshow.map((item, index) => {
-                            total = total + parseInt(item.price);
-                            if (index == this.state.totaltoshow.length - 1) {
-                              return <p>Rs. {total}</p>;
-                            }
-                          })
-                        ) : (
-                          <p>Rs.0</p>
-                        )}
-                        <div className="lab_add_to_cart_atc">
-                          {this.state.totaltoshow.length ? (
-                            <button onClick={() => addtocart()}>
-                              <p>Add to Cart</p>
+                          <a class="close_ctlt" href="#">
+                            <i class="far fa-times-circle"></i>
+                          </a>
+                        </div>
+
+                        <div className="ctlt_institute">
+                          <p>Please select the lab.</p>
+                          <div className="ctlt_institute1">
+                            <div className="ctlt_institute_radio">
+                              <input
+                                type="radio"
+                                id="institute"
+                                name="fav_language"
+                                value="institute"
+                              />
+                              <label for="html">&nbsp; Institute1</label>
+                            </div>
+                            <div className="ctlt_institute_radio">
+                              <input
+                                type="radio"
+                                id="institute"
+                                name="fav_language"
+                                value="institute"
+                              />
+                              <label for="html">&nbsp; Institute1</label>
+                            </div>
+                            <div className="ctlt_institute_radio">
+                              <input
+                                type="radio"
+                                id="institute"
+                                name="fav_language"
+                                value="institute"
+                              />
+                              <label for="html">&nbsp; Institute1</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="ctlt_labtest">
+                          <p>What it include:</p>
+                          <div>
+                            <div className="ctlt_institute_radio">
+                              <input
+                                type="checkbox"
+                                id="selectall"
+                                name="fav_language"
+                                value="allsel"
+                              />
+                              <label for="html">&nbsp; Select all</label>
+                            </div>
+                            <div className="ctlt_checklt">
+                              <div>
+                                {" "}
+                                <input
+                                  type="checkbox"
+                                  id="labtest"
+                                  name="fav_language"
+                                  value="labtest1"
+                                />
+                                <label for="html">&nbsp; labtest1</label>
+                              </div>
+                              <div className="lt_price">Rs.200</div>
+                            </div>
+                            <div className="ctlt_checklt">
+                              <div>
+                                {" "}
+                                <input
+                                  type="checkbox"
+                                  id="labtest"
+                                  name="fav_language"
+                                  value="labtest1"
+                                />
+                                <label for="html">&nbsp; labtest1</label>
+                              </div>
+                              <div className="lt_price">Rs.200</div>
+                            </div>
+                            <div className="ctlt_checklt">
+                              <div>
+                                {" "}
+                                <input
+                                  type="checkbox"
+                                  id="labtest"
+                                  name="fav_language"
+                                  value="labtest1"
+                                />
+                                <label for="html">&nbsp; labtest1</label>
+                              </div>
+                              <div className="lt_price">Rs.200</div>
+                            </div>
+                            <div className="ctlt_checklt">
+                              <div>
+                                {" "}
+                                <input
+                                  type="checkbox"
+                                  id="labtest"
+                                  name="fav_language"
+                                  value="labtest1"
+                                />
+                                <label for="html">&nbsp; labtest1</label>
+                              </div>
+                              <div className="lt_price">Rs.200</div>
+                            </div>
+                            <div className="ctlt_checklt">
+                              <div>
+                                {" "}
+                                <input
+                                  type="checkbox"
+                                  id="labtest"
+                                  name="fav_language"
+                                  value="labtest1"
+                                />
+                                <label for="html">&nbsp; labtest1</label>
+                              </div>
+                              <div className="lt_price">Rs.200</div>
+                            </div>
+                          </div>
+                          <div className="ctlt_total_price">
+                            <p>
+                              {" "}
+                              Your total : <span id="rupees_ctlt">Rs 200</span>
+                            </p>
+                            <button className="ctlt_atc_but">
+                              Add to cart
                             </button>
-                          ) : null}
+                          </div>
                         </div>
                       </div>
-                    ) : (
-                      <div className="No_cart_item">
-                        <h3>Select a Test</h3>
-                      </div>
-                    )}
+                    </div>
                   </div>
                 );
               })}

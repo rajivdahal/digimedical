@@ -47,11 +47,7 @@ const Menuitems = styled.div``;
 //   padding: 0.4rem;
 // `;
 
-
-
-
 const NavbarMenuItems = () => {
-
   const [corporateType, setCorporateType] = useState([]);
   const [FamilyType, setFamilyType] = useState([]);
 
@@ -82,16 +78,14 @@ const NavbarMenuItems = () => {
     });
   };
 
-
   const getBusinessPackage = async () => {
     try {
       let resp = await httpClient.GET("master-package/get-types/0");
       console.log(resp);
       if (resp.data.status) {
-        setCorporateType(resp.data.data)
+        setCorporateType(resp.data.data);
       }
-    }
-    catch (err) {
+    } catch (err) {
       if (
         err &&
         err.response &&
@@ -101,18 +95,16 @@ const NavbarMenuItems = () => {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-
-  }
+  };
 
   const getFamilyPackage = async () => {
     try {
       let resp = await httpClient.GET("master-package/get-types/1");
-      console.log(resp)
+      console.log(resp);
       if (resp.data.status) {
-        setFamilyType(resp.data.data)
+        setFamilyType(resp.data.data);
       }
-    }
-    catch (err) {
+    } catch (err) {
       if (
         err &&
         err.response &&
@@ -122,12 +114,12 @@ const NavbarMenuItems = () => {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-  }
+  };
 
   useEffect(() => {
     getBusinessPackage();
     getFamilyPackage();
-  }, [])
+  }, []);
 
   return (
     <Root style={{ height: "70px" }} className="root_nav">
@@ -302,157 +294,196 @@ const NavbarMenuItems = () => {
             </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
-                <a href="#">
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Lab Test</p>{" "}
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Doctor at Home</p>{" "}
-                </a>
-
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Online Medical Consulation</p>{" "}
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>24/7 Nursing Service at Home</p>{" "}
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>PCR at Home</p>{" "}
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>MRI Service</p>
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>{" "}
-                  <p>CT Scan Service</p>{" "}
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>{" "}
-                  <p>USG Service at Home</p>{" "}
-                </a>
-                <a href="#">
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>{" "}
-                  <p>USG| ECG | ECHO Service at Home</p>{" "}
-                </a>
+                <Link to={"/lab-test"}>
+                  <a>
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>
+                    <p>Lab Test</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/doctor-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>
+                    <p>Doctor at Home</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/online-medical-consultation"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>
+                    <p>Online Medical Consulation</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/nursing-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>
+                    <p>24/7 Nursing Service at Home</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/pcr-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>
+                    <p>PCR at Home</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/utility-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>
+                    <p>MRI Service</p>
+                  </a>
+                </Link>
+                <Link to={"/our-services/utility-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>{" "}
+                    <p>CT Scan Service</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/utility-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>{" "}
+                    <p>USG Service at Home</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/utility-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>{" "}
+                    <p>USG| ECG | ECHO Service at Home</p>{" "}
+                  </a>
+                </Link>
               </div>
             </div>
           </div>
           <div className="menu-item_nav">
             <Link
               className="link_home_nav"
-              // to="/services"
+              to="/forbusiness"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               For Business
             </Link>
+
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
-
                 {corporateType.map((item, index) => {
-                  return <>
-                   <Link key={index} to={{
-                      pathname: "corporate-package",
-                      state:{ packageId: item.id,packageName : item.name }
-                    }}>
-                      <img
-                        src={package_logo}
-                        style={{
-                          height: "1.5rem",
+                  return (
+                    <>
+                      <Link
+                        key={index}
+                        to={{
+                          pathname: "corporate-package",
+                          state: { packageId: item.id, packageName: item.name },
                         }}
-                      ></img>
-                      <p>{item.name}</p>{" "}
-                    </Link>
-                  </>
+                      >
+                        <img
+                          src={package_logo}
+                          style={{
+                            height: "1.5rem",
+                          }}
+                        ></img>
+                        <p>{item.name}</p>{" "}
+                      </Link>
+                    </>
+                  );
                 })}
               </div>
             </div>
           </div>
           <div className="menu-item_nav">
-            <Link
-              className="link_home_nav"
-              // to="/services"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              For Family
-            </Link>
+            For Family
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
+                {/* <Link to="/family-package">
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Family Care Package</p>{" "}
+                </Link> */}
+                <a>
+                  {" "}
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Pregnency Care Packages</p>{" "}
+                </a>
 
                 {FamilyType.map((item, index) => {
-                  return <>
-                    <Link key={index} to={{
-                      pathname: "family-package",
-                      state:{ packageId: item.id,packageName : item.name }
-                    }}>
-                      <img
-                        src={package_logo}
-                        style={{
-                          height: "1.5rem",
+                  return (
+                    <>
+                      <Link
+                        key={index}
+                        to={{
+                          pathname: "family-package",
+                          state: { packageId: item.id, packageName: item.name },
                         }}
-                      ></img>
-                      <p>{item.name}</p>{" "}
-                    </Link>
-                  </>
+                      >
+                        <img
+                          src={package_logo}
+                          style={{
+                            height: "1.5rem",
+                          }}
+                        ></img>
+                        <p>{item.name}</p>{" "}
+                      </Link>
+                    </>
+                  );
                 })}
-
               </div>
             </div>
           </div>
@@ -487,7 +518,7 @@ const NavbarMenuItems = () => {
       </div> */}
       {/* <SearchContainor>
       </SearchContainor> */}
-    </Root >
+    </Root>
   );
 };
 export default NavbarMenuItems;

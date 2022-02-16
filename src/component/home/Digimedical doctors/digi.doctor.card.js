@@ -8,12 +8,10 @@ import { getCurrentDate } from "../../../utils/dateHelper";
 import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
-
 const DigiMedicalDoctorCard = (props) => {
   let history = useHistory();
   const [userLogin, setUserLogin] = useState(false);
   const [showForm, setForm] = useState(false);
-
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
     year: dt.getFullYear(),
@@ -26,7 +24,6 @@ const DigiMedicalDoctorCard = (props) => {
     day: dt.getDate(),
   });
   const date = selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
-
   const [appointmentData, setData] = useState({
     firstName: "",
     lastName: "",

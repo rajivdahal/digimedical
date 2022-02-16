@@ -59,29 +59,42 @@ export default function Hospital_doctors(props) {
     month: dt.getMonth() + 1,
     day: dt.getDate()
   })
-  const initialValues = {
+  console.log(dt.getFullYear()+"-"+parseInt(dt.getMonth()+1)+"-"+dt.getDate())
+  // const [initialValues,setInitialValues]=useState({
+  //   firstName: "",
+  //   middleName: "",
+  //   lastName: "",
+  //   email: "",
+  //   mobileNumber: "",
+  //   appointmentDate: "",
+  //   appointmentTime: "",
+  // })
+  const initialValues={
     firstName: "",
     middleName: "",
     lastName: "",
     email: "",
     mobileNumber: "",
-    appointmentDate: "",
     appointmentTime: "",
-  };
+  }
+  const [appointmentDate,setAppointmentDate]=useState(dt.getFullYear()+"-"+parseInt(dt.getMonth()+1)+"-"+dt.getDate())
 
   let schema = yup.object().shape({
-    appointmentTime: yup.string().required("Required"),
+    appointmentTime: yup.string().required(" Appointment Time is Required"),
   });
 
   const handleSubmit = (values, doctor, index) => {
-    console.log("values are", values);
+    // console.log("values are", values,appointmentDate);
+    // console.log(values.appointmentDate,values.appointmentTime)
     let finaldata = {};
     finaldata = {
       ...values,
       hospitalId: props.location.state.id,
       doctorId: doctor.doctorid,
       servicesId: doctor.serviceid,
+      appointmentDate:appointmentDate
     };
+    console.log("finaldata is",finaldata)
     httpClient
       .POST(
         props.match.url == "/dashboard/hospitals/view-doctors"
@@ -96,7 +109,7 @@ export default function Hospital_doctors(props) {
           notify.promise(
             new Promise(function (resolve, reject) {
               resolve(
-                "Booking success! Please check your email to verify account"
+              "Booking success! Please check your email to verify account"
               );
             })
           );
@@ -135,7 +148,6 @@ export default function Hospital_doctors(props) {
   };
   const searchDoctors = (e) => {
     setIssearched(true);
-
     let searched = alldoctors.filter((item, index) => {
       console.log("item is", item);
       if (item.doctorname.toLowerCase().includes(e.target.value)) {
@@ -145,9 +157,17 @@ export default function Hospital_doctors(props) {
     setsearcheddoctors(searched);
   };
   const datechange = (value, status) => {
+    console.log("inside date change")
     let date = ""
     date = value.year + "-" + value.month + "-" + value.day
-    initialValues.appointmentDate = date
+    // setInitialValues((initialValues)=>{
+    //   return{
+    //     ...initialValues,
+    //     appointmentDate:date
+    //   }
+    // })
+    setAppointmentDate(date)
+    // initialValues.appointmentDate = date
     setSelectedDay(value)
     console.log("initialValues", initialValues)
   }
@@ -254,7 +274,6 @@ export default function Hospital_doctors(props) {
                                 <></>
                               }
 
-
                             </p>
                             <p>
                               Available time :{" "}
@@ -337,8 +356,7 @@ export default function Hospital_doctors(props) {
                                         />
                                       </div>
                                     </>
-                                  ) : null}
-
+                                  ) :null}
                                   <div class="doc_appoin_form1">
                                     <p>Appointment Date</p>
                                     <DatePicker
@@ -358,14 +376,11 @@ export default function Hospital_doctors(props) {
                                       name="appointmentTime"
                                       id="appointmentTime"
                                     />
-                                    <ErrorMessage name="appointmentTime" render={msg => <div className="err-message-bottom">{msg}</div>}></ErrorMessage>
+                                    <ErrorMessage name="appointmentTime" render={msg => <div className="err-message-bottom-doctor" >{msg}</div>} ></ErrorMessage>
                                   </div>
-                                  <button
-                                    type="submit"
-                                    className="submit-button"
-                                  >
-                                    Submit
-                                  </button>
+                                  <button type="submit" className="submit-button" style={{marginTop:"30px"}}>
+                                      Submit
+                                    </button>
                                 </Form>
                               );
                             }}
@@ -494,14 +509,6 @@ export default function Hospital_doctors(props) {
                             ) : null}
                             <div class="doc_appoin_form1">
                               <p>Appointment Date</p>
-                              {/* <DatePicker
-                                  value={selectedDay}
-                                  onChange={setSelectedDay}
-                                  inputPlaceholder="Select a day"
-                                  shouldHighlightWeekends
-                                  name="appointmentDate"
-                                  id="appointmentDate"
-                                /> */}
                               <Field
                                 type="date"
                                 name="appointmentDate"

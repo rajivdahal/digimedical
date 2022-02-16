@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+// import { Navbar } from "react-bootstrap";
+import Navbar from "../../Navbar/Navbar";
 import { notify } from "../../../services/notify";
 import { httpClient } from "../../../utils/httpClient";
+import Footer from "../../Footer/Footer";
 // import "../../../family_care_p.css";
 
 function CorporatePackage(props) {
@@ -62,6 +65,8 @@ function CorporatePackage(props) {
   }, [])
 
   return (
+    <>
+    <Navbar></Navbar>
     <div className="package-page">
       <div class="top-container">
         <div class="up">
@@ -136,6 +141,8 @@ function CorporatePackage(props) {
         })}
       </div>
     </div>
+    <Footer></Footer>
+    </>
   );
 }
 

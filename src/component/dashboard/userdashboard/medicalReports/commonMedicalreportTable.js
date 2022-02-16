@@ -45,7 +45,6 @@ export function CommonMedicalreportTable(props) {
 
 
 export  function CommonUtilityreportTable(props) {
-    console.log("propsss are",props)
     const bodyCheckUp=props.bodyCheckUp
   return  <div className="material-table">
   <p id="medical_table_head">Report</p>

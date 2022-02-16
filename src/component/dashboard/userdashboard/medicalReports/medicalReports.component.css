@@ -99,7 +99,7 @@
 }
 .material-table {
   margin-top: 50px;
-  width: 90%;
+  width: 100%;
 }
 
 @media screen and (max-width: 1000px) {
@@ -171,6 +171,12 @@
   position: relative;
   top: -5%;
   left: 35%;
+}
+.err-message-bottom-doctor {
+  color: red;
+  position: relative;
+  top: 6%;
+  left: 0%;
 }
 
 .umi_row {
