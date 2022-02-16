@@ -29,8 +29,7 @@ const Createservices = (props) => {
         price: "",
         activeStatus: "",
         image: "",
-    }
-    )
+    })
 
     const getServices = async () => {
         console.log(props)

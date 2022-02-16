@@ -33,19 +33,19 @@ import CorporatePage from "./adminDashboard/corporateData/corporate.component";
 import Role from "./adminDashboard/userManagement/role.component";
 import CreateAdmin from "./adminDashboard/userManagement/admin.component";
 
-import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component";
-import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component";
+import Hospitalnavbar from "./hospitalDashboard/hospitalnavbar/hospitalnavbar.component";
+import Hospitalsidebar from "./hospitalDashboard/hospitalsidebar/hospitalsidebar.component";
 import Hospitalbookingcomponent from "../home/Hospital Booking/hospitalbooking.component";
 import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component";
 import Corporatenavbar from "./corporatedashboard/corporatenavbar/corporatenavbar.component";
 import Corporatesidebar from "./corporatedashboard/corporatesidebar/corporatesidebar.component";
 import { Corporatedashboard } from "./corporatedashboard/corporatedashboard/corporatedashboard.component";
 import Corporateaddmember from "./corporatedashboard/addmembers/corporateaddmembers.component";
-import HospitalDashboard from "./hospitaldashboard/hospitalDashboard"
-import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor"
-import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor"
+import HospitalDashboard from "./hospitalDashboard/hospitalDashboard"
+import HospitalDoctor from "./hospitalDashboard/doctorPage/hospital.doctor"
+import AddDoctor from "./hospitalDashboard/doctorPage/addHospitalDoctor"
 import Viewcorporateappointment from "./corporatedashboard/corporateappointments/corporateviewappointment/corporateviewappointment.component"
-import HospitalAppointment from "./hospitaldashboard/appointmentPage/appointment.component"
+import HospitalAppointment from "./hospitalDashboard/appointmentPage/appointment.component"
 import Permission from "./adminDashboard/userManagement/permission.component"
 import AddFamilyMember from "./userdashboard/familyMember/addFamilyMember.component"
 import MembershipPackage from "./adminDashboard/packageData/membership.package"
@@ -60,12 +60,11 @@ import PackageDescription from "./adminDashboard/packageData/package.desc";
 import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoctor";
 import BookPackage from "./corporatedashboard/packages/package.component";
 import UtilsInfo from "./userdashboard/utilsinformation/utilsInfo.component";
-import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
+import HospitalService from "./hospitalDashboard/hospitalService/hospitalService";
 import DoctorProfile from "./doctordashboard/profileUpdate/profile.component";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
-  console.log("props in dashboard is", props);
   return (
     <>
       {
