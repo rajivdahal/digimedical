@@ -1,30 +1,21 @@
 import { Redirect } from "react-router";
-import AdminDashboard from "./adminDashboard/adminDashboard.component";
 import { Dashboardnavbar } from "./Navbar/Dashboardnavbar.component";
-import Userdashboard from "./userdashboard/userDashboard.component";
-import Usersidebar from "./usersidebar/usersidebar.component";
 import ProtectedRoute from "./../routing/Protectedroute.component";
 import { Viewappointment } from "./viewappointment/Viewappointment.component";
-import Internalappointmentbook from "./userdashboard/internalappointmentbook/Internalappointmentbook.component";
+import { Dashboardpagenotfound } from "./dashboardpagenotfound/dashboardpagenotfound.component";
+import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component";
+import Hospitalbookingcomponent from "../home/Hospital Booking/hospitalbooking.component";
+import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component";
+
+import AdminDashboard from "./adminDashboard/adminDashboard.component";
 import Nav from "./adminDashboard/navbarandsidebar/nav.component";
 import Adminsidebar from "./adminDashboard/navbarandsidebar/sidebar.component";
 import DoctorTable from "./adminDashboard/doctorData/doctor.table";
 import Createdoctor from "./adminDashboard/doctorData/doctor.component";
 import Createservices from "./adminDashboard/servicesData/services.component";
-import { Dashboardpagenotfound } from "./dashboardpagenotfound/dashboardpagenotfound.component";
-import Doctornavbar from "./doctordashboard/navbarandsidebar/doctornavbar.component";
-import Doctorsidebar from "./doctordashboard/navbarandsidebar/doctorsidebar.component";
-import { Doctordashboard } from "./doctordashboard/doctordashboard/doctordashboard.component";
-import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappointment.component";
 import Appointment from "./adminDashboard/appointmentPage/appointment.component";
-import { Changepassword } from "../common/forgotpassword/changepassword/changepassword.component";
-import Prescribe from "./doctordashboard/prescribe/prescribe.component";
 import Labtest from "./adminDashboard/labtestData/labtest.component";
 import LabtestSubcategory from "./adminDashboard/labtestData/labtest.subcategory";
-import UserProfile from "./userdashboard/settings/profileupdate.component";
-import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list";
-import { Userlabtest } from "./userdashboard/labtest/userlabtest.component";
-import Viewlabtest from "./userdashboard/viewlabtest/viewlabtest.component";
 import BookedLabtest from "./adminDashboard/allLabtestData/booked.labtest";
 import MedicalInstitute from "./adminDashboard/medicalInstitue/institute.component";
 import Hospital from "./adminDashboard/hospitalData/hospital.component";
@@ -32,36 +23,52 @@ import HospitalTable from "./adminDashboard/hospitalData/hospital.table";
 import CorporatePage from "./adminDashboard/corporateData/corporate.component";
 import Role from "./adminDashboard/userManagement/role.component";
 import CreateAdmin from "./adminDashboard/userManagement/admin.component";
+import LabTestDetail from "./adminDashboard/allLabtestData/labtest.list";
+import Permission from "./adminDashboard/userManagement/permission.component";
+import MembershipPackage from "./adminDashboard/packageData/membership.package";
+import MembershipPackageDetails from "./adminDashboard/packageData/package.details";
+import LabtestReport from "./adminDashboard/allLabtestData/labtest.report";
+import BodyCheckup from "./adminDashboard/bodyCheckup/bodyCheckup";
+import CorporateTypes from "./adminDashboard/corporateData/corporate.type";
+import PackageDescription from "./adminDashboard/packageData/package.desc";
 
-import Hospitalnavbar from "./hospitalDashboard/hospitalnavbar/hospitalnavbar.component";
-import Hospitalsidebar from "./hospitalDashboard/hospitalsidebar/hospitalsidebar.component";
-import Hospitalbookingcomponent from "../home/Hospital Booking/hospitalbooking.component";
-import Hospital_doctors from "../home/Hospital Booking/viewdoctor.component";
+
+import Userdashboard from "./userdashboard/userDashboard.component";
+import Usersidebar from "./usersidebar/usersidebar.component";
+import Internalappointmentbook from "./userdashboard/internalappointmentbook/Internalappointmentbook.component";
+import UserProfile from "./userdashboard/settings/profileupdate.component";
+import { Userlabtest } from "./userdashboard/labtest/userlabtest.component";
+import Viewlabtest from "./userdashboard/viewlabtest/viewlabtest.component";
+import AddFamilyMember from "./userdashboard/familyMember/addFamilyMember.component";
+import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.component";
+import BodyCheckUp from "./userdashboard/commonupcomingappointment/bodyCheckup/bodyCheckUp.component";
+import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoctor";
+import UtilsInfo from "./userdashboard/utilsinformation/utilsInfo.component";
+
+
+import Doctornavbar from "./doctordashboard/navbarandsidebar/doctornavbar.component";
+import Doctorsidebar from "./doctordashboard/navbarandsidebar/doctorsidebar.component";
+import { Doctordashboard } from "./doctordashboard/doctordashboard/doctordashboard.component";
+import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappointment.component";
+import Prescribe from "./doctordashboard/prescribe/prescribe.component";
+import DoctorProfile from "./doctordashboard/profileUpdate/profile.component";
+
+import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component";
+import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component";
+import HospitalDashboard from "./hospitaldashboard/hospitalDashboard";
+import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor";
+import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor";
+import HospitalAppointment from "./hospitaldashboard/appointmentPage/appointment.component";
+import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
+
+
 import Corporatenavbar from "./corporatedashboard/corporatenavbar/corporatenavbar.component";
 import Corporatesidebar from "./corporatedashboard/corporatesidebar/corporatesidebar.component";
 import { Corporatedashboard } from "./corporatedashboard/corporatedashboard/corporatedashboard.component";
 import Corporateaddmember from "./corporatedashboard/addmembers/corporateaddmembers.component";
-import HospitalDashboard from "./hospitalDashboard/hospitalDashboard"
-import HospitalDoctor from "./hospitalDashboard/doctorPage/hospital.doctor"
-import AddDoctor from "./hospitalDashboard/doctorPage/addHospitalDoctor"
-import Viewcorporateappointment from "./corporatedashboard/corporateappointments/corporateviewappointment/corporateviewappointment.component"
-import HospitalAppointment from "./hospitalDashboard/appointmentPage/appointment.component"
-import Permission from "./adminDashboard/userManagement/permission.component"
-import AddFamilyMember from "./userdashboard/familyMember/addFamilyMember.component"
-import MembershipPackage from "./adminDashboard/packageData/membership.package"
-import MembershipPackageDetails from "./adminDashboard/packageData/package.details"
-import LabtestReport from "./adminDashboard/allLabtestData/labtest.report"
-import CorporateUser from "./corporatedashboard/addmembers/corporate.user"
-import BodyCheckup from "./adminDashboard/bodyCheckup/bodyCheckup";
-import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.component";
-import CorporateTypes from "./adminDashboard/corporateData/corporate.type";
-import BodyCheckUp from "./userdashboard/commonupcomingappointment/bodyCheckup/bodyCheckUp.component";
-import PackageDescription from "./adminDashboard/packageData/package.desc";
-import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoctor";
+import Viewcorporateappointment from "./corporatedashboard/corporateappointments/corporateviewappointment/corporateviewappointment.component";
+import CorporateUser from "./corporatedashboard/addmembers/corporate.user";
 import BookPackage from "./corporatedashboard/packages/package.component";
-import UtilsInfo from "./userdashboard/utilsinformation/utilsInfo.component";
-import HospitalService from "./hospitalDashboard/hospitalService/hospitalService";
-import DoctorProfile from "./doctordashboard/profileUpdate/profile.component";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
