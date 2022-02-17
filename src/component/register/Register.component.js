@@ -6,7 +6,8 @@ import Submitbtn from '../common/Submitbtn/Submitbtn.component'
 import './Register.component.css'
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
-
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+const googleClientId=process.env.REACT_APP_GOOGLE_CLIENT_ID
 const RegisterComponent = (props) => {
     const [isLoading, setisLoading] = useState(false)
     const [ispassword, setispassword] = useState(true)
@@ -26,7 +27,7 @@ const RegisterComponent = (props) => {
             if (!values.firstName) {
                 errors.firstName = "Firstname is required!"
             }
-            
+
             if (!values.lastName) {
                 errors.lastName = "LastName is required!"
             }
@@ -100,7 +101,10 @@ const RegisterComponent = (props) => {
     const vieworhidepassword=()=>{
         setispassword(!ispassword)
     }
-    
+    const responseGoogle = (response) => {
+
+        console.log("response from google login is",response);
+    }
     return (
         <>
             <Navbar></Navbar>
@@ -197,12 +201,19 @@ const RegisterComponent = (props) => {
                                             <h2 className="fs-title text-center">Login With</h2>
                                             <ul>
                                                 <li>
-                                                    <a href="#"><i className="fab fa-facebook-f"></i></a>
+                                                    <a href="#"><i className="fa fa-facebook-f"></i></a>
                                                 </li>
-                                                <li>
+                                                <li> 
                                                     <a href="#"><i className="fab fa-twitter"></i></a>
                                                 </li>
                                                 <li>
+                                                <GoogleLogin
+                                                        clientId={googleClientId}
+                                                        buttonText="Login"
+                                                        onSuccess={responseGoogle}
+                                                        onFailure={responseGoogle}
+                                                        cookiePolicy={'single_host_origin'}
+                                                    />
                                                     <a href="#"><i className="fab fa-google-plus-g"></i></a>
                                                 </li>
                                             </ul>

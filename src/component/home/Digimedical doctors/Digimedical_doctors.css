@@ -40,6 +40,8 @@ p {
 .digidoctor_card_but {
   display: flex;
   align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: end;
 }
 #digidoctor_card_but {
   width: 200px;
@@ -172,6 +174,7 @@ p {
     text-align: center;
   }
   .digidoc_about_desc_head {
+    flex-wrap: wrap;
     justify-content: center;
   }
 

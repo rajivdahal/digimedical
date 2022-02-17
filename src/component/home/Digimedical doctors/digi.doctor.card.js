@@ -8,12 +8,10 @@ import { getCurrentDate } from "../../../utils/dateHelper";
 import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
-
 const DigiMedicalDoctorCard = (props) => {
   let history = useHistory();
   const [userLogin, setUserLogin] = useState(false);
   const [showForm, setForm] = useState(false);
-
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
     year: dt.getFullYear(),
@@ -26,7 +24,6 @@ const DigiMedicalDoctorCard = (props) => {
     day: dt.getDate(),
   });
   const date = selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
-
   const [appointmentData, setData] = useState({
     firstName: "",
     lastName: "",
@@ -46,21 +43,25 @@ const DigiMedicalDoctorCard = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (props.selected) {
+      setForm(true);
+    }
+  }, [props.selected])
+
   const bookAppointment = () => {
     let tempForm = showForm === true ? false : true;
     setForm(tempForm);
   };
 
   const handleDateChange = (value) => {
-    console.log(value)
     let date = "";
     date = value.year + "-" + value.month + "-" + value.day;
 
     setSelectedDay(value);
     formik.values.appointmentDate = date;
-};
+  };
   const submitAppointment = async (values) => {
-    console.log(values);
     let serviceid = props.doctorServices;
     if (userLogin === true) {
       let data = {
@@ -142,7 +143,6 @@ const DigiMedicalDoctorCard = (props) => {
     enableReinitialize: true,
     initialValues: appointmentData,
     onSubmit: async (values) => {
-      console.log(values);
       submitAppointment(values);
     },
     validate: (values) => {
@@ -183,9 +183,12 @@ const DigiMedicalDoctorCard = (props) => {
 
         <div className="digidoctor_card_but">
           {" "}
-          <button id="digidoctor_card_but" onClick={bookAppointment}>
+          <div>Rs.{props.price}</div>
+
+          <div><button id="digidoctor_card_but" onClick={bookAppointment}>
             Book an appointment
           </button>
+          </div>
         </div>
       </div>
 

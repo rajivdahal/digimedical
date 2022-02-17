@@ -49,13 +49,13 @@
   box-shadow: 1px 1px 10px #666666;
 }
 .logout {
-  margin-top: 20px;
 }
 .buttons {
   display: flex;
   justify-content: space-around;
 }
 .logout p {
+  margin-top: 0;
   font-size: 17px;
   padding: 10px;
   color: black;
@@ -76,4 +76,7 @@
 }
 .menu-icon {
   color: blueviolet !important;
+}
+.dashboard-wrapper {
+  padding: 0 20px;
 }

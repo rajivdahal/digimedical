@@ -33,10 +33,8 @@ export const Commonupcomingappointment = (props) => {
                 data = data.map((item, index) => {
                     item.appointmentdate = formatDate(item.appointmentdate?item.appointmentdate.slice(0, 10):item.appointmentDate.slice(0, 10))
                     item.appointmenttime =item.appointmenttime?item.appointmenttime.slice(0, 5):item.appointmentTime.slice(0, 5)
-                    console.log("item is", item)
                     return item
                 })
-                console.log("datta is", data)
                 setpendingData(data)
 
             })
@@ -49,7 +47,6 @@ export const Commonupcomingappointment = (props) => {
     }
     useEffect(() => {
         setisloading(true)
-        console.log("inside use effecr")
         if (fromdoctorcomponent) {
             console.log("inside from doctor component")
             return httpcall(`getall-appointments-by/0`)
@@ -159,7 +156,6 @@ export const Commonupcomingappointment = (props) => {
         }
     }
     const handleAddAppointment = () => {
-        console.log("props is........",props)
         props.fromcorporatecomponent?props.props.history.push("/dashboard/corporate/bookappointment"):props.props.push("/dashboard/bookappointment")
     }
     const proceedprescription = (e, rowdata) => {

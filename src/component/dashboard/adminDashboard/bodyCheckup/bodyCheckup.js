@@ -123,7 +123,6 @@ const BodyCheckup = (props) => {
 
         httpClient.PUT("body-checkup/change/" + checkupId + "/" + tempStatus, {}, false, true)
             .then(resp => {
-                // console.log(resp)
                 if (resp.data.status) {
                     notify.success(resp.data.message)
                     getAllCheckup();
@@ -133,14 +132,14 @@ const BodyCheckup = (props) => {
 
             })
             .catch(err => {
-                console.log(err.response.data)
+                setLoading(false)
             })
     }
 
     function validateName(value) {
         let error;
         if (!value) {
-            error = 'Required!';
+            error = 'Body Checkup Name is required!';
         }
         return error;
     }
@@ -148,7 +147,7 @@ const BodyCheckup = (props) => {
     function validateDescription(value) {
         let error;
         if (!value) {
-            error = 'Required!';
+            error = 'Description is required!';
         }
         return error;
     }

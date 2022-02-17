@@ -10,6 +10,8 @@ import Avatar from "../../../../assets/avatars.png";
 import Select from "react-select";
 import doctorApi from "./doctor.services";
 import { DAYS } from "../../../../constants/constants";
+import ServiceApi from "../servicesData/services.service";
+
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Createdoctor = (props) => {
@@ -69,27 +71,34 @@ const Createdoctor = (props) => {
   };
 
   const getServices = async () => {
-    let allServices = await httpClient
-      .GET("services/true", false, true)
-      .then((resp) => {
-        console.log(resp)
-        if (resp.data.status) {
-          let data = resp.data.data;
-          return data;
-        }
-      })
-      .catch((err) => {
-        return [];
-      });
-
-    let options = allServices.map((service, index) => {
-      return {
-        label: service.servicename,
-        value: service.id,
-      };
-    });
-    setServices(options);
-    return allServices;
+    let resp;
+    try {
+      if (props.isHospital) {
+        resp = await ServiceApi.getHospitalServices();
+      } else {
+        resp = await ServiceApi.getAllServices();
+      }
+      if (resp.data.status) {
+        let data = resp.data.data;
+        let trueService = data.filter((item)=>{
+          return item.activestatus == true
+        })
+        let options = trueService.map((service) => {
+          return {
+            label: service.servicename,
+            value: service.id,
+          };
+        })
+        setServices(options);
+        return options;
+      }
+    }
+    
+    catch (err) {
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
   };
 
   const formik = useFormik({
@@ -116,7 +125,7 @@ const Createdoctor = (props) => {
       if (props.isHospital) {
         let hospitalId = localStorage.getItem("userid");
         console.log(hospitalId);
-        resp = await doctorApi.createHospitalDoctor(values);
+        resp = await doctorApi.createHospitalDoctor(values, hospitalId);
       } else {
         resp = await doctorApi.createAdminDoctor(values);
       }
@@ -143,13 +152,14 @@ const Createdoctor = (props) => {
       } else {
         resp = await doctorApi.getAdminDoctorBYId(id);
       }
-
+      console.log(resp)
       if (resp.data.status) {
         // get doctor services + basic details
         let responseData = resp.data.data;
         let data = responseData.basicDetails;
         let serviceData = responseData.services;
         let selectedDays = [];
+
         if (data.availabledays) {
           let dayArr = data.availabledays.split(",");
           days.forEach((day) => {
@@ -162,15 +172,19 @@ const Createdoctor = (props) => {
           });
         }
         // get services details from service data
+        console.log(allServices)
         let savedServices = [];
         allServices.forEach((service) => {
+          console.log(service)
           let found = serviceData.filter((item) => {
-            return item.id.toString() === service.id.toString();
+            console.log(item)
+            return item.id.toString() === service.value.toString();
           });
+          console.log(found)
           if (found.length > 0) {
             savedServices.push({
-              label: service.servicename,
-              value: service.id,
+              label: service.label,
+              value: service.value,
             });
           }
         });
@@ -184,7 +198,7 @@ const Createdoctor = (props) => {
             description: data.description,
             mobileNumber: data.mobilenumber,
             doctorServices: savedServices,
-            gender : data.gender,
+            gender: data.gender,
             serviceID: null,
           };
           if (props.isHospital) {
@@ -255,7 +269,7 @@ const Createdoctor = (props) => {
       middleName: "",
       email: "",
       prefix: "MD",
-      gender : "0",
+      gender: "0",
       nmcNumber: "",
       specialist: "",
       description: "",
@@ -449,13 +463,16 @@ const Createdoctor = (props) => {
               <Row>
                 <Col md={11}>
                   <Form.Label>Service </Form.Label>
-                  <Select 
+                  <Select
                     value={formik.values.doctorServices}
-                    isMulti className="roleSelect formControl"
+                    isMulti className="serviceSelect formControl"
                     options={services}
                     name="serviceID"
                     onChange={handleServiceChange}
                   ></Select>
+                  {formik.errors.doctorServices && formik.touched.doctorServices ?
+                    <div className="error-message">{formik.errors.doctorServices}</div>
+                    : null}
                 </Col>
               </Row>
             </Col>
@@ -521,7 +538,7 @@ const Createdoctor = (props) => {
             <Col md={6}>
               <Form.Group>
                 <Form.Label>Description</Form.Label>
-                <Form.Control 
+                <Form.Control
                   type="text" className='formControl'
                   name="description"
                   onChange={formik.handleChange}
@@ -543,7 +560,7 @@ const Createdoctor = (props) => {
                   <Form.Label>Available Days</Form.Label>
                   <Select
                     value={formik.values.availableDays}
-                    isMulti className="formControl select-control"
+                    isMulti className="formControl roleSelect"
                     options={DAYS}
                     name="availableDays"
                     onChange={handleChooseDays}

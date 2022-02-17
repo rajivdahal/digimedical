@@ -130,33 +130,36 @@ const Permission = (props) => {
         enableReinitialize: true,
         initialValues: permissionData,
         onSubmit: (values) => {
-            console.log(values)
             editPermission(values);
 
         },
 
-        // validate: (values) => {
-        //     let errors = {};
-        //     if (!values.screenName) {
-        //         errors.screenName = 'Required!'
-        //     }
-        //     if (!values.description) {
-        //         errors.description = 'Required!'
-        //     }
-        //     return errors;
-        // },
+        validate: (values) => {
+            let errors = {};
+
+            if (values.screens.length <= 0) {
+                errors.screens = 'At least one screen is required!'
+            }
+
+            return errors;
+        },
 
     })
 
     const editPermission = async (values) => {
         setLoading(true);
         try {
-            console.log(roleId);
             let resp = await UserManagementApi.editPermission(values, roleId);
             if (resp.data.status) {
                 notify.success(resp.data.message);
                 formik.resetForm();
                 getAllScreenRole();
+                setPermissionData({
+                    role: "",
+                    roleId: "",
+                    screens: "",
+                    screenId: [],
+                })
             }
         } catch (err) {
             if (err && err.response && err.response.data) {
@@ -168,7 +171,7 @@ const Permission = (props) => {
 
     const handleRoleChange = (item) => {
 
-        if(!item) return;
+        if (!item) return;
         formik.setFieldValue("role", item);
         let id = item.value;
         setRoleId(id)
@@ -179,7 +182,6 @@ const Permission = (props) => {
     }
 
     const setEditScreenData = (e, data) => {
-        console.log(data);
         if (data) {
             let id = data.roleid;
             setRoleId(id)
@@ -189,7 +191,7 @@ const Permission = (props) => {
                 value: id
             }
             setPermissionData({
-                role:roleData
+                role: roleData
             })
             window.scrollTo(0, 0)
         }
@@ -198,10 +200,10 @@ const Permission = (props) => {
     const handleCancelEdit = () => {
         formik.resetForm();
         setPermissionData({
-                role: "",
-                roleId: "",
-                screens: "",
-                screenId: [],
+            role: "",
+            roleId: "",
+            screens: "",
+            screenId: [],
         })
     }
 
@@ -235,6 +237,9 @@ const Permission = (props) => {
                                             name="screenId"
                                             onChange={handleScreenChange}
                                         ></Select>
+                                        {formik.errors.screens && formik.touched.screens ?
+                                            <div className="error-message">{formik.errors.screens}</div>
+                                            : null}
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -272,7 +277,7 @@ const Permission = (props) => {
                     icons={Tableicons}
                     data={allPermission}
                     columns={[
-                        { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
+                        { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
                         { title: 'Screen Name', field: 'screens' },
                         { title: 'Role Name', field: 'rolename' },
                         {

@@ -7,7 +7,7 @@ import Tableicons from '../../../../utils/materialicons';
 import MaterialTable from 'material-table';
 import { notify } from "../../../../services/notify";
 import PackageApi from "./package.service";
-import { validatePackage } from "./package.helper";
+import { validateMembershipPackage, validatePackage } from "./package.helper";
 import { Edit, Clear } from "@material-ui/icons";
 
 const MembershipPackage = (props) => {
@@ -22,7 +22,7 @@ const MembershipPackage = (props) => {
     const [packageData, setPackageData] = useState({
 
         packageId: "",
-        selectedPackage: [],
+        selectedPackage: {},
         packageName: "",
         description: "",
         price: "",
@@ -96,7 +96,7 @@ const MembershipPackage = (props) => {
 
         validate: (values) => {
             let isEdit = packageID ? true : false;
-            return validatePackage(values, isEdit);
+            return validateMembershipPackage(values, isEdit);
         },
 
     })
@@ -180,7 +180,7 @@ const MembershipPackage = (props) => {
                     labDiscount: "",
                     packageId: "",
                     description: "",
-                    selectedPackage: [],
+                    selectedPackage: {},
                 })
                 setPackageID(null)
                 getPackages();
@@ -202,7 +202,7 @@ const MembershipPackage = (props) => {
             labDiscount: "",
             packageId: "",
             description: "",
-            selectedPackage: [],
+            selectedPackage: {},
         })
         setPackageID(null)
     }
@@ -227,6 +227,9 @@ const MembershipPackage = (props) => {
                                     onChange={handlePackageChange}
                                 >
                                 </Select>
+                                {formik.errors.selectedPackage && formik.touched.selectedPackage ?
+                                    <div className="error-message">{formik.errors.selectedPackage}</div>
+                                    : null}
                             </Form.Group>
                         </Col>
 
@@ -260,9 +263,9 @@ const MembershipPackage = (props) => {
                                 <Form.Label>Actual Price :</Form.Label>
                                 <Form.Control className='formControl' type="text" name="price" onChange={formik.handleChange}
                                     value={formik.values.price} onBlur={formik.handleBlur} />
-                                {/* {formik.touched.price && formik.errors.price ?
+                                {formik.touched.price && formik.errors.price ?
                                     <div className="error-message">{formik.errors.price}</div>
-                                    : null} */}
+                                    : null}
                             </Form.Group>
                         </Col>
                         <Col md={4}>
@@ -281,7 +284,7 @@ const MembershipPackage = (props) => {
                                 <Form.Label>Laboratory Discount</Form.Label>
                                 <Form.Control className='formControl' type="text" name="labDiscount" onChange={formik.handleChange}
                                     value={formik.values.labDiscount} onBlur={formik.handleBlur} />
-                                {formik.errors.labDiscount && formik.touched.labDiscount ?
+                                    {formik.touched.labDiscount && formik.errors.labDiscount ?
                                     <div className="error-message">{formik.errors.labDiscount}</div>
                                     : null}
                             </Form.Group>

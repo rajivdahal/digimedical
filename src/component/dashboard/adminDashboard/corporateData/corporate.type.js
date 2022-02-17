@@ -68,7 +68,6 @@ const CorporateTypes = (props) => {
 
     const editCorporateType = (e, data) => {
         setTypeId(data.id)
-        // console.log(data.id);
         if (data) {
             setCorporateType({
                 typeName: data.name,
@@ -100,7 +99,6 @@ const CorporateTypes = (props) => {
                 }
             })
             .catch(err => {
-                console.log(err.response)
                 setLoading(false)
             })
     }
@@ -128,7 +126,6 @@ const CorporateTypes = (props) => {
 
         httpClient.PUT("corporate-types/change/" + typeId + "/" + tempTypeStatus, {}, false, true)
             .then(resp => {
-                // console.log(resp)
                 if (resp.data.status) {
                     notify.success(resp.data.message)
                     getCorporateType();
@@ -138,14 +135,14 @@ const CorporateTypes = (props) => {
 
             })
             .catch(err => {
-                console.log(err.response.data)
+                setLoading(false)
             })
     }
 
     function validateName(value) {
         let error;
         if (!value) {
-            error = 'Required!';
+            error = 'Corporate Type is required!';
         }
         return error;
     }
@@ -153,7 +150,7 @@ const CorporateTypes = (props) => {
     function validateDescription(value) {
         let error;
         if (!value) {
-            error = 'Required!';
+            error = 'Description is required!';
         }
         return error;
     }

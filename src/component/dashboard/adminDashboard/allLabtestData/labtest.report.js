@@ -8,7 +8,7 @@ const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 const LabtestReport = (props) => {
     const imageSelectRef = useRef();
     const [uploadedImg, setUploadImg] = useState("");
-    const [selectedImage, setImage] = useState([]);
+    const [selectedImage, setImage] = useState("");
     const [allImageId, setAllImageId] = useState([]);
     const [selectedImgName, setImgName] = useState("");
     const [labReportImg, setLabReportImg] = useState([]);
@@ -20,15 +20,11 @@ const LabtestReport = (props) => {
 
     const getAllImgID = async () => {
         let id = props.location.state.labtestbookingid;
-
-        console.log(id)
         try {
 
             let resp = await httpClient.GET("lab-report/get-all/" + id, false, true);
-            console.log(resp);
             if (resp.data.status) {
                 let imgId = resp.data.data;
-                console.log(imgId);
                 setAllImageId(imgId)
             }
 
@@ -39,20 +35,19 @@ const LabtestReport = (props) => {
         }
     }
 
-
     useEffect(() => {
         getAllImgID();
     }, [])
 
     const handleChangeImage = (e) => {
-        let files = e.target.files;
+        let files = e.target.files[0];
         let reader = new FileReader();
         setLabReportImg(files)
         reader.onloadend = () => {
             setImage(reader.result.toString());
             setImgName(files.name);
         };
-        reader.readAsDataURL(files[0]);
+        reader.readAsDataURL(files);
     };
 
     const removeImage = () => {
@@ -64,7 +59,6 @@ const LabtestReport = (props) => {
     const uploadImage = async () => {
         try {
             let id = props.location.state.labtestbookingid;
-            console.log(id)
             let formData = new FormData();
 
             if (labReportImg) {
@@ -74,7 +68,6 @@ const LabtestReport = (props) => {
 
 
             let resp = await httpClient.POST("lab-report/create", formData, false, true, "formdata");
-            console.log(resp)
             if (resp.data.status) {
                 notify.success(resp.data.message)
                 setImage(null);
@@ -121,22 +114,16 @@ const LabtestReport = (props) => {
                             </Col>
 
                             <Col md={5}>
-                                {selectedImage ?
-                                    selectedImage.map((img) => {
-                                        return <Image
-                                            src={img}
-                                            fluid
-                                            className="image ml-3"
-                                        ></Image>
-                                    })
-                                    :
-                                    <></>
-                                }
+                                <Image
+                                    src={selectedImage}
+                                    fluid
+                                    className="image ml-3"
+                                ></Image>
                                 {/* <div>{selectedImgName}</div> */}
                             </Col>
                             {selectedImage ?
                                 <Col md={2}>
-                                    <span style={{ color: "red" }} className="removeBtn" onClick={removeImage}>
+                                    <span style={{ color: "red",cursor : "pointer " }} onClick={removeImage}>
                                         x
                                     </span>
                                 </Col>

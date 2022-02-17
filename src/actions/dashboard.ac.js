@@ -1,7 +1,6 @@
 export const dashboardActionTypes = {
     SET_IS_DASHBOARD_OPEN: 'SET_IS_DASHBOARD_OPEN',
     SET_IS_DASHBOARD_CLOSE:'SET_IS_DASHBOARD_CLOSE',
-
 }
 
 export const dashboardOpen=(params)=>{

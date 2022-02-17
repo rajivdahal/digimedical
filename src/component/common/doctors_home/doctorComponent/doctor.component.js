@@ -18,12 +18,12 @@ const DoctorDetailComponent = (props) => {
       <div className="digidoc_card_img">
         <img
           src={REACT_APP_BASE_URL + "doctor/download/" + props.doctorId}
-          onError={(e)=>{
+          onError={(e) => {
             // e.target.onerror = null;
-            props.gender==1?
-             e.target.src="/images/doctor.jpeg":
-             e.target.src="/images/femaledoctor.png"
-            }}
+            props.gender == 1 ?
+              e.target.src = "/images/doctor.jpeg" :
+              e.target.src = "/images/femaledoctor.png"
+          }}
 
           alt=""
           style={{
@@ -47,9 +47,10 @@ const DoctorDetailComponent = (props) => {
       </div>
       <div className="digidoc_card_but">
         {" "}
-        <button id="digidoc_card_but" onClick={consultDoctor}>
+        <div>Rs.{props.price}</div>
+        <div><button id="digidoc_card_but" onClick={consultDoctor}>
           Consult
-        </button>
+        </button></div>
       </div>
     </div>
   );

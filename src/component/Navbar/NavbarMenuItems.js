@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import package_logo from "../../assets/hospital.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./NavbarMenuItems.css";
 import login_signup from "../../component/common/login component/login_signup";
 import login from "./../../assets/login.png";
@@ -100,7 +100,6 @@ const NavbarMenuItems = () => {
   const getFamilyPackage = async () => {
     try {
       let resp = await httpClient.GET("master-package/get-types/1");
-      console.log(resp);
       if (resp.data.status) {
         setFamilyType(resp.data.data);
       }
@@ -247,7 +246,7 @@ const NavbarMenuItems = () => {
 
                 {localStorage.getItem("dm-access_token") ? (
                   <div onClick={Logout} id="link_cat_nav_mob">
-                    <i class="fas fa-sign-out-alt"></i>
+                    <span><i class="fas fa-sign-out-alt"></i></span>
                     <span style={{ color: "#fff" }}>&nbsp; Logout</span>
                   </div>
                 ) : null}
@@ -282,9 +281,9 @@ const NavbarMenuItems = () => {
         </Link>
 
         {/* for desktop navbar */}
-        <div className="menu">
+        <ul className="menu">
           {" "}
-          <div className="menu-item_nav">
+          <li className="menu-item_nav common-menu">
             <Link
               className="link_home_nav"
               to="/services"
@@ -403,8 +402,8 @@ const NavbarMenuItems = () => {
                 </Link>
               </div>
             </div>
-          </div>
-          <div className="menu-item_nav">
+          </li>
+          <li className="menu-item_nav common-menu">
             <Link
               className="link_home_nav"
               to="/forbusiness"
@@ -438,32 +437,20 @@ const NavbarMenuItems = () => {
                 })}
               </div>
             </div>
-          </div>
-          <div className="menu-item_nav">
-            For Family
+          </li>
+
+          <li className="menu-item_nav common-menu">
+            <Link
+              className="link_home_nav"
+              to="/family-package"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              For Family
+            </Link>
+
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
-                {/* <Link to="/family-package">
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Family Care Package</p>{" "}
-                </Link> */}
-                <a>
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Pregnency Care Packages</p>{" "}
-                </a>
-
-                {FamilyType.map((item, index) => {
+              {FamilyType.map((item, index) => {
                   return (
                     <>
                       <Link
@@ -486,32 +473,33 @@ const NavbarMenuItems = () => {
                 })}
               </div>
             </div>
-          </div>
-          <span className="menu-item">
+          </li>
+
+          <li className="menu-item common-menu">
             <Link
               to="/digimedical-doctors"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Our Doctors
             </Link>
-          </span>
-          <span className="menu-item">
+          </li>
+          <li className="menu-item common-menu">
             <Link
               to="/about"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               About Us
             </Link>
-          </span>
-          <span className="menu-item">
+          </li>
+          <li className="menu-item common-menu">
             <Link
               to="/contact"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Contact
             </Link>
-          </span>
-        </div>
+          </li>
+        </ul>
       </LogMenuItemsContainor>
       {/* <div className="nav_search">
         <Search />

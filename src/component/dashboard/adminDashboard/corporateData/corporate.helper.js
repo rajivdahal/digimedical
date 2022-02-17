@@ -4,46 +4,64 @@ const validateCorporate = ( values, isEdit = false ) =>{
     let errors = {};
 
     if (!values.name) {
-        errors.name = 'Required!'
-    }
-
-    if (!values.contactNumber) {
-        errors.contactNumber = "Required!"
+        errors.name = 'Corporate Name is required!'
     }
 
     if(!REGEX.DECIMAL.test(values.contactNumber)){
-        errors.contactNumber = "Must be a number!";
+        errors.contactNumber = "Contact Number must be a number!";
     }
 
-    else if (("" + values.contactNumber).includes('-')) {
+    if (("" + values.contactNumber).includes('-')) {
         errors.contactNumber = "Contact Number can't be Negative!"
     }
 
+    if (!values.contactNumber) {
+        errors.contactNumber = "Contact Number is required!"
+    }
+
+    if(!REGEX.DECIMAL.test(values.mobileNum)){
+        errors.mobileNum = "Mobile Number must be a number!";
+    }
+
+    if (("" + values.mobileNum).includes('-')) {
+        errors.mobileNum = "Mobile Number can't be Negative!"
+    }
+
+    if (! values.mobileNum) {
+        errors.mobileNum = "Mobile Number is required!"
+    }
+
     if (!values.address) {
-        errors.address = 'Required!'
+        errors.address = 'Address is required!'
     }
 
     if (!values.establishDate) {
-        errors.establishDate = 'Required!'
-    }
-    if (!values.panNumber) {
-        errors.panNumber = 'Required!'
+        errors.establishDate = 'Established Date is required!'
     }
 
     if(!REGEX.DECIMAL.test(values.panNumber)){
-        errors.panNumber = "Must be a number";
+        errors.panNumber = "PAN Number must be a number!";
     }
 
-    if (!values.personName) {
-        errors.personName = "Contact person name is required!"
+    if (!values.panNumber) {
+        errors.panNumber = 'PAN Number is required!'
+    }
+
+    if (!values.contactPersonName) {
+        errors.contactPersonName = "Contact person Name is required!"
+    }
+
+    if (!values.selectedType.value) {
+        errors.selectedType = "Corporate Type is required"
     }
 
     if(!isEdit){
+        
+        if (!REGEX.EMAIL.test(values.email)) {
+            errors.email = "Invalid email format!"
+        }
         if (!values.email) {
             errors.email = "Email is required!"
-        }
-        else if (!REGEX.EMAIL.test(values.email)) {
-            errors.email = "Invalid email format!"
         }
         if (values.password.length < 8) {
             errors.password = "Password must be greater than 8 digits!"

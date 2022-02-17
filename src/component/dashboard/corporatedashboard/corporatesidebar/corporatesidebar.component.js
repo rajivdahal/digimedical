@@ -3,12 +3,17 @@ import { useHistory } from "react-router-dom";
 import WysiwygRoundedIcon from '@mui/icons-material/WysiwygRounded';
 
 const Corporatesidebar = (props) => {
-  const history = useHistory()
+  const history = useHistory();
   const navigateDashboard = () => {
     history.push("/dashboard/")
   }
   const navigateAddMembers=()=>{
     history.push("/dashboard/corporate/add-members")
+
+  }
+
+  const handlePackage=()=>{
+    history.push("/dashboard/corporate/book-packages")
 
   }
   return (
@@ -63,6 +68,13 @@ const Corporatesidebar = (props) => {
                 </Link>
               </ul>
             </div>
+          </li>
+
+          <li className="nav-item" onClick={handlePackage} style={{ cursor: "pointer" }}>
+            <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="package">
+              <i className="fas fa-bars menu-icon"></i>
+              <span className="menu-title">Packages</span>
+            </a>
           </li>
 
         </ul>

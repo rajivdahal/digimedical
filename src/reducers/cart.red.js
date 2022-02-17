@@ -42,6 +42,10 @@ export const Cartreducer = (state, action) => {
                         })
                     })
                  if(index==cart.labs.length-1 && !isInside){
+                     if(!action.payload.length){
+                         notify.error("Please select some items")
+                         return
+                     }
                     cart.labs.push(payload)
                    cart.cartvalue=cart.cartvalue+1
                     notify.success("Added to cart")
@@ -49,72 +53,22 @@ export const Cartreducer = (state, action) => {
                 })
             }
            else{
-            cart.labs.push(payload)
-            cart.cartvalue=cart.cartvalue+1
-            notify.success("Added to cart")
+
+               if(action.payload.length){
+                cart.labs.push(payload)
+                cart.cartvalue=cart.cartvalue+1
+                notify.success("Added to cart")
+               }
+               else{
+                   notify.error("Please select some items   ")
+               }
            }
 
             console.log("cart after updating is",cart)
             localStorage.setItem("cart",JSON.stringify(cart))
-            // let isinside=false
-            // let arrayinsidelabs=localStorage.getItem("cart")?JSON.parse(localStorage.getItem("cart")).labs:[]
-            // let changedIndex=null
-            // console.log("array inside labs is",arrayinsidelabs)
-            // payload.map((item,index)=>{
-            //     console.log("inside map",item)
-            //     if(cart.labs.length){
-            //                 cart.labs.map((labItem,labIndex)=>{
-            //                     labItem.map((labObject,labObjectIndex)=>{
-            //                         if(labObject.subcategoryname===item.subcategoryname){
-            //                             isinside=labObject.subcategoryname
-            //                             notify.error(labObject.subcategoryname+" has already been added")
-            //                         }
-            //                     })
-            //                     if(labIndex===cart.labs.length-1 && !isinside){
-            //                         arrayinsidelabs.map((labItem,labIndex)=>{
-            //                             if(labItem[0].category===item.category){
-            //                                 arrayinsidelabs[labIndex].push(item)
-            //                                 changedIndex=labIndex+1
-            //                             }
-            //                         })
-
-            //                     }
-            //                 })
-            //                 if(index==payload.length-1 && !isinside && !changedIndex){
-            //                     arrayinsidelabs.push(payload)
-            //                 }
-            //     }
-            //     else{
-            //         arrayinsidelabs.push(item)
-            //         cart.cartvalue=1
-            //     }
-            // })
-            // if(changedIndex){
-            //     cart.labs.splice(changedIndex-1,1)
-            //     cart.labs=[]
-            //      arrayinsidelabs.map((item,index)=>{
-            //         cart.labs.push(item)
-            //           localStorage.setItem("cart", JSON.stringify(cart))
-            //     })
-            //     notify.success("Added to cart")
-            // }
-            // else{
-            //     if(!cart.labs.length){
-            //         cart.labs.push(arrayinsidelabs)
-            //     }
-            //     else{
-            //         cart.cartvalue=cart.cartvalue+1
-            //         cart.labs=arrayinsidelabs
-            //     }
-            //     if(!isinside){
-            //         localStorage.setItem("cart", JSON.stringify(cart))
-            //         notify.success("Added to cart")
-            //     }
-            // }
             return {
                 ...state,
                 cartvalue: state.cartvalue + 1,
-                // cartitems: cartitems
             }
         case labtestActionTypes.SET_IS_LAB_TEST_FETCHED:
             return {

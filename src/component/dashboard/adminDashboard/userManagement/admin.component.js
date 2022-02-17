@@ -28,6 +28,7 @@ const CreateAdmin = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setImage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [adminId, setAdminId] = useState("");
   const [adminStatus, setAdminStatus] = useState("");
   const [allAdmin, setAllAdmin] = useState([]);
@@ -38,7 +39,7 @@ const CreateAdmin = (props) => {
     mobileNumber: "",
     dob: "",
     adminImage: "",
-    selectedRole: "",
+    selectedRole: {},
     roleID: "",
     email: "",
     password: "",
@@ -54,6 +55,7 @@ const CreateAdmin = (props) => {
         data.forEach((admin) => {
           admin.adminName = admin.firstName + " " + admin.lastName;
         });
+        console.log(data)
         setAllAdmin(data);
       }
     } catch (err) {
@@ -61,6 +63,7 @@ const CreateAdmin = (props) => {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
+    setLoading(false)
   }
 
   const getAllRoles = async () => {
@@ -68,8 +71,8 @@ const CreateAdmin = (props) => {
     try {
       let resp = await UserManagementApi.getRole();
       if (resp.data.status) {
-        let result = resp.data.data; 
-        
+        let result = resp.data.data;
+
         let options = result.map((item) => {
           return {
             label: item.name,
@@ -93,13 +96,15 @@ const CreateAdmin = (props) => {
   }, []);
 
   const createAdmin = async (values) => {
-    setLoading(true);
+    setIsLoading(true);
     try {
       let resp = await UserManagementApi.createAdmin(values);
+      console.log(resp);
       if (resp.data.status) {
         notify.success(resp.data.message);
         formik.resetForm();
         getAllAdmin();
+        setImage(null)
       }
     }
     catch (err) {
@@ -107,7 +112,7 @@ const CreateAdmin = (props) => {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-    setLoading(false)
+    setIsLoading(false)
   };
 
 
@@ -128,35 +133,30 @@ const CreateAdmin = (props) => {
   });
 
   const setAdminEditData = (e, data) => {
+    console.log(data)
     let id = data.userId;
     setAdminId(data.id);
     if (data) {
       let url = REACT_APP_BASE_URL + "admin/download/" + id;
       setImage(url);
-
-      // let admindRole = [];
-      // allRole.forEach((role) => {
-      //   let foundRole = data.roles.filter((item) => {
-      //     return (item.id == role.value)
-      //   });
-      //   if (foundRole.length > 0) {
-      //     admindRole.push(foundRole)
-      //   };
-      // })
+      let adminRole = {
+        label : data.roleName,
+        value : data.roleId
+      }
       setAdminInfo({
         firstName: data.firstName,
         middleName: data.middleName,
         lastName: data.lastName,
         dob: data.dob,
         mobileNumber: data.mobileNumber,
-        // selectedRole: admindRole,
+        selectedRole: adminRole,
       });
       window.scrollTo(0, 0);
     }
   };
 
   const editAdminInfo = async (values) => {
-    setLoading(true);
+    setIsLoading(true);
     try {
 
       let resp = await UserManagementApi.editAdmin(values, adminId);
@@ -171,6 +171,8 @@ const CreateAdmin = (props) => {
           mobileNumber: "",
           email: "",
           dob: "",
+          selectedRole: {},
+          roleID: "",
         });
       }
     }
@@ -179,7 +181,7 @@ const CreateAdmin = (props) => {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-    setLoading(false);
+    setIsLoading(false);
   };
 
   const handleCancelEdit = () => {
@@ -191,6 +193,8 @@ const CreateAdmin = (props) => {
       email: "",
       dob: "",
       adminImage: "",
+      selectedRole: {},
+      roleID: "",
     });
     setImage(null);
   };
@@ -224,11 +228,11 @@ const CreateAdmin = (props) => {
     setShowModal(true);
   };
 
-  const changeAdminStatus = async() => {
+  const changeAdminStatus = async () => {
     setLoading(true);
 
-    try{
-      let resp = await UserManagementApi.changeAdminStatus(adminStatus,adminId);
+    try {
+      let resp = await UserManagementApi.changeAdminStatus(adminStatus, adminId);
       if (resp.data.status) {
         notify.success(resp.data.message);
         setLoading(false);
@@ -236,7 +240,7 @@ const CreateAdmin = (props) => {
         handleClose();
       }
     }
-    catch(err){
+    catch (err) {
       if (err && err.response && err.response.data) {
         notify.error(err.response.data.message || "Something went wrong");
       }
@@ -245,16 +249,15 @@ const CreateAdmin = (props) => {
   }
 
   const handleRoleChange = (item) => {
-    console.log(item);
     formik.setFieldValue("selectedRole", item);
-  };
+  }
 
   return (
     <div>
       <Container>
         <Form onSubmit={formik.handleSubmit}>
           <Row className="mb-3">
-            <Col md={4}>
+            <Col md={6}>
               <Form.Group>
                 <Form.Label>First Name</Form.Label>
                 <Form.Control
@@ -269,7 +272,7 @@ const CreateAdmin = (props) => {
                 ) : null}
               </Form.Group>
             </Col>
-            <Col md={4}>
+            {/* <Col md={4}>
               <Form.Group>
                 <Form.Label>Middle Name</Form.Label>
                 <Form.Control
@@ -279,15 +282,10 @@ const CreateAdmin = (props) => {
                   value={formik.values.middleName}
                   onBlur={formik.handleBlur}
                 />
-                {formik.touched.middleName && formik.errors.middleName ? (
-                  <div className="error-message">
-                    {formik.errors.middleName}
-                  </div>
-                ) : null}
               </Form.Group>
-            </Col>
+            </Col> */}
 
-            <Col md={4}>
+            <Col md={6}>
               <Form.Group>
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
@@ -329,6 +327,9 @@ const CreateAdmin = (props) => {
                   name="roleID" className="roleSelect formControl"
                   onChange={handleRoleChange}
                 ></Select>
+                {formik.errors.selectedRole && formik.touched.selectedRole ?
+                  <div className="error-message">{formik.errors.selectedRole}</div>
+                  : null}
               </Form.Group>
             </Col>
 
@@ -439,19 +440,20 @@ const CreateAdmin = (props) => {
                 roundedCircle
               ></Image>
             </Col>
-            {selectedImage ? 
-            <Col md={2}>
-            <span style={{ color: 'red',cursor: 'pointer' }} onClick={removeImage}>x</span>
+            {selectedImage ?
+              <Col md={2}>
+                <span style={{ color: 'red', cursor: 'pointer' }} onClick={removeImage}>x</span>
 
-          </Col>
-          :
-          <></>
+              </Col>
+              :
+              <></>
             }
-            
+
           </Row>
+
           <div className="textAlign-right  mb-5">
-            {loading == true ? (
-              <Cliploader isLoading={loading} />
+            {isLoading == true ? (
+              <Cliploader isLoading={isLoading} />
             ) : (
               <div>
                 {adminId ? (
@@ -485,7 +487,7 @@ const CreateAdmin = (props) => {
           icons={Tableicons}
           data={allAdmin}
           columns={[
-            { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
+            { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
             { title: "Name", field: "adminName" },
             { title: "Mobile Number", field: "mobileNumber" },
             { title: "email", field: "email" },

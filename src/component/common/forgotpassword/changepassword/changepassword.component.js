@@ -22,7 +22,6 @@ export const Changepassword = (props) => {
       newPassword: "",
     },
     onSubmit: (values) => {
-      console.log("submit triggered");
       setisLoading(true);
       if (!userName) {
         return httpClient

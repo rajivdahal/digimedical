@@ -15,13 +15,19 @@ import Digi_doctors from "../common/doctors_home/doctors_home.component";
 const Root = styled.div`
   // background-color: red;
   height: 33.7rem;
+  @media screen and (max-width: 767px){
+    height: calc(100vh - 100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
 `;
 const HeroSectionContent = styled.div`
   padding-top: 6rem;
-  padding-left: 9rem;
-  @media screen and (max-width: 650px) {
-    padding-top: 4rem;
-    padding-left: 2rem;
+  padding-left: 6.5rem;
+  @media screen and (max-width: 767px) {
+    padding: 3.125rem 1.875rem;
   }
 `;
 const Heading = styled.div`
@@ -59,10 +65,10 @@ const SubHeading = styled.div`
   align-items: left;
   color: #ffffff;
   @media screen and (max-width: 865px) {
-    width: 50%;
+    width: 100%;
   }
   @media screen and (max-width: 950px) {
-    width: 52%;
+    width: 100%;
   }
 `;
 const ButtonContainor = styled.div`

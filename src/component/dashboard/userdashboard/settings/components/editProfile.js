@@ -36,13 +36,6 @@ const EditProfile = (props) => {
     bloodGroup: "A+",
   });
 
-  function validateName(value) {
-    let error;
-    if (!value) {
-      error = "Required!";
-    }
-    return error;
-  }
   function validateEmail(value) {
     let error;
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
@@ -51,13 +44,6 @@ const EditProfile = (props) => {
     return error;
   }
 
-  function validateAddress(value) {
-    let error;
-    if (!value) {
-      error = "Required!";
-    }
-    return error;
-  }
   function validateContactNo(value) {
     let error;
     if (!value) {
@@ -69,41 +55,12 @@ const EditProfile = (props) => {
     }
     return error;
   }
-  function validateWeight(value) {
-    let error;
-    if (!value) {
-      error = "Required!";
-    }
-    return error;
-  }
-  function validateHeight(value) {
-    let error;
-    if (!value) {
-      error = "Required!";
-    }
-    return error;
-  }
 
-  function validateFatherName(value) {
-    let error;
-    if (!value) {
-      error = "Required!";
-    }
-    return error;
-  }
 
-  function validateDob(value) {
-    let error;
-    if (!value) {
-      error = "Required!";
-    }
-    return error;
-  }
 
   const getUser = () => {
     let id = localStorage.getItem("userid");
     if (props) {
-      console.log(props);
       let url = REACT_APP_BASE_URL + "download/" + id;
       setImage(url);
       setUserProfile({
@@ -152,7 +109,6 @@ const EditProfile = (props) => {
     formData.append("mobileNumber", values.contactNo);
     formData.append("fatherName", values.fatherName);
 
-    console.log(formData);
     httpClient
       .PUT("update-user", formData, false, true, "formdata")
       .then((resp) => {
@@ -185,7 +141,9 @@ const EditProfile = (props) => {
       gender: "0",
       image: "",
       bloodGroup: "A+",
-    });
+    })
+    props.gotoView();
+
   };
 
   const handleAddImage = () => {
@@ -209,7 +167,6 @@ const EditProfile = (props) => {
           enableReinitialize={true}
           initialValues={userProfile}
           onSubmit={(values) => {
-            console.log(values);
             updateProfile(values);
           }}
         >
@@ -252,9 +209,7 @@ const EditProfile = (props) => {
                             className="form-control profile-field"
                             disabled
                           />
-                          {errors.name && touched.name && (
-                            <div className="error-message">{errors.name}</div>
-                          )}
+                          
                         </div>
                       </Col>
                       <Col md={4}>
@@ -275,9 +230,6 @@ const EditProfile = (props) => {
                             className="form-control profile-field"
                             disabled
                           />
-                          {errors.name && touched.name && (
-                            <div className="error-message">{errors.name}</div>
-                          )}
                         </div>
                       </Col>
 
@@ -288,11 +240,6 @@ const EditProfile = (props) => {
                             name="address"
                             className="form-control profile-field"
                           />
-                          {errors.address && touched.address && (
-                            <div className="error-message">
-                              {errors.address}
-                            </div>
-                          )}
                         </div>
                       </Col>
 
@@ -349,9 +296,6 @@ const EditProfile = (props) => {
                             className="form-control profile-field"
                             type="date"
                           />
-                          {errors.dob && touched.dob && (
-                            <div className="error-message">{errors.dob}</div>
-                          )}
                         </div>
                       </Col>
                       <Col md={4}>
@@ -361,9 +305,7 @@ const EditProfile = (props) => {
                             name="weight"
                             className="form-control profile-field"
                           />
-                          {errors.weight && touched.weight && (
-                            <div className="error-message">{errors.weight}</div>
-                          )}
+                          
                         </div>
                       </Col>
                       <Col md={4}>
@@ -373,23 +315,16 @@ const EditProfile = (props) => {
                             name="height"
                             className="form-control profile-field"
                           />
-                          {errors.height && touched.height && (
-                            <div className="error-message">{errors.height}</div>
-                          )}
+                          
                         </div>
                       </Col>
                       <Col md={4}>
                         <div className=" form-group">
                           <label>Contact Number : </label>
                           <Field
-                            name="contactNo"
+                            name="contactNo" validate={validateContactNo}
                             className="form-control profile-field"
                           />
-                          {errors.contactNo && touched.contactNo && (
-                            <div className="error-message">
-                              {errors.contactNo}
-                            </div>
-                          )}
                         </div>
                       </Col>
                       <Col md={6}>
@@ -399,11 +334,6 @@ const EditProfile = (props) => {
                             name="fatherName"
                             className="form-control profile-field"
                           />
-                          {errors.fatherName && touched.fatherName && (
-                            <div className="error-message">
-                              {errors.fatherName}
-                            </div>
-                          )}
                         </div>
                       </Col>
                       {userstatus === "300" ? null : (
@@ -432,7 +362,7 @@ const EditProfile = (props) => {
                     Cancel
                   </button>
                   <button className="change-btn" type="submit">
-                    Save Changes
+                    Save
                   </button>
                 </div>
               </Row>

@@ -33,10 +33,8 @@ const LabTestDetail = (props) => {
     const getLabtest = async (status) => {
         setLoading(true);
         setStatus(status)
-        console.log(status)
         await httpClient.GET("lab-booking/get-all/" + status, false, true)
             .then(resp => {
-                console.log(resp)
                 // let appointment = resp.data.data;
                 // appointment.forEach((item)=>{
                 //     item.appointmentDate = item.appointmentDate.slice(0,10)
@@ -45,7 +43,6 @@ const LabTestDetail = (props) => {
                 setLoading(false)
             })
             .catch(err => {
-                console.log(err)
                 setLoading(false)
             })
     }
@@ -55,7 +52,6 @@ const LabTestDetail = (props) => {
     }, [])
 
     useEffect(()=>{
-        console.log("ÜPDATE ACTIONS");
         let tempActions = [];
         if(status === 1){
             tempActions = actions.completed;
@@ -76,8 +72,6 @@ const LabTestDetail = (props) => {
     }
 
     const showLabtestReport=(e,data)=>{
-        console.log(data)
-        
         props.history.push({
             pathname : "/dashboard/labtest-report",
             state : data,

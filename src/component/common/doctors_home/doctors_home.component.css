@@ -32,6 +32,8 @@
 .digidoc_card_but {
   display: flex;
   align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: end;
 }
 
 #digidoc_card_but {
@@ -64,10 +66,12 @@
   }
   .digidoc_about_desc {
     padding-left: 0;
-    width: 80%;
+    width: 100%;
   }
   .digidoc_about_desc p {
     text-align: center;
+    display: block;
+    width: 100%;
   }
   #digidoc_card_but {
     width: 100%;
