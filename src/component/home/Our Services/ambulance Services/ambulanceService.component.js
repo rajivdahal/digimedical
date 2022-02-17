@@ -5,76 +5,74 @@ export default function AmbulanceService() {
     <div className="ourserv-cont-main">
       <div className="ourserv-cont-main1">
         <div className="serv-passages">
-          <p className="questionheads"> MRI/CT Scan Services </p>
+          <p className="questionheads"> Ambulance Service </p>
           <div className="serv-boxes">
             <p className="serv-text">
-              Magnetic Resonance Imaging (MRI) scans may be carried out for a
-              variety of reasons, and will be accordingly targeted at specific
-              zones of the body. Scans of the brain and spinal cord, for
-              instance, not only look for brain and spinal cord injuries but
-              also for signs of blood vessel damage, cancer, multiple sclerosis
-              and stroke. Scans of the bones and joints are also used to look
-              for signs of cancer, as well as bone infections, joint damage and
-              so on. Doctors may also carry out an MRI of the heart and blood
-              vessels to look for blocked blood vessels and heart problems, such
-              as damage or disease. A computerized tomography (CT) scan or
-              computed tomography scan is a medical imaging technique used in
-              radiology to get detailed images of the body noninvasively for
-              diagnostic purposes.
+              Digi medical is in collaboration with different ambulance
+              services, helping people in case of an emergency.
             </p>
           </div>
-          <p className="questionheads">Importance of CT scan </p>
+          <p className="questionheads">When do you need an Ambulance? </p>
           <div className="serv-boxes">
-            <ul className="serv-text">
-              <li>
-                {" "}
-                To diagnose muscle and bone disorders, such as bone tumours and
-                fractures.
-              </li>
-              <li>
-                {" "}
-                To pinpoint the location of a tumour, infection or blood clot.
-              </li>
-              <li>
-                {" "}
-                To guide procedures such as surgery, biopsy and radiation
-                therapy.
-              </li>
-              <li>
-                {" "}
-                To take images of any parts of the body e.g., Head, joints,
-                abdomen, legs etc.{" "}
-              </li>
-              <li>
-                {" "}
-                To find precise accuracy in detecting structural abnormalities
-                of the body.
-              </li>
-            </ul>
+            <p className="serv-text">
+              Accidents can occur because of various reasons but it is essential
+              to want a tailored way to limit such scenarios once this happens.
+              Understand how to really acknowledge early warning signs: Many
+              emergency health warning signs include sudden nausea, chest pain,
+              vomiting, clumsiness, optical change, severe abdomen pain,
+              bleeding profusely, wheezing of human blood, etc. In epidemic, in
+              disaster and transfer of patient for hospital, post-surgical care
+              also requires an ambulance. <br />
+              Ambulance service is the first thing that a person would reach out
+              in any kind of medical emergency with any family member or friend.
+              We strongly believe in serving mankind with our human approach. By
+              reaching the assigned location on time, our team of medical
+              professionals provides immediate care to the patient and helps in
+              stabilizing the patient's health. <br />
+              We are backed by well-equipped ambulances which have all the
+              latest equipment. Our organization has a highly experienced team
+              of professionals which work in coordination with each other to
+              provide effective services to our clients. Keeping in mind the
+              sensitivity attached to the nature of our job, our team works with
+              a sense of social responsibility towards its fellow human beings.
+            </p>
           </div>
-          <p className="questionheads">Importance of MRI </p>
+          <p className="questionheads">
+            Benefits of ambulance service from Digi Medical?{" "}
+          </p>
           <div className="serv-boxes">
             <ul className="serv-text">
-              <li> It provides better soft tissue contrast than CT scan.</li>
               <li>
                 {" "}
-                Diagnosing a wide variety of diseases and conditions of chest,
-                abdomen and pelvis.{" "}
+                Instant Response: Our support team ensures you get an instant
+                response.{" "}
               </li>
               <li>
                 {" "}
-                To produce detailed pictures of the inside of your body.{" "}
+                Assured Quality: All of the Ambulances and Paramedics go through
+                a vigorous validation process.
               </li>
-              <li> To examine the blood vessels.</li>
+              <li> Best Prices: We help you get the best quotes.</li>
               <li>
                 {" "}
-                To examine a part of the body with very small bone components.
+                Basic Ambulance service includes Driver, Stretcher & Oxygen,
+                ideal for non-emergency medical transfer or Inter-facility
+                transfers.
               </li>
-              <li> Injury involves soft tissue damages.</li>
-              <li> Tumours that doctors are performing surgery on.</li>
-              <li>Undergoing some form of Cancer Treatment</li>
               <li>
-                To examine your bones to detect various skeletal deformities{" "}
+                {" "}
+                Advanced Ambulance includes a Driver, Paramedic, Stretcher,
+                Oxygen, Ventilator, Patient Monitoring, Equipment and
+                Defibrillator ideal for Cardiac, Pregnancies, Trauma Care,
+                Patients who need constant monitoring, critically ill patients
+                etc.
+              </li>
+              <li>
+                {" "}
+                Hygienic Condition: when a patient is transported from one place
+                to another, the hygienic condition is a must. It protects from
+                any type of infection. Bed to bed transfer: patients can
+                transfer from one hospital to another or hospital to home.
               </li>
             </ul>
           </div>
