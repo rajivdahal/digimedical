@@ -149,9 +149,13 @@ p {
 }
 .digidoctor_whychooseus_cont p {
   font-size: 16px;
-  color: #7b8698;
+  color: #374253;
+  font-weight: lighter;
 }
 
+.digidoc_wcu_b_P {
+  padding-top: 6px;
+}
 .digidoc_emergency_call {
   padding: 50px;
   margin-top: 20px;

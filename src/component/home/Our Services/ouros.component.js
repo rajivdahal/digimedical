@@ -17,21 +17,7 @@ export default function Ooscomponent() {
           </div>
           <div className="digidoc_whycus_body">
             <div className="digidoctor_whychooseus_cont">
-              <p style={{ color: "#374253" }}>
-                <span className="icon-oos">
-                  {" "}
-                  <i
-                    class="fas fa-file-medical"
-                    style={{ color: "#52B2E5" }}
-                  ></i>
-                </span>
-                &nbsp; &nbsp; Doctor At Home
-              </p>
-
-              <p></p>
-            </div>
-            <div className="digidoctor_whychooseus_cont">
-              <p style={{ color: "#374253" }}>
+              <p>
                 <span className="icon-oos">
                   <i
                     class="fas fa-file-medical"
@@ -39,11 +25,12 @@ export default function Ooscomponent() {
                   ></i>
                   &nbsp; &nbsp;
                 </span>
-                24/7 Nursing Service At Home
               </p>
+              <p className="digidoc_wcu_b_P">Doctor At Home</p>
             </div>
             <div className="digidoctor_whychooseus_cont">
-              <p style={{ color: "#374253" }}>
+              <p>
+                {" "}
                 <span className="icon-oos">
                   <i
                     class="fas fa-file-medical"
@@ -51,11 +38,11 @@ export default function Ooscomponent() {
                   ></i>
                   &nbsp; &nbsp;
                 </span>
-                Online Medical Consulation
               </p>
+              <p className="digidoc_wcu_b_P">24/7 Nursing Service At Home</p>
             </div>
             <div className="digidoctor_whychooseus_cont">
-              <p style={{ color: "#374253" }}>
+              <p>
                 <span className="icon-oos">
                   <i
                     class="fas fa-file-medical"
@@ -63,14 +50,28 @@ export default function Ooscomponent() {
                   ></i>
                   &nbsp; &nbsp;
                 </span>
-                PCR At Home
               </p>
+              <p className="digidoc_wcu_b_P">Online Medical Consulation</p>
+            </div>
+            <div className="digidoctor_whychooseus_cont">
+              <p>
+                {" "}
+                <span className="icon-oos">
+                  <i
+                    class="fas fa-file-medical"
+                    style={{ color: "#52B2E5" }}
+                  ></i>
+                  &nbsp; &nbsp;
+                </span>
+              </p>
+              <p className="digidoc_wcu_b_P">PCR At Home</p>
             </div>
             <div
               className="digidoctor_whychooseus_cont"
               style={{ border: "none" }}
             >
-              <p style={{ color: "#374253" }}>
+              <p>
+                {" "}
                 <span className="icon-oos">
                   <i
                     class="fas fa-file-medical"
@@ -78,8 +79,8 @@ export default function Ooscomponent() {
                   ></i>
                   &nbsp; &nbsp;
                 </span>
-                UCG/ECG/ECHO At Home
               </p>
+              <p className="digidoc_wcu_b_P">UCG/ECG/ECHO At Home</p>
             </div>
           </div>
         </div>

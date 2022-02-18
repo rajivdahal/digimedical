@@ -40,8 +40,7 @@ export default function labtestAtHome() {
 
           <p className="questionheads">Our Test Packages</p>
           <div className="serv-boxes">
-            <div className="packages_lt">
-              {" "}
+            <div>
               <h3>Basic Health Screening Package</h3>
               <p className="serv-text">
                 It covers 23 laboratory tests. Total-Cholesterol, Triglyceride,

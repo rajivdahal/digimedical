@@ -246,7 +246,9 @@ const NavbarMenuItems = () => {
 
                 {localStorage.getItem("dm-access_token") ? (
                   <div onClick={Logout} id="link_cat_nav_mob">
-                    <span><i class="fas fa-sign-out-alt"></i></span>
+                    <span>
+                      <i class="fas fa-sign-out-alt"></i>
+                    </span>
                     <span style={{ color: "#fff" }}>&nbsp; Logout</span>
                   </div>
                 ) : null}
@@ -403,16 +405,15 @@ const NavbarMenuItems = () => {
               </div>
             </div>
           </li>
-          <li className="menu-item_nav common-menu">
+          <li className="menu-item common-menu">
             <Link
-              className="link_home_nav"
               to="/forbusiness"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               For Business
             </Link>
 
-            <div className="dropdown_hp_content">
+            {/* <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
                 {corporateType.map((item, index) => {
                   return (
@@ -436,21 +437,19 @@ const NavbarMenuItems = () => {
                   );
                 })}
               </div>
-            </div>
+            </div> */}
           </li>
-
-          <li className="menu-item_nav common-menu">
+          <li className="menu-item common-menu">
             <Link
-              className="link_home_nav"
               to="/family-package"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               For Family
             </Link>
 
-            <div className="dropdown_hp_content">
+            {/* <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
-              {FamilyType.map((item, index) => {
+                {FamilyType.map((item, index) => {
                   return (
                     <>
                       <Link
@@ -472,9 +471,8 @@ const NavbarMenuItems = () => {
                   );
                 })}
               </div>
-            </div>
+            </div> */}
           </li>
-
           <li className="menu-item common-menu">
             <Link
               to="/digimedical-doctors"
