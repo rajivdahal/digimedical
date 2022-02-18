@@ -295,17 +295,6 @@ const NavbarMenuItems = () => {
             </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
-                <Link to={"/lab-test"}>
-                  <a>
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>Lab Test</p>{" "}
-                  </a>
-                </Link>
                 <Link to={"/our-services/doctor-at-home"}>
                   <a>
                     {" "}
@@ -342,7 +331,7 @@ const NavbarMenuItems = () => {
                     <p>24/7 Nursing Service at Home</p>{" "}
                   </a>
                 </Link>
-                <Link to={"/our-services/pcr-at-home"}>
+                <Link to={"/our-services/labtest-at-home"}>
                   <a>
                     {" "}
                     <img
@@ -351,10 +340,10 @@ const NavbarMenuItems = () => {
                         height: "1.5rem",
                       }}
                     ></img>
-                    <p>PCR at Home</p>{" "}
+                    <p>Labtest at Home</p>{" "}
                   </a>
                 </Link>
-                <Link to={"/our-services/utility-at-home"}>
+                <Link to={"/our-services/elderly-care-service-at-home"}>
                   <a>
                     {" "}
                     <img
@@ -363,7 +352,79 @@ const NavbarMenuItems = () => {
                         height: "1.5rem",
                       }}
                     ></img>
-                    <p>MRI Service</p>
+                    <p>Elderely Care Service at Home</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/physiotherapy-service-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>
+                    <p>Physiotherapy Service at Home</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/dental-care-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>
+                    <p>Dental Care at Home</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/minor-procedure-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>
+                    <p>Minor Procedure At Home</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/wound-care-and-dressing-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>
+                    <p>Wound Care/ Dressing at Home</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/vaccination-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>
+                    <p>Vaccination at Home</p>
+                  </a>
+                </Link>
+                <Link to={"/our-services/MRI-and-CT-Scan-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>{" "}
+                    <p>MRI/CT Scan Services</p>{" "}
                   </a>
                 </Link>
                 <Link to={"/our-services/utility-at-home"}>
@@ -375,10 +436,10 @@ const NavbarMenuItems = () => {
                         height: "1.5rem",
                       }}
                     ></img>{" "}
-                    <p>CT Scan Service</p>{" "}
+                    <p>USG/ ECG/ ECHO Service at Home</p>{" "}
                   </a>
                 </Link>
-                <Link to={"/our-services/utility-at-home"}>
+                <Link to={"/our-services/ambulance-service"}>
                   <a>
                     {" "}
                     <img
@@ -387,10 +448,10 @@ const NavbarMenuItems = () => {
                         height: "1.5rem",
                       }}
                     ></img>{" "}
-                    <p>USG Service at Home</p>{" "}
+                    <p>Ambulance Services</p>{" "}
                   </a>
                 </Link>
-                <Link to={"/our-services/utility-at-home"}>
+                <Link to={"/our-services/medicine-deliverye"}>
                   <a>
                     {" "}
                     <img
@@ -399,7 +460,56 @@ const NavbarMenuItems = () => {
                         height: "1.5rem",
                       }}
                     ></img>{" "}
-                    <p>USG| ECG | ECHO Service at Home</p>{" "}
+                    <p>Medicine Delivery</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/alternative-medicine-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>{" "}
+                    <p>Alternative Medicine at Home</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/medical-equipment-at-home"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>{" "}
+                    <p>Medical Equipment at Home</p>{" "}
+                  </a>
+                </Link>
+
+                <Link to={"/our-services/helicopter-service"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>{" "}
+                    <p>Helicopter Service</p>{" "}
+                  </a>
+                </Link>
+                <Link to={"/our-services/international-hospital-booking"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>{" "}
+                    <p>International Hospital Booking</p>{" "}
                   </a>
                 </Link>
               </div>

@@ -172,11 +172,11 @@ const Ourservices = (props) => {
         <NursingAtHome></NursingAtHome>
       ) : location.pathname == "/our-services/online-medical-consultation" ? (
         <Onlinemedcons></Onlinemedcons>
-      ) : location.pathname == "/our-services/physiotherapy-at-home" ? (
+      ) : location.pathname == "/our-services/physiotherapy-service-at-home" ? (
         <Physiotherapyathome></Physiotherapyathome>
       ) : location.pathname == "/our-services/alternative-medicine-at-home" ? (
         <AltMedAtHome></AltMedAtHome>
-      ) : location.pathname == "/our-services/elderly-care-at-home" ? (
+      ) : location.pathname == "/our-services/elderly-care-service-at-home" ? (
         <ElderlyCareAtHome></ElderlyCareAtHome>
       ) : location.pathname == "/our-services/dental-care-at-home" ? (
         <DentalCareAtHome></DentalCareAtHome>

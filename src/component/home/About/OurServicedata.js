@@ -40,7 +40,7 @@ export const data = [
     title: "Elderly Care Service at Home",
     description:
       "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
-    link: "/our-services/elderly-care-at-home",
+    link: "/our-services/elderly-care-service-at-home",
   },
 
   {
@@ -48,13 +48,7 @@ export const data = [
     title: "Physiotherapy Service at home",
     description:
       "Physiotherapy is provided at your Home from DigiMedical,Click here.",
-    link: "/our-services/physiotherapy-at-home",
-  },
-  {
-    img: require("../../../assets/Nurse.png").default,
-    title: "Alternative Medicine At Home",
-    description: "We provied medicine at home",
-    link: "/our-services/alternative-medicine-at-home",
+    link: "/our-services/physiotherapy-service-at-home",
   },
 
   {
@@ -112,6 +106,12 @@ export const data = [
     description:
       "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",
     link: "/our-services/medicine-delivery",
+  },
+  {
+    img: require("../../../assets/Nurse.png").default,
+    title: "Alternative Medicine At Home",
+    description: "We provied medicine at home",
+    link: "/our-services/alternative-medicine-at-home",
   },
   {
     img: require("../../../assets/Nurse.png").default,
