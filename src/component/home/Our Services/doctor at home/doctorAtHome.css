@@ -42,7 +42,9 @@
 .serv-boxes ul li {
   list-style: disc;
 }
-
+.serv-boxes ol li {
+  list-style: decimal;
+}
 .serv-boxes h3 {
   font-size: 20px;
   line-height: 30px;

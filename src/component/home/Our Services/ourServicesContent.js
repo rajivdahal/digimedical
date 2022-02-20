@@ -29,6 +29,7 @@ import MedicineDelivery from "./Medicine Delivery/medicineDelivery.component";
 import MedicalEquipmentAtHome from "./Medical Equipment at home/medicalEquipmentAtHome.component";
 import HelicopterService from "./helicopter services/helicopterService.component";
 import IntHospBook from "./international hosp booking/intHospBook.component";
+import RootOurServ from "./rootOurServ";
 const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
@@ -164,6 +165,7 @@ const Ourservices = (props) => {
           )}
         </FormContainor>
       </Root>
+
       {location.pathname == "/our-services/doctor-at-home" ? (
         <DoctorAtHome></DoctorAtHome>
       ) : location.pathname == "/our-services/labtest-at-home" ? (
