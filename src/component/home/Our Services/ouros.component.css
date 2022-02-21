@@ -1,8 +1,11 @@
+/* ouroscomponent css here */
 .ourserv-wcu-cont {
-  width: 100%;
   padding-top: 50px;
-
-  width: 25%;
+  flex: 1;
+}
+.ourserv-wcu-cont1 {
+  width: 80%;
+  float: right;
 }
 
 .emergency-call {
@@ -10,4 +13,23 @@
 
 .ourserv-wcu-main {
   margin-top: 50px;
+}
+
+.icon-oos {
+  font-size: 25px;
+}
+.digidoctor_whychooseus_cont p {
+  font-size: 20px;
+}
+
+/*a
+b
+c
+ responsive css here */
+
+@media screen and (max-width: 991px) {
+  .ourserv-wcu-cont1 {
+    width: 100%;
+    float: unset;
+  }
 }

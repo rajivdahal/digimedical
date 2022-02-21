@@ -4,8 +4,8 @@
 }
 .top-container {
   width: 100%;
-  height: 631px;
-  left: 0px;
+  display: flex;
+  flex-direction: column;
 
   background: linear-gradient(
     177.28deg,
@@ -14,8 +14,6 @@
   );
 }
 .up {
-  /* width: 364px; */
-  height: 24px;
   margin-left: 10%;
   padding-top: 52px;
 }
@@ -89,6 +87,9 @@
 }
 .fcp_main_img {
   margin-left: 20%;
+}
+.fcp_main_img img {
+  width: 500px;
 }
 .mid-container {
   width: 100%;
@@ -266,6 +267,28 @@
   border-radius: 10px;
   filter: drop-shadow(4px 4px 30px rgba(0, 0, 0, 0.1));
 }
+/*c
+s
+s
+f
+o
+r
+package adas */
+.fam-package-detail {
+  margin-top: 50px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* m
+o
+b
+i
+l
+e
+view */
 @media screen and (max-width: 600px) {
   .boxes {
     margin: 2%;

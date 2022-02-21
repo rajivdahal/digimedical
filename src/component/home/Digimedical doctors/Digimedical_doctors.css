@@ -1,9 +1,56 @@
 .digi_doc_appointmain {
-  margin: 5%;
   display: flex;
-  gap: 50px;
-}
+  align-items: center;
+  justify-content: center;
 
+  flex-direction: column;
+}
+.digi_doc_appointmain1 {
+  margin-top: 10%;
+}
+.our_doc_appoint {
+  width: 80%;
+}
+.our_doc_speciality {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 4rem;
+}
+.speciality_doc_card {
+  background: #ffffff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  width: 14.5%;
+  height: 240px;
+}
+.speciality_cont1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f2ff;
+  border-radius: 10px 10px 0px 0px;
+  padding: 30px;
+  height: 64%;
+}
+.speciality_cont1 img {
+  width: 55px;
+  height: 100px;
+}
+.speciality_cont2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.speciality_cont2 p {
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 30px;
+  color: #374253;
+}
 .digidoc_head_txt h1,
 p {
   text-align: left;
@@ -61,9 +108,6 @@ p {
   color: #fff;
 }
 
-/* Digidoc form */
-.form_digi_doc {
-}
 .form_digidoc {
   margin-top: -21px;
   border: 1px solid #d0d7e2;
@@ -110,26 +154,27 @@ p {
   background-color: #2745f0;
   color: #fff;
 }
-
-/* why choose us cards */
-
 .digidoctor_whychooseus {
-  margin-top: 18%;
-  width: 22%;
+  flex: 1;
 }
-.digidpc_whycus {
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+.digidoc_whycus {
+  box-shadow: 0px 0px 4px rgba(20, 8, 8, 0.3);
   border-radius: 10px;
 }
-.digidpc_whycus h1 {
+.digidoc_whycus_head {
   padding: 10px;
-  font-size: 20px;
-  font-weight: 800;
+  padding-left: 20px;
 }
-
+.digidoc_whycus_h1 {
+  font-size: 20px;
+  font-weight: 900;
+}
+.digidoc_whycus_body {
+}
 .digidoctor_whychooseus_cont {
   padding: 10px;
-
+  padding-left: 20px;
+  width: 100%;
   border-bottom: 0.75px solid #d0d7e2;
   display: flex;
 }
@@ -138,21 +183,26 @@ p {
   margin-right: 10px;
   margin-top: 7px;
 }
-.digidoctor_whychooseus_cont img {
-  width: 18px;
-  height: 18px;
+
+.ico_digi_doc1 {
+  font-size: 20px;
 }
 .digidoctor_whychooseus_cont p {
-  font-size: 14px;
-  color: #7b8698;
+  font-size: 16px;
+  color: #374253;
+  font-weight: lighter;
 }
 
+.digidoc_wcu_b_P {
+  padding-top: 6px;
+}
 .digidoc_emergency_call {
+  padding: 50px;
   margin-top: 20px;
   background: #52b2e5;
   border-radius: 8px;
   color: white;
-  height: 200px;
+  height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -160,7 +210,17 @@ p {
   font-size: 16px;
   font-weight: 600;
 }
-
+.digidoc_emergency_call p {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+}
+.digidoc_emergency_call h4 {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: 600;
+}
 @media screen and (max-width: 660px) {
   .digidoctor_apoint_card1 {
     flex-direction: column;

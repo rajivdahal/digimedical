@@ -1,5 +1,5 @@
 import React from "react";
-import Ooscomponent from "../../ouros.component";
+import Ooscomponent from "../ouros.component";
 function doctorAtHome() {
   return (
     <div className="ourserv-cont-main">
