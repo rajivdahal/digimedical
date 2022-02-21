@@ -26,7 +26,6 @@ const Createservices = (props) => {
     const [service, setService] = useState({
         serviceName: "",
         serviceDescription: "",
-        activeStatus: "",
         image: "",
     })
 
@@ -181,8 +180,8 @@ const Createservices = (props) => {
             }
         },
         validate: (values) => {
-            let isEdit = serviceEditId ? true : false;
-            return validateService(values, isEdit);
+            let digiService = true;
+            return validateService(values,digiService);
         }
     });
 
@@ -242,6 +241,7 @@ const Createservices = (props) => {
                                 ref={imageSelectRef}
                                 accept="image/png, image/jpg, image/jpeg"
                             ></input>
+                            
                         </Col>
 
                         <Col md={4}>
@@ -254,12 +254,10 @@ const Createservices = (props) => {
                         {serviceImage ?
                             <Col md={2}>
                                 <span style={{ color: 'red', cursor: 'pointer' }} onClick={removeImage}>x</span>
-
                             </Col>
                             :
                             <></>
                         }
-
                     </Row>
 
                     <div className="textAlign-right  mb-5">

@@ -154,7 +154,6 @@ const Createdoctor = (props) => {
       let resp;
       if (props.isHospital) {
         let hospitalId = localStorage.getItem("userid");
-        console.log(hospitalId);
         resp = await doctorApi.createHospitalDoctor(values, hospitalId);
       } else {
         resp = await doctorApi.createAdminDoctor(values);
@@ -182,7 +181,6 @@ const Createdoctor = (props) => {
       } else {
         resp = await doctorApi.getAdminDoctorBYId(id);
       }
-      console.log(resp)
       if (resp.data.status) {
         // get doctor services + basic details
         let responseData = resp.data.data;
@@ -202,15 +200,11 @@ const Createdoctor = (props) => {
           });
         }
         // get services details from service data
-        console.log(allServices)
         let savedServices = [];
         allServices.forEach((service) => {
-          console.log(service)
           let found = serviceData.filter((item) => {
-            console.log(item)
             return item.id.toString() === service.value.toString();
           });
-          console.log(found)
           if (found.length > 0) {
             savedServices.push({
               label: service.label,
@@ -310,6 +304,8 @@ const Createdoctor = (props) => {
       serviceID: "",
       doctorServices: [],
       doctorImage: "",
+      digiServiceId: "",
+      digiServices: [],
     });
     setImage("");
     setImgName("");
@@ -341,12 +337,10 @@ const Createdoctor = (props) => {
   };
 
   const handleServiceChange = (item) => {
-    console.log(item);
     formik.setFieldValue("doctorServices", item);
   };
 
   const handleDigiServiceChange = (item) => {
-    console.log(item);
     formik.setFieldValue("digiServices", item);
   };
 
@@ -580,13 +574,13 @@ const Createdoctor = (props) => {
                   :
                   <></>
                 }
-
               </Row>
             </Col>
           </Row>
 
           {props.isHospital ? (
             <Row className="mb-3">
+
               <Col md={4}>
                 <Form.Group>
                   <Form.Label>Available Days</Form.Label>
@@ -599,6 +593,7 @@ const Createdoctor = (props) => {
                   ></Select>
                 </Form.Group>
               </Col>
+
               <Col md={4}>
                 <Form.Group>
                   <Form.Label>Start Time</Form.Label>
@@ -616,6 +611,7 @@ const Createdoctor = (props) => {
                   ) : null}
                 </Form.Group>
               </Col>
+
               <Col md={4}>
                 <Form.Group>
                   <Form.Label>End Time</Form.Label>
@@ -673,6 +669,7 @@ const Createdoctor = (props) => {
                   ) : null}
                 </Form.Group>
               </Col>
+
               <Col md={4}>
                 <Form.Group>
                   <Form.Label>Confirm Password</Form.Label>
@@ -694,7 +691,7 @@ const Createdoctor = (props) => {
             </Row>
           )}
 
-          {loading == true ? (
+          {loading === true ? (
             <Cliploader isLoading={loading} />
           ) : (
             <div>

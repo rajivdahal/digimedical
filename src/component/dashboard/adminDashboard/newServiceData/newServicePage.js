@@ -9,6 +9,7 @@ import { Modal, Button, Row, Col, Form, Image, Container } from 'react-bootstrap
 import { useFormik } from "formik";
 import Cliploader from "../../../../utils/clipLoader";
 import DigiServiceApi from "./newservices.service";
+import { validateService } from "../servicesData/service.helper";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const NewServicePage = (props) => {
@@ -26,7 +27,6 @@ const NewServicePage = (props) => {
         serviceName: "",
         serviceDescription: "",
         price: "",
-        activeStatus: "",
         image: "",
     })
 
@@ -160,8 +160,7 @@ const NewServicePage = (props) => {
 
         },
         validate: (values) => {
-            // let isEdit = serviceEditId ? true : false;
-            // return validateService(values, isEdit);
+            return validateService(values);
         }
     });
 
@@ -250,14 +249,17 @@ const NewServicePage = (props) => {
                             >
                                 Browse
                             </Button>
+                            
                             <input
                                 onChange={(e) => handleChangeImage(e)}
-                                type="file"
-                                name="image"
+                                type="file" name="image"
                                 style={{ display: "none" }}
-                                ref={imageSelectRef}
-                                accept="image/png, image/jpg, image/jpeg"
+                                ref={imageSelectRef} accept=".jpg, .png , .jpeg" 
+                                // accept="image/png, image/jpg, image/jpeg"
                             ></input>
+                            {formik.touched.image && formik.errors.image ? (
+                                    <div className="error-message">{formik.errors.image}</div>
+                                ) : null}
                         </Col>
 
                         <Col md={4}>
