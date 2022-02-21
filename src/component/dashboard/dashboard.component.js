@@ -31,6 +31,7 @@ import LabtestReport from "./adminDashboard/allLabtestData/labtest.report";
 import BodyCheckup from "./adminDashboard/bodyCheckup/bodyCheckup";
 import CorporateTypes from "./adminDashboard/corporateData/corporate.type";
 import PackageDescription from "./adminDashboard/packageData/package.desc";
+import NewServicePage from "./adminDashboard/newServiceData/newServicePage";
 
 
 import Userdashboard from "./userdashboard/userDashboard.component";
@@ -53,13 +54,13 @@ import Viewdoctorappointment from "./doctordashboard/viewappointment/viewappoint
 import Prescribe from "./doctordashboard/prescribe/prescribe.component";
 import DoctorProfile from "./doctordashboard/profileUpdate/profile.component";
 
-import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component";
-import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component";
-import HospitalDashboard from "./hospitaldashboard/hospitalDashboard";
-import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor";
-import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor";
-import HospitalAppointment from "./hospitaldashboard/appointmentPage/appointment.component";
-import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
+import Hospitalnavbar from "./hospitalDashboard/hospitalnavbar/hospitalnavbar.component";
+import Hospitalsidebar from "./hospitalDashboard/hospitalsidebar/hospitalsidebar.component";
+import HospitalDashboard from "./hospitalDashboard/hospitalDashboard";
+import HospitalDoctor from "./hospitalDashboard/doctorPage/hospital.doctor";
+import AddDoctor from "./hospitalDashboard/doctorPage/addHospitalDoctor";
+import HospitalAppointment from "./hospitalDashboard/appointmentPage/appointment.component";
+import HospitalService from "./hospitalDashboard/hospitalService/hospitalService";
 
 
 import Corporatenavbar from "./corporatedashboard/corporatenavbar/corporatenavbar.component";
@@ -129,8 +130,10 @@ const Dashboard = (props) => {
                         <ProtectedRoute component={DoctorTable}></ProtectedRoute>
                         : props.location.pathname === "/dashboard/create-doctor" ?
                           <ProtectedRoute component={Createdoctor}></ProtectedRoute>
-                          : props.location.pathname === "/dashboard/create-services" ?
+                          : props.location.pathname === "/dashboard/create-speciality" ?
                             <ProtectedRoute component={Createservices}></ProtectedRoute>
+                            : props.location.pathname === "/dashboard/create-services" ?
+                            <ProtectedRoute component={NewServicePage}></ProtectedRoute>
                             : props.location.pathname === "/dashboard/appointment" ?
                               <ProtectedRoute component={Appointment} />
                               :

@@ -10,13 +10,6 @@ const validateService = (values, isEdit = false) => {
     if (!values.serviceDescription) {
         errors.serviceDescription = getRequiredError("Service Description")
     }
-    if(!REGEX.DECIMAL.test(values.price)){
-        errors.price = "Price must be a number!";
-    }
-    
-    if (!values.price) {
-        errors.price = getRequiredError("Price")
-    }
     return errors;
 
 }

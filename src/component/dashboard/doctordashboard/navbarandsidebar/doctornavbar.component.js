@@ -37,6 +37,7 @@ const Doctornavbar = (props) => {
     useEffect(() => {
         httpClient.GET("user-profile", false, true)
             .then(resp => {
+              console.log(resp)
                 const name = resp.data.data.profileInfo.name
                 setusername(name)
             })

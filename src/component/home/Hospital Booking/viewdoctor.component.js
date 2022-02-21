@@ -16,7 +16,7 @@ import { firstUpperCase } from "../../../utils/stringUppercase";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default function Hospital_doctors(props) {
-  console.log("props are", props);
+
   let [alldoctors, setallDoctors] = useState([]);
   let [searcheddoctors, setsearcheddoctors] = useState([]);
   let [issearched, setIssearched] = useState(false);
@@ -26,12 +26,33 @@ export default function Hospital_doctors(props) {
       .GET("hospital/get-all/doctors/" + props.location.state.id)
       .then((resp) => {
         let data = resp.data.data;
+        console.log(resp);
         data.forEach((item) => {
           if (item.availabledays) {
             item.formattedDays = item.availabledays.split(",");
             item.formattedDays = item.formattedDays.map((days) => {
               return firstUpperCase(days);
             })
+          }
+
+          if (item.starttime) {
+            let tempstartArr = item.starttime.split(":");
+            tempstartArr.splice(2,1);
+            item.startTime = tempstartArr.join(":");
+            let hours = parseInt(tempstartArr[0]);
+            if (hours > 0 && hours < 12) {
+              item.startTime += " AM";
+            }
+          }
+      
+          if (item.endtime) {
+            let tempEndArr = item.endtime.split(":");
+            tempEndArr.splice(2,1);
+            item.endTime = tempEndArr.join(":");
+            let hours = parseInt(tempEndArr[0]);
+            if (hours > 11 && hours < 24) {
+              item.endTime += " PM";
+            }
           }
         })
         setallDoctors(data);
@@ -42,7 +63,6 @@ export default function Hospital_doctors(props) {
 
   let [doctorappointmentindex, setdoctorappointmentindex] = useState(null);
   const showappointment = (item, index) => {
-    console.log("doctor appointment index is", doctorappointmentindex);
     if (!doctorappointmentindex) {
       return setdoctorappointmentindex(parseInt(index) + 1);
     }
@@ -59,7 +79,6 @@ export default function Hospital_doctors(props) {
     month: dt.getMonth() + 1,
     day: dt.getDate()
   })
-  console.log(dt.getFullYear()+"-"+parseInt(dt.getMonth()+1)+"-"+dt.getDate())
   // const [initialValues,setInitialValues]=useState({
   //   firstName: "",
   //   middleName: "",
@@ -93,8 +112,7 @@ export default function Hospital_doctors(props) {
       doctorId: doctor.doctorid,
       servicesId: doctor.serviceid,
       appointmentDate:appointmentDate
-    };
-    console.log("finaldata is",finaldata)
+    }
     httpClient
       .POST(
         props.match.url == "/dashboard/hospitals/view-doctors"
@@ -149,7 +167,6 @@ export default function Hospital_doctors(props) {
   const searchDoctors = (e) => {
     setIssearched(true);
     let searched = alldoctors.filter((item, index) => {
-      console.log("item is", item);
       if (item.doctorname.toLowerCase().includes(e.target.value)) {
         return true;
       }
@@ -157,7 +174,6 @@ export default function Hospital_doctors(props) {
     setsearcheddoctors(searched);
   };
   const datechange = (value, status) => {
-    console.log("inside date change")
     let date = ""
     date = value.year + "-" + value.month + "-" + value.day
     // setInitialValues((initialValues)=>{
@@ -169,8 +185,8 @@ export default function Hospital_doctors(props) {
     setAppointmentDate(date)
     // initialValues.appointmentDate = date
     setSelectedDay(value)
-    console.log("initialValues", initialValues)
   }
+  
   return (
     <div>
       {props.match.url == "/dashboard/hospitals/view-doctors" ? null : (
@@ -277,7 +293,7 @@ export default function Hospital_doctors(props) {
                             </p>
                             <p>
                               Available time :{" "}
-                              <span id="span1_doc_card">{doctor.starttime} - {doctor.endtime}</span>
+                              <span id="span1_doc_card">{doctor.startTime} - {doctor.endTime}</span>
 
                             </p>
                           </div>{" "}

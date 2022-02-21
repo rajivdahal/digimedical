@@ -168,8 +168,11 @@ const Adminsidebar = (props) => {
             </a>
             <div className="collapse" id="masterdata">
               <ul className="nav flex-column sub-menu">
+                <Link to="/dashboard/create-speciality">
+                  <li className="nav-item"> <a className="nav-link" href="">Speciality</a></li>
+                </Link>
                 <Link to="/dashboard/create-services">
-                  <li className="nav-item"> <a className="nav-link" href="">Services</a></li>
+                  <li className="nav-item"> <a className="nav-link" href="">Service</a></li>
                 </Link>
                 <Link to="/dashboard/lab-test">
                   <li className="nav-item"> <a className="nav-link" href="">Add Lab Test</a></li>

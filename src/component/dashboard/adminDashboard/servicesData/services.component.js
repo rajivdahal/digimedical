@@ -26,13 +26,11 @@ const Createservices = (props) => {
     const [service, setService] = useState({
         serviceName: "",
         serviceDescription: "",
-        price: "",
         activeStatus: "",
         image: "",
     })
 
     const getServices = async () => {
-        console.log(props)
         setLoading(true)
         try {
             let resp;
@@ -86,8 +84,6 @@ const Createservices = (props) => {
             setService({
                 serviceName: data.servicename,
                 serviceDescription: data.servicedescription,
-                price: data.price,
-
             })
             window.scrollTo(0, 0)
         }
@@ -103,7 +99,6 @@ const Createservices = (props) => {
                 setService({
                     serviceName: "",
                     serviceDescription: "",
-                    price: "",
                     image: "",
                 })
                 setImage(null);
@@ -123,7 +118,6 @@ const Createservices = (props) => {
         setService({
             serviceName: "",
             serviceDescription: "",
-            price: "",
             image: "",
         })
         setImage(null);
@@ -196,12 +190,12 @@ const Createservices = (props) => {
         <>
 
             <div className="container" >
-                <h3>Add Service</h3>
+                
                 <Form onSubmit={formik.handleSubmit}>
                     <Row className="mb-3">
-                        <Col md={8}>
+                        <Col md={12}>
                             <Form.Group>
-                                <Form.Label>Service Name</Form.Label>
+                                <Form.Label>Speciality Name</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="serviceName" className='formControl'
@@ -214,28 +208,12 @@ const Createservices = (props) => {
                                 ) : null}
                             </Form.Group>
                         </Col>
-                        <Col md={4}>
-                            <Form.Group>
-                                <Form.Label>Price</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="price" className='formControl'
-                                    onChange={formik.handleChange}
-                                    value={formik.values.price}
-                                    onBlur={formik.handleBlur}
-                                />
-                                {formik.touched.price && formik.errors.price ? (
-                                    <div className="error-message">
-                                        {formik.errors.price}
-                                    </div>
-                                ) : null}
-                            </Form.Group>
-                        </Col>
+                        
                     </Row>
                     <Row>
                         <Col md={12}>
                             <Form.Group>
-                                <Form.Label>Description</Form.Label>
+                                <Form.Label> Speciality Description</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="serviceDescription" className='formControl'
@@ -340,7 +318,6 @@ const Createservices = (props) => {
                     columns={[
                         { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
                         { title: 'Service Name', field: 'servicename', },
-                        { title: 'Service Price', field: 'price', },
                         { title: 'Service Description', field: 'servicedescription', sorting: false },
                         {
                             title: 'Status', field: 'activestatus',
