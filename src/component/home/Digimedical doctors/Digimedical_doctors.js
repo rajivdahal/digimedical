@@ -76,7 +76,14 @@ function Digimedical_doctors(props) {
   return (
     <div>
       <Navbar></Navbar>
-      <div className="digi_doc_appointmain">
+      <div class="up">
+        <a href="url" id="healthpackages">
+          Home &nbsp;
+        </a>
+        <i class="fas fa-chevron-right"></i>
+        <span id="familyhealthpackages"> &nbsp; Digimedical doctors</span>
+      </div>
+      <div className="digi_doc_appointmain digi_doc_appointmain1">
         <div className="our_doc_appoint">
           <div className="doc_appoint_head">
             <div className="digidoc_head_txt">

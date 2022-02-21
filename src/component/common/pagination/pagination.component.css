@@ -4,3 +4,8 @@
   align-items: center;
   justify-content: center;
 }
+
+.pagination_main {
+  margin-top: 100px;
+  margin-bottom: 50px;
+}

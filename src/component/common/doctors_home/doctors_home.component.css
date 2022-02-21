@@ -1,4 +1,4 @@
-.digidoc_card1 {
+/* .digidoc_card1 {
   display: flex;
   flex-direction: column;
   background: #f5faff;
@@ -76,5 +76,34 @@
   #digidoc_card_but {
     width: 100%;
     margin-top: 10%;
+  }
+} */
+.digi_doc_home {
+  margin-top: 50px;
+}
+.homepg-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  color: #596579;
+  width: 100%;
+}
+.homepg-title h2 {
+  color: #192638;
+  margin-top: 0.8rem;
+  font-style: normal;
+  line-height: 52px;
+  font-size: 38px;
+  font-weight: bold;
+}
+.homepg-title span {
+  font-size: 14px;
+}
+
+@media screen and (max-width: 767px) {
+  .homepg-title h2 {
+    font-size: 1.5rem;
   }
 }
