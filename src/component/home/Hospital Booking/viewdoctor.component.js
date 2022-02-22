@@ -40,6 +40,7 @@ export default function Hospital_doctors(props) {
     window.scrollTo(0, 0);
   }, []);
 
+  const [docPopup, SetDocPopup] = useState(false);
   let [doctorappointmentindex, setdoctorappointmentindex] = useState(null);
   const showappointment = (item, index) => {
     console.log("doctor appointment index is", doctorappointmentindex);
@@ -296,11 +297,17 @@ export default function Hospital_doctors(props) {
                           </div>{" "}
                           <div className="doc_card_but">
                             {" "}
-                            <button id="doc_card_but">
+                            <button
+                              onClick={() => SetDocPopup(true)}
+                              id="doc_card_but"
+                            >
                               Book an appointment
                             </button>
                           </div>
-                          <DocPopup trigger={true}></DocPopup>
+                          <DocPopup
+                            trigger={docPopup}
+                            setTrigger={SetDocPopup}
+                          ></DocPopup>
                           <div id="popup5" class="overlay1">
                             <div class="popup">
                               <h2>Here i am</h2>

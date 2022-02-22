@@ -86,12 +86,10 @@ const RegisterComponent = (props) => {
                     }, 3000)
 
                 })
-                .catch(err => {
-                    if (!err) {
+                .catch(err =>{
+                    if (!err){
                         notify.error("something went wrong")
                         return setisLoading(false)
-
-
                     }
                     err.response?notify.error(err.response.data.message):notify.error("Register unsuccessful")
                     setisLoading(false)
@@ -101,8 +99,32 @@ const RegisterComponent = (props) => {
     const vieworhidepassword=()=>{
         setispassword(!ispassword)
     }
-    const responseGoogle = (response) => {
-
+    const responseGoogleSuccess = (response) => {
+        console.log(response)
+        const {tokenId}=response
+        console.log("type of token id is",typeof(tokenId),tokenId)
+        httpClient.POST("google-signin",{tokenId:tokenId})
+        .then(resp=>{
+            console.log("response is",resp.data.data)
+            let { access_token, refresh_token, expires_in, status, userid } = resp.data.data
+            localStorage.setItem("dm-access_token", access_token)
+            localStorage.setItem("dm-refresh_token", refresh_token)
+            localStorage.setItem("timeout", expires_in)
+            localStorage.setItem("status", status)
+            localStorage.setItem("userid", userid)
+            setTimeout(() => {
+                props.history.push({
+                    pathname: `/dashboard/`,
+                })
+                // notify.success("Successfully Loggedin")
+            }, 3000)
+        })
+        .catch(err=>{
+            console.log("error is",err)
+            notify.error("Login failed")
+        })
+        }
+    const responseGoogleFailure = (response) => {
         console.log("response from google login is",response);
     }
     return (
@@ -123,7 +145,6 @@ const RegisterComponent = (props) => {
                     </div>
                 </div>
             </div>
-
             <section className="login">
                 <div className="container">
                     <div className="row">
@@ -210,8 +231,8 @@ const RegisterComponent = (props) => {
                                                 <GoogleLogin
                                                         clientId={googleClientId}
                                                         buttonText="Login"
-                                                        onSuccess={responseGoogle}
-                                                        onFailure={responseGoogle}
+                                                        onSuccess={responseGoogleSuccess}
+                                                        onFailure={responseGoogleFailure}
                                                         cookiePolicy={'single_host_origin'}
                                                     />
                                                     <a href="#"><i className="fab fa-google-plus-g"></i></a>

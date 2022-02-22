@@ -32,7 +32,6 @@ import HospitalTable from "./adminDashboard/hospitalData/hospital.table";
 import CorporatePage from "./adminDashboard/corporateData/corporate.component";
 import Role from "./adminDashboard/userManagement/role.component";
 import CreateAdmin from "./adminDashboard/userManagement/admin.component";
-
 import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component";
 import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component";
 import Hospitalbookingcomponent from "../home/Hospital Booking/hospitalbooking.component";
@@ -62,11 +61,14 @@ import BookPackage from "./corporatedashboard/packages/package.component";
 import UtilsInfo from "./userdashboard/utilsinformation/utilsInfo.component";
 import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
 import DoctorProfile from "./doctordashboard/profileUpdate/profile.component";
+import Service from "../Service/Service";
+import UserServices from "./userdashboard/services/services.component";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
   return (
     <>
+<<<<<<< HEAD
       {statusCode == 200 && props.location.fromexternaluser ? (
         <Changepassword></Changepassword>
       ) : statusCode == 200 ? (
@@ -288,6 +290,194 @@ const Dashboard = (props) => {
       ) : (
         <Redirect to="/login" timeoutMsg="Please login again"></Redirect>
       )}
+=======
+      {
+        statusCode == 200 && props.location.fromexternaluser ?
+          <Changepassword></Changepassword>
+          :statusCode == 200 ?
+            <>
+              <Dashboardnavbar props={props.history}></Dashboardnavbar>
+              <Usersidebar props={props.history}></Usersidebar>
+              {
+                props.location.pathname === "/dashboard" || props.location.pathname === "/dashboard/" ?
+                  <ProtectedRoute component={Userdashboard}></ProtectedRoute>
+                  : props.location.pathname === "/dashboard/viewappointment" ?
+                    <ProtectedRoute component={Viewappointment}></ProtectedRoute>
+                    : props.location.pathname === "/dashboard/bookappointment" ?
+                      <ProtectedRoute component={Internalappointmentbook}></ProtectedRoute>
+                      : props.location.pathname === "/dashboard/settings/userprofile" ?
+                        <ProtectedRoute component={UserProfile} />
+                        : props.location.pathname === "/dashboard/bookappointment" ?
+                          <ProtectedRoute component={Internalappointmentbook}></ProtectedRoute> :
+                          props.location.pathname === "/dashboard/settings/change-password" ?
+                            <ProtectedRoute component={Changepassword}></ProtectedRoute>
+                            :
+                            props.location.pathname === "/dashboard/lab-test" ?
+                              <ProtectedRoute component={Userlabtest}></ProtectedRoute>
+                              :
+                              props.location.pathname === "/dashboard/view-lab-test" ?
+                                <ProtectedRoute component={Viewlabtest}></ProtectedRoute>
+                                :
+                                props.location.pathname === "/dashboard/hospitals" ?
+                                  <ProtectedRoute component={Hospitalbookingcomponent}></ProtectedRoute> :
+                                  props.location.pathname === "/dashboard/hospitals/view-doctors" ?
+                                    <ProtectedRoute component={Hospital_doctors}></ProtectedRoute> :
+                                    props.location.pathname === "/dashboard/add-member" ?
+                                      <ProtectedRoute component={AddFamilyMember}></ProtectedRoute> :
+                                      props.location.pathname === "/dashboard/medical-reports" ?
+                                        <ProtectedRoute component={MedicalReports}></ProtectedRoute> :
+                                        props.location.pathname === "/dashboard/body-checkup" ?
+                                          <ProtectedRoute component={BodyCheckUp}></ProtectedRoute> :
+                                          props.location.pathname === "/dashboard/digi-doctor" ?
+                                            <ProtectedRoute component={DigimedicalDoctor}></ProtectedRoute> :
+                                            props.location.pathname === "/dashboard/utils-info" ?
+                                            <ProtectedRoute component={UtilsInfo}></ProtectedRoute>:
+                                            props.location.pathname === "/dashboard/services" ?
+                                            <ProtectedRoute component={UserServices}></ProtectedRoute>:
+                                            null
+              }
+            </> :
+            statusCode == 100 ?
+              <>
+                <Nav props={props.history}></Nav>
+                <Adminsidebar props={props.history}></Adminsidebar>
+                <div className='content-wrapper adjust-height-width custom-content-wrapper '>
+
+                  {/* <div className="container-fluid ">
+                  <div className="main-panel">
+                    <div className="content-wrapper"> */}
+                  {
+                    props.location.pathname === "/dashboard" || props.location.pathname === "/dashboard/" ?
+                      <ProtectedRoute component={AdminDashboard}></ProtectedRoute>
+                      :
+                      props.location.pathname === "/dashboard/doctor-table" ?
+                        <ProtectedRoute component={DoctorTable}></ProtectedRoute>
+                        : props.location.pathname === "/dashboard/create-doctor" ?
+                          <ProtectedRoute component={Createdoctor}></ProtectedRoute>
+                          : props.location.pathname === "/dashboard/create-services" ?
+                            <ProtectedRoute component={Createservices}></ProtectedRoute>
+                            : props.location.pathname === "/dashboard/appointment" ?
+                              <ProtectedRoute component={Appointment} />
+                              :
+                              props.location.pathname === "/dashboard/lab-test" ?
+                                <ProtectedRoute component={Labtest} />
+                                : props.location.pathname === "/dashboard/labtest" ?
+                                  <ProtectedRoute component={LabTestDetail} />
+                                  : props.location.pathname === "/dashboard/settings/change-password" ?
+                                    <ProtectedRoute component={Changepassword}></ProtectedRoute>
+                                    : props.location.pathname === "/dashboard/labtest-subcategory" ?
+                                      <ProtectedRoute component={LabtestSubcategory} />
+                                      : props.location.pathname === "/dashboard/admin" ?
+                                        <ProtectedRoute component={CreateAdmin} />
+                                        : props.location.pathname === "/dashboard/role" ?
+                                          <ProtectedRoute component={Role} />
+                                          : props.location.pathname === "/dashboard/booked-labtest" ?
+                                            <ProtectedRoute component={BookedLabtest} />
+                                            : props.location.pathname === "/dashboard/add-institute" ?
+                                              <ProtectedRoute component={MedicalInstitute} />
+                                              : props.location.pathname === "/dashboard/hospital-table" ?
+                                                <ProtectedRoute component={HospitalTable} />
+                                                : props.location.pathname === "/dashboard/add-hospital" ?
+                                                  <ProtectedRoute component={Hospital} />
+                                                  : props.location.pathname === "/dashboard/corporate" ?
+                                                    <ProtectedRoute component={CorporatePage} />
+                                                    : props.location.pathname === "/dashboard/permission" ?
+                                                      <ProtectedRoute component={Permission} />
+                                                      : props.location.pathname === "/dashboard/membership-package" ?
+                                                        <ProtectedRoute component={MembershipPackage} />
+                                                        : props.location.pathname === "/dashboard/package-details" ?
+                                                          <ProtectedRoute component={MembershipPackageDetails} />
+                                                          : props.location.pathname === "/dashboard/package-description" ?
+                                                            <ProtectedRoute component={PackageDescription} />
+                                                            : props.location.pathname === "/dashboard/labtest-report" ?
+                                                              <ProtectedRoute component={LabtestReport} />
+                                                              : props.location.pathname === "/dashboard/body-checkup" ?
+                                                                <ProtectedRoute component={BodyCheckup} />
+                                                                : props.location.pathname == "/dashboard/add/corporate-types" ?
+                                                                  <ProtectedRoute component={CorporateTypes} props={props}></ProtectedRoute>
+
+                                                                  : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                  }
+                  {/* </div>
+                  </div>
+                  </div> */}
+                </div>
+              </> :
+              statusCode == 300 ?
+                <>
+                  <Doctornavbar props={props.history}></Doctornavbar>
+                  <Doctorsidebar props={props.history}></Doctorsidebar>
+                  {
+                    props.location.pathname == "/dashboard/" || props.location.pathname == "/dashboard" ?
+                      <ProtectedRoute component={Doctordashboard} props={props}></ProtectedRoute>
+                      :
+                      props.location.pathname === "/dashboard/viewappointment" ?
+                        <ProtectedRoute component={Viewdoctorappointment} props={props}></ProtectedRoute> :
+                        props.location.pathname === "/dashboard/prescribe/:id" ?
+                          <ProtectedRoute component={Prescribe} props={props}></ProtectedRoute>
+                          :
+                          props.location.pathname === "/dashboard/settings/change-password" ?
+                            <ProtectedRoute component={Changepassword}></ProtectedRoute> :
+                            props.location.pathname === "/dashboard/settings/change-password" ?
+                              <ProtectedRoute component={Changepassword}></ProtectedRoute>
+                              : props.location.pathname === "/dashboard/settings/doctor-profile" ?
+                                <ProtectedRoute component={DoctorProfile} />
+                                : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                  }
+                </>
+                :
+                statusCode == 400 ?
+                  <>
+                    <Hospitalnavbar></Hospitalnavbar>
+                    <Hospitalsidebar></Hospitalsidebar>
+                    <div className="container-fluid page-body-wrapper">
+                      <div className="main-panel">
+                        <div className="content-wrapper">
+                          {
+                            props.location.pathname === "/dashboard" || props.location.pathname === "/dashboard/" ?
+                              <ProtectedRoute component={HospitalDashboard}></ProtectedRoute>
+                              :
+                              props.location.pathname === "/dashboard/hospital-doctor" ?
+                                <ProtectedRoute component={HospitalDoctor}></ProtectedRoute>
+                                : props.location.pathname === "/dashboard/add-doctor" ?
+                                  <ProtectedRoute component={AddDoctor}></ProtectedRoute>
+                                  : props.location.pathname === "/dashboard/hospital-appointment" ?
+                                    <ProtectedRoute component={HospitalAppointment}></ProtectedRoute>
+                                    : props.location.pathname === "/dashboard/hospital-service" ?
+                                      <ProtectedRoute component={HospitalService}></ProtectedRoute> :
+                                      props.location.pathname === "/dashboard/settings/change-password" ?
+                                        <ProtectedRoute component={Changepassword}></ProtectedRoute>
+                                        : <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  </> :
+                  statusCode == 500 ?
+                    <>
+                      <Corporatenavbar></Corporatenavbar>
+                      <Corporatesidebar></Corporatesidebar>
+                      {
+                        props.location.pathname == "/dashboard/" || props.location.pathname == "/dashboard" ?
+                          <ProtectedRoute component={Corporatedashboard} props={props}></ProtectedRoute> :
+                          props.location.pathname == "/dashboard/corporate/add-members" ?
+                            <ProtectedRoute component={Corporateaddmember} props={props}></ProtectedRoute> :
+                            props.location.pathname == "/dashboard/corporate/add-users" ?
+                              <ProtectedRoute component={CorporateUser} props={props}></ProtectedRoute> :
+                              props.location.pathname == "/dashboard/corporate/viewappointment" ?
+                                <ProtectedRoute component={Viewcorporateappointment} props={props}></ProtectedRoute> :
+                                props.location.pathname == "/dashboard/corporate/bookappointment" ?
+                                  <ProtectedRoute component={Internalappointmentbook} props={props} fromcorporateappointment={true}></ProtectedRoute> :
+                                  props.location.pathname == "/dashboard/corporate/book-packages" ?
+                                    <ProtectedRoute component={BookPackage} props={props} /> :
+                                    props.location.pathname === "/dashboard/settings/change-password" ?
+                                      <ProtectedRoute component={Changepassword} /> :
+                                      <ProtectedRoute component={Dashboardpagenotfound}></ProtectedRoute>
+                      }
+                    </> :
+                    <Redirect to="/login" timeoutMsg="Please login again"></Redirect>
+      }
+>>>>>>> e81e09ae7fe71d3ac33698aaacca25d37b0a5710
     </>
   );
 };
