@@ -50,7 +50,7 @@ const Menuitems = styled.div``;
 const NavbarMenuItems = () => {
   const [corporateType, setCorporateType] = useState([]);
   const [FamilyType, setFamilyType] = useState([]);
-  const [doctorCategory,setDoctorCategory]=useState([])
+  const [doctorCategory, setDoctorCategory] = useState([]);
 
   const history = useHistory();
   const [logoutstate, setlogoutstate] = useState({
@@ -115,18 +115,16 @@ const NavbarMenuItems = () => {
       }
     }
   };
-  const getServices=()=>{
-    httpClient.GET("services/get/true")
-    .then(resp=>{
-      setDoctorCategory(resp.data.data)
-    })
-
-  }
+  const getServices = () => {
+    httpClient.GET("services/get/true").then((resp) => {
+      setDoctorCategory(resp.data.data);
+    });
+  };
 
   useEffect(() => {
     getBusinessPackage();
     getFamilyPackage();
-    getServices()
+    getServices();
   }, []);
 
   return (
@@ -590,7 +588,6 @@ const NavbarMenuItems = () => {
                   );
                 })}
               </div>
-<<<<<<< HEAD
             </div> */}
           </li>
           <li className="menu-item common-menu">
@@ -602,51 +599,6 @@ const NavbarMenuItems = () => {
             </Link>
           </li>
           <li className="menu-item common-menu">
-=======
-            </div>
-          </div>
-          <div className="menu-item_nav">
-            Our Doctors
-            <div className="dropdown_hp_content">
-              <div className="dropdown_hp_content1">
-                {/* <Link to="/family-package">
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Family Care Package</p>{" "}
-                </Link> */}
-
-                {doctorCategory.map((item, index) => {
-                  return (
-                    <>
-                      <Link
-                        key={index}
-                        to={{
-                          pathname: "digimedical-doctors",
-                          state: {itemId:item.id},
-                        }}
-                      >
-                        <img
-                          src={package_logo}
-                          style={{
-                            height: "1.5rem",
-                          }}
-                        ></img>
-
-                        <p>{item.servicename}</p>{" "}
-                      </Link>
-                    </>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          <span className="menu-item">
->>>>>>> e81e09ae7fe71d3ac33698aaacca25d37b0a5710
             <Link
               to="/about"
               style={{ textDecoration: "none", color: "inherit" }}

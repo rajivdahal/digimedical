@@ -11,10 +11,6 @@ import { notify } from "../../../services/notify";
 import Footer from "../../Footer/Footer";
 import DocSpecialityImg from "../../../assets/doc_speciality1.svg";
 function Digimedical_doctors(props) {
-<<<<<<< HEAD
-=======
-  console.log("props in digidoctors is",props)
->>>>>>> e81e09ae7fe71d3ac33698aaacca25d37b0a5710
   const [allDigiDoctors, setAllDigiDoctors] = useState([]);
   const [searcheddoctors, setsearcheddoctors] = useState([]);
   const [issearched, setIssearched] = useState(false);
@@ -23,44 +19,32 @@ function Digimedical_doctors(props) {
 
   const getAllDigiDoctors = async () => {
     let id = "";
-<<<<<<< HEAD
     if (
       props.location &&
       props.location.state &&
       props.location.state.doctorID
     ) {
       id = props.location.state.doctorID;
-=======
-    if (props.location && props.location.state && props.location.state.doctorID) {
-      console.log("all conditions are satisfied")
-      id =
-      props.location.state.doctorID;
->>>>>>> e81e09ae7fe71d3ac33698aaacca25d37b0a5710
       setSelectedId(id);
     }
     try {
-        // httpClient.GET("doctor/get-related-doctor/"+props.location.state.itemId)
-        // .then(resp=>{
-        //   setAllDigiDoctors(resp.data.data)
-        //   // console.log("respone is",resp)
-        // })
-        // .catch(err=>{
-        //   console.log("error  is",err)
-        // })
+      // httpClient.GET("doctor/get-related-doctor/"+props.location.state.itemId)
+      // .then(resp=>{
+      //   setAllDigiDoctors(resp.data.data)
+      //   // console.log("respone is",resp)
+      // })
+      // .catch(err=>{
+      //   console.log("error  is",err)
+      // })
       let resp = await httpClient.GET("doctor/digi/get-four");
       console.log(resp);
       if (resp.data.status) {
         let data = resp.data.data;
         if (id) {
           let selectedDoctor = data.find((doctor, index) => {
-<<<<<<< HEAD
             return doctor.doctorid == id;
           });
 
-=======
-            return doctor.doctorid == id
-          })
->>>>>>> e81e09ae7fe71d3ac33698aaacca25d37b0a5710
           let filteredDr = data.filter((doctor, index) => {
             return doctor.doctorid != id;
           });
@@ -77,11 +61,7 @@ function Digimedical_doctors(props) {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-<<<<<<< HEAD
   };
-=======
-  }
->>>>>>> e81e09ae7fe71d3ac33698aaacca25d37b0a5710
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -249,7 +229,6 @@ function Digimedical_doctors(props) {
             <div className="digidoctor_apoint_card">
               {searcheddoctors.length > 0 ? (
                 searcheddoctors.map((item, index) => {
-<<<<<<< HEAD
                   return (
                     <>
                       <DigiMedicalDoctorCard
@@ -266,15 +245,6 @@ function Digimedical_doctors(props) {
                       />
                     </>
                   );
-=======
-                  return <>
-                    <DigiMedicalDoctorCard key={index}
-                      selected={item.doctorid == selectedId} prefix={item.prefix}
-                      name={item.doctorname} desc={item.doctordescription} price={item.price}
-                      specialist={item.specialist} gender={item.gender+1}
-                      doctorId={item.doctorid} doctorServices={item.serviceid} />
-                  </>
->>>>>>> e81e09ae7fe71d3ac33698aaacca25d37b0a5710
                 })
               ) : (
                 <h4>No any doctors found</h4>

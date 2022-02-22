@@ -12,13 +12,87 @@
   align-items: center;
 }
 .doc-pop-inner {
+  border: 1px solid white;
   position: relative;
-  padding: 42px;
+
+  padding: 20px;
   background: #fff;
-  width: 100%;
-  max-width: 64px;
+
+  border-radius: 8px;
+}
+.doc-pop-cont {
+  display: flex;
+  flex-direction: column;
+}
+.doc-close-but {
+  border: none;
+}
+.doc-close-butt {
+  background: #fff;
+  border: none;
+  float: right;
 }
 
-.doc-close-but {
-  position: absolute;
+.doc-close-but:hover #doc-popup-cross {
+  color: rgb(105, 105, 243);
+}
+
+/* form
+c
+o
+n
+t
+e
+n
+t */
+.doc-pop-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+.doc-form-row1 {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: auto auto auto;
+}
+.doc-form-row2 {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: auto auto;
+}
+
+.doc-form-input1 {
+  display: flex;
+  flex-direction: column;
+}
+.doc-form-input1 input,
+.doc-form-input1 select {
+  border: 1px solid #d0d7e2;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 20px;
+}
+.doc-form-input2 {
+}
+
+.doc-form-last-sent p {
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 15px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: #8797a8;
+}
+
+#pop-doc-but {
+  width: 100%;
+  border-radius: 10px;
+  padding: 20px;
+  background: #2745f0;
+  color: white;
+  border: none;
+}
+
+select:invalid {
+  color: gray;
 }
