@@ -50,6 +50,7 @@ const Menuitems = styled.div``;
 const NavbarMenuItems = () => {
   const [corporateType, setCorporateType] = useState([]);
   const [FamilyType, setFamilyType] = useState([]);
+  const [doctorCategory,setDoctorCategory]=useState([])
 
   const history = useHistory();
   const [logoutstate, setlogoutstate] = useState({
@@ -115,10 +116,18 @@ const NavbarMenuItems = () => {
       }
     }
   };
+  const getServices=()=>{
+    httpClient.GET("services/get/true")
+    .then(resp=>{
+      setDoctorCategory(resp.data.data)
+    })
+
+  }
 
   useEffect(() => {
     getBusinessPackage();
     getFamilyPackage();
+    getServices()
   }, []);
 
   return (
@@ -487,14 +496,46 @@ const NavbarMenuItems = () => {
               </div>
             </div>
           </div>
-          <span className="menu-item">
-            <Link
-              to="/digimedical-doctors"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              Our Doctors
-            </Link>
-          </span>
+          <div className="menu-item_nav">
+            Our Doctors
+            <div className="dropdown_hp_content">
+              <div className="dropdown_hp_content1">
+                {/* <Link to="/family-package">
+                  <img
+                    src={package_logo}
+                    style={{
+                      height: "1.5rem",
+                    }}
+                  ></img>
+                  <p>Family Care Package</p>{" "}
+                </Link> */}
+
+                {doctorCategory.map((item, index) => {
+                  return (
+                    <>
+                      <Link
+                        key={index}
+                        to={{
+                          pathname: "digimedical-doctors",
+                          state: {itemId:item.id},
+                        }}
+                      >
+                        <img
+                          src={package_logo}
+                          style={{
+                            height: "1.5rem",
+                          }}
+                        ></img>
+
+                        <p>{item.servicename}</p>{" "}
+                      </Link>
+                    </>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
           <span className="menu-item">
             <Link
               to="/about"

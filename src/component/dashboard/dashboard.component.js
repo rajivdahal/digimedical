@@ -32,7 +32,6 @@ import HospitalTable from "./adminDashboard/hospitalData/hospital.table";
 import CorporatePage from "./adminDashboard/corporateData/corporate.component";
 import Role from "./adminDashboard/userManagement/role.component";
 import CreateAdmin from "./adminDashboard/userManagement/admin.component";
-
 import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component";
 import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component";
 import Hospitalbookingcomponent from "../home/Hospital Booking/hospitalbooking.component";
@@ -62,6 +61,8 @@ import BookPackage from "./corporatedashboard/packages/package.component";
 import UtilsInfo from "./userdashboard/utilsinformation/utilsInfo.component";
 import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
 import DoctorProfile from "./doctordashboard/profileUpdate/profile.component";
+import Service from "../Service/Service";
+import UserServices from "./userdashboard/services/services.component";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -71,7 +72,7 @@ const Dashboard = (props) => {
       {
         statusCode == 200 && props.location.fromexternaluser ?
           <Changepassword></Changepassword>
-          : statusCode == 200 ?
+          :statusCode == 200 ?
             <>
               <Dashboardnavbar props={props.history}></Dashboardnavbar>
               <Usersidebar props={props.history}></Usersidebar>
@@ -109,6 +110,8 @@ const Dashboard = (props) => {
                                             <ProtectedRoute component={DigimedicalDoctor}></ProtectedRoute> :
                                             props.location.pathname === "/dashboard/utils-info" ?
                                             <ProtectedRoute component={UtilsInfo}></ProtectedRoute>:
+                                            props.location.pathname === "/dashboard/services" ?
+                                            <ProtectedRoute component={UserServices}></ProtectedRoute>:
                                             null
               }
             </> :

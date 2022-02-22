@@ -25,21 +25,18 @@ const GET = (url, grant_type, getheaders, params = {}) => {
 // current change
 
 const POST = (url, data, grant_type, getheaders, headerType = "json" , params = {}) => {
-    if (getheaders) {
+    let headers = {
+        'Content-Type': "application/json"
+    }
+    if (getheaders){
         const token = localStorage.getItem('dm-access_token')
-        let headers = {
-            'Authorization':`Bearer ${token}`,
-            'Content-Type': "application/json"
-        }
-
+        headers.Authorization=`Bearer ${token}`
         if(headerType =='formdata'){
             headers['Content-Type'] = 'multipart/form-data';
         }
-
-
         return http.post(BASE_URL + url, data,{headers})
     }
-    return http.post(BASE_URL + url, data)
+    return http.post(BASE_URL + url, data,{headers})
 }
 
 const DELETE = (url, grant_type,getheaders, params = {}) => {

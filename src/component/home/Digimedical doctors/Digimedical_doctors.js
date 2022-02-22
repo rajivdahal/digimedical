@@ -11,7 +11,7 @@ import { notify } from "../../../services/notify";
 import Footer from "../../Footer/Footer";
 
 function Digimedical_doctors(props) {
-
+  console.log("props in digidoctors is",props)
   const [allDigiDoctors, setAllDigiDoctors] = useState([]);
   const [searcheddoctors, setsearcheddoctors] = useState([]);
   const [issearched, setIssearched] = useState(false);
@@ -21,10 +21,20 @@ function Digimedical_doctors(props) {
   const getAllDigiDoctors = async () => {
     let id = "";
     if (props.location && props.location.state && props.location.state.doctorID) {
-      id = props.location.state.doctorID;
+      console.log("all conditions are satisfied")
+      id =
+      props.location.state.doctorID;
       setSelectedId(id);
     }
     try {
+        // httpClient.GET("doctor/get-related-doctor/"+props.location.state.itemId)
+        // .then(resp=>{
+        //   setAllDigiDoctors(resp.data.data)
+        //   // console.log("respone is",resp)
+        // })
+        // .catch(err=>{
+        //   console.log("error  is",err)
+        // })
       let resp = await httpClient.GET("doctor/digi/get-four");
       console.log(resp)
       if (resp.data.status) {
@@ -33,7 +43,6 @@ function Digimedical_doctors(props) {
           let selectedDoctor = data.find((doctor, index) => {
             return doctor.doctorid == id
           })
-
           let filteredDr = data.filter((doctor, index) => {
             return doctor.doctorid != id
           })
@@ -44,14 +53,12 @@ function Digimedical_doctors(props) {
           setAllDigiDoctors(data);
           setsearcheddoctors(data);
         }
-
       }
     } catch (err) {
       if (err && err.response && err.response.data) {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-
   }
 
   useEffect(() => {
@@ -107,7 +114,7 @@ function Digimedical_doctors(props) {
                     <DigiMedicalDoctorCard key={index}
                       selected={item.doctorid == selectedId} prefix={item.prefix}
                       name={item.doctorname} desc={item.doctordescription} price={item.price}
-                      specialist={item.specialist} gender={item.gender+1}  
+                      specialist={item.specialist} gender={item.gender+1}
                       doctorId={item.doctorid} doctorServices={item.serviceid} />
                   </>
                 })

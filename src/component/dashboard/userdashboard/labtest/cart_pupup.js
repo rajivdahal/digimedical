@@ -1,6 +1,5 @@
 import React from "react";
 import "./cart_popup.css";
-
 import { Component } from "react";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
@@ -36,7 +35,7 @@ class Cartpopupcomponent extends Component {
           if (index == 0) {
             subcategoryarray.category = item.mainCategoryName;
             subcategories.push(item.labcategoryname);
-          } else {
+          }else {
             subcategories.push(item.labcategoryname);
           }
           if (index == mainarray.length - 1) {

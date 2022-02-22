@@ -27,7 +27,9 @@ export default function Usersidebar(props) {
   };
   const loadUtilsInfo=()=>{
     props.props.push("/dashboard/utils-info");
-
+  }
+  const loadServices=()=>{
+    props.props.push("/dashboard/services")
   }
   return (
     <div>
@@ -187,6 +189,24 @@ export default function Usersidebar(props) {
               </div>
 
             </div>
+            <div
+              className="newdash_dash1_dashboard"
+              onClick={loadServices}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="newdash_dash1_cont1">
+                <div className="newdash_dash1_cont1p">
+                  {" "}
+                  <p id="newdash_dash1_cont1p">
+                    <span id="newdash_bar_ico">
+                      <i class="fas fa-file-alt"></i>
+                    </span>{" "}
+                    Services
+                  </p>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
 
@@ -310,7 +330,7 @@ export default function Usersidebar(props) {
                 </div>
               </div>
             </div>
-            
+
               <div
                 className="newdash_dash1_dashboard"
                 onClick={loadMedicalReport}
