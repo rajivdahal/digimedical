@@ -108,7 +108,8 @@ ul {
   line-height: 20px;
   color: black;
   display: flex;
-  padding-left: 10px;
+  padding: 10px;
+  align-items: center;
   border-radius: 10px;
 }
 .dropdown_hp_content a:hover {

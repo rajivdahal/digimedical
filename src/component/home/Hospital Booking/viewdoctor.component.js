@@ -7,12 +7,13 @@ import phone from "../../../assets/phone.png";
 import { httpClient } from "../../../utils/httpClient";
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import '@amir04lm26/react-modern-calendar-date-picker/lib/DatePicker.css';
-import DatePicker from '@amir04lm26/react-modern-calendar-date-picker';
+import "@amir04lm26/react-modern-calendar-date-picker/lib/DatePicker.css";
+import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
 import { Field, Formik, Form, ErrorMessage } from "formik";
 import { notify } from "../../../services/notify";
-import * as yup from 'yup';
+import * as yup from "yup";
 import { firstUpperCase } from "../../../utils/stringUppercase";
+import DocPopup from "../../common/popup/doctorPopup";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default function Hospital_doctors(props) {
@@ -31,13 +32,12 @@ export default function Hospital_doctors(props) {
             item.formattedDays = item.availabledays.split(",");
             item.formattedDays = item.formattedDays.map((days) => {
               return firstUpperCase(days);
-            })
+            });
           }
-        })
+        });
         setallDoctors(data);
-
       });
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }, []);
 
   let [doctorappointmentindex, setdoctorappointmentindex] = useState(null);
@@ -52,14 +52,16 @@ export default function Hospital_doctors(props) {
   const [selectedDay, setSelectedDay] = useState({
     year: dt.getFullYear(),
     month: dt.getMonth() + 1,
-    day: dt.getDate()
-  })
+    day: dt.getDate(),
+  });
   const [minDate, setminDate] = useState({
     year: dt.getFullYear(),
     month: dt.getMonth() + 1,
-    day: dt.getDate()
-  })
-  console.log(dt.getFullYear()+"-"+parseInt(dt.getMonth()+1)+"-"+dt.getDate())
+    day: dt.getDate(),
+  });
+  console.log(
+    dt.getFullYear() + "-" + parseInt(dt.getMonth() + 1) + "-" + dt.getDate()
+  );
   // const [initialValues,setInitialValues]=useState({
   //   firstName: "",
   //   middleName: "",
@@ -69,15 +71,17 @@ export default function Hospital_doctors(props) {
   //   appointmentDate: "",
   //   appointmentTime: "",
   // })
-  const initialValues={
+  const initialValues = {
     firstName: "",
     middleName: "",
     lastName: "",
     email: "",
     mobileNumber: "",
     appointmentTime: "",
-  }
-  const [appointmentDate,setAppointmentDate]=useState(dt.getFullYear()+"-"+parseInt(dt.getMonth()+1)+"-"+dt.getDate())
+  };
+  const [appointmentDate, setAppointmentDate] = useState(
+    dt.getFullYear() + "-" + parseInt(dt.getMonth() + 1) + "-" + dt.getDate()
+  );
 
   let schema = yup.object().shape({
     appointmentTime: yup.string().required(" Appointment Time is Required"),
@@ -92,9 +96,9 @@ export default function Hospital_doctors(props) {
       hospitalId: props.location.state.id,
       doctorId: doctor.doctorid,
       servicesId: doctor.serviceid,
-      appointmentDate:appointmentDate
+      appointmentDate: appointmentDate,
     };
-    console.log("finaldata is",finaldata)
+    console.log("finaldata is", finaldata);
     httpClient
       .POST(
         props.match.url == "/dashboard/hospitals/view-doctors"
@@ -109,7 +113,7 @@ export default function Hospital_doctors(props) {
           notify.promise(
             new Promise(function (resolve, reject) {
               resolve(
-              "Booking success! Please check your email to verify account"
+                "Booking success! Please check your email to verify account"
               );
             })
           );
@@ -157,20 +161,20 @@ export default function Hospital_doctors(props) {
     setsearcheddoctors(searched);
   };
   const datechange = (value, status) => {
-    console.log("inside date change")
-    let date = ""
-    date = value.year + "-" + value.month + "-" + value.day
+    console.log("inside date change");
+    let date = "";
+    date = value.year + "-" + value.month + "-" + value.day;
     // setInitialValues((initialValues)=>{
     //   return{
     //     ...initialValues,
     //     appointmentDate:date
     //   }
     // })
-    setAppointmentDate(date)
+    setAppointmentDate(date);
     // initialValues.appointmentDate = date
-    setSelectedDay(value)
-    console.log("initialValues", initialValues)
-  }
+    setSelectedDay(value);
+    console.log("initialValues", initialValues);
+  };
   return (
     <div>
       {props.match.url == "/dashboard/hospitals/view-doctors" ? null : (
@@ -200,8 +204,8 @@ export default function Hospital_doctors(props) {
           className={
             props.location
               ? (props.location.pathname = "/dashboard/hospitals/view-doctors"
-                ? "doc_appoint_main1_user"
-                : "doc_appoint_main1_user")
+                  ? "doc_appoint_main1_user"
+                  : "doc_appoint_main1_user")
               : "doc_appoint_main1"
           }
         >
@@ -241,7 +245,10 @@ export default function Hospital_doctors(props) {
                                 "doctor/download/" +
                                 doctor.doctorid
                               }
-                              onError={(e) => { e.target.onerror = null; e.target.src = "/images/doctor.jpeg" }}
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = "/images/doctor.jpeg";
+                              }}
                               alt=""
                               style={{
                                 height: "140px",
@@ -262,37 +269,49 @@ export default function Hospital_doctors(props) {
                             <p>{doctor.specialist} </p>
                             <p id="doc_available_days">
                               Available days :{" "}
-                              {doctor.formattedDays ?
+                              {doctor.formattedDays ? (
                                 doctor.formattedDays.map((day, index) => {
-                                  return <span id="span1_doc_card">
-                                    {day} {index == doctor.formattedDays.length - 1 ?
-                                      <></> : <span>, </span>
-                                    }
-                                  </span>
+                                  return (
+                                    <span id="span1_doc_card">
+                                      {day}{" "}
+                                      {index ==
+                                      doctor.formattedDays.length - 1 ? (
+                                        <></>
+                                      ) : (
+                                        <span>, </span>
+                                      )}
+                                    </span>
+                                  );
                                 })
-                                :
+                              ) : (
                                 <></>
-                              }
-
+                              )}
                             </p>
                             <p>
                               Available time :{" "}
-                              <span id="span1_doc_card">{doctor.starttime} - {doctor.endtime}</span>
-
+                              <span id="span1_doc_card">
+                                {doctor.starttime} - {doctor.endtime}
+                              </span>
                             </p>
                           </div>{" "}
                           <div className="doc_card_but">
                             {" "}
-                            <div className="hospitalDr-price">Rs.{doctor.price}</div>
-
-                            <button
-                              id="doc_card_but"
-                              onClick={() =>
-                                showappointment(doctor, doctorindex)
-                              }
-                            >
+                            <button id="doc_card_but">
                               Book an appointment
                             </button>
+                          </div>
+                          <DocPopup trigger={true}></DocPopup>
+                          <div id="popup5" class="overlay1">
+                            <div class="popup">
+                              <h2>Here i am</h2>
+                              <a class="close" href="#">
+                                &times;
+                              </a>
+                              <div class="content">
+                                Thank to pop me out of that button, but now i'm
+                                done so you can close this window.
+                              </div>
+                            </div>
                           </div>
                         </div>
                         {doctorappointmentindex == doctorindex + 1 ? (
@@ -308,7 +327,7 @@ export default function Hospital_doctors(props) {
                               return (
                                 <Form className="form_doc">
                                   {props.match.url !=
-                                    "/dashboard/hospitals/view-doctors" ? (
+                                  "/dashboard/hospitals/view-doctors" ? (
                                     <>
                                       <div className="doc_appoin_form1">
                                         <p>First Name</p>
@@ -356,7 +375,7 @@ export default function Hospital_doctors(props) {
                                         />
                                       </div>
                                     </>
-                                  ) :null}
+                                  ) : null}
                                   <div class="doc_appoin_form1">
                                     <p>Appointment Date</p>
                                     <DatePicker
@@ -376,11 +395,22 @@ export default function Hospital_doctors(props) {
                                       name="appointmentTime"
                                       id="appointmentTime"
                                     />
-                                    <ErrorMessage name="appointmentTime" render={msg => <div className="err-message-bottom-doctor" >{msg}</div>} ></ErrorMessage>
+                                    <ErrorMessage
+                                      name="appointmentTime"
+                                      render={(msg) => (
+                                        <div className="err-message-bottom-doctor">
+                                          {msg}
+                                        </div>
+                                      )}
+                                    ></ErrorMessage>
                                   </div>
-                                  <button type="submit" className="submit-button" style={{marginTop:"30px"}}>
-                                      Submit
-                                    </button>
+                                  <button
+                                    type="submit"
+                                    className="submit-button"
+                                    style={{ marginTop: "30px" }}
+                                  >
+                                    Submit
+                                  </button>
                                 </Form>
                               );
                             }}
@@ -404,8 +434,10 @@ export default function Hospital_doctors(props) {
                               "doctor/download/" +
                               doctor.doctorid
                             }
-                            onError={(e) => { e.target.onerror = null; e.target.src = "/images/doctor.jpeg" }}
-
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = "/images/doctor.jpeg";
+                            }}
                             alt=""
                             style={{
                               height: "142px",
@@ -421,21 +453,29 @@ export default function Hospital_doctors(props) {
                           <p>{doctor.specialist} </p>
                           <p id="doc_available_days">
                             Available days :{" "}
-                            {doctor.formattedDays ?
+                            {doctor.formattedDays ? (
                               doctor.formattedDays.map((day, index) => {
-                                return <span id="span1_doc_card">
-                                  {day} {index == doctor.formattedDays.length - 1 ?
-                                    <></> : <span>, </span>
-                                  }
-                                </span>
+                                return (
+                                  <span id="span1_doc_card">
+                                    {day}{" "}
+                                    {index ==
+                                    doctor.formattedDays.length - 1 ? (
+                                      <></>
+                                    ) : (
+                                      <span>, </span>
+                                    )}
+                                  </span>
+                                );
                               })
-                              :
+                            ) : (
                               <></>
-                            }
+                            )}
                           </p>
                           <p>
                             Available time :{" "}
-                            <span id="span1_doc_card">{doctor.starttime} - {doctor.endtime}</span>
+                            <span id="span1_doc_card">
+                              {doctor.starttime} - {doctor.endtime}
+                            </span>
                           </p>
                         </div>{" "}
                         <div className="hosp_card_but">
@@ -458,7 +498,7 @@ export default function Hospital_doctors(props) {
                         >
                           <Form className="form_doc">
                             {props.match.url !=
-                              "/dashboard/hospitals/view-doctors" ? (
+                            "/dashboard/hospitals/view-doctors" ? (
                               <>
                                 <div className="doc_appoin_form1">
                                   <p>First Name</p>
@@ -545,8 +585,10 @@ export default function Hospital_doctors(props) {
                   "hospital/download/" +
                   props.location.state.id
                 }
-                onError={(e) => { e.target.onerror = null; e.target.src = "/images/hospital.jpeg" }}
-
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "/images/hospital.jpeg";
+                }}
                 alt="hospital book image"
                 style={{
                   height: "160px",

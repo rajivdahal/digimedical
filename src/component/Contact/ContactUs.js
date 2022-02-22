@@ -13,7 +13,7 @@ const Root = styled.div`
 
 const Content = styled.div`
   padding-top: 9rem;
-  padding-left: 9rem;
+  padding-left: 6.5rem;
   @media screen and (max-width: 650px) {
     padding-top: 8rem;
     padding-left: 2rem;

@@ -16,7 +16,7 @@ const Root = styled.div`
 
 const Content = styled.div`
   padding-top: 6rem;
-  padding-left: 9rem;
+  padding-left: 6.5rem;
   @media screen and (max-width: 650px) {
     padding-top: 4rem;
     padding-left: 2rem;
@@ -72,12 +72,8 @@ const ButtonContainor = styled.div`
 const GetAppointment = styled.a`
   background-color: #2745f0;
   border-radius: 5px;
-  height: 50px;
-  width: 170px;
-  padding: 0rem 1rem 0rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 1rem;
+  display: inline-block;
   color: #fff;
 `;
 

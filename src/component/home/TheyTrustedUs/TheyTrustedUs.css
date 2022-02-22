@@ -1,14 +1,11 @@
 .email-img {
   height: 6rem;
 }
-.slick-slide {
-  margin: 0 1rem;
-}
 .items-div {
-  margin-left: 1rem;
-  margin-right: 1rem;
-  width: 65%;
-  padding: 1rem 1rem 1rem 1rem;
+  padding: 1rem;
+}
+.inner {
+  padding: 1rem;
   border: 1px solid #d0d7e2;
   box-sizing: border-box;
   border-radius: 5px;
@@ -32,6 +29,9 @@
   line-height: 30px;
   color: #192638;
 }
+.client p{
+  text-align: left;
+}
 .client-info {
   font-style: normal;
   font-weight: normal;
@@ -53,7 +53,4 @@
   background-color: blue;
   color: #fff;
   width: 50px;
-}
-.client-info {
-  text-align: left;
 }
