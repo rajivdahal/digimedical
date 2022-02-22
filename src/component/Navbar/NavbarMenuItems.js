@@ -50,7 +50,7 @@ const Menuitems = styled.div``;
 const NavbarMenuItems = () => {
   const [corporateType, setCorporateType] = useState([]);
   const [FamilyType, setFamilyType] = useState([]);
-
+  const [doctorSpeciality,setDoctorSpeciality] = useState([]);
   const history = useHistory();
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -97,6 +97,25 @@ const NavbarMenuItems = () => {
     }
   };
 
+  const getDoctorSpeciality = async () => {
+    try {
+      let resp = await httpClient.GET("services/get/true");
+      console.log(resp);
+      if (resp.data.status) {
+        setDoctorSpeciality(resp.data.data);
+      }
+    } catch (err) {
+      if (
+        err &&
+        err.response &&
+        err.response.data &&
+        err.response.data.message
+      ) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+  };
+
   const getFamilyPackage = async () => {
     try {
       let resp = await httpClient.GET("master-package/get-types/1");
@@ -118,6 +137,7 @@ const NavbarMenuItems = () => {
   useEffect(() => {
     getBusinessPackage();
     getFamilyPackage();
+    getDoctorSpeciality();
   }, []);
 
   return (
@@ -583,16 +603,54 @@ const NavbarMenuItems = () => {
               </div>
             </div> */}
           </li>
-          <li className="menu-item common-menu">
+
+          <li className="menu-item_nav common-menu">
             <Link
-              to="/digimedical-doctors"
+              className="link_home_nav"
+              // to="/doctors"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Our Doctors
             </Link>
+            <div className="dropdown_hp_content">
+              <div className="dropdown_hp_content1">
+                {doctorSpeciality.map((item, index) => {
+                  return (
+                    <>
+                      <Link key={index}
+                        to={{
+                          pathname: "digi-doctors",
+                          state: { specialityId: item.id ,specialityName : item.servicename},
+                        }}>
+                        <img
+                          src={package_logo}
+                          style={{
+                            height: "1.5rem",
+                          }}
+                        ></img>
+                        <p>{item.servicename}</p>{" "}
+                      </Link>
+                    </>
+                  );
+                })}
+                <Link to={"/all-speciality"}>
+                  <a>
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>{" "}
+                    <p>See All</p>{" "}
+                  </a>
+                </Link>
+              </div>
+            </div>
           </li>
+          
           <li className="menu-item common-menu">
-            <Link
+           <Link
               to="/about"
               style={{ textDecoration: "none", color: "inherit" }}
             >

@@ -9,44 +9,48 @@ import { httpClient } from "../../../utils/httpClient";
 import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
 import Footer from "../../Footer/Footer";
-import DocSpecialityImg from "../../../assets/doc_speciality1.svg";
+
 function Digimedical_doctors(props) {
   const [allDigiDoctors, setAllDigiDoctors] = useState([]);
   const [searcheddoctors, setsearcheddoctors] = useState([]);
   const [issearched, setIssearched] = useState(false);
   const [searchName, setSearchName] = useState("");
   const [selectedId, setSelectedId] = useState("");
+  const [specialityName, setSpecialityName] = useState("");
 
   const getAllDigiDoctors = async () => {
+    console.log(props)
     let id = "";
     if (
       props.location &&
       props.location.state &&
-      props.location.state.doctorID
+      props.location.state.specialityId
     ) {
-      id = props.location.state.doctorID;
+      id = props.location.state.specialityId;
       setSelectedId(id);
     }
     try {
-      let resp = await httpClient.GET("doctor/digi/get-four");
-      console.log(resp);
+      let resp = await httpClient.GET("doctor/get-related-doctor/"+id);
+      console.log(resp)
       if (resp.data.status) {
         let data = resp.data.data;
-        if (id) {
-          let selectedDoctor = data.find((doctor, index) => {
-            return doctor.doctorid == id;
-          });
-
-          let filteredDr = data.filter((doctor, index) => {
-            return doctor.doctorid != id;
-          });
-          filteredDr.unshift(selectedDoctor);
-          setAllDigiDoctors(filteredDr);
-          setsearcheddoctors(filteredDr);
-        } else {
           setAllDigiDoctors(data);
           setsearcheddoctors(data);
-        }
+        // if (id) {
+        //   let selectedDoctor = data.find((doctor, index) => {
+        //     return doctor.doctorid == id;
+        //   });
+
+        //   let filteredDr = data.filter((doctor, index) => {
+        //     return doctor.doctorid != id;
+        //   });
+        //   filteredDr.unshift(selectedDoctor);
+        //   setAllDigiDoctors(filteredDr);
+        //   setsearcheddoctors(filteredDr);
+        // } else {
+        //   setAllDigiDoctors(data);
+        //   setsearcheddoctors(data);
+        // }
       }
     } catch (err) {
       if (err && err.response && err.response.data) {
@@ -57,6 +61,13 @@ function Digimedical_doctors(props) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    let specialityName = "";
+    if( props.location &&
+      props.location.state &&
+      props.location.state.specialityName){
+        specialityName = props.location.state.specialityName;
+        setSpecialityName(specialityName)
+      }
     getAllDigiDoctors();
   }, []);
 
@@ -68,7 +79,7 @@ function Digimedical_doctors(props) {
   const searchDigiDoctors = (name) => {
     setIssearched(true);
     let searched = allDigiDoctors.filter((item, index) => {
-      return item.doctorname.toLowerCase().includes(name.toLowerCase());
+      return item.name.toLowerCase().includes(name.toLowerCase());
     });
     setsearcheddoctors(searched);
   };
@@ -107,117 +118,7 @@ function Digimedical_doctors(props) {
               </form>
             </div>
           </div>
-          <div className="our_doc_speciality">
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician Physucian</p>
-              </div>
-              <div></div>
-            </div>
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician</p>
-              </div>
-              <div></div>
-            </div>
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician</p>
-              </div>
-              <div></div>
-            </div>
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician</p>
-              </div>
-              <div></div>
-            </div>
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician</p>
-              </div>
-              <div></div>
-            </div>
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician</p>
-              </div>
-              <div></div>
-            </div>
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician</p>
-              </div>
-              <div></div>
-            </div>
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician</p>
-              </div>
-              <div></div>
-            </div>
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician</p>
-              </div>
-              <div></div>
-            </div>
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician</p>
-              </div>
-              <div></div>
-            </div>
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician</p>
-              </div>
-              <div></div>
-            </div>
-            <div className="speciality_doc_card">
-              <div className="speciality_cont1">
-                <img src={DocSpecialityImg} alt="" />
-              </div>
-              <div className="speciality_cont2">
-                <p>General Physician</p>
-              </div>
-              <div></div>
-            </div>
-          </div>
-          {/* <div className="doc_appoint_main">
+          <div className="doc_appoint_main">
             <div className="digidoctor_apoint_card">
               {searcheddoctors.length > 0 ? (
                 searcheddoctors.map((item, index) => {
@@ -225,15 +126,15 @@ function Digimedical_doctors(props) {
                     <>
                       <DigiMedicalDoctorCard
                         key={index}
-                        selected={item.doctorid == selectedId}
+                        // selected={item.doctorid == selectedId}
                         prefix={item.prefix}
-                        name={item.doctorname}
-                        desc={item.doctordescription}
-                        price={item.price}
-                        specialist={item.specialist}
-                        gender={item.gender + 1}
-                        doctorId={item.doctorid}
-                        doctorServices={item.serviceid}
+                        name={item.name}
+                        desc={item.description}
+                        // price={item.price}
+                        specialist={specialityName}
+                        // gender={item.gender + 1}
+                        doctorId={item.id}
+                        // doctorServices={item.serviceid}
                       />
                     </>
                   );
@@ -242,9 +143,10 @@ function Digimedical_doctors(props) {
                 <h4>No any doctors found</h4>
               )}
             </div>
-          </div> */}
+          </div>
         </div>
-        {/* <div className="digidoctor_whychooseus">
+
+        <div className="digidoctor_whychooseus">
           <div className=" digidoc_whycus ourserv-wcu-main">
             <div className="digidoc_whycus_head">
               <p className="digidoc_whycus_h1">Our Other Services</p>
@@ -295,7 +197,7 @@ function Digimedical_doctors(props) {
             <p>Do you need Emergency Medical care?</p>
             <h4>Call 01-5909141</h4>
           </div>
-        </div> */}
+        </div>
       </div>
 
       <Pagination></Pagination>
@@ -304,5 +206,4 @@ function Digimedical_doctors(props) {
     </div>
   );
 }
-
 export default Digimedical_doctors;

@@ -37,10 +37,6 @@ const validateDoctor = ( values, isEdit = false,isHospital=false ) => {
         errors.nmcNumber = 'NMC Number is Required!'
     }
 
-    if (!values.specialist) {
-        errors.specialist = 'Specialist is required!'
-    }
-
     if (!values.description) {
         errors.description = 'Description is required!'
     }

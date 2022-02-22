@@ -58,7 +58,6 @@ export default function Bookappointment(prop) {
       return errors;
     },
     onSubmit: (values) => {
-      console.log("values are", values);
       httpClient
         .POST("create-appointment", values)
         .then((resp) => {
