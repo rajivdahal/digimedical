@@ -98,6 +98,10 @@ const Dashboard = (props) => {
             ></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/settings/userprofile" ? (
             <ProtectedRoute component={UserProfile} />
+          ) : props.location.pathname === "/dashboard/bookappointment" ? (
+            <ProtectedRoute
+              component={Internalappointmentbook}
+            ></ProtectedRoute>
           ) : props.location.pathname ===
             "/dashboard/settings/change-password" ? (
             <ProtectedRoute component={Changepassword}></ProtectedRoute>
@@ -132,6 +136,9 @@ const Dashboard = (props) => {
           <Nav props={props.history}></Nav>
           <Adminsidebar props={props.history}></Adminsidebar>
           <div className="content-wrapper adjust-height-width custom-content-wrapper ">
+            {/* <div className="container-fluid ">
+                  <div className="main-panel">
+                    <div className="content-wrapper"> */}
             {props.location.pathname === "/dashboard" ||
             props.location.pathname === "/dashboard/" ? (
               <ProtectedRoute component={AdminDashboard}></ProtectedRoute>
@@ -190,6 +197,9 @@ const Dashboard = (props) => {
                 component={Dashboardpagenotfound}
               ></ProtectedRoute>
             )}
+            {/* </div>
+                  </div>
+                  </div> */}
           </div>
         </>
       ) : statusCode == 300 ? (

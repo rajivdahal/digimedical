@@ -14,6 +14,7 @@ import { notify } from "../../../services/notify";
 import * as yup from "yup";
 import { firstUpperCase } from "../../../utils/stringUppercase";
 import DocPopup from "../../common/popup/doctorPopup";
+import Accordion from "react-bootstrap/Accordion";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default function Hospital_doctors(props) {
@@ -302,11 +303,28 @@ export default function Hospital_doctors(props) {
                                 <></>
                               )}
                             </p>
+
                             <p>
                               Available time :{" "}
                               <span id="span1_doc_card">{doctor.startTime} - {doctor.endTime}</span>
 
                             </p>
+                            <div className="doc_accordion">
+                              <Accordion>
+                                <Accordion.Item eventKey="0">
+                                  <Accordion.Header>
+                                    Available consultation medium
+                                  </Accordion.Header>
+                                  <Accordion.Body className="acc-doc-body">
+                                    <ul className="accordion-body">
+                                      <li>Doctor at Home</li>
+                                      <li>Consult Online</li>
+                                      <li>Book at Hospital</li>
+                                    </ul>
+                                  </Accordion.Body>
+                                </Accordion.Item>
+                              </Accordion>
+                            </div>
                           </div>{" "}
                           <div className="doc_card_but">
                             {" "}
