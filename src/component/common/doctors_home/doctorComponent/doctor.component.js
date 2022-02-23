@@ -47,7 +47,6 @@ const DoctorDetailComponent = (props) => {
       </div>
       <div className="digidoc_card_but">
         {" "}
-        <div>Rs.{props.price}</div>
         <div><button id="digidoc_card_but" onClick={consultDoctor}>
           Consult
         </button></div>

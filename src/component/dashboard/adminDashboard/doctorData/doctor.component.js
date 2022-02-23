@@ -56,7 +56,7 @@ const Createdoctor = (props) => {
 
   useEffect(() => {
     initialize();
-    getDigiServices();
+    getDigiService();
   }, []);
 
   const initialize = async () => {
@@ -106,9 +106,9 @@ const Createdoctor = (props) => {
     }
   };
 
-  const getDigiServices = async () => {
+  const getDigiService = async () => {
     try {
-      let resp = await DigiServiceApi.getAllDigiServices();
+      let resp = await doctorApi.getDigiServices();
       if (resp.data.status) {
         let data = resp.data.data;
         let trueDigiService = data.filter((item) => {
@@ -341,6 +341,7 @@ const Createdoctor = (props) => {
   };
 
   const handleDigiServiceChange = (item) => {
+    console.log(item)
     formik.setFieldValue("digiServices", item);
   };
 
@@ -513,8 +514,8 @@ const Createdoctor = (props) => {
                   name="digiServiceId"
                   onChange={handleDigiServiceChange}
                 ></Select>
-                {formik.errors.doctorServices && formik.touched.doctorServices ?
-                  <div className="error-message">{formik.errors.doctorServices}</div>
+                {formik.errors.digiServices && formik.touched.digiServices ?
+                  <div className="error-message">{formik.errors.digiServices}</div>
                   : null}
               </Form.Group>
             </Col>
