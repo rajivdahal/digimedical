@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import "./doctorPopup.css";
-// import { useState } from "react";
-
-function doctorPopup(props) {
-  // const [docPopup, SetDocPopup] = useState(false);
+import PayPop from "../../common/popup/paymentpopup/payment";
+function DoctorPopup(props) {
+  // const [PayPop, SetPayPop] = useState(false);
+  const makeAppointment = () => {
+    props.setTrigger(false);
+    // SetPayPop(true);
+  };
   return props.trigger ? (
     <div className="doc-pop-main">
       <div className="doc-pop-inner">
         <div className="doc-pop-cont">
           <div className="doc-close-but">
             {" "}
+            <PayPop></PayPop>
             <button
               className="doc-close-butt"
               onClick={() => props.setTrigger(false)}
@@ -102,7 +106,7 @@ function doctorPopup(props) {
             </div>
             <div className="doc-form-row3">
               {" "}
-              <button onClick={() => props.setTrigger(false)} id="pop-doc-but">
+              <button onClick={() => makeAppointment()} id="pop-doc-but">
                 Make Appointment
               </button>
               <div className="doc-form-last-sent">
@@ -119,4 +123,4 @@ function doctorPopup(props) {
   );
 }
 
-export default doctorPopup;
+export default DoctorPopup;

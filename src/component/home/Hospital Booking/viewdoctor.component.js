@@ -15,6 +15,7 @@ import * as yup from "yup";
 import { firstUpperCase } from "../../../utils/stringUppercase";
 import DocPopup from "../../common/popup/doctorPopup";
 import Accordion from "react-bootstrap/Accordion";
+import PayPop from "../../common/popup/paymentpopup/payment";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default function Hospital_doctors(props) {
@@ -234,6 +235,7 @@ export default function Hospital_doctors(props) {
             </div>
 
             <div className="doc_appoint_main">
+              <PayPop></PayPop>
               {!searcheddoctors.length && !issearched ? (
                 alldoctors.length ? (
                   alldoctors.map((doctor, doctorindex) => {
