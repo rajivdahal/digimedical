@@ -129,11 +129,10 @@
 .popup_lab_close {
   display: flex;
   text-decoration: none;
-  width: 96px;
-  height: 62px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 14px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
   color: #5065f6;
   border: 1px solid #2745f0;
   border-radius: 5px;
@@ -142,7 +141,7 @@
 .popup_lab_close p {
   margin: auto;
 }
-.popup_lab .popup_lab_close:hover {
+.popup_lab_close:hover {
   text-decoration: none;
   color: #2c2f46;
 }

@@ -104,18 +104,22 @@
 
 .lab_popup_checkout {
   margin-left: 20px;
-  height: 62px;
-  width: 142px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
   color: white;
+
   background: #2745f0;
   border-radius: 5px;
-  display: flex;
 }
-
-.lab_popup_checkout div {
+.lab_popup_checkout p {
   margin: auto;
 }
-
+.lab_popup_checkout:hover {
+  text-decoration: none;
+  color: #fff;
+}
 .lab_add_to_cart_checkout {
   margin-left: 20px;
   width: 110px;
