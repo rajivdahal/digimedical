@@ -7,9 +7,15 @@ const doctorApi = {
   },
 
   createAdminDoctor: (values) => {
+    console.log(values)
     let selectedId = [];
     values.doctorServices.forEach((service, index) => {
       selectedId.push(service.value);
+    });
+
+    let digiServiceId = [];
+    values.digiServices.forEach((service, index) => {
+      digiServiceId.push(service.value);
     });
 
     let formData = new FormData();
