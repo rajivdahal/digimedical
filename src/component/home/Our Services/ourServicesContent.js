@@ -107,18 +107,24 @@ const FormContainor = styled.div`
 `;
 
 const Ourservices = (props) => {
-  let [heading, setHeading] = useState([]);
+  // let [heading, setHeading] = useState([]);
   let history = useHistory();
   let location = useLocation();
   console.log("location is, ", location);
-  useEffect(() => {
-    const paramsValue = props.match.params.subservice.split("-");
+  console.log(props.match.params.subservice)
+  const paramsValue = props.match.params.subservice.split("-");
     let title = paramsValue.map((item, index) => {
       return item[0].toUpperCase() + item.substring(1);
     });
-    console.log("title is", title);
-    setHeading(title);
-    console.log("inside useeffect");
+    console.log("title is",title)
+  useEffect(() => {
+    // const paramsValue = props.match.params.subservice.split("-");
+    // let title = paramsValue.map((item, index) => {
+    //   return item[0].toUpperCase() + item.substring(1);
+    // });
+    // console.log("title is", title);
+    // setHeading(title);
+    // console.log("inside useeffect");
     window.scrollTo(0, 0);
   }, []);
 
@@ -145,15 +151,15 @@ const Ourservices = (props) => {
           <span className="arrow">
             <MdOutlineKeyboardArrowRight />
           </span>
-          {heading.length
-            ? heading.map((item) => {
+          {title.length
+            ? title.map((item) => {
                 return <span>{item + "\xa0"}</span>;
               })
             : null}
         </Navigate>
         <Heading>
-          {heading.length
-            ? heading.map((item) => {
+          {title.length
+            ? title.map((item) => {
                 return <span>{` ${item + "\xa0"}`}</span>;
               })
             : null}
@@ -162,7 +168,11 @@ const Ourservices = (props) => {
           {!localStorage.getItem("dm-access_token") ? (
             <DoctorAtHomeForm />
           ) : (
-            <p>We provide you the best doctor at home service</p>
+            <p>We provide you the best {title.length
+              ? title.map((item) => {
+                  return <span>{` ${item + "\xa0"}`}</span>;
+                })
+              : null}service</p>
           )}
         </FormContainor>
       </Root>

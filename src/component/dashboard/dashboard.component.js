@@ -56,9 +56,9 @@ import { Userlabtest } from "./userdashboard/labtest/userlabtest.component";
 import Viewlabtest from "./userdashboard/viewlabtest/viewlabtest.component";
 import AddFamilyMember from "./userdashboard/familyMember/addFamilyMember.component";
 import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.component";
-import BodyCheckUp from "./userdashboard/commonupcomingappointment/bodyCheckup/bodyCheckUp.component";
 import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoctor";
 import UtilsInfo from "./userdashboard/utilsinformation/utilsInfo.component";
+import { BodyCheckUpUser } from "./userdashboard/bodyCheckup/bodyCheckUp.component";
 
 // doctor
 import Doctornavbar from "./doctordashboard/navbarandsidebar/doctornavbar.component";
@@ -117,11 +117,14 @@ const Dashboard = (props) => {
           ) : props.location.pathname === "/dashboard/medical-reports" ? (
             <ProtectedRoute component={MedicalReports}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/body-checkup" ? (
-            <ProtectedRoute component={BodyCheckUp}></ProtectedRoute>
+            <ProtectedRoute component={BodyCheckUpUser}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/digi-doctor" ? (
             <ProtectedRoute component={DigimedicalDoctor}></ProtectedRoute>
-          ) : props.location.pathname === "/dashboard/utils-info" ? (
-            <ProtectedRoute component={UtilsInfo}></ProtectedRoute>
+          ) : props.location.pathname === "/dashboard/utils-info" ?
+           (
+            <ProtectedRoute component={UtilsInfo}></ProtectedRoute>)
+            : props.location.pathname === "/dashboard/services" ? (
+              <ProtectedRoute component={UserServices}></ProtectedRoute>
           ) : null}
         </>
       ) : statusCode == 100 ? (
