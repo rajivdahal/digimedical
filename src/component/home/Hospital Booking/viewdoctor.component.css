@@ -150,9 +150,52 @@ form.doc_example::after {
 #doc_available_days {
   padding-top: 8px;
   line-height: 20px;
-
-  /* border: 1px solid red; */
 }
+/* accordion
+b 
+o
+d
+y here */
+.doc_accordion .accordion {
+  position: relative;
+  padding: 0;
+  width: 80%;
+  margin: 0;
+  z-index: 1;
+}
+.doc_accordion .accordion-header {
+  background: #f5faff;
+}
+.doc_accordion button.accordion-button.collapsed {
+  color: #2745f0;
+  background: #f5faff;
+  font-size: 15px;
+}
+.doc_accordion .accordion-button:not(.collapsed) {
+  background: #f5faff;
+  color: #2745f0;
+  margin-bottom: 0;
+  font-size: 15px;
+  border: 0;
+}
+
+.accordion-button:hover {
+  background: #f5faff;
+  color: unset;
+  color: #2745f0;
+}
+
+.doc_accordion ul.accordion-body li {
+  list-style: disc;
+  background: #f5faff;
+  color: #374253;
+}
+.doc_accordion .accordion-body {
+  background: #f5faff;
+}
+
+/* border: 1px solid red; */
+
 #span1_doc_card {
   font-weight: 500;
   color: black;

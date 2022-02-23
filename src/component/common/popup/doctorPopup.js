@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./doctorPopup.css";
+// import { useState } from "react";
+
 function doctorPopup(props) {
+  // const [docPopup, SetDocPopup] = useState(false);
   return props.trigger ? (
     <div className="doc-pop-main">
       <div className="doc-pop-inner">
@@ -77,7 +80,9 @@ function doctorPopup(props) {
                 {" "}
                 <label htmlFor="">Appointmemt Date</label>
                 <select name="cars" id="cars" required>
-                  <option value="volvo">Volvo</option>
+                  <option value="" disabled selected hidden>
+                    Select doctor
+                  </option>
                   <option value="saab">Saab</option>
                   <option value="opel">Opel</option>
                   <option value="audi">Audi</option>
@@ -86,7 +91,9 @@ function doctorPopup(props) {
               <div className="doc-form-input1">
                 <label htmlFor="">Appointment Time</label>
                 <select name="cars" id="cars" required>
-                  <option value="volvo">Volvo</option>
+                  <option value="" disabled selected hidden>
+                    Select doctor
+                  </option>
                   <option value="saab">Saab</option>
                   <option value="opel">Opel</option>
                   <option value="audi">Audi</option>
@@ -94,7 +101,10 @@ function doctorPopup(props) {
               </div>
             </div>
             <div className="doc-form-row3">
-              <button id="pop-doc-but">Make Appointment</button>
+              {" "}
+              <button onClick={() => props.setTrigger(false)} id="pop-doc-but">
+                Make Appointment
+              </button>
               <div className="doc-form-last-sent">
                 <p>We value your privacy. Your details are safe with us.</p>
               </div>
