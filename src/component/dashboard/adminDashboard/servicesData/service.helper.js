@@ -2,7 +2,6 @@ import { REGEX } from "../../../../constants/constants";
 import { getRequiredError } from "../../../../utils/errorHelper";
 
 const validateService = (values,digiService) => {
-    console.log(values);
     let errors = {};
     if (!values.serviceName) {
         errors.serviceName = getRequiredError("Service Name")

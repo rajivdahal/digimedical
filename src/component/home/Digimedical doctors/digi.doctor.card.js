@@ -176,7 +176,7 @@ const DigiMedicalDoctorCard = (props) => {
             <p id="doc_edu_brief">{props.prefix}</p>
           </div>
 
-          <p id="digidoc_exp"> {props.specialist} </p>
+          <p id="digidoc_exp"><b> {props.specialist}</b> </p>
           <p>{props.desc}</p>
         </div>
 

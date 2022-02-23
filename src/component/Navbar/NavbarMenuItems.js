@@ -102,7 +102,10 @@ const NavbarMenuItems = () => {
       let resp = await httpClient.GET("services/get/true");
       console.log(resp);
       if (resp.data.status) {
-        setDoctorSpeciality(resp.data.data);
+        let data = resp.data.data;
+        let splicedArr = data.splice(0,6);
+        console.log(splicedArr)
+        setDoctorSpeciality(splicedArr);
       }
     } catch (err) {
       if (

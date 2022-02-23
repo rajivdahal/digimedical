@@ -30,7 +30,7 @@ function Digimedical_doctors(props) {
       setSelectedId(id);
     }
     try {
-      let resp = await httpClient.GET("doctor/get-related-doctor/"+id);
+      let resp = await httpClient.GET("doctor/digi/get/"+id);
       console.log(resp)
       if (resp.data.status) {
         let data = resp.data.data;
@@ -128,12 +128,12 @@ function Digimedical_doctors(props) {
                         key={index}
                         // selected={item.doctorid == selectedId}
                         prefix={item.prefix}
-                        name={item.name}
-                        desc={item.description}
+                        name={item.doctorname}
+                        desc={item.doctordescription}
                         // price={item.price}
                         specialist={specialityName}
-                        // gender={item.gender + 1}
-                        doctorId={item.id}
+                        gender={item.gender + 1}
+                        doctorId={item.doctorid}
                         // doctorServices={item.serviceid}
                       />
                     </>

@@ -67,8 +67,8 @@ const Createdoctor = (props) => {
         if (props.location.state.doctorid != null) {
           id = props.location.state.doctorid;
         }
-      } else if (props.location.state.id != null) {
-        id = props.location.state.id;
+      } else if (props.location.state.doctorid != null) {
+        id = props.location.state.doctorid;
       }
       setDoctorId(id);
       await getDoctorById(id, allServices);
@@ -451,6 +451,7 @@ const Createdoctor = (props) => {
                 ) : null}
               </Form.Group>
             </Col>
+
             <Col md={3}>
               <Form.Group>
                 <Form.Label>Mobile Number</Form.Label>
@@ -689,6 +690,7 @@ const Createdoctor = (props) => {
                   ) : null}
                 </Form.Group>
               </Col>
+              
             </Row>
           )}
 
