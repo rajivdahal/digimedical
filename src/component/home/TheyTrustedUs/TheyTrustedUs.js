@@ -93,9 +93,10 @@ const items = [
 
 const TheyTrustedUs = () => {
   const settings = {
-    infinite: true,
+    infinite: false,
+    speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
     autoplay: true,
     pauseOnHover: true,
     responsive: [
@@ -114,26 +115,27 @@ const TheyTrustedUs = () => {
       <span>About Us</span>
       <h2>They Trusted Us</h2>
       <p>Take a look at the recent testimonials submitted by our patients</p>
-      <Slider {...settings}>
-      {items.map((item)=> {
-        return (
-          <div className="items-div" key={item.id}>
-            <div className="image-name-div">
-              <img src={item.image} className="email-img" alt="slider"/>
-              <div>
-                <span className="client-name">{item.client_name}</span>
-                <p className="client-info">{item.client_info}</p>
+        <Slider {...settings} className="trust-container">
+        {items.map((item)=> {
+          return (
+            <div className="items-div">
+              <div className="inner" key={item.id}>
+                <div className="image-name-div">
+                  <img src={item.image} className="email-img" alt="slider"/>
+                  <div className="client">
+                    <span className="client-name">{item.client_name}</span>
+                    <p className="client-info">{item.client_info}</p>
+                  </div>
+                </div>
+                <div className="details-div">
+                  {item.client_testimonial}
+                </div>
               </div>
             </div>
-            <div className="details-div">
-              {item.client_testimonial}
-            </div>
-          </div>
+          )
+        }
         )
-      }
-        )
-      }
-          
+        }
         </Slider>
         
     </Root>

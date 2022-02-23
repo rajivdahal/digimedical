@@ -132,6 +132,11 @@ export const Approuting = (props) => {
           path="/dashboard/utils-info"
           component={Dashboard}
         ></ProtectedRoute>
+          <ProtectedRoute
+          exact
+          path="/dashboard/Services"
+          component={Dashboard}
+        ></ProtectedRoute>
         <ProtectedRoute
           exact
           path="/dashboard/body-checkup"

@@ -50,6 +50,8 @@ const Menuitems = styled.div``;
 const NavbarMenuItems = () => {
   const [corporateType, setCorporateType] = useState([]);
   const [FamilyType, setFamilyType] = useState([]);
+  const [doctorCategory,setDoctorCategory]=useState([])
+
   const [doctorSpeciality,setDoctorSpeciality] = useState([]);
   const history = useHistory();
   const [logoutstate, setlogoutstate] = useState({
@@ -136,10 +138,18 @@ const NavbarMenuItems = () => {
       }
     }
   };
+  const getServices=()=>{
+    httpClient.GET("services/get/true")
+    .then(resp=>{
+      setDoctorCategory(resp.data.data)
+    })
+
+  }
 
   useEffect(() => {
     getBusinessPackage();
     getFamilyPackage();
+    getServices()
     getDoctorSpeciality();
   }, []);
 
@@ -608,13 +618,7 @@ const NavbarMenuItems = () => {
           </li>
 
           <li className="menu-item_nav common-menu">
-            <Link
-              className="link_home_nav"
-              // to="/doctors"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
               Our Doctors
-            </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
                 {doctorSpeciality.map((item, index) => {
@@ -651,7 +655,7 @@ const NavbarMenuItems = () => {
               </div>
             </div>
           </li>
-          
+
           <li className="menu-item common-menu">
            <Link
               to="/about"

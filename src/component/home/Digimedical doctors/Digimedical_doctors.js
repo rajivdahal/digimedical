@@ -11,6 +11,7 @@ import { notify } from "../../../services/notify";
 import Footer from "../../Footer/Footer";
 
 function Digimedical_doctors(props) {
+  console.log("props in digidoctors is",props)
   const [allDigiDoctors, setAllDigiDoctors] = useState([]);
   const [searcheddoctors, setsearcheddoctors] = useState([]);
   const [issearched, setIssearched] = useState(false);
@@ -57,7 +58,7 @@ function Digimedical_doctors(props) {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-  };
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -147,9 +147,12 @@ function FamilyPackage(props) {
         <div className="down">
           <div className="fcp_header_desc">
             <p id="headerfamilyhealth">Family Health</p>
-            <p id="text1">
-              Give your family a healthy gift in this covid situation.
-            </p>
+            <div className="fcp_down_desc_2">
+              {" "}
+              <p id="text1">
+                Give your family a healthy gift in this covid situation.
+              </p>
+            </div>
           </div>
           <div className="fcp_main_img">
             <img src={Fcp_main_img} />
@@ -347,15 +350,112 @@ function FamilyPackage(props) {
         <div className="fam-package-detail">
           <p id="lab_content_headtxt">Package Details</p>
           <div className="fam-package-detail1">
-            <div className="fam-package1">
-              <div>
-                <p>Basic</p>
-                <p>Our standard health care package for your family.</p>
-                <p>Rs. 20,000</p>
-                <p>per year</p>
+            <div className="fam-packages-cat">
+              <div className="fam-package1">
+                <div className="fam-pack-pop-or-not">
+                  <ul>
+                    <li>popular</li>
+                  </ul>
+                </div>
+                <div className="fam-package-head">
+                  <p id="text-fam-pack-head1">Basic</p>
+                  <p id="text-fam-pack-head2">
+                    Our standard health care package for your family.
+                  </p>
+                  <p id="text-fam-pack-price1">Rs. 20,000</p>
+                  <p id="text-fam-pack-head3">per year</p>
+                </div>
+                <div className="fam-packages-ul">
+                  <ul className="fam-package-ul1">
+                    <li>Up to 6 members.</li>
+                    <li>
+                      Medical consultation at home by experienced doctors(8
+                      times)
+                    </li>
+                    <li>
+                      Online medical consultation by expert doctors(12 times)
+                    </li>
+                    <li>Home visit by professional nurses(8 times)</li>
+                    <li>Follow up by customer health services department</li>
+                    <li>Emergency visit</li>
+                    <li>Nutrition/ deit plan by an experienced dietician</li>
+                    <li>Off on lab charges(7%)</li>
+                    <li>Off on medicines(7%)</li>
+                  </ul>
+                  <button className="fam-pack-button">Get Started</button>
+                </div>
+                <div></div>
               </div>
-              <div></div>
-              <div></div>
+              <div className="fam-package2">
+                <div className="fam-pack-pop-or-not">
+                  <ul>
+                    <li>popular</li>
+                  </ul>
+                </div>
+                <div className="fam-package-head">
+                  <p id="text-fam-pack-head1">Basic</p>
+                  <p id="text-fam-pack-head2">
+                    Our standard health care package for your family.
+                  </p>
+                  <p id="text-fam-pack-price1">Rs. 20,000</p>
+                  <p id="text-fam-pack-head3">per year</p>
+                </div>
+                <div className="fam-packages-ul">
+                  <ul className="fam-package-ul1">
+                    <li>Up to 6 members.</li>
+                    <li>
+                      Medical consultation at home by experienced doctors(8
+                      times)
+                    </li>
+                    <li>
+                      Online medical consultation by expert doctors(12 times)
+                    </li>
+                    <li>Home visit by professional nurses(8 times)</li>
+                    <li>Follow up by customer health services department</li>
+                    <li>Emergency visit</li>
+                    <li>Nutrition/ deit plan by an experienced dietician</li>
+                    <li>Off on lab charges(7%)</li>
+                    <li>Off on medicines(7%)</li>
+                  </ul>
+                  <button className="fam-pack-button">Get Started</button>
+                </div>
+                <div></div>
+              </div>
+              <div className="fam-package1">
+                <div className="fam-pack-pop-or-not">
+                  <ul>
+                    <li>popular</li>
+                  </ul>
+                </div>
+                <div className="fam-package-head">
+                  <p id="text-fam-pack-head1">Basic</p>
+                  <p id="text-fam-pack-head2">
+                    Our standard health care package for your family.
+                  </p>
+                  <p id="text-fam-pack-price1">Rs. 20,000</p>
+                  <p id="text-fam-pack-head3">per year</p>
+                </div>
+                <div className="fam-packages-ul">
+                  <ul className="fam-package-ul1">
+                    <li>Up to 6 members.</li>
+                    <li>
+                      Medical consultation at home by experienced doctors(8
+                      times)
+                    </li>
+                    <li>
+                      Online medical consultation by expert doctors(12 times)
+                    </li>
+                    <li>Home visit by professional nurses(8 times)</li>
+                    <li>Follow up by customer health services department</li>
+                    <li>Emergency visit</li>
+                    <li>Nutrition/ deit plan by an experienced dietician</li>
+                    <li>Off on lab charges(7%)</li>
+                    <li>Off on medicines(7%)</li>
+                  </ul>
+                  <button className="fam-pack-button">Get Started</button>
+                </div>
+                <div></div>
+              </div>
             </div>
           </div>
         </div>

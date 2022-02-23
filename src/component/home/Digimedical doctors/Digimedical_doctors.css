@@ -250,7 +250,7 @@ p {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 990px) {
   .take_doc_appoint {
     width: 90%;
   }
@@ -261,6 +261,6 @@ p {
   }
   .digidoctor_whychooseus {
     margin: 0;
-    width: 90%;
+    width: 100%;
   }
 }

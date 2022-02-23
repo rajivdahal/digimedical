@@ -60,12 +60,39 @@ const DoctorAtHomeForm = () => {
     <Root>
       <form>
         <div class="form-group">
-          <label for="inputAddress">Name</label>
+          <label for="inputAddress">First Name</label>
           <input
             type="text"
             className="form-control"
             id="inputAddress"
             placeholder="Name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Middle Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputAddress"
+            placeholder="phone"
+          />
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputAddress"
+            placeholder="phone"
+          />
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">E-mail</label>
+          <input
+            type="text"
+            class="form-control"
+            id="inputAddress"
+            placeholder="phone"
           />
         </div>
         <div class="form-group">
