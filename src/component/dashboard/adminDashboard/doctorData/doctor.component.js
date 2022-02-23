@@ -213,6 +213,10 @@ const Createdoctor = (props) => {
           }
         });
 
+        let savedDigiServices = {
+
+        }
+
         if (data) {
           let url = REACT_APP_BASE_URL + "doctor/download/" + id;
           setImage(url);
@@ -222,6 +226,7 @@ const Createdoctor = (props) => {
             description: data.description,
             mobileNumber: data.mobilenumber,
             doctorServices: savedServices,
+            digiServices : savedDigiServices,
             gender: data.gender,
             serviceID: null,
           };

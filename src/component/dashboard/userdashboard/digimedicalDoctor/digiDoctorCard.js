@@ -114,12 +114,11 @@ const UserDoctorCard = (props) => {
                         <p id="doc_edu_brief">{props.prefix}</p>
                     </div>
 
-                    <p id="digidoc_exp"> {props.specialist} </p>
+                    <p id="digidoc_exp"><b>{props.specialist} </b> </p>
                     <p2>{props.desc.slice(0, 50)}.....</p2>
                 </div>
                 <div className="hosp_card_but_main">
                     {" "}
-                    <div>Rs.{props.price}</div>
 
                     <button id="hosp_card_but_user" onClick={bookAppointment}>
                         Book an appointment

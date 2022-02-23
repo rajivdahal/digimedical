@@ -4,94 +4,121 @@ import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
 import Pagination from "../../../common/pagination/pagination.component";
 import UserDoctorCard from "./digiDoctorCard";
-
+import { Link } from "react-router-dom";
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const DigimedicalDoctor = (props) => {
 
-    const [allDigiDoctors, setAllDigiDoctors] = useState([]);
-    const [searcheddoctors, setsearcheddoctors] = useState([]);
+    const [doctorSpeciality, setDoctorSpeciality] = useState([]);
+    const [searchSpeciality, setSearchSpeciality] = useState([]);
     const [issearched, setIssearched] = useState(false);
     const [searchName, setSearchName] = useState("");
 
-    const getAllDigiDoctors = async () => {
+    const getDoctorSpeciality = async () => {
         try {
-            let resp = await httpClient.GET("doctor/digi/get-all");
-            console.log(resp)
+            let resp = await httpClient.GET("services/get/true");
+            console.log(resp);
             if (resp.data.status) {
-                let data = resp.data.data;
-                setAllDigiDoctors(data);
-                setsearcheddoctors(data);
+                setDoctorSpeciality(resp.data.data);
+                setSearchSpeciality(resp.data.data);
             }
         } catch (err) {
-            if (err && err.response && err.response.data) {
+            if (
+                err &&
+                err.response &&
+                err.response.data &&
+                err.response.data.message
+            ) {
                 notify.error(err.response.data.message || "Something went wrong");
             }
         }
-
-    }
-
-    useEffect(() => {
-        getAllDigiDoctors();
-    }, [])
+    };
 
     const handleChange = (e) => {
         setSearchName(e.target.value);
-        searchDigiDoctors(e.target.value)
-    }
-
-    const searchDigiDoctors = (name) => {
+        console.log(e.target.value)
+        searchDigiSpeciality(e.target.value);
+    };
+    const searchDigiSpeciality = (name) => {
         setIssearched(true);
-        let searched = allDigiDoctors.filter((item, index) => {
-            return item.doctorname.toLowerCase().includes(name.toLowerCase())
+        let searched = doctorSpeciality.filter((item, index) => {
+            return item.servicename.toLowerCase().includes(name.toLowerCase());
         });
-        setsearcheddoctors(searched);
+        setSearchSpeciality(searched);
     };
 
+    useEffect(() => {
+        getDoctorSpeciality();
+    }, [])
+
     return (
+
         <div className="hospital_main_cont_user">
             <div className="hospital_booking">
                 <div className="hospital_bookcont_from_user">
                     <div className="hospital_bookconthead">
-                        <h2>Book appointment </h2>
-                        {searcheddoctors.length ? (
-                            <div className="hospital_booksearch">
-                                <form class="example" action="/action_page.php">
-                                    <input
-                                        className="hello_input"
-                                        type="text"
-                                        placeholder="Search Doctor"
-                                        name="search"
-                                        onChange={handleChange}
-                                    />
-                                    <button type="submit" className="hosp_srch" onClick={() => searchDigiDoctors(searchName)}>
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </form>
+
+                        <div className="our_doc_appoint">
+                            <div className="doc_appoint_head">
+                                <div className="digidoc_head_txt">
+                                    <h1>All Speciality</h1>
+                                    <p>Select the the doctor by their speciality</p>
+                                </div>
+                                <div className="doc_booksearch">
+                                    <form class="doc_example">
+                                        <input
+                                            type="text"
+                                            placeholder="Search Speciality .."
+                                            name="searchName"
+                                            onChange={handleChange}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => searchDigiSpeciality(searchName)}
+                                        >
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                        ) : null}
-                    </div>
 
-                    <div className="hospital_book_card">
-                        {searcheddoctors.length > 0 ?
-                            searcheddoctors.map((item, index) => {
-                                return <>
-                                    <UserDoctorCard key={index} name={item.doctorname} prefix={item.prefix}
-                                        specialist={item.specialist} desc={item.doctordescription}
-                                        gender={item.gender + 1} price = {item.price}
-                                        doctorId={item.doctorid} doctorServices={item.serviceid} />
-                                </>
-                            })
-                            :
-                            <h4>No any doctors found</h4>
-                        }
-                    </div>
+                            <div className="our_doc_speciality">
+                                {searchSpeciality.length > 0 ?
+                                    searchSpeciality.map((item, index) => {
+                                        return <div className="speciality_doc_card">
+                                            <Link style={{ textDecoration: "none" }} key={index}
+                                                to={{
+                                                    pathname: "speciality-doctors",
+                                                    state: { specialityId: item.id, specialityName: item.servicename },
+                                                }}>
+                                                <div className="speciality_cont1">
+                                                    <img src={REACT_APP_BASE_URL + "services/download/" + item.id} alt="" />
+                                                </div>
+                                                <div className="speciality_cont2">
+                                                    <p>{item.servicename}</p>
+                                                </div>
+                                                <div></div>
+                                            </Link>
+                                        </div>
+                                    })
+                                    :
+                                    <h4>No any speciality found.</h4>
 
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                    {searchSpeciality.length > 0 ?
                     <Pagination></Pagination>
-                       
-                    </div>
+                        :
+                        <></>
+                    }
+
                 </div>
             </div>
-       
+        </div>
+
     )
 }
 

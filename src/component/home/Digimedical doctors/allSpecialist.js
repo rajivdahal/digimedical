@@ -109,7 +109,6 @@ function AllSpecialist(props) {
                         <h4>No any speciality found.</h4>
 
                     }
-
                 </div>
             </Container>
         </div>
