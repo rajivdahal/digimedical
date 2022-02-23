@@ -11,8 +11,8 @@ import Cliploader from "../../../../utils/clipLoader"
 
 export const Cancelledappointment = (props) => {
     const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
-    console.log("props in completed appointments are",props)
-    const [isloading, setisloading] = useState(false)
+    const [isloading, setisloading] = useState(false);
+    const [tableLoading,setTableLoading] = useState(false);
     const [pendingData, setpendingData] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [id, setid] = useState()
@@ -29,19 +29,17 @@ export const Cancelledappointment = (props) => {
                 item.appointmentTime = item.appointmenttime?item.appointmenttime.slice(0, 5):item.appointmentTime.slice(0, 5)
                 return item
             })
-            console.log(data)
             setpendingData(resp.data.data)
-            setisloading(false)
+            setTableLoading(false)
         })
         .catch(err => {
-            console.log("inside catch")
-
-            notify.error("something went wrong")
+            // notify.error("something went wrong")
+            console.log(err.response.data)
             setisloading(false)
         })
     }
     useEffect(() => {
-        setisloading(true)
+        setTableLoading(true)
         if (props.fromdoctorcomponent) {
             httpcall("getall-appointments-by/2")
         }
@@ -109,9 +107,7 @@ export const Cancelledappointment = (props) => {
         setShowModal(false)
     }
     const deleteindeed = () => {
-        console.log("inside delete")
         if (id) {
-            console.log("inside delete if")
             httpClient.PUT(`cancel-appointment/${id}`, null, false, true)
                 .then(resp => {
                     setShowModal(false)
@@ -130,6 +126,8 @@ export const Cancelledappointment = (props) => {
                     <MaterialTable
                         title="Completed Appointments"
                         columns={columns}
+                        isLoading={tableLoading}
+
                         data={pendingData}
                         options={{
                             paging: true,

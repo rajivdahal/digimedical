@@ -11,6 +11,7 @@ import Select from "react-select";
 import doctorApi from "./doctor.services";
 import { DAYS } from "../../../../constants/constants";
 import ServiceApi from "../servicesData/services.service";
+import DigiServiceApi from "../newServiceData/newservices.service";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -18,6 +19,7 @@ const Createdoctor = (props) => {
   // all services
 
   const [services, setServices] = useState([]);
+  const [digiServices, setDigiServices] = useState([]);
   const imageSelectRef = useRef();
   const days = DAYS;
   const [doctorId, setDoctorId] = useState("");
@@ -39,11 +41,13 @@ const Createdoctor = (props) => {
     mobileNumber: "",
     licensedDate: "",
     doctorImage: "",
-    serviceID: "",
     availableDays: [days[0]],
     startTime: "",
     endTime: "",
+    serviceID: "",
     doctorServices: [],
+    digiServiceId: "",
+    digiServices: [],
   });
   const doctorTablePath = {
     hospital: "/dashboard/hospital-doctor",
@@ -52,6 +56,7 @@ const Createdoctor = (props) => {
 
   useEffect(() => {
     initialize();
+    getDigiService();
   }, []);
 
   const initialize = async () => {
@@ -80,7 +85,7 @@ const Createdoctor = (props) => {
       }
       if (resp.data.status) {
         let data = resp.data.data;
-        let trueService = data.filter((item)=>{
+        let trueService = data.filter((item) => {
           return item.activestatus == true
         })
         let options = trueService.map((service) => {
@@ -93,13 +98,38 @@ const Createdoctor = (props) => {
         return options;
       }
     }
-    
+
     catch (err) {
       if (err && err.response && err.response.data) {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
   };
+
+  const getDigiService = async () => {
+    try {
+      let resp = await doctorApi.getDigiServices();
+      if (resp.data.status) {
+        let data = resp.data.data;
+        let trueDigiService = data.filter((item) => {
+          return item.status == true
+        })
+        let options = trueDigiService.map((service) => {
+          return {
+            label: service.name,
+            value: service.id,
+          };
+        })
+        setDigiServices(options);
+
+      }
+    }
+    catch (err) {
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+  }
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -124,7 +154,6 @@ const Createdoctor = (props) => {
       let resp;
       if (props.isHospital) {
         let hospitalId = localStorage.getItem("userid");
-        console.log(hospitalId);
         resp = await doctorApi.createHospitalDoctor(values, hospitalId);
       } else {
         resp = await doctorApi.createAdminDoctor(values);
@@ -152,7 +181,6 @@ const Createdoctor = (props) => {
       } else {
         resp = await doctorApi.getAdminDoctorBYId(id);
       }
-      console.log(resp)
       if (resp.data.status) {
         // get doctor services + basic details
         let responseData = resp.data.data;
@@ -172,15 +200,11 @@ const Createdoctor = (props) => {
           });
         }
         // get services details from service data
-        console.log(allServices)
         let savedServices = [];
         allServices.forEach((service) => {
-          console.log(service)
           let found = serviceData.filter((item) => {
-            console.log(item)
             return item.id.toString() === service.value.toString();
           });
-          console.log(found)
           if (found.length > 0) {
             savedServices.push({
               label: service.label,
@@ -280,6 +304,8 @@ const Createdoctor = (props) => {
       serviceID: "",
       doctorServices: [],
       doctorImage: "",
+      digiServiceId: "",
+      digiServices: [],
     });
     setImage("");
     setImgName("");
@@ -311,8 +337,12 @@ const Createdoctor = (props) => {
   };
 
   const handleServiceChange = (item) => {
-    console.log(item);
     formik.setFieldValue("doctorServices", item);
+  };
+
+  const handleDigiServiceChange = (item) => {
+    console.log(item)
+    formik.setFieldValue("digiServices", item);
   };
 
   const handleChooseDays = (item) => {
@@ -460,33 +490,67 @@ const Createdoctor = (props) => {
 
           <Row>
             <Col md={6}>
-              <Row>
-                <Col md={11}>
-                  <Form.Label>Service </Form.Label>
-                  <Select
-                    value={formik.values.doctorServices}
-                    isMulti className="serviceSelect formControl"
-                    options={services}
-                    name="serviceID"
-                    onChange={handleServiceChange}
-                  ></Select>
-                  {formik.errors.doctorServices && formik.touched.doctorServices ?
-                    <div className="error-message">{formik.errors.doctorServices}</div>
-                    : null}
-                </Col>
-              </Row>
+              <Form.Label>Speciality </Form.Label>
+              <Select
+                value={formik.values.doctorServices}
+                isMulti className="serviceSelect formControl"
+                options={services}
+                name="serviceID"
+                onChange={handleServiceChange}
+              ></Select>
+              {formik.errors.doctorServices && formik.touched.doctorServices ?
+                <div className="error-message">{formik.errors.doctorServices}</div>
+                : null}
+
             </Col>
 
+            <Col md={6}>
+              <Form.Group>
+                <Form.Label>Service</Form.Label>
+                <Select
+                  value={formik.values.digiServices}
+                  isMulti className="serviceSelect formControl"
+                  options={digiServices}
+                  name="digiServiceId"
+                  onChange={handleDigiServiceChange}
+                ></Select>
+                {formik.errors.digiServices && formik.touched.digiServices ?
+                  <div className="error-message">{formik.errors.digiServices}</div>
+                  : null}
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Row className="mb-3">
+            
+          <Col md={6}>
+              <Form.Group>
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  className='formControl' rows={2}
+                  name="description" as="textarea" 
+                  onChange={formik.handleChange}
+                  value={formik.values.description}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.errors.description && formik.touched.description ? (
+                  <div className="error-message">
+                    {formik.errors.description}
+                  </div>
+                ) : null}
+              </Form.Group>
+            </Col>
+            
             <Col md={6}>
               <Row>
                 <Col md={5}>
                   <Form.Label>Choose Photo </Form.Label>
-                  <Button variant="info" onClick={handleAddImage}>
+                  <Button variant="info" onClick={handleAddImage} >
                     Browse
                   </Button>
                   <input
                     onChange={(e) => handleChangeImage(e)}
-                    type="file"
+                    type="file" 
                     name="doctorImage"
                     style={{ display: "none" }}
                     ref={imageSelectRef}
@@ -501,7 +565,6 @@ const Createdoctor = (props) => {
                     className="image ml-3"
                     roundedCircle
                   ></Image>
-                  {/* <div>{selectedImgName}</div> */}
                 </Col>
                 {selectedImage ?
                   <Col md={2}>
@@ -512,49 +575,13 @@ const Createdoctor = (props) => {
                   :
                   <></>
                 }
-
               </Row>
             </Col>
           </Row>
 
-          <Row className="mb-3">
-            <Col md={6}>
-              <Form.Group>
-                <Form.Label>Specialist</Form.Label>
-                <Form.Control
-                  type="text" className='formControl'
-                  name="specialist"
-                  onChange={formik.handleChange}
-                  value={formik.values.specialist}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.specialist && formik.touched.specialist ? (
-                  <div className="error-message">
-                    {formik.errors.specialist}
-                  </div>
-                ) : null}
-              </Form.Group>
-            </Col>
-            <Col md={6}>
-              <Form.Group>
-                <Form.Label>Description</Form.Label>
-                <Form.Control
-                  type="text" className='formControl'
-                  name="description"
-                  onChange={formik.handleChange}
-                  value={formik.values.description}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.description && formik.touched.description ? (
-                  <div className="error-message">
-                    {formik.errors.description}
-                  </div>
-                ) : null}
-              </Form.Group>
-            </Col>
-          </Row>
           {props.isHospital ? (
             <Row className="mb-3">
+
               <Col md={4}>
                 <Form.Group>
                   <Form.Label>Available Days</Form.Label>
@@ -567,6 +594,7 @@ const Createdoctor = (props) => {
                   ></Select>
                 </Form.Group>
               </Col>
+
               <Col md={4}>
                 <Form.Group>
                   <Form.Label>Start Time</Form.Label>
@@ -584,6 +612,7 @@ const Createdoctor = (props) => {
                   ) : null}
                 </Form.Group>
               </Col>
+
               <Col md={4}>
                 <Form.Group>
                   <Form.Label>End Time</Form.Label>
@@ -641,6 +670,7 @@ const Createdoctor = (props) => {
                   ) : null}
                 </Form.Group>
               </Col>
+
               <Col md={4}>
                 <Form.Group>
                   <Form.Label>Confirm Password</Form.Label>
@@ -662,7 +692,7 @@ const Createdoctor = (props) => {
             </Row>
           )}
 
-          {loading == true ? (
+          {loading === true ? (
             <Cliploader isLoading={loading} />
           ) : (
             <div>

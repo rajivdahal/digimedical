@@ -12,9 +12,11 @@ import { Showmodal, ShowPrescription } from "../../../../utils/showmodal";
 import Prescribe from "../../doctordashboard/prescribe/prescribe.component";
 import { useHistory } from "react-router-dom";
 export const Commonupcomingappointment = (props) => {
+
     const history=useHistory()
     const userid = localStorage.getItem("userid")
-    const [isloading, setisloading] = useState(false)
+    const [isloading, setisloading] = useState(false);
+    const [tableLoading,setTableLoading] = useState(false);
     const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
     const fromcorporatecomponent = props.fromcorporatecomponent ? props.fromcorporatecomponent : null
     const [pendingData, setpendingData] = useState([])
@@ -25,11 +27,9 @@ export const Commonupcomingappointment = (props) => {
     const [patient, setpatient] = useState({})
 
     const httpcall = (callingurl) => {
-        console.log("inside httpcall")
         httpClient.GET(callingurl, false, true)
             .then(resp => {
                 let data = resp.data.data
-                console.log("data before is", resp)
                 data = data.map((item, index) => {
                     item.appointmentdate = formatDate(item.appointmentdate?item.appointmentdate.slice(0, 10):item.appointmentDate.slice(0, 10))
                     item.appointmenttime =item.appointmenttime?item.appointmenttime.slice(0, 5):item.appointmentTime.slice(0, 5)
@@ -39,24 +39,22 @@ export const Commonupcomingappointment = (props) => {
 
             })
             .catch(err => {
-                notify.error("something went wrong")
+                console.log(err.response.data)
+                // notify.error("something went wrong")
             })
             .finally(() => {
-                setisloading(false)
+                setTableLoading(false)
             })
     }
     useEffect(() => {
-        setisloading(true)
+        setTableLoading(true)
         if (fromdoctorcomponent) {
-            console.log("inside from doctor component")
             return httpcall(`getall-appointments-by/0`)
         }
         if (fromcorporatecomponent) {
-            console.log("inside from corporate component")
             return httpcall(`get/corporate/appointments/0`)
         }
         else {
-            console.log("inside from else component")
             httpcall(`get-user-pending-appointments`)
         }
     }, [])
@@ -172,6 +170,7 @@ export const Commonupcomingappointment = (props) => {
                         title="Appointments"
                         columns={columns}
                         data={pendingData}
+                        isLoading={tableLoading}
                         options={{
                             paging: true,
                             exportButton: props.isexportavailable,

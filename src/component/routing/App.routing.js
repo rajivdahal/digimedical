@@ -22,6 +22,8 @@ import FamilyPackage from "../home/For Family/Family_Care_Package/Family_care_p"
 import CorporatePackage from "../home/forCorporate/corporatePackagePage";
 import DigimedicalDoctor from "../dashboard/userdashboard/digimedicalDoctor/digiMedicalDoctor";
 import ForBusiness from "../home/For Business/forbusiness";
+import Digimedical_doctors from "../home/Digimedical doctors/Digimedical_doctors";
+import AllSpecialist from "../home/Digimedical doctors/allSpecialist";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -32,11 +34,13 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/about" component={AboutPage}></PublicRoute>
         <PublicRoute exact path="/services" component={Service}></PublicRoute>
         <PublicRoute exact path="/contact" component={ContactUs}></PublicRoute>
-        <PublicRoute
+        <PublicRoute exact path="/digi-doctors" component={Digimedical_doctors}></PublicRoute>
+        <PublicRoute exact path="/all-speciality" component={AllSpecialist}></PublicRoute>
+        {/* <PublicRoute
           exact
           path="/digimedical-doctors"
           component={Digi_doctors}
-        ></PublicRoute>
+        ></PublicRoute> */}
         {/* <PublicRoute exact path="/newdash" component={Newdash}></PublicRoute> */}
         <PublicRoute
           exact
@@ -233,6 +237,11 @@ export const Approuting = (props) => {
         <ProtectedRoute
           exact
           path="/dashboard/create-services"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/create-speciality"
           component={Dashboard}
         ></ProtectedRoute>
         <ProtectedRoute

@@ -4,7 +4,6 @@ import React from 'react'
 import { useState ,useEffect} from 'react';
 import Select from "react-select";
 import { httpClient } from '../../../../utils/httpClient';
-import { CommonUtilityreportTable } from '../medicalReports/commonMedicalreportTable';
 import * as Yup from "yup";
 import "./services.component.css"
 import { notify } from '../../../../services/notify';
@@ -14,6 +13,7 @@ import { Check, Edit, Clear, Add } from "@material-ui/icons";
 
 
 export default function UserServices() {
+  console.log("inside user services")
   const initialValues={
     serviceId:"",
     date:"",
@@ -183,7 +183,7 @@ var dt = new Date();
       { title: "Time", field:"time"},
     ]}
     options={{
-      // actionsColumnIndex: -1,
+      actionsColumnIndex: -1,
       pageSize: 5,
       filtering: false,
       sorting: true,
@@ -195,12 +195,20 @@ var dt = new Date();
 
     actions={[
       {
-        icon: 'save',
-        tooltip: 'Save User',
+        icon: 'edit',
+        tooltip: 'Edit',
+        onClick: (event, rowData) => {
+          // Do save operation
+        }
+      },
+      {
+        icon: 'delete',
+        tooltip: 'delete',
         onClick: (event, rowData) => {
           // Do save operation
         }
       }
+
     ]}
 
   />

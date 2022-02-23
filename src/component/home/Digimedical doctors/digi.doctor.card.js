@@ -4,7 +4,6 @@ import { validateAppointment } from "./appointment.helper";
 import { httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
 import { useHistory } from "react-router-dom";
-import { getCurrentDate } from "../../../utils/dateHelper";
 import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -183,7 +182,6 @@ const DigiMedicalDoctorCard = (props) => {
 
         <div className="digidoctor_card_but">
           {" "}
-          <div>Rs.{props.price}</div>
 
           <div><button id="digidoctor_card_but" onClick={bookAppointment}>
             Book an appointment

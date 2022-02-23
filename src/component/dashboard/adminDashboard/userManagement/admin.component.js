@@ -133,7 +133,6 @@ const CreateAdmin = (props) => {
   });
 
   const setAdminEditData = (e, data) => {
-    console.log(data)
     let id = data.userId;
     setAdminId(data.id);
     if (data) {
