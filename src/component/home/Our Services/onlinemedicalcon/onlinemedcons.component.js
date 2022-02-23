@@ -1,7 +1,6 @@
 import React from "react";
 import Ooscomponent from "../ouros.component";
 export default function Onlinemedconscomponent() {
-<<<<<<< HEAD
   return (
     <div className="ourserv-cont-main">
       <div className="ourserv-cont-main1">
@@ -109,7 +108,4 @@ export default function Onlinemedconscomponent() {
       </div>
     </div>
   );
-=======
-  return <div></div>;
->>>>>>> e81e09ae7fe71d3ac33698aaacca25d37b0a5710
 }

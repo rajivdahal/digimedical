@@ -2,7 +2,7 @@ import React from "react";
 
 import Ooscomponent from "../ouros.component";
 
-export default function labtestAtHome() {
+export default function NursingAtHome() {
   return (
     <div className="ourserv-cont-main">
       <div className="ourserv-cont-main1">

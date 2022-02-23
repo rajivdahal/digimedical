@@ -151,6 +151,15 @@ export default function Usersidebar(props) {
                     Load Body Checkup
                   </p>
                 </li>
+                <li onClick={loadServices} style={{ cursor: "pointer" }}>
+                  <p id="newdash_dash1_cont1p">
+                    {" "}
+                    <span id="newdash_bar_ico">
+                      <i class="fas fa-file-alt"></i>
+                    </span>{" "}
+                    Services
+                  </p>
+                </li>
               </ul>
             </Accordion>
           </div>
