@@ -21,6 +21,7 @@ import BookAnAppointment from "../BookAnAppointment/BookAnAppointment";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setDoctorInfo } from "../../../actions/hospitalAppointmentBooking.ac";
+
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default function Hospital_doctors(props) {
@@ -46,7 +47,7 @@ export default function Hospital_doctors(props) {
 
           if (item.starttime) {
             let tempstartArr = item.starttime.split(":");
-            tempstartArr.splice(2,1);
+            tempstartArr.splice(2, 1);
             item.startTime = tempstartArr.join(":");
             let hours = parseInt(tempstartArr[0]);
             if (hours > 0 && hours < 12) {
@@ -56,19 +57,18 @@ export default function Hospital_doctors(props) {
 
           if (item.endtime) {
             let tempEndArr = item.endtime.split(":");
-            tempEndArr.splice(2,1);
+            tempEndArr.splice(2, 1);
             item.endTime = tempEndArr.join(":");
             let hours = parseInt(tempEndArr[0]);
             if (hours > 11 && hours < 24) {
               item.endTime += " PM";
             }
           }
-        })
+        });
         setallDoctors(data);
       });
     window.scrollTo(0, 0);
   }, []);
-
 
   const showappointment = (item, index) => {
     if (!doctorappointmentindex) {
@@ -85,8 +85,8 @@ export default function Hospital_doctors(props) {
   const [minDate, setminDate] = useState({
     year: dt.getFullYear(),
     month: dt.getMonth() + 1,
-    day: dt.getDate()
-  })
+    day: dt.getDate(),
+  });
   // const [initialValues,setInitialValues]=useState({
   //   firstName: "",
   //   middleName: "",
@@ -121,8 +121,8 @@ export default function Hospital_doctors(props) {
       hospitalId: props.location.state.id,
       doctorId: doctor.doctorid,
       servicesId: doctor.serviceid,
-      appointmentDate:appointmentDate
-    }
+      appointmentDate: appointmentDate,
+    };
     httpClient
       .POST(
         props.match.url == "/dashboard/hospitals/view-doctors"
@@ -184,24 +184,24 @@ export default function Hospital_doctors(props) {
     setsearcheddoctors(searched);
   };
   const datechange = (value, status) => {
-    let date = ""
-    date = value.year + "-" + value.month + "-" + value.day
+    let date = "";
+    date = value.year + "-" + value.month + "-" + value.day;
     setAppointmentDate(date);
-    setSelectedDay(value)
-  }
+    setSelectedDay(value);
+  };
 
-    // Redux implementation
-    const dispatch = useDispatch();
-    const appointmentBooking = useSelector((state) => state.appointmentBooking);
-    const settingDoctorInfo=bindActionCreators(setDoctorInfo,dispatch)
+  // Redux implementation
+  const dispatch = useDispatch();
+  const appointmentBooking = useSelector((state) => state.appointmentBooking);
+  const settingDoctorInfo = bindActionCreators(setDoctorInfo, dispatch);
 
-    // end of redux implementation
+  // end of redux implementation
 
-  const bookAnAppointment=(doctor)=>{
-    console.log("doctor is",doctor)
-    SetDocPopup(true)
-    settingDoctorInfo(doctor)
-  }
+  const bookAnAppointment = (doctor) => {
+    console.log("doctor is", doctor);
+    SetDocPopup(true);
+    settingDoctorInfo(doctor);
+  };
 
   return (
     <div>
@@ -319,8 +319,9 @@ export default function Hospital_doctors(props) {
 
                             <p>
                               Available time :{" "}
-                              <span id="span1_doc_card">{doctor.startTime} - {doctor.endTime}</span>
-
+                              <span id="span1_doc_card">
+                                {doctor.startTime} - {doctor.endTime}
+                              </span>
                             </p>
                             <div className="doc_accordion">
                               <Accordion>
@@ -355,9 +356,7 @@ export default function Hospital_doctors(props) {
                           <div id="popup5" className="overlay1">
                             <div className="popup">
                               <h2>Here i am</h2>
-                              <a className="close" >
-                                &times;
-                              </a>
+                              <a className="close">&times;</a>
                               <div className="content">
                                 Thank to pop me out of that button, but now i'm
                                 done so you can close this window.
