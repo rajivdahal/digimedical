@@ -10,12 +10,11 @@ function DoctorPopup(props) {
   {
 props.trigger ?
   localStorage.getItem("dm-access_token")?
-  <LoggedInCase props={props}></LoggedInCase>:
-  <LoggedOutCase props={props}></LoggedOutCase>
+  <LoggedInCase props={props} origin={props.origin}></LoggedInCase>:
+  <LoggedOutCase props={props} origin={props.origin}></LoggedOutCase>
 :null
   }
   </>
-
 }
 
 export default DoctorPopup;

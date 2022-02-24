@@ -219,7 +219,7 @@ export const Approuting = (props) => {
         ></ProtectedRoute>
 
         <ProtectedRoute
-          exact="/dashboard/digi-doctorF"
+          exact="/dashboard/digi-doctor"
           component={DigimedicalDoctor}
         ></ProtectedRoute>
 

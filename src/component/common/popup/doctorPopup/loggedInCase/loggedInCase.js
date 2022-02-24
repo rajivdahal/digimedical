@@ -8,6 +8,7 @@ import { hospitalAppointmentBookingReducer } from '../../../../../reducers/hospi
 import { appointmentFixed } from '../../../../../actions/hospitalAppointmentBooking.ac';
 import SelectPaymentMethod from '../selectPaymentMethod/selectPaymentMethod';
 import PayPop from '../../paymentpopup/payment';
+import { digiDoctorAppointmentFixed } from '../../../../../actions/digiDoctorBooking.ac';
 
 export default function LoggedInCase(props) {
   console.log("props in main page is",props)
@@ -29,9 +30,17 @@ const schema = Yup.object().shape({
 
   // Redux implementation
   const dispatch = useDispatch();
+  // start for hospital doctor booking
   const appointmentBooking = useSelector((state) => state.appointmentBooking);
   const setAppointmentFixed=bindActionCreators(appointmentFixed,dispatch)
   console.log("store  data are",appointmentBooking)
+  // end for hospital doctor booking
+
+  // start for digi doctor booking
+  const digiDoctorBooking=useSelector((state)=>state.digiDoctorAppointmentBooking)
+  const setDigiDoctorAppointment=bindActionCreators(digiDoctorAppointmentFixed,dispatch)
+  console.log("consoleeee is",digiDoctorBooking,setDigiDoctorAppointment)
+  // end for digi doctor booking
   // end of redux implementation
 
 function DatePickerField({ name }) {
@@ -71,12 +80,84 @@ function DatePickerField({ name }) {
       time:values.time
     }
     console.log("values",finaldata)
-    setAppointmentFixed(finaldata)
+    !props.origin?setAppointmentFixed(finaldata):setDigiDoctorAppointment(finaldata)
   }
 
 
   return (
+    //logic for  digimedical doctor appointment booking
+  props.origin?
     <div className="doc-pop-main">
+    <div className="doc-pop-inner">
+
+     <div className="doc-pop-cont">
+        <div className="doc-close-but">
+          {" "}
+          <button
+            className="doc-close-butt"
+            onClick={() => props.props.setTrigger(false)}
+          >
+            <span id="doc-popup-cross">
+              <i class="fas fa-times"></i>
+            </span>
+          </button>
+        </div>
+        <Formik initialValues={initialValues} validationSchema={schema} onSubmit={submit}>
+            {
+                ({ errors, touched})=><div className="doc-pop-form">
+                    <Form>
+                    <div className="doc-form-row2">
+                  <div className="doc-form-input1">
+                    {" "}
+                    <label htmlFor="">Appointmemt Date</label>
+                    <DatePickerField name="date"></DatePickerField>
+                    {
+                        errors.date && touched.date?<div style={{color:"red"}}>{errors.date}</div>:null
+                    }
+                  </div>
+                  <div className="doc-form-input1">
+                    <label htmlFor="">Appointment Time</label>
+                    <TimePickerField name="time"></TimePickerField>
+                    {
+                      errors.time && touched.time?<div style={{color:"red"}}>{errors.time}</div>:null
+                    }
+                  </div>
+                </div>
+                <div className="doc-form-row3">
+                  {" "}
+                  <button
+                  // onClick={() => props.props.setTrigger(false)}
+                   id="pop-doc-but" type='submit'>
+                    Make Appointment
+                  </button>
+                  <div className="doc-form-last-sent">
+                    <p>We value your privacy. Your details are safe with us.</p>
+                  </div>
+                </div>
+                    </Form>
+              </div>
+            }
+        </Formik>
+
+      </div>
+      {
+        digiDoctorBooking.isAppointmentFixed?
+      <SelectPaymentMethod props={props}></SelectPaymentMethod>
+        :null
+      }
+      {/* :
+      appointmentBooking.isAppointmentFixed && !appointmentBooking.isPaymentShown
+      ?
+      <SelectPaymentMethod props={props}></SelectPaymentMethod>
+      :null */}
+
+    {/* } */}
+    </div>
+  </div>
+    //end of logic for  digimedical doctor appointment booking
+  :
+    //logic for  hospital doctor appointment booking
+  <div className="doc-pop-main">
     <div className="doc-pop-inner">
      {!appointmentBooking.isAppointmentFixed && !appointmentBooking.isPaymentShown?
      <div className="doc-pop-cont">
@@ -91,7 +172,6 @@ function DatePickerField({ name }) {
             </span>
           </button>
         </div>
-
         <Formik initialValues={initialValues} validationSchema={schema} onSubmit={submit}>
             {
                 ({ errors, touched})=><div className="doc-pop-form">
@@ -140,5 +220,6 @@ function DatePickerField({ name }) {
     }
     </div>
   </div>
+    //end of logic for  hospital doctor appointment booking
   )
 }

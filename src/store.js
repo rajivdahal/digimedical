@@ -29,7 +29,9 @@ const initialState = {
         reports:true,
         utilsInfo:false
     },
+
     appointmentBooking:{
+        appointmentBookingPopUp:false,
         doctorInfo:null,
         isDoctorInfoAdded:false,
         appointmentDate:"",
@@ -37,6 +39,11 @@ const initialState = {
         isAppointmentFixed:false,
         onlinePlatformForBooking:"",
         isPaymentShown:false,
+    },
+    digiDoctorAppointmentBooking:{
+        isAppointmentFixed:false,
+        appointmentDate:"",
+        appointmentTime:"",
     }
 }
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))

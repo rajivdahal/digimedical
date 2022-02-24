@@ -87,11 +87,11 @@ const DigimedicalDoctor = (props) => {
                     </div>
 
                     <Pagination></Pagination>
-                       
+
                     </div>
                 </div>
             </div>
-       
+
     )
 }
 

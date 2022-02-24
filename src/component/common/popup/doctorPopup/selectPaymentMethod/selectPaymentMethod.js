@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
+import { digiDoctorAppointmentFixed } from "../../../../../actions/digiDoctorBooking.ac";
 import { selectAppointmentMethod } from "../../../../../actions/hospitalAppointmentBooking.ac";
 import esewaLogo from "../../../../../assets/esewa.svg";
 import { formatDate } from "../../../../../services/timeanddate";
@@ -15,7 +16,12 @@ export default function SelectPaymentMethod(props) {
   );
   console.log("set is appointment fixed is", AppointmentMethod);
   console.log("appointmtment booking status", appointmentBooking);
-
+    // start for digi doctor booking
+    const digiDoctorBooking=useSelector((state)=>state.digiDoctorAppointmentBooking)
+    const setDigiDoctorAppointment=bindActionCreators(digiDoctorAppointmentFixed,dispatch)
+    console.log("consoleeee is",digiDoctorBooking,setDigiDoctorAppointment)
+    // end for digi doctor booking
+// end of redux implementation
   const selectEsewa = () => {
     AppointmentMethod("esewa");
   };
@@ -36,17 +42,17 @@ export default function SelectPaymentMethod(props) {
             <div className="doc-pay-appoint-det1">
               <p id="pay-appoint-det-p">Appointment Detail</p>
               <p id="pay-appoint-det-p">
-                {formatDate(appointmentBooking.appointmentDate,"llll").slice(0,-8)}
+                {formatDate(appointmentBooking.appointmentDate?appointmentBooking.appointmentDate:digiDoctorBooking.appointmentDate,"llll").slice(0,-8)}
               </p>
             </div>
             <div className="doc-pay-doc-serv">
               <div className="payapp-det2">
                 <p id="pay-doc-choose"> Doctor chosed</p>
-                <p id="pay-appoint-det-p2"> Dr. {appointmentBooking.doctorInfo.doctorname}</p>
+                <p id="pay-appoint-det-p2"> Dr. {appointmentBooking.doctorInfo?appointmentBooking.doctorInfo.doctorname:digiDoctorBooking.doctorname}</p>
               </div>
               <div className="payapp-det2">
                 <p id="pay-doc-choose">Service chosed</p>
-                <p id="pay-appoint-det-p2">{appointmentBooking.doctorInfo.specialist}</p>
+                <p id="pay-appoint-det-p2">{appointmentBooking.doctorInfo?appointmentBooking.doctorInfo.specialist:digiDoctorBooking.doctorInfo}</p>
               </div>
             </div>
             <div className="doc-pay-appoint-det3">

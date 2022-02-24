@@ -147,7 +147,7 @@ export default function Hospitalbookingcomponent(props) {
               })
             ) : (
               <h1>Not found</h1>
-            )}
+            )}dashboard/hospitals
           </div>
           <div className="pagination_hosp">
             {hospitals.length ? (

@@ -21,6 +21,7 @@ export const appointmentFixed=(params)=>{
         })
     }
 }
+
 export const selectAppointmentMethod=(params)=>{
     console.log("params is",params)
     return (dispatch)=>{
