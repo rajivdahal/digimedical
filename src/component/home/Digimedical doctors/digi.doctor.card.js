@@ -5,6 +5,7 @@ import { httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
 import { useHistory } from "react-router-dom";
 import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
+import Accordion from "react-bootstrap/Accordion";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 const DigiMedicalDoctorCard = (props) => {
@@ -150,6 +151,7 @@ const DigiMedicalDoctorCard = (props) => {
     }
   })
 
+  console.log(props.digiServices)
   return (
     <>
       <div className="digidoctor_apoint_card1">
@@ -179,7 +181,23 @@ const DigiMedicalDoctorCard = (props) => {
           <p id="digidoc_exp"><b> {props.specialist}</b> </p>
           <p>{props.desc}</p>
         </div>
-
+        <div className="doc_accordion">
+          <Accordion>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                Available consultation medium
+              </Accordion.Header>
+              <Accordion.Body className="acc-doc-body">
+                {props.digiServices.map((item)=>{
+                  return <ul className="accordion-body">
+                  <li>{item.digiServiceName}</li>
+                </ul>
+                })}
+                
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+        </div>
         <div className="digidoctor_card_but">
           {" "}
 

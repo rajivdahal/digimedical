@@ -168,6 +168,7 @@ const doctorApi = {
   },
 
   getAdminDoctorBYId: (id) => {
+    console.log(id)
     return httpClient.GET("doctor/basic-info/" + id, false, true);
   },
 

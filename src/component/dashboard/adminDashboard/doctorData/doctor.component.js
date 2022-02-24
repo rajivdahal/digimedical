@@ -56,11 +56,11 @@ const Createdoctor = (props) => {
 
   useEffect(() => {
     initialize();
-    getDigiService();
   }, []);
 
   const initialize = async () => {
     let allServices = await getServices();
+    let allDigiServices = await getDigiService();
     if (props.location && props.location.state) {
       let id = null;
       if (props.isHospital) {
@@ -71,7 +71,7 @@ const Createdoctor = (props) => {
         id = props.location.state.doctorid;
       }
       setDoctorId(id);
-      await getDoctorById(id, allServices);
+      await getDoctorById(id, allServices,allDigiServices);
     }
   };
 
@@ -107,8 +107,9 @@ const Createdoctor = (props) => {
   };
 
   const getDigiService = async () => {
+    let resp;
     try {
-      let resp = await doctorApi.getDigiServices();
+      resp = await doctorApi.getDigiServices();
       if (resp.data.status) {
         let data = resp.data.data;
         let trueDigiService = data.filter((item) => {
@@ -121,7 +122,7 @@ const Createdoctor = (props) => {
           };
         })
         setDigiServices(options);
-
+        return options;
       }
     }
     catch (err) {
@@ -173,21 +174,25 @@ const Createdoctor = (props) => {
     setLoading(false);
   };
 
-  const getDoctorById = async (id, allServices) => {
+  const getDoctorById = async (id, allServices,allDigiServices) => {
     let resp;
     try {
       if (props.isHospital) {
         resp = await doctorApi.getHospitalDoctorById(id);
       } else {
         resp = await doctorApi.getAdminDoctorBYId(id);
+        console.log(resp)
       }
       if (resp.data.status) {
         // get doctor services + basic details
         let responseData = resp.data.data;
         let data = responseData.basicDetails;
-        let serviceData = responseData.services;
-        let selectedDays = [];
+        let serviceData = responseData.speciality;
+        console.log(serviceData);
+        let digiSpeciality = responseData.digiServices;
+        console.log(digiSpeciality);
 
+        let selectedDays = [];
         if (data.availabledays) {
           let dayArr = data.availabledays.split(",");
           days.forEach((day) => {
@@ -199,6 +204,7 @@ const Createdoctor = (props) => {
             }
           });
         }
+
         // get services details from service data
         let savedServices = [];
         allServices.forEach((service) => {
@@ -213,23 +219,36 @@ const Createdoctor = (props) => {
           }
         });
 
-        let savedDigiServices = {
+        let savedDigiServices= [];
+        allDigiServices.forEach((service)=>{
+          console.log(service)
+          let foundDigiService = digiSpeciality.filter((item) =>{
+            console.log(item);
+            console.log(service)
+            return item.id.toString() === service.value.toString();
+          })
+          console.log(foundDigiService)
+          if (foundDigiService.length > 0) {
+            savedDigiServices.push({
+              label: service.label,
+              value: service.value,
+            });
+          }
+        })
 
-        }
-
+        console.log(savedDigiServices);
         if (data) {
           let url = REACT_APP_BASE_URL + "doctor/download/" + id;
           setImage(url);
           let docData = {
             prefix: data.prefix,
-            specialist: data.specialist,
             description: data.description,
             mobileNumber: data.mobilenumber,
             doctorServices: savedServices,
             digiServices : savedDigiServices,
             gender: data.gender,
-            serviceID: null,
           };
+          console.log(docData);
           if (props.isHospital) {
             docData = {
               ...docData,
@@ -256,6 +275,8 @@ const Createdoctor = (props) => {
               },
             };
           }
+
+          console.log(docData);
           setDoctorData(docData);
           setImgName(data.image);
         }
@@ -300,7 +321,6 @@ const Createdoctor = (props) => {
       prefix: "MD",
       gender: "0",
       nmcNumber: "",
-      specialist: "",
       description: "",
       password: "",
       confirmPassword: "",

@@ -135,7 +135,7 @@ function Digimedical_doctors(props) {
                         specialist={specialityName}
                         gender={item.gender + 1}
                         doctorId={item.doctorid}
-                        // doctorServices={item.serviceid}
+                        digiServices={item.digiService}
                       />
                     </>
                   );

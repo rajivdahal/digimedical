@@ -12,10 +12,14 @@ const DigiServiceApi={
         if (values.image) {
           formData.append("image", values.image);
         }
+        if (values.iconImg) {
+            formData.append("iconImage", values.iconImg);
+          }
         formData.append("name", values.serviceName);
         formData.append("description", values.serviceDescription);
         formData.append("amount", values.price);
-        
+        formData.append("type", values.type);
+
         return httpClient.POST("digi-service/create", formData, false, true, "formdata")
     },
 
@@ -26,9 +30,13 @@ const DigiServiceApi={
         if (values.image) {
           formData.append("image", values.image);
         }
+        if (values.iconImg) {
+            formData.append("iconImage", values.iconImg);
+          }
         formData.append("name", values.serviceName);
         formData.append("description", values.serviceDescription);
         formData.append("amount", values.price);
+        formData.append("type", values.type);
     
         return httpClient.PUT("digi-service/update/" + id, formData, false, true, "formdata")
     },

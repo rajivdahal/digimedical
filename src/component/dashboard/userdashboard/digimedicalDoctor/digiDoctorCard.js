@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { notify } from "../../../../services/notify";
+import Accordion from "react-bootstrap/Accordion";
 import { httpClient } from "../../../../utils/httpClient";
 import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
 import "./digiDoctor.css";
@@ -12,18 +13,18 @@ const UserDoctorCard = (props) => {
 
     var dt = new Date();
     const [selectedDay, setSelectedDay] = useState({
-      year: dt.getFullYear(),
-      month: dt.getMonth() + 1,
-      day: dt.getDate(),
+        year: dt.getFullYear(),
+        month: dt.getMonth() + 1,
+        day: dt.getDate(),
     });
     const [minDate, setminDate] = useState({
-      year: dt.getFullYear(),
-      month: dt.getMonth() + 1,
-      day: dt.getDate(),
+        year: dt.getFullYear(),
+        month: dt.getMonth() + 1,
+        day: dt.getDate(),
     });
 
     const date = selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
-    
+
     const [appointmentData, setData] = useState({
         appointmentTime: "",
         appointmentDate: date,
@@ -82,11 +83,11 @@ const UserDoctorCard = (props) => {
             submitAppointment(values);
         },
         validate: (values) => {
-            let errors= {};
+            let errors = {};
             if (!values.appointmentTime) {
                 errors.appointmentTime = 'Appointment Time is required!'
             }
-          return errors;
+            return errors;
         },
     });
     return (
@@ -116,6 +117,22 @@ const UserDoctorCard = (props) => {
 
                     <p id="digidoc_exp"><b>{props.specialist} </b> </p>
                     <p2>{props.desc.slice(0, 50)}.....</p2>
+                    <div className="doc_accordion">
+                        <Accordion>
+                            <Accordion.Item eventKey="0">
+                                <Accordion.Header>
+                                    Available consultation medium
+                                </Accordion.Header>
+                                <Accordion.Body className="acc-doc-body">
+                                    {props.digiServices.map((item) => {
+                                        return <ul className="accordion-body">
+                                            <li>{item.digiServiceName}</li>
+                                        </ul>
+                                    })}
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
+                    </div>
                 </div>
                 <div className="hosp_card_but_main">
                     {" "}
@@ -124,7 +141,7 @@ const UserDoctorCard = (props) => {
                         Book an appointment
                     </button>
                 </div>
-                
+
             </div>
 
             {showForm == true ?

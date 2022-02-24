@@ -22,12 +22,15 @@ const NewServicePage = (props) => {
     const [serviceStatus, setServiceStatus] = useState("");
     const [services, setServices] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [serviceImage, setImage] = useState("");
+    const [serviceImage, setServiceImage] = useState("");
+    const [iconImage, setIconImage] = useState("");
     const [service, setService] = useState({
         serviceName: "",
         serviceDescription: "",
         price: "",
         image: "",
+        iconImg: "",
+        type: "online",
     })
 
 
@@ -60,7 +63,8 @@ const NewServicePage = (props) => {
                 getServices();
                 formik.resetForm();
                 notify.success(resp.data.message);
-                setImage(null);
+                setIconImage(null);
+                setServiceImage(null);
             }
         }
         catch (err) {
@@ -74,13 +78,16 @@ const NewServicePage = (props) => {
     const handleEditService = (e, data) => {
         setServiceEditId(data.id)
         if (data) {
-            let url = REACT_APP_BASE_URL + "digi-service/download/" + data.id;
-            setImage(url);
+            let serviceUrl = REACT_APP_BASE_URL + "digi-service/download/" + data.id;
+            setServiceImage(serviceUrl);
+            let iconUrl = REACT_APP_BASE_URL + "download-icon/" + data.id;
+            setIconImage(iconUrl);
 
             setService({
                 serviceName: data.name,
                 serviceDescription: data.description,
-                price : data.amount
+                price: data.amount,
+                type: data.type,
             })
             window.scrollTo(0, 0)
         }
@@ -97,10 +104,12 @@ const NewServicePage = (props) => {
                     serviceName: "",
                     serviceDescription: "",
                     image: "",
-                    price : "",
+                    price: "",
+                    iconImg: "",
+                    type: "",
                 })
-                setImage(null);
-
+                setIconImage(null);
+                setServiceImage(null);
             }
         }
         catch (err) {
@@ -117,10 +126,12 @@ const NewServicePage = (props) => {
             serviceName: "",
             serviceDescription: "",
             image: "",
-            price : "",
+            price: "",
+            iconImg: "",
+            type: "",
         })
-        setImage(null);
-    }
+        setIconImage(null);
+        setServiceImage(null);    }
 
     const handleCancelService = (e, data) => {
         setServiceStatusId(data.id);
@@ -170,20 +181,37 @@ const NewServicePage = (props) => {
     const handleAddImage = () => {
         imageSelectRef.current.click();
     };
-
     const handleChangeImage = (e) => {
         let files = e.target.files[0];
         let reader = new FileReader();
         formik.setFieldValue("image", files);
         reader.onloadend = () => {
-            setImage(reader.result.toString());
+            setServiceImage(reader.result.toString());
         };
         reader.readAsDataURL(files);
     }
 
     const removeImage = () => {
-        setImage(null);
+        setServiceImage(null);
         formik.setFieldValue("image", null);
+    }
+
+    // const handleAddIconImage = () => {
+    //     imageSelectRef.current.click();
+    // };
+    const handleChangeIconImage = (e) => {
+        let files = e.target.files[0];
+        let reader = new FileReader();
+        formik.setFieldValue("iconImg", files);
+        reader.onloadend = () => {
+            setIconImage(reader.result.toString());
+        };
+        reader.readAsDataURL(files);
+    }
+
+    const removeIconImage = () => {
+        setIconImage(null);
+        formik.setFieldValue("iconImg", null);
     }
 
     return (
@@ -224,7 +252,7 @@ const NewServicePage = (props) => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={12}>
+                    <Col md={8}>
                         <Form.Group>
                             <Form.Label>Description</Form.Label>
                             <Form.Control
@@ -239,46 +267,92 @@ const NewServicePage = (props) => {
                             ) : null}
                         </Form.Group>
                     </Col>
+                    <Col md={4}>
+                        <Form.Group>
+                            <Form.Label>Type</Form.Label>
+                            <select
+                                class="select-control formControl"
+                                name="type"
+                                onChange={formik.handleChange}
+                                value={formik.values.type}
+                                onBlur={formik.handleBlur}
+                            >
+                                <option value="online">Online</option>
+                                <option value="physical">Physical</option>
+                            </select>
+                        </Form.Group>
+                    </Col>
                 </Row>
 
                 <Row>
-                        <Col md={4}>
-                            <Form.Label>Choose Photo </Form.Label>
-                            <Button variant="info"
-                             onClick={handleAddImage}
-                            >
-                                Browse
-                            </Button>
-                            
-                            <input
-                                onChange={(e) => handleChangeImage(e)}
-                                type="file" name="image"
-                                style={{ display: "none" }}
-                                ref={imageSelectRef} accept=".jpg, .png , .jpeg" 
-                                // accept="image/png, image/jpg, image/jpeg"
-                            ></input>
-                            {formik.touched.image && formik.errors.image ? (
-                                    <div className="error-message">{formik.errors.image}</div>
-                                ) : null}
+                    <Col md={4}>
+                        <Form.Label>Choose Service Photo </Form.Label>
+                        <Button variant="info" onClick={handleAddImage}>
+                            Browse
+                        </Button>
+                        <input
+                            onChange={(e) => handleChangeImage(e)}
+                            type="file" name="image"
+                            style={{ display: "none" }}
+                            ref={imageSelectRef} accept=".jpg, .png , .jpeg"
+                        ></input>
+                        {formik.touched.image && formik.errors.image ? (
+                            <div className="error-message">{formik.errors.image}</div>
+                        ) : null}
+                    </Col>
+
+                    <Col md={4}>
+                        <Image
+                            src={serviceImage}
+                            fluid
+                            className="image ml-3"
+                        ></Image>
+                    </Col>
+                    {serviceImage ?
+                        <Col md={2}>
+                            <span style={{ color: 'red', cursor: 'pointer' }} onClick={removeImage}>x</span>
                         </Col>
+                        :
+                        <></>
+                    }
 
-                        <Col md={4}>
-                            <Image
-                                src={serviceImage}
-                                fluid
-                                className="image ml-3"
-                            ></Image>
+                </Row>
+
+                <Row>
+                    <Col md={4}>
+                        <Form.Label>Choose Icon Photo </Form.Label>
+                        <Button variant="info" onClick={handleAddImage}>
+                            Browse
+                        </Button>
+
+                        <input
+                            onChange={(e) => handleChangeIconImage(e)}
+                            type="file" name="iconImg"
+                            style={{ display: "none" }}
+                            ref={imageSelectRef} accept=".jpg, .png , .jpeg"
+                        ></input>
+                        {/* {formik.touched.iconImg && formik.errors.iconImg ? (
+                            <div className="error-message">{formik.errors.iconImg}</div>
+                        ) : null} */}
+                    </Col>
+
+                    <Col md={4}>
+                        <Image
+                            src={iconImage}
+                            fluid
+                            className="image ml-3"
+                        ></Image>
+                    </Col>
+                    {iconImage ?
+                        <Col md={2}>
+                            <span style={{ color: 'red', cursor: 'pointer' }} onClick={removeIconImage}>x</span>
+
                         </Col>
-                        {serviceImage ?
-                            <Col md={2}>
-                                <span style={{ color: 'red', cursor: 'pointer' }} onClick={removeImage}>x</span>
+                        :
+                        <></>
+                    }
 
-                            </Col>
-                            :
-                            <></>
-                        }
-
-                    </Row>
+                </Row>
 
                 <div className="textAlign-right  mb-5">
                     {isLoading === true ? (
@@ -339,6 +413,7 @@ const NewServicePage = (props) => {
                     { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
                     { title: 'Service Name', field: 'name', },
                     { title: 'Service Price', field: 'amount', },
+                    { title: 'Service Type', field: 'type', },
                     { title: 'Service Description', field: 'description', sorting: false },
                     {
                         title: 'Status', field: 'status',

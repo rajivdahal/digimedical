@@ -27,7 +27,6 @@ function SpecialityDoctor(props) {
         }
         try {
             let resp = await httpClient.GET("doctor/digi/get/" + id);
-            console.log(resp)
             if (resp.data.status) {
                 let data = resp.data.data;
                 setAllDigiDoctors(data);
@@ -101,7 +100,9 @@ function SpecialityDoctor(props) {
                                         // price={item.price}
                                         specialist={specialityName}
                                         gender={item.gender + 1}
-                                        doctorId={item.doctorid} />
+                                        doctorId={item.doctorid} 
+                                        digiServices={item.digiService}
+                                    />
                                 </>
                             })
                             :
