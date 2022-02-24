@@ -50,7 +50,7 @@ const Menuitems = styled.div``;
 const NavbarMenuItems = () => {
   const [corporateType, setCorporateType] = useState([]);
   const [FamilyType, setFamilyType] = useState([]);
-  const [doctorCategory,setDoctorCategory]=useState([])
+  const [doctorCategory, setDoctorCategory] = useState([]);
 
   const [doctorSpeciality,setDoctorSpeciality] = useState([]);
   const history = useHistory();
@@ -138,13 +138,11 @@ const NavbarMenuItems = () => {
       }
     }
   };
-  const getServices=()=>{
-    httpClient.GET("services/get/true")
-    .then(resp=>{
-      setDoctorCategory(resp.data.data)
-    })
-
-  }
+  const getServices = () => {
+    httpClient.GET("services/get/true").then((resp) => {
+      setDoctorCategory(resp.data.data);
+    });
+  };
 
   useEffect(() => {
     getBusinessPackage();
