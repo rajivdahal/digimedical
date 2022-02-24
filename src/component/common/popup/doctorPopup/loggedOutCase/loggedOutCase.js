@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import "./doctorPopup.css";
-// import { useState } from "react";
+import React from 'react'
 
-function doctorPopup(props) {
-  // const [docPopup, SetDocPopup] = useState(false);
-  return props.trigger ? (
+export default function LoggedOutCase(props){
+    console.log("props.propsareeeee",props.props)
+  return (
     <div className="doc-pop-main">
       <div className="doc-pop-inner">
         <div className="doc-pop-cont">
@@ -12,7 +10,7 @@ function doctorPopup(props) {
             {" "}
             <button
               className="doc-close-butt"
-              onClick={() => props.setTrigger(false)}
+              onClick={() => props.props.setTrigger(false)}
             >
               <span id="doc-popup-cross">
                 <i class="fas fa-times"></i>
@@ -102,7 +100,7 @@ function doctorPopup(props) {
             </div>
             <div className="doc-form-row3">
               {" "}
-              <button onClick={() => props.setTrigger(false)} id="pop-doc-but">
+              <button onClick={() => props.props.setTrigger(false)} id="pop-doc-but">
                 Make Appointment
               </button>
               <div className="doc-form-last-sent">
@@ -110,13 +108,9 @@ function doctorPopup(props) {
               </div>
             </div>
           </div>
-          {props.children}
+          {/* {props.props.children} */}
         </div>
       </div>
     </div>
-  ) : (
-    ""
-  );
+  )
 }
-
-export default doctorPopup;

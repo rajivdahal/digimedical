@@ -114,7 +114,7 @@ const Dashboard = (props) => {
               component={Hospitalbookingcomponent}
             ></ProtectedRoute>
           ) : props.location.pathname ===
-            "/dashboard/hospitals/view-doctors" ? (
+            "/dashboard/hospitals/view-doctors"? (
             <ProtectedRoute component={Hospital_doctors}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/add-member" ? (
             <ProtectedRoute component={AddFamilyMember}></ProtectedRoute>

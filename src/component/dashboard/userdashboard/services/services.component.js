@@ -1,5 +1,5 @@
 import DatePicker from '@amir04lm26/react-modern-calendar-date-picker';
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { ErrorMessage, Field, Form, Formik ,useFormikContext} from 'formik'
 import React from 'react'
 import { useState ,useEffect} from 'react';
 import Select from "react-select";
@@ -22,10 +22,9 @@ export default function UserServices() {
 
 const schema = Yup.object().shape({
   serviceId: Yup.string().required("Service is required!"),
-  date: Yup.string().required("Date is required!"),
+  date: Yup.object(),
   time: Yup.string().required("Time is required!"),
 });
-
 var dt = new Date();
     const [selectedDay, setSelectedDay] = useState({
         year: dt.getFullYear(),
@@ -41,14 +40,7 @@ var dt = new Date();
           getAllServices()
           getSelectedServices()
       },[])
-    const handleDateChange=(value,errors)=>{
-        delete errors.date
-        console.log("date has changed",value,errors)
-        let {day,month,year}=value
-        let fullDate=year+"-"+month+"-"+day
-        setDate(fullDate)
-        setSelectedDay(value)
-    }
+
     const getAllServices=()=>{
         httpClient.GET("services/get-all")
         .then(resp=>{
@@ -74,29 +66,62 @@ var dt = new Date();
         notify.error("Error in fetching services")
       })
     }
-    const handleServiceChange=(value,errors)=>{
-        delete errors.serviceId
-        setServiceId(value.value)
-    }
 
-  const handleCategoryChange=()=>{
-      console.log("handlechange occurred")
-  }
-  const submit=(values)=>{
-      let  finaldata={
-        date:date,
-        digiServiceId:serviceId,
+function DatePickerField({ name }) {
+  const formik = useFormikContext();
+  const field = formik.getFieldProps(name);
+  console.log("field issss",field)
+  return (
+    <DatePicker
+      value={field.value?field.value:selectedDay}
+      onChange={value => {
+        formik.setFieldValue(name, value)
+      }}
+    />
+  );
+}
+function TimePickerField({name}){
+  const formik=useFormikContext()
+  const field=formik.getFieldProps(name);
+  return(
+    <input type={"time"} className="prescription_input" onChange={e=>{
+      formik.setFieldValue(name,e.target.value)
+    }}></input>
+  )
+}
+function SelectField({name}){
+  const formik=useFormikContext()
+  const field=formik.getFieldProps(name);
+  return (
+    <Select
+    options={allServices}
+    className="select-category"
+    onChange={(value)=>{
+      console.log("value is",value)
+      formik.setFieldValue(name,value.value)
+    }}
+    />
+  )
+}
+  const submit=(values,{ resetForm })=>{
+      console.log("values are",values)
+      let finaldata={
+        date:values.date?
+                        values.date.year+"-"+values.date.month+"-"+values.date.day:
+                        selectedDay.year+"-"+selectedDay.month+"-"+selectedDay.day,
+        digiServiceId:values.serviceId,
         time:values.time
       }
+      console.log(finaldata)
       httpClient.POST("service-booking/create",finaldata,false,true)
       .then(resp=>{
         notify.success("Updated Successfully")
+        resetForm()
+        getSelectedServices()
       })
       .catch(err=>{
         notify.error("Error in updating")
       })
-
-      console.log("submit triggerred",finaldata)
   }
   return (
     <div className="med_repo_main">
@@ -110,21 +135,16 @@ var dt = new Date();
         initialValues={initialValues}
         initialValues={initialValues}
         onSubmit={submit}
-        // validationSchema={schema}
+        validationSchema={schema}
     >
 
-    {({ errors, touched }) => (
+    {({ errors, touched}) => (
       <Form className=" medical_repo_form">
         <div className="margin-adjuster1">
           <div className="labrepo_text_form">
           <label htmlFor="date">Date:</label>
           <div className='serviceDate'>
-          <DatePicker
-              className="form-control"
-              shouldHighlightWeekends
-              value={selectedDay}
-              onChange={(value)=>handleDateChange(value,errors)}
-          ></DatePicker>
+          <DatePickerField name="date" />
           </div>
           </div>
           {
@@ -132,20 +152,7 @@ var dt = new Date();
           }
           <div className="labrepo_text_form">
             <label htmlFor="name">Time:</label>
-            <Field
-              name="time"
-              id="time"
-            >
-                {
-                    ({
-                        field,
-                        form: { touched, errors },
-                        meta,
-                      })=>(
-                        <input type={"time"} className="prescription_input" {...field} ></input>
-                    )
-                }
-            </Field>
+            <TimePickerField name="time"></TimePickerField>
           </div>
           {
             errors.time && touched.time?<div style={{color:"red"}}>{errors.time}</div>:null
@@ -154,12 +161,7 @@ var dt = new Date();
         <div className="margin-adjuster2">
           <div className="labrepo_text_form">
             <label htmlFor="name">Value:</label>
-                    <Select
-
-        options={allServices}
-        className="select-category"
-        onChange={(value)=>handleServiceChange(value,errors)}
-        />
+            <SelectField name="serviceId"></SelectField>
           </div>
           {
             errors.serviceId && touched.serviceId?<div style={{color:"red"}}>{errors.serviceId}</div>:null
