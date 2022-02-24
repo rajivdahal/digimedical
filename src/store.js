@@ -30,6 +30,10 @@ const initialState = {
         utilsInfo:false
     },
     appointmentBooking:{
+        doctorInfo:null,
+        isDoctorInfoAdded:false,
+        appointmentDate:"",
+        appointmentTime:"",
         isAppointmentFixed:false,
         onlinePlatformForBooking:"",
         isPaymentShown:false,

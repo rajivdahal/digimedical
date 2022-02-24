@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { selectAppointmentMethod } from "../../../../../actions/hospitalAppointmentBooking.ac";
 import esewaLogo from "../../../../../assets/esewa.svg";
-export default function SelectPaymentMethod() {
+import { formatDate } from "../../../../../services/timeanddate";
+
+export default function SelectPaymentMethod(props) {
   // Redux implementation
   const dispatch = useDispatch();
   const appointmentBooking = useSelector((state) => state.appointmentBooking);
@@ -17,6 +19,9 @@ export default function SelectPaymentMethod() {
   const selectEsewa = () => {
     AppointmentMethod("esewa");
   };
+  const closePaymentPopUp=()=>{
+    props.props.props.setTrigger(false)
+    }
   return (
     <div>
       <div className="doc-pop-main">
@@ -30,16 +35,18 @@ export default function SelectPaymentMethod() {
             </div>
             <div className="doc-pay-appoint-det1">
               <p id="pay-appoint-det-p">Appointment Detail</p>
-              <p id="pay-appoint-det-p">Tue, Janauary 9, 2021</p>
+              <p id="pay-appoint-det-p">
+                {formatDate(appointmentBooking.appointmentDate,"llll").slice(0,-8)}
+              </p>
             </div>
             <div className="doc-pay-doc-serv">
               <div className="payapp-det2">
                 <p id="pay-doc-choose"> Doctor chosed</p>
-                <p id="pay-appoint-det-p2"> Dr. Ram kumar Yadav</p>
+                <p id="pay-appoint-det-p2"> Dr. {appointmentBooking.doctorInfo.doctorname}</p>
               </div>
               <div className="payapp-det2">
                 <p id="pay-doc-choose">Service chosed</p>
-                <p id="pay-appoint-det-p2">Dermatologists</p>
+                <p id="pay-appoint-det-p2">{appointmentBooking.doctorInfo.specialist}</p>
               </div>
             </div>
             <div className="doc-pay-appoint-det3">
@@ -84,7 +91,7 @@ export default function SelectPaymentMethod() {
               </div>
 
               <div className="popup_lab_cont4_foot pay-last-but">
-                <a className="popup_lab_close" style={{ cursor: "pointer" }}>
+                <a className="popup_lab_close" style={{ cursor: "pointer" }} onClick={closePaymentPopUp}>
                   <p>Cancel</p>
                 </a>
                 <a className="lab_popup_checkout" style={{ cursor: "pointer" }}>

@@ -10,6 +10,7 @@ import SelectPaymentMethod from '../selectPaymentMethod/selectPaymentMethod';
 import PayPop from '../../paymentpopup/payment';
 
 export default function LoggedInCase(props) {
+  console.log("props in main page is",props)
   var dt = new Date();
     const [selectedDay, setSelectedDay] = useState({
         year: dt.getFullYear(),
@@ -30,6 +31,7 @@ const schema = Yup.object().shape({
   const dispatch = useDispatch();
   const appointmentBooking = useSelector((state) => state.appointmentBooking);
   const setAppointmentFixed=bindActionCreators(appointmentFixed,dispatch)
+  console.log("store  data are",appointmentBooking)
   // end of redux implementation
 
 function DatePickerField({ name }) {
@@ -69,7 +71,7 @@ function DatePickerField({ name }) {
       time:values.time
     }
     console.log("values",finaldata)
-    setAppointmentFixed()
+    setAppointmentFixed(finaldata)
   }
 
 
@@ -132,7 +134,7 @@ function DatePickerField({ name }) {
       :
       appointmentBooking.isAppointmentFixed && !appointmentBooking.isPaymentShown
       ?
-      <SelectPaymentMethod></SelectPaymentMethod>
+      <SelectPaymentMethod props={props}></SelectPaymentMethod>
       :null
 
     }

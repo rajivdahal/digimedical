@@ -17,6 +17,10 @@ import DoctorPopup from "../../common/popup/doctorPopup/doctorPopup";
 // import DocPopup from "../../common/popup/doctorPopup";
 import Accordion from "react-bootstrap/Accordion";
 import PayPop from "../../common/popup/paymentpopup/payment";
+import BookAnAppointment from "../BookAnAppointment/BookAnAppointment";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { setDoctorInfo } from "../../../actions/hospitalAppointmentBooking.ac";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default function Hospital_doctors(props) {
@@ -182,15 +186,21 @@ export default function Hospital_doctors(props) {
   const datechange = (value, status) => {
     let date = ""
     date = value.year + "-" + value.month + "-" + value.day
-    // setInitialValues((initialValues)=>{
-    //   return{
-    //     ...initialValues,
-    //     appointmentDate:date
-    //   }
-    // })
     setAppointmentDate(date);
-    // initialValues.appointmentDate = date
     setSelectedDay(value)
+  }
+
+    // Redux implementation
+    const dispatch = useDispatch();
+    const appointmentBooking = useSelector((state) => state.appointmentBooking);
+    const settingDoctorInfo=bindActionCreators(setDoctorInfo,dispatch)
+
+    // end of redux implementation
+
+  const bookAnAppointment=(doctor)=>{
+    console.log("doctor is",doctor)
+    SetDocPopup(true)
+    settingDoctorInfo(doctor)
   }
 
   return (
@@ -332,7 +342,7 @@ export default function Hospital_doctors(props) {
                           <div className="doc_card_but">
                             {" "}
                             <button
-                              onClick={() => SetDocPopup(true)}
+                              onClick={() => bookAnAppointment(doctor)}
                               id="doc_card_but"
                             >
                               Book an appointment
