@@ -23,7 +23,7 @@ export const Dashboardnavbar = (props) => {
   const fetchProfileImage = bindActionCreators(loginUser, dispatch);
   const openDashboard = bindActionCreators(dashboardOpen, dispatch);
   const closeDashboard = bindActionCreators(dashboardClose, dispatch);
-  
+
   const Logout = (e) => {
     setlogoutstate({
       logout: true,

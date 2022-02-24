@@ -28,6 +28,11 @@ const initialState = {
     medicalReports:{
         reports:true,
         utilsInfo:false
+    },
+    appointmentBooking:{
+        isAppointmentFixed:false,
+        onlinePlatformForBooking:"",
+        isPaymentShown:false,
     }
 }
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))

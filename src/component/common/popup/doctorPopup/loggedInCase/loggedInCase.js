@@ -1,7 +1,14 @@
 import React,{useEffect,useState} from 'react'
 import DatePicker from '@amir04lm26/react-modern-calendar-date-picker'
-import {ErrorMessage, Form, Formik ,useFormikContext} from 'formik'
+import {Form, Formik ,useFormikContext} from 'formik'
 import * as Yup from "yup";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { hospitalAppointmentBookingReducer } from '../../../../../reducers/hospitalAppointmentBooking.red';
+import { appointmentFixed } from '../../../../../actions/hospitalAppointmentBooking.ac';
+import SelectPaymentMethod from '../selectPaymentMethod/selectPaymentMethod';
+import PayPop from '../../paymentpopup/payment';
+
 export default function LoggedInCase(props) {
   var dt = new Date();
     const [selectedDay, setSelectedDay] = useState({
@@ -17,6 +24,13 @@ const schema = Yup.object().shape({
   date: Yup.object(),
   time: Yup.string().required("Time is required!"),
 });
+
+
+  // Redux implementation
+  const dispatch = useDispatch();
+  const appointmentBooking = useSelector((state) => state.appointmentBooking);
+  const setAppointmentFixed=bindActionCreators(appointmentFixed,dispatch)
+  // end of redux implementation
 
 function DatePickerField({ name }) {
         const formik = useFormikContext();
@@ -55,11 +69,15 @@ function DatePickerField({ name }) {
       time:values.time
     }
     console.log("values",finaldata)
+    setAppointmentFixed()
   }
+
+
   return (
     <div className="doc-pop-main">
     <div className="doc-pop-inner">
-      <div className="doc-pop-cont">
+     {!appointmentBooking.isAppointmentFixed && !appointmentBooking.isPaymentShown?
+     <div className="doc-pop-cont">
         <div className="doc-close-but">
           {" "}
           <button
@@ -111,6 +129,13 @@ function DatePickerField({ name }) {
         </Formik>
 
       </div>
+      :
+      appointmentBooking.isAppointmentFixed && !appointmentBooking.isPaymentShown
+      ?
+      <SelectPaymentMethod></SelectPaymentMethod>
+      :null
+
+    }
     </div>
   </div>
   )
