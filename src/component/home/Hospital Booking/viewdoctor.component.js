@@ -20,7 +20,7 @@ import PayPop from "../../common/popup/paymentpopup/payment";
 import BookAnAppointment from "../BookAnAppointment/BookAnAppointment";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { setDoctorInfo } from "../../../actions/hospitalAppointmentBooking.ac";
+import { resetHospitalDoctorState, setDoctorInfo } from "../../../actions/hospitalAppointmentBooking.ac";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default function Hospital_doctors(props) {
@@ -87,15 +87,6 @@ export default function Hospital_doctors(props) {
     month: dt.getMonth() + 1,
     day: dt.getDate()
   })
-  // const [initialValues,setInitialValues]=useState({
-  //   firstName: "",
-  //   middleName: "",
-  //   lastName: "",
-  //   email: "",
-  //   mobileNumber: "",
-  //   appointmentDate: "",
-  //   appointmentTime: "",
-  // })
   const initialValues = {
     firstName: "",
     middleName: "",
@@ -194,13 +185,21 @@ export default function Hospital_doctors(props) {
     const dispatch = useDispatch();
     const appointmentBooking = useSelector((state) => state.appointmentBooking);
     const settingDoctorInfo=bindActionCreators(setDoctorInfo,dispatch)
+    const resetDoctorInfo=bindActionCreators(resetHospitalDoctorState,dispatch)
+
 
     // end of redux implementation
 
   const bookAnAppointment=(doctor)=>{
     console.log("doctor is",doctor)
     SetDocPopup(true)
+    // reset the previous information if exists
+    resetDoctorInfo()
+    //end  reset the previous information if exists
+    // set the doctor info
     settingDoctorInfo(doctor)
+    // end set the doctor info
+
   }
 
   return (

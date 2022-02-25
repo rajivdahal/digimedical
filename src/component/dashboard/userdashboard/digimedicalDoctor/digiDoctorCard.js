@@ -7,16 +7,17 @@ import "./digiDoctor.css";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import DoctorPopup from "../../../common/popup/doctorPopup/doctorPopup";
+import { digiDoctorInfo, resetDigiDoctorState } from "../../../../actions/digiDoctorBooking.ac";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const UserDoctorCard = (props) => {
         // Redux implementation
         const dispatch = useDispatch();
         const digiAppointmentBooking = useSelector((state) => state.digiDoctorAppointmentBooking);
-        console.log("store  data are",digiAppointmentBooking)
+        const setDigiDoctorInfo = bindActionCreators(digiDoctorInfo,dispatch);
+        const resetDigiDoctorInfo = bindActionCreators(resetDigiDoctorState,dispatch);
+        console.log("dataaaaaa is",digiAppointmentBooking)
         // end of redux implementation
-
-
 
     const [showForm, setForm] = useState(false);
     var dt = new Date();
@@ -46,10 +47,16 @@ const UserDoctorCard = (props) => {
     };
 
     const bookAppointment = (data) => {
-        console.log(data)
+        console.log("doctor data is",data)
         SetDocPopup(true)
-        // let tempForm = showForm === true ? false : true;
-        // setForm(tempForm);
+        // check if previous booking from doctor is done if yes remove the data and update to latest doctor
+
+        resetDigiDoctorInfo()
+        // end check if previous booking from doctor is done if yes remove the data and update to latest doctor
+
+        // set Doctor Info
+        setDigiDoctorInfo(data)
+        //end set Doctor Info
     };
 
     const submitAppointment = async (values) => {

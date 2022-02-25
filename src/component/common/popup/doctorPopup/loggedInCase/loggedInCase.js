@@ -33,7 +33,7 @@ const schema = Yup.object().shape({
   // start for hospital doctor booking
   const appointmentBooking = useSelector((state) => state.appointmentBooking);
   const setAppointmentFixed=bindActionCreators(appointmentFixed,dispatch)
-  console.log("store  data are",appointmentBooking)
+  console.log("store  data are from logged in case",appointmentBooking)
   // end for hospital doctor booking
 
   // start for digi doctor booking
@@ -72,86 +72,85 @@ function DatePickerField({ name }) {
       ></input>
     )
   }
-  const submit=(values)=>{
+  const getFinalData=(values)=>{
     let finaldata={
       date:values.date?
                       values.date.year+"-"+values.date.month+"-"+values.date.day:
                       selectedDay.year+"-"+selectedDay.month+"-"+selectedDay.day,
       time:values.time
     }
-    console.log("values",finaldata)
-    !props.origin?setAppointmentFixed(finaldata):setDigiDoctorAppointment(finaldata)
+    return finaldata
   }
-
+  const submit=(values)=>{
+    let finaldata=getFinalData(values)
+    setAppointmentFixed(finaldata)
+  }
+  const submitDigiDoctorBooking=(values)=>{
+    let finaldata=getFinalData(values)
+    console.log("final data after submitting from only doctor is",finaldata)
+    setDigiDoctorAppointment(finaldata)
+  }
 
   return (
     //logic for  digimedical doctor appointment booking
   props.origin?
+
     <div className="doc-pop-main">
     <div className="doc-pop-inner">
-
-     <div className="doc-pop-cont">
-        <div className="doc-close-but">
-          {" "}
-          <button
-            className="doc-close-butt"
-            onClick={() => props.props.setTrigger(false)}
-          >
-            <span id="doc-popup-cross">
-              <i class="fas fa-times"></i>
-            </span>
-          </button>
-        </div>
-        <Formik initialValues={initialValues} validationSchema={schema} onSubmit={submit}>
-            {
-                ({ errors, touched})=><div className="doc-pop-form">
-                    <Form>
-                    <div className="doc-form-row2">
-                  <div className="doc-form-input1">
-                    {" "}
-                    <label htmlFor="">Appointmemt Date</label>
-                    <DatePickerField name="date"></DatePickerField>
-                    {
-                        errors.date && touched.date?<div style={{color:"red"}}>{errors.date}</div>:null
-                    }
-                  </div>
-                  <div className="doc-form-input1">
-                    <label htmlFor="">Appointment Time</label>
-                    <TimePickerField name="time"></TimePickerField>
-                    {
-                      errors.time && touched.time?<div style={{color:"red"}}>{errors.time}</div>:null
-                    }
-                  </div>
-                </div>
-                <div className="doc-form-row3">
-                  {" "}
-                  <button
-                  // onClick={() => props.props.setTrigger(false)}
-                   id="pop-doc-but" type='submit'>
-                    Make Appointment
-                  </button>
-                  <div className="doc-form-last-sent">
-                    <p>We value your privacy. Your details are safe with us.</p>
-                  </div>
-                </div>
-                    </Form>
-              </div>
-            }
-        </Formik>
-
+    {
+      !digiDoctorBooking.isDigiDoctorAppointmentFixed?
+      <div className="doc-pop-cont">
+      <div className="doc-close-but">
+        {" "}
+        <button
+          className="doc-close-butt"
+          onClick={() => props.props.setTrigger(false)}
+        >
+          <span id="doc-popup-cross">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
       </div>
-      {
-        digiDoctorBooking.isAppointmentFixed?
-      <SelectPaymentMethod props={props}></SelectPaymentMethod>
-        :null
-      }
-      {/* :
-      appointmentBooking.isAppointmentFixed && !appointmentBooking.isPaymentShown
-      ?
-      <SelectPaymentMethod props={props}></SelectPaymentMethod>
-      :null */}
-
-    {/* } */}
+      <Formik initialValues={initialValues} validationSchema={schema} onSubmit={submitDigiDoctorBooking}>
+          {
+              ({ errors, touched})=><div className="doc-pop-form">
+                  <Form>
+                  <div className="doc-form-row2">
+                <div className="doc-form-input1">
+                  {" "}
+                  <label htmlFor="">Appointmemt Date</label>
+                  <DatePickerField name="date"></DatePickerField>
+                  {
+                      errors.date && touched.date?<div style={{color:"red"}}>{errors.date}</div>:null
+                  }
+                </div>
+                <div className="doc-form-input1">
+                  <label htmlFor="">Appointment Time</label>
+                  <TimePickerField name="time"></TimePickerField>
+                  {
+                    errors.time && touched.time?<div style={{color:"red"}}>{errors.time}</div>:null
+                  }
+                </div>
+              </div>
+              <div className="doc-form-row3">
+                {" "}
+                <button
+                 id="pop-doc-but" type='submit'>
+                  Make Appointment
+                </button>
+                <div className="doc-form-last-sent">
+                  <p>We value your privacy. Your details are safe with us.</p>
+                </div>
+              </div>
+                  </Form>
+            </div>
+          }
+      </Formik>
+    </div>:
+    digiDoctorBooking.isDigiDoctorAppointmentFixed?
+    <SelectPaymentMethod props={props}></SelectPaymentMethod>
+    :null
+    }
     </div>
   </div>
     //end of logic for  digimedical doctor appointment booking
@@ -159,7 +158,7 @@ function DatePickerField({ name }) {
     //logic for  hospital doctor appointment booking
   <div className="doc-pop-main">
     <div className="doc-pop-inner">
-     {!appointmentBooking.isAppointmentFixed && !appointmentBooking.isPaymentShown?
+     {!appointmentBooking.isAppointmentFixed?
      <div className="doc-pop-cont">
         <div className="doc-close-but">
           {" "}
@@ -209,10 +208,9 @@ function DatePickerField({ name }) {
               </div>
             }
         </Formik>
-
       </div>
       :
-      appointmentBooking.isAppointmentFixed && !appointmentBooking.isPaymentShown
+      appointmentBooking.isAppointmentFixed
       ?
       <SelectPaymentMethod props={props}></SelectPaymentMethod>
       :null
