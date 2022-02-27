@@ -19,10 +19,10 @@
 .questionheads {
   margin-top: 50px;
   font-style: normal;
-  font-weight: 900;
+  font-weight: bold;
   font-size: 23px;
   line-height: 35px;
-  color: #192638;
+  color: #374253;
 }
 .serv-boxes {
   width: 100%;
@@ -50,6 +50,7 @@
   font-size: 20px;
   line-height: 30px;
   font-weight: 600;
+  color: #000000;
 }
 
 .serv-text {
