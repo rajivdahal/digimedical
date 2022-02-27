@@ -159,24 +159,35 @@ y here */
 .doc_accordion .accordion {
   position: relative;
   padding: 0;
-  width: 80%;
+  width: 70%;
   margin: 0;
   z-index: 1;
 }
 .doc_accordion .accordion-header {
   background: #f5faff;
 }
+.doc_accordion button.accordion-button {
+  padding: 20px 0px;
+}
 .doc_accordion button.accordion-button.collapsed {
   color: #2745f0;
   background: #f5faff;
   font-size: 15px;
+}
+.doc_accordion .accordion-button::after {
+  background-image: url(../../../assets/doc_arrow_down.svg);
+
+  height: 11px;
+  background-size: contain;
+}
+.accordion-button:not(.collapsed)::after {
 }
 .doc_accordion .accordion-button:not(.collapsed) {
   background: #f5faff;
   color: #2745f0;
   margin-bottom: 0;
   font-size: 15px;
-  border: 0;
+  box-shadow: none;
 }
 
 .accordion-button:hover {
@@ -184,12 +195,18 @@ y here */
   color: unset;
   color: #2745f0;
 }
+.doc_accordion ul.accordion-body {
+  padding-left: 10px;
+}
 
 .doc_accordion ul.accordion-body li {
   list-style: disc;
   background: #f5faff;
   color: #374253;
+  padding: 10px 10px 10px 5px;
+  transition: all 0s;
 }
+
 .doc_accordion .accordion-body {
   background: #f5faff;
 }
