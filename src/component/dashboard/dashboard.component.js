@@ -45,6 +45,7 @@ import HospitalDoctor from "./hospitalDashboard/doctorPage/hospital.doctor";
 import AddDoctor from "./hospitalDashboard/doctorPage/addHospitalDoctor";
 import HospitalAppointment from "./hospitalDashboard/appointmentPage/appointment.component";
 import HospitalService from "./hospitalDashboard/hospitalService/hospitalService";
+import HospitalSpecialist from "../home/Hospital Booking/hospitalSpecialist";
 // import HospitalService from "./hospitalDashboard/hospitalService/hospitalService";
 
 // corporate
@@ -134,7 +135,10 @@ const Dashboard = (props) => {
             <ProtectedRoute component={SpecialityDoctor}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/services" ? (
               <ProtectedRoute component={UserServices}></ProtectedRoute>
-          ) : null}
+          ) : props.location.pathname ===
+          "/dashboard/hospital-specialist" ? (
+          <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
+        ) : null}
         </>
       ) : statusCode == 100 ? (
         <>

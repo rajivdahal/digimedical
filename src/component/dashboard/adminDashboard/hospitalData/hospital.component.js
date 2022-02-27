@@ -1,3 +1,4 @@
+import Select from "react-select";
 import { useEffect, useRef, useState } from "react";
 import { Form, Button, Container, Row, Col, Nav, Image } from "react-bootstrap";
 import { notify } from "../../../../services/notify";
@@ -13,6 +14,7 @@ const Hospital = (props) => {
   const [hospitalID, setHospitalID] = useState("");
   const [selectedImage, setImage] = useState("");
   const [selectedImgName, setImgName] = useState("");
+  const [digiServices, setDigiServices] = useState([]);
   const [hospitalData, setHospitalData] = useState({
     name: "",
     description: "",
@@ -24,12 +26,20 @@ const Hospital = (props) => {
     hospitalImage: "",
     link: "",
     email: "",
-    country  :"Nepal",
+    country: "Nepal",
     password: "",
     confirmPassword: "",
-  });
+    hospitalServices: [],
+    serviceId: "",
+    servicePrice: "",
+  },
+
+  );
+
+  const [selectedServices, setSelectedService] = useState([]);
 
   const initialize = async () => {
+    getDigiService();
     if (props.location.state && props.location.state.id != null) {
       await getHospitalById();
     }
@@ -60,6 +70,7 @@ const Hospital = (props) => {
             description: data.description,
             establishedDate: data.establisheddate,
             address: data.address,
+            link : data.websitelink,
           });
         }
       }
@@ -70,11 +81,36 @@ const Hospital = (props) => {
     }
   };
 
+  const getDigiService = async () => {
+    let resp;
+    try {
+      resp = await hospitalApi.getDigiServices();
+      if (resp.data.status) {
+        let data = resp.data.data;
+        let trueDigiService = data.filter((item) => {
+          return item.status == true
+        })
+        let options = trueDigiService.map((service) => {
+          return {
+            label: service.name,
+            value: service.id,
+          };
+        })
+        setDigiServices(options);
+        return options;
+      }
+    }
+    catch (err) {
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+  }
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: hospitalData,
     onSubmit: (values) => {
-      console.log(values);
       if (hospitalID) {
         editHospitalDetail(values);
       } else {
@@ -89,11 +125,21 @@ const Hospital = (props) => {
 
   const handleCreateHospital = async (values) => {
     try {
+
+      let data = {...values};
+      let serviceData = selectedServices.map((item)=>{
+        return {
+          digiServiceId : item.serviceID,
+          price : parseFloat(item.price)
+        }
+      })
       setLoading(true);
-      let resp = await hospitalApi.createHospital(values);
+      data.hospitalPricePojos = serviceData;
+      console.log(data.hospitalPricePojos)
+      console.log(data);
+      let resp = await hospitalApi.createHospital(data);
 
       if (resp.data.status) {
-        console.log(resp.data.data);
         notify.success(resp.data.message);
         props.history.push("/dashboard/hospital-table");
       }
@@ -158,8 +204,63 @@ const Hospital = (props) => {
     setImage(null);
     setImgName(null);
     formik.setFieldValue("hospitalImage", null);
-  };
+  }
 
+  const handleDigiServiceChange = (item) => {
+    console.log(item)
+    formik.setFieldValue("hospitalServices", item);
+  }
+
+  // handles adding services
+  const handleAddServices = (values) => {
+
+    // validate garni data
+
+
+    let tempArr = [...selectedServices];
+    console.log(values.hospitalServices)
+    let { value, label } = values.hospitalServices;
+    let addedService = {
+      serviceID: value,
+      serviceName : label,
+      price: values.servicePrice,
+
+    }
+    let filteredOptions = digiServices.filter((item)=>{
+      return item.value != value
+    })
+    setDigiServices(filteredOptions)
+    // const isValid = validateServiceData(addedService);
+
+    // if(!isValid) {
+    //   // show Error here
+    //   return;
+    // }
+
+    tempArr.push(addedService);
+    console.log(tempArr)
+    setSelectedService(tempArr);
+    formik.setFieldValue("hospitalServices" , null);
+    formik.setFieldValue("servicePrice", "");
+  }
+
+  const removeService = (index) => {
+    let tempArr = [...selectedServices];
+    tempArr.splice(index,1);
+    setSelectedService(tempArr);
+    console.log(tempArr)
+    digiServices.forEach((service)=>{
+      console.log(service)
+      let filteredOptions = tempArr.filter((item)=>{
+        console.log(item)
+        return item.value == service.value
+      })
+      console.log(filteredOptions)
+    setDigiServices(filteredOptions)
+
+    }) 
+    // formik.setFieldValue('hospitalServices',tempArr)
+}
   return (
     <div>
       <Container>
@@ -367,8 +468,7 @@ const Hospital = (props) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  {formik.errors.confirmPassword &&
-                    formik.touched.confirmPassword ? (
+                  {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
                     <div className="error-message">
                       {formik.errors.confirmPassword}
                     </div>
@@ -377,6 +477,59 @@ const Hospital = (props) => {
               </Col>
             </Row>
           )}
+
+          <Row>
+            <Col md={4}>
+              <Form.Group>
+                <Form.Label>Service</Form.Label>
+                <Select
+                  value={formik.values.hospitalServices}
+                  className="serviceSelect formControl"
+                  options={digiServices}
+                  name="serviceId"
+                  onChange={handleDigiServiceChange}
+                ></Select>
+                {formik.errors.hospitalServices && formik.touched.hospitalServices ?
+                  <div className="error-message">{formik.errors.hospitalServices}</div>
+                  : null}
+              </Form.Group>
+            </Col>
+            <Col md={4}>
+              <Form.Group>
+                <Form.Label>Price</Form.Label>
+                <Form.Control
+                  type="text" className='formControl'
+                  name="servicePrice"
+                  value={formik.values.servicePrice}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.errors.servicePrice && formik.touched.servicePrice ? (
+                  <div className="error-message">
+                    {formik.errors.servicePrice}
+                  </div>
+                ) : null}
+              </Form.Group>
+            </Col>
+            <Col ms={2}>
+              <Button className='mt-4' onClick={() => handleAddServices(formik.values)}>Add</Button>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col>
+            {selectedServices.map((item,index)=>{
+              return <div key={index}>
+                <p><span>{item.serviceName}</span>
+                  <span>{item.price}</span>
+                  <span className="removeBtn floatRight" 
+                  onClick={()=>removeService(index)}>Remove</span>
+                </p>
+              </div>
+            })}
+            </Col>
+          </Row>
+
 
           <Row>
             <Col md={5}>

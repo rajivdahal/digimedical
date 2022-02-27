@@ -14,7 +14,9 @@ const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const NewServicePage = (props) => {
 
-    const imageSelectRef = useRef();
+    const imageSelectServiceRef = useRef();
+    const imageSelectIconRef = useRef();
+
     const [loading, setLoading] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [serviceStatusId, setServiceStatusId] = useState(null);
@@ -28,7 +30,7 @@ const NewServicePage = (props) => {
         serviceName: "",
         serviceDescription: "",
         price: "",
-        image: "",
+        serviceImg: "",
         iconImg: "",
         type: "online",
     })
@@ -55,7 +57,7 @@ const NewServicePage = (props) => {
         getServices();
     }, [])
 
-    const handleSubmit = async (values, resetForm) => {
+    const handleSubmit = async (values) => {
         setIsLoading(true)
         try {
             let resp = await DigiServiceApi.createDigiService(values);
@@ -103,7 +105,7 @@ const NewServicePage = (props) => {
                 setService({
                     serviceName: "",
                     serviceDescription: "",
-                    image: "",
+                    serviceImg: "",
                     price: "",
                     iconImg: "",
                     type: "",
@@ -114,6 +116,7 @@ const NewServicePage = (props) => {
         }
         catch (err) {
             if (err && err.response && err.response.data) {
+                console.log(err.response)
                 notify.error(err.response.data.message || "Something went wrong");
             }
         }
@@ -125,7 +128,7 @@ const NewServicePage = (props) => {
         setService({
             serviceName: "",
             serviceDescription: "",
-            image: "",
+            serviceImg: "",
             price: "",
             iconImg: "",
             type: "",
@@ -179,12 +182,12 @@ const NewServicePage = (props) => {
 
 
     const handleAddImage = () => {
-        imageSelectRef.current.click();
+        imageSelectServiceRef.current.click();
     };
-    const handleChangeImage = (e) => {
+    const handleChangeImage = (e,img) => {
         let files = e.target.files[0];
         let reader = new FileReader();
-        formik.setFieldValue("image", files);
+        formik.setFieldValue("serviceImg", files);
         reader.onloadend = () => {
             setServiceImage(reader.result.toString());
         };
@@ -193,12 +196,13 @@ const NewServicePage = (props) => {
 
     const removeImage = () => {
         setServiceImage(null);
-        formik.setFieldValue("image", null);
+        formik.setFieldValue("serviceImg", null);
     }
 
-    // const handleAddIconImage = () => {
-    //     imageSelectRef.current.click();
-    // };
+    const handleAddIconImage = () => {
+        imageSelectIconRef.current.click();
+    };
+
     const handleChangeIconImage = (e) => {
         let files = e.target.files[0];
         let reader = new FileReader();
@@ -251,6 +255,7 @@ const NewServicePage = (props) => {
                         </Form.Group>
                     </Col>
                 </Row>
+                
                 <Row>
                     <Col md={8}>
                         <Form.Group>
@@ -285,19 +290,19 @@ const NewServicePage = (props) => {
                 </Row>
 
                 <Row>
-                    <Col md={4}>
+                    <Col md={5}>
                         <Form.Label>Choose Service Photo </Form.Label>
                         <Button variant="info" onClick={handleAddImage}>
                             Browse
                         </Button>
                         <input
                             onChange={(e) => handleChangeImage(e)}
-                            type="file" name="image"
+                            type="file" name="serviceImg"
                             style={{ display: "none" }}
-                            ref={imageSelectRef} accept=".jpg, .png , .jpeg"
+                            ref={imageSelectServiceRef} accept=".jpg, .png , .jpeg"
                         ></input>
-                        {formik.touched.image && formik.errors.image ? (
-                            <div className="error-message">{formik.errors.image}</div>
+                        {formik.touched.serviceImg && formik.errors.serviceImg ? (
+                            <div className="error-message">{formik.errors.serviceImg}</div>
                         ) : null}
                     </Col>
 
@@ -315,13 +320,12 @@ const NewServicePage = (props) => {
                         :
                         <></>
                     }
-
                 </Row>
 
                 <Row>
-                    <Col md={4}>
+                    <Col md={5}>
                         <Form.Label>Choose Icon Photo </Form.Label>
-                        <Button variant="info" onClick={handleAddImage}>
+                        <Button variant="info" onClick={handleAddIconImage}>
                             Browse
                         </Button>
 
@@ -329,11 +333,11 @@ const NewServicePage = (props) => {
                             onChange={(e) => handleChangeIconImage(e)}
                             type="file" name="iconImg"
                             style={{ display: "none" }}
-                            ref={imageSelectRef} accept=".jpg, .png , .jpeg"
+                            ref={imageSelectIconRef} accept=".jpg, .png , .jpeg"
                         ></input>
-                        {/* {formik.touched.iconImg && formik.errors.iconImg ? (
+                        {formik.touched.iconImg && formik.errors.iconImg ? (
                             <div className="error-message">{formik.errors.iconImg}</div>
-                        ) : null} */}
+                        ) : null}
                     </Col>
 
                     <Col md={4}>
@@ -346,13 +350,13 @@ const NewServicePage = (props) => {
                     {iconImage ?
                         <Col md={2}>
                             <span style={{ color: 'red', cursor: 'pointer' }} onClick={removeIconImage}>x</span>
-
                         </Col>
                         :
                         <></>
                     }
 
                 </Row>
+                
 
                 <div className="textAlign-right  mb-5">
                     {isLoading === true ? (

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useFormik } from "formik";
 import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
 import Pagination from "../../../common/pagination/pagination.component";
@@ -36,7 +35,6 @@ const DigimedicalDoctor = (props) => {
 
     const handleChange = (e) => {
         setSearchName(e.target.value);
-        console.log(e.target.value)
         searchDigiSpeciality(e.target.value);
     };
     const searchDigiSpeciality = (name) => {

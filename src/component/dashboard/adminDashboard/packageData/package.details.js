@@ -180,9 +180,7 @@ const MembershipPackageDetails = (props) => {
     }
 
     const removeDetail = (index) => {
-        console.log(index)
         let tempArr = [...formik.values.allDetails];
-        console.log(tempArr)
         tempArr.splice(index,1);
         formik.setFieldValue('allDetails',tempArr)
     }
