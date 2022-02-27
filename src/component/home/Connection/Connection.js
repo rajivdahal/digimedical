@@ -13,9 +13,11 @@ const Root = styled.div`
   // transform: translate(180px);
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5rem;
+  ${'' /* margin-top: 5rem; */}
   left: 0;
   right: 0;
+  bottom: -10%;
+  transform: translateY(10%);
 
   text-align: center;
   display: flex;

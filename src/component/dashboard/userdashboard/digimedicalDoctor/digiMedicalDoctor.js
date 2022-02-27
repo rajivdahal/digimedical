@@ -74,11 +74,14 @@ const DigimedicalDoctor = (props) => {
                     <div className="hospital_book_card">
                         {searcheddoctors.length > 0 ?
                             searcheddoctors.map((item, index) => {
+                                console.log("doctor card iss",item)
                                 return <>
                                     <UserDoctorCard key={index} name={item.doctorname} prefix={item.prefix}
                                         specialist={item.specialist} desc={item.doctordescription}
                                         gender={item.gender + 1} price = {item.price}
-                                        doctorId={item.doctorid} doctorServices={item.serviceid} />
+                                        doctorId={item.doctorid} doctorServices={item.serviceid}
+                                        services={item.digiService}
+                                        />
                                 </>
                             })
                             :

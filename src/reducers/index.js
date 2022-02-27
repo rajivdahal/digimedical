@@ -13,5 +13,4 @@ export const rootReducer=combineReducers({
     appointmentBooking:hospitalAppointmentBookingReducer,
     digiDoctorAppointmentBooking:digiDoctorAppointmentBookingReducer
 
-
 })
