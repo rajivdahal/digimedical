@@ -12,8 +12,7 @@ import Tableicons from '../../../../utils/materialicons';
 import { Check, Edit, Clear, Add } from "@material-ui/icons";
 
 
-export default function UserServices() {
-  console.log("inside user services")
+export default function UserServices(props) {
   const initialValues={
     serviceId:"",
     date:"",
@@ -35,6 +34,10 @@ var dt = new Date();
     const [allServices,setAllServices]=useState([])
     const [selectedService,setSelectedService]=useState([])
     let [date,setDate]=useState("")
+    let [toDeleteData,setToDeleteData]=useState(null)
+    let [deleteIndeedPopUp,setDeleteIndeedPopUp]=useState(false)
+    let [deleteIndeed,setDeleteIndeed]=useState(false)
+
     let [serviceId,setServiceId]=useState("")
       useEffect(()=>{
           getAllServices()
@@ -50,17 +53,17 @@ var dt = new Date();
                   value: item.id,
                 };
               });
-              console.log("all services is",allServices)
             setAllServices(allServices)
-        })
-        .catch(err=>{
-            console.log("error is",err)
         })
     }
     const getSelectedServices=()=>{
       httpClient.GET("service-booking/get/0",false,true)
       .then(resp=>{
-        setSelectedService(resp.data.data)
+        let finalData=resp.data.data.map((item)=>{
+            item.userName=item.firstName+" "+item.middleName+" "+item.lastName
+            return item
+        })
+        setSelectedService(finalData)
       })
       .catch(err=>{
         notify.error("Error in fetching services")
@@ -70,7 +73,6 @@ var dt = new Date();
 function DatePickerField({ name }) {
   const formik = useFormikContext();
   const field = formik.getFieldProps(name);
-  console.log("field issss",field)
   return (
     <DatePicker
       value={field.value?field.value:selectedDay}
@@ -97,14 +99,12 @@ function SelectField({name}){
     options={allServices}
     className="select-category"
     onChange={(value)=>{
-      console.log("value is",value)
       formik.setFieldValue(name,value.value)
     }}
     />
   )
 }
   const submit=(values,{ resetForm })=>{
-      console.log("values are",values)
       let finaldata={
         date:values.date?
                         values.date.year+"-"+values.date.month+"-"+values.date.day:
@@ -112,7 +112,6 @@ function SelectField({name}){
         digiServiceId:values.serviceId,
         time:values.time
       }
-      console.log(finaldata)
       httpClient.POST("service-booking/create",finaldata,false,true)
       .then(resp=>{
         notify.success("Updated Successfully")
@@ -123,21 +122,48 @@ function SelectField({name}){
         notify.error("Error in updating")
       })
   }
+  const columnsData=[
+    { title: "Name",field: "serviceName" },
+    { title: "Date", field: "date" },
+    { title: "Time", field:"time"},
+  ]
+  if(props.origin=="admin"){
+    columnsData.push({title:"User Name",field:"userName"})
+  }
+  const deleteData=(data)=>{
+    setToDeleteData(data)
+    setDeleteIndeedPopUp(true)
+  }
+  if(deleteIndeed){
+    httpClient.PUT("service-booking/cancel/"+toDeleteData.id,null,false,true)
+    .then(resp=>{
+      getSelectedServices()
+      notify.success("Deleted Successfully")
+      setDeleteIndeed(false)
+    })
+    .catch(err=>{
+      notify.error("Problems in deleting")
+    })
+    }
   return (
     <div className="med_repo_main">
     <div className="main-psetImage  report-container">
-      <h2>Select the service</h2>
+      {
+        props.origin!="admin"?<h2>Select the service</h2>:null
+      }
+
       <div className="row umi_row">
         <div className="col-md-12 grid-margin stretch-card">
           <div className="card">
             <div className="card-body">
+              {
+               props.origin!="admin"?
             <Formik
         initialValues={initialValues}
         initialValues={initialValues}
         onSubmit={submit}
         validationSchema={schema}
     >
-
     {({ errors, touched}) => (
       <Form className=" medical_repo_form">
         <div className="margin-adjuster1">
@@ -172,18 +198,35 @@ function SelectField({name}){
         </div>
       </Form>
     )}
-  </Formik>
+  </Formik>:null
+  }
+  {
+    deleteIndeedPopUp?
+    <div className='delete-container'>
+    <div className="logout-container">
+    <div className="logout">
+        <p>Are you sure you want to Delete?</p>
+        <div className="buttons">
+            <button className="yes-logout" onClick={()=>{
+              setDeleteIndeedPopUp(false)
+              setDeleteIndeed(true)
+            }}>Yes</button>
+            <button className="no-logout" onClick={()=>{
+              setDeleteIndeedPopUp(false)
+              setDeleteIndeed(false)
+            }}>No</button>
+        </div>
+    </div>
+</div>
+</div>
+:null
+  }
   <div className="material-table">
-  <p id="medical_table_head">Report</p>
   <MaterialTable
     data={selectedService}
     title="Selected Services"
     icons={Tableicons}
-    columns={[
-      { title: "Name",field: "serviceName" },
-      { title: "Date", field: "date" },
-      { title: "Time", field:"time"},
-    ]}
+    columns={columnsData}
     options={{
       actionsColumnIndex: -1,
       pageSize: 5,
@@ -197,17 +240,10 @@ function SelectField({name}){
 
     actions={[
       {
-        icon: 'edit',
-        tooltip: 'Edit',
-        onClick: (event, rowData) => {
-          // Do save operation
-        }
-      },
-      {
         icon: 'delete',
         tooltip: 'delete',
         onClick: (event, rowData) => {
-          // Do save operation
+          deleteData(rowData)
         }
       }
 

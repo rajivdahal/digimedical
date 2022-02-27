@@ -2,3 +2,8 @@
     padding: 1.1em 0.8em;
     width: 21rem;
 }
+.delete-container{
+    position: relative;
+    top: 3rem;
+    left: 6rem;
+}

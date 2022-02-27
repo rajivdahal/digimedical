@@ -76,6 +76,7 @@ import HospitalService from "./hospitaldashboard/hospitalService/hospitalService
 // corporate
 import CorporateUser from "./corporatedashboard/addmembers/corporate.user";
 import BookPackage from "./corporatedashboard/packages/package.component";
+import ViewServicesBookedOfUser from "./adminDashboard/services/services.component";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -142,7 +143,10 @@ const Dashboard = (props) => {
             {props.location.pathname === "/dashboard" ||
             props.location.pathname === "/dashboard/" ? (
               <ProtectedRoute component={AdminDashboard}></ProtectedRoute>
-            ) : props.location.pathname === "/dashboard/doctor-table" ? (
+            ) :
+            props.location.pathname==="/dashboard/services"?
+            <ProtectedRoute component={ViewServicesBookedOfUser}></ProtectedRoute>:
+            props.location.pathname === "/dashboard/doctor-table" ? (
               <ProtectedRoute component={DoctorTable}></ProtectedRoute>
             ) : props.location.pathname === "/dashboard/create-doctor" ? (
               <ProtectedRoute component={Createdoctor}></ProtectedRoute>
