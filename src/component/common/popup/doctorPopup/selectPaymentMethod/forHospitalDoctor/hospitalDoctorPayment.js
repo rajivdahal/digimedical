@@ -66,7 +66,7 @@ const closePaymentPopUp=()=>{
               <div>
                 {" "}
                 <input
-                  type="checkbox"
+                  type="radio"
                   id="selectall"
                   name="fav_language"
                   value="allsel"
