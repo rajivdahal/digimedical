@@ -1,0 +1,17 @@
+.dash_digidoc_appoint_head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dash_our_doc_appoint {
+  margin-top: 4rem;
+  width: 98%;
+}
+
+.dash_our_doc_speciality {
+  margin-top: 6rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.5rem;
+}
