@@ -18,7 +18,6 @@ export default function Hospitalbookingcomponent(props) {
   console.log("location is", location);
 
   useEffect(() => {
-    console.log("location is", location);
     httpClient
       .GET("hospital/get-all")
       .then((resp) => {

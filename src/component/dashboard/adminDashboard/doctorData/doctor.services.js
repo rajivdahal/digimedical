@@ -38,7 +38,7 @@ const doctorApi = {
     formData.append("liscenceDate", values.licensedDate);
     formData.append("mobileNumber", values.mobileNumber);
     formData.append("serviceId", selectedId);
-    formData.append("digiServicesId", digiServiceId);
+    formData.append("digiServiceId", digiServiceId);
 
 
     return httpClient.POST("doctor/create", formData, false, true, "formdata");
@@ -110,7 +110,7 @@ const doctorApi = {
     formData.append("description", values.description);
     formData.append("liscenceDate", values.licensedDate);
     formData.append("mobileNumber", values.mobileNumber);
-    formData.append("digiServicesId", digiServiceId);
+    formData.append("digiServiceId", digiServiceId);
     formData.append("serviceId", selectedId);
     return httpClient.PUT(
       "doctor/update/" + id,
@@ -160,7 +160,7 @@ const doctorApi = {
   },
 
   getAdminDoctor: () => {
-    return httpClient.GET("doctor/getall", false, true);
+    return httpClient.GET("doctor/digi/get-all", false, true);
   },
 
   getHospitalDoctor: () => {
@@ -168,6 +168,7 @@ const doctorApi = {
   },
 
   getAdminDoctorBYId: (id) => {
+    console.log(id)
     return httpClient.GET("doctor/basic-info/" + id, false, true);
   },
 

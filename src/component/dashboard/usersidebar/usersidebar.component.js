@@ -15,6 +15,7 @@ export default function Usersidebar(props) {
   };
   const loadHospitals = () => {
     props.props.push("/dashboard/hospitals");
+    // props.props.push("/dashboard/hospital-specialist");
   };
   const loadMedicalReport = () => {
     props.props.push("/dashboard/medical-reports");

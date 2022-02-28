@@ -1,8 +1,10 @@
 import { httpClient } from "../../../../utils/httpClient";
 
 const hospitalApi = {
-  createHospital: (values) => {
+  createHospital: (values) => {  
     let formData = new FormData();
+    console.log(values.hospitalPricePojos)
+    // const {} = values;
     if (values.hospitalImage) {
       formData.append("image", values.hospitalImage);
     }
@@ -10,14 +12,15 @@ const hospitalApi = {
     formData.append("description", values.description);
     formData.append("establishedDate", values.establishedDate);
     formData.append("panNo", values.panNo);
-    formData.append("link", values.link);
+    formData.append("websiteLink", values.link);
+    formData.append("email", values.email);
     formData.append("contactNo", values.contactNumber);
     formData.append("phoneNumber", values.mobileNumber);
     formData.append("address", values.address);
+    formData.append("value",JSON.stringify(JSON.stringify(values.hospitalPricePojos)));
     formData.append("hospitalEmail", values.email);
     formData.append("password", values.password);
     formData.append("confirmPassword", values.confirmPassword);
-
     return httpClient.POST("hospital/create", formData, false, true, "formdata");
   },
 
@@ -43,6 +46,9 @@ const hospitalApi = {
   
   getAllHospital : ()=>{
     return httpClient.GET("hospital/get-all/admin", false, true);
+  },
+  getDigiServices : ()=>{
+    return httpClient.GET("digi-service/get-three", false, true);
   },
 
   getHospitalById : (id)=>{

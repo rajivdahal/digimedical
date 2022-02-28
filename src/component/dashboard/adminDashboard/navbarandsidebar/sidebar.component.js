@@ -14,6 +14,9 @@ const Adminsidebar = (props) => {
   const navigatedashboard = () => {
     props.props.push("/dashboard/")
   }
+  const navigateServices=()=>{
+    props.props.push("/dashboard/services")
+  }
   return (
     <div>
       <nav className="sidebar sidebar-scroll sidebar-offcanvas" id="sidebar">
@@ -24,6 +27,12 @@ const Adminsidebar = (props) => {
             <a className="nav-link" >
               <DashboardIcon className="dash-icon"></DashboardIcon>
               <span className="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li className="nav-item" onClick={navigateServices} style={{cursor:"pointer"}}>
+            <a className="nav-link" >
+              <DashboardIcon className="dash-icon"></DashboardIcon>
+              <span className="menu-title">Services</span>
             </a>
           </li>
           <li className="nav-item">
@@ -183,7 +192,7 @@ const Adminsidebar = (props) => {
                 <Link to="/dashboard/add-institute">
                   <li className="nav-item"><a className="nav-link" href="">Lab Centers</a></li>
                 </Link>
-                
+
                 <Link to="/dashboard/body-checkup">
                 <li className="nav-item"><a className="nav-link" href="">Add Body Checkup</a></li>
                 </Link>
