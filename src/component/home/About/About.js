@@ -4,12 +4,12 @@ import logo from "../../../assets/about.png";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 const AboutUsContainer = styled.div`
-  margin-top: 8rem;
+  margin-top: 10rem;
   padding-left: 140px;
   padding-right: 140px;
   display: grid;
   grid-template-columns: auto auto;
-  grid-column-gap: 60px;
+  grid-column-gap: 6rem;
   @media screen and (max-width: 1077px) {
     grid-template-columns: auto;
   }
@@ -19,8 +19,10 @@ const AboutUsContainer = styled.div`
   }
 `;
 const ImageContainer = styled.img`
-  width: 555px;
-  height: 355px;
+  margin-top: 1rem;
+  width: 620px;
+  height: 410px;
+  object-fit: cover;
   @media screen and (max-width: 1260px) {
     width: 460px;
     height: 300px;
@@ -50,28 +52,30 @@ const DescriptionContainer = styled.div`
   margin: 0.5rem;
   font-weight: bold;
   span {
-    font-size: 0.9rem;
+    font-size: 15px;
+    font-weight: 500;
     line-height: 30px;
     color: #596579;
   }
   h2 {
     font-style: normal;
     line-height: 52px;
-    font-size: 38px;
+    font-size: 33.33px;
     font-weight: bold;
     @media screen and (max-width: 767px) {
-    font-size: 1.5rem;
+      font-size: 1.5rem;
     }
   }
   p {
     line-height: 25px;
     text-align: justify;
     color: #7b8698;
-    font-size: 0.9rem;
-    font-weight: 300;
+    font-size: 15px;
+    font-weight: 400;
   }
 `;
 const Button = styled.div`
+  margin-top: 1.5rem;
   height: 50px;
   width: 150px;
   display: flex;
@@ -83,9 +87,9 @@ const Button = styled.div`
   font-size: 14px;
 `;
 const WhaiIsDegimediacal = () => {
-  useEffect(()=>{
-window.scrollTo(0,0)
-  },[])
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <AboutUsContainer>

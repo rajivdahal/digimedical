@@ -9,7 +9,7 @@ import line from "../../assets/line.png";
 import login from "../../assets/login.png";
 import user from "../../assets/user.png";
 import NavbarMenuItems from "./NavbarMenuItems";
-import './Navbar.css';
+import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -26,16 +26,16 @@ const Heading = styled.div`
   display: flex;
   justify-content: space-between;
 
-  ul{
-    margin:0 ;
+  ul {
+    margin: 0;
     padding: 0;
   }
 
-  li{
+  li {
     list-style: none;
   }
 
-  .left-div { 
+  .left-div {
     display: flex;
     align-items: center;
     color: #596579;
@@ -56,8 +56,8 @@ const Heading = styled.div`
     line-height: 22px;
     letter-spacing: 0.01em;
   }
-  
-  ul.phone-number-div li.number h5{
+
+  ul.phone-number-div li.number h5 {
     display: inline-block;
   }
   .email-div {
@@ -138,11 +138,11 @@ const Navbar = (props) => {
             <img src={phone} className="phone-img"></img>
 
             <ul className="phone-number-div">
-              <li className="number">
-                <h5>+977 9843346605</h5>
+              <li className="number" style={{ fontSize: "15px" }}>
+                +977 9843346605
               </li>
-              <li className="number">
-                <h5>01 5909141</h5>
+              <li className="number" style={{ fontSize: "15px" }}>
+                01 5909141
               </li>
             </ul>
           </div>
@@ -152,11 +152,13 @@ const Navbar = (props) => {
               className="email-img"
               style={{ height: "10px" }}
             ></img>
-            <span style={{ marginLeft: "0.563rem" }}>
+            <span style={{ marginLeft: "0.563rem", fontSize: "15px" }}>
               info@digimedicalsewa.com
             </span>
           </div>
-          <div className="emergencyService-div">Emergency service 24/7</div>
+          <div className="emergencyService-div" style={{ fontSize: "15px" }}>
+            Emergency service 24/7
+          </div>
         </div>
         <div className="right-div">
           <img
@@ -175,7 +177,7 @@ const Navbar = (props) => {
           {isuserloggedin ? (
             <>
               <Link to="/dashboard/">
-                <div>
+                <div style={{ fontSize: "15px" }}>
                   {" "}
                   <img
                     src={user}
@@ -189,7 +191,7 @@ const Navbar = (props) => {
                 </div>
               </Link>
               <div
-                style={{ color: "blue", cursor: "pointer" }}
+                style={{ color: "blue", cursor: "pointer", fontSize: "15px" }}
                 onClick={Logout}
               >
                 {" "}
@@ -207,7 +209,7 @@ const Navbar = (props) => {
           ) : (
             <>
               <Link to="/login">
-                <div className="log-item">
+                <div className="log-item" style={{ fontSize: "15px" }}>
                   {" "}
                   <img
                     src={login}
@@ -221,7 +223,7 @@ const Navbar = (props) => {
                 </div>
               </Link>
               <Link to="/register">
-                <div className="log-item">
+                <div className="log-item" style={{ fontSize: "15px" }}>
                   {" "}
                   <img
                     src={user}

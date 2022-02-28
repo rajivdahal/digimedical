@@ -5,8 +5,9 @@ import FeaturesData from "./FeaturesData";
 import whychooseusimg from "../../../assets/whychooseusimg.png";
 function WhyChooseUs() {
   const Container = styled.div`
+    margin-top: 6rem;
     background: #fff;
-    padding-bottom: 5rem;
+    padding-bottom: 4rem;
     @media screen and (max-width: 799px) {
       padding-bottom: 0;
     }
@@ -32,20 +33,20 @@ function WhyChooseUs() {
   const Main = styled.div`
     font-style: normal;
     line-height: 52px;
-    font-size: 38px;
+    font-size: 33.33px;
     font-weight: bold;
     color: #192638;
     text-align: center;
-    @media screen and (max-width: 767px){
-      font-size:1.5rem;
+    @media screen and (max-width: 767px) {
+      font-size: 1.5rem;
     }
   `;
 
   const Sub = styled.div`
     text-align: center;
-    font-size: 14px;
+    font-size: 15px;
     color: #596579;
-    font-size: 18px;
+    font-weight: normal;
     line-height: 30px;
     word-spacing: 0.02rem;
     letter-spacing: 0.03rem;
@@ -76,7 +77,7 @@ function WhyChooseUs() {
     &:hover {
       background-image: linear-gradient(180deg, #f5faff 0%, #f5faff 100%);
     }
-    @media screen and (max-width: 767px){
+    @media screen and (max-width: 767px) {
       width: 100%;
     }
   `;
@@ -85,16 +86,16 @@ function WhyChooseUs() {
     width: 40px;
     height: 40px;
     margin: auto;
-    img{
-      height:100%;
+    img {
+      height: 100%;
       width: 100%;
       object-fit: contain;
     }
   `;
 
   const Title = styled.div`
-    font-weight: bold;
-    font-size: 18px;
+    font-weight: 500;
+    font-size: 19.16px;
     color: #192638;
     text-align: center;
     padding: 25px 0 15px 0;
@@ -102,10 +103,11 @@ function WhyChooseUs() {
 
   const Subtitle = styled.div`
     text-align: center;
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: normal;
     color: #7b8698;
     word-spacing: 0.02rem;
-    letter-spacing: 0.03rem; 
+    letter-spacing: 0.03rem;
     padding: 2px;
     line-height: 25px;
   `;

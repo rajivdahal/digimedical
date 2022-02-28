@@ -14,7 +14,7 @@ export const data = [
     link: "/our-services/online-medical-consultation",
   },
   {
-    img: require("../../../assets/Nurse.png").default,
+    img: require("../../../assets/Nurse.svg").default,
     title: "24/7 Nursing Service at home",
     description:
       "Remote Nursing service has been ally for those who needs. Keeping those rememberance we provide you the Top class nurses right at your home",

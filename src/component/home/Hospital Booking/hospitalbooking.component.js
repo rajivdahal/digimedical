@@ -91,29 +91,36 @@ export default function Hospitalbookingcomponent(props) {
                 return (
                   <div className="hospital_book_card1">
                     <img
-                      src={REACT_APP_BASE_URL+"hospital/download/"+item.id}
-                      onError={(e)=>{e.target.onerror = null; e.target.src="/images/hospital.jpeg"}}
+                      src={REACT_APP_BASE_URL + "hospital/download/" + item.id}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/images/hospital.jpeg";
+                      }}
                       alt=""
                     />
-                    <div className="hospital_card_text">
-                      <h1>{item.name}</h1>
-                      <p2>{item.address}</p2>
-                      <p2>{item.description.slice(0, 50)}.....</p2>
-                    </div>
-                    <div className="hosp_card_but_main">
+                    <div className="hosp-ct-bt">
                       {" "}
-                      <button
-                        id={
-                          props.location
-                            ? props.location.pathname === "/dashboard/hospitals"
-                              ? "hosp_card_but_user"
-                              : "hosp_card_but_user"
-                            : "hosp_card_but"
-                        }
-                        onClick={() => showDoctors(item)}
-                      >
-                        Book an appointment
-                      </button>
+                      <div className="hospital_card_text">
+                        <h1>{item.name}</h1>
+                        <p2>{item.address}</p2>
+                        <p2>{item.description.slice(0, 50)}.....</p2>
+                      </div>{" "}
+                      <div className="hosp_card_but_main">
+                        {" "}
+                        <button
+                          id={
+                            props.location
+                              ? props.location.pathname ===
+                                "/dashboard/hospitals"
+                                ? "hosp_card_but_user"
+                                : "hosp_card_but_user"
+                              : "hosp_card_but"
+                          }
+                          onClick={() => showDoctors(item)}
+                        >
+                          Book an appointment
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -147,7 +154,8 @@ export default function Hospitalbookingcomponent(props) {
               })
             ) : (
               <h1>Not found</h1>
-            )}dashboard/hospitals
+            )}
+            dashboard/hospitals
           </div>
           <div className="pagination_hosp">
             {hospitals.length ? (

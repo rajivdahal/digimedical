@@ -80,8 +80,8 @@
 }
 .speciality_cont2 p {
   text-align: center;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 15px;
   line-height: 30px;
   color: #374253;
 }
@@ -200,8 +200,8 @@ p {
   padding-left: 20px;
 }
 .digidoc_whycus_h1 {
-  font-size: 23px;
-  font-weight: 700;
+  font-size: 19.16px;
+  font-weight: bold;
 }
 .digidoc_whycus_body {
 }
@@ -219,11 +219,11 @@ p {
 }
 
 .ico_digi_doc1 {
-  font-size: 20px;
+  font-size: 19.16px;
 }
 .digidoctor_whychooseus_cont p {
-  font-size: 16px;
-  color: #374253;
+  font-size: 15px;
+  color: #7b8698;
   font-weight: normal;
 }
 
@@ -241,8 +241,6 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
-  font-weight: 600;
 }
 .digidoc_emergency_call p {
   text-align: center;
@@ -253,7 +251,7 @@ p {
   text-align: center;
   margin-top: 20px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: bold;
 }
 @media screen and (max-width: 660px) {
   .digidoctor_apoint_card1 {

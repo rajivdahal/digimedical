@@ -3,6 +3,7 @@
 }
 .items-div {
   padding: 1rem;
+  margin-top: 3rem;
 }
 .inner {
   padding: 1rem;
@@ -22,27 +23,27 @@
   display: flex;
   align-items: center;
 }
-.client-name {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 0.8rem;
+.client .client-name {
+  font-weight: 500;
+  font-size: 15px;
   line-height: 30px;
   color: #192638;
+  text-align: center;
 }
-.client p{
-  text-align: left;
-}
-.client-info {
+
+.client .client-info {
   font-style: normal;
-  font-weight: normal;
-  font-size: 0.8rem;
-  line-height: 20px;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 25px;
   margin: 0;
+  text-align: left;
+  color: #a7b2c3;
 }
 .details-div {
   font-style: normal;
-  font-weight: normal;
-  font-size: 0.8rem;
+  font-weight: 300;
+  font-size: 15px;
   line-height: 30px;
   color: #596579;
   text-align: left;

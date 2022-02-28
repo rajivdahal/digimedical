@@ -180,8 +180,7 @@ y here */
   height: 11px;
   background-size: contain;
 }
-.accordion-button:not(.collapsed)::after {
-}
+
 .doc_accordion .accordion-button:not(.collapsed) {
   background: #f5faff;
   color: #2745f0;
@@ -201,7 +200,7 @@ y here */
 
 .doc_accordion ul.accordion-body li {
   list-style: disc;
-  background: #f5faff;
+  background: #03080c;
   color: #374253;
   padding: 10px 10px 10px 5px;
   transition: all 0s;
