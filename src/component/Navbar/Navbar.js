@@ -98,7 +98,6 @@ const NavbarContainer = styled.div``;
 
 const Navbar = (props) => {
   let history = useHistory();
-  console.log("props are", props);
   let [isuserloggedin, setisuserloggedin] = useState(null);
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -123,7 +122,7 @@ const Navbar = (props) => {
     if (isuserlogged) {
       setisuserloggedin(isuserlogged);
     }
-  });
+  },[]);
   const handlelogout = () => {};
   const Logout = (e) => {
     setlogoutstate({

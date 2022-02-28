@@ -39,8 +39,7 @@ export const Commonupcomingappointment = (props) => {
 
             })
             .catch(err => {
-                console.log(err.response.data)
-                // notify.error("something went wrong")
+                console.log(err.response)
             })
             .finally(() => {
                 setTableLoading(false)

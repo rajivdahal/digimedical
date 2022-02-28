@@ -2,7 +2,6 @@ import { REGEX } from "../../../../constants/constants";
 import { getRequiredError } from "../../../../utils/errorHelper";
 
 const validateService = (values,digiService) => {
-    console.log(values);
     let errors = {};
     if (!values.serviceName) {
         errors.serviceName = getRequiredError("Service Name")
@@ -20,9 +19,13 @@ const validateService = (values,digiService) => {
         if (!values.price) {
             errors.price = getRequiredError("Price")
         }
-        if (!values.image) {
-            errors.image = getRequiredError("Image")
-        }
+        // if (!values.serviceImg) {
+        //     errors.serviceImg = getRequiredError("Image")
+        // }
+        // if (!values.iconImg) {
+        //     errors.iconImg = getRequiredError("Image")
+        // }
+        console.log(errors)
         return errors;
     }
     return errors;

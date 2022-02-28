@@ -222,7 +222,6 @@ const LabtestSubcategory = (props) => {
             instituteId : instituteID,
             categoryId : subCategoryID
         } 
-        console.log(tempData)
         httpClient.PUT("labtest/category/change/status",tempData , false, true)
             .then(resp => {
                 if (resp.data.status) {

@@ -22,6 +22,7 @@ export default function DigiDoctorPayment(props) {
         }
     const handleChange=(e,data)=>{
         const {value}=e.target
+        console.log("value isss",e,value,data)
         if(value=="home"){
             setIsPaymentMethodOnline(false)
             setDigiDoctorPaymentType("home")
@@ -64,7 +65,7 @@ export default function DigiDoctorPayment(props) {
             <div className="pay-ctlt-checkbox">
               <div className="ctlt_institute_radio">
                   {
-                      digiDoctorBooking.digiDoctorInfo.services.map((item,index)=>{
+                      digiDoctorBooking.digiDoctorInfo.digiServices.map((item,index)=>{
                         return  <div className="pay-radio1">
                         <div>
                           {" "}
