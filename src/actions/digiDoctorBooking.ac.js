@@ -41,6 +41,7 @@ export const setPaymentType=(params)=>{
         })
     }
 }
+
 export const resetDigiDoctorState=(params)=>{
     return(dispatch)=>{
         dispatch({

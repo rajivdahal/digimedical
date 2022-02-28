@@ -5,12 +5,13 @@ import { SidebarReducer } from "./sidebar.red";
 import { medicalReportsReducer } from "./medicalReports.red";
 import { hospitalAppointmentBookingReducer } from "./hospitalAppointmentBooking.red";
 import { digiDoctorAppointmentBookingReducer } from "./digiDoctorBooking.red";
+import { paymentPopUpReducer } from "./paymentPopUp.red";
 export const rootReducer=combineReducers({
     user:UserReducer,
     cart:Cartreducer,
     sidebar:SidebarReducer,
     medicalReports:medicalReportsReducer,
     appointmentBooking:hospitalAppointmentBookingReducer,
-    digiDoctorAppointmentBooking:digiDoctorAppointmentBookingReducer
-
+    digiDoctorAppointmentBooking:digiDoctorAppointmentBookingReducer,
+    paymentPopUp:paymentPopUpReducer
 })

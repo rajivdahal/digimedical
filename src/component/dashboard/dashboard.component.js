@@ -69,7 +69,8 @@ import AddFamilyMember from "./userdashboard/familyMember/addFamilyMember.compon
 import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.component";
 import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoctor";
 import UtilsInfo from "./userdashboard/utilsinformation/utilsInfo.component";
-import { BodyCheckUpUser } from "./userdashboard/bodyCheckup/bodyCheckUp.component";
+// import BodyCheckUpUser  from "./userdashboard/bodyCheckup/bodyCheckUp.component";
+import BodyCheckUpUser from "./userdashboard/bodyCheckup/bodyCheckUp.component"
 
 // doctor
 import Doctornavbar from "./doctordashboard/navbarandsidebar/doctornavbar.component";
