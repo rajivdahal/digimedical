@@ -39,7 +39,7 @@ export default function NursingAtHome() {
               we provide following nursing services:
             </p>
             <div className="packages_lt">
-              <h3>SHORT TERM NURSING CARE</h3>
+              <p className="packages_ltp">SHORT TERM NURSING CARE</p>
               <p className="serv-text">
                 Short term nurses provide nursing services for 1-4 hours or a
                 specific period. Short term nursing care is temporary medical
@@ -55,7 +55,7 @@ export default function NursingAtHome() {
 
             <div>
               {" "}
-              <h3>LONG TERM NURSING CARE</h3>
+              <p className="packages_ltp">LONG TERM NURSING CARE</p>
               <p className="serv-text">
                 Long term nurses provide nursing services for 12-24 hours. It is
                 a comprehensive range of medical, physical and surgical care to
@@ -69,7 +69,7 @@ export default function NursingAtHome() {
             </div>
             <div>
               {" "}
-              <h3>Post Surgical Care</h3>
+              <p className="packages_ltp">Post Surgical Care</p>
               <p className="serv-text">
                 Post-surgical care is critical, and includes everything from
                 pain management & feeding to respiratory management & fluid
@@ -79,7 +79,7 @@ export default function NursingAtHome() {
             </div>
             <div>
               {" "}
-              <h3>Urinary Catheterisation Care</h3>
+              <p className="packages_ltp">Urinary Catheterisation Care</p>
               <p className="serv-text">
                 Our nurses are well trained and can help you with the process of
                 Urine catheterization care at your home; be it catheter
@@ -88,7 +88,7 @@ export default function NursingAtHome() {
             </div>
             <div className="packages_lt">
               {" "}
-              <h3>Wound care</h3>
+              <p className="packages_ltp">Wound care</p>
               <p className="serv-text">
                 Healing process varies depending on the wound type? Our nurses
                 are experienced in handling varied types of wounds-postoperative
@@ -99,7 +99,7 @@ export default function NursingAtHome() {
             </div>
             <div className="packages_lt">
               {" "}
-              <h3> Oxygen Administration:</h3>
+              <p className="packages_ltp"> Oxygen Administration:</p>
               <p className="serv-text">
                 Oxygen administration is required in both acute and chronic
                 conditions like trauma, haemorrhage, shock, breathlessness,
@@ -110,7 +110,7 @@ export default function NursingAtHome() {
             </div>
             <div className="packages_lt">
               {" "}
-              <h3>Injection:</h3>
+              <p className="packages_ltp">Injection:</p>
               <p className="serv-text">
                 Save yourself the trouble of travel and long hospital hours for
                 a minor process like injection administration or IV infusion.

@@ -32,6 +32,8 @@ import HelicopterService from "./helicopter services/helicopterService.component
 import IntHospBook from "./international hosp booking/intHospBook.component";
 import RootOurServ from "./rootOurServ";
 const Root = styled.div`
+  height: 30rem;
+  margin-bottom: 4rem;
   padding-left: 9rem;
   padding-right: 9rem;
   padding-top: 2.5rem;

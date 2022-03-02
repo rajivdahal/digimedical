@@ -77,6 +77,13 @@
   overflow-wrap: break-word;
 }
 
+.packages_ltp {
+  font-weight: 500;
+  font-size: 15px;
+  color: #000000;
+  line-height: 30px;
+}
+
 /*a
 b
 c
