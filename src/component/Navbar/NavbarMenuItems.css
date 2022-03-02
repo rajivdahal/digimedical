@@ -67,12 +67,17 @@ ul {
   align-items: center;
   justify-content: center;
 }
+.nav_link_font {
+  font-size: 15px;
+  font-weight: normal;
+  color: #f4f7fb;
+}
 /* menu of dropping down content */
 .dropdown_hp_content {
   z-index: 19;
   position: absolute;
-  top: 162px;
-  left: 20;
+  top: 164px;
+
   padding: 10px;
 
   display: none;
@@ -338,5 +343,11 @@ p {
     margin-top: 30%;
     left: 40%;
     width: 70%;
+  }
+}
+
+@media screen and (max-width: 1088px) {
+  .dropdown_hp_content {
+    top: 192px;
   }
 }

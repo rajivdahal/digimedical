@@ -23836,6 +23836,11 @@ input:focus {
 }
 @font-face {
   font-family: objective;
+  src: url("../../../css/fontobjective/Objective-Super.otf") format("opentype");
+  font-weight: 600;
+}
+@font-face {
+  font-family: objective;
   src: url("../../../css/fontobjective/Objective-Bold.otf") format("opentype");
   font-weight: 700;
 }

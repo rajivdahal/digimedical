@@ -52,7 +52,7 @@ const NavbarMenuItems = () => {
   const [FamilyType, setFamilyType] = useState([]);
   const [doctorCategory, setDoctorCategory] = useState([]);
 
-  const [doctorSpeciality,setDoctorSpeciality] = useState([]);
+  const [doctorSpeciality, setDoctorSpeciality] = useState([]);
   const history = useHistory();
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -147,7 +147,7 @@ const NavbarMenuItems = () => {
   useEffect(() => {
     getBusinessPackage();
     getFamilyPackage();
-    getServices()
+    getServices();
     getDoctorSpeciality();
   }, []);
 
@@ -318,7 +318,7 @@ const NavbarMenuItems = () => {
           {" "}
           <li className="menu-item_nav common-menu">
             <Link
-              className="link_home_nav"
+              className="link_home_nav nav_link_font"
               to="/services"
               style={{ textDecoration: "none", color: "inherit" }}
             >
@@ -548,6 +548,7 @@ const NavbarMenuItems = () => {
           </li>
           <li className="menu-item common-menu">
             <Link
+              className="nav_link_font"
               to="/forbusiness"
               style={{ textDecoration: "none", color: "inherit" }}
             >
@@ -582,6 +583,7 @@ const NavbarMenuItems = () => {
           </li>
           <li className="menu-item common-menu">
             <Link
+              className="nav_link_font"
               to="/family-package"
               style={{ textDecoration: "none", color: "inherit" }}
             >
@@ -614,19 +616,29 @@ const NavbarMenuItems = () => {
               </div>
             </div> */}
           </li>
-
           <li className="menu-item_nav common-menu">
+            <Link
+              className="nav_link_font"
+              to="/contact"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               Our Doctors
+            </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
                 {doctorSpeciality.map((item, index) => {
                   return (
                     <>
-                      <Link key={index}
+                      <Link
+                        key={index}
                         to={{
                           pathname: "digi-doctors",
-                          state: { specialityId: item.id ,specialityName : item.servicename},
-                        }}>
+                          state: {
+                            specialityId: item.id,
+                            specialityName: item.servicename,
+                          },
+                        }}
+                      >
                         <img
                           src={package_logo}
                           style={{
@@ -653,9 +665,9 @@ const NavbarMenuItems = () => {
               </div>
             </div>
           </li>
-
           <li className="menu-item common-menu">
-           <Link
+            <Link
+              className="nav_link_font"
               to="/about"
               style={{ textDecoration: "none", color: "inherit" }}
             >
@@ -664,6 +676,7 @@ const NavbarMenuItems = () => {
           </li>
           <li className="menu-item common-menu">
             <Link
+              className="nav_link_font"
               to="/contact"
               style={{ textDecoration: "none", color: "inherit" }}
             >

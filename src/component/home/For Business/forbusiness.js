@@ -82,7 +82,7 @@ function forbusiness() {
           <Subheading></Subheading>
         </Content>
       </Root>
-      <div className="ourserv-cont-main">
+      <div className="ourserv-cont-main" style={{ paddingBottom: "4rem" }}>
         <div className="ourserv-cont-main1">
           <div className="serv-passages">
             <p className="questionheads">

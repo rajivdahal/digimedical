@@ -78,10 +78,9 @@ const GetAppointment = styled.a`
 `;
 
 const AboutPage = () => {
-  useEffect(()=>{
-    window.scrollTo(0,0)
-
-  },[])
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Navbar></Navbar>

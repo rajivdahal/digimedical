@@ -8,6 +8,7 @@ import { BiMinusCircle } from "react-icons/bi";
 const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
+  padding-bottom: 6rem;
 
   @media screen and (max-width: 999px) {
     padding-left: 1rem;
