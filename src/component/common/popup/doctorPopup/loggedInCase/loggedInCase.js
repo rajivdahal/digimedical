@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 import { hospitalAppointmentBookingReducer } from '../../../../../reducers/hospitalAppointmentBooking.red';
 import { appointmentFixed } from '../../../../../actions/hospitalAppointmentBooking.ac';
 import SelectPaymentMethod from '../selectPaymentMethod/selectPaymentMethod';
-import PayPop from '../../paymentpopup/payment';
+// import PayPop from '../../paymentpopup/payment';
 import { digiDoctorAppointmentFixed } from '../../../../../actions/digiDoctorBooking.ac';
 
 export default function LoggedInCase(props) {

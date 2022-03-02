@@ -16,11 +16,12 @@ import { firstUpperCase } from "../../../utils/stringUppercase";
 import DoctorPopup from "../../common/popup/doctorPopup/doctorPopup";
 // import DocPopup from "../../common/popup/doctorPopup";
 import Accordion from "react-bootstrap/Accordion";
-import PayPop from "../../common/popup/paymentpopup/payment";
+// import PayPop from "../../common/popup/paymentpopup/payment";
 import BookAnAppointment from "../BookAnAppointment/BookAnAppointment";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { resetHospitalDoctorState, setDoctorInfo } from "../../../actions/hospitalAppointmentBooking.ac";
+import { setOpenPopUp } from "../../../actions/paymentPopUp.ac";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -184,9 +185,13 @@ export default function Hospital_doctors(props) {
     // Redux implementation
     const dispatch = useDispatch();
     const appointmentBooking = useSelector((state) => state.appointmentBooking);
+    const popUpActionsData=useSelector((state)=>state.paymentPopUp)
     const settingDoctorInfo=bindActionCreators(setDoctorInfo,dispatch)
     const resetDoctorInfo=bindActionCreators(resetHospitalDoctorState,dispatch)
+    const openDoctorPopUp=bindActionCreators(setOpenPopUp,dispatch)
+  // NOTE:Pop up action data from redux is already imported look above just implement below by setting trihgger from redux store data
 
+  console.log("pop up data are",popUpActionsData,openDoctorPopUp)
 
   // end of redux implementation
 
@@ -259,7 +264,7 @@ export default function Hospital_doctors(props) {
             </div>
 
             <div className="doc_appoint_main">
-              <PayPop></PayPop>
+              {/* <PayPop></PayPop> */}
               {!searcheddoctors.length && !issearched ? (
                 alldoctors.length ? (
                   alldoctors.map((doctor, doctorindex) => {

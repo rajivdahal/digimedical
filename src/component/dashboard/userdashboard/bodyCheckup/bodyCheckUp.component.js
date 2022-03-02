@@ -1,207 +1,251 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-// import "./medicalReports.componen  t.css";
-import { useEffect, useState } from "react";
-import { httpClient } from "../../../../utils/httpClient";
-import { notify } from "../../../../services/notify";
-import * as Yup from "yup";
+import DatePicker from '@amir04lm26/react-modern-calendar-date-picker';
+import { ErrorMessage, Field, Form, Formik ,useFormikContext} from 'formik'
+import React from 'react'
+import { useState ,useEffect} from 'react';
 import Select from "react-select";
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import {
-  setMedicalReportOpen,
-} from "../../../../actions/medicalReports.ac";
-import { CommonMedicalreportTable } from "../medicalReports/commonMedicalreportTable";
-// import { CommonUtilityreportTable } from "./commonMedicalreportTable";
-// import { CommonMedicalreportTable } from "../medicalReports/commonMedicalreportTable";
+import { httpClient } from '../../../../utils/httpClient';
+import * as Yup from "yup";
+// import "./services.component.css"
+import { notify } from '../../../../services/notify';
+import MaterialTable from 'material-table';
+import Tableicons from '../../../../utils/materialicons';
+import { Check, Edit, Clear, Add } from "@material-ui/icons";
 
-export const BodyCheckUpUser = (props) => {
-  const dispatch = useDispatch();
-  const medicalReport = {
-    hospitalName: "",
-    doctorName: "",
-    visitedDate: "",
-    followUpDate: "",
-    description: "",
-  };
-  const medicalReportSchema = Yup.object().shape({
-    hospitalName: Yup.string().required("Hospital name is required!"),
-    doctorName: Yup.string().required("Doctor name is required!"),
-    visitedDate: Yup.string().required("Visited Date required!"),
-    followUpDate: Yup.string().required("Follow up date is required!"),
-  });
-  let [image, setImage] = useState([]);
-  const [medicalData, setMedicalData] = useState([]);
 
-  const tableVisibilityInfo = useSelector((state) => state.medicalReports);
+export default function BodyCheckUpUser(props) {
+  const initialValues={
+    serviceId:"",
+    date:"",
+    value:""
+}
 
-  const setIsMedicalReportOpen = bindActionCreators(
-    setMedicalReportOpen,
-    dispatch
-  );
-  const showMedicalInformation = (e) => {
-    setIsMedicalReportOpen(true);
-  };
-  const fetchdata = () => {
-    httpClient.GET("medical-records/get-all", false, true).then((resp) => {
-      let revisedMedicalData = resp.data.data.map((item) => {
-        item.category = "Medical report";
-        if (!item.description.length) item.description = "none";
-        if (!item.followupdate) item.followupdate = "none";
-        if (!item.visiteddate) item.visiteddate = "none";
-        if (!item.hospitalname) item.hospitalname = "none";
-        if (!item.doctorname) item.doctorname = "none";
-        return item;
-      });
-      setMedicalData(revisedMedicalData);
-    });
-  };
+const schema = Yup.object().shape({
+  serviceId: Yup.string().required("Service is required!"),
+  date: Yup.object(),
+  value: Yup.string().required("Value is required!"),
+});
+var dt = new Date();
+    const [selectedDay, setSelectedDay] = useState({
+        year: dt.getFullYear(),
+        month: dt.getMonth() + 1,
+        day: dt.getDate(),
+        });
+    const [bodyCheckUpCategories, setBodyCHeckUpCategories] = useState([]);
+    const [allServices,setAllServices]=useState([])
+    const [selectedService,setSelectedService]=useState([])
+    let [date,setDate]=useState("")
+    let [toDeleteData,setToDeleteData]=useState(null)
+    let [deleteIndeedPopUp,setDeleteIndeedPopUp]=useState(false)
+    let [deleteIndeed,setDeleteIndeed]=useState(false)
 
-  const upload = (values, { resetForm }) => {
-    httpClient
-      .UPLOAD("post", "medical-records/create", values, false, image, true)
-      .then((resp) => {
-        notify.success("Medical Record Is Successfully Created");
-        fetchdata();
-        resetForm();
-        setIsMedicalReportOpen();
+    let [serviceId,setServiceId]=useState("")
+      useEffect(()=>{
+          getAllServices()
+          getSelectedServices()
+      },[])
+
+    const getAllServices=()=>{
+        httpClient.GET("body-checkup/get-all",false,true)
+        .then(resp=>{
+            let allServices = resp.data.data.map((item) => {
+                return {
+                  label: item.name,
+                  value: item.id,
+                };
+              });
+
+            setAllServices(allServices)
+        })
+    }
+    const getSelectedServices=()=>{
+      httpClient.GET("body-checkup/detail/get-all",false,true)
+      .then(resp=>{
+        console.log("resp.data is",resp.data.data)
+        // let finalData=resp.data.data.map((item)=>{
+        //     item.userName=item.firstName+" "+item.middleName+" "+item.lastName
+        //     return item
+        // })
+        setSelectedService(resp.data.data)
       })
-      .catch((err) => {
-        notify.error("Something went wrong", err);
-      });
-  };
+      .catch(err=>{
+        notify.error("Error in fetching services")
+      })
+    }
 
-
-  const handleImageChange = (event) => {
-    let file = [];
-    file.push(event.target.files[0]);
-    console.log(file);
-    setImage(file);
-  };
-
-  useEffect(() => {
-    fetchdata();
-  }, []);
-  const formikContent=null
-
+function DatePickerField({ name }) {
+  const formik = useFormikContext();
+  const field = formik.getFieldProps(name);
+  return (
+    <DatePicker
+      value={field.value?field.value:selectedDay}
+      onChange={value => {
+        formik.setFieldValue(name, value)
+      }}
+    />
+  );
+}
+function InputSelectField({name}){
+  console.log("name is,,,,",name)
+  const formik=useFormikContext()
+  const field=formik.getFieldProps(name);
+  return(
+    <input type={"text"} className="prescription_input" onChange={e=>{
+      formik.setFieldValue(name,e.target.value)
+    }}
+    placeholder="120/80 mmHg"
+    ></input>
+  )
+}
+function SelectField({name}){
+  const formik=useFormikContext()
+  const field=formik.getFieldProps(name);
+  return (
+    <Select
+    options={allServices}
+    className="select-category"
+    onChange={(value)=>{
+      formik.setFieldValue(name,value.value)
+    }}
+    />
+  )
+}
+  const submit=(values,{ resetForm })=>{
+      let finaldata={
+        checkUpDate:values.date?
+                        values.date.year+"-"+values.date.month+"-"+values.date.day:
+                        selectedDay.year+"-"+selectedDay.month+"-"+selectedDay.day,
+         bodyCheckupId:values.serviceId,
+        value:values.value
+      }
+      console.log("finaldata",finaldata)
+      httpClient.POST("body-checkup/detail/create",finaldata,false,true)
+      .then(resp=>{
+        notify.success("Updated Successfully")
+        resetForm()
+        getSelectedServices()
+      })
+      .catch(err=>{
+        notify.error("Error in updating")
+      })
+  }
+  const columnsData=[
+    { title: "Name",field: "name" },
+    { title: "Date", field: "checkupdate" },
+    { title: "Value", field:"value"},
+  ]
+  const deleteData=(data)=>{
+    setToDeleteData(data)
+    setDeleteIndeedPopUp(true)
+  }
+  if(deleteIndeed){
+    httpClient.PUT("service-booking/cancel/"+toDeleteData.id,null,false,true)
+    .then(resp=>{
+      getSelectedServices()
+      notify.success("Deleted Successfully")
+      setDeleteIndeed(false)
+    })
+    .catch(err=>{
+      notify.error("Problems in deleting")
+    })
+    }
   return (
     <div className="med_repo_main">
-      <div className="main-psetImage  report-container">
-        <h2>Update your previous report here</h2>
-        <div className="row umi_row">
-          <div className="col-md-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
+    <div className="main-psetImage  report-container">
 
+      <div className="row umi_row">
+        <div className="col-md-12 grid-margin stretch-card">
+          <div className="card">
+            <div className="card-body">
+              {
+               props.origin!="admin"?
+            <Formik
+        initialValues={initialValues}
+        initialValues={initialValues}
+        onSubmit={submit}
+        validationSchema={schema}
+    >
+    {({ errors, touched}) => (
+      <Form className=" medical_repo_form">
+        <div className="margin-adjuster1">
+          <div className="labrepo_text_form">
+          <label htmlFor="date">Date:</label>
+          <div className='serviceDate'>
+          <DatePickerField name="date" />
+          </div>
+          </div>
+          {
+            errors.date && touched.date?<div style={{color:"red"}}>{errors.date}</div>:null
+          }
+           <div className="labrepo_text_form">
+            <label htmlFor="name">Service:</label>
+            <SelectField name="serviceId"></SelectField>
+          </div>
+          {
+            errors.serviceId && touched.serviceId?<div style={{color:"red"}}>{errors.serviceId}</div>:null
+          }
+        </div>
+        <div className="margin-adjuster2">
+        <div className="labrepo_text_form">
+            <label htmlFor="value">value:</label>
+            <InputSelectField name="value"></InputSelectField>
+          </div>
+          {
+            errors.value && touched.value?<div style={{color:"red"}}>{errors.value}</div>:null
+          }
 
-                    <Formik
-                      initialValues={medicalReport}
-                      onSubmit={upload}
-                      validationSchema={medicalReportSchema}
-                    >
-                      {() => (
-                        <Form className=" medical_repo_form ">
-                          <div className="margin-adjuster1">
-                            <div className="labrepo_text_form ">
-                              <label htmlFor="name">Hospital Name:</label>
-                              <Field
-                                name="hospitalName"
-                                id="hospitalName"
-                                className="prescription_input"
-                              ></Field>
-                            </div>
-                            <ErrorMessage
-                              name="hospitalName"
-                              render={(msg) => (
-                                <div className="err-message-bottom">{msg}</div>
-                              )}
-                            />
-
-                            <div className="labrepo_text_form">
-                              <label htmlFor="name">Doctor Name:</label>
-                              <Field
-                                name="doctorName"
-                                id="doctorName"
-                                className="prescription_input"
-                              ></Field>
-                            </div>
-                            <ErrorMessage
-                              name="doctorName"
-                              render={(msg) => (
-                                <div className="err-message-bottom">{msg}</div>
-                              )}
-                            />
-
-                            <div className="labrepo_text_form">
-                              <label htmlFor="name">Visited Date:</label>
-                              <Field
-                                name="visitedDate"
-                                id="visitedDate"
-                                className="prescription_input"
-                                placeholder="2020-01-01"
-                              ></Field>
-                            </div>
-                            <ErrorMessage
-                              name="visitedDate"
-                              render={(msg) => (
-                                <div className="err-message-bottom">{msg}</div>
-                              )}
-                            />
-
-                            <div className="labrepo_text_form">
-                              <label htmlFor="name">Follow Up Date:</label>
-                              <Field
-                                name="followUpDate"
-                                id="followUpDate"
-                                className="prescription_input"
-                                placeholder="2020-01-01"
-                              ></Field>
-                            </div>
-                            <ErrorMessage
-                              name="followUpDate"
-                              render={(msg) => (
-                                <div className="err-message-bottom">{msg}</div>
-                              )}
-                            />
-                          </div>
-                          <div className="margin-adjuster2">
-                            <div className="labrepo_text_form">
-                              <label htmlFor="name">Image of Report:</label>
-                              <input
-                                name="image"
-                                className="prescription_inputimage"
-                                type={"file"}
-                                onChange={(event) => {
-                                  handleImageChange(event);
-                                }}
-                              ></input>
-                            </div>
-
-                            <div className="labrepo_text_form">
-                              <label htmlFor="name">Description:</label>
-                              <Field
-                                name="description"
-                                className="prescription_inputdesc"
-                                style={{ height: "100px" }}
-                              ></Field>
-                            </div>
-
-                            <button type="submit" className="button-submit">
-                              Update
-                            </button>
-                          </div>
-                        </Form>
-                      )}
-                    </Formik>
-                  <CommonMedicalreportTable
-                    medicalData={medicalData}
-                  ></CommonMedicalreportTable>
-
-
+          <button type="submit" className="button-submit">
+            Update
+          </button>
+        </div>
+      </Form>
+    )}
+  </Formik>:null
+  }
+  {
+    deleteIndeedPopUp?
+    <div className='delete-container'>
+    <div className="logout-container">
+    <div className="logout">
+        <p>Are you sure you want to Delete?</p>
+        <div className="buttons">
+            <button className="yes-logout" onClick={()=>{
+              setDeleteIndeedPopUp(false)
+              setDeleteIndeed(true)
+            }}>Yes</button>
+            <button className="no-logout" onClick={()=>{
+              setDeleteIndeedPopUp(false)
+              setDeleteIndeed(false)
+            }}>No</button>
+        </div>
+    </div>
+</div>
+</div>
+:null
+  }
+  <div className="material-table">
+  <MaterialTable
+    data={selectedService}
+    title="Your Details"
+    icons={Tableicons}
+    columns={columnsData}
+    options={{
+      actionsColumnIndex: -1,
+      pageSize: 5,
+      filtering: false,
+      sorting: true,
+      headerStyle: {
+      backgroundColor: "#2745F0",
+      color: "#FFF",
+      }
+    }}
+  />
+</div>;
+            </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+
+  )
+}

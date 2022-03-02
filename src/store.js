@@ -29,7 +29,9 @@ const initialState = {
         reports:true,
         utilsInfo:false
     },
-
+    paymentPopUp:{
+        trigger:false
+    },
     appointmentBooking:{
         appointmentBookingPopUp:false,
         doctorInfo:null,
