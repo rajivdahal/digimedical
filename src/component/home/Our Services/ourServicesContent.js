@@ -34,7 +34,7 @@ import RootOurServ from "./rootOurServ";
 const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
-  padding-top: 1.5rem;
+  padding-top: 2.5rem;
   @media screen and (max-width: 650px) {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -50,30 +50,30 @@ const Navigate = styled.div`
   .home {
     font-style: normal;
     font-weight: 400;
-    font-size: 0.8rem;
+    font-size: 13.33px;
     line-height: 25px;
     display: flex;
     align-items: left;
-    color: #8699ac;
-    letter-spacing: 0.03em;
+    color: #596579;
+    letter-spacing: 0.01em;
   }
   .service {
     margin-left: 0.3rem;
     font-style: normal;
     font-weight: 400;
-    font-size: 0.8rem;
+    font-size: 13.33px;
     line-height: 25px;
     display: flex;
     align-items: left;
-    color: #8699ac;
-    letter-spacing: 0.03em;
+    color: #596579;
+    letter-spacing: 0.01em;
   }
   .doctorAtHome {
     margin-left: 0.3rem;
 
     font-style: normal;
 
-    font-size: 0.8rem;
+    font-size: 10rem;
     line-height: 25px;
     display: flex;
     align-items: left;
@@ -82,18 +82,23 @@ const Navigate = styled.div`
     font-weight: bold;
   }
   .arrow {
-    margin-left: 0.3rem;
+    color: #a7b2c3;
+  }
+  .ourserv-nav-title {
+    font-size: 13.33px;
+    font-weight: normal;
+    line-height: 25px;
   }
 `;
 const Heading = styled.div`
-  margin-top: 0.6rem;
+  margin-top: 1.5rem;
   font-style: normal;
   font-weight: bold;
   font-size: 45px;
   line-height: 50px;
   display: flex;
   align-items: center;
-  letter-spacing: 0.03em;
+
   color: #192638;
   @media screen and (max-width: 650px) {
     font-size: 35px;
@@ -102,7 +107,7 @@ const Heading = styled.div`
 `;
 
 const FormContainor = styled.div`
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   margin-bottom: 1rem;
 `;
 
@@ -111,12 +116,12 @@ const Ourservices = (props) => {
   let history = useHistory();
   let location = useLocation();
   console.log("location is, ", location);
-  console.log(props.match.params.subservice)
+  console.log(props.match.params.subservice);
   const paramsValue = props.match.params.subservice.split("-");
-    let title = paramsValue.map((item, index) => {
-      return item[0].toUpperCase() + item.substring(1);
-    });
-    console.log("title is",title)
+  let title = paramsValue.map((item, index) => {
+    return item[0].toUpperCase() + item.substring(1);
+  });
+  console.log("title is", title);
   useEffect(() => {
     // const paramsValue = props.match.params.subservice.split("-");
     // let title = paramsValue.map((item, index) => {
@@ -146,14 +151,16 @@ const Ourservices = (props) => {
           </span>
           <Link to="/services">
             {" "}
-            <span className="service"> Service </span>
+            <span className="service">Service </span>
           </Link>
           <span className="arrow">
             <MdOutlineKeyboardArrowRight />
           </span>
           {title.length
             ? title.map((item) => {
-                return <span>{item + "\xa0"}</span>;
+                return (
+                  <span className="ourserv-nav-title">{item + "\xa0"}</span>
+                );
               })
             : null}
         </Navigate>
@@ -168,11 +175,15 @@ const Ourservices = (props) => {
           {!localStorage.getItem("dm-access_token") ? (
             <DoctorAtHomeForm />
           ) : (
-            <p>We provide you the best {title.length
-              ? title.map((item) => {
-                  return <span>{` ${item + "\xa0"}`}</span>;
-                })
-              : null}service</p>
+            <p>
+              We provide you the best{" "}
+              {title.length
+                ? title.map((item) => {
+                    return <span>{` ${item + "\xa0"}`}</span>;
+                  })
+                : null}
+              service
+            </p>
           )}
         </FormContainor>
       </Root>

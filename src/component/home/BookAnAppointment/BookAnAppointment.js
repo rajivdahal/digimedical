@@ -79,7 +79,7 @@ function BookAnAppointment(props) {
     }
   `;
   return (
-    <div id="BookanAppointment">
+    <div id="BookanAppointment" style={{ marginTop: "2rem" }}>
       <Container>
         <Header>
           <TopHeader>We are here for you</TopHeader>

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 const OurServiceContainer = styled.div`
-  margin-top: 4rem;
+  margin-top: 3rem;
   padding: 3rem 100px;
   @media screen and (max-width: 1210px) {
     padding-left: 2rem;

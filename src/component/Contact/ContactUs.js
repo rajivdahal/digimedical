@@ -8,7 +8,7 @@ import ContactData from "./ContactData";
 import LocationContact from "./LocationContact/LocationContact";
 
 const Root = styled.div`
-  height: 25rem;
+  height: 30rem;
 `;
 
 const Content = styled.div`
@@ -23,7 +23,7 @@ const Heading = styled.div`
   width: 30%;
   font-style: normal;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 50px;
   line-height: 50px;
   display: flex;
   align-items: center;
@@ -41,7 +41,7 @@ const Subheading = styled.div`
   margin-top: 1rem;
   width: 23%;
   font-style: normal;
-  font-weight: 400;
+  font-weight: normal;
   font-size: 15px;
   line-height: 25px;
   display: flex;
@@ -63,6 +63,7 @@ const Subheading = styled.div`
 `;
 
 const BottomSection = styled.div`
+  margin-top: 6rem;
   padding: 3rem 0rem 3rem 0rem;
   background-color: #f5faff;
   display: flex;
@@ -160,7 +161,10 @@ const ContactUs = (props) => {
         })}
       </BottomSection>
       <LocationContact />
-      <BookAnAppointment props={props} />
+      <div style={{ marginBottom: "6rem" }}>
+        <BookAnAppointment props={props} />
+      </div>
+
       <Footer></Footer>
     </div>
   );

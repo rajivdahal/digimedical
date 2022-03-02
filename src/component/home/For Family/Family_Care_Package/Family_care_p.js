@@ -138,10 +138,14 @@ function FamilyPackage(props) {
       <div class="top-container">
         <div class="up">
           <a href="url" id="healthpackages">
-            Health Packages &nbsp;
+            Health Packages&nbsp;
           </a>
-          <i class="fas fa-chevron-right"></i>
-          <span id="familyhealthpackages"> &nbsp; Family </span>
+          <span className="fcp_up_span_arrow">
+            {" "}
+            <i class="fas fa-chevron-right"></i>
+          </span>
+
+          <span id="familyhealthpackages"> &nbsp;Family </span>
         </div>
 
         <div className="down">
@@ -284,7 +288,10 @@ function FamilyPackage(props) {
 
           <div className="digidoctor_whychooseus">
             <div className="ourserv-wcu-cont1">
-              <div className=" digidoc_whycus ourserv-wcu-main">
+              <div
+                className=" digidoc_whycus ourserv-wcu-main"
+                style={{ marginTop: "6rem" }}
+              >
                 <div className="digidoc_whycus_head">
                   <p className="digidoc_whycus_h1">Our Other Services</p>
                 </div>
