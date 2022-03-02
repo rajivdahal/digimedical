@@ -16,7 +16,7 @@ import { firstUpperCase } from "../../../utils/stringUppercase";
 import DoctorPopup from "../../common/popup/doctorPopup/doctorPopup";
 // import DocPopup from "../../common/popup/doctorPopup";
 import Accordion from "react-bootstrap/Accordion";
-import PayPop from "../../common/popup/paymentpopup/payment";
+// import PayPop from "../../common/popup/paymentpopup/payment";
 import BookAnAppointment from "../BookAnAppointment/BookAnAppointment";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -264,7 +264,7 @@ export default function Hospital_doctors(props) {
             </div>
 
             <div className="doc_appoint_main">
-              <PayPop></PayPop>
+              {/* <PayPop></PayPop> */}
               {!searcheddoctors.length && !issearched ? (
                 alldoctors.length ? (
                   alldoctors.map((doctor, doctorindex) => {

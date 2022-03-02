@@ -21,7 +21,7 @@ export default function DigiDoctorPayment(props) {
     const closeDoctorPopUp=bindActionCreators(setClosePopUp,dispatch)
     const setDigimedicalDoctorInfo=bindActionCreators(digiDoctorInfo,dispatch)
     const setDigiDoctorAppointment=bindActionCreators(digiDoctorAppointmentFixed,dispatch)
-
+    console.log("store data are",digiDoctorBooking)
     //end of redux implementation
 
 
@@ -104,7 +104,7 @@ export default function DigiDoctorPayment(props) {
                           type="radio"
                           id="selectall"
                           name="fav_language"
-                          value={item.digiServiceName}
+                          value={item.type}
                           onChange={(e)=>handleChange(e,item)}
                         />
                         <label for="html">Get {item.digiServiceName}</label>
