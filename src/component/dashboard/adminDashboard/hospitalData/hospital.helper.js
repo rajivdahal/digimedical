@@ -81,4 +81,21 @@ const validateHospital = ( values, isEdit = false ) =>{
     return errors;   
 }
 
-export {validateHospital};
+const validateServiceData = (value)=>{
+
+    let errors = {};
+    let isValid = true;
+    if (!value.serviceID || !value.serviceName) {
+        isValid = false;
+        errors.serviceID = getRequiredError("Service")
+    }
+
+    if(!value.price){
+        isValid = false;
+        errors.price = getRequiredError("Price");
+    }
+    return { errors,isValid };   
+
+}
+
+export {validateHospital,validateServiceData};

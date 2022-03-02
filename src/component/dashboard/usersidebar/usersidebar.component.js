@@ -2,14 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./usersidebar.component.css";
 import { useSelector } from "react-redux";
-import CorporateFareOutlinedIcon from "@mui/icons-material/CorporateFareOutlined";
 import Accordion from "react-bootstrap/Accordion";
 
 export default function Usersidebar(props) {
-  console.log("props in sidebar is", props);
   const sidebar = useSelector((state) => state.sidebar);
   const isSidebaropen = sidebar.isopen;
-  console.log("is sidebar open or not", isSidebaropen);
   const navigateDashboard = () => {
     props.props.push("/dashboard");
   };

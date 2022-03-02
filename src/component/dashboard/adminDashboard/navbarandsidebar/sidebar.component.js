@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import Accordion from "react-bootstrap/Accordion";
 import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import CoPresentRounded from "@mui/icons-material/CoPresentRounded";
@@ -6,193 +7,661 @@ import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
 import VaccinesRoundedIcon from '@mui/icons-material/VaccinesRounded';
 import WysiwygRoundedIcon from '@mui/icons-material/WysiwygRounded';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import CorporateFareOutlinedIcon from '@mui/icons-material/CorporateFareOutlined';
-import "./nav.component.css"
+import "./nav.component.css";
+import { useSelector } from "react-redux";
 
 const Adminsidebar = (props) => {
-  console.log("props in admin sidebar", props)
-  const navigatedashboard = () => {
+  const sidebar = useSelector((state) => state.sidebar);
+  const isSidebaropen = sidebar.isopen;
+  const navigateDashboard = () => {
     props.props.push("/dashboard/")
   }
   return (
     <div>
-      <nav className="sidebar sidebar-scroll sidebar-offcanvas" id="sidebar">
-        <p className="centered mt-3"><a href="profile.html">
-        </a></p>
-        <ul className="nav">
-          <li className="nav-item" onClick={navigatedashboard} style={{cursor:"pointer"}}>
-            <a className="nav-link" >
-              <DashboardIcon className="dash-icon"></DashboardIcon>
-              <span className="menu-title">Dashboard</span>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment">
-              <AssignmentIndOutlinedIcon className="dash-icon "></AssignmentIndOutlinedIcon>
-              <span className="menu-title">Appointments</span>
-              <i className="menu-arrow"></i>
-            </a>
-            <div className="collapse" id="appointment">
-              <ul className="nav flex-column sub-menu">
-                <Link to="/dashboard/appointment">
-                  <li className="nav-item"> <a className="nav-link" href="">View Appointment</a></li>
-                </Link>
+      <div className="newdash_body sidebar-scroll">
+        <div className="newdash_dash_main">
+          <div className="newdash_dash1 sidebar-scroll">
+            <Accordion>
+              <ul>
+                <li onClick={navigateDashboard} style={{ cursor: "pointer" }}>
+                  <p id="newdash_dash1_cont1p">
+                    {" "}
+                    <span id="newdash_bar_ico">
+                      {" "}
+                      {/* <i class="fas fa-bars"></i> */}
+                      <DashboardIcon ></DashboardIcon>
+
+                    </span>{" "}
+                    Dashboard
+                  </p>
+                </li>
+                <li>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        <AssignmentIndOutlinedIcon></AssignmentIndOutlinedIcon>
+
+                      </span>
+                      Appointments
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/appointment"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>
+                              View Appointment
+                            </p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li>
+                <li>
+                  <Accordion.Item eventKey="1">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        {" "}
+                        <VaccinesRoundedIcon></VaccinesRoundedIcon>
+                      </span>
+                      Labtests
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/labtest"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>All Labtest</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/booked-labtest"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Booked Labtests</p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li>
+
+                <li>
+                  <Accordion.Item eventKey="2">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        {" "}
+                        <CoPresentRounded></CoPresentRounded>
+                      </span>
+                      Doctors
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/doctor-table"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>All Doctors</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/create-doctor"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Add Doctors</p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li>
+
+                <li>
+                  <Accordion.Item eventKey="3">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        {" "}
+                        <GroupRoundedIcon></GroupRoundedIcon>
+                      </span>
+                      User Management
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/role"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Role</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/admin"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Admin</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/permission"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Permissions</p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li>
+
+                <li>
+                  <Accordion.Item eventKey="4">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        {" "}
+                        <LocalHospitalIcon></LocalHospitalIcon>
+                      </span>
+                      Hospitals/Clinics
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/hospital-table"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>All Hospitals</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/add-hospital"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Add Hospital</p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li>
+
+                <li>
+                  <Accordion.Item eventKey="5">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        {" "}
+                        <CorporateFareOutlinedIcon></CorporateFareOutlinedIcon>
+                      </span>
+                      Corporate
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/corporate"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Add Corporate</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/add/corporate-types"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Add Corporate Types</p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li>
+
+                <li>
+                  <Accordion.Item eventKey="6">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        {" "}
+                        <LibraryBooksIcon></LibraryBooksIcon>
+                      </span>
+                      Packages
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/package-description"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Master Package</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/membership-package"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Package</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/package-details"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Package Details</p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li>
+
+                <li>
+                  <Accordion.Item eventKey="7">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        {" "}
+                        <WysiwygRoundedIcon></WysiwygRoundedIcon>
+                      </span>
+                      Master Data
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/create-speciality"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Speciality</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/create-services"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Service</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/lab-test"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Add Lab Test</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/labtest-subcategory"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Labtest Subcategory</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/add-institute"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Lab Centers</p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/body-checkup"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Add Body Checkup</p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li>
+
               </ul>
+            </Accordion>
+          </div>
+        </div>
+
+        {/* mobile view sidebar */}
+        {isSidebaropen ? (
+          <div class="mobile-dashboard">
+            <div className="newdash_dash1">
+              <Accordion>
+                <ul>
+                  <li onClick={navigateDashboard} style={{ cursor: "pointer" }}>
+                    <p id="newdash_dash1_cont1p">
+                      {" "}
+                      <span id="newdash_bar_ico">
+                        {" "}
+                        {/* <i class="fas fa-bars"></i> */}
+                        <DashboardIcon ></DashboardIcon>
+
+                      </span>{" "}
+                      Dashboard
+                    </p>
+                  </li>
+                  <li>
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>
+                        <span id="newdash_bar_ico">
+                          <AssignmentIndOutlinedIcon></AssignmentIndOutlinedIcon>
+
+                        </span>
+                        Appointments
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <ul className="accordion-body">
+                          <li>
+                            <Link
+                              to="/dashboard/appointment"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>
+                                View Appointment
+                              </p>
+                            </Link>
+                          </li>
+                        </ul>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </li>
+                  <li>
+                    <Accordion.Item eventKey="1">
+                      <Accordion.Header>
+                        <span id="newdash_bar_ico">
+                          {" "}
+                          <VaccinesRoundedIcon></VaccinesRoundedIcon>
+                        </span>
+                        Labtests
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <ul className="accordion-body">
+                          <li>
+                            <Link
+                              to="/dashboard/labtest"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>All Labtest</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/booked-labtest"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Booked Labtests</p>
+                            </Link>
+                          </li>
+                        </ul>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </li>
+
+                  <li>
+                    <Accordion.Item eventKey="2">
+                      <Accordion.Header>
+                        <span id="newdash_bar_ico">
+                          {" "}
+                          <CoPresentRounded></CoPresentRounded>
+                        </span>
+                        Doctors
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <ul className="accordion-body">
+                          <li>
+                            <Link
+                              to="/dashboard/doctor-table"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>All Doctors</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/create-doctor"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Add Doctors</p>
+                            </Link>
+                          </li>
+                        </ul>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </li>
+
+                  <li>
+                    <Accordion.Item eventKey="3">
+                      <Accordion.Header>
+                        <span id="newdash_bar_ico">
+                          {" "}
+                          <GroupRoundedIcon></GroupRoundedIcon>
+                        </span>
+                        User Management
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <ul className="accordion-body">
+                          <li>
+                            <Link
+                              to="/dashboard/role"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Role</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/admin"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Admin</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/permission"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Permissions</p>
+                            </Link>
+                          </li>
+                        </ul>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </li>
+
+                  <li>
+                    <Accordion.Item eventKey="4">
+                      <Accordion.Header>
+                        <span id="newdash_bar_ico">
+                          {" "}
+                          <LocalHospitalIcon></LocalHospitalIcon>
+                        </span>
+                        Hospitals/Clinics
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <ul className="accordion-body">
+                          <li>
+                            <Link
+                              to="/dashboard/hospital-table"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>All Hospitals</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/add-hospital"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Add Hospital</p>
+                            </Link>
+                          </li>
+                        </ul>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </li>
+
+                  <li>
+                    <Accordion.Item eventKey="5">
+                      <Accordion.Header>
+                        <span id="newdash_bar_ico">
+                          {" "}
+                          <CorporateFareOutlinedIcon></CorporateFareOutlinedIcon>
+                        </span>
+                        Corporate
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <ul className="accordion-body">
+                          <li>
+                            <Link
+                              to="/dashboard/corporate"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Add Corporate</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/add/corporate-types"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Add Corporate Types</p>
+                            </Link>
+                          </li>
+                        </ul>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </li>
+
+                  <li>
+                    <Accordion.Item eventKey="6">
+                      <Accordion.Header>
+                        <span id="newdash_bar_ico">
+                          {" "}
+                          <LibraryBooksIcon></LibraryBooksIcon>
+                        </span>
+                        Packages
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <ul className="accordion-body">
+                          <li>
+                            <Link
+                              to="/dashboard/package-description"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Master Package</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/membership-package"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Package</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/package-details"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Package Details</p>
+                            </Link>
+                          </li>
+                        </ul>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </li>
+
+                  <li>
+                    <Accordion.Item eventKey="7">
+                      <Accordion.Header>
+                        <span id="newdash_bar_ico">
+                          {" "}
+                          <WysiwygRoundedIcon></WysiwygRoundedIcon>
+                        </span>
+                        Master Data
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <ul className="accordion-body">
+                          <li>
+                            <Link
+                              to="/dashboard/create-speciality"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Speciality</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/create-services"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Service</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/lab-test"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Add Lab Test</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/labtest-subcategory"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Labtest Subcategory</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/add-institute"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Lab Centers</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/body-checkup"
+                              style={{ textDecoration: "none", color: "inherit" }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Add Body Checkup</p>
+                            </Link>
+                          </li>
+                        </ul>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </li>
+
+                </ul>
+              </Accordion>
             </div>
-          </li>
+          </div>
+        ) : null}
 
-          <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#labtest" aria-expanded="false" aria-controls="labtest">
-              <VaccinesRoundedIcon className="dash-icon"></VaccinesRoundedIcon>
-              <span className="menu-title">View Lab Tests</span>
-              <i className="menu-arrow"></i>
-            </a>
-            <div className="collapse" id="labtest">
-              <ul className="nav flex-column sub-menu">
-                <Link to="/dashboard/labtest">
-                <li className="nav-item"> <a className="nav-link" href="">All Labtest</a></li>
-                </Link>
-                <Link to="/dashboard/booked-labtest">
-                <li className="nav-item"> <a className="nav-link" href="">Booked Labtest</a></li>
-                </Link>
-              </ul>
-            </div>
-          </li>
-
-          <li className="nav-item">
-            <a className="nav-link " data-toggle="collapse" href="#doctor" aria-expanded="false" aria-controls="doctor">
-              <CoPresentRounded className="dash-icon"></CoPresentRounded>
-              <span className="menu-title">Doctors</span>
-              <i className="menu-arrow"></i>
-            </a>
-            <div className="collapse" id="doctor">
-              <ul className="nav flex-column sub-menu">
-                <Link to="/dashboard/doctor-table">
-                  <li className="nav-item"><a className="nav-link" href="">All Doctors</a></li>
-                </Link>
-                <Link to="/dashboard/create-doctor">
-                  <li className="nav-item"><a className="nav-link" href="">Add Doctors</a></li>
-                </Link>
-              </ul>
-            </div>
-          </li>
-
-
-          <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#staffs" aria-expanded="false" aria-controls="staffs">
-              {/* <i className="icon-bar-graph menu-icon"></i> */}
-              <GroupRoundedIcon className="dash-icon"></GroupRoundedIcon>
-              <span className="menu-title">User Management</span>
-              <i className="menu-arrow"></i>
-            </a>
-            <div className="collapse" id="staffs">
-              <ul className="nav flex-column sub-menu">
-                <Link to="/dashboard/role">
-                <li className="nav-item"><a className="nav-link" href="">Role</a></li>
-                </Link>
-                <Link to="/dashboard/admin">
-                <li className="nav-item"><a className="nav-link" href="">Admin</a></li>
-                </Link>
-                <Link to="/dashboard/permission">
-                <li className="nav-item"><a className="nav-link" href="">Permission</a></li>
-                </Link>
-              </ul>
-            </div>
-          </li>
-
-
-          <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#hospital" aria-expanded="false" aria-controls="hospital">
-              {/* <i className="icon-bar-graph menu-icon"></i> */}
-              <LocalHospitalIcon className="dash-icon"></LocalHospitalIcon>
-              <span className="menu-title">Hospitals/Clinics</span>
-              <i className="menu-arrow"></i>
-            </a>
-            <div className="collapse" id="hospital">
-              <ul className="nav flex-column sub-menu">
-              <Link to="/dashboard/hospital-table">
-                  <li className="nav-item"><a className="nav-link" href="">All Hospitals</a></li>
-                </Link>
-                <Link to="/dashboard/add-hospital">
-                <li className="nav-item"><a className="nav-link" href="">Add Hospital</a></li>
-                </Link>
-              </ul>
-            </div>
-          </li>
-
-          <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#corporate" aria-expanded="false" aria-controls="corporate">
-              <CorporateFareOutlinedIcon className="dash-icon"></CorporateFareOutlinedIcon>
-              <span className="menu-title">Corporate</span>
-              <i className="menu-arrow"></i>
-            </a>
-            <div className="collapse" id="corporate">
-              <ul className="nav flex-column sub-menu">
-                <Link to="/dashboard/corporate">
-                <li className="nav-item"><a className="nav-link" href="">Add Corporate</a></li>
-                </Link>
-                <Link to="/dashboard/add/corporate-types">
-                  <li className="nav-item"> <a className="nav-link" href="">Add Corporate Types</a></li>
-                </Link>
-              </ul>
-            </div>
-          </li>
-
-          <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#package" aria-expanded="false" aria-controls="package">
-              <CorporateFareOutlinedIcon className="dash-icon"></CorporateFareOutlinedIcon>
-              <span className="menu-title">Packages</span>
-              <i className="menu-arrow"></i>
-            </a>
-            <div className="collapse" id="package">
-              <ul className="nav flex-column sub-menu">
-              <Link to="/dashboard/package-description">
-                <li className="nav-item"><a className="nav-link" href="">Master Package</a></li>
-                </Link>
-              <Link to="/dashboard/membership-package">
-                <li className="nav-item"><a className="nav-link" href="">Package </a></li>
-                </Link>
-                <Link to="/dashboard/package-details">
-                <li className="nav-item"><a className="nav-link" href="">Package Details</a></li>
-                </Link>
-              </ul>
-            </div>
-          </li>
-
-          <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#masterdata" aria-expanded="false" aria-controls="masterdata">
-              {/* <i className="icon-columns menu-icon"></i> */}
-              <WysiwygRoundedIcon className="dash-icon"></WysiwygRoundedIcon>
-              <span className="menu-title">Master Data</span>
-              <i className="menu-arrow"></i>
-            </a>
-            <div className="collapse" id="masterdata">
-              <ul className="nav flex-column sub-menu">
-                <Link to="/dashboard/create-speciality">
-                  <li className="nav-item"> <a className="nav-link" href="">Speciality</a></li>
-                </Link>
-                <Link to="/dashboard/create-services">
-                  <li className="nav-item"> <a className="nav-link" href="">Service</a></li>
-                </Link>
-                <Link to="/dashboard/lab-test">
-                  <li className="nav-item"> <a className="nav-link" href="">Add Lab Test</a></li>
-                </Link>
-                <Link to="/dashboard/labtest-subcategory">
-                  <li className="nav-item"> <a className="nav-link" href="">Labtest Subcategory</a></li>
-                </Link>
-                <Link to="/dashboard/add-institute">
-                  <li className="nav-item"><a className="nav-link" href="">Lab Centers</a></li>
-                </Link>
-                
-                <Link to="/dashboard/body-checkup">
-                <li className="nav-item"><a className="nav-link" href="">Add Body Checkup</a></li>
-                </Link>
-              </ul>
-            </div>
-          </li>
-
-        </ul>
-      </nav>
+        {/* mobile view sidebar */}
+      </div>
     </div>
   )
 }
