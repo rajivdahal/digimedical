@@ -105,8 +105,8 @@ const NavbarMenuItems = () => {
       console.log(resp);
       if (resp.data.status) {
         let data = resp.data.data;
-        let splicedArr = data.splice(0,6);
-        console.log(splicedArr)
+        let splicedArr = data.splice(0, 6);
+        console.log(splicedArr);
         setDoctorSpeciality(splicedArr);
       }
     } catch (err) {
@@ -154,7 +154,22 @@ const NavbarMenuItems = () => {
   return (
     <Root style={{ height: "70px" }} className="root_nav">
       <LogMenuItemsContainor className="logcontainer_nav">
-        {/* for mobile view dashboard  */}
+        {/* a
+        b
+        c
+        d
+        e
+        f
+        g
+        h
+        i
+        j
+        k
+        l
+        m
+        n
+        o
+        for mobile view dashboard  */}
         <div class="m-menu">
           <input class="m-menu__toggle" type="checkbox" />
           <div class="m-menu__burger">
@@ -327,7 +342,7 @@ const NavbarMenuItems = () => {
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
                 <Link to={"/our-services/doctor-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -336,10 +351,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>
                     <p>Doctor at Home</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/online-medical-consultation"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -348,10 +363,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>
                     <p>Online Medical Consulation</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/nursing-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -360,10 +375,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>
                     <p>24/7 Nursing Service at Home</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/labtest-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -372,10 +387,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>
                     <p>Labtest at Home</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/elderly-care-service-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -384,10 +399,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>
                     <p>Elderely Care Service at Home</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/physiotherapy-service-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -396,10 +411,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>
                     <p>Physiotherapy Service at Home</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/dental-care-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -408,10 +423,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>
                     <p>Dental Care at Home</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/minor-procedure-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -420,10 +435,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>
                     <p>Minor Procedure At Home</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/wound-care-and-dressing-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -432,10 +447,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>
                     <p>Wound Care/ Dressing at Home</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/vaccination-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -444,10 +459,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>
                     <p>Vaccination at Home</p>
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/MRI-and-CT-Scan-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -456,10 +471,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>{" "}
                     <p>MRI/CT Scan Services</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/utility-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -468,10 +483,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>{" "}
                     <p>USG/ ECG/ ECHO Service at Home</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/ambulance-service"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -480,10 +495,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>{" "}
                     <p>Ambulance Services</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/medicine-deliverye"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -492,10 +507,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>{" "}
                     <p>Medicine Delivery</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/alternative-medicine-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -504,10 +519,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>{" "}
                     <p>Alternative Medicine at Home</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/medical-equipment-at-home"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -516,11 +531,11 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>{" "}
                     <p>Medical Equipment at Home</p>{" "}
-                  </a>
+                  </div>
                 </Link>
 
                 <Link to={"/our-services/helicopter-service"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -529,10 +544,10 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>{" "}
                     <p>Helicopter Service</p>{" "}
-                  </a>
+                  </div>
                 </Link>
                 <Link to={"/our-services/international-hospital-booking"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -541,7 +556,7 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>{" "}
                     <p>International Hospital Booking</p>{" "}
-                  </a>
+                  </div>
                 </Link>
               </div>
             </div>
