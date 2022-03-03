@@ -354,10 +354,8 @@ const NewServicePage = (props) => {
                         :
                         <></>
                     }
-
                 </Row>
                 
-
                 <div className="textAlign-right  mb-5">
                     {isLoading === true ? (
                         <Cliploader isLoading={isLoading} />

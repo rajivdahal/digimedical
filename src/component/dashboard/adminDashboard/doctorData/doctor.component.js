@@ -105,17 +105,14 @@ const Createdoctor = (props) => {
     let resp;
     try {
       if(props.isHospital) {
-        resp = await hospitalApi.getDigiServices();
+        resp = await doctorApi.getHospitalServices();
       }
       else{
         resp = await doctorApi.getDigiServices();
       }
       if (resp.data.status) {
         let data = resp.data.data;
-        let trueDigiService = data.filter((item) => {
-          return item.status == true
-        })
-        let options = trueDigiService.map((service) => {
+        let options = data.map((service) => {
           return {
             label: service.name,
             value: service.id,

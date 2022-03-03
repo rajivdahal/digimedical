@@ -241,7 +241,9 @@ const Createservices = (props) => {
                                 ref={imageSelectRef}
                                 accept="image/png, image/jpg, image/jpeg"
                             ></input>
-                            
+                            {formik.touched.serviceDescription && formik.errors.serviceDescription ? (
+                                    <div className="error-message">{formik.errors.serviceDescription}</div>
+                                ) : null}
                         </Col>
 
                         <Col md={4}>
