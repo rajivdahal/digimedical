@@ -49,6 +49,11 @@ const doctorApi = {
       selectedId.push(service.value);
     });
 
+    let digiServiceId = [];
+    values.digiServices.forEach((service, index) => {
+      digiServiceId.push(service.value);
+    });
+
     let days = [];
     if (values.availableDays) {
       days = values.availableDays.map((day) => day.value);
@@ -77,6 +82,7 @@ const doctorApi = {
     formData.append("endTime", values.endTime);
     formData.append("serviceId", selectedId);
     formData.append("hospitalId", hospitalId);
+    formData.append("digiServiceId", digiServiceId);
 
     return httpClient.POST(
       "doctor/hospital/create",
@@ -122,6 +128,11 @@ const doctorApi = {
   },
 
   editHospitalDoctor: (values, id) => {
+    let digiServiceId = [];
+    values.digiServices.forEach((service, index) => {
+      digiServiceId.push(service.value);
+    });
+
     let selectedId = [];
     values.doctorServices.forEach((service, index) => {
       selectedId.push(service.value);
@@ -150,6 +161,8 @@ const doctorApi = {
     formData.append("startTime", values.startTime);
     formData.append("endTime", values.endTime);
     formData.append("serviceId", selectedId);
+    formData.append("digiServiceId", digiServiceId);
+    
     return httpClient.PUT(
       "doctor/hospital/update/" + id,
       formData,

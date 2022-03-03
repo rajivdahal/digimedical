@@ -7,8 +7,9 @@ import { bindActionCreators } from "redux";
 import { hospitalAppointmentBookingReducer } from '../../../../../reducers/hospitalAppointmentBooking.red';
 import { appointmentFixed } from '../../../../../actions/hospitalAppointmentBooking.ac';
 import SelectPaymentMethod from '../selectPaymentMethod/selectPaymentMethod';
+import CircularProgress from '@mui/material/CircularProgress';
 // import PayPop from '../../paymentpopup/payment';
-import { digiDoctorAppointmentFixed } from '../../../../../actions/digiDoctorBooking.ac';
+import { callApiForInitialBooking, digiDoctorAppointmentBookLoading, digiDoctorAppointmentBookNotLoading, digiDoctorAppointmentFixed } from '../../../../../actions/digiDoctorBooking.ac';
 
 export default function LoggedInCase(props) {
   console.log("props in main page is",props)
@@ -39,6 +40,9 @@ const schema = Yup.object().shape({
   // start for digi doctor booking
   const digiDoctorBooking=useSelector((state)=>state.digiDoctorAppointmentBooking)
   const setDigiDoctorAppointment=bindActionCreators(digiDoctorAppointmentFixed,dispatch)
+  const doctorAppointmentBookLoading=bindActionCreators(digiDoctorAppointmentBookLoading,dispatch)
+  const doctorAppointmentBookNotLoading=bindActionCreators(digiDoctorAppointmentBookNotLoading,dispatch)
+  const apiCallForInitialBooking=bindActionCreators(callApiForInitialBooking,dispatch)
   console.log("consoleeee is",digiDoctorBooking,setDigiDoctorAppointment)
   // end for digi doctor booking
   // end of redux implementation
@@ -73,11 +77,12 @@ function DatePickerField({ name }) {
     )
   }
   const getFinalData=(values)=>{
+    console.log("undefined valus",values)
     let finaldata={
-      date:values.date?
+      appointmentDate:values.date?
                       values.date.year+"-"+values.date.month+"-"+values.date.day:
                       selectedDay.year+"-"+selectedDay.month+"-"+selectedDay.day,
-      time:values.time
+      appointmentTime:values.time
     }
     return finaldata
   }
@@ -88,7 +93,18 @@ function DatePickerField({ name }) {
   const submitDigiDoctorBooking=(values)=>{
     let finaldata=getFinalData(values)
     console.log("final data after submitting from only doctor is",finaldata)
-    setDigiDoctorAppointment(finaldata)
+    doctorAppointmentBookLoading(true)
+    setDigiDoctorAppointment({
+      servicesId:digiDoctorBooking.digiDoctorInfo.serviceid,
+      doctorId:digiDoctorBooking.digiDoctorInfo.doctorId,
+      ...finaldata
+    })
+    // apiCallForInitialBooking({
+    //   appointmentDate:digiDoctorBooking.digiDoctorAppointmentDate,
+    //   appointmentTime:digiDoctorBooking.digiDoctorAppointmentTime,
+    // }
+    //   )
+    // doctorAppointmentBookNotLoading(false)
   }
 
   return (
@@ -134,10 +150,15 @@ function DatePickerField({ name }) {
               </div>
               <div className="doc-form-row3">
                 {" "}
-                <button
-                 id="pop-doc-but" type='submit'>
-                  Make Appointment
-                </button>
+                {
+                  digiDoctorBooking.isLoadingAppointmentBooking?<CircularProgress />:  <button
+                  id="pop-doc-but" type='submit'>
+                   Make Appointment
+                 </button>
+                }
+
+
+
                 <div className="doc-form-last-sent">
                   <p>We value your privacy. Your details are safe with us.</p>
                 </div>

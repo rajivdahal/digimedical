@@ -1,4 +1,6 @@
 import { digiDoctorAppointmentBookingActionTypes } from "../actions/digiDoctorBooking.ac"
+import { notify } from "../services/notify"
+import { httpClient } from "../utils/httpClient"
 export const digiDoctorAppointmentBookingReducer=(state,action)=>{
     console.log("reducer data is from digi doctor part",action.payload)
     switch (action.type) {
@@ -12,9 +14,24 @@ export const digiDoctorAppointmentBookingReducer=(state,action)=>{
             return{
                 ...state,
                 isDigiDoctorAppointmentFixed:true,
-                digiDoctorAppointmentDate:action.payload.date,
-                digiDoctorAppointmentTime:action.payload.time,
+                digiDoctorBookingIdAfterBooking:action.payload,
+                isLoadingAppointmentBooking:false
             }
+        case digiDoctorAppointmentBookingActionTypes.SET_DIGI_DOCTOR_APPOINTMENT_BOOK_LOADING:
+                return{
+                    ...state,
+                    isLoadingAppointmentBooking:true
+                }
+        case digiDoctorAppointmentBookingActionTypes.SET_DIGI_DOCTOR_APPOINTMENT_BOOK_NOT_LOADING:
+                    return{
+                        ...state,
+                        isLoadingAppointmentBooking:false
+                    }
+        case digiDoctorAppointmentBookingActionTypes.INITIAL_BOOKING_API_CALLING:
+                    return{
+                        ...state,
+                        digiDoctorBookingIdAfterBooking:action.payload
+                    }
         case digiDoctorAppointmentBookingActionTypes.SET_DIGI_DOCTOR_SELECTED_SERVICE:
             return{
                 ...state,

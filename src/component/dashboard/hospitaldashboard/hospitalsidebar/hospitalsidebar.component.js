@@ -56,7 +56,7 @@ const Hospitalsidebar = (props) => {
             </div>
           </li>
 
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <a className="nav-link " data-toggle="collapse" href="#services" aria-expanded="false" aria-controls="services">
               <CoPresentRounded className="dash-icon"></CoPresentRounded>
               <span className="menu-title">Services</span>
@@ -70,9 +70,7 @@ const Hospitalsidebar = (props) => {
 
               </ul>
             </div>
-          </li>
-
-
+          </li> */}
         </ul>
       </nav>
       </div>

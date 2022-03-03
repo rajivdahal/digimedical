@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { httpClient } from "../../../utils/httpClient";
 import { useHistory } from "react-router-dom";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+
 export default function Hospitalshome() {
   let [hospitals, sethospitals] = useState([]);
   const history = useHistory();

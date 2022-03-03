@@ -159,12 +159,10 @@ const UserDoctorCard = (props) => {
                 </div>
                 <div className="hosp_card_but_main">
                     {" "}
-
                     <button id="hosp_card_but_user" onClick={()=>bookAppointment(props)}>
                         Book an appointment
                     </button>
                 </div>
-
             </div>
 
         </div>

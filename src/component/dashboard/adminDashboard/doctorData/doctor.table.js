@@ -32,11 +32,11 @@ const DoctorTable = (props) => {
             }
             if (resp.data.status) {
                 resp.data.data.forEach((item) => {
-                    if (item.description) {
-                        let splitDesc = item.description.split(" ");
+                    if (item.doctordescription) {
+                        let splitDesc = item.doctordescription.split(" ");
 
                         if (splitDesc.length < 10) {
-                            item.description = item.description
+                            item.description = item.doctordescription
                         } else {
                             let sliceDesc = splitDesc.slice(0, 10);
                             let joinDesc = sliceDesc.join(" ") + " ...";
@@ -48,7 +48,7 @@ const DoctorTable = (props) => {
             }
         }
         catch (err) {
-            console.log(err.response)
+          notify.error(err.response.data.message)
         }
         setLoading(false)
     }
@@ -74,7 +74,6 @@ const DoctorTable = (props) => {
                 handleClose();
             }
         } catch (err) {
-            console.log(err.response.data);
             notify.error(err.response.data.message)
             handleClose();
         }
@@ -101,8 +100,8 @@ const DoctorTable = (props) => {
               { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
               { title: "Prefix", field: "prefix" },
               { title: "Name", field: "doctorname" },
-              { title: "Service Name", field: "service" },
-              { title: "Specialist", field: "specialist" },
+              { title: "Description", field: "description" },
+              // { title: "Specialist", field: "specialist" },
               { title: "Mobile Number", field: "mobilenumber" },
               {
                 title: "Status",
@@ -156,10 +155,10 @@ const DoctorTable = (props) => {
             icons={Tableicons}
             columns={[
               { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
-              { title: "Name", field: "doctorname" },
-              { title: "Description", field: "doctordescription" },
-              { title: "NMC", field: "nmcno" },
               { title: "Prefix", field: "prefix" },
+              { title: "Name", field: "doctorname" },
+              { title: "Description", field: "description" },
+              { title: "NMC", field: "nmcno" },
               {
                 title: "Status",
                 field: "status",

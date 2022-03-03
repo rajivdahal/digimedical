@@ -5,7 +5,13 @@ import { digiDoctorAppointmentFixed, digiDoctorInfo, selectedService, setPayment
 import { setClosePopUp } from '../../../../../../actions/paymentPopUp.ac';
 import esewaLogo from "../../../../../../assets/esewa.svg";
 import { formatDate } from '../../../../../../services/timeanddate';
+import CircularProgress from '@mui/material/CircularProgress';
+import { httpClient } from '../../../../../../utils/httpClient';
+import { useHistory } from 'react-router-dom';
+import { notify } from '../../../../../../services/notify';
+
 export default function DigiDoctorPayment(props) {
+  let history=useHistory()
   // NOTE:
       // data from the internal appointment booking component are in props
       // data from the normal speciality doctor booking app are from the store
@@ -34,7 +40,7 @@ export default function DigiDoctorPayment(props) {
     useEffect(()=>{
       if(props.origin=="appointmentBooking"){
         setDigimedicalDoctorInfo(props.directBookAppointmentProps)
-        setDigiDoctorAppointment({date:props.directBookAppointmentProps.appointmentDate,time:props.directBookAppointmentProps.appointmentTime})
+        // setDigiDoctorAppointment({date:props.directBookAppointmentProps.appointmentDate,time:props.directBookAppointmentProps.appointmentTime})
       }
     },[])
     const handleChange=(e,data)=>{
@@ -49,6 +55,19 @@ export default function DigiDoctorPayment(props) {
         }
         setServiceType(data)
     }
+  const proceed=()=>{
+    let finalData={
+      digiServiceId:digiDoctorBooking.selectedService.digiServiceId,
+      paymentStatus:0
+    }
+    console.log("proceed payment done",digiDoctorBooking)
+    httpClient.PUT("appointment/after-payment/"+digiDoctorBooking.digiDoctorBookingIdAfterBooking,finalData)
+    .then(resp=>{
+      history.push("/dashboard/viewappointment")
+      notify.success("Appointment Successfully created")
+    })
+    .catch(err=>notify.error("Error in Appointment Booking"))
+  }
   return (
     <div className="doc-pop-main">
         <div className="pay-pop-inner">
@@ -144,7 +163,7 @@ export default function DigiDoctorPayment(props) {
                 <a className="popup_lab_close" style={{ cursor: "pointer" }} onClick={closePaymentPopUp}>
                   <p>Cancel</p>
                 </a>
-                <a className="lab_popup_checkout" style={{ cursor: "pointer" }}>
+                <a className="lab_popup_checkout" onClick={proceed}>
                   <p>Proceed</p>
                 </a>
               </div>

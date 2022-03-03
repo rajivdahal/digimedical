@@ -3,7 +3,6 @@ import { httpClient } from "../../../../utils/httpClient";
 const hospitalApi = {
   createHospital: (values) => {  
     let formData = new FormData();
-    console.log(values.hospitalPricePojos)
     // const {} = values;
     if (values.hospitalImage) {
       formData.append("image", values.hospitalImage);
@@ -25,20 +24,21 @@ const hospitalApi = {
   },
 
   editHospital : (values,id) =>{
+    console.log(values.hospitalPricePojos);
     let formData = new FormData();
-
     if (values.hospitalImage) {
       formData.append("image", values.hospitalImage);
     }
     formData.append("name", values.name);
     formData.append("description", values.description);
     formData.append("panNo", values.panNo);
-    formData.append("link", values.link);
+    formData.append("websiteLink", values.link);
     formData.append("contactNo", values.contactNumber);
     formData.append("phoneNumber", values.mobileNumber);
     formData.append("address", values.address);
     formData.append("establishedDate", values.establishedDate);
     formData.append("hospitalId", id);
+    formData.append("value",JSON.stringify(JSON.stringify(values.hospitalPricePojos)));
 
     return httpClient.PUT("hospital/update", formData, false, true, "formdata");
 
