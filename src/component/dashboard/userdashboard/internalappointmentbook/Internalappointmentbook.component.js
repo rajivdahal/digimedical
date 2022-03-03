@@ -14,6 +14,9 @@ import DigiDoctorPayment from "./../../../../component/common/popup/doctorPopup/
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setOpenPopUp } from "../../../../actions/paymentPopUp.ac";
+import CircularProgress from '@mui/material/CircularProgress';
+import { callApiForInitialBooking, digiDoctorAppointmentBookLoading, digiDoctorAppointmentBookNotLoading, digiDoctorAppointmentFixed } from "../../../../actions/digiDoctorBooking.ac";
+
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default function Internalappointmentbook(prop) {
@@ -133,7 +136,11 @@ console.log("date is",date)
       return errors;
     },
     onSubmit:values=>{
+      // debugger
       console.log("values are",values)
+      doctorAppointmentBookLoading(true)
+      setDigiDoctorAppointment(values)
+      // apiCallForInitialBooking(values)
       setFinalData(values)
       openDoctorPopUp(true)
     //   if (toeditdata) {
@@ -170,17 +177,28 @@ console.log("date is",date)
       // Redux implementation
       const dispatch = useDispatch();
       const popUpActionsData=useSelector((state)=>state.paymentPopUp)
+      const digiDoctorAppointmentBookingData=useSelector((state)=>state.digiDoctorAppointmentBooking)
       const openDoctorPopUp=bindActionCreators(setOpenPopUp,dispatch)
+      const setDigiDoctorAppointment=bindActionCreators(digiDoctorAppointmentFixed,dispatch)
+      const doctorAppointmentBookLoading=bindActionCreators(digiDoctorAppointmentBookLoading,dispatch)
+      const doctorAppointmentBookNotLoading=bindActionCreators(digiDoctorAppointmentBookNotLoading,dispatch)
+      const apiCallForInitialBooking=bindActionCreators(callApiForInitialBooking,dispatch)
 
+
+      console.log("Digi doctor appointment booking data are",digiDoctorAppointmentBookingData)
     // end of redux implementation
+
   const handleChange = (item) => {
-    console.log("inside handlechange", item);
+    delete formik.errors.servicesId
+    console.log("formik errors are",formik.errors)
     formik.setFieldValue("servicesId", item.value);
     formik.setFieldValue("serviceName", item.label);
-
     httpClient
       .GET(`doctor/get-related-doctor/${item.value}`, false, true)
       .then((resp) =>{
+        if(!resp.data.data.length){
+          return  notify.error("No any doctors are available to this service");
+        }
         let allDoctors = resp.data.data.map((doctor, index) => {
           console.log("doctor",doctor)
           return {
@@ -443,6 +461,9 @@ console.log("date is",date)
         <div className="form-group col-md-12">
           <label htmlFor="service">Select Service</label>
           <Select options={services} onChange={handleChange} />
+          {
+            console.log("rendered rendered")
+          }
           {formik.errors.servicesId && formik.touched.servicesId ? (
             <div style={{ color: "red" }} className="errmsg">
               {formik.errors.servicesId}{" "}
@@ -473,7 +494,12 @@ console.log("date is",date)
               className="btn btn-primary btn-block"
               onClick={formik.handleSubmit}
             >
-              {editdata ? "Save Changes":"Make Appointment"}
+
+              {editdata ? "Save Changes":
+                  digiDoctorAppointmentBookingData.isLoadingAppointmentBooking?
+                    <CircularProgress></CircularProgress>
+                  :
+              "Make Appointment"}
             </button>
             {appointmentsuccess ? (
               <div
@@ -537,7 +563,8 @@ console.log("date is",date)
         ></img>
       </div>
       {
-        popUpActionsData.trigger?<DigiDoctorPayment origin="appointmentBooking"
+        popUpActionsData.trigger?<DigiDoctorPayment
+        origin="appointmentBooking"
         directBookAppointmentProps={finalData}
         ></DigiDoctorPayment>:null
       }

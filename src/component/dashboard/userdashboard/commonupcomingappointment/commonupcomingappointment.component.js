@@ -92,7 +92,7 @@ export const Commonupcomingappointment = (props) => {
         }
     ] : [
         {
-            title: "Assigned Doctor", field: "doctorsname"
+            title: "Assigned Doctor", field: "doctorsName"
         },
         {
             title: "Hospital", field: "hospitalname"

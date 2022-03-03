@@ -196,6 +196,7 @@ export default function Hospital_doctors(props) {
   // end of redux implementation
 
   const bookAnAppointment=(doctor)=>{
+
     console.log("doctor is",doctor)
     SetDocPopup(true)
     // reset the previous information if exists

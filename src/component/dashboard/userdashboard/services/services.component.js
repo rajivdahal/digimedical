@@ -186,7 +186,7 @@ function SelectField({name}){
         </div>
         <div className="margin-adjuster2">
           <div className="labrepo_text_form">
-            <label htmlFor="name">Value:</label>
+            <label htmlFor="name">Service:</label>
             <SelectField name="serviceId"></SelectField>
           </div>
           {
