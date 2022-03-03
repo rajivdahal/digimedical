@@ -23,7 +23,8 @@ const DigiMedicalDoctorCard = (props) => {
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
-  const date = selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
+  const date =
+    selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
   const [appointmentData, setData] = useState({
     firstName: "",
     lastName: "",
@@ -47,7 +48,7 @@ const DigiMedicalDoctorCard = (props) => {
     if (props.selected) {
       setForm(true);
     }
-  }, [props.selected])
+  }, [props.selected]);
 
   const bookAppointment = () => {
     let tempForm = showForm === true ? false : true;
@@ -122,7 +123,6 @@ const DigiMedicalDoctorCard = (props) => {
           err.response.data &&
           err.response.data.message
         ) {
-
           if (localStorage.getItem("status") == 200) {
             notify.error(
               "Email already exists,please book appointment internally"
@@ -148,10 +148,10 @@ const DigiMedicalDoctorCard = (props) => {
     validate: (values) => {
       let isLogin = userLogin ? true : false;
       return validateAppointment(values, isLogin);
-    }
-  })
+    },
+  });
 
-  console.log(props.digiServices)
+  console.log(props.digiServices);
   return (
     <>
       <div className="digidoctor_apoint_card1">
@@ -178,32 +178,36 @@ const DigiMedicalDoctorCard = (props) => {
             <p id="doc_edu_brief">{props.prefix}</p>
           </div>
 
-          <p id="digidoc_exp"><b> {props.specialist}</b> </p>
+          <p id="digidoc_exp">
+            <b> {props.specialist}</b>{" "}
+          </p>
           <p>{props.desc}</p>
+          <div className="doc_accordion">
+            <Accordion>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>
+                  Available consultation medium
+                </Accordion.Header>
+                <Accordion.Body className="acc-doc-body">
+                  {props.digiServices.map((item) => {
+                    return (
+                      <ul className="accordion-body">
+                        <li>{item.digiServiceName}</li>
+                      </ul>
+                    );
+                  })}
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+          </div>
         </div>
-        <div className="doc_accordion">
-          <Accordion>
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>
-                Available consultation medium
-              </Accordion.Header>
-              <Accordion.Body className="acc-doc-body">
-                {props.digiServices.map((item)=>{
-                  return <ul className="accordion-body">
-                  <li>{item.digiServiceName}</li>
-                </ul>
-                })}
-                
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        </div>
+
         <div className="digidoctor_card_but">
           {" "}
-
-          <div><button id="digidoctor_card_but" onClick={bookAppointment}>
-            Book an appointment
-          </button>
+          <div>
+            <button id="digidoctor_card_but" onClick={bookAppointment}>
+              Book an appointment
+            </button>
           </div>
         </div>
       </div>
@@ -300,7 +304,7 @@ const DigiMedicalDoctorCard = (props) => {
                     style={{ width: "40px" }}
                   ></DatePicker>
                   {formik.touched.appointmentDate &&
-                    formik.errors.appointmentDate ? (
+                  formik.errors.appointmentDate ? (
                     <div className="error-message">
                       {formik.errors.appointmentDate}
                     </div>
@@ -316,7 +320,7 @@ const DigiMedicalDoctorCard = (props) => {
                     onChange={formik.handleChange}
                   />
                   {formik.touched.appointmentTime &&
-                    formik.errors.appointmentTime ? (
+                  formik.errors.appointmentTime ? (
                     <div className="error-message">
                       {formik.errors.appointmentTime}
                     </div>
@@ -349,7 +353,7 @@ const DigiMedicalDoctorCard = (props) => {
                   style={{ width: "40px" }}
                 ></DatePicker>
                 {formik.touched.appointmentDate &&
-                  formik.errors.appointmentDate ? (
+                formik.errors.appointmentDate ? (
                   <div className="error-message">
                     {formik.errors.appointmentDate}
                   </div>
@@ -364,7 +368,7 @@ const DigiMedicalDoctorCard = (props) => {
                   onChange={formik.handleChange}
                 />
                 {formik.touched.appointmentTime &&
-                  formik.errors.appointmentTime ? (
+                formik.errors.appointmentTime ? (
                   <div className="error-message">
                     {formik.errors.appointmentTime}
                   </div>
