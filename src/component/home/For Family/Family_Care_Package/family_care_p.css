@@ -15,7 +15,7 @@
 }
 .up {
   margin-left: 10%;
-  padding-top: 52px;
+  padding-top: 2.5rem;
 }
 #healthpackages {
   margin-left: 0px;
@@ -24,7 +24,7 @@
   /* font-family: Objective; */
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 13.33px;
   line-height: 16px;
 
   /* identical to box height, or 100% */
@@ -39,12 +39,16 @@
   flex-grow: 0;
   margin: 0px 4px;
 }
+.fcp_up_span_arrow {
+  color: #a7b2c3;
+  font-size: 12px;
+}
 
 #familyhealthpackages {
   /* font-family: Objective; */
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 13.33px;
   line-height: 16px;
 
   /* identical to box height, or 100% */
@@ -55,16 +59,15 @@
 }
 .down {
   padding-left: 10%;
-
+  margin-top: 8rem;
   display: flex;
   /* width: 70%; */
 }
 #headerfamilyhealth {
-  margin-top: 170px;
   /* font-family: Objective; */
   font-style: normal;
   font-weight: bold;
-  font-size: 60px;
+  font-size: 50px;
   line-height: 64px;
   /* identical to box height, or 107% */
   display: flex;
@@ -80,7 +83,7 @@
   /* font-family: Objective; */
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
+  font-size: 15px;
   line-height: 30px;
   /* or 167% */
   /* Grey/600 */
@@ -278,13 +281,13 @@ o
 r
 package adas */
 .fam-package-detail {
-  margin-top: 50px;
+  margin-top: 6rem;
   width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 6rem;
 }
 .fam-packages-cat {
   margin-top: 50px;
@@ -348,11 +351,12 @@ package adas */
 }
 #text-fam-pack-head1 {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 20px;
+  color: #192638;
 }
 #text-fam-pack-head2 {
-  font-size: 16px;
+  font-size: 13.33px;
   line-height: 24px;
   color: #596579;
 }
@@ -382,16 +386,17 @@ package adas */
 .fam-package-ul1 li {
   list-style: disc;
   color: #596579;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 30px;
+  font-weight: normal;
 }
 .fam-pack-button {
   margin-top: 30px;
   width: 100%;
   background: #2745f0;
-  border-radius: 10px;
+  border-radius: 8px;
   color: white;
-  height: 65px;
+  padding: 18px;
   border: 1px solid #2745f0;
 }
 /* m
@@ -434,8 +439,7 @@ view */
   .fcp_main_img img {
     width: 90%;
   }
-  .fam-package-detail {
-  }
+
   .fam-packages-cat {
     flex-direction: column;
   }

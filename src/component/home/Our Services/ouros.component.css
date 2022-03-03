@@ -1,6 +1,6 @@
 /* ouroscomponent css here */
 .ourserv-wcu-cont {
-  padding-top: 50px;
+  margin-top: 4.5rem;
   flex: 1;
 }
 .ourserv-wcu-cont1 {
@@ -12,14 +12,11 @@
 }
 
 .ourserv-wcu-main {
-  margin-top: 50px;
+  margin-top: 1rem;
 }
 
 .icon-oos {
   font-size: 25px;
-}
-.digidoctor_whychooseus_cont p {
-  font-size: 20px;
 }
 
 /*a

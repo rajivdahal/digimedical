@@ -38,15 +38,16 @@ import NewServicePage from "./adminDashboard/newServiceData/newServicePage";
 
 
 // hospital
-import Hospitalnavbar from "./hospitalDashboard/hospitalnavbar/hospitalnavbar.component";
-import Hospitalsidebar from "./hospitalDashboard/hospitalsidebar/hospitalsidebar.component";
-import HospitalDashboard from "./hospitalDashboard/hospitalDashboard";
-import HospitalDoctor from "./hospitalDashboard/doctorPage/hospital.doctor";
-import AddDoctor from "./hospitalDashboard/doctorPage/addHospitalDoctor";
-import HospitalAppointment from "./hospitalDashboard/appointmentPage/appointment.component";
-import HospitalService from "./hospitalDashboard/hospitalService/hospitalService";
+import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component";
+import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component";
+import HospitalDashboard from "./hospitaldashboard/hospitalDashboard";
+import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor";
+import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor";
+// import HospitalAppointment from "./hospitaldashboard/appointmentPage/"
+import HospitalAppointment from "./hospitaldashboard/appointmentPage/appointment.component";
+import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
 import HospitalSpecialist from "../home/Hospital Booking/hospitalSpecialist";
-// import HospitalService from "./hospitalDashboard/hospitalService/hospitalService";
+// import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
 
 // corporate
 import Corporatenavbar from "./corporatedashboard/corporatenavbar/corporatenavbar.component";
@@ -68,7 +69,8 @@ import AddFamilyMember from "./userdashboard/familyMember/addFamilyMember.compon
 import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.component";
 import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoctor";
 import UtilsInfo from "./userdashboard/utilsinformation/utilsInfo.component";
-import { BodyCheckUpUser } from "./userdashboard/bodyCheckup/bodyCheckUp.component";
+// import BodyCheckUpUser  from "./userdashboard/bodyCheckup/bodyCheckUp.component";
+import BodyCheckUpUser from "./userdashboard/bodyCheckup/bodyCheckUp.component"
 
 // doctor
 import Doctornavbar from "./doctordashboard/navbarandsidebar/doctornavbar.component";
@@ -81,6 +83,10 @@ import Service from "../Service/Service";
 import UserServices from "./userdashboard/services/services.component";
 import SpecialityDoctor from "./userdashboard/digimedicalDoctor/specialityDoctor";
 
+// hospital
+// import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
+// corporate
+import ViewServicesBookedOfUser from "./adminDashboard/services/services.component";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -119,7 +125,7 @@ const Dashboard = (props) => {
               component={Hospitalbookingcomponent}
             ></ProtectedRoute>
           ) : props.location.pathname ===
-            "/dashboard/hospitals/view-doctors" ? (
+            "/dashboard/hospitals/view-doctors"? (
             <ProtectedRoute component={Hospital_doctors}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/add-member" ? (
             <ProtectedRoute component={AddFamilyMember}></ProtectedRoute>
@@ -151,7 +157,10 @@ const Dashboard = (props) => {
             {props.location.pathname === "/dashboard" ||
             props.location.pathname === "/dashboard/" ? (
               <ProtectedRoute component={AdminDashboard}></ProtectedRoute>
-            ) : props.location.pathname === "/dashboard/doctor-table" ? (
+            ) :
+            props.location.pathname==="/dashboard/services"?
+            <ProtectedRoute component={ViewServicesBookedOfUser}></ProtectedRoute>:
+            props.location.pathname === "/dashboard/doctor-table" ? (
               <ProtectedRoute component={DoctorTable}></ProtectedRoute>
             ) : props.location.pathname === "/dashboard/create-doctor" ? (
               <ProtectedRoute component={Createdoctor}></ProtectedRoute>

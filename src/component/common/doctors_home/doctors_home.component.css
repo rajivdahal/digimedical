@@ -79,7 +79,7 @@
   }
 } */
 .digi_doc_home {
-  margin-top: 50px;
+  margin-top: 6rem;
 }
 .homepg-title {
   display: flex;
@@ -95,11 +95,13 @@
   margin-top: 0.8rem;
   font-style: normal;
   line-height: 52px;
-  font-size: 38px;
+  font-size: 33.3px;
   font-weight: bold;
 }
 .homepg-title span {
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 30px;
 }
 
 @media screen and (max-width: 767px) {

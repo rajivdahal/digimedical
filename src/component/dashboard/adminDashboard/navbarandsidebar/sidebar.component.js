@@ -18,6 +18,9 @@ const Adminsidebar = (props) => {
   const navigateDashboard = () => {
     props.props.push("/dashboard/")
   }
+  const navigateServices=()=>{
+    props.props.push("/dashboard/services")
+  }
   return (
     <div>
       <div className="newdash_body sidebar-scroll">

@@ -39,8 +39,7 @@ export const Commonupcomingappointment = (props) => {
 
             })
             .catch(err => {
-                console.log(err.response.data)
-                // notify.error("something went wrong")
+                console.log(err.response)
             })
             .finally(() => {
                 setTableLoading(false)
@@ -93,7 +92,7 @@ export const Commonupcomingappointment = (props) => {
         }
     ] : [
         {
-            title: "Assigned Doctor", field: "doctorsname"
+            title: "Assigned Doctor", field: "doctorsName"
         },
         {
             title: "Hospital", field: "hospitalname"

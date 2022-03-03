@@ -40,7 +40,7 @@ export default function dentalCareAtHome() {
               Dental care is required based on the ages and types of aetiology.
             </p>
             <div className="packages_lt">
-              <h3>For children </h3>
+              <p className="packages_ltp">For children </p>
               <ul className="serv-text">
                 <li>
                   Within six months after the first tooth appears, Dental caries{" "}
@@ -48,7 +48,7 @@ export default function dentalCareAtHome() {
               </ul>
             </div>
             <div className="packages_lt">
-              <h3>For adult and aged </h3>
+              <p className="packages_ltp">For adult and aged </p>
               <ul className="serv-text">
                 <li> Gum diseases </li>
                 <li> Toothache </li>

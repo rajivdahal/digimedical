@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 const OurServiceContainer = styled.div`
-  margin-top: 2.5rem;
+  margin-top: 3rem;
   padding: 3rem 100px;
   @media screen and (max-width: 1210px) {
     padding-left: 2rem;
@@ -48,14 +48,16 @@ const HeadingContainer = styled.div`
     margin-top: 0.8rem;
     font-style: normal;
     line-height: 52px;
-    font-size: 38px;
+    font-size: 33.33px;
     font-weight: bold;
     @media screen and (max-width: 767px) {
-    font-size: 1.5rem;
+      font-size: 1.5rem;
     }
   }
-  span{
-    font-size: 14px;
+  span {
+    font-size: 15px;
+    color: #596579;
+    font-weight: 500;
   }
 `;
 const ServiceContainer = styled.div`
@@ -76,7 +78,7 @@ const ServicesContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto auto;
   grid-gap: 1.2rem;
-  padding: 0.5rem;
+  padding: 1.2rem;
   position: relative;
   top: 0;
   transition: top ease 0.3s;
@@ -99,26 +101,27 @@ const ServicesContainer = styled.div`
   }
 `;
 const ImageContainer = styled.img`
-  width: 55px;
-  height: 40px;
-  object-fit: contain;
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
 `;
 
 const DescriptionContainer = styled.div`
   h3 {
     color: #192638;
     letter-spacing: 0.01em;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 19.16px;
+    font-weight: 500;
     letter-spacing: 0.01em;
     line-height: 24px;
   }
   p {
-    color: #7b8698;
-    font-size: 0.9rem;
+    font-size: 15px;
+    font-weight: normal;
     line-height: 24px;
     letter-spacing: 0.02em;
     text-align: left;
+    color: #7b8698;
   }
 `;
 const View = styled.a`
@@ -137,8 +140,8 @@ const View = styled.a`
   }
 `;
 const OurServices = (props) => {
-  const location = useLocation()
-  console.log("props in our service is", location)
+  const location = useLocation();
+  console.log("props in our service is", location);
   return (
     <div>
       <OurServiceContainer>
@@ -165,14 +168,12 @@ const OurServices = (props) => {
           })}
         </ServiceContainer>
         <div className="view_serv_home">
-          {
-            location.pathname == "/services" ? null : <Link to="/services" className="link_serv_home">
-
+          {location.pathname == "/services" ? null : (
+            <Link to="/services" className="link_serv_home">
               <p id="arrow_hosp_hom">View All</p>
               <p id="arrow_hosp_hom1">&nbsp; &#8594; </p>
             </Link>
-          }
-
+          )}
         </div>
       </OurServiceContainer>
     </div>

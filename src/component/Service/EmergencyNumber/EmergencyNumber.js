@@ -8,21 +8,21 @@ const Root = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 4rem;
+  margin-top: 6rem;
   margin-bottom: 4rem;
 `;
 const Heading = styled.div`
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 26.67px;
   line-height: 52px;
   display: flex;
   align-items: center;
   text-align: center;
   color: #ffffff;
 `;
-const Deatail = styled.div`
+const Detail = styled.div`
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 33.33px;
   line-height: 52px;
   display: flex;
   align-items: center;
@@ -40,7 +40,7 @@ const EmergencyNumber = () => {
       }}
     >
       <Heading>Do you need Emergency Medical care?</Heading>
-      <Deatail>Call 01-5909141</Deatail>
+      <Detail>Call 01-5909141</Detail>
     </Root>
   );
 };

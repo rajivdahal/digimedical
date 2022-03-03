@@ -24,6 +24,7 @@ import DigimedicalDoctor from "../dashboard/userdashboard/digimedicalDoctor/digi
 import ForBusiness from "../home/For Business/forbusiness";
 import Digimedical_doctors from "../home/Digimedical doctors/Digimedical_doctors";
 import AllSpecialist from "../home/Digimedical doctors/allSpecialist";
+import Services from "../dashboard/adminDashboard/services/services.component";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -229,7 +230,7 @@ export const Approuting = (props) => {
         ></ProtectedRoute>
 
         <ProtectedRoute
-          exact="/dashboard/digi-doctorF"
+          exact="/dashboard/digi-doctor"
           component={DigimedicalDoctor}
         ></ProtectedRoute>
 
@@ -272,6 +273,11 @@ export const Approuting = (props) => {
         <ProtectedRoute
           exact
           path="/dashboard/labtest-subcategory"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/admin"
           component={Dashboard}
         ></ProtectedRoute>
         <ProtectedRoute

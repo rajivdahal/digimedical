@@ -36,22 +36,26 @@ export default function Hospitalshome() {
                 <div className="hospital_book_card1">
                   <img
                     src={REACT_APP_BASE_URL + "hospital/download/" + item.id}
-                    onError={(e)=>{e.target.onerror = null; e.target.src="/images/hospital.jpeg"}}
-
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "/images/hospital.jpeg";
+                    }}
                     alt=""
                   />
-                  <div className="hospital_card_text">
-                    <h1>{item.name}</h1>
-                    <p2>{item.address}</p2>
-                    <p2>{item.description.slice(0, 50)}.....</p2>
-                  </div>
-                  <div className="hosp_card_but_hom">
-                    <button
-                      id="hosp_card_but_hom"
-                      onClick={() => showDoctors(item)}
-                    >
-                      Book an appointment
-                    </button>
+                  <div className="hosp-ct-bt">
+                    <div className="hospital_card_text">
+                      <h1>{item.name}</h1>
+                      <p2>{item.address}</p2>
+                      <p2>{item.description.slice(0, 50)}.....</p2>
+                    </div>
+                    <div className="hosp_card_but_main">
+                      <button
+                        id="hosp_card_but_hom"
+                        onClick={() => showDoctors(item)}
+                      >
+                        Book an appointment
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
@@ -62,8 +66,14 @@ export default function Hospitalshome() {
       </div>
       <Link to="/hospitals" className="link_hosp_home">
         <div className="view_hosp_home">
-          <p id="arrow_hosp_hom">View All</p>
-          <p id="arrow_hosp_hom1">&nbsp; &#8594; </p>
+          <p id="arrow_hosp_hom">
+            View All{" "}
+            <span id="arrow_hosp_hom1">
+              {" "}
+              &nbsp;
+              <i class="fas fa-arrow-right"></i>
+            </span>
+          </p>
         </div>
       </Link>
     </div>

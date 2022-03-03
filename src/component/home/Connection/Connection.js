@@ -13,9 +13,11 @@ const Root = styled.div`
   // transform: translate(180px);
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5rem;
+  ${"" /* margin-top: 5rem; */}
   left: 0;
   right: 0;
+  bottom: -10%;
+  transform: translateY(10%);
 
   text-align: center;
   display: flex;
@@ -80,7 +82,7 @@ const HappyClient = styled.div`
     }
   }
   .counter {
-    display:block;
+    display: block;
     margin-top: 0.5rem;
     font-style: normal;
     font-weight: bold;
@@ -147,7 +149,7 @@ const Doctor = styled.div`
   }
 `;
 const Hospital = styled.div`
-  width:25%;
+  width: 25%;
   .icon {
     width: 2.3rem;
     @media screen and (max-width: 650px) {
@@ -158,7 +160,7 @@ const Hospital = styled.div`
     }
   }
   .counter {
-    display:block;
+    display: block;
     margin-top: 0.5rem;
     font-style: normal;
     font-weight: bold;
@@ -193,7 +195,7 @@ const MedicalIndustries = styled.div`
     }
   }
   .counter {
-    display:block;
+    display: block;
     margin-top: 0.5rem;
     font-style: normal;
     font-weight: bold;
@@ -216,7 +218,7 @@ const MedicalIndustries = styled.div`
     }
   }
 `;
-const Conection = () => { 
+const Conection = () => {
   return (
     <Root
       style={{

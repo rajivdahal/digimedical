@@ -11,7 +11,7 @@ import { notify } from "../../../services/notify";
 import Footer from "../../Footer/Footer";
 
 function Digimedical_doctors(props) {
-  console.log("props in digidoctors is",props)
+  console.log("props in digidoctors is", props);
   const [allDigiDoctors, setAllDigiDoctors] = useState([]);
   const [searcheddoctors, setsearcheddoctors] = useState([]);
   const [issearched, setIssearched] = useState(false);
@@ -20,7 +20,7 @@ function Digimedical_doctors(props) {
   const [specialityName, setSpecialityName] = useState("");
 
   const getAllDigiDoctors = async () => {
-    console.log(props)
+    console.log(props);
     let id = "";
     if (
       props.location &&
@@ -31,12 +31,12 @@ function Digimedical_doctors(props) {
       setSelectedId(id);
     }
     try {
-      let resp = await httpClient.GET("doctor/digi/get/"+id);
-      console.log(resp)
+      let resp = await httpClient.GET("doctor/digi/get/" + id);
+      console.log(resp);
       if (resp.data.status) {
         let data = resp.data.data;
-          setAllDigiDoctors(data);
-          setsearcheddoctors(data);
+        setAllDigiDoctors(data);
+        setsearcheddoctors(data);
         // if (id) {
         //   let selectedDoctor = data.find((doctor, index) => {
         //     return doctor.doctorid == id;
@@ -58,17 +58,19 @@ function Digimedical_doctors(props) {
         notify.error(err.response.data.message || "Something went wrong");
       }
     }
-  }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
     let specialityName = "";
-    if( props.location &&
+    if (
+      props.location &&
       props.location.state &&
-      props.location.state.specialityName){
-        specialityName = props.location.state.specialityName;
-        setSpecialityName(specialityName)
-      }
+      props.location.state.specialityName
+    ) {
+      specialityName = props.location.state.specialityName;
+      setSpecialityName(specialityName);
+    }
     getAllDigiDoctors();
   }, []);
 

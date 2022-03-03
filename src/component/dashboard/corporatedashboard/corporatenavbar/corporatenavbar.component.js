@@ -62,7 +62,7 @@ const Corporatenavbar = (props) => {
                 <ul className="navbar-nav navbar-nav-right">
                     <li className="nav-item dropdown">
                         <div className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                           
+
                         </div>
                     </li>
                     <li className="nav-item nav-profile dropdown">
@@ -88,7 +88,8 @@ const Corporatenavbar = (props) => {
                         </div>
                     </li>
                     {
-                        logoutstate.logout ? <div className="logout-container">
+                        logoutstate.logout ?
+                        <div className="logout-container">
                             <div className="logout">
                                 <p>Are you sure you want to Logout?</p>
                                 <div className="buttons">

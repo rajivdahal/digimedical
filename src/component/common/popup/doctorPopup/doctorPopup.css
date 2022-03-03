@@ -72,8 +72,13 @@ t */
   border-radius: 10px;
   padding: 20px;
   width: 100%;
+  height: 60px;
 }
-.doc-form-input2 {
+.doc-form-row3 {
+  margin-top: 20px;
+}
+.doc-form-input1 .DatePicker {
+  z-index: 1;
 }
 
 .doc-form-last-sent p {
@@ -100,6 +105,15 @@ select:invalid {
   color: gray;
 }
 
+@media screen and (max-height: 750px) {
+  .doc-pop-inner {
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+  }
+}
+
 @media screen and (max-width: 1366px) {
   .doc-pop-inner {
     width: 60%;
@@ -117,10 +131,7 @@ select:invalid {
   .doc-pop-inner {
     width: 90%;
   }
-  .doc-pop-form {
-    height: 80vh;
-    overflow: scroll;
-  }
+
   .doc-form-row1,
   .doc-form-row2 {
     width: 95%;
@@ -152,9 +163,13 @@ d
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 }
+.doc-pay-pop {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .doc-pay-pop-head {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 10px 20px 20px 20px;
 }
 .doc-pay-pop-head p {
   font-weight: 500;
@@ -166,7 +181,8 @@ d
 
   color: #374253;
 }
-.pay-partner1 {
+.pay-partner1-img {
+  margin-top: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -174,19 +190,20 @@ d
   box-sizing: border-box;
   border-radius: 10px;
   padding: 10px;
+
   width: 40%;
 }
 
-.pay-partner1 img {
+.pay-partner1-img img {
   width: 125px;
   height: 60.9px;
-  object-fit: cover;
+
+  image-resolution: inherit;
 }
 
 .doc-pay-appoint-det1 {
-  margin-top: 10px;
-  padding: 20px;
   display: flex;
+  padding: 10px 20px 0px 20px;
   border-top: 0.75px solid #d0d7e2;
   gap: 7rem;
   justify-content: space-between;
@@ -209,9 +226,11 @@ d
 
   color: #374253;
 }
-
+.doc-pay-rest-cont {
+  padding: 20px;
+}
 .doc-pay-doc-serv {
-  margin: 20px;
+  padding: 10px 0px 20px 0px;
   border-top: 0.75px solid #d0d7e2;
   border-bottom: 0.75px solid #d0d7e2;
 }
@@ -221,8 +240,7 @@ d
 }
 
 .pay-ctlt-checkbox {
-  margin: 20px;
-  padding: 15px 0 10px 0;
+  padding: 10px 0 10px 0;
   border-top: 0.75px solid #d0d7e2;
   border-bottom: 0.75px solid #d0d7e2;
 }
@@ -230,21 +248,26 @@ d
   display: flex;
   justify-content: space-between;
 }
-
-.pay-radio1 label {
-  font-size: 16px;
+.pay-checkbox-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pay-checkbox-input label {
+  margin-top: 12px;
+  font-size: 14px;
   line-height: 20px;
-
-  color: #533743;
+  font-weight: normal;
+  color: #374253;
 }
 
 .doc-pay-appoint-det3 {
-  margin: 20px;
+  padding: 10px 0px 15px 0px;
   display: flex;
   justify-content: space-between;
 }
 .doc-pay-appoint-det4 {
-  padding: 20px;
+  padding: 10px 0px 0px 0px;
 }
 .doc-pay-last-div {
   display: flex;
@@ -253,5 +276,12 @@ d
 
 .pay-last-but {
   float: right;
-  margin-bottom: 20px;
+}
+
+@media screen and (max-height: 700px) {
+  .pay-pop-inner {
+    height: 80vh;
+
+    overflow: scroll;
+  }
 }

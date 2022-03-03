@@ -1,5 +1,5 @@
 import DatePicker from '@amir04lm26/react-modern-calendar-date-picker';
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { ErrorMessage, Field, Form, Formik ,useFormikContext} from 'formik'
 import React from 'react'
 import { useState ,useEffect} from 'react';
 import Select from "react-select";
@@ -12,8 +12,7 @@ import Tableicons from '../../../../utils/materialicons';
 import { Check, Edit, Clear, Add } from "@material-ui/icons";
 
 
-export default function UserServices() {
-  console.log("inside user services")
+export default function UserServices(props) {
   const initialValues={
     serviceId:"",
     date:"",
@@ -22,10 +21,9 @@ export default function UserServices() {
 
 const schema = Yup.object().shape({
   serviceId: Yup.string().required("Service is required!"),
-  date: Yup.string().required("Date is required!"),
+  date: Yup.object(),
   time: Yup.string().required("Time is required!"),
 });
-
 var dt = new Date();
     const [selectedDay, setSelectedDay] = useState({
         year: dt.getFullYear(),
@@ -36,19 +34,16 @@ var dt = new Date();
     const [allServices,setAllServices]=useState([])
     const [selectedService,setSelectedService]=useState([])
     let [date,setDate]=useState("")
+    let [toDeleteData,setToDeleteData]=useState(null)
+    let [deleteIndeedPopUp,setDeleteIndeedPopUp]=useState(false)
+    let [deleteIndeed,setDeleteIndeed]=useState(false)
+
     let [serviceId,setServiceId]=useState("")
       useEffect(()=>{
           getAllServices()
           getSelectedServices()
       },[])
-    const handleDateChange=(value,errors)=>{
-        delete errors.date
-        console.log("date has changed",value,errors)
-        let {day,month,year}=value
-        let fullDate=year+"-"+month+"-"+day
-        setDate(fullDate)
-        setSelectedDay(value)
-    }
+
     const getAllServices=()=>{
         httpClient.GET("services/get-all")
         .then(resp=>{
@@ -58,73 +53,124 @@ var dt = new Date();
                   value: item.id,
                 };
               });
-              console.log("all services is",allServices)
             setAllServices(allServices)
-        })
-        .catch(err=>{
-            console.log("error is",err)
         })
     }
     const getSelectedServices=()=>{
       httpClient.GET("service-booking/get/0",false,true)
       .then(resp=>{
-        setSelectedService(resp.data.data)
+        let finalData=resp.data.data.map((item)=>{
+            item.userName=item.firstName+" "+item.middleName+" "+item.lastName
+            return item
+        })
+        setSelectedService(finalData)
       })
       .catch(err=>{
         notify.error("Error in fetching services")
       })
     }
-    const handleServiceChange=(value,errors)=>{
-        delete errors.serviceId
-        setServiceId(value.value)
-    }
 
-  const handleCategoryChange=()=>{
-      console.log("handlechange occurred")
-  }
-  const submit=(values)=>{
-      let  finaldata={
-        date:date,
-        digiServiceId:serviceId,
+function DatePickerField({ name }) {
+  const formik = useFormikContext();
+  const field = formik.getFieldProps(name);
+  return (
+    <DatePicker
+      value={field.value?field.value:selectedDay}
+      onChange={value => {
+        formik.setFieldValue(name, value)
+      }}
+    />
+  );
+}
+function TimePickerField({name}){
+  const formik=useFormikContext()
+  const field=formik.getFieldProps(name);
+  return(
+    <input type={"time"} className="prescription_input" onChange={e=>{
+      formik.setFieldValue(name,e.target.value)
+    }}></input>
+  )
+}
+function SelectField({name}){
+  const formik=useFormikContext()
+  const field=formik.getFieldProps(name);
+  return (
+    <Select
+    options={allServices}
+    className="select-category"
+    onChange={(value)=>{
+      formik.setFieldValue(name,value.value)
+    }}
+    />
+  )
+}
+  const submit=(values,{ resetForm })=>{
+      let finaldata={
+        date:values.date?
+                        values.date.year+"-"+values.date.month+"-"+values.date.day:
+                        selectedDay.year+"-"+selectedDay.month+"-"+selectedDay.day,
+        digiServiceId:values.serviceId,
         time:values.time
       }
       httpClient.POST("service-booking/create",finaldata,false,true)
       .then(resp=>{
         notify.success("Updated Successfully")
+        resetForm()
+        getSelectedServices()
       })
       .catch(err=>{
         notify.error("Error in updating")
       })
-
-      console.log("submit triggerred",finaldata)
   }
+  const columnsData=[
+    { title: "Name",field: "serviceName" },
+    { title: "Date", field: "date" },
+    { title: "Time", field:"time"},
+  ]
+  if(props.origin=="admin"){
+    columnsData.push({title:"User Name",field:"userName"})
+  }
+  const deleteData=(data)=>{
+    setToDeleteData(data)
+    setDeleteIndeedPopUp(true)
+  }
+  if(deleteIndeed){
+    httpClient.PUT("service-booking/cancel/"+toDeleteData.id,null,false,true)
+    .then(resp=>{
+      getSelectedServices()
+      notify.success("Deleted Successfully")
+      setDeleteIndeed(false)
+    })
+    .catch(err=>{
+      notify.error("Problems in deleting")
+    })
+    }
   return (
     <div className="med_repo_main">
     <div className="main-psetImage  report-container">
-      <h2>Select the service</h2>
+      {
+        props.origin!="admin"?<h2>Select the service</h2>:null
+      }
+
       <div className="row umi_row">
         <div className="col-md-12 grid-margin stretch-card">
           <div className="card">
             <div className="card-body">
+              {
+               props.origin!="admin"?
             <Formik
         initialValues={initialValues}
         initialValues={initialValues}
         onSubmit={submit}
-        // validationSchema={schema}
+        validationSchema={schema}
     >
-
-    {({ errors, touched }) => (
+    {({ errors, touched}) => (
       <Form className=" medical_repo_form">
         <div className="margin-adjuster1">
           <div className="labrepo_text_form">
           <label htmlFor="date">Date:</label>
           <div className='serviceDate'>
-          <DatePicker
-              className="form-control"
-              shouldHighlightWeekends
-              value={selectedDay}
-              onChange={(value)=>handleDateChange(value,errors)}
-          ></DatePicker>
+          <DatePickerField name="date" />
           </div>
           </div>
           {
@@ -132,20 +178,7 @@ var dt = new Date();
           }
           <div className="labrepo_text_form">
             <label htmlFor="name">Time:</label>
-            <Field
-              name="time"
-              id="time"
-            >
-                {
-                    ({
-                        field,
-                        form: { touched, errors },
-                        meta,
-                      })=>(
-                        <input type={"time"} className="prescription_input" {...field} ></input>
-                    )
-                }
-            </Field>
+            <TimePickerField name="time"></TimePickerField>
           </div>
           {
             errors.time && touched.time?<div style={{color:"red"}}>{errors.time}</div>:null
@@ -153,13 +186,8 @@ var dt = new Date();
         </div>
         <div className="margin-adjuster2">
           <div className="labrepo_text_form">
-            <label htmlFor="name">Value:</label>
-                    <Select
-
-        options={allServices}
-        className="select-category"
-        onChange={(value)=>handleServiceChange(value,errors)}
-        />
+            <label htmlFor="name">Service:</label>
+            <SelectField name="serviceId"></SelectField>
           </div>
           {
             errors.serviceId && touched.serviceId?<div style={{color:"red"}}>{errors.serviceId}</div>:null
@@ -170,18 +198,35 @@ var dt = new Date();
         </div>
       </Form>
     )}
-  </Formik>
+  </Formik>:null
+  }
+  {
+    deleteIndeedPopUp?
+    <div className='delete-container'>
+    <div className="logout-container">
+    <div className="logout">
+        <p>Are you sure you want to Delete?</p>
+        <div className="buttons">
+            <button className="yes-logout" onClick={()=>{
+              setDeleteIndeedPopUp(false)
+              setDeleteIndeed(true)
+            }}>Yes</button>
+            <button className="no-logout" onClick={()=>{
+              setDeleteIndeedPopUp(false)
+              setDeleteIndeed(false)
+            }}>No</button>
+        </div>
+    </div>
+</div>
+</div>
+:null
+  }
   <div className="material-table">
-  <p id="medical_table_head">Report</p>
   <MaterialTable
     data={selectedService}
     title="Selected Services"
     icons={Tableicons}
-    columns={[
-      { title: "Name",field: "serviceName" },
-      { title: "Date", field: "date" },
-      { title: "Time", field:"time"},
-    ]}
+    columns={columnsData}
     options={{
       actionsColumnIndex: -1,
       pageSize: 5,
@@ -195,17 +240,10 @@ var dt = new Date();
 
     actions={[
       {
-        icon: 'edit',
-        tooltip: 'Edit',
-        onClick: (event, rowData) => {
-          // Do save operation
-        }
-      },
-      {
         icon: 'delete',
         tooltip: 'delete',
         onClick: (event, rowData) => {
-          // Do save operation
+          deleteData(rowData)
         }
       }
 

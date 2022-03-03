@@ -13,7 +13,6 @@ function SpecialityDoctor(props) {
     const [searchName, setSearchName] = useState("");
     const [selectedId, setSelectedId] = useState("");
     const [specialityName, setSpecialityName] = useState("");
-
     const getAllDigiDoctors = async () => {
         console.log(props)
         let id = "";
@@ -91,6 +90,7 @@ function SpecialityDoctor(props) {
                     <div className="hospital_book_card">
                         {searcheddoctors.length > 0 ?
                             searcheddoctors.map((item, index) => {
+                                console.log("doctorrrr",item)
                                 return <>
                                     <UserDoctorCard key={index}
                                         // selected={item.doctorid == selectedId}
@@ -100,8 +100,10 @@ function SpecialityDoctor(props) {
                                         // price={item.price}
                                         specialist={specialityName}
                                         gender={item.gender + 1}
-                                        doctorId={item.doctorid} 
+                                        doctorId={item.doctorid}
                                         digiServices={item.digiService}
+                                        // digiserviceid={item.digiserviceid}
+                                        serviceid={item.serviceid}
                                     />
                                 </>
                             })

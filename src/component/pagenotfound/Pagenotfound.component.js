@@ -15,3 +15,13 @@ export const Pagenotfound = () => {
         </>
     )
 }
+export const LostInternetConnection=()=>{
+    return(
+        <>
+            <div className="body">
+                <h1>Please check your Internet connection</h1>
+                <img src="/images/404notfound/404.jpg"></img><br/>
+            </div>
+        </>
+    )
+}

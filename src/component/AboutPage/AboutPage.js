@@ -11,7 +11,7 @@ import OurMission from "./OurMission/OurMission";
 import "./AboutPage.css";
 import ourteamimg from "../../assets/team2.png";
 const Root = styled.div`
-  height: 25rem;
+  height: 30rem;
 `;
 
 const Content = styled.div`
@@ -23,10 +23,11 @@ const Content = styled.div`
   }
 `;
 const Heading = styled.div`
+  margin-top: 1rem;
   width: 40%;
   font-style: normal;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 50px;
   line-height: 50px;
   display: flex;
   align-items: center;
@@ -57,7 +58,7 @@ const Subheading = styled.div`
   margin-top: 1rem;
   width: 23%;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 15px;
   line-height: 25px;
   display: flex;
@@ -70,18 +71,21 @@ const ButtonContainor = styled.div`
   margin-top: 1rem;
 `;
 const GetAppointment = styled.a`
+  margin-top: 1rem;
+
   background-color: #2745f0;
   border-radius: 5px;
   padding: 1rem;
   display: inline-block;
   color: #fff;
+  font-size: 13.33px;
+  font-weight: 500;
 `;
 
 const AboutPage = () => {
-  useEffect(()=>{
-    window.scrollTo(0,0)
-
-  },[])
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Navbar></Navbar>

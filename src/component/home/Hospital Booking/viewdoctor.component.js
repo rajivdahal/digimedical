@@ -13,16 +13,24 @@ import { Field, Formik, Form, ErrorMessage } from "formik";
 import { notify } from "../../../services/notify";
 import * as yup from "yup";
 import { firstUpperCase } from "../../../utils/stringUppercase";
-import DocPopup from "../../common/popup/doctorPopup";
+import DoctorPopup from "../../common/popup/doctorPopup/doctorPopup";
+// import DocPopup from "../../common/popup/doctorPopup";
 import Accordion from "react-bootstrap/Accordion";
-import PayPop from "../../common/popup/paymentpopup/payment";
+// import PayPop from "../../common/popup/paymentpopup/payment";
+import BookAnAppointment from "../BookAnAppointment/BookAnAppointment";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { resetHospitalDoctorState, setDoctorInfo } from "../../../actions/hospitalAppointmentBooking.ac";
+import { setOpenPopUp } from "../../../actions/paymentPopUp.ac";
+
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default function Hospital_doctors(props) {
-
   let [alldoctors, setallDoctors] = useState([]);
   let [searcheddoctors, setsearcheddoctors] = useState([]);
   let [issearched, setIssearched] = useState(false);
+  const [docPopup, SetDocPopup] = useState(false);
+  let [doctorappointmentindex, setdoctorappointmentindex] = useState(null);
   const history = useHistory();
   useEffect(() => {
     httpClient
@@ -40,7 +48,7 @@ export default function Hospital_doctors(props) {
 
           if (item.starttime) {
             let tempstartArr = item.starttime.split(":");
-            tempstartArr.splice(2,1);
+            tempstartArr.splice(2, 1);
             item.startTime = tempstartArr.join(":");
             let hours = parseInt(tempstartArr[0]);
             if (hours > 0 && hours < 12) {
@@ -50,21 +58,19 @@ export default function Hospital_doctors(props) {
 
           if (item.endtime) {
             let tempEndArr = item.endtime.split(":");
-            tempEndArr.splice(2,1);
+            tempEndArr.splice(2, 1);
             item.endTime = tempEndArr.join(":");
             let hours = parseInt(tempEndArr[0]);
             if (hours > 11 && hours < 24) {
               item.endTime += " PM";
             }
           }
-        })
+        });
         setallDoctors(data);
       });
     window.scrollTo(0, 0);
   }, []);
 
-  const [docPopup, SetDocPopup] = useState(false);
-  let [doctorappointmentindex, setdoctorappointmentindex] = useState(null);
   const showappointment = (item, index) => {
     if (!doctorappointmentindex) {
       return setdoctorappointmentindex(parseInt(index) + 1);
@@ -82,15 +88,6 @@ export default function Hospital_doctors(props) {
     month: dt.getMonth() + 1,
     day: dt.getDate()
   })
-  // const [initialValues,setInitialValues]=useState({
-  //   firstName: "",
-  //   middleName: "",
-  //   lastName: "",
-  //   email: "",
-  //   mobileNumber: "",
-  //   appointmentDate: "",
-  //   appointmentTime: "",
-  // })
   const initialValues = {
     firstName: "",
     middleName: "",
@@ -116,8 +113,8 @@ export default function Hospital_doctors(props) {
       hospitalId: props.location.state.id,
       doctorId: doctor.doctorid,
       servicesId: doctor.serviceid,
-      appointmentDate:appointmentDate
-    }
+      appointmentDate: appointmentDate,
+    };
     httpClient
       .POST(
         props.match.url == "/dashboard/hospitals/view-doctors"
@@ -179,17 +176,36 @@ export default function Hospital_doctors(props) {
     setsearcheddoctors(searched);
   };
   const datechange = (value, status) => {
-    let date = ""
-    date = value.year + "-" + value.month + "-" + value.day
-    // setInitialValues((initialValues)=>{
-    //   return{
-    //     ...initialValues,
-    //     appointmentDate:date
-    //   }
-    // })
+    let date = "";
+    date = value.year + "-" + value.month + "-" + value.day;
     setAppointmentDate(date);
-    // initialValues.appointmentDate = date
-    setSelectedDay(value)
+    setSelectedDay(value);
+  };
+
+    // Redux implementation
+    const dispatch = useDispatch();
+    const appointmentBooking = useSelector((state) => state.appointmentBooking);
+    const popUpActionsData=useSelector((state)=>state.paymentPopUp)
+    const settingDoctorInfo=bindActionCreators(setDoctorInfo,dispatch)
+    const resetDoctorInfo=bindActionCreators(resetHospitalDoctorState,dispatch)
+    const openDoctorPopUp=bindActionCreators(setOpenPopUp,dispatch)
+  // NOTE:Pop up action data from redux is already imported look above just implement below by setting trihgger from redux store data
+
+  console.log("pop up data are",popUpActionsData,openDoctorPopUp)
+
+  // end of redux implementation
+
+  const bookAnAppointment=(doctor)=>{
+
+    console.log("doctor is",doctor)
+    SetDocPopup(true)
+    // reset the previous information if exists
+    resetDoctorInfo()
+    //end  reset the previous information if exists
+    // set the doctor info
+    settingDoctorInfo(doctor)
+    // end set the doctor info
+
   }
 
   return (
@@ -204,14 +220,14 @@ export default function Hospital_doctors(props) {
             <div className="hospital_doc_checkroute">
               <p>Home</p>
               <p>
-                <i class="doc_arrow doc_right"></i>
+                <i className="doc_arrow doc_right"></i>
               </p>
               <Link to={"/hospitals"}>
                 {" "}
                 <p>Hospitals</p>
               </Link>
               <p>
-                <i class="doc_arrow doc_right"></i>
+                <i className="doc_arrow doc_right"></i>
               </p>
               <p id="hospital_name">{props.location.state.name}</p>
             </div>
@@ -234,7 +250,7 @@ export default function Hospital_doctors(props) {
                 <p>Select or search available doctors</p>
               </div>
               <div className="doc_booksearch">
-                <form class="doc_example" action="/action_page.php">
+                <form className="doc_example" action="/action_page.php">
                   <input
                     type="text"
                     placeholder="Search Doctors .."
@@ -242,14 +258,14 @@ export default function Hospital_doctors(props) {
                     onChange={searchDoctors}
                   />
                   <button>
-                    <i class="fa fa-search"></i>
+                    <i className="fa fa-search"></i>
                   </button>
                 </form>
               </div>
             </div>
 
             <div className="doc_appoint_main">
-              <PayPop></PayPop>
+              {/* <PayPop></PayPop> */}
               {!searcheddoctors.length && !issearched ? (
                 alldoctors.length ? (
                   alldoctors.map((doctor, doctorindex) => {
@@ -308,8 +324,9 @@ export default function Hospital_doctors(props) {
 
                             <p>
                               Available time :{" "}
-                              <span id="span1_doc_card">{doctor.startTime} - {doctor.endTime}</span>
-
+                              <span id="span1_doc_card">
+                                {doctor.startTime} - {doctor.endTime}
+                              </span>
                             </p>
                             <div className="doc_accordion">
                               <Accordion>
@@ -331,23 +348,21 @@ export default function Hospital_doctors(props) {
                           <div className="doc_card_but">
                             {" "}
                             <button
-                              onClick={() => SetDocPopup(true)}
+                              onClick={() => bookAnAppointment(doctor)}
                               id="doc_card_but"
                             >
                               Book an appointment
                             </button>
                           </div>
-                          <DocPopup
+                          <DoctorPopup
                             trigger={docPopup}
                             setTrigger={SetDocPopup}
-                          ></DocPopup>
-                          <div id="popup5" class="overlay1">
-                            <div class="popup">
+                          ></DoctorPopup>
+                          <div id="popup5" className="overlay1">
+                            <div className="popup">
                               <h2>Here i am</h2>
-                              <a class="close" href="#">
-                                &times;
-                              </a>
-                              <div class="content">
+                              <a className="close">&times;</a>
+                              <div className="content">
                                 Thank to pop me out of that button, but now i'm
                                 done so you can close this window.
                               </div>
@@ -378,7 +393,7 @@ export default function Hospital_doctors(props) {
                                           id="firstName"
                                         />
                                       </div>
-                                      <div class="doc_appoin_form1">
+                                      <div className="doc_appoin_form1">
                                         <p>Middle Name</p>
                                         <Field
                                           type="text"
@@ -387,7 +402,7 @@ export default function Hospital_doctors(props) {
                                           id="middleName"
                                         />
                                       </div>
-                                      <div class="doc_appoin_form1">
+                                      <div className="doc_appoin_form1">
                                         <p>Last Name</p>
                                         <Field
                                           type="text"
@@ -396,7 +411,7 @@ export default function Hospital_doctors(props) {
                                           id="lastName"
                                         />
                                       </div>
-                                      <div class="doc_appoin_form1">
+                                      <div className="doc_appoin_form1">
                                         <p>Email Address</p>
                                         <Field
                                           type="text"
@@ -405,7 +420,7 @@ export default function Hospital_doctors(props) {
                                           id="email"
                                         />
                                       </div>
-                                      <div class="doc_appoin_form1">
+                                      <div className="doc_appoin_form1">
                                         <p>Phone No.</p>
                                         <Field
                                           type="text"
@@ -416,7 +431,7 @@ export default function Hospital_doctors(props) {
                                       </div>
                                     </>
                                   ) : null}
-                                  <div class="doc_appoin_form1">
+                                  <div className="doc_appoin_form1">
                                     <p>Appointment Date</p>
                                     <DatePicker
                                       value={selectedDay}
@@ -428,7 +443,7 @@ export default function Hospital_doctors(props) {
                                       id="appointmentDate"
                                     />
                                   </div>
-                                  <div class="doc_appoin_form1">
+                                  <div className="doc_appoin_form1">
                                     <p>Appointment Time</p>
                                     <Field
                                       type="time"
@@ -549,7 +564,7 @@ export default function Hospital_doctors(props) {
                                     id="firstName"
                                   />
                                 </div>
-                                <div class="doc_appoin_form1">
+                                <div className="doc_appoin_form1">
                                   <p>Middle Name</p>
                                   <Field
                                     type="text"
@@ -558,7 +573,7 @@ export default function Hospital_doctors(props) {
                                     id="middleName"
                                   />
                                 </div>
-                                <div class="doc_appoin_form1">
+                                <div className="doc_appoin_form1">
                                   <p>Last Name</p>
                                   <Field
                                     type="text"
@@ -567,7 +582,7 @@ export default function Hospital_doctors(props) {
                                     id="lastName"
                                   />
                                 </div>
-                                <div class="doc_appoin_form1">
+                                <div className="doc_appoin_form1">
                                   <p>Email Address</p>
                                   <Field
                                     type="text"
@@ -576,7 +591,7 @@ export default function Hospital_doctors(props) {
                                     id="email"
                                   />
                                 </div>
-                                <div class="doc_appoin_form1">
+                                <div className="doc_appoin_form1">
                                   <p>Phone No.</p>
                                   <Field
                                     type="text"
@@ -587,7 +602,7 @@ export default function Hospital_doctors(props) {
                                 </div>
                               </>
                             ) : null}
-                            <div class="doc_appoin_form1">
+                            <div className="doc_appoin_form1">
                               <p>Appointment Date</p>
                               <Field
                                 type="date"
@@ -595,7 +610,7 @@ export default function Hospital_doctors(props) {
                                 id="appointmentDate"
                               />
                             </div>
-                            <div class="doc_appoin_form1">
+                            <div className="doc_appoin_form1">
                               <p>Appointment Time</p>
                               <Field
                                 type="time"
@@ -639,7 +654,7 @@ export default function Hospital_doctors(props) {
               />
               <p id="hosp_name_doc">{props.location.state.name}</p>
               <p>
-                <i class="fas fa-map-marker-alt"></i> &nbsp;{" "}
+                <i className="fas fa-map-marker-alt"></i> &nbsp;{" "}
                 {props.location.state.address}
               </p>
               <p id="hosp_ph_no">
@@ -648,7 +663,7 @@ export default function Hospital_doctors(props) {
                 {props.location.state.mobilenumber}
               </p>
               <p>
-                <i class="fas fa-envelope"></i>&nbsp;
+                <i className="fas fa-envelope"></i>&nbsp;
                 {props.location.state.address}
               </p>
               <p id="hosp_ph_no">

@@ -55,10 +55,10 @@ export default function elderlyCareAtHome() {
             </p>
             <div className="packages_lt">
               {" "}
-              <h3>
+              <p className="packages_ltp">
                 Some warning signs that need health personnel attention are as
                 follows:{" "}
-              </h3>
+              </p>
               <table className="table-eld-care">
                 <tr>
                   <th>S/N</th>

@@ -10,7 +10,7 @@ function BookAnAppointment(props) {
   const Container = styled.div`
     padding-left: 8.75rem;
     padding-right: 8.75rem;
-    padding-bottom: 2rem;
+    padding-bottom: 3rem;
     // margin-bottom: 2rem;
     background: rgba(245, 250, 255, 1);
     display: flex;
@@ -44,15 +44,15 @@ function BookAnAppointment(props) {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 0.8rem;
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 4rem;
     margin-bottom: 1rem;
   `;
   const TopHeader = styled.div`
     color: #596579;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: normal;
     word-spacing: 0.02rem;
     letter-spacing: 0.03rem;
   `;
@@ -60,7 +60,7 @@ function BookAnAppointment(props) {
     color: #192638;
     font-style: normal;
     line-height: 52px;
-    font-size: 38px;
+    font-size: 33.33px;
     font-weight: bold;
   `;
 
@@ -79,7 +79,7 @@ function BookAnAppointment(props) {
     }
   `;
   return (
-    <div id="BookanAppointment">
+    <div id="BookanAppointment" style={{ marginTop: "2rem" }}>
       <Container>
         <Header>
           <TopHeader>We are here for you</TopHeader>

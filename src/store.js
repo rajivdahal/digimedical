@@ -28,6 +28,28 @@ const initialState = {
     medicalReports:{
         reports:true,
         utilsInfo:false
+    },
+    paymentPopUp:{
+        trigger:false
+    },
+    appointmentBooking:{
+        appointmentBookingPopUp:false,
+        doctorInfo:null,
+        isDoctorInfoAdded:false,
+        appointmentDate:"",
+        appointmentTime:"",
+        isAppointmentFixed:false,
+        onlinePlatformForBooking:"",
+    },
+    digiDoctorAppointmentBooking:{
+        isDigiDoctorAppointmentFixed:false,
+        isLoadingAppointmentBooking:false,
+        digiDoctorAppointmentDate:"",
+        digiDoctorAppointmentTime:"",
+        digiDoctorInfo:null,
+        digiDoctorPaymentType:"online",
+        selectedService:null,
+        digiDoctorBookingIdAfterBooking:null,
     }
 }
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))
