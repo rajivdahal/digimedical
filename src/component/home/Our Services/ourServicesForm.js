@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Root = styled.div`
-  width: 35%;
+  width: 45%;
 
   padding: 1rem;
   background: #ffffff;
@@ -58,7 +58,13 @@ const Root = styled.div`
 const DoctorAtHomeForm = () => {
   return (
     <Root>
-      <form>
+      <form
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          columnGap: "2rem",
+        }}
+      >
         <div class="form-group">
           <label for="inputAddress">First Name</label>
           <input
@@ -104,17 +110,12 @@ const DoctorAtHomeForm = () => {
             placeholder="phone"
           />
         </div>
-        <div class="form-group">
-          <label for="inputAddress">City</label>
-          <input
-            type="text"
-            class="form-control"
-            id="inputAddress"
-            placeholder="City"
-          />
-        </div>
 
-        <button type="submit" className="btn btn-primary btn-lg btn-block">
+        <button
+          type="submit"
+          className="btn btn-primary btn-lg btn-block"
+          style={{ gridColumnStart: "1", gridColumnEnd: "3" }}
+        >
           Send Now
         </button>
       </form>

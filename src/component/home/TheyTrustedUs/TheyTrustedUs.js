@@ -8,8 +8,8 @@ import client1 from "../../../assets/client1.png";
 import Client2 from "../../../assets/Client2.png";
 const Root = styled.div`
   text-align: center;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
   @media screen and (max-width: 650px) {
     padding-left: 1rem;
     padding-right: 1rem;

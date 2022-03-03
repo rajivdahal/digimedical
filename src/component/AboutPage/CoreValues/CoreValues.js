@@ -4,13 +4,12 @@ import circleicon from "../../../assets/circleicon.png";
 import { data } from "./CoreValueData";
 
 const Root = styled.div`
-  //   margin-top: 2rem;
   padding-left: 6.5rem;
   padding-right: 6.5rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding-top: 5rem;
+  padding-top: 6rem;
   text-align: center;
   @media screen and (max-width: 1176px) {
     padding-left: 3rem;
@@ -24,7 +23,7 @@ const Root = styled.div`
 const Content = styled.div``;
 const Title = styled.div`
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 15px;
   line-height: 25px;
   color: #596579;
@@ -51,7 +50,7 @@ const Title = styled.div`
 const Heading = styled.div`
   font-style: normal;
   line-height: 52px;
-  font-size: 38px;
+  font-size: 33.33px;
   font-weight: 700;
 `;
 const Deatial = styled.div`
@@ -83,7 +82,7 @@ const BoxContainpr = styled.div`
     margin-top: 1.5rem;
   }
 
-  .icon-container{
+  .icon-container {
     position: absolute;
     left: 0;
     top: 50%;
@@ -103,15 +102,16 @@ const BoxContainpr = styled.div`
     margin-left: 0px;
     color: #192638;
     letter-spacing: 0.01em;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 19.16px;
+    font-weight: 500;
     letter-spacing: 0.01em;
     line-height: 24px;
   }
   .detail {
     margin-left: 0px;
     color: #7b8698;
-    font-size: 0.9rem;
+    font-size: 15px;
+    font-weight: 400;
     line-height: 24px;
     margin-top: 1rem;
   }
@@ -131,7 +131,8 @@ const CoreValues = () => {
         return (
           <Feature>
             <BoxContainpr>
-              <div className="icon-container"
+              <div
+                className="icon-container"
                 style={{
                   height: "4rem",
                   width: "4rem",
@@ -153,7 +154,8 @@ const CoreValues = () => {
               </div>
             </BoxContainpr>
             <BoxContainpr>
-              <div className="icon-container"
+              <div
+                className="icon-container"
                 style={{
                   height: "4rem",
                   width: "4rem",

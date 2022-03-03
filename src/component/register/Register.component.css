@@ -46,6 +46,17 @@
   color: #fff;
   margin: 5px;
 }
+.li-reg button {
+  display: block;
+  width: 45px;
+  height: 45px;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  background: #3a94d8;
+  color: #fff;
+  margin: 5px;
+}
 .login-form input {
   padding: 15px;
   border: 1px solid #ccc;

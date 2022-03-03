@@ -8,7 +8,8 @@ import doctorAtHomewall from "../../../assets/doctorAtHomewall.png";
 const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
-  padding-top: 1.5rem;
+  padding-top: 2.5rem;
+  height: 30rem;
   @media screen and (max-width: 650px) {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -63,7 +64,7 @@ const Heading = styled.div`
   margin-top: 0.6rem;
   font-style: normal;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 50px;
   line-height: 50px;
   display: flex;
   align-items: center;

@@ -8,7 +8,7 @@ const Root = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 6rem;
   margin-bottom: 4rem;
 `;
 const Heading = styled.div`
