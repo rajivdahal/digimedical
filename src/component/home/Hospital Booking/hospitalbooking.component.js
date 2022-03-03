@@ -66,7 +66,7 @@ export default function Hospitalbookingcomponent(props) {
           }
         >
           <div className="hospital_bookconthead">
-            <h2>Book appointment at hospital</h2>
+            <p>Book appointment at hospital</p>
             {hospitals.length ? (
               <div className="hospital_booksearch">
                 <form class="example" action="/action_page.php">

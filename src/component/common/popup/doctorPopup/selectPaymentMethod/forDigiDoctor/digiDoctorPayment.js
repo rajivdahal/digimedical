@@ -9,6 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { httpClient } from '../../../../../../utils/httpClient';
 import { useHistory } from 'react-router-dom';
 import { notify } from '../../../../../../services/notify';
+import { resetHospitalDoctorState } from '../../../../../../actions/hospitalAppointmentBooking.ac';
 
 export default function DigiDoctorPayment(props) {
   let history=useHistory()
@@ -26,7 +27,10 @@ export default function DigiDoctorPayment(props) {
     const setDigiDoctorPaymentType=bindActionCreators(setPaymentType,dispatch)
     const closeDoctorPopUp=bindActionCreators(setClosePopUp,dispatch)
     const setDigimedicalDoctorInfo=bindActionCreators(digiDoctorInfo,dispatch)
-    const setDigiDoctorAppointment=bindActionCreators(digiDoctorAppointmentFixed,dispatch)
+    // const setDigiDoctorAppointment=bindActionCreators(digiDoctorAppointmentFixed,dispatch)
+    const resetDigiDoctorValue=bindActionCreators(resetHospitalDoctorState,dispatch)
+
+
     console.log("store data are",digiDoctorBooking)
     //end of redux implementation
 
@@ -68,6 +72,9 @@ export default function DigiDoctorPayment(props) {
     .then(resp=>{
       history.push("/dashboard/viewappointment")
       notify.success("Appointment Successfully created")
+      resetDigiDoctorValue()
+      closeDoctorPopUp()
+
     })
     .catch(err=>notify.error("Error in Appointment Booking"))
   }

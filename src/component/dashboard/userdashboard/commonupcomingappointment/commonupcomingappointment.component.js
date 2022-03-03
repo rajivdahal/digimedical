@@ -108,6 +108,7 @@ export const Commonupcomingappointment = (props) => {
         }
     ]
     const handleEdit = (e, data) => {
+        console.log("row data are",data)
         props.fromcorporatecomponent?
         history.push({
             pathname: "/dashboard/corporate/bookappointment",

@@ -6,7 +6,8 @@
 .docs {
   margin-top: 50px;
   width: 49%;
-  z-index: 100;
+  z-index: 1000;
+  position: absolute;
 }
 
 .docs .doc {

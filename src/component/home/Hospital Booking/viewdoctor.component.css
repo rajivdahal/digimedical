@@ -200,7 +200,7 @@ y here */
 
 .doc_accordion ul.accordion-body li {
   list-style: disc;
-  background: #03080c;
+  background: transparent;
   color: #374253;
   padding: 10px 10px 10px 5px;
   transition: all 0s;
