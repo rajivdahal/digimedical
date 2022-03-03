@@ -56,8 +56,6 @@ const EditProfile = (props) => {
     return error;
   }
 
-
-
   const getUser = () => {
     let id = localStorage.getItem("userid");
     if (props) {

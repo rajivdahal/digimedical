@@ -2,12 +2,23 @@ import { useState } from 'react'
 import { notify } from '../../../../services/notify'
 import { useEffect } from 'react'
 import { httpClient } from '../../../../utils/httpClient'
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import logo from "../../../../assets/logo.png";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { dashboardClose, dashboardOpen } from "../../../../actions/dashboard.ac";
+
 // import "./hospi.component.css"
 import { Link } from 'react-router-dom'
 const Hospitalnavbar = (props) => {
-    let history=useHistory()
-    let [username, setusername] = useState("")
+    let history = useHistory()
+    const dispatch = useDispatch();
+
+    let [username, setusername] = useState("");
+
+    const sidebar = useSelector((state) => state.sidebar);
+    const openDashboard = bindActionCreators(dashboardOpen, dispatch);
+    const closeDashboard = bindActionCreators(dashboardClose, dispatch);
     const [logoutstate, setlogoutstate] = useState({
         logout: false,
     })
@@ -30,74 +41,81 @@ const Hospitalnavbar = (props) => {
             logoutno: true
         })
     }
-    const gotoProfile = () => {
-        history.push('/dashboard/settings/userprofile')
-    }
     const changepassword = () => {
-        history.push('/dashboard/settings/change-password')
-    }
+        history.push("/dashboard/settings/change-password");
+    };
+
+    // const showDashboard = () => {
+    //     if (sidebar.isopen) {
+    //         return closeDashboard();
+    //     }
+    //     openDashboard();
+    // }
+
     return (
         <>
-        <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-            <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+            <div className="newdash_nav">
+                <div className="newdash_hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
                 <Link to="/">
-                    <a className="navbar-brand" href="index.html">
-                        <img src="/images/logo/logo4.png" className=" logoimg" alt="logo" />
-                    </a>
+                    <div className="newdash_nav_img">
+                        <img src={logo} alt="" />
+                    </div>
                 </Link>
-            </div>
-            <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-
-                <h3 className="font-weight-bold welcome-shiva">Welcome Hospital</h3>
-
-                <ul className="navbar-nav navbar-nav-right">
-                    <li className="nav-item dropdown">
-                        <div className="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                           
-                        </div>
-                    </li>
-                    <li className="nav-item nav-profile dropdown">
-                        <div className="nav-link" href="#" data-toggle="dropdown" id="profileDropdown" style={{cursor:"pointer"}}>
-                            <img src="/images/dashboard/user1.jpg" alt="profile" />
-                        </div>
-                        <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                            <div className="dropdown-item" onClick={gotoProfile}>
-                                <i className="ti-user text-primary"></i>
-                                <span>Profile</span>
+                <div className="Welcome_client">
+                    <p>Welcome Hospital</p>
+                </div>
+                <div className="newdash_user">
+                    <div className="newdash_user_img">
+                        <img src="/images/dashboard/user1.jpg" alt="Profile" />
+                    </div>
+                    <div className="newdash_user_optionmain">
+                        {" "}
+                        <div className="newdash_user_option">
+                            <div className="newdash_user_option1" >
+                                {/* <div className="newdash_user_icon">
+                  <i class="fas fa-user-alt"></i>
+                </div>
+                <div>
+                  <p>Profile</p>
+                </div> */}
                             </div>
-
-                            <div className="dropdown-item" onClick={changepassword}>
-                                <i className="ti-settings text-primary"></i>
-                                <span>Change Password</span>
+                            <div className="newdash_user_option1" onClick={changepassword}>
+                                <div className="newdash_user_icon">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <div>
+                                    <p>Change Password</p>
+                                </div>
                             </div>
-                            <div className="dropdown-item" onClick={Logout}>
-                                <i className="ti-power-off text-primary"></i>
-                                <span>Logout</span>
-                            </div>
-
-
-                        </div>
-                    </li>
-                    {
-                        logoutstate.logout ? <div className="logout-container">
-                            <div className="logout">
-                                <p>Are you sure you want to Logout?</p>
-                                <div className="buttons">
-                                    <button className="yes-logout" onClick={logoutyes}>Yes</button>
-                                    <button className="no-logout" onClick={logoutno}>No</button>
+                            <div className="newdash_user_option1" onClick={Logout}>
+                                <div className="newdash_user_icon">
+                                    <i class="fas fa-power-off"></i>
+                                </div>
+                                <div>
+                                    <p>Logout</p>
                                 </div>
                             </div>
                         </div>
-                            :
-                            null
-                    }
-
-                </ul>
-                <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-                    <span className="icon-menu"></span>
-                </button>
+                    </div>
+                </div>
+                {logoutstate.logout ? (
+                    <div className="logout-containerr">
+                        <div className="logout">
+                            <p>Are you sure you want to Logout?</p>
+                            <div className="buttons">
+                                <button className="yes-logout" onClick={logoutyes}>
+                                    Yes
+                                </button>
+                                <button className="no-logout" onClick={logoutno}>
+                                    No
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                ) : null}
             </div>
-        </nav>
         </>
     )
 }

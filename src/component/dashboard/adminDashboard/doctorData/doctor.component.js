@@ -12,12 +12,11 @@ import doctorApi from "./doctor.services";
 import { DAYS } from "../../../../constants/constants";
 import ServiceApi from "../servicesData/services.service";
 import DigiServiceApi from "../newServiceData/newservices.service";
+import hospitalApi from "../hospitalData/hospitalServices";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Createdoctor = (props) => {
-  // all services
-
   const [services, setServices] = useState([]);
   const [digiServices, setDigiServices] = useState([]);
   const imageSelectRef = useRef();
@@ -71,18 +70,14 @@ const Createdoctor = (props) => {
         id = props.location.state.doctorid;
       }
       setDoctorId(id);
-      await getDoctorById(id, allServices,allDigiServices);
+      await getDoctorById(id, allServices, allDigiServices);
     }
   };
 
   const getServices = async () => {
-    let resp;
     try {
-      if (props.isHospital) {
-        resp = await ServiceApi.getHospitalServices();
-      } else {
-        resp = await ServiceApi.getAllServices();
-      }
+      let resp = await ServiceApi.getAllServices();
+
       if (resp.data.status) {
         let data = resp.data.data;
         let trueService = data.filter((item) => {
@@ -109,7 +104,12 @@ const Createdoctor = (props) => {
   const getDigiService = async () => {
     let resp;
     try {
-      resp = await doctorApi.getDigiServices();
+      if(props.isHospital) {
+        resp = await hospitalApi.getDigiServices();
+      }
+      else{
+        resp = await doctorApi.getDigiServices();
+      }
       if (resp.data.status) {
         let data = resp.data.data;
         let trueDigiService = data.filter((item) => {
@@ -174,23 +174,20 @@ const Createdoctor = (props) => {
     setLoading(false);
   };
 
-  const getDoctorById = async (id, allServices,allDigiServices) => {
+  const getDoctorById = async (id, allServices, allDigiServices) => {
     let resp;
     try {
       if (props.isHospital) {
         resp = await doctorApi.getHospitalDoctorById(id);
       } else {
         resp = await doctorApi.getAdminDoctorBYId(id);
-        console.log(resp)
       }
       if (resp.data.status) {
         // get doctor services + basic details
         let responseData = resp.data.data;
         let data = responseData.basicDetails;
         let serviceData = responseData.speciality;
-        console.log(serviceData);
         let digiSpeciality = responseData.digiServices;
-        console.log(digiSpeciality);
 
         let selectedDays = [];
         if (data.availabledays) {
@@ -219,15 +216,11 @@ const Createdoctor = (props) => {
           }
         });
 
-        let savedDigiServices= [];
-        allDigiServices.forEach((service)=>{
-          console.log(service)
-          let foundDigiService = digiSpeciality.filter((item) =>{
-            console.log(item);
-            console.log(service)
+        let savedDigiServices = [];
+        allDigiServices.forEach((service) => {
+          let foundDigiService = digiSpeciality.filter((item) => {
             return item.id.toString() === service.value.toString();
           })
-          console.log(foundDigiService)
           if (foundDigiService.length > 0) {
             savedDigiServices.push({
               label: service.label,
@@ -235,8 +228,6 @@ const Createdoctor = (props) => {
             });
           }
         })
-
-        console.log(savedDigiServices);
         if (data) {
           let url = REACT_APP_BASE_URL + "doctor/download/" + id;
           setImage(url);
@@ -245,10 +236,9 @@ const Createdoctor = (props) => {
             description: data.description,
             mobileNumber: data.mobilenumber,
             doctorServices: savedServices,
-            digiServices : savedDigiServices,
+            digiServices: savedDigiServices,
             gender: data.gender,
           };
-          console.log(docData);
           if (props.isHospital) {
             docData = {
               ...docData,
@@ -275,8 +265,6 @@ const Createdoctor = (props) => {
               },
             };
           }
-
-          console.log(docData);
           setDoctorData(docData);
           setImgName(data.image);
         }
@@ -548,13 +536,13 @@ const Createdoctor = (props) => {
           </Row>
 
           <Row className="mb-3">
-            
-          <Col md={6}>
+
+            <Col md={6}>
               <Form.Group>
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   className='formControl' rows={2}
-                  name="description" as="textarea" 
+                  name="description" as="textarea"
                   onChange={formik.handleChange}
                   value={formik.values.description}
                   onBlur={formik.handleBlur}
@@ -566,7 +554,7 @@ const Createdoctor = (props) => {
                 ) : null}
               </Form.Group>
             </Col>
-            
+
             <Col md={6}>
               <Row>
                 <Col md={5}>
@@ -576,7 +564,7 @@ const Createdoctor = (props) => {
                   </Button>
                   <input
                     onChange={(e) => handleChangeImage(e)}
-                    type="file" 
+                    type="file"
                     name="doctorImage"
                     style={{ display: "none" }}
                     ref={imageSelectRef}
@@ -715,7 +703,7 @@ const Createdoctor = (props) => {
                   ) : null}
                 </Form.Group>
               </Col>
-              
+
             </Row>
           )}
 
