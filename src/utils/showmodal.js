@@ -7,13 +7,13 @@ export const Showmodal = (props) => {
                 <Modal.Header >
                     <Modal.Title><b>Upcomming Appointment</b></Modal.Title>
                 </Modal.Header>
-                <Modal.Body >Do you really want to clear the appointment?</Modal.Body>
+                <Modal.Body >Do you really want to delete the appointment?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="info" onClick={props.handlecancel}>
                         Cancel
                     </Button>
                     <Button variant="danger" onClick={props.deleteindeed}>
-                        Clear
+                        Delete
                     </Button>
                 </Modal.Footer>
             </Modal>

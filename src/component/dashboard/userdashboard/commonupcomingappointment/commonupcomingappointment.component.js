@@ -118,7 +118,8 @@ export const Commonupcomingappointment = (props) => {
         })
     }
     const handledelete = (e, data) => {
-        setid(data.appointmentid)
+        console.log("data is",data)
+        setid(data.appointmentId)
         setShowModal(true)
     }
     const handlecancel = () => {
@@ -129,6 +130,7 @@ export const Commonupcomingappointment = (props) => {
         setshowPrescriptionModal(false)
     }
     const deleteindeed = () => {
+        console.log("inside delete indeed")
         if (id) {
             httpClient.PUT(`cancel-appointment/${id}`, null, false, true)
                 .then(resp => {

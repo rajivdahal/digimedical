@@ -56,6 +56,9 @@ export default function DigiDoctorPayment(props) {
         setServiceType(data)
     }
   const proceed=()=>{
+    if(!digiDoctorBooking.selectedService){
+      return notify.error("Please select some service")
+    }
     let finalData={
       digiServiceId:digiDoctorBooking.selectedService.digiServiceId,
       paymentStatus:0
