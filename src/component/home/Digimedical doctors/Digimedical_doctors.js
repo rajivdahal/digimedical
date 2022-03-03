@@ -98,107 +98,112 @@ function Digimedical_doctors(props) {
         <span id="familyhealthpackages"> &nbsp; Digimedical doctors</span>
       </div>
       <div className="digi_doc_appointmain digi_doc_appointmain1">
-        <div className="our_doc_appoint">
-          <div className="doc_appoint_head">
-            <div className="digidoc_head_txt">
-              <h1>Our doctors</h1>
-              <p>Select the the doctor by their speciality</p>
+        <div className="digi_doc_appoint_bod">
+          <div className="our_doc_appoint">
+            <div className="doc_appoint_head">
+              <div className="digidoc_head_txt">
+                <h1>Our doctors</h1>
+                <p>Select the the doctor by their speciality</p>
+              </div>
+              <div className="doc_booksearch">
+                <form class="doc_example">
+                  <input
+                    type="text"
+                    placeholder="Search Doctors .."
+                    name="searchName"
+                    onChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => searchDigiDoctors(searchName)}
+                  >
+                    <i class="fa fa-search"></i>
+                  </button>
+                </form>
+              </div>
             </div>
-            <div className="doc_booksearch">
-              <form class="doc_example">
-                <input
-                  type="text"
-                  placeholder="Search Doctors .."
-                  name="searchName"
-                  onChange={handleChange}
-                />
-                <button
-                  type="button"
-                  onClick={() => searchDigiDoctors(searchName)}
-                >
-                  <i class="fa fa-search"></i>
-                </button>
-              </form>
+            <div className="digidoc_appoint_main">
+              <div className="digidoctor_apoint_card">
+                {searcheddoctors.length > 0 ? (
+                  searcheddoctors.map((item, index) => {
+                    return (
+                      <>
+                        <DigiMedicalDoctorCard
+                          key={index}
+                          // selected={item.doctorid == selectedId}
+                          prefix={item.prefix}
+                          name={item.doctorname}
+                          desc={item.doctordescription}
+                          // price={item.price}
+                          specialist={specialityName}
+                          gender={item.gender + 1}
+                          doctorId={item.doctorid}
+                          digiServices={item.digiService}
+                        />
+                      </>
+                    );
+                  })
+                ) : (
+                  <h4>No any doctors found</h4>
+                )}
+              </div>
             </div>
           </div>
-          <div className="doc_appoint_main">
-            <div className="digidoctor_apoint_card">
-              {searcheddoctors.length > 0 ? (
-                searcheddoctors.map((item, index) => {
-                  return (
-                    <>
-                      <DigiMedicalDoctorCard
-                        key={index}
-                        // selected={item.doctorid == selectedId}
-                        prefix={item.prefix}
-                        name={item.doctorname}
-                        desc={item.doctordescription}
-                        // price={item.price}
-                        specialist={specialityName}
-                        gender={item.gender + 1}
-                        doctorId={item.doctorid}
-                        digiServices={item.digiService}
-                      />
-                    </>
-                  );
-                })
-              ) : (
-                <h4>No any doctors found</h4>
-              )}
-            </div>
-          </div>
-        </div>
 
-        <div className="digidoctor_whychooseus">
-          <div className=" digidoc_whycus ourserv-wcu-main">
-            <div className="digidoc_whycus_head">
-              <p className="digidoc_whycus_h1">Our Other Services</p>
-            </div>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <span className="ico_digi_doc1">
-                  {" "}
-                  <i
-                    class="fas fa-hand-holding-heart"
-                    style={{ color: "#52B2E5" }}
-                  ></i>
-                </span>
+          <div className="digidoctor_whychooseus">
+            <div className=" digidoc_whycus ourserv-wcu-main">
+              <div className="digidoc_whycus_head">
+                <p className="digidoc_whycus_h1">Our Other Services</p>
               </div>
-              <p>Safest digital heath platform</p>
-            </div>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <span className="ico_digi_doc1">
-                  {" "}
-                  <i
-                    class="fas fa-star-of-life"
-                    style={{ color: "#52B2E5" }}
-                  ></i>
-                </span>
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <span className="ico_digi_doc1">
+                    {" "}
+                    <i
+                      class="fas fa-hand-holding-heart"
+                      style={{ color: "#52B2E5" }}
+                    ></i>
+                  </span>
+                </div>
+                <p>Safest digital heath platform</p>
               </div>
-              <p>Emergency service 24/7</p>
-            </div>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <span className="ico_digi_doc1">
-                  {" "}
-                  <i class="fas fa-ribbon" style={{ color: "#52B2E5" }}></i>
-                </span>
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <span className="ico_digi_doc1">
+                    {" "}
+                    <i
+                      class="fas fa-star-of-life"
+                      style={{ color: "#52B2E5" }}
+                    ></i>
+                  </span>
+                </div>
+                <p>Emergency service 24/7</p>
               </div>
-              <p>Trusted by thousands</p>
-            </div>
-            <div className="digidoctor_whychooseus_cont">
-              <div className="whychooseus_contimg">
-                <span className="ico_digi_doc1">
-                  <i class="fas fa-piggy-bank" style={{ color: "#52B2E5" }}></i>
-                </span>
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <span className="ico_digi_doc1">
+                    {" "}
+                    <i class="fas fa-ribbon" style={{ color: "#52B2E5" }}></i>
+                  </span>
+                </div>
+                <p>Trusted by thousands</p>
               </div>
-              <p>Affordable to all patient.</p>
+              <div className="digidoctor_whychooseus_cont">
+                <div className="whychooseus_contimg">
+                  <span className="ico_digi_doc1">
+                    <i
+                      class="fas fa-piggy-bank"
+                      style={{ color: "#52B2E5" }}
+                    ></i>
+                  </span>
+                </div>
+                <p>Affordable to all patient.</p>
+              </div>
             </div>
-          </div>
-          <div className="digidoc_emergency_call">
-            <p>Do you need Emergency Medical care?</p>
-            <h4>Call 01-5909141</h4>
+            <div className="digidoc_emergency_call">
+              <p>Do you need Emergency Medical care?</p>
+              <h4>Call 01-5909141</h4>
+            </div>
           </div>
         </div>
       </div>

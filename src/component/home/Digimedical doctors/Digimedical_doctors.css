@@ -2,14 +2,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  flex-direction: column;
 }
 .digi_doc_appointmain1 {
   margin-top: 10%;
 }
-.our_doc_appoint {
+.digi_doc_appoint_bod {
   width: 80%;
+  display: flex;
+  gap: 4rem;
+}
+.our_doc_appoint {
+  width: 70%;
 }
 .our_doc_speciality {
   margin-top: 50px;
