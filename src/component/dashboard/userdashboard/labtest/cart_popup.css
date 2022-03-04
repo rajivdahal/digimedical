@@ -13,7 +13,7 @@
 .popup_carts {
   margin-left: 47%;
   margin-top: 0%;
-  border-radius: 5px;
+  border-radius: 10px;
   position: relative;
   width: 30%;
 
@@ -34,17 +34,22 @@
   height: 100%;
 }
 .popup_carts_cont1_head {
-  height: 50px;
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border-radius: 10px 10px 0px 0px;
   border-bottom: 1px solid #d0d7e2;
 }
 #popup_carts_cont1_head {
-  font-weight: bold;
+  font-weight: 500;
   font-size: 16px;
   line-height: 20px;
+
   color: #192638;
-  padding-top: 15px;
-  padding-left: 20px;
+}
+.cross_lcart {
+  color: #2745f0;
+  font-size: 20px;
 }
 .popup_carts_cont1_desc {
   margin-left: 20px;
@@ -64,7 +69,7 @@
 #carts_labtest_span_cross {
   float: right;
   color: #2745f0;
-  display: inline-block;
+
   width: 20px;
   height: 20px;
   font-size: 20px;

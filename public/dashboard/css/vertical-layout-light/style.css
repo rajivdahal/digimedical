@@ -23834,11 +23834,7 @@ input:focus {
   src: url("../../../css/fontobjective/Objective-Medium.otf") format("opentype");
   font-weight: 500;
 }
-@font-face {
-  font-family: objective;
-  src: url("../../../css/fontobjective/Objective-Super.otf") format("opentype");
-  font-weight: 600;
-}
+
 @font-face {
   font-family: objective;
   src: url("../../../css/fontobjective/Objective-Bold.otf") format("opentype");
@@ -36448,13 +36444,13 @@ div.tagsinput span.tag a {
 
 .main-panel {
   transition: width 0.25s ease, margin 0.25s ease;
-  width: calc(100% - 235px);
+  width: calc(100% - 250px);
   min-height: calc(100vh - 60px);
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column;
-  margin-left: 235px;
+  margin-left: 250px;
 }
 
 @media (max-width: 991px) {

@@ -1,30 +1,30 @@
 #pop_checkout {
-  position: absolute;
-  left: 0;
-  right: 0;
+  position: fixed;
   top: 0;
-  bottom: 0;
-  height: 110%;
-  background: rgba(0, 0, 0, 0.644);
-  z-index: 1;
+  z-index: 100;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  transition: opacity 500ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .popup_lab {
-  position: absolute;
-  z-index: 1;
-  left: 35%;
-  top: 0;
-}
-.popup_lab1 {
-  width: 393px;
-  height: fit-content;
-  margin: 70px auto;
-  background: #fff;
-  border-radius: 5px;
   position: relative;
+
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  width: 25%;
+  background: #f5f5f5;
+  box-shadow: 0px 0px 3px rgb(0 0 0 / 30%);
+  border-radius: 10px;
+}
+.popup_lab1 {
+  display: flex;
+  flex-direction: column;
 }
 .pop_lab_cont1 {
   width: 100%;
@@ -32,13 +32,17 @@
   height: fit-content;
 }
 .pop_lab_cont1_1 {
-  padding: 10px 10px 0px 10px;
+  padding: 10px 20px 20px 20px;
 }
+
 #popup_lab_cont1_head {
   color: black;
   font-weight: 700;
   font-size: 16px;
   line-height: 26px;
+}
+.pop_lab_cont1_1 ol li {
+  list-style: decimal;
 }
 .pop_lab_cont1_1 div {
   margin-top: 20px;
@@ -90,17 +94,12 @@
 }
 
 .pop_lab_cont3 {
-  margin-left: 18px;
-  width: 90%;
-  height: fit-content;
+  margin: 0px 20px;
+  padding: 20px 0px;
   border-bottom: 0.75px solid #d0d7e2;
 }
-.pop_lab_cont3_3 {
-  width: 100%;
-  margin-top: 15px;
-}
+
 .popup_lab_cont3_desc {
-  margin-top: 20px;
 }
 #popup_lab_cont3_desc {
   color: #7b8698;
@@ -110,10 +109,7 @@
   line-height: 25px;
 }
 .pop_lab_cont4 {
-  margin-top: 15px;
-  margin-left: 20px;
-  width: 88%;
-  height: 140px;
+  padding: 10px 20px 20px 20px;
 }
 #popup_lab_cont4_head {
   color: #7b8698;
@@ -122,8 +118,8 @@
   line-height: 26px;
 }
 .popup_lab_cont4_foot {
-  margin-left: 95px;
-  margin-top: 30px;
+  padding-top: 20px;
+  float: right;
   display: flex;
 }
 .popup_lab_close {
@@ -145,15 +141,21 @@
   text-decoration: none;
   color: #2c2f46;
 }
-
-@media screen and (max-width: 600px) {
-  #pop_checkout {
-    width: 100%;
-  }
+@media screen and (max-width: 1000px) {
   .popup_lab {
-    left: 5%;
+    width: 40%;
   }
+}
+@media screen and (max-width: 660px) {
+  .popup_lab {
+    width: 80%;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .popup_lab,
   .popup_lab1 {
-    width: 90%;
+    height: 60vh;
+    overflow: scroll;
   }
 }

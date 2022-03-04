@@ -69,7 +69,7 @@ export const Dashboardnavbar = (props) => {
       return closeDashboard();
     }
     openDashboard();
-  }
+  };
 
   return (
     <>
@@ -82,9 +82,7 @@ export const Dashboardnavbar = (props) => {
             <img src={logo} alt="" />
           </div>
         </Link>
-        <div className="Welcome_client">
-          <p>Welcome {username}</p>
-        </div>
+        <div className="Welcome_client">Welcome {username}</div>
         <div className="newdash_user">
           <div className="newdash_user_img">
             <img

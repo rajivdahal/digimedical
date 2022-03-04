@@ -14,7 +14,7 @@
 .doc-pop-inner {
   border: 1px solid white;
   position: relative;
-  top: 5vh;
+
   padding: 20px;
   background: #fff;
 
@@ -155,7 +155,7 @@ d
    */
 .pay-pop-inner {
   position: relative;
-  top: 30px;
+
   display: flex;
   flex-direction: column;
   width: 35%;
@@ -280,7 +280,19 @@ d
 @media screen and (max-height: 700px) {
   .pay-pop-inner {
     height: 80vh;
-    width: 80%;
+    width: 30%;
     overflow: scroll;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .pay-pop-inner {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .pay-pop-inner {
+    width: 80%;
   }
 }
