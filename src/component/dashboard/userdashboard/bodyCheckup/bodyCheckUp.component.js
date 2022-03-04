@@ -160,7 +160,7 @@ function SelectField({name}){
                props.origin!="admin"?
             <Formik
         initialValues={initialValues}
-        initialValues={initialValues}
+        // initialValues={initialValues}
         onSubmit={submit}
         validationSchema={schema}
     >
