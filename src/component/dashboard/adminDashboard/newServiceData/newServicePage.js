@@ -83,6 +83,7 @@ const NewServicePage = (props) => {
             let serviceUrl = REACT_APP_BASE_URL + "digi-service/download/" + data.id;
             setServiceImage(serviceUrl);
             let iconUrl = REACT_APP_BASE_URL + "download-icon/" + data.id;
+            console.log(iconUrl)
             setIconImage(iconUrl);
 
             setService({
@@ -180,10 +181,10 @@ const NewServicePage = (props) => {
 
     const handleClose = () => setShowModal(false);
 
-
     const handleAddImage = () => {
         imageSelectServiceRef.current.click();
     };
+    
     const handleChangeImage = (e,img) => {
         let files = e.target.files[0];
         let reader = new FileReader();

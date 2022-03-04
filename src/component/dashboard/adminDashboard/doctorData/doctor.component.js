@@ -176,8 +176,10 @@ const Createdoctor = (props) => {
     try {
       if (props.isHospital) {
         resp = await doctorApi.getHospitalDoctorById(id);
+        console.log(resp);
       } else {
         resp = await doctorApi.getAdminDoctorBYId(id);
+        console.log(resp)
       }
       if (resp.data.status) {
         // get doctor services + basic details
@@ -214,9 +216,10 @@ const Createdoctor = (props) => {
         });
 
         let savedDigiServices = [];
+        if(props.isHospital){
         allDigiServices.forEach((service) => {
           let foundDigiService = digiSpeciality.filter((item) => {
-            return item.id.toString() === service.value.toString();
+            return item.digiServiceId.toString() === service.value.toString();
           })
           if (foundDigiService.length > 0) {
             savedDigiServices.push({
@@ -225,6 +228,21 @@ const Createdoctor = (props) => {
             });
           }
         })
+        }else{
+          allDigiServices.forEach((service) => {
+            let foundDigiService = digiSpeciality.filter((item) => {
+              return item.id.toString() === service.value.toString();
+            })
+            if (foundDigiService.length > 0) {
+              savedDigiServices.push({
+                label: service.label,
+                value: service.value,
+              });
+            }
+          })
+        }
+
+        
         if (data) {
           let url = REACT_APP_BASE_URL + "doctor/download/" + id;
           setImage(url);

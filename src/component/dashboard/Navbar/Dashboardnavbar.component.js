@@ -11,6 +11,7 @@ import { loginUser } from "../../../actions/User.ac";
 import { dashboardClose, dashboardOpen } from "../../../actions/dashboard.ac";
 
 export const Dashboardnavbar = (props) => {
+
   let [username, setusername] = useState("");
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -29,6 +30,7 @@ export const Dashboardnavbar = (props) => {
       logout: true,
     });
   };
+  
   const logoutyes = () => {
     localStorage.removeItem("dm-access_token");
     localStorage.removeItem("timeout");
@@ -55,7 +57,6 @@ export const Dashboardnavbar = (props) => {
     await httpClient
       .GET("user-profile", false, true)
       .then((resp) => {
-        console.log(resp);
         const name = resp.data.data.profileInfo.name;
         setusername(name);
       })
