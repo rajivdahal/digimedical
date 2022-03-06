@@ -20,7 +20,6 @@ function Digimedical_doctors(props) {
   const [specialityName, setSpecialityName] = useState("");
 
   const getAllDigiDoctors = async () => {
-    console.log(props);
     let id = "";
     if (
       props.location &&
@@ -32,7 +31,6 @@ function Digimedical_doctors(props) {
     }
     try {
       let resp = await httpClient.GET("doctor/digi/get/" + id);
-      console.log(resp);
       if (resp.data.status) {
         let data = resp.data.data;
         setAllDigiDoctors(data);
@@ -133,7 +131,7 @@ function Digimedical_doctors(props) {
                         prefix={item.prefix}
                         name={item.doctorname}
                         desc={item.doctordescription}
-                        // price={item.price}
+                        serviceId={item.serviceid}
                         specialist={specialityName}
                         gender={item.gender + 1}
                         doctorId={item.doctorid}

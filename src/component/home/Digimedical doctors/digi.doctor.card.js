@@ -62,12 +62,12 @@ const DigiMedicalDoctorCard = (props) => {
     formik.values.appointmentDate = date;
   };
   const submitAppointment = async (values) => {
-    let serviceid = props.doctorServices;
+    
     if (userLogin === true) {
       let data = {
         appointmentDate: values.appointmentDate,
         appointmentTime: values.appointmentTime,
-        servicesId: serviceid,
+        servicesId: props.serviceId,
         doctorId: props.doctorId,
       };
       try {
@@ -101,7 +101,7 @@ const DigiMedicalDoctorCard = (props) => {
         mobileNumber: values.mobileNumber,
         appointmentDate: values.appointmentDate,
         appointmentTime: values.appointmentTime,
-        servicesId: serviceid,
+        servicesId: props.serviceId,
         doctorId: props.doctorId,
       };
       try {
@@ -122,7 +122,7 @@ const DigiMedicalDoctorCard = (props) => {
           err.response.data &&
           err.response.data.message
         ) {
-
+          notify.error(err.response.data.message)
           if (localStorage.getItem("status") == 200) {
             notify.error(
               "Email already exists,please book appointment internally"
@@ -150,8 +150,6 @@ const DigiMedicalDoctorCard = (props) => {
       return validateAppointment(values, isLogin);
     }
   })
-
-  console.log(props.digiServices)
   return (
     <>
       <div className="digidoctor_apoint_card1">
