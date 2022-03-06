@@ -128,7 +128,7 @@ function FormComponent(props) {
       servicesId: Yup.string().required("Service is required!"),
       email: Yup.string().required("Email is required!"),
       doctorId: Yup.string().required("Doctor is required!"),
-      appointmentDate: Yup.object().required("Appointment date is required!"),
+      appointmentDate: Yup.object(),
       appointmentTime: Yup.string().required("Appointment time is required!"),
     });
     function DatePickerField({ name }) {
@@ -158,7 +158,7 @@ function FormComponent(props) {
     function SelectField({name}){
       const formik=useFormikContext()
       const field=formik.getFieldProps(name);
-      return (
+      return(
         <Select
         options={services}
         className="select-category"
@@ -379,8 +379,11 @@ function FormComponent(props) {
    handleSubmit=(values)=>{
       let finaldata={
         ...values,
-        appointmentDate:values.appointmentDate.year+"-"+values.appointmentDate.month+"-"+values.appointmentDate.day
+        appointmentDate:values.appointmentDate?
+        values.appointmentDate.year+"-"+values.appointmentDate.month+"-"+values.appointmentDate.day
+        :selectedDay.year+"-"+selectedDay.month+"-"+selectedDay.day
       }
+      // console.log(finaldata)
       setisloading(true);
       httpClient
         .POST("create-external-user", finaldata)
@@ -417,12 +420,12 @@ function FormComponent(props) {
         .finally(() => {
           setisloading(false);
         });
-      // httpClient
-      //       .POST("create-appointment", finaldata, false, true)
-      //       .then((resp) =>{
-      //         notify.success("Appointment booked successfully");
-      //       })
-      //       .catch((err) => notify.error("Error in appointment booking"));
+      httpClient
+            .POST("create-appointment", finaldata, false, true)
+            .then((resp) =>{
+              notify.success("Appointment booked successfully");
+            })
+            .catch((err) => notify.error("Error in appointment booking"));
         }
     const submitForLoggedInCase=(values)=>{
       console.log("values are",values)
@@ -536,7 +539,8 @@ function FormComponent(props) {
             <div className="form-row">
               <div className="form-group col-md-6">
                 <label htmlFor="appointment">
-                  Appointment Date<span style={{ color: "red" }}>*</span>
+                  Appointment Date
+                  <span style={{ color: "red" }}>*</span>
                 </label>
                 <DatePickerField name={"appointmentDate"}></DatePickerField>
                 {/* <DatePicker

@@ -7,10 +7,13 @@ import "./Register.component.css";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
+import CircularProgress from '@mui/material/CircularProgress';
+
 const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const RegisterComponent = (props) => {
   const [isLoading, setisLoading] = useState(false);
   const [ispassword, setispassword] = useState(true);
+  const [isGoogleApiLoading,setIsGoogleApiLoading]=useState(false)
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -103,7 +106,8 @@ const RegisterComponent = (props) => {
   const responseGoogleSuccess = (response) => {
     console.log(response);
     const { tokenId } = response;
-    console.log("type of token id is", typeof tokenId, tokenId);
+    // console.log("type of token id is", typeof tokenId, tokenId);
+    setIsGoogleApiLoading(true)
     httpClient
       .POST("google-signin", { tokenId: tokenId })
       .then((resp) => {
@@ -119,13 +123,14 @@ const RegisterComponent = (props) => {
           props.history.push({
             pathname: `/dashboard/`,
           });
-          // notify.success("Successfully Loggedin")
+          setIsGoogleApiLoading(false)
         }, 3000);
       })
       .catch((err) => {
         console.log("error is", err);
         notify.error("Login failed");
-      });
+        setIsGoogleApiLoading(false)
+      })
   };
   const responseGoogleFailure = (response) => {
     console.log("response from google login is", response);
@@ -331,7 +336,7 @@ const RegisterComponent = (props) => {
                       <ul>
                         <li>
                           <a href="#">
-                            <i className="fa fa-facebook-f"></i>
+                            <i className="fa fa-facebook-f" ></i>
                           </a>
                         </li>
                         <li>
@@ -340,23 +345,27 @@ const RegisterComponent = (props) => {
                           </a>
                         </li>
                         <li className="li-reg">
-                          <GoogleLogin
-                            clientId={googleClientId}
-                            render={(renderProps) => (
-                              <button
-                                onClick={renderProps.onClick}
-                                disabled={renderProps.disabled}
-                              >
-                                <span>
-                                  <i class="fab fa-google"></i>
-                                </span>
-                              </button>
-                            )}
-                            buttonText=""
-                            onSuccess={responseGoogleSuccess}
-                            onFailure={responseGoogleFailure}
-                            cookiePolicy={"single_host_origin"}
-                          />
+                          {
+                            isGoogleApiLoading?<CircularProgress  style={{position:"relative",top:"12px",left:"5px"}}/>
+                            :
+                             <GoogleLogin
+                              clientId={googleClientId}
+                              render={(renderProps) => (
+                                <button
+                                  onClick={renderProps.onClick}
+                                  disabled={renderProps.disabled}
+                                >
+                                  <span>
+                                    <i class="fab fa-google"></i>
+                                  </span>
+                                </button>
+                              )}
+                              buttonText=""
+                              onSuccess={responseGoogleSuccess}
+                              onFailure={responseGoogleFailure}
+                              cookiePolicy={"single_host_origin"}
+                            />
+                          }
                         </li>
                       </ul>
                     </div>
