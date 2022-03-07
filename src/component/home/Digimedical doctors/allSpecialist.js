@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
 import { httpClient } from "../../../utils/httpClient";
 import { Link } from "react-router-dom";
+import Pagination from "../../common/pagination/pagination.component";
+import Footer from "../../Footer/Footer";
+import "./allSpecialist.css";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function AllSpecialist(props) {
@@ -55,10 +58,10 @@ function AllSpecialist(props) {
           Home &nbsp;
         </a>
         <i class="fas fa-chevron-right"></i>
-        <span id="familyhealthpackages"> &nbsp;All Speciality</span>
+        <span id="familyhealthpackages"> &nbsp;ll Speciality</span>
       </div>
       <div className="digi_doc_appointmain digi_doc_appointmain1">
-        <div className="our_doc_appoint">
+        <div className="our_speciality_head">
           <div className="doc_appoint_head">
             <div className="digidoc_head_txt">
               <h1>All Speciality</h1>
@@ -82,7 +85,7 @@ function AllSpecialist(props) {
             </div>
           </div>
         </div>
-        <Container>
+        <div className="doc_speciality_main_body">
           <div className="our_doc_speciality">
             {searchSpeciality.length > 0 ? (
               searchSpeciality.map((item, index) => {
@@ -119,7 +122,13 @@ function AllSpecialist(props) {
               <h4>No any speciality found.</h4>
             )}
           </div>
-        </Container>
+        </div>
+      </div>
+      <div>
+        <Pagination></Pagination>
+      </div>
+      <div style={{ marginTop: "6rem" }}>
+        <Footer></Footer>
       </div>
     </div>
   );

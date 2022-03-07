@@ -41,12 +41,13 @@
 .doc_appoint_head {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   justify-content: space-between;
   align-items: flex-end;
 }
 .doc_appoint_head div h1 {
   font-weight: bold;
-  font-size: 36px;
+  font-size: 33.33px;
   line-height: 52px;
 }
 .doc_appoint_head div p {

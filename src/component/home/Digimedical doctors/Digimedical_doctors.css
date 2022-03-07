@@ -10,9 +10,14 @@
 .digi_doc_appoint_bod {
   width: 80%;
   display: flex;
+
   gap: 4rem;
 }
 .our_doc_appoint {
+  width: 70%;
+}
+
+.doc_speciality_main_body {
   width: 80%;
 }
 .our_doc_speciality {
