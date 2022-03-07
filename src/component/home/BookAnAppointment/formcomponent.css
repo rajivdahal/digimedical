@@ -108,6 +108,11 @@
 .formcompo_datepicker .DatePicker {
   width: 100%;
 }
+.home_not_logged_in_datepick .DatePicker .DatePicker__input {
+  border-radius: 8px;
+  height: 2.875rem;
+  width: 100%;
+}
 .DatePicker {
   width: 100%;
 }

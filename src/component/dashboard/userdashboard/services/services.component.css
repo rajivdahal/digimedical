@@ -1,9 +1,15 @@
-.serviceDate .DatePicker .DatePicker__input{
-    padding: 1.1em 0.8em;
-    width: 21rem;
+.serviceDate .DatePicker .DatePicker__input {
+  padding: 1.1em 0.8em;
+  float: right;
 }
-.delete-container{
-    position: relative;
-    top: 3rem;
-    left: 6rem;
+.delete-container {
+  position: relative;
+  top: 3rem;
+  left: 6rem;
+}
+
+@media screen and (max-width: 400px) {
+  .labrepo_text_form .prescription_input {
+    width: 70%;
+  }
 }
