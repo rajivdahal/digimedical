@@ -9,20 +9,11 @@ import {
 } from "../../../../../../actions/digiDoctorBooking.ac";
 import { setClosePopUp } from "../../../../../../actions/paymentPopUp.ac";
 import esewaLogo from "../../../../../../assets/esewa.svg";
-<<<<<<< HEAD
 import { formatDate } from "../../../../../../services/timeanddate";
 import CircularProgress from "@mui/material/CircularProgress";
 import { httpClient } from "../../../../../../utils/httpClient";
 import { useHistory } from "react-router-dom";
 import { notify } from "../../../../../../services/notify";
-=======
-import { formatDate } from '../../../../../../services/timeanddate';
-import CircularProgress from '@mui/material/CircularProgress';
-import { httpClient } from '../../../../../../utils/httpClient';
-import { useHistory } from 'react-router-dom';
-import { notify } from '../../../../../../services/notify';
-import { resetHospitalDoctorState } from '../../../../../../actions/hospitalAppointmentBooking.ac';
->>>>>>> 6c00a22512acf88b8aa64baa25db49229923a8e7
 
 export default function DigiDoctorPayment(props) {
   let history = useHistory();
@@ -31,7 +22,6 @@ export default function DigiDoctorPayment(props) {
   // data from the normal speciality doctor booking app are from the store
   // end of note
 
-<<<<<<< HEAD
   console.log("props in digi doctor payment is", props);
   const [isPaymentOnline, setIsPaymentMethodOnline] = useState(true);
   // redux implementation
@@ -49,23 +39,6 @@ export default function DigiDoctorPayment(props) {
   );
   console.log("store data are", digiDoctorBooking);
   //end of redux implementation
-=======
-    console.log("props in digi doctor payment is",props)
-    const [isPaymentOnline,setIsPaymentMethodOnline]=useState(true)
-    // redux implementation
-    const dispatch=useDispatch(props)
-    const digiDoctorBooking=useSelector((state)=>state.digiDoctorAppointmentBooking)
-    const setServiceType=bindActionCreators(selectedService,dispatch)
-    const setDigiDoctorPaymentType=bindActionCreators(setPaymentType,dispatch)
-    const closeDoctorPopUp=bindActionCreators(setClosePopUp,dispatch)
-    const setDigimedicalDoctorInfo=bindActionCreators(digiDoctorInfo,dispatch)
-    // const setDigiDoctorAppointment=bindActionCreators(digiDoctorAppointmentFixed,dispatch)
-    const resetDigiDoctorValue=bindActionCreators(resetHospitalDoctorState,dispatch)
-
-
-    console.log("store data are",digiDoctorBooking)
-    //end of redux implementation
->>>>>>> 6c00a22512acf88b8aa64baa25db49229923a8e7
 
   const closePaymentPopUp = () => {
     closeDoctorPopUp(true);
@@ -78,7 +51,6 @@ export default function DigiDoctorPayment(props) {
       setDigimedicalDoctorInfo(props.directBookAppointmentProps);
       // setDigiDoctorAppointment({date:props.directBookAppointmentProps.appointmentDate,time:props.directBookAppointmentProps.appointmentTime})
     }
-<<<<<<< HEAD
   }, []);
   const handleChange = (e, data) => {
     const { value } = e.target;
@@ -109,27 +81,6 @@ export default function DigiDoctorPayment(props) {
       })
       .catch((err) => notify.error("Error in Appointment Booking"));
   };
-=======
-  const proceed=()=>{
-    if(!digiDoctorBooking.selectedService){
-      return notify.error("Please select some service")
-    }
-    let finalData={
-      digiServiceId:digiDoctorBooking.selectedService.digiServiceId,
-      paymentStatus:0
-    }
-    console.log("proceed payment done",digiDoctorBooking)
-    httpClient.PUT("appointment/after-payment/"+digiDoctorBooking.digiDoctorBookingIdAfterBooking,finalData)
-    .then(resp=>{
-      history.push("/dashboard/viewappointment")
-      notify.success("Appointment Successfully created")
-      resetDigiDoctorValue()
-      closeDoctorPopUp()
-
-    })
-    .catch(err=>notify.error("Error in Appointment Booking"))
-  }
->>>>>>> 6c00a22512acf88b8aa64baa25db49229923a8e7
   return (
     <div className="doc-pop-main">
       <div className="pay-pop-inner">
