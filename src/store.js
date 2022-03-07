@@ -42,7 +42,9 @@ const initialState = {
         doctorPaymentType:"online",
         isDoctorAppointmentLoading:false,
         selectedHospitalDoctorService:null,
-        hospitalInfo:null
+        hospitalInfo:null,
+        hospitalDoctorBookingIdAfterBooking:null,
+
 
         // onlinePlatformForBooking:"",
     },

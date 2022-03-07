@@ -90,15 +90,23 @@ function DatePickerField({ name }) {
   }
 
   const submit=(values)=>{
+    console.log("values",values)
     let finalData={
       ...getFinalData(values),
       servicesId:appointmentBooking.doctorInfo.serviceid,
       hospitalId:appointmentBooking.hospitalInfo.id,
       doctorId:appointmentBooking.doctorInfo.doctorid
     }
+    console.log("finaldata",finalData)
     httpClient.POST("create-appointment",finalData,false,true)
     .then(resp=>{
-      setAppointmentFixed(finalData)
+      console.log("response is",resp.data)
+      let final={
+        ...finalData,
+        data:resp.data.data
+      }
+      console.log("final data is",final)
+      setAppointmentFixed(final)
     })
     .catch(resp=>notify.error("Something went wrong"))
 

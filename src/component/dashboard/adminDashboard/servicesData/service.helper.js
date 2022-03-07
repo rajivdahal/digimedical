@@ -19,12 +19,12 @@ const validateService = (values,digiService) => {
         if (!values.price) {
             errors.price = getRequiredError("Price")
         }
-        // if (!values.serviceImg) {
-        //     errors.serviceImg = getRequiredError("Image")
-        // }
-        // if (!values.iconImg) {
-        //     errors.iconImg = getRequiredError("Image")
-        // }
+        if (!values.serviceImg) {
+            errors.serviceImg = getRequiredError("Image")
+        }
+        if (!values.iconImg) {
+            errors.iconImg = getRequiredError("Image")
+        }
         console.log(errors)
         return errors;
     }

@@ -15,11 +15,13 @@ export const hospitalAppointmentBookingReducer=(state,action)=>{
                 doctorInfo:action.payload
             }
         case hospitalAppointmentBookingActionTypes.SET_IS_APPOINTMENT_FIXED:
+            console.log("action payload issss",action.payload)
             return{
                 ...state,
                 isAppointmentFixed:true,
                 appointmentDate:action.payload.appointmentDate,
                 appointmentTime:action.payload.appointmentTime,
+                hospitalDoctorBookingIdAfterBooking:action.payload.data
             }
         case hospitalAppointmentBookingActionTypes.SET_IS_APPOINTMENT_METHOD:
             return{

@@ -19,6 +19,7 @@ const Hospitalnavbar = (props) => {
     const sidebar = useSelector((state) => state.sidebar);
     const openDashboard = bindActionCreators(dashboardOpen, dispatch);
     const closeDashboard = bindActionCreators(dashboardClose, dispatch);
+
     const [logoutstate, setlogoutstate] = useState({
         logout: false,
     })
@@ -45,77 +46,80 @@ const Hospitalnavbar = (props) => {
         history.push("/dashboard/settings/change-password");
     };
 
-    // const showDashboard = () => {
-    //     if (sidebar.isopen) {
-    //         return closeDashboard();
-    //     }
-    //     openDashboard();
-    // }
+    const showDashboard = () => {
+        if (sidebar.isopen) {
+            return closeDashboard();
+        }
+        openDashboard();
+    }
 
     return (
         <>
-            <div className="newdash_nav">
-                <div className="newdash_hamburger">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <Link to="/">
-                    <div className="newdash_nav_img">
-                        <img src={logo} alt="" />
-                    </div>
-                </Link>
-                <div className="Welcome_client">
-                    <p>Welcome Hospital</p>
-                </div>
-                <div className="newdash_user">
-                    <div className="newdash_user_img">
-                        <img src="/images/dashboard/user1.jpg" alt="Profile" />
-                    </div>
-                    <div className="newdash_user_optionmain">
-                        {" "}
-                        <div className="newdash_user_option">
-                            <div className="newdash_user_option1" >
-                                {/* <div className="newdash_user_icon">
+                  <div className="newdash_nav">
+        <div className="newdash_hamburger" onClick={showDashboard}>
+          <i class="fas fa-bars"></i>
+        </div>
+        <Link to="/">
+          <div className="newdash_nav_img">
+            <img src={logo} alt="" />
+          </div>
+        </Link>
+        <div className="Welcome_client">
+          <p>Welcome Hospital</p>
+        </div>
+        <div className="newdash_user">
+          <div className="newdash_user_img">
+            <img
+              src="/images/dashboard/user1.jpg"
+              alt="profile"
+            />
+          </div>
+          <div className="newdash_user_optionmain">
+            {" "}
+            <div className="newdash_user_option">
+              <div className="newdash_user_option1" >
+                <div className="newdash_user_icon">
                   <i class="fas fa-user-alt"></i>
                 </div>
                 <div>
                   <p>Profile</p>
-                </div> */}
-                            </div>
-                            <div className="newdash_user_option1" onClick={changepassword}>
-                                <div className="newdash_user_icon">
-                                    <i class="fas fa-cog"></i>
-                                </div>
-                                <div>
-                                    <p>Change Password</p>
-                                </div>
-                            </div>
-                            <div className="newdash_user_option1" onClick={Logout}>
-                                <div className="newdash_user_icon">
-                                    <i class="fas fa-power-off"></i>
-                                </div>
-                                <div>
-                                    <p>Logout</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                {logoutstate.logout ? (
-                    <div className="logout-containerr">
-                        <div className="logout">
-                            <p>Are you sure you want to Logout?</p>
-                            <div className="buttons">
-                                <button className="yes-logout" onClick={logoutyes}>
-                                    Yes
-                                </button>
-                                <button className="no-logout" onClick={logoutno}>
-                                    No
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                ) : null}
+              </div>
+              <div className="newdash_user_option1" onClick={changepassword}>
+                <div className="newdash_user_icon">
+                  <i class="fas fa-cog"></i>
+                </div>
+                <div>
+                  <p>Change Password</p>
+                </div>
+              </div>
+              <div className="newdash_user_option1" onClick={Logout}>
+                <div className="newdash_user_icon">
+                  <i class="fas fa-power-off"></i>
+                </div>
+                <div>
+                  <p>Logout</p>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+        {logoutstate.logout ? (
+          <div className="logout-containerr">
+            <div className="logout">
+              <p>Are you sure you want to Logout?</p>
+              <div className="buttons">
+                <button className="yes-logout" onClick={logoutyes}>
+                  Yes
+                </button>
+                <button className="no-logout" onClick={logoutno}>
+                  No
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
+      </div>
         </>
     )
 }

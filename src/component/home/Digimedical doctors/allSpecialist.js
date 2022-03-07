@@ -34,7 +34,6 @@ function AllSpecialist(props) {
 
   const handleChange = (e) => {
     setSearchName(e.target.value);
-    console.log(e.target.value);
     searchDigiSpeciality(e.target.value);
   };
   const searchDigiSpeciality = (name) => {
@@ -42,8 +41,6 @@ function AllSpecialist(props) {
     let searched = doctorSpeciality.filter((item, index) => {
       return item.servicename.toLowerCase().includes(name.toLowerCase());
     });
-    // console.log(name)
-    // console.log(searched)
     setSearchSpeciality(searched);
   };
 

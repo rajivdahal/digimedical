@@ -20,7 +20,6 @@ function Digimedical_doctors(props) {
   const [specialityName, setSpecialityName] = useState("");
 
   const getAllDigiDoctors = async () => {
-    console.log(props);
     let id = "";
     if (
       props.location &&
@@ -32,7 +31,6 @@ function Digimedical_doctors(props) {
     }
     try {
       let resp = await httpClient.GET("doctor/digi/get/" + id);
-      console.log(resp);
       if (resp.data.status) {
         let data = resp.data.data;
         setAllDigiDoctors(data);
@@ -122,31 +120,31 @@ function Digimedical_doctors(props) {
                 </form>
               </div>
             </div>
-            <div className="digidoc_appoint_main">
-              <div className="digidoctor_apoint_card">
-                {searcheddoctors.length > 0 ? (
-                  searcheddoctors.map((item, index) => {
-                    return (
-                      <>
-                        <DigiMedicalDoctorCard
-                          key={index}
-                          // selected={item.doctorid == selectedId}
-                          prefix={item.prefix}
-                          name={item.doctorname}
-                          desc={item.doctordescription}
-                          // price={item.price}
-                          specialist={specialityName}
-                          gender={item.gender + 1}
-                          doctorId={item.doctorid}
-                          digiServices={item.digiService}
-                        />
-                      </>
-                    );
-                  })
-                ) : (
-                  <h4>No any doctors found</h4>
-                )}
-              </div>
+          </div>
+          <div className="doc_appoint_main">
+            <div className="digidoctor_apoint_card">
+              {searcheddoctors.length > 0 ? (
+                searcheddoctors.map((item, index) => {
+                  return (
+                    <>
+                      <DigiMedicalDoctorCard
+                        key={index}
+                        // selected={item.doctorid == selectedId}
+                        prefix={item.prefix}
+                        name={item.doctorname}
+                        desc={item.doctordescription}
+                        serviceId={item.serviceid}
+                        specialist={specialityName}
+                        gender={item.gender + 1}
+                        doctorId={item.doctorid}
+                        digiServices={item.digiService}
+                      />
+                    </>
+                  );
+                })
+              ) : (
+                <h4>No any doctors found</h4>
+              )}
             </div>
           </div>
 

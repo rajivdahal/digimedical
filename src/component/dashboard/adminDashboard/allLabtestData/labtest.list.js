@@ -25,7 +25,6 @@ const LabTestDetail = (props) => {
     const [labtestDetail, setLabtestDetail] = useState([]);
     const [title, setTitle] = useState("Upcoming Appointment");
     const [status, setStatus] = useState(0);
-    const [color, setColor] = useState("grey");
     const [loading, setLoading] = useState(false)
     const [selectedActions, setActions ] = useState(actions.upcoming);
 
@@ -86,7 +85,6 @@ const LabTestDetail = (props) => {
                 <Card.Body>
                     <Card.Text>
                         <Row className="appointmentRow">
-
                             <Col md={4} className="appointment" >
                                 <div className={status == 0 ? ' appointment-focus ' : 'appointment-tab'} onClick={() => handleLabtest("Upcoming Lab Test", 0)}>Upcoming Lab Test</div>
                             </Col>
@@ -120,9 +118,7 @@ const LabTestDetail = (props) => {
                                 color: '#FFF'
                             }
                         }}
-
                         actions={selectedActions}
-
                         isLoading={loading}
                     />
 

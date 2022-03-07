@@ -3,12 +3,10 @@
   display: flex;
   justify-content: space-between;
 }
-
 .dash_our_doc_appoint {
   margin-top: 4rem;
   width: 100%;
 }
-
 .dash_our_doc_speciality {
   margin-top: 6rem;
   display: grid;
@@ -16,25 +14,21 @@
   column-gap: 1.5rem;
   row-gap: 3rem;
 }
-
 @media screen and (max-width: 1350px) {
   .dash_our_doc_speciality {
     grid-template-columns: repeat(5, 1fr);
   }
 }
-
 @media screen and (max-width: 1250px) {
   .dash_our_doc_speciality {
     grid-template-columns: repeat(4, 1fr);
   }
 }
-
 @media screen and (max-width: 750px) {
   .dash_our_doc_speciality {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
 @media screen and (max-width: 550px) {
   .dash_our_doc_speciality {
     grid-template-columns: repeat(2, 1fr);

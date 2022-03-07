@@ -253,18 +253,18 @@ const NavbarMenuItems = () => {
                   </span>
                   For Family
                 </Link>
-                <Link
+                {/* <Link
                   id="link_cat_nav_mob"
                   to="/digimedical_doctors"
                   style={{ textDecoration: "none", color: "inherit" }}
-                >
+                > */}
                   {" "}
                   <span>
                     {" "}
                     <i class="fas fa-user-md"></i> &nbsp;{" "}
                   </span>
                   Our Doctors
-                </Link>
+                {/* </Link> */}
                 <Link
                   id="link_cat_nav_mob"
                   to="/about"
@@ -632,13 +632,13 @@ const NavbarMenuItems = () => {
             </div> */}
           </li>
           <li className="menu-item_nav common-menu">
-            <Link
+            {/* <Link
               className="nav_link_font"
               to="/contact"
               style={{ textDecoration: "none", color: "inherit" }}
-            >
+            > */}
               Our Doctors
-            </Link>
+            {/* </Link> */}
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
                 {doctorSpeciality.map((item, index) => {
