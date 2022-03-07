@@ -10,6 +10,10 @@ const doctorApi = {
     return httpClient.GET("digi-service/get-two", false, true);
   },
 
+  getHospitalServices :()=>{
+    return httpClient.GET("hospital/get-digi/services/", false, true);
+  },
+
   createAdminDoctor: (values) => {
     let selectedId = [];
     values.doctorServices.forEach((service, index) => {
