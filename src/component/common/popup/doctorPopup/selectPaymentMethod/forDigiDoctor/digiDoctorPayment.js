@@ -20,6 +20,7 @@ export default function DigiDoctorPayment(props) {
     console.log("props in digi doctor payment is",props)
     const [isPaymentOnline,setIsPaymentMethodOnline]=useState(true)
     // redux implementation
+    
     const dispatch=useDispatch(props)
     const digiDoctorBooking=useSelector((state)=>state.digiDoctorAppointmentBooking)
     const setServiceType=bindActionCreators(selectedService,dispatch)

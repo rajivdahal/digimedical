@@ -62,7 +62,7 @@ const DigiMedicalDoctorCard = (props) => {
     formik.values.appointmentDate = date;
   };
   const submitAppointment = async (values) => {
-    
+
     if (userLogin === true) {
       let data = {
         appointmentDate: values.appointmentDate,
@@ -150,8 +150,10 @@ const DigiMedicalDoctorCard = (props) => {
       return validateAppointment(values, isLogin);
     }
   })
+  
   return (
     <>
+      
       <div className="digidoctor_apoint_card1">
         <div className="digidoc_card_img">
           <img
@@ -186,12 +188,12 @@ const DigiMedicalDoctorCard = (props) => {
                 Available consultation medium
               </Accordion.Header>
               <Accordion.Body className="acc-doc-body">
-                {props.digiServices.map((item)=>{
+                {props.digiServices.map((item) => {
                   return <ul className="accordion-body">
-                  <li>{item.digiServiceName}</li>
-                </ul>
+                    <li>{item.digiServiceName}</li>
+                  </ul>
                 })}
-                
+
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>

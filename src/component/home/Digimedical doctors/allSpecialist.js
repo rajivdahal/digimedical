@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
 import { httpClient } from "../../../utils/httpClient";
 import { Link } from "react-router-dom";
+import Footer from "../../Footer/Footer";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function AllSpecialist(props) {
@@ -57,7 +58,7 @@ function AllSpecialist(props) {
         <i class="fas fa-chevron-right"></i>
         <span id="familyhealthpackages"> &nbsp;All Speciality</span>
       </div>
-      <div className="digi_doc_appointmain digi_doc_appointmain1">
+      <div className="digi_doc_appointmain digi_doc_appointmain1 ">
         <div className="our_doc_appoint">
           <div className="doc_appoint_head">
             <div className="digidoc_head_txt">
@@ -83,7 +84,7 @@ function AllSpecialist(props) {
           </div>
         </div>
         <Container>
-          <div className="our_doc_speciality">
+          <div className="our_doc_speciality mb-5">
             {searchSpeciality.length > 0 ? (
               searchSpeciality.map((item, index) => {
                 return (
@@ -104,6 +105,9 @@ function AllSpecialist(props) {
                           src={
                             REACT_APP_BASE_URL + "services/download/" + item.id
                           }
+                          onError={(e) => {
+                              e.target.src = "/images/doctor.jpeg";
+                          }}
                           alt=""
                         />
                       </div>
@@ -121,6 +125,8 @@ function AllSpecialist(props) {
           </div>
         </Container>
       </div>
+      <br></br><br></br>
+      <Footer></Footer>
     </div>
   );
 }

@@ -51,7 +51,11 @@ function SpecialityHome(props) {
                   state: { specialityId: item.id, specialityName: item.servicename },
                 }}>
                 <div className="speciality_cont1">
-                  <img src={REACT_APP_BASE_URL + "services/download/" + item.id} alt="" />
+                  <img src={REACT_APP_BASE_URL + "services/download/" + item.id}
+                  onError={(e) => {
+                    e.target.src = "/images/doctor.jpeg";
+                }}
+                 alt="" />
                 </div>
                 <div className="speciality_cont2">
                   <p>{item.servicename}</p>

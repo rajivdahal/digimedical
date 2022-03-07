@@ -59,7 +59,6 @@ const closePaymentPopUp=()=>{
                 />
                 <label for="html">Get Doctor At Home</label>
               </div>
-
               <p id="pay-appoint-det-p2">Rs.200</p>
             </div>
             <div className="pay-radio1">
@@ -95,5 +94,5 @@ const closePaymentPopUp=()=>{
         </div>
       </div>
     </div>
-  </div>  )
-}
+  </div>  
+)}
