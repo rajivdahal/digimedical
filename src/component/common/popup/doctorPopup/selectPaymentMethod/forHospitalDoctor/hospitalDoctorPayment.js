@@ -9,6 +9,8 @@ import { httpClient } from '../../../../../../utils/httpClient';
 import { useHistory } from 'react-router-dom';
 export default function HospitalDoctorPayment(props) {
   const [isPaymentOnline,setIsPaymentMethodOnline]=useState(true)
+  const [totalChanrge,setTotalCharge]=useState(null)
+
   let history=useHistory()
 
       // Redux implementation
@@ -30,6 +32,7 @@ const closePaymentPopUp=()=>{
     resetHospitalDoctors(true)
     }
 const handleChange=(e,data)=>{
+      setTotalCharge(data.amount)
       const {value}=e.target
       console.log("value isss",e,value,data)
       if(value=="home"){
@@ -48,6 +51,12 @@ const proceed=()=>{
     return
   }
   console.log("call api over here")
+  httpClient.PUT("appointment/after-payment/"+appointmentBooking.hospitalDoctorBookingIdAfterBooking,{digiServiceId:appointmentBooking.selectedHospitalDoctorService.digiServiceId,paymentStatus:0})
+  .then(resp=>{
+    notify.success("Appointment successfully booked")
+    history.push("/dashboard/viewappointment")
+  })
+  .catch(err=>notify.error("Something went wrong"))
   // let finalData={
   //   appointmentDate:appointmentBooking.appointmentDate,
   //   appointmentTime:appointmentBooking.appointmentTime,
@@ -123,7 +132,7 @@ const proceed=()=>{
         <div className="doc-pay-appoint-det4">
           <div className="doc-pay-last-div ">
             <p>Total charge for appoinment</p>
-            <p>Rs.000</p>
+            <p>Rs.{totalChanrge?totalChanrge:"000"}</p>
           </div>
 
           <div className="popup_lab_cont4_foot pay-last-but">
