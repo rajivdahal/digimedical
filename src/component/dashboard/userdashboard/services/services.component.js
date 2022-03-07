@@ -45,11 +45,11 @@ var dt = new Date();
       },[])
 
     const getAllServices=()=>{
-        httpClient.GET("services/get-all")
+        httpClient.GET("digi-service/get-all")
         .then(resp=>{
             let allServices = resp.data.data.map((item) => {
                 return {
-                  label: item.serviceName,
+                  label: item.name,
                   value: item.id,
                 };
               });

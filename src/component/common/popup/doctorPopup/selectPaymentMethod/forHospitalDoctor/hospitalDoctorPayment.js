@@ -1,32 +1,83 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { selectAppointmentMethod } from '../../../../../../actions/hospitalAppointmentBooking.ac';
+import { resetHospitalDoctorState, selectAppointmentMethod, selectHospitalDoctorPaymentMethod, setHospitalDoctorService } from '../../../../../../actions/hospitalAppointmentBooking.ac';
 import esewaLogo from "../../../../../../assets/esewa.svg";
+import { notify } from '../../../../../../services/notify';
 import { formatDate } from '../../../../../../services/timeanddate';
+import { httpClient } from '../../../../../../utils/httpClient';
+import { useHistory } from 'react-router-dom';
 export default function HospitalDoctorPayment(props) {
+  const [isPaymentOnline,setIsPaymentMethodOnline]=useState(true)
+  let history=useHistory()
+
       // Redux implementation
   const dispatch = useDispatch();
   const appointmentBooking = useSelector((state) => state.appointmentBooking);
+  // const appointmentBooking = useSelector((state) => state.appointmentBooking);
+
   const AppointmentMethod = bindActionCreators(selectAppointmentMethod,dispatch
   );
-  console.log("set is appointment fixed is", AppointmentMethod);
-  console.log("appointmtment booking status", appointmentBooking);
+  const setDoctorPaymentType=bindActionCreators(selectHospitalDoctorPaymentMethod,dispatch)
+  const setHospitalDoctorServiceType=bindActionCreators(setHospitalDoctorService,dispatch)
+  const resetHospitalDoctors=bindActionCreators(resetHospitalDoctorState,dispatch)
 
+
+  console.log("incoming store data are",appointmentBooking)
 // end of redux implementation
 const closePaymentPopUp=()=>{
     props.props.setTrigger(false)
+    resetHospitalDoctors(true)
     }
+const handleChange=(e,data)=>{
+      const {value}=e.target
+      console.log("value isss",e,value,data)
+      if(value=="home"){
+          setIsPaymentMethodOnline(false)
+          setDoctorPaymentType("home")
+      }
+      else{
+        setDoctorPaymentType("online")
+          // setDigiDoctorPaymentType("online")
+      }
+      setHospitalDoctorServiceType(data)
+  }
+const proceed=()=>{
+  if(!appointmentBooking.selectedHospitalDoctorService){
+    notify.error("Please select a service")
+    return
+  }
+  console.log("call api over here")
+  // let finalData={
+  //   appointmentDate:appointmentBooking.appointmentDate,
+  //   appointmentTime:appointmentBooking.appointmentTime,
+  //   servicesId:appointmentBooking.selectedHospitalDoctorService.digiServiceId,
+  //   hospitalId:appointmentBooking.hospitalInfo.id,
+  //   doctorId:appointmentBooking.doctorInfo.doctorid
+  // }
+  // httpClient.POST("create-appointment",finalData,false,true)
+  // .then(resp=>{
+  //   notify.success("Appintment booked")
+  //   history.push("/dashboard/viewappointment")
+  // })
+  // .catch(err=>notify.error("error occurred"))
+  // console.log("proceed clicked",finalData)
+}
   return (
     <div className="doc-pop-main">
     <div className="pay-pop-inner">
       <div className="doc-pay-pop">
+        {
+          isPaymentOnline?
+
         <div className="doc-pay-pop-head">
           <p>Payment Partner</p>
           <div className="pay-partner1">
             <img src={esewaLogo} alt="" />
           </div>
         </div>
+        :null
+}
         <div className="doc-pay-appoint-det1">
           <p id="pay-appoint-det-p">Appointment Detail</p>
           <p id="pay-appoint-det-p">
@@ -48,34 +99,25 @@ const closePaymentPopUp=()=>{
         </div>
         <div className="pay-ctlt-checkbox">
           <div className="ctlt_institute_radio">
-            <div className="pay-radio1">
-              <div>
-                {" "}
-                <input
-                  type="checkbox"
-                  id="selectall"
-                  name="fav_language"
-                  value="allsel"
-                />
-                <label for="html">Get Doctor At Home</label>
-              </div>
+            {
+              appointmentBooking.doctorInfo.digiService.length?
+              appointmentBooking.doctorInfo.digiService.map((item,index)=>{
+                return <div className="pay-radio1">
+                <div>
+                  <input
+                    type="radio"
+                    id="selectall"
+                    name="fav_language"
+                    value={item.type}
+                    onChange={(e)=>handleChange(e,item)}                  />
+                  <label for="html">{item.digiServiceName}</label>
+                </div>
 
-              <p id="pay-appoint-det-p2">Rs.200</p>
-            </div>
-            <div className="pay-radio1">
-              <div>
-                {" "}
-                <input
-                  type="radio"
-                  id="selectall"
-                  name="fav_language"
-                  value="allsel"
-                />
-                <label for="html">Get Doctor At Home</label>
+                <p id="pay-appoint-det-p2">Rs.{item.amount}</p>
               </div>
-
-              <p id="pay-appoint-det-p2">Rs.200</p>
-            </div>
+              })
+              :null
+            }
           </div>
         </div>
         <div className="doc-pay-appoint-det4">
@@ -88,7 +130,7 @@ const closePaymentPopUp=()=>{
             <a className="popup_lab_close" style={{ cursor: "pointer" }} onClick={closePaymentPopUp}>
               <p>Cancel</p>
             </a>
-            <a className="lab_popup_checkout" style={{ cursor: "pointer" }}>
+            <a className="lab_popup_checkout" style={{ cursor: "pointer" }} onClick={proceed}>
               <p>Proceed</p>
             </a>
           </div>

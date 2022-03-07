@@ -8,6 +8,9 @@ import { notify } from "../../../services/notify"
 import Submitbtn from "../../common/Submitbtn/Submitbtn.component"
 import { useState } from "react"
 import "./Loginbody.component.css";
+import { GoogleLogin, GoogleLogout } from "react-google-login";
+import CircularProgress from '@mui/material/CircularProgress';
+const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const Loginbodycomponent = (props) => {
     const fromexternaluser = props.history.location.fromexternaluser ? props.history.location.fromexternaluser : false
@@ -15,6 +18,7 @@ const Loginbodycomponent = (props) => {
     const [isLoading, setisLoading] = useState(false)
     const [errMsg, seterrMsg] = useState('')
     const [ispassword, setispassword] = useState(true)
+    const [isGoogleApiLoading,setIsGoogleApiLoading]=useState(false)
     useEffect(() => {
         const timeoutMsg = props.timeoutMsg
         if (timeoutMsg) {
@@ -78,7 +82,38 @@ const Loginbodycomponent = (props) => {
     }
     // render() {
     const alert = props.usernameinfo ? props.usernameinfo : "not found"
-
+    const responseGoogleSuccess = (response) => {
+        console.log(response);
+        const { tokenId } = response;
+        // console.log("type of token id is", typeof tokenId, tokenId);
+        setIsGoogleApiLoading(true)
+        httpClient
+          .POST("google-signin", { tokenId: tokenId })
+          .then((resp) => {
+            console.log("response is", resp.data.data);
+            let { access_token, refresh_token, expires_in, status, userid } =
+              resp.data.data;
+            localStorage.setItem("dm-access_token", access_token);
+            localStorage.setItem("dm-refresh_token", refresh_token);
+            localStorage.setItem("timeout", expires_in);
+            localStorage.setItem("status", status);
+            localStorage.setItem("userid", userid);
+            setTimeout(() => {
+              props.history.push({
+                pathname: `/dashboard/`,
+              });
+              setIsGoogleApiLoading(false)
+            }, 3000);
+          })
+          .catch((err) => {
+            console.log("error is", err);
+            notify.error("Login failed");
+            setIsGoogleApiLoading(false)
+          })
+      };
+      const responseGoogleFailure = (response) => {
+        console.log("response from google login is", response);
+      };
     return (
         <div>
             <section className="login">
@@ -139,9 +174,29 @@ const Loginbodycomponent = (props) => {
                                                 {/* <li>
                                                     <a href="#"><i className="fab fa-twitter"></i></a>
                                                 </li> */}
-                                                <li>
-                                                    <a href="#"><i className="fab fa-google"></i></a>
-                                                </li>
+                                                <li className="li-reg">
+                          {
+                            isGoogleApiLoading?<CircularProgress  style={{position:"relative",top:"12px",left:"5px"}}/>
+                            :
+                             <GoogleLogin
+                              clientId={googleClientId}
+                              render={(renderProps) => (
+                                <button
+                                  onClick={renderProps.onClick}
+                                  disabled={renderProps.disabled}
+                                >
+                                  <span>
+                                    <i class="fab fa-google"></i>
+                                  </span>
+                                </button>
+                              )}
+                              buttonText=""
+                              onSuccess={responseGoogleSuccess}
+                              onFailure={responseGoogleFailure}
+                              cookiePolicy={"single_host_origin"}
+                            />
+                          }
+                        </li>
                                             </ul>
                                         </div>
                                     </div>

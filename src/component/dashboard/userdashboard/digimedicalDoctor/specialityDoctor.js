@@ -5,7 +5,6 @@ import { httpClient } from "../../../../utils/httpClient";
 import Pagination from "../../../common/pagination/pagination.component";
 import UserDoctorCard from "./digiDoctorCard";
 
-
 function SpecialityDoctor(props) {
     const [allDigiDoctors, setAllDigiDoctors] = useState([]);
     const [searcheddoctors, setsearcheddoctors] = useState([]);

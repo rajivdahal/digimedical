@@ -16,10 +16,12 @@ import { bindActionCreators } from "redux";
 import { setOpenPopUp } from "../../../../actions/paymentPopUp.ac";
 import CircularProgress from '@mui/material/CircularProgress';
 import { callApiForInitialBooking, digiDoctorAppointmentBookLoading, digiDoctorAppointmentBookNotLoading, digiDoctorAppointmentFixed } from "../../../../actions/digiDoctorBooking.ac";
-
+import { dateEquivalator } from "../../../../utils/dateHelper";
+import { splitAlphabeticDate ,convertAlphabeticMonthToNumeric} from "../../../../utils/dateHelper";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default function Internalappointmentbook(prop) {
+  console.log("edit data are",prop.location.data)
   const editdata = prop.location.data ? prop.location.data : null;
   // console.log("to edit data is", editdata);
   const [appointmentsuccess, setappointmentsuccess] = useState(null);
@@ -31,7 +33,7 @@ export default function Internalappointmentbook(prop) {
   const [corporatememberemail, setcorporatememberemail] = useState([]);
   const [toeditdata, settoeditdata] = useState(editdata);
   const [isdoctorblurred, setisdoctorblurred] = useState(false);
-  const [value,onChange] = useState("12:00");
+  const [value,onChange] = useState(toeditdata?toeditdata.appointmenttime:"11:00");
 
   const [finalData,setFinalData]=useState(null)
   var today = new Date();
@@ -50,14 +52,15 @@ console.log("date is",date)
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
+  console.log("selected day is",selectedDay)
   const [minDate, setminDate] = useState({
     year: dt.getFullYear(),
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
-  if (toeditdata) {
-    toeditdata["serviceId"] = toeditdata["servicesId"];
-  }
+  // if (toeditdata) {
+  //   toeditdata["serviceId"] = toeditdata["serviceId"];
+  // }
   const callapi = (url, values) => {
     // console.log("values are",values)
     httpClient
@@ -77,6 +80,7 @@ console.log("date is",date)
       });
   };
   useEffect(() => {
+    // debugger
     httpClient
       .GET("services/get/true", false, true)
       .then((resp) => {
@@ -104,12 +108,53 @@ console.log("date is",date)
           notify.error("Something went wrong");
         });
     }
+    // convert the date format March 3, 2022 to
+    if(toeditdata){
+      console.log("to edit data are",toeditdata)
+      let date=toeditdata.appointmentdate
+      let parsedDate=splitAlphabeticDate(date)
+      parsedDate.month=convertAlphabeticMonthToNumeric(parsedDate.month)
+      console.log("parsed date is",parsedDate)
+      setSelectedDay(parsedDate)
+      // console.log("parsed Month is",parsedMonth)
+      // let year=""
+      // let month=""
+      // let day=""
+      // // let month=date.replace(/[^A-Za-z]/g, '')
+      // // console.log("month equivalator is",dateEquivalator)
+      // for (let index = date.length-1; index >=0; index--) {
+      //   if(index>date.length-5){
+      //     year=year+date[index]
+      //   }
+      //   if(index>date.length-9 && index<date.length-6){
+      //     day=day+date[index]
+      //   }
+      //   if(index<date.length-9){
+      //     month=month+date[index]
+      //   }
+      // }
+      // year=year.split("").reverse().join("");
+      // month=month.split("").reverse().join("");
+      // day=day.split("").reverse().join("");
+
+      // console.log("month and year issss",month,year,day)
+      // for (const key in dateEquivalator){
+      //    if(key===month){
+      //      month=dateEquivalator[key]
+      //    }
+      // }
+      // console.log("parsed month is",month)
+
+    }
+
+    //end of convert the date format March 3, 2022 to
+
   }, []);
   const formik = useFormik({
     initialValues: {
       servicesId: "",
       doctorId: "",
-      appointmentDate:date,
+      appointmentDate:toeditdata?"":date,
       appointmentTime: "",
       email: "",
       serviceName:"",
@@ -137,42 +182,42 @@ console.log("date is",date)
     },
     onSubmit:values=>{
       // debugger
-      console.log("values are",values)
-      doctorAppointmentBookLoading(true)
-      setDigiDoctorAppointment(values)
-      // apiCallForInitialBooking(values)
-      setFinalData(values)
-      openDoctorPopUp(true)
-    //   if (toeditdata) {
-    //     let finaldata = {};
-    //     finaldata["servicesId"] = toeditdata["serviceid"];
-    //     finaldata["appointmentTime"] = toeditdata["appointmenttime"];
-    //     finaldata["doctorId"] = toeditdata["doctorid"];
-    //     finaldata["appointmentDate"] = toeditdata["appointmentdate"];
-    //     console.log("to edit data are>>>>", finaldata, toeditdata);
-    //     return httpClient
-    //       .PUT(
-    //         `update-appointment/${toeditdata.appointmentid}`,
-    //         finaldata,
-    //         false,
-    //         true
-    //       )
-    //       .then((resp) => {
-    //         notify.success("Appointment updated successfully");
-    //         prop.location.pathname == "/dashboard/corporate/bookappointment"
-    //           ? prop.history.push("/dashboard/corporate/viewappointment")
-    //           : prop.history.push("/dashboard/viewappointment");
-    //       })
-    //       .catch((err) => {
-    //         notify.error("Error in updating the appointment");
-    //       });
-    //   }
-    //   if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
-    //     return callapi("create-appointment/corporate", formik.values);
-    //   }
-    //   console.log(values);
-    //   return callapi("create-appointment", formik.values);
+
+      if (toeditdata) {
+        let finaldata = {};
+        finaldata["servicesId"] = toeditdata["serviceId"];
+        finaldata["appointmentTime"] = values.appointmentTime;
+        finaldata["doctorId"] = toeditdata["doctorId"];
+        finaldata["appointmentDate"] = values.appointmentDate;
+        // console.log("to edit data are>>>>", finaldata, toeditdata);
+        return httpClient
+          .PUT(
+            `update-appointment/${toeditdata.appointmentId}`,
+            finaldata,
+            false,
+            true
+          )
+          .then((resp) => {
+            notify.success("Appointment updated successfully");
+            prop.location.pathname == "/dashboard/corporate/bookappointment"
+              ? prop.history.push("/dashboard/corporate/viewappointment")
+              : prop.history.push("/dashboard/viewappointment");
+          })
+          .catch((err) => {
+            notify.error("Error in updating the appointment");
+          });
+      }
+      if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
+        return callapi("create-appointment/corporate", formik.values);
+      }
+    console.log("values are",values)
+    doctorAppointmentBookLoading(true)
+    setDigiDoctorAppointment(values)
+    // apiCallForInitialBooking(values)
+    setFinalData(values)
+    openDoctorPopUp(true)
     }
+
   });
       // Redux implementation
       const dispatch = useDispatch();
@@ -218,9 +263,6 @@ console.log("date is",date)
     toeditdata.appointmenttime=value
     onChange(value)
   }
-  useEffect(() => {
-    console.log(toeditdata);
-  }, [toeditdata]);
   const handlesubmit = (e) => {
     e.preventDefault();
     if (toeditdata) {
@@ -279,6 +321,7 @@ console.log("date is",date)
   };
   if (value) {
     formik.values.appointmentTime = value;
+    formik.values.appointmentDate =selectedDay.year+"-"+selectedDay.month+"-"+selectedDay.day;
   }
   const clearpopup = () => {
     setisdoctorblurred(false);
@@ -347,7 +390,7 @@ console.log("date is",date)
             name="doctorId"
             disabled
           >
-            <option>{toeditdata.doctorsname}</option>
+            <option>{toeditdata.doctorsName}</option>
           </select>
         </div>
       </div>
@@ -364,7 +407,11 @@ console.log("date is",date)
               onChange={handleDateChange}
             ></DatePicker>
           </div>
-          {/* <h4>{formatDate(toeditdata.appointmentdate)}</h4> */}
+          {/* <h4>{
+          toeditdata?
+          formatDate(toeditdata.appointmentdate)
+        :null
+        }</h4> */}
         </div>
         <div className="form-group col-md-12">
           <label htmlFor="time">Time</label>
@@ -376,7 +423,11 @@ console.log("date is",date)
             />
 
         </div>
-
+        {/* <h4>{
+          toeditdata?
+          toeditdata.appointmenttime
+        :null
+        }</h4> */}
       </div>
     </div>
   ) :

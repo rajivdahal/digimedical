@@ -39,7 +39,12 @@ const initialState = {
         appointmentDate:"",
         appointmentTime:"",
         isAppointmentFixed:false,
-        onlinePlatformForBooking:"",
+        doctorPaymentType:"online",
+        isDoctorAppointmentLoading:false,
+        selectedHospitalDoctorService:null,
+        hospitalInfo:null
+
+        // onlinePlatformForBooking:"",
     },
     digiDoctorAppointmentBooking:{
         isDigiDoctorAppointmentFixed:false,

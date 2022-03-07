@@ -1,8 +1,13 @@
 import { hospitalAppointmentBookingActionTypes } from "../actions/hospitalAppointmentBooking.ac"
 export const hospitalAppointmentBookingReducer=(state,action)=>{
-    // debugger
     console.log("reducer data is",action.payload)
     switch (action.type) {
+        case hospitalAppointmentBookingActionTypes.SET_HOSPITAL_INFO:
+            // console.log("inside hospital set doctor info condition reducer",state)
+            return{
+                ...state,
+                hospitalInfo:action.payload
+            }
         case hospitalAppointmentBookingActionTypes.SET_DOCTOR_INFO:
             console.log("inside hospital set doctor info condition reducer",state)
             return{
@@ -13,15 +18,26 @@ export const hospitalAppointmentBookingReducer=(state,action)=>{
             return{
                 ...state,
                 isAppointmentFixed:true,
-                appointmentDate:action.payload.date,
-                appointmentTime:action.payload.time,
+                appointmentDate:action.payload.appointmentDate,
+                appointmentTime:action.payload.appointmentTime,
             }
         case hospitalAppointmentBookingActionTypes.SET_IS_APPOINTMENT_METHOD:
             return{
                 ...state,
-                onlinePlatformForBooking:action.payload,
-                isPaymentShown:true
+                doctorPaymentType:action.payload,
             }
+        case hospitalAppointmentBookingActionTypes.HOSPITAL_DOCTOR_PAYMENT_METHOD:
+                return{
+                    ...state,
+                    doctorPaymentType:action.payload,
+                    // isPaymentShown:true
+                }
+        case hospitalAppointmentBookingActionTypes.HOSPITAL_DOCTOR_SERVICE_SET:
+                return{
+                    ...state,
+                    selectedHospitalDoctorService:action.payload,
+                    // isPaymentShown:true
+                }
         case hospitalAppointmentBookingActionTypes.RESET_HOSPITAL_DOCTOR_INFO:
             return{
                 ...state,
@@ -31,7 +47,10 @@ export const hospitalAppointmentBookingReducer=(state,action)=>{
                 appointmentDate:"",
                 appointmentTime:"",
                 isAppointmentFixed:false,
-                onlinePlatformForBooking:"",
+                doctorPaymentType:"online",
+                isDoctorAppointmentLoading:false,
+                selectedHospitalDoctorService:null,
+                // hospitalInfo:null
             }
         default:
             return {

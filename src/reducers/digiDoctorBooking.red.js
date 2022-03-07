@@ -46,11 +46,13 @@ export const digiDoctorAppointmentBookingReducer=(state,action)=>{
             return{
                 ...state,
                 isDigiDoctorAppointmentFixed:false,
+                isLoadingAppointmentBooking:false,
                 digiDoctorAppointmentDate:"",
                 digiDoctorAppointmentTime:"",
                 digiDoctorInfo:null,
-                selectedService:null
-
+                digiDoctorPaymentType:"online",
+                selectedService:null,
+                digiDoctorBookingIdAfterBooking:null,
             }
 
         default:

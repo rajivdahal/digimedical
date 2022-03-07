@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useFormik } from "formik";
+import { Formik,Form, Field,ErrorMessage, useFormikContext } from "formik";
 import { httpClient } from "../../../utils/httpClient";
 import { useEffect, useState } from "react";
 import { notify } from "../../../services/notify";
@@ -10,6 +10,10 @@ import "@amir04lm26/react-modern-calendar-date-picker/lib/DatePicker.css";
 import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
 import Clear from "@material-ui/icons/Clear";
 import "./formcomponent.css";
+import * as Yup from "yup";
+import Select from "react-select"
+import FormComponentForLoggedInCase from "./formComponentForLoggedInCase";
+
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const FormSection = styled.div`
@@ -29,9 +33,6 @@ const FormSection = styled.div`
   @media screen and (max-width: 500px) {
     padding: 1rem;
   }
-  ${'' /* .col-md-6 {
-    padding: 0px 15px 0px 0px;
-  } */}
 
   .col-md-12{
     padding: 0;
@@ -66,6 +67,7 @@ function FormComponent(props) {
   const [services, setservices] = useState([]);
   const [doctors, setdoctors] = useState([]);
   const [isloading, setisloading] = useState(false);
+  console.log("services are",services)
   const [doctorfetched, setdoctorfetched] = useState({
     image: null,
     prefix: null,
@@ -90,15 +92,20 @@ function FormComponent(props) {
     httpClient
       .GET("services/get/true")
       .then((resp) => {
-        setservices(resp.data.data);
+        let allServices = resp.data.data.map((item) => {
+          return {
+            label: item.servicename,
+            value: item.id,
+          };
+        });
+        setservices(allServices);
       })
       .catch((err) => {
         notify.error("something went wrong during fetching data");
       });
   }, []);
-
-  const formik = useFormik({
-    initialValues: {
+    const initialValues=
+    {
       firstName: "",
       middleName: "",
       lastName: "",
@@ -108,97 +115,87 @@ function FormComponent(props) {
       doctorId: "",
       appointmentDate: "",
       appointmentTime: "",
-    },
-    validate: (values) => {
-      let errors = {};
+    }
+    const schema=
+    Yup.object().shape({
+      firstName: Yup.string().required("Firstname is required!"),
+      middleName: Yup.string(),
+      lastName: Yup.string().required("Lastname is required!"),
+      mobileNumber: Yup.string().required("Mobilenumber is required!"),
+      servicesId: Yup.string().required("Service is required!"),
+      email: Yup.string().required("Email is required!"),
+      doctorId: Yup.string().required("Doctor is required!"),
+      appointmentDate: Yup.object(),
+      appointmentTime: Yup.string().required("Appointment time is required!"),
+    });
+    function DatePickerField({ name }) {
+      const formik = useFormikContext();
+      const field = formik.getFieldProps(name);
+      return (
+        <DatePicker
+          value={field.value?field.value:selectedDay}
+          onChange={value => {
+            formik.setFieldValue(name, value)
+          }}
+        />
+      );
+    }
+    function InputSelectField({name}){
+      console.log("name is,,,,",name)
+      const formik=useFormikContext()
+      const field=formik.getFieldProps(name);
+      return(
+        <input type={"text"} className="prescription_input" onChange={e=>{
+          formik.setFieldValue(name,e.target.value)
+        }}
+        placeholder="120/80 mmHg"
+        ></input>
+      )
+    }
+    function SelectField({name}){
+      const formik=useFormikContext()
+      const field=formik.getFieldProps(name);
+      return(
+        <Select
+        options={services}
+        className="select-category"
+        onChange={(value)=>{
+          formik.setFieldValue(name,value.value)
+            handleChange(value)
+        }}
+        />
+      )
+    }
+    function SelectFieldDoctor({name}){
+      console.log("name is",name)
+      const formik=useFormikContext()
+      const field=formik.getFieldProps(name);
+      return(
+        <Select
+        options={doctors}
+        className="select-category"
+        onChange={(value)=>{
+          formik.setFieldValue(name,value.value)
+        }}
+        />
+      )
+    }
 
-      if (values.firstName.length < 2) {
-        errors.firstName = "Invalid First Name!";
-      }
-      if (!values.firstName) {
-        errors.firstName = "First Name is required!";
-      }
-
-      if (values.lastName.length < 2) {
-        errors.lastName = "Invalid Last Name!";
-      }
-      if (!values.lastName) {
-        errors.lastName = "Last Name is required!";
-      }
-      if (
-        !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)
-      ) {
-        errors.email = "Invalid Email format";
-      }
-      if (!values.email) {
-        errors.email = "Email is required!";
-      }
-
-      if (("" + values.mobileNumber).length != 10) {
-        errors.mobileNumber = "Mobile Number must be of 10 digits!";
-      }
-      if (!values.mobileNumber) {
-        errors.mobileNumber = "Mobile Number is required!";
-      }
-      if (!values.servicesId) {
-        errors.servicesId = "Service is required!";
-      }
-      if (!values.doctorId) {
-        errors.doctorId = "Doctor is required!";
-      }
-      if (!values.appointmentDate) {
-        errors.appointmentDate = "Appointment Date is required!";
-      }
-      if (!values.appointmentTime) {
-        errors.appointmentTime = "Appointment Time is required!";
-      }
-      return errors;
-    },
-    onSubmit: (values) => {
-      setisloading(true);
-      httpClient
-        .POST("create-external-user", values)
-        .then((res) => {
-          setappointmentsuccess(res.data.message);
-          setTimeout(() => {
-            prop.push({
-              pathname: "/login",
-              fromexternaluser: true,
-              email: values.email,
-            });
-          }, 3000);
-        })
-        .catch((err) => {
-          if (!err) {
-            return setappointmentfailed("something went wrong");
-          }
-          if (err.response.data.message === "Email already exists") {
-            setappointmentfailed(
-              err.response.data.message + " redirecting to dashboard...."
-            );
-            return setTimeout(() => {
-              let token = localStorage.getItem("dm-access_token");
-              token
-                ? prop.push("/dashboard")
-                : prop.push({
-                    pathname: "/login",
-                    timeoutMsg: "please login",
-                  });
-            }, 2000);
-          }
-          notify.error("something went wrong ");
-        })
-        .finally(() => {
-          setisloading(false);
-        });
-    },
-  });
-  const handleChange = (e) => {
-    let serviceid = e.target.value;
+  const handleChange = (value) => {
+    console.log("value",value)
     httpClient
-      .GET(`doctor/get-related-doctor/${serviceid}`, false, false)
+      .GET(`doctor/get-related-doctor/${value.value}`, false, false)
       .then((resp) => {
-        setdoctors(resp.data.data);
+        if(!resp.data.data.length){
+          return notify.error("No any doctors are available to this service");
+        }
+        let doctors=resp.data.data.map((item,index)=>{
+          return {
+            label: item.name,
+            value: item.doctorid,
+          };
+        })
+        setdoctors(doctors);
       })
       .catch((err) => {
         setdoctors([]);
@@ -231,98 +228,122 @@ function FormComponent(props) {
   const clearpopup = () => {
     setisdoctorblurred(false);
   };
-  const datechange = (value, status) => {
-    let date = "";
-    date = value.year + "-" + value.month + "-" + value.day;
-
-    if (status) {
-      return (formikForLoggedInUser.values.appointmentDate = date);
-    }
-    setSelectedDay(value);
-    formik.values.appointmentDate = date;
-  };
-  const formikForLoggedInUser = useFormik({
-    initialValues: {
+    const initialValuesForLoggedInCase={
       servicesId: "",
       doctorId: "",
       appointmentDate: "",
       appointmentTime: "",
     },
-    validate: (values) => {
-      let errors = {};
-      if (!values.servicesId) {
-        errors.serviceId = "Service is required!";
+
+   handleSubmit=(values)=>{
+      let finaldata={
+        ...values,
+        appointmentDate:values.appointmentDate?
+        values.appointmentDate.year+"-"+values.appointmentDate.month+"-"+values.appointmentDate.day
+        :selectedDay.year+"-"+selectedDay.month+"-"+selectedDay.day
       }
-      if (!values.doctorId) {
-        errors.doctorId = "Doctor is required!";
-      }
-      if (!values.appointmentDate) {
-        errors.appointmentDate = "Appointment Date is required!";
-      }
-      if (!values.appointmentTime) {
-        errors.appointmentTime = "Appointment Time is required!";
-      }
-      return errors;
-    },
-    onSubmit: (value) => {
+      // console.log(finaldata)
+      setisloading(true);
       httpClient
-        .POST("create-appointment", value, false, true)
-        .then((resp) => {
-          notify.success("Appointment booked successfully");
+        .POST("create-external-user", finaldata)
+        .then((res) => {
+          setappointmentsuccess(res.data.message);
+          setTimeout(() => {
+            prop.push({
+              pathname: "/login",
+              fromexternaluser: true,
+              email: values.email,
+            });
+          }, 3000);
         })
-        .catch((err) => notify.error("Error in appointment booking"));
-    },
-  });
-  const handleSubmitIsLoggedIn = () => {};
+        .catch((err) => {
+          if (!err) {
+            return setappointmentfailed("something went wrong");
+          }
+          if (err.response.data.message === "Email already exists") {
+            setappointmentfailed(
+              err.response.data.message + " redirecting to dashboard...."
+            );
+
+            return setTimeout(() => {
+              let token = localStorage.getItem("dm-access_token");
+              token
+                ? prop.push("/dashboard")
+                : prop.push({
+                    pathname: "/login",
+                    timeoutMsg: "please login",
+                  });
+            }, 2000);
+          }
+          notify.error("something went wrong ");
+        })
+        .finally(() => {
+          setisloading(false);
+        });
+      httpClient
+            .POST("create-appointment", finaldata, false, true)
+            .then((resp) =>{
+              notify.success("Appointment booked successfully");
+            })
+            .catch((err) => notify.error("Error in appointment booking"));
+        }
+    const submitForLoggedInCase=(values)=>{
+      console.log("values are",values)
+    }
+
   return (
     <div className="formcompo_home">
       <FormSection>
         {!localStorage.getItem("dm-access_token") ? (
-          <form onSubmit={formik.handleSubmit}>
+        <Formik initialValues={initialValues}
+        validationSchema={schema}
+        onSubmit={handleSubmit}
+
+        >
+          <Form>
             <div className="form-row">
               <div className="form-group col-md-4">
                 <label htmlFor="fname">
                   First Name<span style={{ color: "red" }}>*</span>
                 </label>
-                <input
+                <Field
                   type="text"
                   className="form-control"
                   id="firstName"
                   placeholder="First Name"
-                  {...formik.getFieldProps("firstName")}
+                  name="firstName"
                 />
-                {formik.errors.firstName && formik.touched.firstName ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formik.errors.firstName}{" "}
-                  </div>
-                ) : null}
+             <ErrorMessage name="firstName" >
+
+               {msg=><div style={{color:"red"}}>{msg}</div>}
+                 </ErrorMessage>
+
               </div>
               <div className="form-group col-md-4">
                 <label htmlFor="mname">Middle Name</label>
-                <input
+                <Field
                   type="text"
                   className="form-control"
                   id="middleName"
                   placeholder="Middle Name"
-                  {...formik.getFieldProps("middleName")}
+                  name="middleName"
                 />
               </div>
               <div className="form-group col-md-4">
                 <label htmlFor="lname">
                   Last Name<span style={{ color: "red" }}>*</span>
                 </label>
-                <input
+                <Field
                   type="text"
                   className="form-control"
                   id="lastName"
                   placeholder="Last Name"
-                  {...formik.getFieldProps("lastName")}
+                  name="lastName"
                 />
-                {formik.errors.lastName && formik.touched.lastName ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formik.errors.lastName}{" "}
-                  </div>
-                ) : null}
+               <ErrorMessage name="lastName">
+               {msg=><div style={{color:"red"}}>{msg}</div>}
+
+                 </ErrorMessage>
               </div>
             </div>
             <div className="form-row">
@@ -330,35 +351,29 @@ function FormComponent(props) {
                 <label htmlFor="email">
                   Email<span style={{ color: "red" }}>*</span>
                 </label>
-                <input
+                <Field
                   type="email"
                   className="form-control"
                   id="email"
                   placeholder="Email"
-                  {...formik.getFieldProps("email")}
+                  name="email"
                 />
-                {formik.errors.email && formik.touched.email ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formik.errors.email}{" "}
-                  </div>
-                ) : null}
+                <ErrorMessage name="email">{msg=><div style={{color:"red"}}>{msg}</div>}
+                 </ErrorMessage>
               </div>
               <div className="form-group col-md-6">
                 <label htmlFor="phoneno">
                   Mobile No.<span style={{ color: "red" }}>*</span>
                 </label>
-                <input
+                <Field
                   type="text"
                   className="form-control"
                   id="mobileNumber"
                   placeholder="PhoneNumber"
-                  {...formik.getFieldProps("mobileNumber")}
+                  name="mobileNumber"
                 />
-                {formik.errors.mobileNumber && formik.touched.mobileNumber ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formik.errors.mobileNumber}{" "}
-                  </div>
-                ) : null}
+                <ErrorMessage name="mobileNumber">{msg=><div style={{color:"red"}}>{msg}</div>}
+                 </ErrorMessage>
               </div>
             </div>
             <div className="form-row">
@@ -366,100 +381,44 @@ function FormComponent(props) {
                 <label htmlFor="service">
                   Select Service<span style={{ color: "red" }}>*</span>
                 </label>
-                <select
-                  id="servicesId"
-                  className="form-control"
-                  {...formik.getFieldProps("servicesId")}
-                  style={{ color: "black" }}
-                  onChange={(e) => {
-                    formik.handleChange(e);
-                    handleChange(e);
-                  }}
-                >
-                  <option value={null}></option>
-                  {services.map((item, index) => {
-                    return (
-                      <option key={index} value={item.id}>
-                        {item.servicename}
-                      </option>
-                    );
-                  })}
-                </select>
-                {formik.errors.servicesId && formik.touched.servicesId ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formik.errors.servicesId}{" "}
-                  </div>
-                ) : null}
+                <SelectField name={"servicesId"}></SelectField>
+                <ErrorMessage name="servicesId">{msg=><div style={{color:"red"}}>{msg}</div>}
+                 </ErrorMessage>
+
               </div>
               <div className="form-group col-md-6">
                 <label htmlFor="doctor">
                   Select Doctor<span style={{ color: "red" }}>*</span>
                 </label>
-                <select
-                  id="doctorId"
-                  className="form-control"
-                  {...formik.getFieldProps("doctorId")}
-                  style={{ color: "black" }}
-                  onChange={(e) => {
-                    formik.handleChange(e);
-                    getdoctorinfo(e);
-                  }}
-                >
-                  <option value={null}></option>
-                  {doctors.map((item, index) => {
-                    return (
-                      <option key={index} value={item.id}>
-                        {item.name}
-                      </option>
-                    );
-                  })}
-                </select>
-                {formik.errors.doctorId && formik.touched.doctorId ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formik.errors.doctorId}
-                  </div>
-                ) : null}
+                <SelectFieldDoctor name={"doctorId"}></SelectFieldDoctor>
+                <ErrorMessage name="doctorId">{msg=><div style={{color:"red"}}>{msg}</div>}
+                 </ErrorMessage>
               </div>
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
                 <label htmlFor="appointment">
-                  Appointment Date<span style={{ color: "red" }}>*</span>
+                  Appointment Date
+                  <span style={{ color: "red" }}>*</span>
                 </label>
-                <DatePicker
-                  className="form-control"
-                  shouldHighlightWeekends
-                  value={selectedDay}
-                  onChange={datechange}
-                  minimumDate={minDate}
-                  inputClassName="my-custom-input"
-                  style={{ width: "100%"}}
-                ></DatePicker>
-                {formik.errors.appointmentDate &&
-                formik.touched.appointmentDate ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formik.errors.appointmentDate}{" "}
-                  </div>
-                ) : null}
+                <DatePickerField name={"appointmentDate"}></DatePickerField>
+                <ErrorMessage name="appointmentDate">{msg=><div style={{color:"red"}}>{msg}</div>}
+                 </ErrorMessage>
               </div>
 
               <div className="form-group col-md-6" style={{ marginTop: "" }}>
                 <label htmlFor="time">
                   Time<span style={{ color: "red" }}>*</span>
                 </label>
-                <input
+                <Field
                   type="time"
                   placeholder=""
                   id="appointmentTime"
                   className="form-control"
-                  {...formik.getFieldProps("appointmentTime")}
-                ></input>
-                {formik.errors.appointmentTime &&
-                formik.touched.appointmentTime ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formik.errors.appointmentTime}{" "}
-                  </div>
-                ) : null}
+                  name="appointmentTime"
+                ></Field>
+                <ErrorMessage name="appointmentTime">{msg=><div style={{color:"red"}}>{msg}</div>}
+                 </ErrorMessage>
               </div>
             </div>
             <div className="col-md-12 col-sm-12 col-xs-12 ">
@@ -508,126 +467,14 @@ function FormComponent(props) {
             <div className="form-text">
               We value your privacy. Your details are safe with us.
             </div>
-          </form>
-        ) : (
-          <form onSubmit={formikForLoggedInUser.handleSubmit}>
-            <div className="form-row">
-              <div className="form-group col-md-6">
-                <label htmlFor="service">
-                  Select Service<span style={{ color: "red" }}>*</span>
-                </label>
-                <select
-                  id="serviceIdLoggedIn"
-                  className="form-control"
-                  {...formikForLoggedInUser.getFieldProps("servicesId")}
-                  style={{ color: "black" }}
-                  onChange={(e) => {
-                    formikForLoggedInUser.handleChange(e);
-                    handleChange(e);
-                  }}
-                >
-                  <option value={null}></option>
-                  {services.map((item, index) => {
-                    return (
-                      <option key={index} value={item.id}>
-                        {item.servicename}
-                      </option>
-                    );
-                  })}
-                </select>
-                {formikForLoggedInUser.errors.servicesId &&
-                formikForLoggedInUser.touched.servicesId ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formikForLoggedInUser.errors.servicesId}{" "}
-                  </div>
-                ) : null}
-              </div>
-              <div className="form-group col-md-6">
-                <label htmlFor="doctor">
-                  Select Doctor<span style={{ color: "red" }}>*</span>
-                </label>
-                <select
-                  id="doctorId"
-                  className="form-control"
-                  {...formikForLoggedInUser.getFieldProps("doctorId")}
-                  style={{ color: "black" }}
-                  onChange={(e) => {
-                    formikForLoggedInUser.handleChange(e);
-                    getdoctorinfo(e);
-                  }}
-                >
-                  <option value={null}></option>
-                  {doctors.map((item, index) => {
-                    return (
-                      <option key={index} value={item.id}>
-                        {item.name}
-                      </option>
-                    );
-                  })}
-                </select>
-                {formikForLoggedInUser.errors.doctorId &&
-                formikForLoggedInUser.touched.doctorId ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formikForLoggedInUser.errors.doctorId}
-                  </div>
-                ) : null}
-              </div>
-            </div>
-            <div className="form-row">
-              <div className="form-group col-md-6">
-                <label htmlFor="appointment">
-                  Appointment Date<span style={{ color: "red" }}>*</span>
-                </label>
-                <div className="formcompo_datepicker">
-                  {" "}
-                  <DatePicker
-                    className="form-control"
-                    shouldHighlightWeekends
-                    value={selectedDay}
-                    onChange={(value) => datechange(value, "fromLoggedInForm")}
-                    minimumDate={minDate}
-                    inputClassName="my-custom-input"
-                    style={{ width: "100%"}}
-                  ></DatePicker>
-                </div>
-
-                {formikForLoggedInUser.errors.appointmentDate &&
-                formikForLoggedInUser.touched.appointmentDate ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formikForLoggedInUser.errors.appointmentDate}{" "}
-                  </div>
-                ) : null}
-              </div>
-              <div className="form-group col-md-6" style={{ marginTop: "" }}>
-                <label htmlFor="time">
-                  Time<span style={{ color: "red" }}>*</span>
-                </label>
-                <input
-                  type="time"
-                  placeholder="select time"
-                  id="appointmentTime"
-                  className="form-control"
-                  {...formikForLoggedInUser.getFieldProps("appointmentTime")}
-                ></input>
-                {formikForLoggedInUser.errors.appointmentTime &&
-                formikForLoggedInUser.touched.appointmentTime ? (
-                  <div style={{ color: "red" }} className="errmsg">
-                    {formikForLoggedInUser.errors.appointmentTime}{" "}
-                  </div>
-                ) : null}
-              </div>
-            </div>
-            <div className="col-md-12 col-sm-12 col-xs-12 ">
-              {isloading ? (
-                <Cliploader></Cliploader>
-              ) : (
-                <button type="submit" className="btn btn-primary btn-block">
-                  Make Appointment
-                </button>
-              )}
-            </div>
-          </form>
-        )}
+          </Form>
+          </Formik>
+        )
+        :
+         (
+           <FormComponentForLoggedInCase services={services}></FormComponentForLoggedInCase>
+        )
+        }
       </FormSection>
       {isdoctorblurred ? (
         <div class="docs">
