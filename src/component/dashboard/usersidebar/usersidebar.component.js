@@ -44,7 +44,7 @@ export default function Usersidebar(props) {
                       {" "}
                       <i class="fas fa-bars"></i>
                     </span>{" "}
-                    Dashboard
+                    &nbsp;Dashboard
                   </p>
                 </li>
                 <li>
@@ -53,7 +53,7 @@ export default function Usersidebar(props) {
                       <span id="newdash_bar_ico">
                         <i class="fas fa-user-clock"></i>
                       </span>
-                      Appointments
+                      &nbsp;Appointments
                     </Accordion.Header>
                     <Accordion.Body>
                       <ul className="accordion-body">
@@ -89,7 +89,7 @@ export default function Usersidebar(props) {
                         {" "}
                         <i class="fas fa-file-medical"></i>
                       </span>
-                      Labtest
+                      &nbsp;Labtest
                     </Accordion.Header>
                     <Accordion.Body>
                       <ul className="accordion-body">
@@ -119,7 +119,7 @@ export default function Usersidebar(props) {
                     <span id="newdash_bar_ico">
                       <i class="fas fa-hospital"></i>
                     </span>{" "}
-                    Hospitals
+                    &nbsp;Hospitals
                   </p>
                 </li>
                 <li onClick={loadDigiDoctors} style={{ cursor: "pointer" }}>
@@ -128,7 +128,7 @@ export default function Usersidebar(props) {
                     <span id="newdash_bar_ico">
                       <i class="fas fa-hospital"></i>
                     </span>{" "}
-                    Doctors
+                    &nbsp;Doctors
                   </p>
                 </li>
                 <li onClick={loadMedicalReport} style={{ cursor: "pointer" }}>
@@ -137,7 +137,7 @@ export default function Usersidebar(props) {
                     <span id="newdash_bar_ico">
                       <i class="fas fa-file-alt"></i>
                     </span>{" "}
-                    Update Medical Info
+                    &nbsp;Update Medical Info
                   </p>
                 </li>
                 <li onClick={loadBodyCheckup} style={{ cursor: "pointer" }}>
@@ -146,7 +146,7 @@ export default function Usersidebar(props) {
                     <span id="newdash_bar_ico">
                       <i class="fas fa-file-alt"></i>
                     </span>{" "}
-                    Load Body Checkup
+                    &nbsp;Load Body Checkup
                   </p>
                 </li>
                 <li onClick={loadServices} style={{ cursor: "pointer" }}>
@@ -155,7 +155,7 @@ export default function Usersidebar(props) {
                     <span id="newdash_bar_ico">
                       <i class="fas fa-file-alt"></i>
                     </span>{" "}
-                    Services
+                    &nbsp;Services
                   </p>
                 </li>
               </ul>
@@ -176,7 +176,7 @@ export default function Usersidebar(props) {
                         {" "}
                         <i class="fas fa-bars"></i>
                       </span>{" "}
-                      Dashboard
+                      &nbsp;Dashboard
                     </p>
                   </li>
                   <li>
@@ -185,7 +185,7 @@ export default function Usersidebar(props) {
                         <span id="newdash_bar_ico">
                           <i class="fas fa-user-clock"></i>
                         </span>
-                        Appointments
+                        &nbsp;Appointments
                       </Accordion.Header>
                       <Accordion.Body>
                         <ul className="accordion-body">
@@ -227,7 +227,7 @@ export default function Usersidebar(props) {
                           {" "}
                           <i class="fas fa-file-medical"></i>
                         </span>
-                        Labtest
+                        &nbsp;Labtest
                       </Accordion.Header>
                       <Accordion.Body>
                         <ul className="accordion-body">
@@ -265,7 +265,7 @@ export default function Usersidebar(props) {
                       <span id="newdash_bar_ico">
                         <i class="fas fa-hospital"></i>
                       </span>{" "}
-                      Hospitals
+                      &nbsp;Hospitals
                     </p>
                   </li>
                   <li onClick={loadDigiDoctors} style={{ cursor: "pointer" }}>
@@ -274,7 +274,7 @@ export default function Usersidebar(props) {
                       <span id="newdash_bar_ico">
                         <i class="fas fa-hospital"></i>
                       </span>{" "}
-                      Doctors
+                      &nbsp;Doctors
                     </p>
                   </li>
                   <li onClick={loadMedicalReport} style={{ cursor: "pointer" }}>
@@ -283,7 +283,7 @@ export default function Usersidebar(props) {
                       <span id="newdash_bar_ico">
                         <i class="fas fa-file-alt"></i>
                       </span>{" "}
-                      Update Medical Info
+                      &nbsp;Update Medical Info
                     </p>
                   </li>
                   <li onClick={loadBodyCheckup} style={{ cursor: "pointer" }}>
@@ -292,7 +292,7 @@ export default function Usersidebar(props) {
                       <span id="newdash_bar_ico">
                         <i class="fas fa-file-alt"></i>
                       </span>{" "}
-                      Load Body Checkup
+                      &nbsp;Load Body Checkup
                     </p>
                   </li>
                 </ul>
