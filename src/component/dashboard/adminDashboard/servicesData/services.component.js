@@ -180,8 +180,8 @@ const Createservices = (props) => {
             }
         },
         validate: (values) => {
-            let digiService = true;
-            return validateService(values,digiService);
+            let isEdit = serviceEditId ? true : false;
+            return validateService(values,isEdit);
         }
     });
 
@@ -241,8 +241,8 @@ const Createservices = (props) => {
                                 ref={imageSelectRef}
                                 accept="image/png, image/jpg, image/jpeg"
                             ></input>
-                            {formik.touched.serviceDescription && formik.errors.serviceDescription ? (
-                                    <div className="error-message">{formik.errors.serviceDescription}</div>
+                            {formik.touched.image && formik.errors.image ? (
+                                    <div className="error-message">{formik.errors.image}</div>
                                 ) : null}
                         </Col>
 

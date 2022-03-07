@@ -38,16 +38,16 @@ import NewServicePage from "./adminDashboard/newServiceData/newServicePage";
 
 
 // hospital
-import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component";
-import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component";
-import HospitalDashboard from "./hospitaldashboard/hospitalDashboard";
-import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor";
-import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor";
-// import HospitalAppointment from "./hospitaldashboard/appointmentPage/"
-import HospitalAppointment from "./hospitaldashboard/appointmentPage/appointment.component";
-import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
+import Hospitalnavbar from "./hospitalDashboard/hospitalnavbar/hospitalnavbar.component";
+import Hospitalsidebar from "./hospitalDashboard/hospitalsidebar/hospitalsidebar.component";
+import HospitalDashboard from "./hospitalDashboard/hospitalDashboard";
+import HospitalDoctor from "./hospitalDashboard/doctorPage/hospital.doctor";
+import AddDoctor from "./hospitalDashboard/doctorPage/addHospitalDoctor";
+// import HospitalAppointment from "./hospitalDashboard/appointmentPage/"
+import HospitalAppointment from "./hospitalDashboard/appointmentPage/appointment.component";
+import HospitalService from "./hospitalDashboard/hospitalService/hospitalService";
 import HospitalSpecialist from "../home/Hospital Booking/hospitalSpecialist";
-// import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
+// import HospitalService from "./hospitalDashboard/hospitalService/hospitalService";
 
 // corporate
 import Corporatenavbar from "./corporatedashboard/corporatenavbar/corporatenavbar.component";
