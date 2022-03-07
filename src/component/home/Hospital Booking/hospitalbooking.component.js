@@ -7,8 +7,10 @@ import { httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
 import { useHistory, useLocation } from "react-router-dom";
 import Hospitaltopheader from "./hospitalheader.component";
+import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setHospitalInfo } from "../../../actions/hospitalAppointmentBooking.ac";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
-
 export default function Hospitalbookingcomponent(props) {
   let [hospitals, setHospitals] = useState([]);
   let [searchedoutput, setSearchedoutput] = useState([]);
@@ -16,7 +18,12 @@ export default function Hospitalbookingcomponent(props) {
   const history = useHistory();
   let location = useLocation();
   console.log("location is", location);
-
+  let dispatch=useDispatch()
+  // redux implementation
+  const appointmentBooking = useSelector((state) => state.appointmentBooking);
+  const setHospital=bindActionCreators(setHospitalInfo,dispatch)
+  console.log("appointment booking is",appointmentBooking)
+  // end of redux implementation
   useEffect(() => {
     httpClient
       .GET("hospital/get-all")
@@ -38,6 +45,8 @@ export default function Hospitalbookingcomponent(props) {
     setSearchedoutput(searchedoutput);
   };
   const showDoctors = (item) => {
+
+    setHospital(item)
     history.push({
       pathname: localStorage.getItem("dm-access_token")
         ? "/dashboard/hospitals/view-doctors"

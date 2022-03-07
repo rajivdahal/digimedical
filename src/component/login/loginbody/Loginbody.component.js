@@ -18,8 +18,7 @@ const Loginbodycomponent = (props) => {
     const [isLoading, setisLoading] = useState(false)
     const [errMsg, seterrMsg] = useState('')
     const [ispassword, setispassword] = useState(true)
-  const [isGoogleApiLoading,setIsGoogleApiLoading]=useState(false)
-
+    const [isGoogleApiLoading,setIsGoogleApiLoading]=useState(false)
     useEffect(() => {
         const timeoutMsg = props.timeoutMsg
         if (timeoutMsg) {

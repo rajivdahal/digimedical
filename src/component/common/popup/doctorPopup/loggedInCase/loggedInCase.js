@@ -10,6 +10,8 @@ import SelectPaymentMethod from '../selectPaymentMethod/selectPaymentMethod';
 import CircularProgress from '@mui/material/CircularProgress';
 // import PayPop from '../../paymentpopup/payment';
 import { callApiForInitialBooking, digiDoctorAppointmentBookLoading, digiDoctorAppointmentBookNotLoading, digiDoctorAppointmentFixed } from '../../../../../actions/digiDoctorBooking.ac';
+import { httpClient } from '../../../../../utils/httpClient';
+import { notify } from '../../../../../services/notify';
 
 export default function LoggedInCase(props) {
   console.log("props in main page is",props)
@@ -86,9 +88,26 @@ function DatePickerField({ name }) {
     }
     return finaldata
   }
+
   const submit=(values)=>{
-    let finaldata=getFinalData(values)
-    setAppointmentFixed(finaldata)
+    let finalData={
+      ...getFinalData(values),
+      servicesId:appointmentBooking.doctorInfo.serviceid,
+      hospitalId:appointmentBooking.hospitalInfo.id,
+      doctorId:appointmentBooking.doctorInfo.doctorid
+    }
+    httpClient.POST("create-appointment",finalData,false,true)
+    .then(resp=>{
+      setAppointmentFixed(finalData)
+    })
+    .catch(resp=>notify.error("Something went wrong"))
+
+    console.log("finaldata",finalData)
+    // finaldata.
+    // finaldata.hospitalId=appointmentBooking.hospitalInfo.id,
+    // finaldata.
+
+
   }
   const submitDigiDoctorBooking=(values)=>{
     let finaldata=getFinalData(values)

@@ -33,9 +33,6 @@ const FormSection = styled.div`
   @media screen and (max-width: 500px) {
     padding: 1rem;
   }
-  ${'' /* .col-md-6 {
-    padding: 0px 15px 0px 0px;
-  } */}
 
   .col-md-12{
     padding: 0;
@@ -183,104 +180,8 @@ function FormComponent(props) {
         />
       )
     }
-  // const formik = useFormik({
-  //   initialValues: {
-  //     firstName: "",
-  //     middleName: "",
-  //     lastName: "",
-  //     email: "",
-  //     mobileNumber: "",
-  //     servicesId: "",
-  //     doctorId: "",
-  //     appointmentDate: "",
-  //     appointmentTime: "",
-  //   },
-  //   validate: (values) => {
-  //     let errors = {};
 
-  //     if (values.firstName.length < 2) {
-  //       errors.firstName = "Invalid First Name!";
-  //     }
-  //     if (!values.firstName) {
-  //       errors.firstName = "First Name is required!";
-  //     }
-
-  //     if (values.lastName.length < 2) {
-  //       errors.lastName = "Invalid Last Name!";
-  //     }
-  //     if (!values.lastName) {
-  //       errors.lastName = "Last Name is required!";
-  //     }
-  //     if (
-  //       !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)
-  //     ) {
-  //       errors.email = "Invalid Email format";
-  //     }
-  //     if (!values.email) {
-  //       errors.email = "Email is required!";
-  //     }
-
-  //     if (("" + values.mobileNumber).length != 10) {
-  //       errors.mobileNumber = "Mobile Number must be of 10 digits!";
-  //     }
-  //     if (!values.mobileNumber) {
-  //       errors.mobileNumber = "Mobile Number is required!";
-  //     }
-  //     if (!values.servicesId) {
-  //       errors.servicesId = "Service is required!";
-  //     }
-  //     if (!values.doctorId) {
-  //       errors.doctorId = "Doctor is required!";
-  //     }
-  //     if (!values.appointmentDate) {
-  //       errors.appointmentDate = "Appointment Date is required!";
-  //     }
-  //     if (!values.appointmentTime) {
-  //       errors.appointmentTime = "Appointment Time is required!";
-  //     }
-  //     return errors;
-  //   },
-  //   onSubmit: (values) => {
-  //     setisloading(true);
-  //     httpClient
-  //       .POST("create-external-user", values)
-  //       .then((res) => {
-  //         setappointmentsuccess(res.data.message);
-  //         setTimeout(() => {
-  //           prop.push({
-  //             pathname: "/login",
-  //             fromexternaluser: true,
-  //             email: values.email,
-  //           });
-  //         }, 3000);
-  //       })
-  //       .catch((err) => {
-  //         if (!err) {
-  //           return setappointmentfailed("something went wrong");
-  //         }
-  //         if (err.response.data.message === "Email already exists") {
-  //           setappointmentfailed(
-  //             err.response.data.message + " redirecting to dashboard...."
-  //           );
-  //           return setTimeout(() => {
-  //             let token = localStorage.getItem("dm-access_token");
-  //             token
-  //               ? prop.push("/dashboard")
-  //               : prop.push({
-  //                   pathname: "/login",
-  //                   timeoutMsg: "please login",
-  //                 });
-  //           }, 2000);
-  //         }
-  //         notify.error("something went wrong ");
-  //       })
-  //       .finally(() => {
-  //         setisloading(false);
-  //       });
-  //   },
-  // });
   const handleChange = (value) => {
-    // let serviceid = e.target.value;
     console.log("value",value)
     httpClient
       .GET(`doctor/get-related-doctor/${value.value}`, false, false)
@@ -333,49 +234,7 @@ function FormComponent(props) {
       appointmentDate: "",
       appointmentTime: "",
     },
-  // const datechange = (value, status) => {
-  //   let date = "";
-  //   date = value.year + "-" + value.month + "-" + value.day;
 
-  //   if (status) {
-  //     return (formikForLoggedInUser.values.appointmentDate = date);
-  //   }
-  //   setSelectedDay(value);
-  //   formik.values.appointmentDate = date;
-  // };
-  // const formikForLoggedInUser = useFormik({
-  //   initialValuesForLoggedInCase: {
-  //     servicesId: "",
-  //     doctorId: "",
-  //     appointmentDate: "",
-  //     appointmentTime: "",
-  //   },
-    // validate: (values) => {
-    //   let errors = {};
-    //   if (!values.servicesId) {
-    //     errors.serviceId = "Service is required!";
-    //   }
-    //   if (!values.doctorId) {
-    //     errors.doctorId = "Doctor is required!";
-    //   }
-    //   if (!values.appointmentDate) {
-    //     errors.appointmentDate = "Appointment Date is required!";
-    //   }
-    //   if (!values.appointmentTime) {
-    //     errors.appointmentTime = "Appointment Time is required!";
-    //   }
-    //   return errors;
-    // },
-  //   onSubmit: (value) => {
-  //     httpClient
-  //       .POST("create-appointment", value, false, true)
-  //       .then((resp) => {
-  //         notify.success("Appointment booked successfully");
-  //       })
-  //       .catch((err) => notify.error("Error in appointment booking"));
-  //   },
-  // });
-  // const handleSubmitIsLoggedIn = () => {};
    handleSubmit=(values)=>{
       let finaldata={
         ...values,
@@ -405,6 +264,7 @@ function FormComponent(props) {
             setappointmentfailed(
               err.response.data.message + " redirecting to dashboard...."
             );
+
             return setTimeout(() => {
               let token = localStorage.getItem("dm-access_token");
               token
@@ -434,7 +294,6 @@ function FormComponent(props) {
   return (
     <div className="formcompo_home">
       <FormSection>
-        {/* for logged out case */}
         {!localStorage.getItem("dm-access_token") ? (
         <Formik initialValues={initialValues}
         validationSchema={schema}
@@ -543,15 +402,6 @@ function FormComponent(props) {
                   <span style={{ color: "red" }}>*</span>
                 </label>
                 <DatePickerField name={"appointmentDate"}></DatePickerField>
-                {/* <DatePicker
-                  className="form-control"
-                  shouldHighlightWeekends
-                  value={selectedDay}
-                  // onChange={datechange}
-                  minimumDate={minDate}
-                  inputClassName="my-custom-input"
-                  style={{ width: "100%"}}
-                ></DatePicker> */}
                 <ErrorMessage name="appointmentDate">{msg=><div style={{color:"red"}}>{msg}</div>}
                  </ErrorMessage>
               </div>
@@ -566,7 +416,6 @@ function FormComponent(props) {
                   id="appointmentTime"
                   className="form-control"
                   name="appointmentTime"
-                  // {...formik.getFieldProps("appointmentTime")}
                 ></Field>
                 <ErrorMessage name="appointmentTime">{msg=><div style={{color:"red"}}>{msg}</div>}
                  </ErrorMessage>
@@ -621,12 +470,9 @@ function FormComponent(props) {
           </Form>
           </Formik>
         )
-        // end for logged out case
-        // start for the loggged in case
         :
          (
            <FormComponentForLoggedInCase services={services}></FormComponentForLoggedInCase>
-          // end for the logged out case
         )
         }
       </FormSection>
