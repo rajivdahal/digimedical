@@ -146,5 +146,5 @@ const proceed=()=>{
         </div>
       </div>
     </div>
-  </div>  )
-}
+  </div>
+)}

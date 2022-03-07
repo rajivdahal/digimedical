@@ -12,13 +12,13 @@ import { digiDoctorInfo, resetDigiDoctorState } from "../../../../actions/digiDo
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const UserDoctorCard = (props) => {
-        // Redux implementation
-        const dispatch = useDispatch();
-        const digiAppointmentBooking = useSelector((state) => state.digiDoctorAppointmentBooking);
-        const setDigiDoctorInfo = bindActionCreators(digiDoctorInfo,dispatch);
-        const resetDigiDoctorInfo = bindActionCreators(resetDigiDoctorState,dispatch);
-        console.log("dataaaaaa is",digiAppointmentBooking)
-        // end of redux implementation
+    // Redux implementation
+    const dispatch = useDispatch();
+    const digiAppointmentBooking = useSelector((state) => state.digiDoctorAppointmentBooking);
+    const setDigiDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
+    const resetDigiDoctorInfo = bindActionCreators(resetDigiDoctorState, dispatch);
+    // console.log("dataaaaaa is", digiAppointmentBooking)
+    // end of redux implementation
 
     const [showForm, setForm] = useState(false);
     var dt = new Date();
@@ -48,7 +48,8 @@ const UserDoctorCard = (props) => {
     };
 
     const bookAppointment = (data) => {
-        console.log("doctor data is",data)
+        console.log("doctor data is", data)
+        console.log(data)
         SetDocPopup(true)
         // check if previous booking from doctor is done if yes remove the data and update to latest doctor
 
@@ -95,7 +96,6 @@ const UserDoctorCard = (props) => {
         enableReinitialize: true,
         initialValues: appointmentData,
         onSubmit: async (values) => {
-            console.log(values);
             submitAppointment(values);
         },
         validate: (values) => {
@@ -108,64 +108,64 @@ const UserDoctorCard = (props) => {
     });
     return (
         <>
-                        <DoctorPopup
-                            trigger={docPopup}
-                            setTrigger={SetDocPopup}
-                            origin="digiDoctor"
-                          ></DoctorPopup>
+            <DoctorPopup
+                trigger={docPopup}
+                setTrigger={SetDocPopup}
+                origin="digiDoctor"
+            ></DoctorPopup>
 
-        <div className="outerCard">
-            <div className="hospital_book_card1">
-                <img
-                    src={REACT_APP_BASE_URL + "doctor/download/" + props.doctorId}
-                    onError={(e) => {
-                        e.target.onerror = null;
-                        props.gender == "1"
-                            ? (e.target.src = "/images/doctor.jpeg")
-                            : (e.target.src = "/images/femaledoctor.png");
-                    }}
-                    style={{
-                        height: "140px",
-                        width: "140px",
-                        borderRadius: "50%",
-                    }}
-                    alt=""
-                />
+            <div className="outerCard">
+                <div className="hospital_book_card1">
+                    <img
+                        src={REACT_APP_BASE_URL + "doctor/download/" + props.doctorId}
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            props.gender == "1"
+                                ? (e.target.src = "/images/doctor.jpeg")
+                                : (e.target.src = "/images/femaledoctor.png");
+                        }}
+                        style={{
+                            height: "140px",
+                            width: "140px",
+                            borderRadius: "50%",
+                        }}
+                        alt=""
+                    />
 
-                <div className="digidoctor_about_desc">
-                    <div className="digidoc_about_desc_head">
-                        <p id="doc_name_card">{props.name}</p>
-                        <p id="doc_edu_brief">{props.prefix}</p>
+                    <div className="digidoctor_about_desc">
+                        <div className="digidoc_about_desc_head">
+                            <p id="doc_name_card">{props.name}</p>
+                            <p id="doc_edu_brief">{props.prefix}</p>
+                        </div>
+
+                        <p id="digidoc_exp"><b>{props.specialist} </b> </p>
+                        <p2>{props.desc.slice(0, 50)}.....</p2>
+                        <div className="doc_accordion">
+                            <Accordion>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>
+                                        Available consultation medium
+                                    </Accordion.Header>
+                                    <Accordion.Body className="acc-doc-body">
+                                        {props.digiServices.map((item) => {
+                                            return <ul className="accordion-body">
+                                                <li>{item.digiServiceName}</li>
+                                            </ul>
+                                        })}
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
+                        </div>
                     </div>
-
-                    <p id="digidoc_exp"><b>{props.specialist} </b> </p>
-                    <p2>{props.desc.slice(0, 50)}.....</p2>
-                    <div className="doc_accordion">
-                        <Accordion>
-                            <Accordion.Item eventKey="0">
-                                <Accordion.Header>
-                                    Available consultation medium
-                                </Accordion.Header>
-                                <Accordion.Body className="acc-doc-body">
-                                    {props.digiServices.map((item) => {
-                                        return <ul className="accordion-body">
-                                            <li>{item.digiServiceName}</li>
-                                        </ul>
-                                    })}
-                                </Accordion.Body>
-                            </Accordion.Item>
-                        </Accordion>
+                    <div className="hosp_card_but_main">
+                        {" "}
+                        <button id="hosp_card_but_user" onClick={() => bookAppointment(props)}>
+                            Book an appointment
+                        </button>
                     </div>
                 </div>
-                <div className="hosp_card_but_main">
-                    {" "}
-                    <button id="hosp_card_but_user" onClick={()=>bookAppointment(props)}>
-                        Book an appointment
-                    </button>
-                </div>
+
             </div>
-
-        </div>
         </>
     )
 }

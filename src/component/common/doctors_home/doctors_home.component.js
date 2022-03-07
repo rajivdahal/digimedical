@@ -41,33 +41,27 @@ function SpecialityHome(props) {
       </div>
       <div className="our_doc_appoints">
         <div className="our_doc_speciality">
-          {doctorSpeciality.map((item, index) => {
-            return (
-              <div className="speciality_doc_card">
-                <Link
-                  style={{ textDecoration: "none" }}
-                  key={index}
-                  to={{
-                    pathname: "digi-doctors",
-                    state: {
-                      specialityId: item.id,
-                      specialityName: item.servicename,
-                    },
-                  }}
-                >
-                  <div className="speciality_cont1">
-                    <img
-                      src={REACT_APP_BASE_URL + "services/download/" + item.id}
-                      alt=""
-                    />
-                  </div>
-                  <div className="speciality_cont2">
-                    <p>{item.servicename}</p>
-                  </div>
-                  <div></div>
-                </Link>
-              </div>
-            );
+
+          {doctorSpeciality.map((item,index) => {
+            return <div className="speciality_doc_card">
+              <Link style={{ textDecoration: "none" }} key={index}
+                to={{
+                  pathname: "digi-doctors",
+                  state: { specialityId: item.id, specialityName: item.servicename },
+                }}>
+                <div className="speciality_cont1">
+                  <img src={REACT_APP_BASE_URL + "services/download/" + item.id}
+                  onError={(e) => {
+                    e.target.src = "/images/doctor.jpeg";
+                }}
+                 alt="" />
+                </div>
+                <div className="speciality_cont2">
+                  <p>{item.servicename}</p>
+                </div>
+                <div></div>
+              </Link>
+            </div>
           })}
 
           {/* <div className="speciality_doc_card">
