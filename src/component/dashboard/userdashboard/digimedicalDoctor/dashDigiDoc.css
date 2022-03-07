@@ -5,10 +5,9 @@
 }
 .dash_our_doc_appoint {
   margin-top: 4rem;
-  width: 100%;
 }
 .dash_our_doc_speciality {
-  margin-top: 6rem;
+  margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   column-gap: 1.5rem;

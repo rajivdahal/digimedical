@@ -55,7 +55,7 @@ const DigimedicalDoctor = (props) => {
         <div className="hospital_bookcont_from_user">
           <div className="hospital_bookconthead">
             <div className="dash_our_doc_appoint">
-              <div className="dash_digidoc_appoint_head">
+              <div className="doc_appoint_head">
                 <div className="digidoc_head_txt">
                   <h1>All Speciality</h1>
                   <p>Select the the doctor by their speciality</p>

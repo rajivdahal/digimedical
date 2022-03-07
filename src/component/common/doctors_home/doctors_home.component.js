@@ -8,7 +8,6 @@ import "./doctors_home.component.css";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function SpecialityHome(props) {
-
   const [doctorSpeciality, setDoctorSpeciality] = useState([]);
 
   const getDoctorSpeciality = async () => {
@@ -32,7 +31,7 @@ function SpecialityHome(props) {
 
   useEffect(() => {
     getDoctorSpeciality();
-  }, [])
+  }, []);
 
   return (
     <div className="digi_doc_appointmain digi_doc_home">
@@ -40,25 +39,35 @@ function SpecialityHome(props) {
         <span>Our professionals</span>
         <h2> Digimedical Doctors</h2>
       </div>
-      <div className="our_doc_appoint">
+      <div className="our_doc_appoints">
         <div className="our_doc_speciality">
-
-          {doctorSpeciality.map((item,index) => {
-            return <div className="speciality_doc_card">
-              <Link style={{ textDecoration: "none" }} key={index}
-                to={{
-                  pathname: "digi-doctors",
-                  state: { specialityId: item.id, specialityName: item.servicename },
-                }}>
-                <div className="speciality_cont1">
-                  <img src={REACT_APP_BASE_URL + "services/download/" + item.id} alt="" />
-                </div>
-                <div className="speciality_cont2">
-                  <p>{item.servicename}</p>
-                </div>
-                <div></div>
-              </Link>
-            </div>
+          {doctorSpeciality.map((item, index) => {
+            return (
+              <div className="speciality_doc_card">
+                <Link
+                  style={{ textDecoration: "none" }}
+                  key={index}
+                  to={{
+                    pathname: "digi-doctors",
+                    state: {
+                      specialityId: item.id,
+                      specialityName: item.servicename,
+                    },
+                  }}
+                >
+                  <div className="speciality_cont1">
+                    <img
+                      src={REACT_APP_BASE_URL + "services/download/" + item.id}
+                      alt=""
+                    />
+                  </div>
+                  <div className="speciality_cont2">
+                    <p>{item.servicename}</p>
+                  </div>
+                  <div></div>
+                </Link>
+              </div>
+            );
           })}
 
           {/* <div className="speciality_doc_card">

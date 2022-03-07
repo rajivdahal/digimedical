@@ -120,31 +120,31 @@ function Digimedical_doctors(props) {
                 </form>
               </div>
             </div>
-          </div>
-          <div className="doc_appoint_main">
-            <div className="digidoctor_apoint_card">
-              {searcheddoctors.length > 0 ? (
-                searcheddoctors.map((item, index) => {
-                  return (
-                    <>
-                      <DigiMedicalDoctorCard
-                        key={index}
-                        // selected={item.doctorid == selectedId}
-                        prefix={item.prefix}
-                        name={item.doctorname}
-                        desc={item.doctordescription}
-                        serviceId={item.serviceid}
-                        specialist={specialityName}
-                        gender={item.gender + 1}
-                        doctorId={item.doctorid}
-                        digiServices={item.digiService}
-                      />
-                    </>
-                  );
-                })
-              ) : (
-                <h4>No any doctors found</h4>
-              )}
+            <div className="doc_appoint_main">
+              <div className="digidoctor_apoint_card">
+                {searcheddoctors.length > 0 ? (
+                  searcheddoctors.map((item, index) => {
+                    return (
+                      <>
+                        <DigiMedicalDoctorCard
+                          key={index}
+                          // selected={item.doctorid == selectedId}
+                          prefix={item.prefix}
+                          name={item.doctorname}
+                          desc={item.doctordescription}
+                          serviceId={item.serviceid}
+                          specialist={specialityName}
+                          gender={item.gender + 1}
+                          doctorId={item.doctorid}
+                          digiServices={item.digiService}
+                        />
+                      </>
+                    );
+                  })
+                ) : (
+                  <h4>No any doctors found</h4>
+                )}
+              </div>
             </div>
           </div>
 
@@ -207,8 +207,9 @@ function Digimedical_doctors(props) {
       </div>
 
       <Pagination></Pagination>
-      <br />
-      <Footer />
+      <div style={{ marginTop: "6rem" }}>
+        <Footer />
+      </div>
     </div>
   );
 }
