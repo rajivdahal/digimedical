@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import {
   digiDoctorAppointmentFixed,
   digiDoctorInfo,
+  resetDigiDoctorState,
   selectedService,
   setPaymentType,
 } from "../../../../../../actions/digiDoctorBooking.ac";
@@ -29,10 +30,13 @@ export default function DigiDoctorPayment(props) {
   const digiDoctorBooking = useSelector(
     (state) => state.digiDoctorAppointmentBooking
   );
+
   const setServiceType = bindActionCreators(selectedService, dispatch);
   const setDigiDoctorPaymentType = bindActionCreators(setPaymentType, dispatch);
   const closeDoctorPopUp = bindActionCreators(setClosePopUp, dispatch);
   const setDigimedicalDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
+  const resetDoctorInfo = bindActionCreators(resetDigiDoctorState, dispatch);
+
   const setDigiDoctorAppointment = bindActionCreators(
     digiDoctorAppointmentFixed,
     dispatch
@@ -68,7 +72,7 @@ export default function DigiDoctorPayment(props) {
       digiServiceId: digiDoctorBooking.selectedService.digiServiceId,
       paymentStatus: 0,
     };
-    console.log("proceed payment done", digiDoctorBooking);
+    // console.log("proceed payment done", digiDoctorBooking);
     httpClient
       .PUT(
         "appointment/after-payment/" +
@@ -76,8 +80,11 @@ export default function DigiDoctorPayment(props) {
         finalData
       )
       .then((resp) => {
+        resetDoctorInfo(true)
+        closeDoctorPopUp(true)
         history.push("/dashboard/viewappointment");
         notify.success("Appointment Successfully created");
+
       })
       .catch((err) => notify.error("Error in Appointment Booking"));
   };
@@ -99,7 +106,7 @@ export default function DigiDoctorPayment(props) {
             <div className="doc-pay-appoint-det1">
               <p id="pay-appoint-det-p">Appointment Detail</p>
               <p id="pay-appoint-det-p">
-                {formatDate(digiDoctorBooking.digiDoctorAppointmentDate)}
+                {/* {formatDate(digiDoctorBooking.digiDoctorAppointmentDate)} */}
               </p>
             </div>
             <div className="doc-pay-doc-serv">
@@ -109,16 +116,24 @@ export default function DigiDoctorPayment(props) {
                   {" "}
                   Dr.{" "}
                   {props.origin == "appointmentBooking"
-                    ? props.directBookAppointmentProps.doctorName
-                    : digiDoctorBooking.digiDoctorInfo.name}
+                    ? props.directBookAppointmentProps.doctorName?
+                    props.directBookAppointmentProps.doctorName
+                    :null
+                    : digiDoctorBooking.digiDoctorInfo?
+                    digiDoctorBooking.digiDoctorInfo.name
+                  :null}
                 </p>
               </div>
               <div className="payapp-det2">
                 <p id="pay-doc-choose">Service chosed</p>
                 <p id="pay-appoint-det-p2">
                   {props.origin != "appointmentBooking"
-                    ? digiDoctorBooking.digiDoctorInfo.specialist
-                      ? digiDoctorBooking.digiDoctorInfo.specialist
+                    ? digiDoctorBooking.digiDoctorInfo?
+                    digiDoctorBooking.digiDoctorInfo.specialist
+                    :null
+                      ? digiDoctorBooking.digiDoctorInfo?
+                      digiDoctorBooking.digiDoctorInfo.specialist
+                      :null
                       : "need to update from backend"
                     : props.origin == "appointmentBooking"
                     ? props.directBookAppointmentProps.serviceName
@@ -157,7 +172,8 @@ export default function DigiDoctorPayment(props) {
                         );
                       }
                     )
-                  : digiDoctorBooking.digiDoctorInfo.digiServices.map(
+                  : digiDoctorBooking.digiDoctorInfo?
+                  digiDoctorBooking.digiDoctorInfo.digiServices.map(
                       (item, index) => {
                         return (
                           <div className="pay-radio1">
@@ -179,7 +195,8 @@ export default function DigiDoctorPayment(props) {
                           </div>
                         );
                       }
-                    )}
+                    ):null
+                  }
               </div>
             </div>
             <div className="doc-pay-appoint-det4">

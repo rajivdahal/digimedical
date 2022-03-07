@@ -25,19 +25,26 @@ export const digiDoctorInfo=(params)=>{
 export const digiDoctorAppointmentFixed=(params)=>{
     // debugger
     console.log("inside actions of digi doctor booking appointment fixing",params)
-    return (dispatch)=>{
-        httpClient.POST("create-appointment",params,false,true)
-        .then(resp=>{
-            dispatch({
-                type:digiDoctorAppointmentBookingActionTypes.SET_IS_DIGI_DOCTOR_APPOINTMENT_FIXED,
-                payload:resp.data.data
+    if(params.origin!="digidoctorBooking"){
+        return (dispatch)=>{
+            httpClient.POST("create-appointment",params,false,true)
+            .then(resp=>{
+                dispatch({
+                    type:digiDoctorAppointmentBookingActionTypes.SET_IS_DIGI_DOCTOR_APPOINTMENT_FIXED,
+                    payload:resp.data.data
+                })
             })
-        })
-        .catch(err=>{
-            notify.error("Error in booking appointment")
-        })
+            .catch(err=>{
+                notify.error("Error in booking appointment")
+            })
 
+        }
     }
+    return(dispatch)=> dispatch({
+        type:digiDoctorAppointmentBookingActionTypes.SET_IS_DIGI_DOCTOR_APPOINTMENT_FIXED,
+        payload:params.data
+    })
+
 }
 
 export const digiDoctorAppointmentBookLoading=(params)=>{

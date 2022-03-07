@@ -11,6 +11,17 @@
   padding: 0;
   border: none;
 }
+
+.newdash_dash1 .accordion .collapsed {
+  color: #52b2e5;
+}
+.newdash_dash1 .accordion .collapsed:hover {
+  color: white;
+}
+
+.newdash_dash1 .accordion-button::after {
+  color: #52b2e5;
+}
 .accordion-button:hover {
   background-color: #52b2e5;
   color: #fff;
@@ -67,7 +78,7 @@ ul.accordion-body li a p {
   border-radius: 14px;
   padding: 1rem 1.25rem;
   font-size: 1rem !important;
-  color: #212529;
+  color: #52b2e5;
   text-align: left;
   background-color: #fff;
 }

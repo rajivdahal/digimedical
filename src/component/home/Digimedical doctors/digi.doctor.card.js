@@ -6,12 +6,34 @@ import { notify } from "../../../services/notify";
 import { useHistory } from "react-router-dom";
 import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
 import Accordion from "react-bootstrap/Accordion";
+import DigiDoctorPayment from "../../common/popup/doctorPopup/selectPaymentMethod/forDigiDoctor/digiDoctorPayment";
+import { setClosePopUp, setOpenPopUp } from "../../../actions/paymentPopUp.ac";
+import { bindActionCreators } from "redux";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { digiDoctorAppointmentFixed, digiDoctorInfo } from "../../../actions/digiDoctorBooking.ac";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 const DigiMedicalDoctorCard = (props) => {
+  let dispatch=useDispatch()
   let history = useHistory();
   const [userLogin, setUserLogin] = useState(false);
   const [showForm, setForm] = useState(false);
+  // const [paymentPopUp,setPaymentPopUp]=useState(false)
+
+
+  // Redux implementation for pop up
+  const closePaymentPopUp = bindActionCreators(setClosePopUp, dispatch);
+  const setAppointmentFixed = bindActionCreators(digiDoctorAppointmentFixed, dispatch);
+  const setDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
+
+  const openPaymentPopUp = bindActionCreators(setOpenPopUp, dispatch);
+
+  const popupOpen = useSelector((state) => state.paymentPopUp);
+  const appointmentBooking = useSelector((state) => state.digiDoctorAppointmentBooking);
+  console.log("appointment booking data are",appointmentBooking)
+
+  // end of redux implementation for pop up
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
     year: dt.getFullYear(),
@@ -50,20 +72,23 @@ const DigiMedicalDoctorCard = (props) => {
     }
   }, [props.selected]);
 
-  const bookAppointment = () => {
+  const bookAppointment = (data) => {
     let tempForm = showForm === true ? false : true;
+    console.log("props are",data)
+    if(!showForm){
+      setDoctorInfo(data)
+    }
     setForm(tempForm);
   };
 
   const handleDateChange = (value) => {
     let date = "";
     date = value.year + "-" + value.month + "-" + value.day;
-
     setSelectedDay(value);
     formik.values.appointmentDate = date;
   };
   const submitAppointment = async (values) => {
-
+    console.log("submit button clicked",values)
     if (userLogin === true) {
       let data = {
         appointmentDate: values.appointmentDate,
@@ -71,6 +96,10 @@ const DigiMedicalDoctorCard = (props) => {
         servicesId: props.serviceId,
         doctorId: props.doctorId,
       };
+      // setAppointmentFixed(data)
+      // if(appointmentBooking.digiDoctorBookingIdAfterBooking){
+      //   openPaymentPopUp(true)
+      // }
       try {
         let resp = await httpClient.POST(
           "create-appointment",
@@ -79,11 +108,18 @@ const DigiMedicalDoctorCard = (props) => {
           true
         );
         if (resp.data.status) {
-          notify.success(resp.data.message);
+
+          console.log("inside if",resp.data)
+          setAppointmentFixed({data:resp.data.data,origin:"digidoctorBooking"})
+          openPaymentPopUp(true)
+
+          // setPaymentPopUp(true)
+          // notify.success(resp.data.message);
           formik.resetForm();
           setForm(false);
         }
-      } catch (err) {
+      }
+       catch (err) {
         if (
           err &&
           err.response &&
@@ -204,7 +240,7 @@ const DigiMedicalDoctorCard = (props) => {
         <div className="digidoctor_card_but">
           {" "}
           <div>
-            <button id="digidoctor_card_but" onClick={bookAppointment}>
+            <button id="digidoctor_card_but" onClick={()=>bookAppointment(props)}>
               Book an appointment
             </button>
           </div>
@@ -384,6 +420,10 @@ const DigiMedicalDoctorCard = (props) => {
       ) : (
         <></>
       )}
+      {
+        popupOpen.trigger?<DigiDoctorPayment></DigiDoctorPayment>:null
+      }
+
     </>
   );
 };
