@@ -40,6 +40,7 @@ const LogMenuItemsContainor = styled.div`
   //   }
   // }
 `;
+
 const Menuitems = styled.div``;
 // const SearchContainor = styled.div`
 //   background-color: #fff;
@@ -51,8 +52,8 @@ const NavbarMenuItems = () => {
   const [corporateType, setCorporateType] = useState([]);
   const [FamilyType, setFamilyType] = useState([]);
   const [doctorCategory, setDoctorCategory] = useState([]);
-
   const [doctorSpeciality, setDoctorSpeciality] = useState([]);
+  const [digiService,setDigiServices]=useState([])
   const history = useHistory();
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -144,32 +145,27 @@ const NavbarMenuItems = () => {
     });
   };
 
+  const getDigiService=()=>{
+    httpClient.GET("digi-service/get-all")
+    .then(resp=>{
+      console.log("response output is",resp.data.data)
+      setDigiServices(resp.data.data)
+    })
+    .catch(err=>{
+      notify.error("something went wrong")
+    })
+  }
   useEffect(() => {
     getBusinessPackage();
     getFamilyPackage();
     getServices();
     getDoctorSpeciality();
+    getDigiService()
   }, []);
 
   return (
     <Root style={{ height: "70px" }} className="root_nav">
       <LogMenuItemsContainor className="logcontainer_nav">
-        {/* a
-        b
-        c
-        d
-        e
-        f
-        g
-        h
-        i
-        j
-        k
-        l
-        m
-        n
-        o
-        for mobile view dashboard  */}
         <div class="m-menu">
           <input class="m-menu__toggle" type="checkbox" />
           <div class="m-menu__burger">
@@ -341,223 +337,22 @@ const NavbarMenuItems = () => {
             </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
-                <Link to={"/our-services/doctor-at-home"}>
+              {
+                digiService.map((item,index)=>{
+                  console.log("item is",item)
+                  return  <Link to={"/our-services/"+item.type} id={item.id}>
                   <div className="content-drop-home-nav">
-                    {" "}
                     <img
                       src={package_logo}
                       style={{
                         height: "1.5rem",
                       }}
                     ></img>
-                    <p>Doctor at Home</p>{" "}
+                    <p>{item.name}</p>{" "}
                   </div>
                 </Link>
-                <Link to={"/our-services/online-medical-consultation"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>Online Medical Consulation</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/nursing-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>24/7 Nursing Service at Home</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/labtest-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>Labtest at Home</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/elderly-care-service-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>Elderely Care Service at Home</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/physiotherapy-service-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>Physiotherapy Service at Home</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/dental-care-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>Dental Care at Home</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/minor-procedure-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>Minor Procedure At Home</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/wound-care-and-dressing-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>Wound Care/ Dressing at Home</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/vaccination-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>Vaccination at Home</p>
-                  </div>
-                </Link>
-                <Link to={"/our-services/MRI-and-CT-Scan-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>{" "}
-                    <p>MRI/CT Scan Services</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/utility-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>{" "}
-                    <p>USG/ ECG/ ECHO Service at Home</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/ambulance-service"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>{" "}
-                    <p>Ambulance Services</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/medicine-deliverye"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>{" "}
-                    <p>Medicine Delivery</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/alternative-medicine-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>{" "}
-                    <p>Alternative Medicine at Home</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/medical-equipment-at-home"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>{" "}
-                    <p>Medical Equipment at Home</p>{" "}
-                  </div>
-                </Link>
-
-                <Link to={"/our-services/helicopter-service"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>{" "}
-                    <p>Helicopter Service</p>{" "}
-                  </div>
-                </Link>
-                <Link to={"/our-services/international-hospital-booking"}>
-                  <div className="content-drop-home-nav">
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>{" "}
-                    <p>International Hospital Booking</p>{" "}
-                  </div>
-                </Link>
+                })
+              }
               </div>
             </div>
           </li>

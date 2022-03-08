@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 const Root = styled.div`
   width: 45%;
@@ -56,6 +57,8 @@ const Root = styled.div`
 `;
 
 const DoctorAtHomeForm = () => {
+  const location=useLocation()
+  console.log("location is",location.pathname)
   return (
     <Root>
       <form
@@ -110,7 +113,6 @@ const DoctorAtHomeForm = () => {
             placeholder="phone"
           />
         </div>
-
         <button
           type="submit"
           className="btn btn-primary btn-lg btn-block"
