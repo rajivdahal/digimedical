@@ -166,6 +166,7 @@
   left: 35%;
 }
 .select-category {
+  z-index: 2;
   width: 100%;
 }
 .err-message-bottom {

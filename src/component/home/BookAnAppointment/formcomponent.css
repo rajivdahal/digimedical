@@ -93,6 +93,8 @@
   color: #596579;
 }
 .formcompo_datepicker {
+  position: relative;
+  z-index: 1;
   width: 100%;
 }
 
@@ -107,6 +109,9 @@
 
 .formcompo_datepicker .DatePicker {
   width: 100%;
+}
+.home_not_logged_in_datepick .DatePicker {
+  z-index: 1;
 }
 .home_not_logged_in_datepick .DatePicker .DatePicker__input {
   border-radius: 8px;

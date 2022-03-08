@@ -3,9 +3,7 @@
   display: flex;
   justify-content: space-between;
 }
-.dash_our_doc_appoint {
-  margin-top: 4rem;
-}
+
 .dash_our_doc_speciality {
   margin-top: 50px;
   display: grid;

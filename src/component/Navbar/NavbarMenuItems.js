@@ -192,7 +192,6 @@ const NavbarMenuItems = () => {
                     Register
                   </Link>
                 ) : null}
-
                 {!localStorage.getItem("dm-access_token") ? (
                   <Link id="link_cat_nav_mob" to="/login">
                     <div>
@@ -257,13 +256,12 @@ const NavbarMenuItems = () => {
                   id="link_cat_nav_mob"
                   to="/digimedical_doctors"
                   style={{ textDecoration: "none", color: "inherit" }}
-                > */}
+                > */}{" "}
+                <span>
                   {" "}
-                  <span>
-                    {" "}
-                    <i class="fas fa-user-md"></i> &nbsp;{" "}
-                  </span>
-                  Our Doctors
+                  <i class="fas fa-user-md"></i> &nbsp;{" "}
+                </span>
+                Our Doctors
                 {/* </Link> */}
                 <Link
                   id="link_cat_nav_mob"
@@ -276,7 +274,6 @@ const NavbarMenuItems = () => {
                   </span>
                   About
                 </Link>
-
                 <Link
                   id="link_cat_nav_mob"
                   to="/contact"
@@ -289,7 +286,6 @@ const NavbarMenuItems = () => {
                   </span>
                   Contact
                 </Link>
-
                 {localStorage.getItem("dm-access_token") ? (
                   <div onClick={Logout} id="link_cat_nav_mob">
                     <span>
@@ -637,7 +633,7 @@ const NavbarMenuItems = () => {
               to="/contact"
               style={{ textDecoration: "none", color: "inherit" }}
             > */}
-              Our Doctors
+            Our Doctors
             {/* </Link> */}
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
@@ -654,19 +650,21 @@ const NavbarMenuItems = () => {
                           },
                         }}
                       >
-                        <img
-                          src={package_logo}
-                          style={{
-                            height: "1.5rem",
-                          }}
-                        ></img>
-                        <p>{item.servicename}</p>{" "}
+                        <div className="content-drop-home-nav">
+                          <img
+                            src={package_logo}
+                            style={{
+                              height: "1.5rem",
+                            }}
+                          ></img>
+                          <p>{item.servicename}</p>{" "}
+                        </div>
                       </Link>
                     </>
                   );
                 })}
                 <Link to={"/all-speciality"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -675,7 +673,7 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>{" "}
                     <p>See All</p>{" "}
-                  </a>
+                  </div>
                 </Link>
               </div>
             </div>
