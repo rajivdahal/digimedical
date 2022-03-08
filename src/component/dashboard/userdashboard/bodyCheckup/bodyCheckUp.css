@@ -1,0 +1,18 @@
+.serviceDate {
+  width: 100%;
+}
+
+.serviceDate .DatePicker .DatePicker__input {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.labrepo_text_form .prescription_input {
+  width: 100%;
+}
+
+@media screen and (max-width: 400px) {
+  .serviceDate {
+    width: 70%;
+  }
+}

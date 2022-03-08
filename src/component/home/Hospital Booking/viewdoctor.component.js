@@ -55,7 +55,6 @@ export default function Hospital_doctors(props) {
               item.startTime += " AM";
             }
           }
-
           if (item.endtime) {
             let tempEndArr = item.endtime.split(":");
             tempEndArr.splice(2, 1);

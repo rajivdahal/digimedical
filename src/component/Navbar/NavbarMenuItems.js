@@ -188,7 +188,6 @@ const NavbarMenuItems = () => {
                     Register
                   </Link>
                 ) : null}
-
                 {!localStorage.getItem("dm-access_token") ? (
                   <Link id="link_cat_nav_mob" to="/login">
                     <div>
@@ -253,13 +252,12 @@ const NavbarMenuItems = () => {
                   id="link_cat_nav_mob"
                   to="/digimedical_doctors"
                   style={{ textDecoration: "none", color: "inherit" }}
-                > */}
+                > */}{" "}
+                <span>
                   {" "}
-                  <span>
-                    {" "}
-                    <i class="fas fa-user-md"></i> &nbsp;{" "}
-                  </span>
-                  Our Doctors
+                  <i class="fas fa-user-md"></i> &nbsp;{" "}
+                </span>
+                Our Doctors
                 {/* </Link> */}
                 <Link
                   id="link_cat_nav_mob"
@@ -272,7 +270,6 @@ const NavbarMenuItems = () => {
                   </span>
                   About
                 </Link>
-
                 <Link
                   id="link_cat_nav_mob"
                   to="/contact"
@@ -285,7 +282,6 @@ const NavbarMenuItems = () => {
                   </span>
                   Contact
                 </Link>
-
                 {localStorage.getItem("dm-access_token") ? (
                   <div onClick={Logout} id="link_cat_nav_mob">
                     <span>
@@ -340,7 +336,14 @@ const NavbarMenuItems = () => {
               {
                 digiService.map((item,index)=>{
                   console.log("item is",item)
-                  return  <Link to={"/our-services/"+item.type} id={item.id}>
+                  return  <Link
+                  to={{
+                    pathname:"/our-services/"+item.type,
+                    state: {
+                      id:item.id
+                    },
+                  }}
+                  >
                   <div className="content-drop-home-nav">
                     <img
                       src={package_logo}
@@ -364,32 +367,6 @@ const NavbarMenuItems = () => {
             >
               For Business
             </Link>
-
-            {/* <div className="dropdown_hp_content">
-              <div className="dropdown_hp_content1">
-                {corporateType.map((item, index) => {
-                  return (
-                    <>
-                      <Link
-                        key={index}
-                        to={{
-                          pathname: "corporate-package",
-                          state: { packageId: item.id, packageName: item.name },
-                        }}
-                      >
-                        <img
-                          src={package_logo}
-                          style={{
-                            height: "1.5rem",
-                          }}
-                        ></img>
-                        <p>{item.name}</p>{" "}
-                      </Link>
-                    </>
-                  );
-                })}
-              </div>
-            </div> */}
           </li>
           <li className="menu-item common-menu">
             <Link
@@ -400,39 +377,9 @@ const NavbarMenuItems = () => {
               For Family
             </Link>
 
-            {/* <div className="dropdown_hp_content">
-              <div className="dropdown_hp_content1">
-                {FamilyType.map((item, index) => {
-                  return (
-                    <>
-                      <Link
-                        key={index}
-                        to={{
-                          pathname: "family-package",
-                          state: { packageId: item.id, packageName: item.name },
-                        }}
-                      >
-                        <img
-                          src={package_logo}
-                          style={{
-                            height: "1.5rem",
-                          }}
-                        ></img>
-                        <p>{item.name}</p>{" "}
-                      </Link>
-                    </>
-                  );
-                })}
-              </div>
-            </div> */}
           </li>
           <li className="menu-item_nav common-menu">
-            {/* <Link
-              className="nav_link_font"
-              to="/contact"
-              style={{ textDecoration: "none", color: "inherit" }}
-            > */}
-              Our Doctors
+            Our Doctors
             {/* </Link> */}
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
@@ -449,19 +396,21 @@ const NavbarMenuItems = () => {
                           },
                         }}
                       >
-                        <img
-                          src={package_logo}
-                          style={{
-                            height: "1.5rem",
-                          }}
-                        ></img>
-                        <p>{item.servicename}</p>{" "}
+                        <div className="content-drop-home-nav">
+                          <img
+                            src={package_logo}
+                            style={{
+                              height: "1.5rem",
+                            }}
+                          ></img>
+                          <p>{item.servicename}</p>{" "}
+                        </div>
                       </Link>
                     </>
                   );
                 })}
                 <Link to={"/all-speciality"}>
-                  <a>
+                  <div className="content-drop-home-nav">
                     {" "}
                     <img
                       src={package_logo}
@@ -470,7 +419,7 @@ const NavbarMenuItems = () => {
                       }}
                     ></img>{" "}
                     <p>See All</p>{" "}
-                  </a>
+                  </div>
                 </Link>
               </div>
             </div>
@@ -495,11 +444,6 @@ const NavbarMenuItems = () => {
           </li>
         </ul>
       </LogMenuItemsContainor>
-      {/* <div className="nav_search">
-        <Search />
-      </div> */}
-      {/* <SearchContainor>
-      </SearchContainor> */}
     </Root>
   );
 };

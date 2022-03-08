@@ -401,14 +401,17 @@ function FormComponent(props) {
               </div>
               <div className="form-row">
                 <div className="form-group col-md-6">
-                  <label htmlFor="appointment">
-                    Appointment Date
-                    <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <DatePickerField name={"appointmentDate"}></DatePickerField>
-                  <ErrorMessage name="appointmentDate">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                  </ErrorMessage>
+                  <div className="home_not_logged_in_datepick">
+                    <label htmlFor="appointment">
+                      Appointment Date
+                      <span style={{ color: "red" }}>*</span>
+                    </label>
+
+                    <DatePickerField name={"appointmentDate"}></DatePickerField>
+                    <ErrorMessage name="appointmentDate">
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
+                  </div>
                 </div>
 
                 <div className="form-group col-md-6" style={{ marginTop: "" }}>

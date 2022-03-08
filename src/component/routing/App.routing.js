@@ -37,12 +37,6 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/contact" component={ContactUs}></PublicRoute>
         <PublicRoute exact path="/digi-doctors" component={Digimedical_doctors}></PublicRoute>
         <PublicRoute exact path="/all-speciality" component={AllSpecialist}></PublicRoute>
-        {/* <PublicRoute
-          exact
-          path="/digimedical-doctors"
-          component={Digi_doctors}
-        ></PublicRoute> */}
-        {/* <PublicRoute exact path="/newdash" component={Newdash}></PublicRoute> */}
         <PublicRoute
           exact
           path="/our-services/:subservice"
