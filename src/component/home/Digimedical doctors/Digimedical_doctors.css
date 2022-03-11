@@ -223,6 +223,10 @@ p {
   border-bottom: 0.75px solid #d0d7e2;
   display: flex;
 }
+.digidoctor_whychooseus_cont > p:hover {
+  cursor: pointer;
+  opacity: 80%;
+}
 .whychooseus_contimg {
   margin-left: 0px;
   margin-right: 10px;
@@ -243,7 +247,7 @@ p {
 }
 .digidoc_emergency_call {
   padding: 50px;
-  margin-top: 20px;
+
   background: #52b2e5;
   border-radius: 8px;
   color: white;
@@ -252,6 +256,9 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.digidoc_emergency_call1 {
+  margin-top: 1rem;
 }
 .digidoc_emergency_call p {
   text-align: center;
@@ -281,9 +288,6 @@ p {
     justify-content: center;
   }
 
-  .digidoctor_card_but {
-    width: 60%;
-  }
   #digidoctor_card_but {
     width: 100%;
   }
@@ -297,13 +301,22 @@ p {
   .take_doc_appoint {
     width: 90%;
   }
-  .digi_doc_appointmain {
+  /* .digi_doc_appointmain {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  } */
+  .digidoctor_whychooseus {
+    margin: 0;
+    width: 100%;
+  }
+  .digi_doc_appoint_bod {
+    width: 95%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  .digidoctor_whychooseus {
-    margin: 0;
+  .our_doc_appoint {
     width: 100%;
   }
 }

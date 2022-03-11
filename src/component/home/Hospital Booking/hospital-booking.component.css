@@ -334,6 +334,9 @@ asasdas*/
     margin-top: -10px;
     margin-bottom: 10px;
   }
+  .hosp_card_but_main {
+    justify-content: center;
+  }
 }
 
 @media only screen and (max-width: 400px) {

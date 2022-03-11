@@ -293,7 +293,7 @@ function FamilyPackage(props) {
                 style={{ marginTop: "6rem" }}
               >
                 <div className="digidoc_whycus_head">
-                  <p className="digidoc_whycus_h1">Our Other Services</p>
+                  <p className="digidoc_whycus_h1">Why Choose US?</p>
                 </div>
                 <div className="digidoctor_whychooseus_cont">
                   <div className="whychooseus_contimg">
@@ -340,7 +340,7 @@ function FamilyPackage(props) {
                   <p>Affordable to all patient.</p>
                 </div>
               </div>
-              <div className="digidoc_emergency_call">
+              <div className="digidoc_emergency_call digidoc_emergency_call1">
                 <p>Do you need Emergency Medical care?</p>
                 <h4>Call 01-5909141</h4>
               </div>

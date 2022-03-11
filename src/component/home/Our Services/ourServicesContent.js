@@ -30,6 +30,7 @@ import MedicineDelivery from "./Medicine Delivery/medicineDelivery.component";
 import MedicalEquipmentAtHome from "./Medical Equipment at home/medicalEquipmentAtHome.component";
 import HelicopterService from "./helicopter services/helicopterService.component";
 import IntHospBook from "./international hosp booking/intHospBook.component";
+import Usg_ecg from "./usg ecg at home/usgEcgathome.component";
 import RootOurServ from "./rootOurServ";
 const Root = styled.div`
   height: 30rem;
@@ -226,6 +227,8 @@ const Ourservices = (props) => {
       ) : location.pathname ==
         "/our-services/international-hospital-booking" ? (
         <IntHospBook></IntHospBook>
+      ) : location.pathname == "/our-services/utility-at-home" ? (
+        <Usg_ecg />
       ) : null}
 
       <WhyChooseUs />
