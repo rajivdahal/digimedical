@@ -34,7 +34,7 @@ import Usg_ecg from "./usg ecg at home/usgEcgathome.component";
 import RootOurServ from "./rootOurServ";
 const Root = styled.div`
   height: 30rem;
-  margin-bottom: 4rem;
+  margin-bottom: 10rem;
   padding-left: 9rem;
   padding-right: 9rem;
   padding-top: 2.5rem;

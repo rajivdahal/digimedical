@@ -84,6 +84,16 @@
   line-height: 30px;
 }
 
+/* datepicker of ourservice page form */
+.ourserv-form-date .DatePicker{
+  z-index: 1;
+}
+.ourserv-form-date .DatePicker__input {
+
+  height: 2.875rem;
+  width: 100%;
+  border-radius: 4px;
+}
 /*a
 b
 c
