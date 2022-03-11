@@ -54,7 +54,6 @@ import CorporateUser from "./corporatedashboard/addmembers/corporate.user"
 import BodyCheckup from "./adminDashboard/bodyCheckup/bodyCheckup";
 import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.component";
 import CorporateTypes from "./adminDashboard/corporateData/corporate.type";
-import BodyCheckUp from "./userdashboard/commonupcomingappointment/bodyCheckup/bodyCheckUp.component";
 import PackageDescription from "./adminDashboard/packageData/package.desc";
 import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoctor";
 import BookPackage from "./corporatedashboard/packages/package.component";
@@ -62,6 +61,7 @@ import UtilsInfo from "./userdashboard/utilsinformation/utilsInfo.component";
 import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
 import DoctorProfile from "./doctordashboard/profileUpdate/profile.component";
 import Service from "../Service/Service";
+import { BodyCheckUpUser } from "./userdashboard/bodyCheckup/bodyCheckUp.component";
 import UserServices from "./userdashboard/services/services.component";
 
 const Dashboard = (props) => {
@@ -105,7 +105,7 @@ const Dashboard = (props) => {
                                       props.location.pathname === "/dashboard/medical-reports" ?
                                         <ProtectedRoute component={MedicalReports}></ProtectedRoute> :
                                         props.location.pathname === "/dashboard/body-checkup" ?
-                                          <ProtectedRoute component={BodyCheckUp}></ProtectedRoute> :
+                                          <ProtectedRoute component={BodyCheckUpUser}></ProtectedRoute> :
                                           props.location.pathname === "/dashboard/digi-doctor" ?
                                             <ProtectedRoute component={DigimedicalDoctor}></ProtectedRoute> :
                                             props.location.pathname === "/dashboard/utils-info" ?

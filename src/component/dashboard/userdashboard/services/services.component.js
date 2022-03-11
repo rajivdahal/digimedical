@@ -14,6 +14,7 @@ import { Check, Edit, Clear, Add } from "@material-ui/icons";
 
 
 export default function UserServices() {
+  console.log("inside userservices")
   const initialValues={
     serviceId:"",
     date:"",
