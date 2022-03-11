@@ -226,7 +226,7 @@ const NavbarMenuItems = () => {
                 </Link>
                 <Link
                   id="link_cat_nav_mob"
-                  to="/services"
+                  to="/forbusiness"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   {" "}
@@ -238,7 +238,7 @@ const NavbarMenuItems = () => {
                 </Link>
                 <Link
                   id="link_cat_nav_mob"
-                  to="/services"
+                  to="/family-package"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   {" "}
@@ -253,11 +253,18 @@ const NavbarMenuItems = () => {
                   to="/digimedical_doctors"
                   style={{ textDecoration: "none", color: "inherit" }}
                 > */}{" "}
-                <span>
+                <Link
+                  id="link_cat_nav_mob"
+                  to="/all-speciality"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
                   {" "}
-                  <i class="fas fa-user-md"></i> &nbsp;{" "}
-                </span>
-                Our Doctors
+                  <span>
+                    {" "}
+                    <i class="fas fa-user-md"></i> &nbsp;{" "}
+                  </span>
+                  Our Doctors
+                </Link>
                 {/* </Link> */}
                 <Link
                   id="link_cat_nav_mob"

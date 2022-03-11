@@ -14,6 +14,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { httpClient } from "../../../../../../utils/httpClient";
 import { useHistory } from "react-router-dom";
 import { notify } from "../../../../../../services/notify";
+import { Redirect } from "react-router-dom";
 
 export default function DigiDoctorPayment(props) {
   let history = useHistory();
@@ -23,7 +24,8 @@ export default function DigiDoctorPayment(props) {
   // end of note
 
   console.log("props in digi doctor payment is", props);
-  const [isPaymentOnline, setIsPaymentMethodOnline] = useState(true);
+  const [isPaymentOnline, setIsPaymentMethodOnline] = useState(false);
+  const [paymentUrl,setPaymentUrl]=useState(null)
   // redux implementation
   const dispatch = useDispatch(props);
   const digiDoctorBooking = useSelector(
@@ -35,11 +37,15 @@ export default function DigiDoctorPayment(props) {
   const closeDoctorPopUp = bindActionCreators(setClosePopUp, dispatch);
   const setDigimedicalDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
   const resetDoctorInfo = bindActionCreators(resetDigiDoctorState, dispatch);
+  const popUpActionsData = useSelector((state) => state.paymentPopUp);
+
 
   const setDigiDoctorAppointment = bindActionCreators(
     digiDoctorAppointmentFixed,
     dispatch
   );
+  // const closeDoctorPopUp = bindActionCreators(setClosePopUp, dispatch);
+
   console.log("store data are", digiDoctorBooking);
   //end of redux implementation
 
@@ -59,14 +65,17 @@ export default function DigiDoctorPayment(props) {
     const { value } = e.target;
     console.log("value isss", e, value, data);
     if (value == "home") {
-      setIsPaymentMethodOnline(false);
       setDigiDoctorPaymentType("home");
     } else {
       setDigiDoctorPaymentType("online");
     }
+    setIsPaymentMethodOnline(true);
     setServiceType(data);
   };
   const proceed = () => {
+    if(!digiDoctorBooking.selectedService){
+      return notify.error("Please select at least one service")
+    }
     let finalData = {
       digiServiceId: digiDoctorBooking.selectedService.digiServiceId,
       paymentStatus: 0,
@@ -81,17 +90,44 @@ export default function DigiDoctorPayment(props) {
       .then((resp) => {
         resetDoctorInfo(true)
         closeDoctorPopUp(true)
-        history.push("/dashboard/viewappointment");
+        if(localStorage.getItem("dm-access_token")){
+          history.push("/dashboard/viewappointment")
+        }
         notify.success("Appointment Successfully created");
-
       })
       .catch((err) => notify.error("Error in Appointment Booking"));
   };
+  const payNow=()=>{
+    console.log("pay now ")
+    if(!digiDoctorBooking.selectedService){
+      return notify.error("Please select at least one service")
+    }
+    let finalData={
+      digiServiceId:digiDoctorBooking.selectedService.digiServiceId,
+      paymentStatus: 2,
+      appointmentId: digiDoctorBooking.digiDoctorBookingIdAfterBooking
+    }
+    httpClient.PUT("generate-payment-link",finalData,false,true)
+    .then(resp=>{
+      let paymentUrl=resp.data.data.paymentUrl
+      window.open("http://"+paymentUrl, '_blank');
+      closeDoctorPopUp(true)
+      if(localStorage.getItem("dm-access_token")){
+        history.push("/dashboard/viewappointment")
+      }
+
+    })
+    .catch(err=>{
+      console.log("error is",err)
+    })
+    // console.log("finaldata",finalData)
+  }
+  console.log("payment url is",paymentUrl)
   return (
     <div className="doc-pop-main">
       <div className="pay-pop-inner">
         <div className="doc-pay-pop">
-          {digiDoctorBooking.digiDoctorPaymentType === "online" ? (
+
             <div className="doc-pay-pop-head">
               <div className="doc-pay-pop-head-cont">
                 <p>Payment Partner</p>
@@ -100,7 +136,7 @@ export default function DigiDoctorPayment(props) {
                 </div>
               </div>
             </div>
-          ) : null}
+
           <div className="doc-pay-pop-body">
             <div className="doc-pay-appoint-det1">
               <p id="pay-appoint-det-p">Appointment Detail</p>
@@ -171,6 +207,7 @@ export default function DigiDoctorPayment(props) {
                         );
                       }
                     )
+                    // starting for digi doctor logged in case
                   : digiDoctorBooking.digiDoctorInfo?
                   digiDoctorBooking.digiDoctorInfo.digiServices.map(
                       (item, index) => {
@@ -195,6 +232,7 @@ export default function DigiDoctorPayment(props) {
                         );
                       }
                     ):null
+                    // end for logged in digi doctor booking case
                   }
               </div>
             </div>
@@ -220,6 +258,12 @@ export default function DigiDoctorPayment(props) {
                 <a className="lab_popup_checkout" onClick={proceed}>
                   <p>Proceed</p>
                 </a>
+                {
+                  isPaymentOnline && localStorage.getItem("dm-access_token")?<a className="lab_popup_checkout"  onClick={payNow}>
+                  <p>Pay now</p>
+                </a>:null
+                }
+
               </div>
             </div>
           </div>

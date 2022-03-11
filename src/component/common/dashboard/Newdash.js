@@ -49,7 +49,7 @@ function Newdash() {
         </div>
       </div>
       <div className="newdash_dash_main">
-        <div className="newdash_dash1" style={{display:"none"}}>
+        <div className="newdash_dash1" style={{ display: "none" }}>
           <div className="newdash_dash1_dashboard">
             <div className="newdash_dash1_cont1">
               <div className="newdash_dash1_cont1p">

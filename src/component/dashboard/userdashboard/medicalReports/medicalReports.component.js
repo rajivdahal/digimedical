@@ -22,7 +22,6 @@ export const MedicalReports = (props) => {
     followUpDate: "",
     description: "",
   };
-
   const medicalReportSchema = Yup.object().shape({
     hospitalName: Yup.string().required("Hospital name is required!"),
     doctorName: Yup.string().required("Doctor name is required!"),
