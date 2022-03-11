@@ -284,6 +284,14 @@ const Adminsidebar = (props) => {
                     </Accordion.Header>
                     <Accordion.Body>
                       <ul className="accordion-body">
+                      <li>
+                          <Link
+                            to="/dashboard/payment-master"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Payment Master</p>
+                          </Link>
+                        </li>
                         <li>
                           <Link
                             to="/dashboard/create-speciality"
@@ -565,7 +573,7 @@ const Adminsidebar = (props) => {
                       </Accordion.Header>
                       <Accordion.Body>
                         <ul className="accordion-body">
-                          <li>
+                         <li>
                             <Link
                               to="/dashboard/corporate"
                               style={{
@@ -658,6 +666,14 @@ const Adminsidebar = (props) => {
                       </Accordion.Header>
                       <Accordion.Body>
                         <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/payment-master"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Payment Master</p>
+                          </Link>
+                        </li>
                           <li>
                             <Link
                               to="/dashboard/create-speciality"
@@ -728,6 +744,7 @@ const Adminsidebar = (props) => {
                               </p>
                             </Link>
                           </li>
+
                         </ul>
                       </Accordion.Body>
                     </Accordion.Item>

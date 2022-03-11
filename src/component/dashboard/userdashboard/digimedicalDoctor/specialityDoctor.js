@@ -13,7 +13,6 @@ function SpecialityDoctor(props) {
     const [selectedId, setSelectedId] = useState("");
     const [specialityName, setSpecialityName] = useState("");
     const getAllDigiDoctors = async () => {
-        console.log(props)
         let id = "";
         if (
             props.location &&

@@ -10,6 +10,7 @@ import { useFormik } from "formik";
 import Cliploader from "../../../../utils/clipLoader";
 import DigiServiceApi from "./newservices.service";
 import { validateService } from "../servicesData/service.helper";
+import { validateNewService } from "./newService.helper";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const NewServicePage = (props) => {
@@ -82,8 +83,7 @@ const NewServicePage = (props) => {
         if (data) {
             let serviceUrl = REACT_APP_BASE_URL + "digi-service/download/" + data.id;
             setServiceImage(serviceUrl);
-            let iconUrl = REACT_APP_BASE_URL + "download-icon/" + data.id;
-            console.log(iconUrl)
+            let iconUrl = REACT_APP_BASE_URL + "icon/download/" + data.id;
             setIconImage(iconUrl);
 
             setService({
@@ -111,6 +111,7 @@ const NewServicePage = (props) => {
                     iconImg: "",
                     type: "",
                 })
+                setServiceEditId(null);
                 setIconImage(null);
                 setServiceImage(null);
             }
@@ -135,7 +136,8 @@ const NewServicePage = (props) => {
             type: "",
         })
         setIconImage(null);
-        setServiceImage(null);    }
+        setServiceImage(null);
+    }
 
     const handleCancelService = (e, data) => {
         setServiceStatusId(data.id);
@@ -168,14 +170,17 @@ const NewServicePage = (props) => {
         initialValues: service,
         onSubmit: (values) => {
             if (serviceEditId) {
-                handleEdit(values);
+                let isEdit = serviceEditId ? true : false;
+                console.log(isEdit)
+                handleEdit(values, isEdit);
             } else {
                 handleSubmit(values);
             }
 
         },
         validate: (values) => {
-            return validateService(values);
+            let isEdit = serviceEditId ? true : false;
+            return validateNewService(values, isEdit);
         }
     });
 
@@ -184,8 +189,8 @@ const NewServicePage = (props) => {
     const handleAddImage = () => {
         imageSelectServiceRef.current.click();
     };
-    
-    const handleChangeImage = (e,img) => {
+
+    const handleChangeImage = (e, img) => {
         let files = e.target.files[0];
         let reader = new FileReader();
         formik.setFieldValue("serviceImg", files);
@@ -256,7 +261,7 @@ const NewServicePage = (props) => {
                         </Form.Group>
                     </Col>
                 </Row>
-                
+
                 <Row>
                     <Col md={8}>
                         <Form.Group>
@@ -356,7 +361,7 @@ const NewServicePage = (props) => {
                         <></>
                     }
                 </Row>
-                
+
                 <div className="textAlign-right  mb-5">
                     {isLoading === true ? (
                         <Cliploader isLoading={isLoading} />

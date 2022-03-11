@@ -87,6 +87,7 @@ import SpecialityDoctor from "./userdashboard/digimedicalDoctor/specialityDoctor
 // import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
 // corporate
 import ViewServicesBookedOfUser from "./adminDashboard/services/services.component";
+import { PaymentMaster } from "./adminDashboard/paymentMaster/paymentMaster";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -210,7 +211,9 @@ const Dashboard = (props) => {
                 component={CorporateTypes}
                 props={props}
               ></ProtectedRoute>
-            ) : (
+            ) : props.location.pathname === "/dashboard/payment-master" ? (
+              <ProtectedRoute component={PaymentMaster} />
+              ): (
               <ProtectedRoute
                 component={Dashboardpagenotfound}
               ></ProtectedRoute>
