@@ -83,7 +83,7 @@ const NewServicePage = (props) => {
         if (data) {
             let serviceUrl = REACT_APP_BASE_URL + "digi-service/download/" + data.id;
             setServiceImage(serviceUrl);
-            let iconUrl = REACT_APP_BASE_URL + "download-icon/" + data.id;
+            let iconUrl = REACT_APP_BASE_URL + "icon/download/" + data.id;
             setIconImage(iconUrl);
 
             setService({

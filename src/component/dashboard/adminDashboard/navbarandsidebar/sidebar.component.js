@@ -284,6 +284,14 @@ const Adminsidebar = (props) => {
                     </Accordion.Header>
                     <Accordion.Body>
                       <ul className="accordion-body">
+                      <li>
+                          <Link
+                            to="/dashboard/payment-master"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Payment Master</p>
+                          </Link>
+                        </li>
                         <li>
                           <Link
                             to="/dashboard/create-speciality"
@@ -353,7 +361,6 @@ const Adminsidebar = (props) => {
                       {" "}
                       <span id="newdash_bar_ico">
                         {" "}
-                        {/* <i class="fas fa-bars"></i> */}
                         <DashboardIcon ></DashboardIcon>
 
                       </span>{" "}
@@ -532,14 +539,14 @@ const Adminsidebar = (props) => {
                       </Accordion.Header>
                       <Accordion.Body>
                         <ul className="accordion-body">
-                          <li>
+                         <li>
                             <Link
                               to="/dashboard/corporate"
                               style={{ textDecoration: "none", color: "inherit" }}
                             >
                               <p style={{ cursor: "pointer" }}>Add Corporate</p>
                             </Link>
-                          </li>
+                          </li> 
                           <li>
                             <Link
                               to="/dashboard/add/corporate-types"
@@ -604,6 +611,14 @@ const Adminsidebar = (props) => {
                       </Accordion.Header>
                       <Accordion.Body>
                         <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/payment-master"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>Payment Master</p>
+                          </Link>
+                        </li>
                           <li>
                             <Link
                               to="/dashboard/create-speciality"
@@ -652,6 +667,7 @@ const Adminsidebar = (props) => {
                               <p style={{ cursor: "pointer" }}>Add Body Checkup</p>
                             </Link>
                           </li>
+                          
                         </ul>
                       </Accordion.Body>
                     </Accordion.Item>

@@ -14,7 +14,7 @@ const validateNewService = (values, isEdit = false) => {
     }
 
     if (!isEdit) {
-        console.log(isEdit)
+        // console.log(isEdit)
 
         if (!values.serviceImg) {
             errors.serviceImg = getRequiredError("Image")
