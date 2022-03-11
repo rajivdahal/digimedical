@@ -1,6 +1,6 @@
 .med_repo_main {
   width: 85%;
-  margin-left: 230px;
+  margin-left: 250px;
   background: linear-gradient(
     177.28deg,
     rgba(82, 178, 229, 0.14) 2.16%,
@@ -10,13 +10,13 @@
   flex-direction: column;
 }
 .report-container {
+  margin-top: 90px;
   margin-left: 3%;
-  margin-top: 140px;
-  width: 80%;
+  width: 100%;
 }
 .report-container h2 {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 19.16px;
+  font-weight: 500;
 }
 .previous-reports-wrapper {
   background-color: #fff;
@@ -45,7 +45,8 @@
 }
 .labrepo_text_form label {
   display: flex;
-
+  font-size: 15px;
+  font-weight: normal;
   align-items: center;
   color: #596579;
   width: 32%;
@@ -94,11 +95,12 @@
 }
 
 #medical_table_head {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 19.16px;
+  font-weight: 500;
+  margin-bottom: 15px;
 }
 .material-table {
-  margin-top: 50px;
+  /* margin-top: 50px; */
   width: 100%;
 }
 
@@ -145,10 +147,10 @@
   .prescription_input,
   .prescription_inputimage,
   .prescription_inputdesc {
-    width: 50%;
+    width: 70%;
   }
   .labrepo_text_form .select-category {
-    width: 50%;
+    width: 70%;
   }
 }
 
@@ -164,7 +166,8 @@
   left: 35%;
 }
 .select-category {
-  width: 65%;
+  z-index: 2;
+  width: 100%;
 }
 .err-message-bottom {
   color: red;

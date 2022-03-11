@@ -19,7 +19,7 @@ class Checkoutpopupcomponent extends Component {
       removeproductsign,
     } = this.props;
     const cart = JSON.parse(localStorage.getItem("cart"));
-    console.log("props are",this.props);
+    console.log("props are", this.props);
     const removecartproduct = (category, toremoveindex) => {
       console.log("to remove category and index is", category, toremoveindex);
       if (cart) {
@@ -54,11 +54,11 @@ class Checkoutpopupcomponent extends Component {
         let labdatatocheckout = [];
         cartitems.labs.map((mainarray, mainarrayindex) => {
           mainarray.map((insideobject, insideobjectitem) => {
-            insideobject.labId=insideobject.id
+            insideobject.labId = insideobject.id;
             labdatatocheckout.push(insideobject);
           });
         });
-        console.log("to checkout data are",labdatatocheckout)
+        console.log("to checkout data are", labdatatocheckout);
         labdatatocheckout.length
           ? httpClient
               .POST("lab-booking/create", labdatatocheckout, false, true)
@@ -104,88 +104,81 @@ class Checkoutpopupcomponent extends Component {
     console.log("maincategories is", maincategories);
 
     return (
-      <div>
-        <div id="pop_checkout">
-          <div className="popup_lab">
-            <div className="popup_lab1">
-              <div className="pop_lab_cont1">
-                <div className="pop_lab_cont1_1">
-                  <p id="popup_lab_cont1_head">Order Details</p>
-                  <div>
-                    <p id="popup_lab_cont1_desc">
-                      Order Created
-                      <span id="popup_lab_cont1_span">
-                        {TimeandDate.today()}
-                      </span>
-                    </p>
+      <div id="pop_checkout">
+        <div className="popup_lab">
+          <div className="popup_lab1">
+            <div className="pop_lab_cont1">
+              <div className="pop_lab_cont1_1">
+                <p id="popup_lab_cont1_head">Order Details</p>
+                <div>
+                  <p id="popup_lab_cont1_desc">
+                    Order Created
+                    <span id="popup_lab_cont1_span">{TimeandDate.today()}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="pop_lab_cont2">
+              <div className="pop_lab_cont1_1">
+                <p id="popup_lab_cont2_head">Lab Test</p>
+                <ol className="popup_lab_cont2_desc">
+                  {maincategories.length ? (
+                    maincategories.map((item, index) => {
+                      return (
+                        <li id="popup_lab_cont2_desc">
+                          {item.category}
+                          <span
+                            id="lab_labtest_span_cross"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => removecartproduct(item, index)}
+                          >
+                            <i class="far fa-times-circle"></i>
+                          </span>
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <p>No any items</p>
+                  )}
+                </ol>
+              </div>
+            </div>
+            <div className="pop_lab_cont3">
+              <div className="pop_lab_cont3_3">
+                <p id="popup_lab_cont1_head">Order Summary</p>
+                <div className="popup_lab_cont3_desc">
+                  <p id="popup_lab_cont3_desc">
+                    Subtotal
+                    <span id="popup_lab_cont1_span">
+                      Rs {total ? <span>{total}</span> : "0"}
+                    </span>
+                  </p>
+                  <p id="popup_lab_cont3_desc">
+                    Service Charge <span id="popup_lab_cont1_span">0%</span>
+                  </p>
+                  <p id="popup_lab_cont3_desc">
+                    Discount <span id="popup_lab_cont1_span">0%</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="pop_lab_cont4">
+              <p id="popup_lab_cont4_head">
+                Grand Total <span id="popup_lab_cont1_span">Rs {total}</span>
+              </p>
+              <div className="popup_lab_cont4_foot">
+                <a
+                  className="popup_lab_close"
+                  onClick={removepopup}
+                  style={{ cursor: "pointer" }}
+                >
+                  <p>Back</p>
+                </a>
+                <a className="lab_popup_checkout" style={{ cursor: "pointer" }}>
+                  <div onClick={() => handleCheckoutlabtest()}>
+                    <p>Checkout</p>
                   </div>
-                </div>
-              </div>
-              <div className="pop_lab_cont2">
-                <div className="pop_lab_cont1_1">
-                  <p id="popup_lab_cont2_head">Lab Test</p>
-                  <ol className="popup_lab_cont2_desc">
-                    {maincategories.length ? (
-                      maincategories.map((item, index) => {
-                        return (
-                          <li id="popup_lab_cont2_desc">
-                            {item.category}
-                            <span
-                              id="lab_labtest_span_cross"
-                              style={{ cursor: "pointer" }}
-                              onClick={() => removecartproduct(item, index)}
-                            >
-                              <i class="far fa-times-circle"></i>
-                            </span>
-                          </li>
-                        );
-                      })
-                    ) : (
-                      <p>No any items</p>
-                    )}
-                  </ol>
-                </div>
-              </div>
-              <div className="pop_lab_cont3">
-                <div className="pop_lab_cont3_3">
-                  <p id="popup_lab_cont1_head">Order Summary</p>
-                  <div className="popup_lab_cont3_desc">
-                    <p id="popup_lab_cont3_desc">
-                      Subtotal
-                      <span id="popup_lab_cont1_span">
-                        Rs {total ? <span>{total}</span> : "0"}
-                      </span>
-                    </p>
-                    <p id="popup_lab_cont3_desc">
-                      Service Charge <span id="popup_lab_cont1_span">0%</span>
-                    </p>
-                    <p id="popup_lab_cont3_desc">
-                      Discount <span id="popup_lab_cont1_span">0%</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="pop_lab_cont4">
-                <p id="popup_lab_cont4_head">
-                  Grand Total <span id="popup_lab_cont1_span">Rs {total}</span>
-                </p>
-                <div className="popup_lab_cont4_foot">
-                  <a
-                    className="popup_lab_close"
-                    onClick={removepopup}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <p>Back</p>
-                  </a>
-                  <a
-                    className="lab_popup_checkout"
-                    style={{ cursor: "pointer" }}
-                  >
-                    <div onClick={() => handleCheckoutlabtest()}>
-                      <p>Checkout</p>
-                    </div>
-                  </a>
-                </div>
+                </a>
               </div>
             </div>
           </div>

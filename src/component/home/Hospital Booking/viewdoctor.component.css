@@ -41,12 +41,13 @@
 .doc_appoint_head {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   justify-content: space-between;
   align-items: flex-end;
 }
 .doc_appoint_head div h1 {
   font-weight: bold;
-  font-size: 36px;
+  font-size: 33.33px;
   line-height: 52px;
 }
 .doc_appoint_head div p {
@@ -58,14 +59,14 @@
   width: 260px;
 }
 form.doc_example input[type="text"] {
-  padding: 8px;
+  padding: 10px;
   font-size: 17px;
   border: 1px solid #d0d7e2;
   float: left;
   width: 100%;
-  height: 100%;
+  height: 40px;
   background: #e6eaf0;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 form.doc_example button {
   margin-left: -50px;
@@ -102,7 +103,6 @@ form.doc_example::after {
   display: flex;
   padding: 10px;
   justify-content: space-between;
-  align-items: flex-end;
 }
 .doc_card_img {
   width: 150px;
@@ -151,18 +151,81 @@ form.doc_example::after {
 #doc_available_days {
   padding-top: 8px;
   line-height: 20px;
-
-  /* border: 1px solid red; */
 }
+/* accordion
+b 
+o
+d
+y here */
+.doc_accordion .accordion {
+  position: relative;
+  padding: 0;
+  width: 70%;
+  margin: 0;
+  z-index: 1;
+}
+.doc_accordion .accordion-header {
+  background: #f5faff;
+}
+.doc_accordion button.accordion-button {
+  padding: 20px 0px;
+}
+.doc_accordion button.accordion-button.collapsed {
+  color: #2745f0;
+  background: #f5faff;
+  font-size: 15px;
+}
+.doc_accordion .accordion-button::after {
+  background-image: url(../../../assets/doc_arrow_down.svg);
+
+  height: 11px;
+  background-size: contain;
+}
+
+.doc_accordion .accordion-button:not(.collapsed) {
+  background: #f5faff;
+  color: #2745f0;
+  margin-bottom: 0;
+  font-size: 15px;
+  box-shadow: none;
+}
+
+.accordion-button:hover {
+  background: #f5faff;
+  color: unset;
+  color: #2745f0;
+}
+.doc_accordion ul.accordion-body {
+  padding-left: 10px;
+}
+
+.doc_accordion ul.accordion-body li {
+  list-style: disc;
+  background: transparent;
+  color: #374253;
+  padding: 10px 10px 10px 5px;
+  transition: all 0s;
+}
+
+.doc_accordion .accordion-body {
+  background: #f5faff;
+}
+
+/* border: 1px solid red; */
+
 #span1_doc_card {
   font-weight: 500;
   color: black;
 }
+.doc_card_but {
+  display: flex;
 
+  align-items: flex-end;
+}
 #doc_card_but {
-  width: 200px;
-  height: 40px;
+  right: 0;
   border: 1px solid #2745f0;
+  padding: 20px;
   color: #2745f0;
   background: white;
   border-radius: 5px;
@@ -172,13 +235,14 @@ form.doc_example::after {
   transition: 0.5s;
 }
 
-.hospitalDr-price{
+.hospitalDr-price {
   text-align: right;
   margin-bottom: 50px;
 }
 #doc_card_but:hover {
   background-color: #2745f0;
   color: #fff;
+  text-decoration: none;
 }
 /* form for appointment */
 
@@ -200,6 +264,63 @@ form.doc_appoin_form2::after {
 #appoint_dt {
   width: 215px;
 } */
+.overlay1 {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay1:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06d85f;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px) {
+  .box {
+    width: 70%;
+  }
+  .popup {
+    width: 70%;
+  }
+}
 .form_doc {
   width: 100%;
   display: grid;
@@ -354,5 +475,13 @@ form.doc_appoin_form2::after {
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+  #doc_name_card {
+    display: block;
+    width: 100%;
+  }
+  #doc_edu_brief {
+    display: block;
+    width: 100%;
   }
 }

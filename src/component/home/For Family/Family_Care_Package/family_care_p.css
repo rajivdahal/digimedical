@@ -4,8 +4,8 @@
 }
 .top-container {
   width: 100%;
-  height: 631px;
-  left: 0px;
+  display: flex;
+  flex-direction: column;
 
   background: linear-gradient(
     177.28deg,
@@ -14,10 +14,8 @@
   );
 }
 .up {
-  /* width: 364px; */
-  height: 24px;
   margin-left: 10%;
-  padding-top: 52px;
+  padding-top: 2.5rem;
 }
 #healthpackages {
   margin-left: 0px;
@@ -26,7 +24,7 @@
   /* font-family: Objective; */
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 13.33px;
   line-height: 16px;
 
   /* identical to box height, or 100% */
@@ -41,12 +39,16 @@
   flex-grow: 0;
   margin: 0px 4px;
 }
+.fcp_up_span_arrow {
+  color: #a7b2c3;
+  font-size: 12px;
+}
 
 #familyhealthpackages {
   /* font-family: Objective; */
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 13.33px;
   line-height: 16px;
 
   /* identical to box height, or 100% */
@@ -57,15 +59,15 @@
 }
 .down {
   padding-left: 10%;
+  margin-top: 8rem;
   display: flex;
   /* width: 70%; */
 }
 #headerfamilyhealth {
-  margin-top: 170px;
   /* font-family: Objective; */
   font-style: normal;
   font-weight: bold;
-  font-size: 60px;
+  font-size: 50px;
   line-height: 64px;
   /* identical to box height, or 107% */
   display: flex;
@@ -74,21 +76,26 @@
   /* Grey/800 */
   color: #192638;
 }
+.fcp_down_desc_2 {
+  width: 60%;
+}
 #text1 {
   /* font-family: Objective; */
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
+  font-size: 15px;
   line-height: 30px;
   /* or 167% */
   /* Grey/600 */
   color: #596579;
-  width: 320px;
-  height: 60px;
+
   margin-top: 16px;
 }
 .fcp_main_img {
-  margin-left: 20%;
+  padding-left: 20%;
+}
+.fcp_main_img img {
+  width: 500px;
 }
 .mid-container {
   width: 100%;
@@ -266,6 +273,139 @@
   border-radius: 10px;
   filter: drop-shadow(4px 4px 30px rgba(0, 0, 0, 0.1));
 }
+/*c
+s
+s
+f
+o
+r
+package adas */
+.fam-package-detail {
+  margin-top: 6rem;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 6rem;
+}
+.fam-packages-cat {
+  margin-top: 50px;
+  display: flex;
+  gap: 3rem;
+}
+.fam-package1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+  background: #f0f2ff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+
+  transition: 0.2s;
+}
+.fam-package1:hover,
+.fam-package2:hover {
+  box-shadow: 0px 0px 10px rgba(102, 99, 99, 0.5);
+}
+.fam-package2 {
+  position: relative;
+
+  top: -50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+  background: #f0f2ff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+
+  transition: 0.2s;
+}
+.fam-pack-pop-or-not {
+  margin-top: 40px;
+  width: 80%;
+}
+.fam-pack-pop-or-not ul {
+  float: right;
+  width: 69px;
+  height: 23px;
+  background: #ff0000;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+}
+.fam-package-head {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  justify-content: center;
+
+  text-align: center;
+}
+.fam-package-head p {
+  text-align: center;
+}
+#text-fam-pack-head1 {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 20px;
+  color: #192638;
+}
+#text-fam-pack-head2 {
+  font-size: 13.33px;
+  line-height: 24px;
+  color: #596579;
+}
+#text-fam-pack-price1 {
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 34px;
+
+  color: #2745f0;
+}
+#text-fam-pack-head3 {
+  font-size: 16px;
+  line-height: 16px;
+
+  color: #596579;
+}
+.fam-packages-ul {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.fam-packages-ul ul {
+  padding-left: 15px;
+}
+.fam-package-ul1 li {
+  list-style: disc;
+  color: #596579;
+  font-size: 15px;
+  line-height: 30px;
+  font-weight: normal;
+}
+.fam-pack-button {
+  margin-top: 30px;
+  width: 100%;
+  background: #2745f0;
+  border-radius: 8px;
+  color: white;
+  padding: 18px;
+  border: 1px solid #2745f0;
+}
+/* m
+o
+b
+i
+l
+e
+view */
 @media screen and (max-width: 600px) {
   .boxes {
     margin: 2%;
@@ -286,5 +426,24 @@
 @media screen and (max-width: 1200px) {
   .person-with-masks {
     display: none;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .down {
+    flex-direction: column;
+  }
+  .fcp_main_img {
+    padding-left: 0;
+  }
+  .fcp_main_img img {
+    width: 90%;
+  }
+
+  .fam-packages-cat {
+    flex-direction: column;
+  }
+  .fam-package2 {
+    top: 0;
   }
 }

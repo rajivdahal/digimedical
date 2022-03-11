@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import package_logo from "../../assets/hospital.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./NavbarMenuItems.css";
 import login_signup from "../../component/common/login component/login_signup";
 import login from "./../../assets/login.png";
@@ -40,6 +40,7 @@ const LogMenuItemsContainor = styled.div`
   //   }
   // }
 `;
+
 const Menuitems = styled.div``;
 // const SearchContainor = styled.div`
 //   background-color: #fff;
@@ -50,8 +51,9 @@ const Menuitems = styled.div``;
 const NavbarMenuItems = () => {
   const [corporateType, setCorporateType] = useState([]);
   const [FamilyType, setFamilyType] = useState([]);
-  const [doctorCategory,setDoctorCategory]=useState([])
-
+  const [doctorCategory, setDoctorCategory] = useState([]);
+  const [doctorSpeciality, setDoctorSpeciality] = useState([]);
+  const [digiService,setDigiServices]=useState([])
   const history = useHistory();
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -98,10 +100,31 @@ const NavbarMenuItems = () => {
     }
   };
 
+  const getDoctorSpeciality = async () => {
+    try {
+      let resp = await httpClient.GET("services/get/true");
+      console.log(resp);
+      if (resp.data.status) {
+        let data = resp.data.data;
+        let splicedArr = data.splice(0, 6);
+        console.log(splicedArr);
+        setDoctorSpeciality(splicedArr);
+      }
+    } catch (err) {
+      if (
+        err &&
+        err.response &&
+        err.response.data &&
+        err.response.data.message
+      ) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+  };
+
   const getFamilyPackage = async () => {
     try {
       let resp = await httpClient.GET("master-package/get-types/1");
-      console.log(resp);
       if (resp.data.status) {
         setFamilyType(resp.data.data);
       }
@@ -116,24 +139,33 @@ const NavbarMenuItems = () => {
       }
     }
   };
-  const getServices=()=>{
-    httpClient.GET("services/get/true")
+  const getServices = () => {
+    httpClient.GET("services/get/true").then((resp) => {
+      setDoctorCategory(resp.data.data);
+    });
+  };
+
+  const getDigiService=()=>{
+    httpClient.GET("digi-service/get-all")
     .then(resp=>{
-      setDoctorCategory(resp.data.data)
+      console.log("response output is",resp.data.data)
+      setDigiServices(resp.data.data)
     })
-
+    .catch(err=>{
+      notify.error("something went wrong")
+    })
   }
-
   useEffect(() => {
     getBusinessPackage();
     getFamilyPackage();
-    getServices()
+    getServices();
+    getDoctorSpeciality();
+    getDigiService()
   }, []);
 
   return (
     <Root style={{ height: "70px" }} className="root_nav">
       <LogMenuItemsContainor className="logcontainer_nav">
-        {/* for mobile view dashboard  */}
         <div class="m-menu">
           <input class="m-menu__toggle" type="checkbox" />
           <div class="m-menu__burger">
@@ -156,7 +188,6 @@ const NavbarMenuItems = () => {
                     Register
                   </Link>
                 ) : null}
-
                 {!localStorage.getItem("dm-access_token") ? (
                   <Link id="link_cat_nav_mob" to="/login">
                     <div>
@@ -217,18 +248,17 @@ const NavbarMenuItems = () => {
                   </span>
                   For Family
                 </Link>
-                <Link
+                {/* <Link
                   id="link_cat_nav_mob"
                   to="/digimedical_doctors"
                   style={{ textDecoration: "none", color: "inherit" }}
-                >
+                > */}{" "}
+                <span>
                   {" "}
-                  <span>
-                    {" "}
-                    <i class="fas fa-user-md"></i> &nbsp;{" "}
-                  </span>
-                  Our Doctors
-                </Link>
+                  <i class="fas fa-user-md"></i> &nbsp;{" "}
+                </span>
+                Our Doctors
+                {/* </Link> */}
                 <Link
                   id="link_cat_nav_mob"
                   to="/about"
@@ -240,7 +270,6 @@ const NavbarMenuItems = () => {
                   </span>
                   About
                 </Link>
-
                 <Link
                   id="link_cat_nav_mob"
                   to="/contact"
@@ -253,10 +282,11 @@ const NavbarMenuItems = () => {
                   </span>
                   Contact
                 </Link>
-
                 {localStorage.getItem("dm-access_token") ? (
                   <div onClick={Logout} id="link_cat_nav_mob">
-                    <i class="fas fa-sign-out-alt"></i>
+                    <span>
+                      <i class="fas fa-sign-out-alt"></i>
+                    </span>
                     <span style={{ color: "#fff" }}>&nbsp; Logout</span>
                   </div>
                 ) : null}
@@ -291,11 +321,11 @@ const NavbarMenuItems = () => {
         </Link>
 
         {/* for desktop navbar */}
-        <div className="menu">
+        <ul className="menu">
           {" "}
-          <div className="menu-item_nav">
+          <li className="menu-item_nav common-menu">
             <Link
-              className="link_home_nav"
+              className="link_home_nav nav_link_font"
               to="/services"
               style={{ textDecoration: "none", color: "inherit" }}
             >
@@ -303,262 +333,117 @@ const NavbarMenuItems = () => {
             </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
-                <Link to={"/lab-test"}>
-                  <a>
+              {
+                digiService.map((item,index)=>{
+                  console.log("item is",item)
+                  return  <Link
+                  to={{
+                    pathname:"/our-services/"+item.type,
+                    state: {
+                      id:item.id
+                    },
+                  }}
+                  >
+                  <div className="content-drop-home-nav">
                     <img
                       src={package_logo}
                       style={{
                         height: "1.5rem",
                       }}
                     ></img>
-                    <p>Lab Test</p>{" "}
-                  </a>
+                    <p>{item.name}</p>{" "}
+                  </div>
                 </Link>
-                <Link to={"/our-services/doctor-at-home"}>
-                  <a>
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>Doctor at Home</p>{" "}
-                  </a>
-                </Link>
-                <Link to={"/our-services/online-medical-consultation"}>
-                  <a>
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>Online Medical Consulation</p>{" "}
-                  </a>
-                </Link>
-                <Link to={"/our-services/nursing-at-home"}>
-                  <a>
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>24/7 Nursing Service at Home</p>{" "}
-                  </a>
-                </Link>
-                <Link to={"/our-services/pcr-at-home"}>
-                  <a>
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>PCR at Home</p>{" "}
-                  </a>
-                </Link>
-                <Link to={"/our-services/utility-at-home"}>
-                  <a>
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>
-                    <p>MRI Service</p>
-                  </a>
-                </Link>
-                <Link to={"/our-services/utility-at-home"}>
-                  <a>
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>{" "}
-                    <p>CT Scan Service</p>{" "}
-                  </a>
-                </Link>
-                <Link to={"/our-services/utility-at-home"}>
-                  <a>
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>{" "}
-                    <p>USG Service at Home</p>{" "}
-                  </a>
-                </Link>
-                <Link to={"/our-services/utility-at-home"}>
-                  <a>
-                    {" "}
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
-                      }}
-                    ></img>{" "}
-                    <p>USG| ECG | ECHO Service at Home</p>{" "}
-                  </a>
-                </Link>
+                })
+              }
               </div>
             </div>
-          </div>
-          <div className="menu-item_nav">
+          </li>
+          <li className="menu-item common-menu">
             <Link
-              className="link_home_nav"
+              className="nav_link_font"
               to="/forbusiness"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               For Business
             </Link>
-
-            <div className="dropdown_hp_content">
-              <div className="dropdown_hp_content1">
-                {corporateType.map((item, index) => {
-                  return (
-                    <>
-                      <Link
-                        key={index}
-                        to={{
-                          pathname: "corporate-package",
-                          state: { packageId: item.id, packageName: item.name },
-                        }}
-                      >
-                        <img
-                          src={package_logo}
-                          style={{
-                            height: "1.5rem",
-                          }}
-                        ></img>
-                        <p>{item.name}</p>{" "}
-                      </Link>
-                    </>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-          <div className="menu-item_nav">
-            For Family
-            <div className="dropdown_hp_content">
-              <div className="dropdown_hp_content1">
-                {/* <Link to="/family-package">
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Family Care Package</p>{" "}
-                </Link> */}
-                <a>
-                  {" "}
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Pregnency Care Packages</p>{" "}
-                </a>
-
-                {FamilyType.map((item, index) => {
-                  return (
-                    <>
-                      <Link
-                        key={index}
-                        to={{
-                          pathname: "family-package",
-                          state: { packageId: item.id, packageName: item.name },
-                        }}
-                      >
-                        <img
-                          src={package_logo}
-                          style={{
-                            height: "1.5rem",
-                          }}
-                        ></img>
-                        <p>{item.name}</p>{" "}
-                      </Link>
-                    </>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-          <div className="menu-item_nav">
-            Our Doctors
-            <div className="dropdown_hp_content">
-              <div className="dropdown_hp_content1">
-                {/* <Link to="/family-package">
-                  <img
-                    src={package_logo}
-                    style={{
-                      height: "1.5rem",
-                    }}
-                  ></img>
-                  <p>Family Care Package</p>{" "}
-                </Link> */}
-
-                {doctorCategory.map((item, index) => {
-                  return (
-                    <>
-                      <Link
-                        key={index}
-                        to={{
-                          pathname: "digimedical-doctors",
-                          state: {itemId:item.id},
-                        }}
-                      >
-                        <img
-                          src={package_logo}
-                          style={{
-                            height: "1.5rem",
-                          }}
-                        ></img>
-
-                        <p>{item.servicename}</p>{" "}
-                      </Link>
-                    </>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          <span className="menu-item">
+          </li>
+          <li className="menu-item common-menu">
             <Link
+              className="nav_link_font"
+              to="/family-package"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              For Family
+            </Link>
+
+          </li>
+          <li className="menu-item_nav common-menu">
+            Our Doctors
+            {/* </Link> */}
+            <div className="dropdown_hp_content">
+              <div className="dropdown_hp_content1">
+                {doctorSpeciality.map((item, index) => {
+                  return (
+                    <>
+                      <Link
+                        key={index}
+                        to={{
+                          pathname: "digi-doctors",
+                          state: {
+                            specialityId: item.id,
+                            specialityName: item.servicename,
+                          },
+                        }}
+                      >
+                        <div className="content-drop-home-nav">
+                          <img
+                            src={package_logo}
+                            style={{
+                              height: "1.5rem",
+                            }}
+                          ></img>
+                          <p>{item.servicename}</p>{" "}
+                        </div>
+                      </Link>
+                    </>
+                  );
+                })}
+                <Link to={"/all-speciality"}>
+                  <div className="content-drop-home-nav">
+                    {" "}
+                    <img
+                      src={package_logo}
+                      style={{
+                        height: "1.5rem",
+                      }}
+                    ></img>{" "}
+                    <p>See All</p>{" "}
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </li>
+          <li className="menu-item common-menu">
+            <Link
+              className="nav_link_font"
               to="/about"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               About Us
             </Link>
-          </span>
-          <span className="menu-item">
+          </li>
+          <li className="menu-item common-menu">
             <Link
+              className="nav_link_font"
               to="/contact"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Contact
             </Link>
-          </span>
-        </div>
+          </li>
+        </ul>
       </LogMenuItemsContainor>
-      {/* <div className="nav_search">
-        <Search />
-      </div> */}
-      {/* <SearchContainor>
-      </SearchContainor> */}
     </Root>
   );
 };

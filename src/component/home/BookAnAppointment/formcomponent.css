@@ -6,7 +6,8 @@
 .docs {
   margin-top: 50px;
   width: 49%;
-  z-index: 100;
+  z-index: 1000;
+  position: absolute;
 }
 
 .docs .doc {
@@ -92,6 +93,8 @@
   color: #596579;
 }
 .formcompo_datepicker {
+  position: relative;
+  z-index: 1;
   width: 100%;
 }
 
@@ -106,6 +109,22 @@
 
 .formcompo_datepicker .DatePicker {
   width: 100%;
+}
+.home_not_logged_in_datepick .DatePicker {
+  z-index: 1;
+}
+.home_not_logged_in_datepick .DatePicker .DatePicker__input {
+  border-radius: 8px;
+  height: 2.875rem;
+  width: 100%;
+}
+.DatePicker {
+  width: 100%;
+}
+.my-custom-input {
+  padding: 0.875rem 1.375rem;
+  width: 100%;
+  border-radius: 8px;
 }
 
 @media screen and (max-width: 700px) {

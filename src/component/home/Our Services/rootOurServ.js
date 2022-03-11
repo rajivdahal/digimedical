@@ -1,26 +1,15 @@
-import React from "react";
 import styled from "styled-components";
-import doctorAtHomewall from "../../../../assets/doctorAtHomewall.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import DoctorAtHomeForm from "./DoctorAtHomeForm";
-import WhyChooseUs from "../../WhyChooseUs/WhyChooseUs";
-import OurServices from "../../About/OurServices";
+import DoctorAtHomeForm from "./ourServicesForm";
 import { useLocation } from "react-router-dom";
-import FrequentlyAsked from "../../../FrequentlyAsked/FrequentlyAsked";
-import Navbar from "../../../Navbar/Navbar";
-import Footer from "../../../Footer/Footer";
 import { Link, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "./doctorAtHome.css";
-import LabtestAtHome from "../labtest at home/labtestAtHome.component";
-import DoctorAtHome from "./doctorathome/doctorAtHome.component";
-import NursingAtHome from "../nursing at home/nursingathome.component";
-import Onlinemedcons from "../onlinemedicalcon/onlinemedcons.component";
-
+import doctorAtHomewall from "../../../assets/doctorAtHomewall.png";
 const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
-  padding-top: 1.5rem;
+  padding-top: 2.5rem;
+  height: 30rem;
   @media screen and (max-width: 650px) {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -75,7 +64,7 @@ const Heading = styled.div`
   margin-top: 0.6rem;
   font-style: normal;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 50px;
   line-height: 50px;
   display: flex;
   align-items: center;
@@ -92,7 +81,7 @@ const FormContainor = styled.div`
   margin-bottom: 1rem;
 `;
 
-const Ourservices = (props) => {
+const RootOurServ = (props) => {
   let [heading, setHeading] = useState([]);
   let history = useHistory();
   let location = useLocation();
@@ -110,7 +99,6 @@ const Ourservices = (props) => {
 
   return (
     <>
-      <Navbar />
       <Root
         style={{
           backgroundImage: `url(${doctorAtHomewall})`,
@@ -152,23 +140,8 @@ const Ourservices = (props) => {
           )}
         </FormContainor>
       </Root>
-      {location.pathname == "/our-services/doctor-at-home" ? (
-        <DoctorAtHome></DoctorAtHome>
-      ) : location.pathname == "/our-services/labtest-at-home" ? (
-        <LabtestAtHome></LabtestAtHome>
-      ) : location.pathname == "/our-services/nursing-at-home" ? (
-        <NursingAtHome></NursingAtHome>
-      ) : location.pathname == "/our-services/online-medical-consultation" ? (
-        <Onlinemedcons></Onlinemedcons>
-      ) : null}
-
-      <WhyChooseUs />
-
-      <FrequentlyAsked />
-      {/* <OurServices /> */}
-      <Footer />
     </>
   );
 };
 
-export default Ourservices;
+export default RootOurServ;

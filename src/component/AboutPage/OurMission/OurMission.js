@@ -8,7 +8,7 @@ import reviewer from "../../../assets/reviewer.png";
 const Root = styled.div`
   padding-left: 9rem;
   padding-right: 9rem;
-  padding-top: 4.5rem;
+  padding-top: 6rem;
   // padding-bottom: 4.5rem;
   display: flex;
   @media screen and (max-width: 1024px) {
@@ -121,7 +121,7 @@ const Title = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
-  line-height: 25px;
+  line-height: 30px;
   color: #596579;
   letter-spacing: 0.03em;
 `;
@@ -129,7 +129,8 @@ const Heading = styled.div`
   //   width: 75%;
   font-style: normal;
   line-height: 52px;
-  font-size: 38px;
+  font-size: 33.33px;
+  font-weight: 700;
 `;
 const Deatail = styled.div`
   margin-top: 0.5rem;
@@ -144,7 +145,6 @@ const Deatail = styled.div`
 const Review = styled.div`
   //   border: 1px solid black;
   border: 1.5px dashed #d0d7e2;
-  border-left-style: solid;
   box-sizing: border-box;
   border-radius: 6px;
   margin-top: 2rem;
@@ -152,9 +152,21 @@ const Review = styled.div`
   .review-detail {
     font-style: italic;
     font-weight: normal;
-    font-size: 0.9rem;
-    line-height: 30px;
+    font-size: 15px;
+    line-height: 25px;
     color: #596579;
+    padding-bottom: 1rem;
+    position: relative;
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      position: absolute;
+      left: -18px;
+      top: 0;
+      height: 60%;
+      background-color: #596579;
+    }
   }
   .image-name-main-div {
   }
@@ -162,8 +174,12 @@ const Review = styled.div`
     display: flex;
     align-items: center;
   }
+  .image-name-div div {
+    margin-right: 1rem;
+  }
   .image {
     width: 5rem;
+    border-radius: 50%;
   }
 
   .name-div {
@@ -172,16 +188,16 @@ const Review = styled.div`
   }
   .name {
     font-style: normal;
-    font-weight: bold;
-    font-size: 0.9rem;
+    font-weight: 500;
+    font-size: 15px;
     line-height: 30px;
     color: #192638;
   }
   .position {
     font-style: normal;
     font-weight: normal;
-    font-size: 0.9rem;
-    line-height: 30px;
+    font-size: 15px;
+    line-height: 25px;
     color: #374253;
   }
 `;

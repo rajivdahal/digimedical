@@ -3,7 +3,7 @@ import "./pagination.component.css";
 
 export default function Pagination() {
   return (
-    <div>
+    <div className="pagination_main">
       <div className="lab_buttons_select">
         <div className="lab_buttons_select1">
           <div className="lab_arrow_left">

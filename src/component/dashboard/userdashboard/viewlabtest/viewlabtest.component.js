@@ -10,14 +10,13 @@ const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default function Viewlabtest() {
   // let [isDynamicCompletedClass,setisDynamicCompletedClass]=useState(true)
-  let [isDynamicCompletedClass, setisDynamicCompletedClass] = useState(true);
-  let [isDynamicPendingClass, setisDynamicPendingClass] = useState(false);
+  let [isDynamicCompletedClass, setisDynamicCompletedClass] = useState(false);
+  let [isDynamicPendingClass, setisDynamicPendingClass] = useState(true);
   const [showModel, setShowModel] = useState(false);
   let [today, settoday] = useState(TimeandDate.today());
   const [labTestReport, setLabTestReport] = useState([]);
   const [downloadLabLabReport, setDownloadLabLabReport] = useState([]);
   const [fromDownload, setFromDOwnload] = useState(false);
-
   const handleCompletedClass = () => {
     setisDynamicCompletedClass(true);
     setisDynamicPendingClass(false);
@@ -52,7 +51,7 @@ export default function Viewlabtest() {
           setShowModel(!showModel);
         }
       });
-  };
+};
   const showLabTest = (data, signal) => {
     console.log("e and data are", data, signal);
     if (data && signal) {

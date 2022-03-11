@@ -12,7 +12,7 @@ class Cartpopupcomponent extends Component {
     const cart = JSON.parse(localStorage.getItem("cart"));
     console.log("cart items arfter pop up is", cart);
     const removemappedproduct = (toremoveitemcategory) => {
-      console.log("to remove is",toremoveitemcategory)
+      console.log("to remove is", toremoveitemcategory);
       if (cart) {
         cart.labs.map((item, index) => {
           if (item[0].mainCategoryName == toremoveitemcategory) {
@@ -35,7 +35,7 @@ class Cartpopupcomponent extends Component {
           if (index == 0) {
             subcategoryarray.category = item.mainCategoryName;
             subcategories.push(item.labcategoryname);
-          }else {
+          } else {
             subcategories.push(item.labcategoryname);
           }
           if (index == mainarray.length - 1) {
@@ -45,7 +45,7 @@ class Cartpopupcomponent extends Component {
         });
       });
     }
-    console.log("main category iss",maincategories);
+    console.log("main category iss", maincategories);
     return (
       <>
         <div>
@@ -55,6 +55,13 @@ class Cartpopupcomponent extends Component {
                 <div className="pop_carts_cont1">
                   <div className="popup_carts_cont1_head">
                     <p id="popup_carts_cont1_head">Lab Test</p>
+                    <a
+                      className="cross_lcart"
+                      href="#"
+                      style={{ cursor: "pointer" }}
+                    >
+                      <i class="far fa-times-circle"></i>
+                    </a>
                   </div>
                   <ol className="popup_carts_cont1_desc">
                     {maincategories.length ? (

@@ -75,10 +75,8 @@ const UPLOAD = (method, url, data = {}, grant_type, files,getheaders) => {
     if (grant_type) {
         data.grant_type = grant_type
     }
-    console.log("inside http upload",method,url,data,grant_type,files,getheaders)
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        console.log("xhr is",xhr)
         const formData = new FormData();
         if(files){
             files.forEach(item => {
@@ -87,10 +85,8 @@ const UPLOAD = (method, url, data = {}, grant_type, files,getheaders) => {
             })
         }
         for (let key in data) {
-            console.log("key and data are",key,data)
             formData.append(key, data[key])
         }
-        console.log("formdata is",formData)
 
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
@@ -118,5 +114,4 @@ export const httpClient = {
     PUT,
     DELETE,
     UPLOAD,
-
 }

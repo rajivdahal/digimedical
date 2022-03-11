@@ -15,7 +15,6 @@ import { notify } from "./../../../services/notify";
 
 import "./Bookappointment.component.css";
 export default function Bookappointment(prop) {
-  console.log("props are", prop);
   //   const prop=props.history.history
   const [appointmentsuccess, setappointmentsuccess] = useState(null);
   const [appointmentfailed, setappointmentfailed] = useState(null);
@@ -59,7 +58,6 @@ export default function Bookappointment(prop) {
       return errors;
     },
     onSubmit: (values) => {
-      console.log("values are", values);
       httpClient
         .POST("create-appointment", values)
         .then((resp) => {

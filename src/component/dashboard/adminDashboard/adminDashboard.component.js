@@ -62,7 +62,7 @@ const AdminDashboard = (props) => {
             </div>
           </div>
         </div>
-        
+
         <div className="col-md-6 grid-margin transparent">
           <div className="row">
             <div className="col-md-6 mb-4 stretch-card transparent">
@@ -106,7 +106,6 @@ const AdminDashboard = (props) => {
           </div>
         </div>
       </div>
-
     </>
   )
 }

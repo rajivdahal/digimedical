@@ -1,0 +1,298 @@
+.doc-pop-main {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  transition: opacity 500ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.doc-pop-inner {
+  border: 1px solid white;
+  position: relative;
+
+  padding: 20px;
+  background: #fff;
+
+  border-radius: 8px;
+}
+.doc-pop-cont {
+  display: flex;
+  flex-direction: column;
+}
+.doc-close-but {
+  border: none;
+}
+.doc-close-butt {
+  background: transparent;
+  border: none;
+  float: right;
+}
+
+.doc-close-but:hover #doc-popup-cross {
+  color: rgb(105, 105, 243);
+}
+
+/* form
+c
+o
+n
+t
+e
+n
+t */
+.doc-pop-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+.doc-form-row1 {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: auto auto auto;
+}
+.doc-form-row2 {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: auto auto;
+}
+
+.doc-form-input1 {
+  display: flex;
+  flex-direction: column;
+}
+.doc-form-input1 input,
+.doc-form-input1 select {
+  border: 1px solid #d0d7e2;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  height: 60px;
+}
+.doc-form-row3 {
+  margin-top: 20px;
+}
+.doc-form-input1 .DatePicker {
+  z-index: 1;
+}
+
+.doc-form-last-sent p {
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 15px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: #8797a8;
+}
+
+#pop-doc-but {
+  width: 100%;
+  border-radius: 10px;
+  padding: 20px;
+  background: #2745f0;
+  color: white;
+  border: none;
+}
+#pop-doc-but:hover {
+  background: #06156b;
+}
+select:invalid {
+  color: gray;
+}
+
+@media screen and (max-height: 750px) {
+  .doc-pop-inner {
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .doc-pop-inner {
+    width: 60%;
+    left: 8%;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .doc-pop-inner {
+    width: 80%;
+    left: 0;
+  }
+}
+@media screen and (max-width: 660px) {
+  .doc-pop-inner {
+    width: 90%;
+  }
+
+  .doc-form-row1,
+  .doc-form-row2 {
+    width: 95%;
+
+    display: flex;
+    flex-direction: column;
+  }
+  .doc-form-row3 {
+    width: 95%;
+  }
+}
+
+/* css for  */
+/* p a y m e n t 
+m 
+e 
+t 
+h 
+o
+d
+   */
+.pay-pop-inner {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  background: #f5f5f5;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+.doc-pay-pop {
+  display: flex;
+  flex-direction: column;
+}
+.doc-pay-pop-head {
+  border-bottom: 0.75px solid #d0d7e2;
+}
+.doc-pay-pop-head-cont {
+  padding: 0px 20px 20px 20px;
+}
+.doc-pay-pop-head p {
+  font-weight: 500;
+  font-size: 18.16px;
+  line-height: 32px;
+  /* identical to box height, or 139% */
+
+  /* Grey/700 */
+
+  color: #374253;
+}
+
+.pay-partner1-img {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.1px solid #596579;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 8px;
+  width: 40%;
+}
+
+.pay-partner1-img img {
+  width: 115px;
+  height: 55.9px;
+}
+
+.doc-pay-pop-body {
+  padding: 15px 20px 20px 20px;
+}
+.doc-pay-appoint-det1 {
+  display: flex;
+  padding-bottom: 20px;
+  justify-content: space-between;
+}
+
+#pay-appoint-det-p {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+
+  color: #374253;
+}
+#pay-doc-choose {
+  font-size: 15px;
+}
+#pay-appoint-det-p2 {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 26px;
+
+  color: #374253;
+}
+
+.doc-pay-doc-serv {
+  padding: 15px 0px 15px 0px;
+  border-top: 0.75px solid #d0d7e2;
+  border-bottom: 0.75px solid #d0d7e2;
+}
+.payapp-det2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pay-ctlt-checkbox {
+  padding: 15px 0 15px 0;
+  border-top: 0.75px solid #d0d7e2;
+  border-bottom: 0.75px solid #d0d7e2;
+}
+.pay-radio1 {
+  display: flex;
+  justify-content: space-between;
+}
+.pay-checkbox-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pay-checkbox-input label {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: normal;
+  color: #374253;
+}
+
+.doc-pay-appoint-det3 {
+  padding: 15px 0px 15px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+.doc-pay-appoint-det4 {
+  padding: 20px 0px 20px 0px;
+}
+.doc-pay-last-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pay-last-but {
+  float: right;
+}
+
+@media screen and (max-height: 700px) {
+  .pay-pop-inner {
+    height: 80vh;
+    width: 30%;
+    overflow: scroll;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .pay-pop-inner {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .pay-pop-inner {
+    width: 80%;
+  }
+}

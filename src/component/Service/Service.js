@@ -21,11 +21,11 @@ const Heading = styled.div`
   width: 30%;
   font-style: normal;
   font-weight: bold;
-  font-size: 45px;
-  line-height: 50px;
+  font-size: 50px;
+  line-height: 64px;
   display: flex;
   align-items: center;
-  letter-spacing: 0.03em;
+
   color: #192638;
   @media screen and (max-width: 1077px) {
     width: 100%;
@@ -84,8 +84,14 @@ const Service = (props) => {
       </Root>
       <OurServices />
       <EmergencyNumber />
-      <BookAnAppointment props={props} />
-      <Footer></Footer>
+      <div style={{ marginTop: "6rem" }}>
+        {" "}
+        <BookAnAppointment props={props} />
+      </div>
+
+      <div style={{ marginTop: "6rem" }}>
+        <Footer></Footer>
+      </div>
     </>
   );
 };

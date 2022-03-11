@@ -10,9 +10,26 @@ import TimePicker from "react-time-picker";
 import Select from "react-select";
 import "@amir04lm26/react-modern-calendar-date-picker/lib/DatePicker.css";
 import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
+import DigiDoctorPayment from "./../../../../component/common/popup/doctorPopup/selectPaymentMethod/forDigiDoctor/digiDoctorPayment";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { setOpenPopUp } from "../../../../actions/paymentPopUp.ac";
+import CircularProgress from "@mui/material/CircularProgress";
+import {
+  callApiForInitialBooking,
+  digiDoctorAppointmentBookLoading,
+  digiDoctorAppointmentBookNotLoading,
+  digiDoctorAppointmentFixed,
+} from "../../../../actions/digiDoctorBooking.ac";
+import { dateEquivalator } from "../../../../utils/dateHelper";
+import {
+  splitAlphabeticDate,
+  convertAlphabeticMonthToNumeric,
+} from "../../../../utils/dateHelper";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default function Internalappointmentbook(prop) {
+  console.log("edit data are", prop.location.data);
   const editdata = prop.location.data ? prop.location.data : null;
   // console.log("to edit data is", editdata);
   const [appointmentsuccess, setappointmentsuccess] = useState(null);
@@ -24,11 +41,16 @@ export default function Internalappointmentbook(prop) {
   const [corporatememberemail, setcorporatememberemail] = useState([]);
   const [toeditdata, settoeditdata] = useState(editdata);
   const [isdoctorblurred, setisdoctorblurred] = useState(false);
-  const [value,onChange] = useState("12:00");
+  const [value, onChange] = useState(
+    toeditdata ? toeditdata.appointmenttime : "11:00"
+  );
+
+  const [finalData, setFinalData] = useState(null);
   var today = new Date();
-  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-console.log("date is",date)
-  const [doctorfetched,setdoctorfetched] = useState({
+  var date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  console.log("date is", date);
+  const [doctorfetched, setdoctorfetched] = useState({
     image: null,
     prefix: null,
     name: null,
@@ -41,23 +63,25 @@ console.log("date is",date)
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
+  console.log("selected day is", selectedDay);
   const [minDate, setminDate] = useState({
     year: dt.getFullYear(),
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
-  if (toeditdata) {
-    toeditdata["serviceId"] = toeditdata["servicesId"];
-  }
+  // if (toeditdata) {
+  //   toeditdata["serviceId"] = toeditdata["serviceId"];
+  // }
   const callapi = (url, values) => {
+    // console.log("values are",values)
     httpClient
       .POST(url, values, false, true)
       .then((resp) => {
         if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
-          prop.history.push("/dashboard/corporate/viewappointment");
+          // prop.history.push("/dashboard/corporate/viewappointment");
           notify.success("Appointment booked successfully");
         } else {
-          prop.history.push("/dashboard/viewappointment");
+          // prop.history.push("/dashboard/viewappointment");
           notify.success("Appointment booked successfully");
         }
       })
@@ -67,6 +91,7 @@ console.log("date is",date)
       });
   };
   useEffect(() => {
+    // debugger
     httpClient
       .GET("services/get/true", false, true)
       .then((resp) => {
@@ -94,18 +119,60 @@ console.log("date is",date)
           notify.error("Something went wrong");
         });
     }
+    // convert the date format March 3, 2022 to
+    if (toeditdata) {
+      console.log("to edit data are", toeditdata);
+      let date = toeditdata.appointmentdate;
+      let parsedDate = splitAlphabeticDate(date);
+      parsedDate.month = convertAlphabeticMonthToNumeric(parsedDate.month);
+      console.log("parsed date is", parsedDate);
+      setSelectedDay(parsedDate);
+      // console.log("parsed Month is",parsedMonth)
+      // let year=""
+      // let month=""
+      // let day=""
+      // // let month=date.replace(/[^A-Za-z]/g, '')
+      // // console.log("month equivalator is",dateEquivalator)
+      // for (let index = date.length-1; index >=0; index--) {
+      //   if(index>date.length-5){
+      //     year=year+date[index]
+      //   }
+      //   if(index>date.length-9 && index<date.length-6){
+      //     day=day+date[index]
+      //   }
+      //   if(index<date.length-9){
+      //     month=month+date[index]
+      //   }
+      // }
+      // year=year.split("").reverse().join("");
+      // month=month.split("").reverse().join("");
+      // day=day.split("").reverse().join("");
+
+      // console.log("month and year issss",month,year,day)
+      // for (const key in dateEquivalator){
+      //    if(key===month){
+      //      month=dateEquivalator[key]
+      //    }
+      // }
+      // console.log("parsed month is",month)
+    }
+
+    //end of convert the date format March 3, 2022 to
   }, []);
   const formik = useFormik({
     initialValues: {
       servicesId: "",
       doctorId: "",
-      appointmentDate:date,
+      appointmentDate: toeditdata ? "" : date,
       appointmentTime: "",
       email: "",
+      serviceName: "",
+      doctorName: "",
+      doctorService: null,
     },
     validate: (values) => {
-      if(toeditdata){
-        return
+      if (toeditdata) {
+        return;
       }
       let errors = {};
       if (!values.servicesId) {
@@ -122,18 +189,19 @@ console.log("date is",date)
       }
       return errors;
     },
-    onSubmit:values=>{
-      // console.log("values are",toeditdata)
+    onSubmit: (values) => {
+      // debugger
+
       if (toeditdata) {
         let finaldata = {};
-        finaldata["servicesId"] = toeditdata["serviceid"];
-        finaldata["appointmentTime"] = toeditdata["appointmenttime"];
-        finaldata["doctorId"] = toeditdata["doctorid"];
-        finaldata["appointmentDate"] = toeditdata["appointmentdate"];
-        console.log("to edit data are>>>>", finaldata, toeditdata);
+        finaldata["servicesId"] = toeditdata["serviceId"];
+        finaldata["appointmentTime"] = values.appointmentTime;
+        finaldata["doctorId"] = toeditdata["doctorId"];
+        finaldata["appointmentDate"] = values.appointmentDate;
+        // console.log("to edit data are>>>>", finaldata, toeditdata);
         return httpClient
           .PUT(
-            `update-appointment/${toeditdata.appointmentid}`,
+            `update-appointment/${toeditdata.appointmentId}`,
             finaldata,
             false,
             true
@@ -151,21 +219,60 @@ console.log("date is",date)
       if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
         return callapi("create-appointment/corporate", formik.values);
       }
-      console.log(values);
-      return callapi("create-appointment", formik.values);
-
-    }
+      console.log("values are", values);
+      doctorAppointmentBookLoading(true);
+      setDigiDoctorAppointment(values);
+      // apiCallForInitialBooking(values)
+      setFinalData(values);
+      openDoctorPopUp(true);
+    },
   });
+  // Redux implementation
+  const dispatch = useDispatch();
+  const popUpActionsData = useSelector((state) => state.paymentPopUp);
+  const digiDoctorAppointmentBookingData = useSelector(
+    (state) => state.digiDoctorAppointmentBooking
+  );
+  const openDoctorPopUp = bindActionCreators(setOpenPopUp, dispatch);
+  const setDigiDoctorAppointment = bindActionCreators(
+    digiDoctorAppointmentFixed,
+    dispatch
+  );
+  const doctorAppointmentBookLoading = bindActionCreators(
+    digiDoctorAppointmentBookLoading,
+    dispatch
+  );
+  const doctorAppointmentBookNotLoading = bindActionCreators(
+    digiDoctorAppointmentBookNotLoading,
+    dispatch
+  );
+  const apiCallForInitialBooking = bindActionCreators(
+    callApiForInitialBooking,
+    dispatch
+  );
+
+  console.log(
+    "Digi doctor appointment booking data are",
+    digiDoctorAppointmentBookingData
+  );
+  // end of redux implementation
+
   const handleChange = (item) => {
-    console.log("inside handlechange", item);
+    delete formik.errors.servicesId;
+    console.log("formik errors are", formik.errors);
     formik.setFieldValue("servicesId", item.value);
+    formik.setFieldValue("serviceName", item.label);
     httpClient
       .GET(`doctor/get-related-doctor/${item.value}`, false, true)
       .then((resp) => {
+        if (!resp.data.data.length) {
+          return notify.error("No any doctors are available to this service");
+        }
         let allDoctors = resp.data.data.map((doctor, index) => {
+          console.log("doctor", doctor);
           return {
             label: doctor.name,
-            value: doctor.id,
+            value: doctor,
           };
         });
         setdoctors(allDoctors);
@@ -175,84 +282,11 @@ console.log("date is",date)
         notify.error("No any doctors are available to this service");
       });
   };
-  const handleTimeChange=(value)=>{
-    console.log("time is",value)
-    toeditdata.appointmenttime=value
-    onChange(value)
-  }
-  // const handleeditchange = (e, suffix) => {
-  //   let name;
-  //   let value;
-  //   if (!suffix) {
-  //     console.log("inside if not suffix");
-  //     name = e.target.name;
-  //     value = e.target.value;
-  //     console.log(
-  //       "name and values are",
-  //       name,
-  //       value,
-  //       "to edit data is",
-  //       toeditdata
-  //     );
-  //     if (name === "servicesId") {
-  //       httpClient
-  //         .GET(`services/get-name/${value}`)
-  //         .then((resp) => {
-  //           setservicename(resp.data.data.servicename);
-  //           settoeditdata((prevvalue) => {
-  //             return {
-  //               ...prevvalue,
-  //               serviceName: null,
-  //             };
-  //           });
-  //         })
-  //         .catch((err) => {
-  //           notify.error("something went wrong");
-  //         });
-  //     }
-  //     if (name === "doctorId") {
-  //       httpClient
-  //         .GET(`doctor/doctor-name/${value}`)
-  //         .then((resp) => {
-  //           let doctorname = resp.data.data.name;
-  //           setdoctorname(doctorname);
-  //           settoeditdata((prevvalue) => {
-  //             return {
-  //               ...prevvalue,
-  //               doctorsName: null,
-  //             };
-  //           });
-  //         })
-  //         .catch((err) => {
-  //           notify.error("something went wrong");
-  //         });
-  //     }
-  //   }
-  //   if (suffix == "appointmentdate") {
-  //     console.log("inside appintmentdate suffix");
-  //     var completedate = e.year + "-" + e.month + "-" + e.day;
-  //     console.log("completed date is", completedate);
-  //     name = "appointmentdate";
-  //     value = completedate;
-  //     setSelectedDay({
-  //       year: e.year,
-  //       month: e.month,
-  //       day: e.day,
-  //     });
-  //   }
-  //   settoeditdata((prevvalue) => {
-  //     return {
-  //       ...prevvalue,
-  //       [name]: value,
-  //     };
-  //   });
-  //   setTimeout(() => {
-  //     console.log("data changed", toeditdata);
-  //   }, 4000);
-  // };
-  useEffect(() => {
-    console.log(toeditdata);
-  }, [toeditdata]);
+  const handleTimeChange = (value) => {
+    console.log("time is", value);
+    toeditdata.appointmenttime = value;
+    onChange(value);
+  };
   const handlesubmit = (e) => {
     e.preventDefault();
     if (toeditdata) {
@@ -261,7 +295,6 @@ console.log("date is",date)
       finaldata["appointmentTime"] = toeditdata["appointmenttime"];
       finaldata["doctorId"] = toeditdata["doctorid"];
       finaldata["appointmentDate"] = toeditdata["appointmentdate"];
-      // finaldata['appointmentId']=toeditdata['appointmentid']
       console.log("to edit data are>>>>", finaldata, toeditdata);
       return httpClient
         .PUT(
@@ -312,21 +345,27 @@ console.log("date is",date)
   };
   if (value) {
     formik.values.appointmentTime = value;
+    formik.values.appointmentDate =
+      selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
   }
   const clearpopup = () => {
     setisdoctorblurred(false);
   };
   const handleDoctorChange = (doctor) => {
-    formik.setFieldValue("doctorId", doctor.value);
-    getdoctorinfo(doctor.value);
+    console.log("doctor is", doctor);
+    formik.setFieldValue("doctorId", doctor.value.doctorid);
+    formik.setFieldValue("doctorName", doctor.value.name);
+    formik.setFieldValue("doctorService", doctor.value.digiService);
+    getdoctorinfo(doctor.value.doctorid);
   };
   const handleDateChange = (value) => {
-    let date=value.year + "-" + value.month + "-" + value.day;
-    if(toeditdata){
-      toeditdata.appointmentdate=date
-    }
-    else{
-      formik.values.appointmentDate =date
+    // console.log("date is",value)
+
+    let date = value.year + "-" + value.month + "-" + value.day;
+    if (toeditdata) {
+      toeditdata.appointmentdate = date;
+    } else {
+      formik.values.appointmentDate = date;
     }
     setSelectedDay({
       year: value.year,
@@ -334,6 +373,7 @@ console.log("date is",date)
       day: value.day,
     });
   };
+  // for edit data case
   let formcontent = toeditdata ? (
     <div>
       {prop.location.pathname == "/dashboard/corporate/bookappointment" ? (
@@ -374,7 +414,7 @@ console.log("date is",date)
             name="doctorId"
             disabled
           >
-            <option>{toeditdata.doctorsname}</option>
+            <option>{toeditdata.doctorsName}</option>
           </select>
         </div>
       </div>
@@ -391,34 +431,31 @@ console.log("date is",date)
               onChange={handleDateChange}
             ></DatePicker>
           </div>
-          <h4>{formatDate(toeditdata.appointmentdate)}</h4>
+          {/* <h4>{
+          toeditdata?
+          formatDate(toeditdata.appointmentdate)
+        :null
+        }</h4> */}
         </div>
         <div className="form-group col-md-12">
           <label htmlFor="time">Time</label>
           <TimePicker
-              onChange={handleTimeChange}
-              value={value}
-              required
-              className="time-picker"
-            />
-          {/* <input
-            type="time"
-            placeholder="select time"
-            id="appointmenttime"
-            name="appointmenttime"
-
-            style={{
-              width: "330px",
-              position: "absolute",
-              height: "50px",
-              marginLeft: "-30px",
-            }}
-          ></input> */}
+            onChange={handleTimeChange}
+            value={value}
+            required
+            className="time-picker"
+          />
         </div>
-        <h4>{toeditdata.appointmenttime}</h4>
+        {/* <h4>{
+          toeditdata?
+          toeditdata.appointmenttime
+        :null
+        }</h4> */}
       </div>
     </div>
   ) : (
+    // end of edit data case
+    // start of making appointment case
     <div>
       {prop.location.pathname == "/dashboard/corporate/bookappointment" ? (
         <div className="form-row">
@@ -497,6 +534,7 @@ console.log("date is",date)
         <div className="form-group col-md-12">
           <label htmlFor="service">Select Service</label>
           <Select options={services} onChange={handleChange} />
+          {console.log("rendered rendered")}
           {formik.errors.servicesId && formik.touched.servicesId ? (
             <div style={{ color: "red" }} className="errmsg">
               {formik.errors.servicesId}{" "}
@@ -511,10 +549,27 @@ console.log("date is",date)
               {formik.errors.doctorId}
             </div>
           ) : null}
+          {isdoctorblurred ? (
+            <div class="dash_docs">
+              <div class="dash_doc bubbble">
+                <Clear className="clear-icon" onClick={clearpopup}></Clear>
+                <div class="imag1">
+                  <img src={doctorfetched.image} />
+                </div>
+                <div class="description">
+                  <p id="doc_name">Dr. {doctorfetched.name}</p>
+                  <p id="doc_skill">{doctorfetched.specialist}</p>
+                  <p id="doc_edu">{doctorfetched.prefix}</p>
+                  <p id="doc_exp">{doctorfetched.description}</p>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
   );
+  // end of making appointment case
   return (
     <div className="Hello_w">
       <div className="marginadj">
@@ -526,7 +581,13 @@ console.log("date is",date)
               className="btn btn-primary btn-block"
               onClick={formik.handleSubmit}
             >
-              {editdata ? "Save Changes":"Make Appointment"}
+              {editdata ? (
+                "Save Changes"
+              ) : digiDoctorAppointmentBookingData.isLoadingAppointmentBooking ? (
+                <CircularProgress></CircularProgress>
+              ) : (
+                "Make Appointment"
+              )}
             </button>
             {appointmentsuccess ? (
               <div
@@ -567,28 +628,19 @@ console.log("date is",date)
             We value your privacy. Your details are safe with us.
           </div>
         </form>
-        {isdoctorblurred ? (
-          <div class="docs">
-            <div class="doc bubbble">
-              <Clear className="clear-icon" onClick={clearpopup}></Clear>
-              <div class="imag1">
-                <img src={doctorfetched.image} />
-              </div>
-              <div class="description">
-                <p id="doc_name">Dr. {doctorfetched.name}</p>
-                <p id="doc_skill">{doctorfetched.specialist}</p>
-                <p id="doc_edu">{doctorfetched.prefix}</p>
-                <p id="doc_exp">{doctorfetched.description}</p>
-              </div>
-            </div>
-          </div>
-        ) : null}
+
         <img
           src="/images/dashboard/bookappointment/bookanappointment.png"
           alt="image.png"
           className="bookappimage"
         ></img>
       </div>
+      {popUpActionsData.trigger ? (
+        <DigiDoctorPayment
+          origin="appointmentBooking"
+          directBookAppointmentProps={finalData}
+        ></DigiDoctorPayment>
+      ) : null}
     </div>
   );
 }

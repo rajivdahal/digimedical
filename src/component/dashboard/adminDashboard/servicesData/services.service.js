@@ -18,7 +18,6 @@ const ServiceApi={
         }
         formData.append("serviceName", values.serviceName);
         formData.append("serviceDescription", values.serviceDescription);
-        formData.append("price", values.price);
         
         return httpClient.POST("services/create", formData, false, true, "formdata")
     },
@@ -31,7 +30,6 @@ const ServiceApi={
         }
         formData.append("serviceName", values.serviceName);
         formData.append("serviceDescription", values.serviceDescription);
-        formData.append("price", values.price);
     
         return httpClient.PUT("services/update/" + id, formData, false, true, "formdata")
     },

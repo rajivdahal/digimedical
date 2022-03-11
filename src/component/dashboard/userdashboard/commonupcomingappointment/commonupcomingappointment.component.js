@@ -12,9 +12,11 @@ import { Showmodal, ShowPrescription } from "../../../../utils/showmodal";
 import Prescribe from "../../doctordashboard/prescribe/prescribe.component";
 import { useHistory } from "react-router-dom";
 export const Commonupcomingappointment = (props) => {
+
     const history=useHistory()
     const userid = localStorage.getItem("userid")
-    const [isloading, setisloading] = useState(false)
+    const [isloading, setisloading] = useState(false);
+    const [tableLoading,setTableLoading] = useState(false);
     const fromdoctorcomponent = props.fromdoctorcomponent ? props.fromdoctorcomponent : null
     const fromcorporatecomponent = props.fromcorporatecomponent ? props.fromcorporatecomponent : null
     const [pendingData, setpendingData] = useState([])
@@ -25,41 +27,33 @@ export const Commonupcomingappointment = (props) => {
     const [patient, setpatient] = useState({})
 
     const httpcall = (callingurl) => {
-        console.log("inside httpcall")
         httpClient.GET(callingurl, false, true)
             .then(resp => {
                 let data = resp.data.data
-                console.log("data before is", resp)
                 data = data.map((item, index) => {
                     item.appointmentdate = formatDate(item.appointmentdate?item.appointmentdate.slice(0, 10):item.appointmentDate.slice(0, 10))
                     item.appointmenttime =item.appointmenttime?item.appointmenttime.slice(0, 5):item.appointmentTime.slice(0, 5)
-                    console.log("item is", item)
                     return item
                 })
-                console.log("datta is", data)
                 setpendingData(data)
 
             })
             .catch(err => {
-                notify.error("something went wrong")
+                console.log(err.response)
             })
             .finally(() => {
-                setisloading(false)
+                setTableLoading(false)
             })
     }
     useEffect(() => {
-        setisloading(true)
-        console.log("inside use effecr")
+        setTableLoading(true)
         if (fromdoctorcomponent) {
-            console.log("inside from doctor component")
             return httpcall(`getall-appointments-by/0`)
         }
         if (fromcorporatecomponent) {
-            console.log("inside from corporate component")
             return httpcall(`get/corporate/appointments/0`)
         }
         else {
-            console.log("inside from else component")
             httpcall(`get-user-pending-appointments`)
         }
     }, [])
@@ -98,7 +92,7 @@ export const Commonupcomingappointment = (props) => {
         }
     ] : [
         {
-            title: "Assigned Doctor", field: "doctorsname"
+            title: "Assigned Doctor", field: "doctorsName"
         },
         {
             title: "Hospital", field: "hospitalname"
@@ -114,6 +108,7 @@ export const Commonupcomingappointment = (props) => {
         }
     ]
     const handleEdit = (e, data) => {
+        console.log("row data are",data)
         props.fromcorporatecomponent?
         history.push({
             pathname: "/dashboard/corporate/bookappointment",
@@ -124,7 +119,8 @@ export const Commonupcomingappointment = (props) => {
         })
     }
     const handledelete = (e, data) => {
-        setid(data.appointmentid)
+        console.log("data is",data)
+        setid(data.appointmentId)
         setShowModal(true)
     }
     const handlecancel = () => {
@@ -135,6 +131,7 @@ export const Commonupcomingappointment = (props) => {
         setshowPrescriptionModal(false)
     }
     const deleteindeed = () => {
+        console.log("inside delete indeed")
         if (id) {
             httpClient.PUT(`cancel-appointment/${id}`, null, false, true)
                 .then(resp => {
@@ -159,7 +156,6 @@ export const Commonupcomingappointment = (props) => {
         }
     }
     const handleAddAppointment = () => {
-        console.log("props is........",props)
         props.fromcorporatecomponent?props.props.history.push("/dashboard/corporate/bookappointment"):props.props.push("/dashboard/bookappointment")
     }
     const proceedprescription = (e, rowdata) => {
@@ -176,6 +172,7 @@ export const Commonupcomingappointment = (props) => {
                         title="Appointments"
                         columns={columns}
                         data={pendingData}
+                        isLoading={tableLoading}
                         options={{
                             paging: true,
                             exportButton: props.isexportavailable,

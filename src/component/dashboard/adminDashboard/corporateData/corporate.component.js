@@ -38,7 +38,6 @@ const CorporatePage = (props) => {
     const getAllCorporate = () => {
         httpClient.GET("corporate/get/all", false, true)
             .then(resp => {
-                console.log(resp)
                 let data = resp.data.data;
                 setCorporateData(data)
             })
@@ -98,7 +97,6 @@ const CorporatePage = (props) => {
             httpClient.POST("corporate/create", data, false, true)
                 .then(resp => {
                     if (resp.data.status) {
-                        console.log(resp.data.data);
                         notify.success(resp.data.message)
                         formik.resetForm();
                         getAllCorporate()
@@ -115,14 +113,12 @@ const CorporatePage = (props) => {
                 })
         }
         catch (err) {
-            console.log(err)
             setLoading(false)
         }
     }
 
     const getEditInfo = (e, data) => {
         setCorporateID(data.id);
-        console.log(data)
         let corporateType = {
             label: data.corporatetypename,
             value: data.corporatetypeid
@@ -159,7 +155,6 @@ const CorporatePage = (props) => {
             }
             httpClient.PUT("corporate/" + corporateID, data, false, true)
                 .then(resp => {
-                    console.log(resp)
                     if (resp.data.status) {
                         notify.success(resp.data.message);
                         setLoading(false)
@@ -235,7 +230,6 @@ const CorporatePage = (props) => {
 
         httpClient.PUT("corporate/change/" + status + "/" + corporateID, {}, null, true)
             .then(resp => {
-                console.log(resp)
                 if (resp.data.status) {
                     notify.success(resp.data.message)
                     handleClose();
@@ -245,7 +239,6 @@ const CorporatePage = (props) => {
 
             })
             .catch(err => {
-                console.log(err);
                 setLoading(false)
 
             })
@@ -255,7 +248,6 @@ const CorporatePage = (props) => {
     }
 
     const handleTypeChange = (item) => {
-        console.log(item);
         formik.setFieldValue('selectedType', item)
     }
     return (

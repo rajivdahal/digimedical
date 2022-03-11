@@ -1,5 +1,5 @@
 import React from "react";
-import "./labtestAtHome.css";
+
 import Ooscomponent from "../ouros.component";
 
 export default function labtestAtHome() {
@@ -40,9 +40,8 @@ export default function labtestAtHome() {
 
           <p className="questionheads">Our Test Packages</p>
           <div className="serv-boxes">
-            <div className="packages_lt">
-              {" "}
-              <h3>Basic Health Screening Package</h3>
+            <div>
+              <p className="packages_ltp">Basic Health Screening Package</p>
               <p className="serv-text">
                 It covers 23 laboratory tests. Total-Cholesterol, Triglyceride,
                 Urea, Creatinine, Uric Acid, Aspartate Aminotransferase
@@ -56,7 +55,7 @@ export default function labtestAtHome() {
 
             <div>
               {" "}
-              <h3>Cardiac Package</h3>
+              <p className="packages_ltp">Cardiac Package</p>
               <p className="serv-text">
                 It covers 14 lab tests. Lactate Dehydrogenase (LDH), Creatine
                 Kinase-MB (CK-MB/CPK-MB), Troponin – I, Erythrocyte
@@ -68,7 +67,7 @@ export default function labtestAtHome() {
             </div>
             <div>
               {" "}
-              <h3>Child Health Check Up</h3>
+              <p className="packages_ltp">Child Health Check Up</p>
               <p className="serv-text">
                 It covers 25 laboratory tests. Calcium, Phosphorus, Urea,
                 Creatinine, Blood Group & Rh type, Erythrocyte Sedimentation
@@ -80,7 +79,7 @@ export default function labtestAtHome() {
             </div>
             <div>
               {" "}
-              <h3>Diamond Health Package</h3>
+              <p className="packages_ltp">Diamond Health Package</p>
               <p className="serv-text">
                 It covers 60 Laboratory Tests. Total-Cholesterol /
                 HDL-Cholesterol ratio, Glucose F, Glucose PP, Glucose R, Uric
@@ -92,7 +91,7 @@ export default function labtestAtHome() {
             </div>
             <div className="packages_lt">
               {" "}
-              <h3> General Health Package</h3>
+              <p className="packages_ltp"> General Health Package</p>
               <p className="serv-text">
                 It covers 18 Lab Tests. Total-Cholesterol, Triglyceride, Glucose
                 F, Glucose PP, Glucose R, Alanine Aminotransferase (ALT)/SGPT,
@@ -104,7 +103,7 @@ export default function labtestAtHome() {
             </div>
             <div className="packages_lt">
               {" "}
-              <h3> Gold Health Care Package</h3>
+              <p className="packages_ltp"> Gold Health Care Package</p>
               <p className="serv-text">
                 It covers 38 Laboratory Test. Protein (Total), Albumin, Urea,
                 Creatinine, Sodium, Potassium, Chloride, Total-Cholesterol,
@@ -116,7 +115,7 @@ export default function labtestAtHome() {
             </div>
             <div className="packages_lt">
               {" "}
-              <h3>Healthy Hajur Ama Package</h3>
+              <p className="packages_ltp">Healthy Hajur Ama Package</p>
               <p className="serv-text">
                 It covers 32 Lab Tests. Glucose F, Calcium, Uric Acid, Vitamin D
                 (25 Hydroxy Cholecalciferol), Vitamin B-12, C-Reactive Protein
@@ -128,7 +127,7 @@ export default function labtestAtHome() {
             </div>
             <div className="packages_lt">
               {" "}
-              <h3> Healthy Hajur Buwa Package</h3>
+              <p className="packages_ltp"> Healthy Hajur Buwa Package</p>
               <p className="serv-text">
                 It covers 19 Laboratory Tests. Glucose F, Calcium, Vitamin D (25
                 Hydroxy Cholecalciferol), Vitamin B-12, C-Reactive Protein
@@ -139,7 +138,7 @@ export default function labtestAtHome() {
             </div>
             <div className="packages_lt">
               {" "}
-              <h3>Indoor Activity Female’s Package</h3>
+              <p className="packages_ltp">Indoor Activity Female’s Package</p>
               <p className="serv-text">
                 It covers 24 Lab Tests. Calcium, Uric Acid, Vitamin D (25
                 Hydroxy Cholecalciferol), Urine Routine, Total Leucocyte count,
@@ -151,7 +150,7 @@ export default function labtestAtHome() {
             </div>
             <div className="packages_lt">
               {" "}
-              <h3> Platinum Health Care Package</h3>
+              <p className="packages_ltp"> Platinum Health Care Package</p>
               <p className="serv-text">
                 It covers 57 Lab Tests. Glycosylated Haemoglobin (HbA1C),
                 Glucose F, Glucose PP, Glucose R, Uric Acid, Calcium,

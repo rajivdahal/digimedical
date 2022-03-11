@@ -1,19 +1,10 @@
 .main_div_user_lab {
-  z-index: -1;
+  z-index: 1;
   position: absolute;
-  left: 15.4%;
-  top: 5%;
-  width: 84.7%;
-}
-
-.lab_add_to_cart {
-  width: 100%;
-}
-
-.lab_add_to_cart1 {
-  width: 100%;
-
-  /* background: linear-gradient(
+  left: 250px;
+  width: 83.5%;
+  top: 0;
+  background: linear-gradient(
     177.28deg,
     rgba(82, 178, 229, 0.14) 2.16%,
     rgba(255, 255, 255, 0) 109.75%
@@ -22,14 +13,24 @@
     177.28deg,
     rgba(82, 178, 229, 0.14) 2.16%,
     rgba(255, 255, 255, 0) 109.75%
-  ); */
+  );
+  padding-top: 4rem;
+}
+
+.lab_add_to_cart {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lab_add_to_cart1 {
+  width: 80%;
 }
 
 .lab_add_to_cart_top {
-  width: 75%;
-  margin-top: 80px;
-  margin-left: 12%;
-  height: 48px;
+  margin-top: 8rem;
+
   display: flex;
   justify-content: space-between;
 }
@@ -37,99 +38,73 @@
 .lab_add_to_cart_top div {
   display: flex;
 }
-
 .lab_add_to_cart_ltwo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.lab_add_to_cart_ltwo p {
   font-weight: bold;
-  font-size: 37px;
-
+  font-size: 33.33px;
+  line-height: 52px;
   color: #192638;
 }
 
 .lab_add_to_cart_ycarts {
-  height: 100%;
-  float: right;
+  gap: 1rem;
 }
 
 #lab_your_cart {
-  height: 100%;
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 30px;
+
+  color: #192638;
 }
 
 .lab_add_to_cart_cart {
-  width: 65px;
-  height: 100%;
   border: 1px solid #d0d7e2;
   background: #f7f7ff;
   display: flex;
-  margin-left: 10px;
+  padding: 18px;
   border-radius: 5px;
-}
-
-.lab_add_to_cart_cart:hover {
-  text-decoration: none;
-}
-
-.lab_add_to_cart_cart div {
-  margin: auto;
-  margin-bottom: 8px;
-
+  font-size: 13.33px;
   color: blue;
 }
 
-.cart-value {
-  position: absolute;
-  /* z-index: 100; */
-
-  padding-top: 10px;
-  padding-left: 10px;
+#shopping-cart-lt {
 }
-
-.lab_add_to_cart_cart div :hover .cart_pop {
-  display: none;
-}
-
-.lab_add_to_cart_cart div p {
-  font-weight: bold;
-  font-size: 15px;
-  margin-top: 2px;
-  text-decoration: none;
-}
-
-.fa-shopping-cart {
-  margin-bottom: 5px;
-  margin-left: 7px;
-}
-
 .lab_popup_checkout {
   margin-left: 20px;
-  height: 62px;
-  width: 142px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
   color: white;
+  z-index: 100;
+  cursor: pointer;
   background: #2745f0;
   border-radius: 5px;
-  display: flex;
 }
-
-.lab_popup_checkout div {
+.lab_popup_checkout p {
   margin: auto;
 }
-
+.lab_popup_checkout:hover {
+  text-decoration: none;
+  color: #fff;
+}
 .lab_add_to_cart_checkout {
-  margin-left: 20px;
-  width: 110px;
-  height: 100%;
   color: white;
   background: #2745f0;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 .lab_add_to_cart_checkout div {
-  margin: auto;
+  font-size: 11.67px;
 }
 
 .lab_add_to_cart_checkout div p {
@@ -143,22 +118,22 @@
 /* cart of sample labtest here */
 
 .lab_add_to_cart_samp {
-  margin-top: 40px;
-  width: 75%;
-  margin-left: 12%;
+  margin-top: 4rem;
+
   display: flex;
   flex-direction: column;
 }
 
 .lab_add_to_cart_samp1 {
-  margin-bottom: 45px;
-  height: 220px;
+  margin-bottom: 3rem;
+
   background-color: #f5faff;
   border: 1px solid #d0d7e2;
   border-radius: 10px;
-  justify-content: space-between;
+
   padding: 20px;
   display: flex;
+  gap: 2rem;
 }
 
 .lab_add_to_cart_samp1:hover {
@@ -177,27 +152,26 @@
   /* border: 3px solid red; */
   border-radius: 10px;
   display: flex;
+  gap: 2rem;
 }
 
-.lab_add_to_cart_samp_img1 {
-  height: 100%;
-
-  width: 20%;
+.lab_add_to_cart_samp_body1 {
+  flex: 4;
+  display: flex;
+  gap: 2rem;
+  border-right: 1px solid #8797a87a;
 }
 
-.lab_add_to_cart_samp_img1 img {
+.lab_add_to_cart_samp_body1 img {
   border-radius: 5px;
-  width: 90%;
-  height: 100%;
+  width: 165px;
+  height: 158px;
   line-height: 160px;
   object-fit: cover;
 }
 
 .lab_add_to_cart_test_desc {
-  width: 60%;
-  height: 100%;
-
-  border-right: 1px solid #8797a87e;
+  flex: 1;
 }
 
 .ul_labtest_dash {
@@ -212,18 +186,16 @@
 
 .ul_labtest_dash li {
   display: flex;
-
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-left: -12%;
 }
 /* big ul list style */
 .ul_labtest_dash li:before {
   content: "•";
-  font-size: 30pt;
+  font-size: 30px;
+  color: black;
+  margin-left: -10px;
 }
 .lab_samp_sel {
-  width: 20%;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -233,11 +205,12 @@
   border-radius: 5px;
   border: 1px solid #2745f0;
   color: #2745f0;
-  padding: 10px;
-  width: 50%;
+  padding: 12px 25px;
+  font-size: 11.67px;
   transition: 0.5s;
   text-decoration: none;
   text-align: center;
+  font-weight: 500;
 }
 .lab_samp_sel1:hover {
   background: #2745f0;
@@ -245,7 +218,7 @@
   text-decoration: none;
   cursor: pointer;
 }
-/* 
+/*
 a
 b
 c
@@ -270,7 +243,7 @@ popup to select labtest */
 }
 
 .ctlt_popup_cont {
-  margin: 5% auto;
+  margin: 10vh auto;
   padding: 30px 20px 30px 20px;
   background: #fff;
   border-radius: 5px;
@@ -345,7 +318,7 @@ popup to select labtest */
 .ctlt_atc_but:hover {
   background: #1229a7;
 }
-/* 
+/*
 bla
 bla
 bla
@@ -371,19 +344,43 @@ Pagination Here */
   display: none;
 }
 
+/*
+m 
+o 
+b 
+i 
+l
+e
+v
+i
+e
+w
+*/
+
+@media screen and (max-width: 1100px) {
+  .ctlt_popup_cont {
+    width: 40%;
+  }
+}
+
 @media screen and (max-width: 1000px) {
+  .lab_add_to_cart1 {
+    width: 95%;
+  }
   .main_div_user_lab {
     left: 0px;
     width: 100%;
   }
-
   .lab_add_to_cart_top {
-    width: 90%;
-    margin-left: 12%;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    margin-bottom: 80px;
+    gap: 2rem;
   }
-
+  .ul_labtest_dash {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  /*
   .lab_add_to_cart_ltwo {
     width: 100%;
     line-height: 50px;
@@ -399,14 +396,19 @@ Pagination Here */
     color: red;
     justify-content: center;
     align-items: center;
-  }
+  } */
   /* .lab_add_to_cart_atc {
     margin-top: 0;
     margin-bottom: 10px;
   } */
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 660px) {
+  .lab_add_to_cart_samp_body1 {
+    border-right: none;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+  }
   .lab_add_to_cart_samp1 {
     flex-direction: column;
   }
@@ -418,10 +420,12 @@ Pagination Here */
   .lab_add_to_cart_test_desc {
     margin: 0;
     border-right: none;
-    border-bottom: 1px solid gray;
+
     width: 100%;
   }
-
+  .ul_labtest_dash {
+    grid-template-columns: 1fr 1fr;
+  }
   .lab_add_to_cart_samp_img1 {
     width: 100%;
   }
@@ -434,8 +438,18 @@ Pagination Here */
   }
 }
 
-@media screen and (max-width: 1100px) {
-  .ctlt_popup_cont {
-    width: 40%;
+@media screen and (max-width: 400px) {
+  .lab_add_to_cart_samp_body1 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #labtest_desc_txt1,
+  #labtest_desc_txt2 {
+    text-align: center;
+  }
+  .ul_labtest_dash {
+    justify-content: center;
+    align-items: center;
   }
 }

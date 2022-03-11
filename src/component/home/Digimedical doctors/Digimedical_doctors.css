@@ -1,9 +1,101 @@
 .digi_doc_appointmain {
-  margin: 5%;
   display: flex;
-  gap: 50px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.digi_doc_appointmain1 {
+  margin-top: 10%;
+}
+.digi_doc_appoint_bod {
+  width: 80%;
+  display: flex;
+
+  gap: 4rem;
+}
+.our_doc_appoint {
+  width: 70%;
 }
 
+.doc_speciality_main_body {
+  width: 80%;
+}
+.our_doc_speciality {
+  margin-top: 50px;
+  display: grid;
+  grid-gap: 2em;
+  grid-auto-columns: 1fr;
+  grid-template-columns: repeat(6, 1fr);
+  /* grid-template-areas: "one two three four five six" "seven eight nine ten eleven twelve"; */
+}
+.speciality_doc_card {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  height: fit-content;
+}
+/* .speciality_doc_card:nth-child(1) {
+  grid-area: one;
+}
+.speciality_doc_card:nth-child(2) {
+  grid-area: two;
+}
+.speciality_doc_card:nth-child(3) {
+  grid-area: three;
+}
+.speciality_doc_card:nth-child(4) {
+  grid-area: four;
+}
+.speciality_doc_card:nth-child(5) {
+  grid-area: five;
+}
+.speciality_doc_card:nth-child(6) {
+  grid-area: six;
+}
+.speciality_doc_card:nth-child(7) {
+  grid-area: seven;
+}
+.speciality_doc_card:nth-child(8) {
+  grid-area: eight;
+}
+.speciality_doc_card:nth-child(9) {
+  grid-area: nine;
+}
+.speciality_doc_card:nth-child(10) {
+  grid-area: ten;
+}
+.speciality_doc_card:nth-child(11) {
+  grid-area: eleven;
+}
+.speciality_doc_card:nth-child(12) {
+  grid-area: twelve;
+} */
+.speciality_cont1 {
+  display: flex;
+
+  background: #f0f2ff;
+  border-radius: 10px 10px 0px 0px;
+}
+.speciality_cont1 img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 10px 10px 0px 0px;
+}
+.speciality_cont2 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+}
+.speciality_cont2 p {
+  text-align: center;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 30px;
+  color: #374253;
+}
 .digidoc_head_txt h1,
 p {
   text-align: left;
@@ -61,9 +153,6 @@ p {
   color: #fff;
 }
 
-/* Digidoc form */
-.form_digi_doc {
-}
 .form_digidoc {
   margin-top: -21px;
   border: 1px solid #d0d7e2;
@@ -110,26 +199,27 @@ p {
   background-color: #2745f0;
   color: #fff;
 }
-
-/* why choose us cards */
-
 .digidoctor_whychooseus {
-  margin-top: 18%;
-  width: 22%;
+  flex: 1;
 }
-.digidpc_whycus {
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+.digidoc_whycus {
+  box-shadow: 0px 0px 4px rgba(20, 8, 8, 0.3);
   border-radius: 10px;
 }
-.digidpc_whycus h1 {
+.digidoc_whycus_head {
   padding: 10px;
-  font-size: 20px;
-  font-weight: 800;
+  padding-left: 20px;
 }
-
+.digidoc_whycus_h1 {
+  font-size: 19.16px;
+  font-weight: bold;
+}
+.digidoc_whycus_body {
+}
 .digidoctor_whychooseus_cont {
   padding: 10px;
-
+  padding-left: 20px;
+  width: 100%;
   border-bottom: 0.75px solid #d0d7e2;
   display: flex;
 }
@@ -138,29 +228,42 @@ p {
   margin-right: 10px;
   margin-top: 7px;
 }
-.digidoctor_whychooseus_cont img {
-  width: 18px;
-  height: 18px;
+
+.ico_digi_doc1 {
+  font-size: 19.16px;
 }
 .digidoctor_whychooseus_cont p {
-  font-size: 14px;
+  font-size: 15px;
   color: #7b8698;
+  font-weight: normal;
 }
 
+.digidoc_wcu_b_P {
+  padding-top: 6px;
+}
 .digidoc_emergency_call {
+  padding: 50px;
   margin-top: 20px;
   background: #52b2e5;
   border-radius: 8px;
   color: white;
-  height: 200px;
+  height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
-  font-weight: 600;
 }
-
+.digidoc_emergency_call p {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+}
+.digidoc_emergency_call h4 {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: bold;
+}
 @media screen and (max-width: 660px) {
   .digidoctor_apoint_card1 {
     flex-direction: column;
@@ -174,6 +277,7 @@ p {
     text-align: center;
   }
   .digidoc_about_desc_head {
+    flex-wrap: wrap;
     justify-content: center;
   }
 
@@ -189,7 +293,7 @@ p {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 990px) {
   .take_doc_appoint {
     width: 90%;
   }
@@ -200,6 +304,41 @@ p {
   }
   .digidoctor_whychooseus {
     margin: 0;
-    width: 90%;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  .our_doc_speciality {
+    grid-template-columns: repeat(5, 1fr);
+    /* grid-template-areas: "one two three four five six" "seven eight nine ten eleven twelve"; */
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .our_doc_speciality {
+    grid-template-columns: repeat(4, 1fr);
+    /* grid-template-areas: "one two three four five six" "seven eight nine ten eleven twelve"; */
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .our_doc_speciality {
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-areas: "one two three four five six" "seven eight nine ten eleven twelve"; */
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .our_doc_speciality {
+    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-areas: "one two three four five six" "seven eight nine ten eleven twelve"; */
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .our_doc_speciality {
+    grid-template-columns: repeat(1, 1fr);
+    /* grid-template-areas: "one two three four five six" "seven eight nine ten eleven twelve"; */
   }
 }

@@ -1,16 +1,14 @@
 .photo_editprof {
   display: flex;
-
   align-items: center;
   justify-content: center;
 }
 
 .image-wrapper {
   text-align: center;
-
   margin-top: 50px;
-
   overflow: hidden;
+  position: relative;
 }
 
 .change-photo {
@@ -21,7 +19,6 @@
   transform: translateX(-50%);
   opacity: 0.8;
   width: 100%;
-  border-radius: 0;
   color: white;
   height: 50px;
 }
@@ -68,8 +65,8 @@
   background-color: #162daf;
 }
 .imag-profile {
-  height: 130px;
-  width: 130px;
+  height: 150px;
+  width: 150px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -78,7 +75,6 @@
 
 .image-profile {
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;

@@ -186,7 +186,6 @@ const EditProfile = (props) => {
           enableReinitialize={true}
           initialValues={doctorProfile}
           onSubmit={(values) => {
-            console.log(values);
             updateProfile(values);
           }}
         >

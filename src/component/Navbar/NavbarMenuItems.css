@@ -2,47 +2,63 @@
   background-color: #2745f0;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  max-width: 1920px;
   z-index: 1000;
 }
 
 .logcontainer_nav {
-  margin-left: 6vw;
   display: flex;
   justify-content: space-between;
-  width: 90%;
+  width: 100%;
+  padding: 0 6.5rem 0 6rem;
 }
 .logcontainer_nav img {
   object-fit: cover;
 }
 .menu {
-  width: 65%;
-
   color: white;
   display: flex;
 }
+.common-menu:not(:last-of-type) {
+  margin-right: 30px;
+}
 .menu .menu-item {
-  width: 16.67%;
   height: 100%;
 
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.menu-item:hover {
-  text-decoration: underline;
+ul {
+  line-height: 0;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.menu-item a {
+  position: relative;
+}
+.menu-item:hover a:after {
+  position: absolute;
+  content: "";
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  width: 100%;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 25px;
 }
 .menu-item Link {
   cursor: pointer;
 }
 .menu-item_nav {
   height: 100%;
-  width: 16.67%;
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 0 0.625rem;
 }
 .link_home_nav {
   width: 100%;
@@ -51,12 +67,17 @@
   align-items: center;
   justify-content: center;
 }
+.nav_link_font {
+  font-size: 15px;
+  font-weight: normal;
+  color: #f4f7fb;
+}
 /* menu of dropping down content */
 .dropdown_hp_content {
   z-index: 19;
   position: absolute;
-  top: 150px;
-  left: 20;
+  top: 164px;
+
   padding: 10px;
 
   display: none;
@@ -68,6 +89,7 @@
   color: #2745f0;
   cursor: pointer;
 }
+
 /* .menu-item_nav:hover .dropbtn {
   color: #2745f0;
 } */
@@ -78,11 +100,15 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   grid-gap: 1em;
 }
 
-.dropdown_hp_content a {
+.dropdown_hp_content1 a:hover {
+  text-decoration: none;
+}
+
+/* .dropdown_hp_content a {
   width: 250px;
 
   background-color: #f5faff;
@@ -92,18 +118,30 @@
   line-height: 20px;
   color: black;
   display: flex;
-  padding-left: 10px;
+  padding: 10px;
+  align-items: center;
   border-radius: 10px;
 }
 .dropdown_hp_content a:hover {
   text-decoration: none;
   background: #dbeafa;
+} */
+.content-drop-home-nav {
+  background-color: #f5faff;
+  display: flex;
+  gap: 1rem;
+  padding: 20px;
+  color: black;
 }
-.dropdown_hp_content a img,
+.content-drop-home-nav:hover {
+  background: #dbeafa;
+}
+
+/* .dropdown_hp_content div img,
 p {
   margin-top: 10px;
   margin-left: 10px;
-}
+} */
 
 .nav_search {
   position: relative;
@@ -193,10 +231,10 @@ p {
 .m-menu__toggle {
   z-index: 3;
   position: absolute;
-  width: 4rem;
-  height: 4rem;
-  top: 1.1rem;
-  left: 1.1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  top: 0.75rem;
+  left: 0.75rem;
   cursor: pointer;
   opacity: 0;
   outline: 1px solid black;
@@ -228,8 +266,11 @@ p {
 }
 
 .m-menu__content nav {
-  margin-top: 20px;
-  width: 80%;
+  width: 40%;
+}
+
+.m-menu__content nav h3 {
+  padding: 15px 30px;
 }
 
 .categories_nav_mob {
@@ -240,10 +281,16 @@ p {
 .categories_nav_mob #link_cat_nav_mob {
   width: 100%;
   margin-left: 0px;
-  margin-top: 10px;
   text-align: left;
   color: white;
   font-size: 16px;
+  padding: 15px 30px;
+}
+
+.categories_nav_mob #link_cat_nav_mob span {
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
 }
 
 .m-menu__toggle:checked {
@@ -285,14 +332,21 @@ p {
 }
 
 @media screen and (max-width: 600px) {
+  .m-menu__content {
+    width: 75%;
+  }
   .m-menu__content nav {
-    width: 90%;
+    width: 75%;
+    padding-top: 50px;
+  }
+  .logcontainer_nav a {
+    margin-bottom: 0;
   }
   #categories_m-menu {
-    font-size: 18px;
+    font-size: 2rem;
   }
   .categories_nav_mob #link_cat_nav_mob {
-    font-size: 14px;
+    font-size: 1.25rem;
   }
   /* .logout-container {
     margin-top: 30%;
@@ -305,5 +359,11 @@ p {
     margin-top: 30%;
     left: 40%;
     width: 70%;
+  }
+}
+
+@media screen and (max-width: 1088px) {
+  .dropdown_hp_content {
+    top: 192px;
   }
 }

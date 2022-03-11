@@ -6,8 +6,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+  padding: 2rem;
 }
 .hospital_carousel_main {
   width: 100%;
@@ -49,15 +49,13 @@
 }
 
 .hospital_bookcont {
-  width: 80%;
   margin-top: 50px;
   justify-content: center;
   align-items: center;
 }
 .hospital_bookcont_from_user {
-  width: 80%;
-  margin-left: 15%;
-  margin-top: 10%;
+  margin-left: 250px;
+  margin-top: 10rem;
 }
 
 .hospital_bookconthead {
@@ -66,12 +64,14 @@
   justify-content: space-between;
 }
 
-.hospital_bookconthead div {
+/* .hospital_bookconthead div {
   float: right;
-}
+} */
 
-.hospital_bookconthead h2 {
-  font-weight: bolder;
+.hospital_bookconthead p {
+  font-size: 33.33px;
+  font-weight: bold;
+  line-height: 52px;
 }
 
 .hospital_booksearch {
@@ -87,13 +87,14 @@ form.example input[type="text"] {
   background: #e6eaf0;
   border-radius: 15px;
 }
-
+form.example {
+  position: relative;
+}
 .hosp_srch {
-  margin-left: -50px;
-  margin-top: -3px;
-  float: left;
-  width: 4%;
-  padding: 10px;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   color: #2745f0;
   font-size: 20px;
@@ -122,7 +123,7 @@ asasdas*/
 }
 
 .hospital_book_card1 {
-  padding: 10px;
+  padding: 16px;
   display: flex;
   justify-content: space-between;
   background: #f5faff;
@@ -132,26 +133,34 @@ asasdas*/
 }
 
 .hospital_book_card1 img {
+  flex: 1;
   width: 200px;
   height: 170px;
   object-fit: cover;
   border-radius: 10px;
 }
+.hosp-ct-bt {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
+  height: 100%;
+}
 .hospital_card_text {
   display: flex;
   flex-direction: column;
-  width: 40%;
+
   padding-left: 20px;
 }
 .hospital_card_text h1 {
-  font-size: 20px;
+  font-size: 19.16px;
   line-height: 30px;
   font-weight: bold;
 }
 
 .hospital_card_text p2 {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 30px;
   letter-spacing: 0.02em;
   color: #596579;
@@ -160,13 +169,12 @@ asasdas*/
 .hosp_card_but_main {
   display: flex;
   align-items: flex-end;
-  flex-wrap: wrap;
-  justify-content: end;
+  justify-content: flex-end;
 }
 #hosp_card_but {
   width: auto;
   height: 45px;
-
+  padding: 16px 24px;
   border: 1px solid #2745f0;
   color: #2745f0;
   background: white;
@@ -177,15 +185,13 @@ asasdas*/
   transition: 0.5s;
 }
 #hosp_card_but_user {
-  width: 155px;
-  height: 40px;
-
+  padding: 16px 24px;
   border: 1px solid #2745f0;
   color: #2745f0;
   /* background: rgb(7, 6, 6); */
   border-radius: 5px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 11.67px;
   line-height: 15px;
   transition: 0.5s;
 }
@@ -208,9 +214,6 @@ asasdas*/
 /* responsive design query */
 
 @media only screen and (max-width: 1496px) {
-  .hospital_bookcont_from_user {
-    width: 80%;
-  }
   .hospital_book_card {
     display: flex;
     flex-direction: column;
@@ -319,12 +322,13 @@ asasdas*/
     align-items: center;
   }
   .hospital_book_card1 img {
-    width: 80%;
+    width: 100%;
   }
   .hospital_card_text {
     margin-top: 20px;
     text-align: center;
     padding: 0px;
+    width: 100%;
   }
   .hospital_card_text p2 {
     margin-top: -10px;

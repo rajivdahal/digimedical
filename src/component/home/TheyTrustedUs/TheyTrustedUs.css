@@ -1,0 +1,57 @@
+.email-img {
+  height: 6rem;
+}
+.items-div {
+  padding: 1rem;
+  margin-top: 3rem;
+}
+.inner {
+  padding: 1rem;
+  border: 1px solid #d0d7e2;
+  box-sizing: border-box;
+  border-radius: 5px;
+  @media screen and (max-width: 1077px) {
+    margin-top: 1rem;
+  }
+  @media screen and (max-width: 650px) {
+    width: 100%;
+    margin-left: 0rem;
+    margin-right: 0rem;
+  }
+}
+.image-name-div {
+  display: flex;
+  align-items: center;
+}
+.client .client-name {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 30px;
+  color: #192638;
+  text-align: center;
+}
+
+.client .client-info {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 25px;
+  margin: 0;
+  text-align: left;
+  color: #a7b2c3;
+}
+.details-div {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 30px;
+  color: #596579;
+  text-align: left;
+}
+
+.slider-div {
+  height: 50px;
+  background-color: blue;
+  color: #fff;
+  width: 50px;
+}

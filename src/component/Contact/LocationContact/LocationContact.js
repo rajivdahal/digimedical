@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Root = styled.div`
   padding-left: 8.75rem;
   padding-right: 8.75rem;
-  padding-top: 5rem;
+  padding-top: 6rem;
   padding-bottom: 5rem;
   display: flex;
   justify-content: center;

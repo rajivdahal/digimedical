@@ -9,12 +9,14 @@ import Cliploader from "../../../../utils/clipLoader";
 import DigiMedicalLogo from "../../../../assets/logo.png";
 import { Visibility } from "@material-ui/icons";
 import "./prescriptionView.css";
-import "./completedappointment.component.css"
+import "./completedappointment.component.css";
+
 export const Completedappointment = (props) => {
   const fromdoctorcomponent = props.fromdoctorcomponent
     ? props.fromdoctorcomponent
     : null;
   const [isloading, setisloading] = useState(false);
+  const [tableLoading,setTableLoading] = useState(false);
   const [pendingData, setpendingData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showPrescription, setShowPrescription] = useState(false);
@@ -24,7 +26,7 @@ export const Completedappointment = (props) => {
   const [tableData, setTableData] = useState("");
   const [appointmentId, setAppointmentId] = useState("");
   useEffect(() => {
-    setisloading(true);
+    setTableLoading(true);
     if (fromdoctorcomponent) {
       httpClient
         .GET("getall-appointments-by/1", false, true)
@@ -39,14 +41,15 @@ export const Completedappointment = (props) => {
           });
           console.log(data);
           setpendingData(resp.data.data);
-          setisloading(false);
+          setTableLoading(false);
         })
         .catch((err) => {
-          notify.error("something went wrong");
-          setisloading(false);
+          // notify.error("something went wrong");
+          console.log(err.response.data)
+          setTableLoading(false);
         });
     } else {
-      setisloading(true);
+      setTableLoading(true);
       httpClient
         .GET("get-user-completed-appointments", false, true)
         .then((resp) => {
@@ -60,11 +63,11 @@ export const Completedappointment = (props) => {
           });
           console.log(data);
           setpendingData(resp.data.data);
-          setisloading(false);
+          setTableLoading(false);
         })
         .catch((err) => {
           notify.error("something went wrong");
-          setisloading(false);
+          setTableLoading(false);
         });
     }
   }, [refresh]);
@@ -167,6 +170,7 @@ export const Completedappointment = (props) => {
           title="Completed Appointments"
           columns={columns}
           data={pendingData}
+          isLoading={tableLoading}
           options={{
             paging: true,
             exportButton: true,

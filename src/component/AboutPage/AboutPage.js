@@ -11,22 +11,23 @@ import OurMission from "./OurMission/OurMission";
 import "./AboutPage.css";
 import ourteamimg from "../../assets/team2.png";
 const Root = styled.div`
-  height: 25rem;
+  height: 30rem;
 `;
 
 const Content = styled.div`
   padding-top: 6rem;
-  padding-left: 9rem;
+  padding-left: 6.5rem;
   @media screen and (max-width: 650px) {
     padding-top: 4rem;
     padding-left: 2rem;
   }
 `;
 const Heading = styled.div`
+  margin-top: 1rem;
   width: 40%;
   font-style: normal;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 50px;
   line-height: 50px;
   display: flex;
   align-items: center;
@@ -57,7 +58,7 @@ const Subheading = styled.div`
   margin-top: 1rem;
   width: 23%;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 15px;
   line-height: 25px;
   display: flex;
@@ -70,22 +71,21 @@ const ButtonContainor = styled.div`
   margin-top: 1rem;
 `;
 const GetAppointment = styled.a`
+  margin-top: 1rem;
+
   background-color: #2745f0;
   border-radius: 5px;
-  height: 50px;
-  width: 170px;
-  padding: 0rem 1rem 0rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 1rem;
+  display: inline-block;
   color: #fff;
+  font-size: 13.33px;
+  font-weight: 500;
 `;
 
 const AboutPage = () => {
-  useEffect(()=>{
-    window.scrollTo(0,0)
-
-  },[])
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Navbar></Navbar>

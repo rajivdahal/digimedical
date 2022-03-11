@@ -5,7 +5,8 @@ import { useState } from "react"
 import { notify } from "../../../../services/notify"
 import { httpClient } from "../../../../utils/httpClient"
 import { Modal, Button } from 'react-bootstrap';
-import { TimeandDate } from "../../../../services/timeanddate"
+import { TimeandDate } from "../../../../services/timeanddate";
+
 export const Doctordashboard = (props) => {
   const [totalappointments, settotalappointments] = useState()
   useEffect(() => {
@@ -17,7 +18,6 @@ export const Doctordashboard = (props) => {
         notify.error("Total appointments-unable to fetch")
       })
   })
-  console.log("props are in doctordashboard", props)
 
   return (
     <>
@@ -104,12 +104,7 @@ export const Doctordashboard = (props) => {
           </div>
         </div>
 
-
         <Commonupcomingappointment fromdoctorcomponent={true} setisassigneddoctor={false}></Commonupcomingappointment>
-
-
-
-
 
       </div>
 

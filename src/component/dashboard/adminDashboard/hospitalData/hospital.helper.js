@@ -1,4 +1,5 @@
 import { REGEX } from "../../../../constants/constants";
+import { getRequiredError } from "../../../../utils/errorHelper";
 
 const validateHospital = ( values, isEdit = false ) =>{
     let errors = {};
@@ -38,6 +39,9 @@ const validateHospital = ( values, isEdit = false ) =>{
         errors.mobileNumber = "Mobile Number can't be Negative!"
     }
 
+    // if (!values.servicePrice) {
+    //     errors.servicePrice = getRequiredError("Price")
+    // }
 
     if (!values.address) {
         errors.address = 'Address is required!'
@@ -45,6 +49,10 @@ const validateHospital = ( values, isEdit = false ) =>{
     if (!values.mobileNumber) {
         errors.mobileNumber = "Mobile Number is required!"
     }
+
+    // if (!values.hospitalServices.value) {
+    //     errors.hospitalServices = getRequiredError("Service Name")
+    // }
 
     if(!isEdit){
         
@@ -73,4 +81,21 @@ const validateHospital = ( values, isEdit = false ) =>{
     return errors;   
 }
 
-export {validateHospital};
+const validateServiceData = (value)=>{
+
+    let errors = {};
+    let isValid = true;
+    if (!value.serviceID || !value.serviceName) {
+        isValid = false;
+        errors.serviceID = getRequiredError("Service")
+    }
+
+    if(!value.price){
+        isValid = false;
+        errors.price = getRequiredError("Price");
+    }
+    return { errors,isValid };   
+
+}
+
+export {validateHospital,validateServiceData};

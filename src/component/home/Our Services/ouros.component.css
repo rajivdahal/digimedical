@@ -1,13 +1,32 @@
+/* ouroscomponent css here */
 .ourserv-wcu-cont {
-  width: 100%;
-  padding-top: 50px;
-
-  width: 25%;
+  margin-top: 4.5rem;
+  flex: 1;
+}
+.ourserv-wcu-cont1 {
+  width: 80%;
+  float: right;
 }
 
 .emergency-call {
 }
 
 .ourserv-wcu-main {
-  margin-top: 50px;
+  margin-top: 1rem;
+}
+
+.icon-oos {
+  font-size: 25px;
+}
+
+/*a
+b
+c
+ responsive css here */
+
+@media screen and (max-width: 991px) {
+  .ourserv-wcu-cont1 {
+    width: 100%;
+    float: unset;
+  }
 }

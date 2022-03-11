@@ -1,9 +1,10 @@
+import Select from "react-select";
 import { useEffect, useRef, useState } from "react";
 import { Form, Button, Container, Row, Col, Nav, Image } from "react-bootstrap";
 import { notify } from "../../../../services/notify";
 import Cliploader from "../../../../utils/clipLoader";
 import { useFormik } from "formik";
-import { validateHospital } from "./hospital.helper";
+import { validateHospital, validateServiceData } from "./hospital.helper";
 import hospitalApi from "./hospitalServices";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -13,6 +14,10 @@ const Hospital = (props) => {
   const [hospitalID, setHospitalID] = useState("");
   const [selectedImage, setImage] = useState("");
   const [selectedImgName, setImgName] = useState("");
+  const [digiServices, setDigiServices] = useState([]);
+  const [servicesOptions, setServicesOptions] = useState([]);
+  const [errorMsg, setErrorMsg] = useState({});
+
   const [hospitalData, setHospitalData] = useState({
     name: "",
     description: "",
@@ -24,14 +29,22 @@ const Hospital = (props) => {
     hospitalImage: "",
     link: "",
     email: "",
-    country  :"Nepal",
+    country: "Nepal",
     password: "",
     confirmPassword: "",
-  });
+    hospitalServices: [],
+    serviceId: "",
+    servicePrice: "",
+  },
+
+  );
+
+  const [selectedServices, setSelectedService] = useState([]);
 
   const initialize = async () => {
+    let allServices = await getDigiService();
     if (props.location.state && props.location.state.id != null) {
-      await getHospitalById();
+      await getHospitalById(allServices);
     }
   };
 
@@ -39,16 +52,36 @@ const Hospital = (props) => {
     initialize();
   }, []);
 
-  const getHospitalById = async () => {
+  const getHospitalById = async (allServices) => {
     let id = props.location.state.id;
     if (id == null) return;
     setHospitalID(id);
     try {
       let resp = await hospitalApi.getHospitalById(id);
       if (resp.data.status) {
-        let data = resp.data.data;
+        let hospitalData = resp.data.data;
+        let data = hospitalData.hospitalDetails;
+        let serviceData = hospitalData.digiServicesDetails;
 
-        if (data) {
+        let services = serviceData.map((service) => {
+          return {
+            serviceName: service.digiservicename,
+            serviceID: service.digiserviceid,
+            price: service.price,
+          }
+        })
+        setSelectedService(services);
+        let filteredServices = [];
+        allServices.forEach((service) => {
+          let exists = services.filter((item) => {
+            return item.serviceID === service.value
+          })
+          if (exists.length === 0) {
+            filteredServices.push(service);
+          }
+        });
+        setServicesOptions(filteredServices);
+        if (hospitalData) {
           let url = REACT_APP_BASE_URL + "hospital/download/" + id;
           setImage(url);
           setHospitalData({
@@ -60,7 +93,9 @@ const Hospital = (props) => {
             description: data.description,
             establishedDate: data.establisheddate,
             address: data.address,
+            link: data.websitelink,
           });
+
         }
       }
     } catch (err) {
@@ -70,11 +105,38 @@ const Hospital = (props) => {
     }
   };
 
+  const getDigiService = async () => {
+    let resp;
+    try {
+      resp = await hospitalApi.getDigiServices();
+      console.log(resp)
+      if (resp.data.status) {
+        let data = resp.data.data;
+        let trueDigiService = data.filter((item) => {
+          return item.status == true
+        })
+        let options = trueDigiService.map((service) => {
+          return {
+            label: service.name,
+            value: service.id,
+          };
+        })
+        setDigiServices(options);
+        setServicesOptions(options);
+        return options;
+      }
+    }
+    catch (err) {
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+  }
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: hospitalData,
     onSubmit: (values) => {
-      console.log(values);
       if (hospitalID) {
         editHospitalDetail(values);
       } else {
@@ -89,11 +151,19 @@ const Hospital = (props) => {
 
   const handleCreateHospital = async (values) => {
     try {
+
+      let data = { ...values };
+      let serviceData = selectedServices.map((item) => {
+        return {
+          digiServiceId: item.serviceID,
+          price: parseFloat(item.price)
+        }
+      })
       setLoading(true);
-      let resp = await hospitalApi.createHospital(values);
+      data.hospitalPricePojos = serviceData;
+      let resp = await hospitalApi.createHospital(data);
 
       if (resp.data.status) {
-        console.log(resp.data.data);
         notify.success(resp.data.message);
         props.history.push("/dashboard/hospital-table");
       }
@@ -108,7 +178,16 @@ const Hospital = (props) => {
   const editHospitalDetail = async (values) => {
     setLoading(true);
     try {
-      let resp = await hospitalApi.editHospital(values, hospitalID);
+      let data = { ...values };
+      let serviceData = selectedServices.map((item) => {
+        return {
+          digiServiceId: item.serviceID,
+          price: parseFloat(item.price)
+        }
+      })
+      setLoading(true);
+      data.hospitalPricePojos = serviceData;
+      let resp = await hospitalApi.editHospital(data, hospitalID);
       if (resp.data.status) {
         notify.success(resp.data.message);
         props.history.push("/dashboard/hospital-table");
@@ -136,6 +215,7 @@ const Hospital = (props) => {
       email: "",
       hospitalImage: "",
     });
+    setSelectedService("");
     props.history.replace("/dashboard/add-hospital", null);
   };
 
@@ -158,7 +238,57 @@ const Hospital = (props) => {
     setImage(null);
     setImgName(null);
     formik.setFieldValue("hospitalImage", null);
-  };
+  }
+
+  const handleDigiServiceChange = (item) => {
+    formik.setFieldValue("hospitalServices", item);
+  }
+
+  // handles adding services
+  const handleAddServices = (values) => {
+    if (!values.hospitalServices) return;
+    let tempArr = [...selectedServices];
+    let { value, label } = values.hospitalServices;
+    let addedService = {
+      serviceID: value,
+      serviceName: label,
+      price: values.servicePrice,
+
+    }
+
+    // validate service and price 
+    const isValid = validateServiceData(addedService);
+    if (!isValid.isValid) {
+      setErrorMsg(isValid.errors)
+      return;
+    }
+    tempArr.push(addedService);
+    setSelectedService(tempArr);
+    refreshServiceOptions(tempArr);
+    formik.setFieldValue("hospitalServices", null);
+    formik.setFieldValue("servicePrice", "");
+  }
+
+  const refreshServiceOptions = (selected) => {
+    let filteredServices = [];
+    digiServices.forEach((service) => {
+
+      let exists = selected.filter((item) => {
+        return item.serviceID === service.value
+      })
+      if (exists.length === 0) {
+        filteredServices.push(service);
+      }
+    });
+    setServicesOptions(filteredServices);
+  }
+
+  const removeService = (index) => {
+    let tempArr = [...selectedServices];
+    tempArr.splice(index, 1);
+    setSelectedService(tempArr);
+    refreshServiceOptions(tempArr)
+  }
 
   return (
     <div>
@@ -264,8 +394,6 @@ const Hospital = (props) => {
                 ) : null}
               </Form.Group>
             </Col>
-
-
           </Row>
 
           <Row className="mb-3">
@@ -367,8 +495,7 @@ const Hospital = (props) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  {formik.errors.confirmPassword &&
-                    formik.touched.confirmPassword ? (
+                  {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
                     <div className="error-message">
                       {formik.errors.confirmPassword}
                     </div>
@@ -377,6 +504,60 @@ const Hospital = (props) => {
               </Col>
             </Row>
           )}
+
+          <Row>
+            <Col md={4}>
+              <Form.Group>
+                <Form.Label>Service</Form.Label>
+                <Select
+                  value={formik.values.hospitalServices}
+                  className="serviceSelect formControl"
+                  options={servicesOptions}
+                  name="serviceId"
+                  onChange={handleDigiServiceChange}
+                ></Select>
+                <div className="error-message">{errorMsg.serviceID}</div>
+              </Form.Group>
+            </Col>
+
+            <Col md={4}>
+              <Form.Group>
+                <Form.Label>Price</Form.Label>
+                <Form.Control
+                  type="text" className='formControl'
+                  name="servicePrice"
+                  value={formik.values.servicePrice}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <div className="error-message">{errorMsg.price}</div>
+
+              </Form.Group>
+            </Col>
+            <Col ms={2}>
+              <Button className='mt-4' onClick={() => handleAddServices(formik.values)}>Add</Button>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col md={6}>
+              {selectedServices.length > 0 ?
+                selectedServices.map((item, index) => {
+                  return <div key={index}>
+                        <p><span>{item.serviceName}</span>
+                          <span style={{ marginLeft: "30px" }}>Rs. {item.price}</span>
+                          <span className="removeBtn floatRight"
+                            onClick={() => removeService(index)}>Remove</span>
+                        </p>
+                      </div>
+                })
+                :
+                <></>
+              }
+
+            </Col>
+          </Row>
+
 
           <Row>
             <Col md={5}>

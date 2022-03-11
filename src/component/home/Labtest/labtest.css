@@ -38,11 +38,11 @@
 }
 
 #lab_content_headtxt {
-  margin-top: 30px;
-  color: black;
-  font-weight: 700;
-  font-size: 30px;
+  color: #192638;
+  font-weight: bold;
+  font-size: 33.33px;
   margin-bottom: 40px;
+  line-height: 52px;
 }
 
 .lab_samp1 {
@@ -77,19 +77,20 @@
 
 #labtest_desc_txt1 {
   font-weight: 700;
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 19.16px;
+  line-height: 30px;
 }
 
 #labtest_desc_txt2 {
-  font-size: 15px;
+  font-size: 13.33px;
   font-weight: 500px;
+  line-height: 30px;
   color: #596579;
 }
 
 .labtest_desc1 {
-  height: 62%;
-
+  padding-top: 5px;
+  padding-left: 10px;
   justify-content: left;
   display: flex;
 }
@@ -97,9 +98,12 @@
   width: 100%;
 }
 .labtest_desc_detail ul li {
-  font-weight: 400px;
+  font-weight: 400;
 
-  font-size: 15px;
+  font-size: 11.67px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+
   color: #596579;
   line-height: 20px;
 }
