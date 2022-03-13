@@ -380,7 +380,7 @@ function FormComponent(props) {
                 </div>
               </div>
               <div className="form-row">
-                <div className="form-group col-md-6">
+                <div className="form-group col-md-6 home-form-sel-serv">
                   <label htmlFor="service">
                     Select Service<span style={{ color: "red" }}>*</span>
                   </label>

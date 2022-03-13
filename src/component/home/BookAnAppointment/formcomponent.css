@@ -126,7 +126,9 @@
   width: 100%;
   border-radius: 8px;
 }
-
+.home-form-sel-serv .select-category {
+  z-index: 3;
+}
 @media screen and (max-width: 700px) {
   .formcompo_home {
     flex-direction: column;
