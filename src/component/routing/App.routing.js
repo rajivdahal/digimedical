@@ -25,6 +25,7 @@ import ForBusiness from "../home/For Business/forbusiness";
 import Digimedical_doctors from "../home/Digimedical doctors/Digimedical_doctors";
 import AllSpecialist from "../home/Digimedical doctors/allSpecialist";
 import Services from "../dashboard/adminDashboard/services/services.component";
+import SuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/successResponse";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -42,6 +43,11 @@ export const Approuting = (props) => {
           path="/our-services/:subservice"
           component={OurServices}
         ></PublicRoute>
+         <ProtectedRoute
+          exact
+          path="/payment-response"
+          component={SuccessResponse}
+        ></ProtectedRoute>
         <PublicRoute
           exact
           path="/forgot-password"
@@ -187,6 +193,11 @@ export const Approuting = (props) => {
         <ProtectedRoute
           exact
           path="/dashboard/add-member"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/payment-response"
           component={Dashboard}
         ></ProtectedRoute>
 

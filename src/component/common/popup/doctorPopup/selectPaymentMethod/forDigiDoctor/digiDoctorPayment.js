@@ -110,11 +110,13 @@ export default function DigiDoctorPayment(props) {
     httpClient.PUT("generate-payment-link",finalData,false,true)
     .then(resp=>{
       let paymentUrl=resp.data.data.paymentUrl
-      window.open("http://"+paymentUrl, '_blank');
-      closeDoctorPopUp(true)
-      if(localStorage.getItem("dm-access_token")){
-        history.push("/dashboard/viewappointment")
-      }
+      window.location.assign("http://"+paymentUrl,
+      // '_blank'
+      );
+      // closeDoctorPopUp(true)
+      // if(localStorage.getItem("dm-access_token")){
+      //   history.push("/dashboard/viewappointment")
+      // }
 
     })
     .catch(err=>{
