@@ -132,8 +132,6 @@ function AllSpecialist(props) {
       <div style={{ marginTop: "6rem" }}>
         <Footer></Footer>
       </div>
-      <br></br><br></br>
-      <Footer></Footer>
     </>
   )
 }

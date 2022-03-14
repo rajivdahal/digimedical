@@ -16,7 +16,8 @@ export default function FormComponentForLoggedInCase(props) {
 //   const [services, setservices] = useState(props.services);
   const [isdoctorblurred, setisdoctorblurred] = useState(false);
   const [isloading, setisloading] = useState(false);
-
+  const [value,setValue]=useState(null)
+  const [doctor,setDoctor]=useState(null)
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
     year: dt.getFullYear(),
@@ -58,13 +59,16 @@ export default function FormComponentForLoggedInCase(props) {
           <Select
           options={props.services}
           className="select-category"
+          value={{label: value}}
           onChange={(value)=>{
             formik.setFieldValue(name,value.value)
+            setValue(value.label)
             handleChange(value)
           }}
           />
         )
       }
+        
       function SelectFieldDoctor({name}){
         console.log("name is",name)
         const formik=useFormikContext()
@@ -73,8 +77,10 @@ export default function FormComponentForLoggedInCase(props) {
           <Select
           options={doctors}
           className="select-category"
+          value={{label: doctor}}
           onChange={(value)=>{
             formik.setFieldValue(name,value.value)
+            setDoctor(value.label)
           }}
           />
         )
@@ -115,6 +121,8 @@ export default function FormComponentForLoggedInCase(props) {
         .then((resp) => {
           notify.success("Appointment booked successfully");
           resetForm()
+          setDoctor(null)
+          setValue(null)
         })
         .catch((err) => notify.error("Error in appointment booking"));
 

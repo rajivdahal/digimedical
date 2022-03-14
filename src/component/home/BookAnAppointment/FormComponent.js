@@ -13,6 +13,7 @@ import "./formcomponent.css";
 import * as Yup from "yup";
 import Select from "react-select";
 import FormComponentForLoggedInCase from "./formComponentForLoggedInCase";
+import { setDoctorInfo } from "../../../actions/hospitalAppointmentBooking.ac";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -88,6 +89,8 @@ function FormComponent(props) {
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
+  const [value,setValue]=useState(null)
+  const [doctor,setDoctor]=useState(null)
   useEffect(() => {
     httpClient
       .GET("services/get/true")
@@ -160,8 +163,10 @@ function FormComponent(props) {
       <Select
         options={services}
         className="select-category"
+        value={{label: value}}
         onChange={(value) => {
           formik.setFieldValue(name, value.value);
+          setValue(value.label)
           handleChange(value);
         }}
       />
@@ -174,9 +179,11 @@ function FormComponent(props) {
     return (
       <Select
         options={doctors}
+        value={{label: doctor}}
         className="select-category"
         onChange={(value) => {
           formik.setFieldValue(name, value.value);
+          setDoctor(value.label)
         }}
       />
     );
@@ -284,15 +291,17 @@ function FormComponent(props) {
         .finally(() => {
           setisloading(false);
         });
-      httpClient
-        .POST("create-appointment", finaldata, false, true)
-        .then((resp) => {
-          notify.success("Appointment booked successfully");
-        })
-        .catch((err) => notify.error("Error in appointment booking"));
+        if(localStorage.getItem("dm-access_token")){
+          httpClient
+          .POST("create-appointment", finaldata, false,false)
+          .then((resp) => {
+            notify.success("Appointment booked successfully");
+          })
+          .catch((err) => notify.error("Error in appointment booking"));
+        }
     };
   const submitForLoggedInCase = (values) => {
-    console.log("values are", values);
+  console.log("values are", values);
   };
 
   return (

@@ -8,6 +8,7 @@ import { httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
 import { useHistory } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
+import DigiDoctorPayment from "../../common/popup/doctorPopup/selectPaymentMethod/forDigiDoctor/digiDoctorPayment";
 
 const Root = styled.div`
   width: 45%;
@@ -117,7 +118,7 @@ const DoctorAtHomeForm = () => {
     httpClient
       .POST("service-booking/create-external-booking", value)
       .then((resp) => {
-        notify.promise(
+        notify.success(
           "Success, you will be notified via phone or E-mail please check your email soon"
         );
         resetForm();
@@ -247,6 +248,10 @@ const DoctorAtHomeForm = () => {
           </button>
         </Form>
       </Formik>
+      <DigiDoctorPayment
+          origin="serviceBooking"
+          // directBookAppointmentProps={finalData}
+        ></DigiDoctorPayment>
     </Root>
   );
 };
