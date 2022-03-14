@@ -1,0 +1,127 @@
+.payment-success-body {
+  margin-top: -4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+.pay-suc-check-but {
+  border: 3px solid rgb(110, 179, 7);
+  background: rgb(110, 179, 7);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pay-suc-check-but p {
+  font-size: 30px;
+  margin-top: 5px;
+  color: white;
+}
+.pay-not-suc-check-but {
+  border: 3px solid rgb(231, 7, 7);
+  background: rgb(231, 7, 7);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pay-not-suc-check-but p {
+  font-size: 40px;
+  margin-top: 0px;
+  color: white;
+}
+.payment-success-body1 {
+  width: 50%;
+  box-shadow: 0px 0px 10px rgba(102, 99, 99, 0.5);
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: center;
+  justify-content: center;
+}
+.pay-suc-desc {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+.pay-suc-user-img {
+  margin-top: 0.5rem;
+}
+.pay-suc-desc1 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pay-suc-desc1 div:nth-child(1) p:nth-child(1) {
+  font-size: 19.16px;
+  font-weight: bold;
+}
+
+.pay-suc-desc1 div:nth-child(1) p:nth-child(2) {
+  font-size: 14px;
+  font-weight: 400;
+  color: #7b8698;
+}
+
+.pay-suc-desc1 div:nth-child(2) p {
+  font-size: 15px;
+}
+
+.pay-suc-desc1 div:nth-child(3) p {
+  font-size: 15px;
+  font-weight: 400;
+  color: #7b8698;
+}
+.pay-suc-desc1 div:nth-child(3) span {
+  color: black;
+}
+
+.pay-suc-desc1 div:nth-child(4) p:nth-child(1) {
+  font-size: 15px;
+  font-weight: 400;
+  color: #7b8698;
+}
+.pay-suc-desc1 div:nth-child(4) p:nth-child(2) {
+  font-size: 15px;
+  font-weight: 400;
+  color: black;
+}
+
+.pay-suc-contact {
+  margin-top: 2rem;
+  background: #e1f0ff;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pay-suc-contact p:nth-child(1) {
+  font-size: 15px;
+  line-height: 19px;
+
+  color: #2745f0;
+}
+.pay-suc-contact p:nth-child(2) {
+  font-size: 15px;
+  line-height: 19px;
+
+  color: black;
+}
+
+@media screen and (max-width: 660px) {
+  .pay-suc-desc {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

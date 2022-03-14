@@ -1,31 +1,51 @@
-
-  .browse-btn{
-    background-color: white;
-    border : 2px solid #2745F0;
-    color: #2745F0;
-    border-radius: 5px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 14.51px;
-    width: 30%;
-    height: 45px;
-    text-align: center;
-  }
-  /* .browse-btn:hover{
+.browse-btn {
+  background-color: white;
+  border: 2px solid #2745f0;
+  color: #2745f0;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 14.51px;
+  width: 30%;
+  height: 45px;
+  text-align: center;
+}
+/* .browse-btn:hover{
     background-color: white;
     border : 2px solid #2745F0;
     color: #2745F0;
   } */
 
-  .upload-btn{
-    background-color: #2745F0;
-    border : 2px solid #2745F0;
-    color: white;
-    border-radius: 5px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 14.51px;
-    margin-left: 8px;
-    width: 15%;
-    height: 45px;  
-  }
+.upload-btn {
+  background-color: #2745f0;
+  border: 2px solid #2745f0;
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 14.51px;
+  margin-left: 8px;
+  width: 15%;
+  height: 45px;
+}
+.lablist-table {
+  background: rgba(255, 255, 255, 0.527);
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+.lablist-table div {
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  background: #e1f0ff;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.lablist-table div p {
+  font-size: 15px;
+  text-align: left;
+}
