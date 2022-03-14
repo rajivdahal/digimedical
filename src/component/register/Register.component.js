@@ -7,13 +7,13 @@ import "./Register.component.css";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
 const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const RegisterComponent = (props) => {
   const [isLoading, setisLoading] = useState(false);
   const [ispassword, setispassword] = useState(true);
-  const [isGoogleApiLoading,setIsGoogleApiLoading]=useState(false)
+  const [isGoogleApiLoading, setIsGoogleApiLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -107,7 +107,7 @@ const RegisterComponent = (props) => {
     console.log(response);
     const { tokenId } = response;
     // console.log("type of token id is", typeof tokenId, tokenId);
-    setIsGoogleApiLoading(true)
+    setIsGoogleApiLoading(true);
     httpClient
       .POST("google-signin", { tokenId: tokenId })
       .then((resp) => {
@@ -123,14 +123,14 @@ const RegisterComponent = (props) => {
           props.history.push({
             pathname: `/dashboard/`,
           });
-          setIsGoogleApiLoading(false)
+          setIsGoogleApiLoading(false);
         }, 3000);
       })
       .catch((err) => {
         console.log("error is", err);
         notify.error("Login failed");
-        setIsGoogleApiLoading(false)
-      })
+        setIsGoogleApiLoading(false);
+      });
   };
   const responseGoogleFailure = (response) => {
     console.log("response from google login is", response);
@@ -330,13 +330,19 @@ const RegisterComponent = (props) => {
                         enabledLabel="Register"
                       ></Submitbtn>
                     </a>
+                    <div className="login-button-on-reg">
+                      <Submitbtn
+                        fieldName="Login"
+                        enabledLabel="Login"
+                      ></Submitbtn>
+                    </div>
                     <p className="text-center w-100 pt-3">OR</p>
                     <div className="login-icons mt-3">
                       <h2 className="fs-title text-center">Login With</h2>
                       <ul>
                         <li>
                           <a href="#">
-                            <i className="fa fa-facebook-f" ></i>
+                            <i className="fa fa-facebook-f"></i>
                           </a>
                         </li>
                         <li>
@@ -345,10 +351,16 @@ const RegisterComponent = (props) => {
                           </a>
                         </li>
                         <li className="li-reg">
-                          {
-                            isGoogleApiLoading?<CircularProgress  style={{position:"relative",top:"12px",left:"5px"}}/>
-                            :
-                             <GoogleLogin
+                          {isGoogleApiLoading ? (
+                            <CircularProgress
+                              style={{
+                                position: "relative",
+                                top: "12px",
+                                left: "5px",
+                              }}
+                            />
+                          ) : (
+                            <GoogleLogin
                               clientId={googleClientId}
                               render={(renderProps) => (
                                 <button
@@ -365,7 +377,7 @@ const RegisterComponent = (props) => {
                               onFailure={responseGoogleFailure}
                               cookiePolicy={"single_host_origin"}
                             />
-                          }
+                          )}
                         </li>
                       </ul>
                     </div>
