@@ -9,9 +9,11 @@ import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import { Modal, Button } from 'react-bootstrap';
 import ClipLoader from "../../../../utils/clipLoader";
 import { Field, Form, Formik } from "formik";
+import Cliploader from "../../../../utils/clipLoader";
 
 const BodyCheckup = (props) => {
     const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
     const [checkupId, setCheckupId] = useState(null);
     const [checkupStatus, setCheckupStatus] = useState("");
     const [allBodyCheckup, setAllCheckup] = useState([]);
@@ -22,6 +24,7 @@ const BodyCheckup = (props) => {
     })
 
     const getAllCheckup = () => {
+        setIsLoading(true);
         httpClient.GET("body-checkup/get-all", false, true)
             .then(resp => {
                 if (resp.data.status) {
@@ -31,6 +34,7 @@ const BodyCheckup = (props) => {
             .catch(err => {
                 console.log(err.response)
             })
+        setIsLoading(false)
     }
 
     useEffect(() => {
@@ -182,38 +186,33 @@ const BodyCheckup = (props) => {
                                 {errors.description && touched.description && <div className="error-message">{errors.description}</div>}
                             </div>
 
-                            {checkupId ?
+                       
 
-                                <div>
-                                    {loading == true ?
-                                        <ClipLoader isLoading={loading} />
-                                        :
-
-                                        <div className="textAlign-right">
+                            <div className=" textAlign-right mb-5">
+                                {isLoading ?
+                                    <Cliploader isLoading={loading} />
+                                    :
+                                    <div className="textAlign-right mb-5">
+                                        {checkupId ?
+                                                <div >
                                             <button type="Submit" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }}>
                                                 Edit
                                             </button>
                                             <button type="button" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff", marginLeft: '10px' }} onClick={handleCancelEdit}>
                                                 Cancel
                                             </button>
-                                        </div>
-                                    }
-                                </div>
-
-                                :
-                                <div >
-                                    {loading == true ?
-                                        <ClipLoader isLoading={loading} />
-                                        :
-                                        <div className="textAlign-right">
+                                        
+                                            </div>
+                                            :
+                                            <div>
                                             <button type="Submit" className="btn" style={{ backgroundColor: '#2745F0', color: "#fff" }} >
                                                 Submit
                                             </button>
                                         </div>
-                                    }
-                                </div>
-
-                            }
+                                        }
+                                    </div>
+                                }
+                            </div>
                         </Form>
                     )}
 
@@ -244,7 +243,7 @@ const BodyCheckup = (props) => {
                     columns={[
                         { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
                         { title: 'Name', field: 'name', },
-                        { title: 'Description', field: 'description'},
+                        { title: 'Description', field: 'description' },
                         {
                             title: 'Status', field: 'status',
                             render: rowData => rowData.status == true ?
@@ -254,7 +253,7 @@ const BodyCheckup = (props) => {
 
                         },
                     ]}
-                    // loading={isLoading}
+                    isLoading={isLoading}
                     data={allBodyCheckup}
                     title="Body Checkup"
                     icons={Tableicons}

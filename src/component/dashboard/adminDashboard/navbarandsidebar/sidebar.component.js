@@ -23,7 +23,7 @@ const Adminsidebar = (props) => {
   }
   return (
     <div>
-      <div className="newdash_body sidebar-scroll">
+      <div className="newdash_body">
         <div className="newdash_dash_main">
           <div className="newdash_dash1 sidebar-scroll">
             <Accordion>
@@ -292,6 +292,7 @@ const Adminsidebar = (props) => {
                             <p style={{ cursor: "pointer" }}>Payment Master</p>
                           </Link>
                         </li>
+                        
                         <li>
                           <Link
                             to="/dashboard/create-speciality"
@@ -332,14 +333,7 @@ const Adminsidebar = (props) => {
                             <p style={{ cursor: "pointer" }}>Lab Centers</p>
                           </Link>
                         </li>
-                        <li>
-                          <Link
-                            to="/dashboard/body-checkup"
-                            style={{ textDecoration: "none", color: "inherit" }}
-                          >
-                            <p style={{ cursor: "pointer" }}>Add Body Checkup</p>
-                          </Link>
-                        </li>
+                        
                       </ul>
                     </Accordion.Body>
                   </Accordion.Item>
