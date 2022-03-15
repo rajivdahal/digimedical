@@ -61,8 +61,21 @@ const Root = styled.div`
 
     letter-spacing: 0.01em;
   }
+  Form {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    column-gap: 2rem;
+   
+  
+    @media screen and (max-width: 500px) {
+     display:flex;
+     flex-direction:column;
+    }
 `;
-
+// const Form = styled.div`
+//   //
+//   }
+// `;
 const DoctorAtHomeForm = () => {
   const location = useLocation();
   const history = useHistory();
@@ -141,13 +154,7 @@ const DoctorAtHomeForm = () => {
         validationSchema={schema}
         onSubmit={handleSubmit}
       >
-        <Form
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            columnGap: "2rem",
-          }}
-        >
+        <Form>
           <div class="form-group">
             <label for="inputAddress">First Name</label>
             <Field

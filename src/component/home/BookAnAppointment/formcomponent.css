@@ -46,7 +46,7 @@
   width: 140px;
 }
 
-.description {
+.doc-pop-description {
   padding-left: 20px;
 }
 
@@ -150,7 +150,7 @@
   .doc p {
     text-align: center;
   }
-  .description {
+  .doc-pop-description {
     padding: 0;
     display: flex;
     flex-direction: column;

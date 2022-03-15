@@ -362,7 +362,7 @@ p {
   }
 }
 
-@media screen and (max-width: 1088px) {
+@media screen and (max-width: 1128px) {
   .dropdown_hp_content {
     top: 192px;
   }

@@ -18,3 +18,12 @@ td {
   text-align: left;
   line-height: 30px;
 }
+
+@media screen and (max-width: 500px) {
+  .table-eld-care th {
+    padding: 0;
+  }
+  .table-eld-care td {
+    padding: 0;
+  }
+}
