@@ -53,7 +53,7 @@ const NavbarMenuItems = () => {
   const [FamilyType, setFamilyType] = useState([]);
   const [doctorCategory, setDoctorCategory] = useState([]);
   const [doctorSpeciality, setDoctorSpeciality] = useState([]);
-  const [digiService,setDigiServices]=useState([])
+  const [digiService, setDigiServices] = useState([]);
   const history = useHistory();
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -145,22 +145,23 @@ const NavbarMenuItems = () => {
     });
   };
 
-  const getDigiService=()=>{
-    httpClient.GET("digi-service/get-all")
-    .then(resp=>{
-      console.log("response output is",resp.data.data)
-      setDigiServices(resp.data.data)
-    })
-    .catch(err=>{
-      notify.error("something went wrong")
-    })
-  }
+  const getDigiService = () => {
+    httpClient
+      .GET("digi-service/get-all")
+      .then((resp) => {
+        console.log("response output is", resp.data.data);
+        setDigiServices(resp.data.data);
+      })
+      .catch((err) => {
+        notify.error("something went wrong");
+      });
+  };
   useEffect(() => {
     getBusinessPackage();
     getFamilyPackage();
     getServices();
     getDoctorSpeciality();
-    getDigiService()
+    getDigiService();
   }, []);
 
   return (
@@ -318,7 +319,7 @@ const NavbarMenuItems = () => {
           <div class="m-menu__backdrop"></div>
         </div>
 
-        <Link to="/">
+        <Link to="/" className="m-menu-nav_img">
           <img
             src={logo}
             style={{
@@ -340,29 +341,29 @@ const NavbarMenuItems = () => {
             </Link>
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
-              {
-                digiService.map((item,index)=>{
-                  console.log("item is",item)
-                  return  <Link
-                  to={{
-                    pathname:"/our-services/"+item.type,
-                    state: {
-                      id:item.id
-                    },
-                  }}
-                  >
-                  <div className="content-drop-home-nav">
-                    <img
-                      src={package_logo}
-                      style={{
-                        height: "1.5rem",
+                {digiService.map((item, index) => {
+                  console.log("item is", item);
+                  return (
+                    <Link
+                      to={{
+                        pathname: "/our-services/" + item.type,
+                        state: {
+                          id: item.id,
+                        },
                       }}
-                    ></img>
-                    <p>{item.name}</p>{" "}
-                  </div>
-                </Link>
-                })
-              }
+                    >
+                      <div className="content-drop-home-nav">
+                        <img
+                          src={package_logo}
+                          style={{
+                            height: "1.5rem",
+                          }}
+                        ></img>
+                        <p>{item.name}</p>{" "}
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </li>
@@ -383,7 +384,6 @@ const NavbarMenuItems = () => {
             >
               For Family
             </Link>
-
           </li>
           <li className="menu-item_nav common-menu">
             Our Doctors

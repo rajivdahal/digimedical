@@ -558,13 +558,15 @@ class userlabtestcomponent extends Component {
                             })}
                           </div>
                           <div className="ctlt_total_price">
-                            <p>
-                              {" "}
-                              Your total :{" "}
-                              <span id="rupees_ctlt">
-                                Rs {this.state.totalprice}
-                              </span>
-                            </p>
+                            <div className="total_price_lt">
+                              <p>
+                                {" "}
+                                Your total :{" "}
+                                <span id="rupees_ctlt">
+                                  Rs {this.state.totalprice}
+                                </span>
+                              </p>
+                            </div>
                             <button
                               className="ctlt_atc_but"
                               onClick={addToCart}

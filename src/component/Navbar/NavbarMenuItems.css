@@ -12,7 +12,7 @@
   width: 100%;
   padding: 0 6.5rem 0 6rem;
 }
-.logcontainer_nav img {
+.m-menu-nav_img img {
   object-fit: cover;
 }
 .menu {
@@ -28,6 +28,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.m-menu-nav_img {
+  margin-bottom: 0;
 }
 ul {
   line-height: 0;
@@ -168,7 +171,6 @@ p {
     display: none;
   }
   .logcontainer_nav img {
-    margin-left: 15vw;
   }
 }
 
@@ -314,7 +316,7 @@ p {
 } */
 .logout-container1 {
   height: 10rem !important;
-  width: 80%;
+  width: 350px;
   padding: 10px;
   position: absolute;
   z-index: 30;
@@ -357,7 +359,7 @@ p {
   }
   .logout-container1 {
     margin-top: 30%;
-    left: 40%;
+    left: 20%;
     width: 70%;
   }
 }
