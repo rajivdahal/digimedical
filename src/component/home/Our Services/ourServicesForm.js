@@ -1,5 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
+import { Formik, Field, ErrorMessage, Form, useFormikContext } from "formik";
+import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
+import * as Yup from "yup";
+import { httpClient } from "../../../utils/httpClient";
+import { notify } from "../../../services/notify";
+import { useHistory } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
+import DigiDoctorPayment from "../../common/popup/doctorPopup/selectPaymentMethod/forDigiDoctor/digiDoctorPayment";
 
 const Root = styled.div`
   width: 45%;
@@ -56,69 +65,193 @@ const Root = styled.div`
 `;
 
 const DoctorAtHomeForm = () => {
+  const location = useLocation();
+  const history = useHistory();
+  const [isLoading, setIsLoading] = useState(null);
+  // let [isLoading,setIsLoading]=useState(false)
+  console.log("location is", location);
+  var dt = new Date();
+  const [selectedDay, setSelectedDay] = useState({
+    year: dt.getFullYear(),
+    month: dt.getMonth() + 1,
+    day: dt.getDate(),
+  });
+  const schema = Yup.object().shape({
+    firstName: Yup.string().required("FirstName is required!"),
+    middleName: Yup.string(),
+    lastName: Yup.string().required("LastName is required!"),
+    email: Yup.string().required("Email is required!"),
+    mobileNumber: Yup.number().required("mobilenumber is required!"),
+    time: Yup.string().required("Time is required!"),
+    date: Yup.object(),
+  });
+  if (!location.state) {
+    history.push("/services");
+  }
+  const initialValues = {
+    time: "",
+    date: "",
+    digiServiceId: location.state.id,
+    email: "",
+    mobileNumber: "",
+    firstName: "",
+    lastName: "",
+    middleName: "",
+  };
+  function DatePickerField({ name }) {
+    const formik = useFormikContext();
+    const field = formik.getFieldProps(name);
+    return (
+      <DatePicker
+        value={field.value ? field.value : selectedDay}
+        onChange={(value) => {
+          formik.setFieldValue(name, value);
+        }}
+      />
+    );
+  }
+  const handleSubmit = (value, { resetForm }) => {
+    value.date = !value.date
+      ? selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day
+      : value.date.year + "-" + value.date.month + "-" + value.date.day;
+    console.log("values are", value);
+    httpClient
+      .POST("service-booking/create-external-booking", value)
+      .then((resp) => {
+        notify.success(
+          "Success, you will be notified via phone or E-mail please check your email soon"
+        );
+        resetForm();
+      })
+      .catch((err) => {
+        if (err.response.data.message == "Email already exists") {
+          notify.error(
+            err.response.data.message + " please login to book service"
+          );
+          resetForm();
+          return history.push("/login");
+        }
+        notify.error("Failed to book the service");
+      });
+    // .finally(setIsLoading(null))
+  };
   return (
     <Root>
-      <form
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          columnGap: "2rem",
-        }}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={schema}
+        onSubmit={handleSubmit}
       >
-        <div class="form-group">
-          <label for="inputAddress">First Name</label>
-          <input
-            type="text"
-            className="form-control"
-            id="inputAddress"
-            placeholder="Name"
-          />
-        </div>
-        <div class="form-group">
-          <label for="inputAddress">Middle Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="inputAddress"
-            placeholder="phone"
-          />
-        </div>
-        <div class="form-group">
-          <label for="inputAddress">Last Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="inputAddress"
-            placeholder="phone"
-          />
-        </div>
-        <div class="form-group">
-          <label for="inputAddress">E-mail</label>
-          <input
-            type="text"
-            class="form-control"
-            id="inputAddress"
-            placeholder="phone"
-          />
-        </div>
-        <div class="form-group">
-          <label for="inputAddress">Phone no</label>
-          <input
-            type="text"
-            class="form-control"
-            id="inputAddress"
-            placeholder="phone"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="btn btn-primary btn-lg btn-block"
-          style={{ gridColumnStart: "1", gridColumnEnd: "3" }}
+        <Form
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            columnGap: "2rem",
+          }}
         >
-          Send Now
-        </button>
-      </form>
+          <div class="form-group">
+            <label for="inputAddress">First Name</label>
+            <Field
+              type="text"
+              className="form-control"
+              id="firstName"
+              placeholder="Name"
+              name="firstName"
+            />
+            <ErrorMessage name="firstName">
+              {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+            </ErrorMessage>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Middle Name</label>
+            <Field
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              placeholder="phone"
+              name="middleName"
+            />
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Last Name</label>
+            <Field
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              placeholder="phone"
+              name="lastName"
+            />
+            <ErrorMessage name="lastName">
+              {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+            </ErrorMessage>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">E-mail</label>
+            <Field
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              placeholder="phone"
+              name="email"
+            />
+            <ErrorMessage name="email">
+              {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+            </ErrorMessage>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Phone no</label>
+            <Field
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              placeholder="phone"
+              name="mobileNumber"
+            />
+            <ErrorMessage name="mobileNumber">
+              {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+            </ErrorMessage>
+          </div>
+
+          <div class="form-group ourserv-form-date">
+            <label for="inputAddress">Date</label>
+            <DatePickerField name={"date"}></DatePickerField>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Time</label>
+            <Field
+              type="time"
+              class="form-control"
+              id="inputAddress"
+              placeholder="phone"
+              name="time"
+            />
+            <ErrorMessage name="time">
+              {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+            </ErrorMessage>
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg btn-block"
+            style={{
+              gridColumnStart: "1",
+              gridColumnEnd: "3",
+              cursor: "pointer",
+              zIndex: "10",
+            }}
+            // disabled={isLoading?true:false}
+          >
+            Send Now
+            {/* {
+            isLoading?<CircularProgress/>:"Send Now"
+          } */}
+          </button>
+        </Form>
+      </Formik>
+      <DigiDoctorPayment
+          origin="serviceBooking"
+          // directBookAppointmentProps={finalData}
+        ></DigiDoctorPayment>
     </Root>
   );
 };

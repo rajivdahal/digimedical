@@ -147,10 +147,10 @@
   .prescription_input,
   .prescription_inputimage,
   .prescription_inputdesc {
-    width: 50%;
+    width: 70%;
   }
   .labrepo_text_form .select-category {
-    width: 50%;
+    width: 70%;
   }
 }
 
@@ -166,7 +166,8 @@
   left: 35%;
 }
 .select-category {
-  width: 65%;
+  z-index: 2;
+  width: 100%;
 }
 .err-message-bottom {
   color: red;

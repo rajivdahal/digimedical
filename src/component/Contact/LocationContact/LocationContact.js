@@ -125,6 +125,7 @@ const LocationContact = () => {
               placeholder="Name"
             />
           </div>
+          
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputEmail4">Email</label>

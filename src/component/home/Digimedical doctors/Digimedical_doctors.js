@@ -198,7 +198,7 @@ function Digimedical_doctors(props) {
                 <p>Affordable to all patient.</p>
               </div>
             </div>
-            <div className="digidoc_emergency_call">
+            <div className="digidoc_emergency_call digidoc_emergency_call1">
               <p>Do you need Emergency Medical care?</p>
               <h4>Call 01-5909141</h4>
             </div>

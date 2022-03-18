@@ -13,6 +13,7 @@ import "./formcomponent.css";
 import * as Yup from "yup";
 import Select from "react-select";
 import FormComponentForLoggedInCase from "./formComponentForLoggedInCase";
+import { setDoctorInfo } from "../../../actions/hospitalAppointmentBooking.ac";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -88,6 +89,8 @@ function FormComponent(props) {
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
+  const [value,setValue]=useState(null)
+  const [doctor,setDoctor]=useState(null)
   useEffect(() => {
     httpClient
       .GET("services/get/true")
@@ -116,21 +119,32 @@ function FormComponent(props) {
     appointmentTime: "",
   };
   const schema = Yup.object().shape({
-    firstName: Yup.string().required("Firstname is required!"),
+    firstName: Yup.string()
+    .min(2,"Invalid First Name!")
+    .required("Firstname is required!"),
     middleName: Yup.string(),
-    lastName: Yup.string().required("Lastname is required!"),
-    mobileNumber: Yup.string().required("Mobilenumber is required!"),
-    servicesId: Yup.string().required("Service is required!"),
-    email: Yup.string().required("Email is required!"),
+    lastName: Yup.string()
+    .min(2,"Invalid Last Name!")
+    .required("Lastname is required!"),
+    mobileNumber: Yup.string()
+    .length(10, 'Mobile Number Must be of 10 digit.')
+    .required("Mobile Number is required!"),
+    servicesId: Yup.string()
+    .required("Service is required!"),
+    email: Yup.string()
+    .email("Must be a valid email!")
+    .required("Email is required!"),
     doctorId: Yup.string().required("Doctor is required!"),
     appointmentDate: Yup.object(),
     appointmentTime: Yup.string().required("Appointment time is required!"),
   });
+
   function DatePickerField({ name }) {
     const formik = useFormikContext();
     const field = formik.getFieldProps(name);
     return (
       <DatePicker
+        minimumDate={minDate}
         value={field.value ? field.value : selectedDay}
         onChange={(value) => {
           formik.setFieldValue(name, value);
@@ -160,8 +174,10 @@ function FormComponent(props) {
       <Select
         options={services}
         className="select-category"
+        value={{label: value}}
         onChange={(value) => {
           formik.setFieldValue(name, value.value);
+          setValue(value.label)
           handleChange(value);
         }}
       />
@@ -174,9 +190,11 @@ function FormComponent(props) {
     return (
       <Select
         options={doctors}
+        value={{label: doctor}}
         className="select-category"
         onChange={(value) => {
           formik.setFieldValue(name, value.value);
+          setDoctor(value.label)
         }}
       />
     );
@@ -284,15 +302,17 @@ function FormComponent(props) {
         .finally(() => {
           setisloading(false);
         });
-      httpClient
-        .POST("create-appointment", finaldata, false, true)
-        .then((resp) => {
-          notify.success("Appointment booked successfully");
-        })
-        .catch((err) => notify.error("Error in appointment booking"));
+        if(localStorage.getItem("dm-access_token")){
+          httpClient
+          .POST("create-appointment", finaldata, false,false)
+          .then((resp) => {
+            notify.success("Appointment booked successfully");
+          })
+          .catch((err) => notify.error("Error in appointment booking"));
+        }
     };
   const submitForLoggedInCase = (values) => {
-    console.log("values are", values);
+  console.log("values are", values);
   };
 
   return (
@@ -401,14 +421,17 @@ function FormComponent(props) {
               </div>
               <div className="form-row">
                 <div className="form-group col-md-6">
-                  <label htmlFor="appointment">
-                    Appointment Date
-                    <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <DatePickerField name={"appointmentDate"}></DatePickerField>
-                  <ErrorMessage name="appointmentDate">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                  </ErrorMessage>
+                  <div className="home_not_logged_in_datepick">
+                    <label htmlFor="appointment">
+                      Appointment Date
+                      <span style={{ color: "red" }}>*</span>
+                    </label>
+
+                    <DatePickerField name={"appointmentDate"}></DatePickerField>
+                    <ErrorMessage name="appointmentDate">
+                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
+                  </div>
                 </div>
 
                 <div className="form-group col-md-6" style={{ marginTop: "" }}>

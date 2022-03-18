@@ -148,7 +148,10 @@ const DigiMedicalDoctorCard = (props) => {
           false
         );
         if (resp.data.status) {
-          notify.success(resp.data.message);
+          // notify.success(resp.data.message);
+          setAppointmentFixed({data:resp.data.data,origin:"digidoctorBooking"})
+          openPaymentPopUp(true)
+          console.log("response data is",resp.data)
           setForm(false);
         }
       } catch (err) {
@@ -263,7 +266,7 @@ const DigiMedicalDoctorCard = (props) => {
           </div>
         </div>
       </div>
-
+{/* if user is not logged in */}
       {showForm === true ? (
         userLogin === false ? (
           <form onSubmit={formik.handleSubmit}>
@@ -387,7 +390,11 @@ const DigiMedicalDoctorCard = (props) => {
               </div>
             </div>
           </form>
-        ) : (
+        )
+        // end if user is not logged in
+
+        // start if user is logged in
+        : (
           <form onSubmit={formik.handleSubmit}>
             <div className="form_digidoc">
               {" "}
@@ -434,6 +441,7 @@ const DigiMedicalDoctorCard = (props) => {
             </div>
           </form>
         )
+        // end user is logged in
       ) : (
         <></>
       )}

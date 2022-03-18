@@ -7,8 +7,9 @@ import { notify } from '../../../../../../services/notify';
 import { formatDate } from '../../../../../../services/timeanddate';
 import { httpClient } from '../../../../../../utils/httpClient';
 import { useHistory } from 'react-router-dom';
+import { setClosePopUp } from '../../../../../../actions/paymentPopUp.ac';
 export default function HospitalDoctorPayment(props) {
-  const [isPaymentOnline,setIsPaymentMethodOnline]=useState(true)
+  const [isPaymentOnline,setIsPaymentMethodOnline]=useState(false)
   const [totalChanrge,setTotalCharge]=useState(null)
 
   let history=useHistory()
@@ -24,7 +25,7 @@ export default function HospitalDoctorPayment(props) {
   const setHospitalDoctorServiceType=bindActionCreators(setHospitalDoctorService,dispatch)
   const resetHospitalDoctors=bindActionCreators(resetHospitalDoctorState,dispatch)
 
-
+  const closeDoctorPopUp = bindActionCreators(setClosePopUp, dispatch);
   console.log("incoming store data are",appointmentBooking)
 // end of redux implementation
 const closePaymentPopUp=()=>{
@@ -33,10 +34,10 @@ const closePaymentPopUp=()=>{
     }
 const handleChange=(e,data)=>{
       setTotalCharge(data.amount)
+      setIsPaymentMethodOnline(true)
       const {value}=e.target
       console.log("value isss",e,value,data)
       if(value=="home"){
-          setIsPaymentMethodOnline(false)
           setDoctorPaymentType("home")
       }
       else{
@@ -47,7 +48,7 @@ const handleChange=(e,data)=>{
   }
 const proceed=()=>{
   if(!appointmentBooking.selectedHospitalDoctorService){
-    notify.error("Please select a service")
+    notify.error("Please select at least one service")
     return
   }
   console.log("call api over here")
@@ -72,12 +73,28 @@ const proceed=()=>{
   // .catch(err=>notify.error("error occurred"))
   // console.log("proceed clicked",finalData)
 }
+const payNow=()=>{
+  let finalData={
+    digiServiceId: appointmentBooking.selectedHospitalDoctorService.digiServiceId,
+    paymentStatus: 2,
+    appointmentId: appointmentBooking.hospitalDoctorBookingIdAfterBooking
+  }
+  httpClient.PUT("generate-payment-link",finalData,false,true)
+    .then(resp=>{
+      let paymentUrl=resp.data.data.paymentUrl
+      window.open("http://"+paymentUrl, '_blank');
+      closeDoctorPopUp(true)
+      history.push("/dashboard/viewappointment")
+    })
+    .catch(err=>{
+      console.log("error is",err)
+    })
+  console.log("pay now clicked",finalData)
+}
   return (
     <div className="doc-pop-main">
     <div className="pay-pop-inner">
       <div className="doc-pay-pop">
-        {
-          isPaymentOnline?
 
         <div className="doc-pay-pop-head">
           <p>Payment Partner</p>
@@ -85,8 +102,6 @@ const proceed=()=>{
             <img src={esewaLogo} alt="" />
           </div>
         </div>
-        :null
-}
         <div className="doc-pay-appoint-det1">
           <p id="pay-appoint-det-p">Appointment Detail</p>
           <p id="pay-appoint-det-p">
@@ -142,6 +157,11 @@ const proceed=()=>{
             <a className="lab_popup_checkout" style={{ cursor: "pointer" }} onClick={proceed}>
               <p>Proceed</p>
             </a>
+            {
+              isPaymentOnline?<a className="lab_popup_checkout" style={{ cursor: "pointer" }} onClick={payNow}>
+              <p>Pay now</p>
+            </a>:null
+            }
           </div>
         </div>
       </div>

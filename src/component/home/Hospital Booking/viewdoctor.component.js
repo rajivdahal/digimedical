@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { resetHospitalDoctorState, setDoctorInfo } from "../../../actions/hospitalAppointmentBooking.ac";
 import { setOpenPopUp } from "../../../actions/paymentPopUp.ac";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -31,6 +32,7 @@ export default function Hospital_doctors(props) {
   let [issearched, setIssearched] = useState(false);
   const [docPopup, SetDocPopup] = useState(false);
   let [doctorappointmentindex, setdoctorappointmentindex] = useState(null);
+
   const history = useHistory();
   useEffect(() => {
     httpClient
@@ -55,7 +57,6 @@ export default function Hospital_doctors(props) {
               item.startTime += " AM";
             }
           }
-
           if (item.endtime) {
             let tempEndArr = item.endtime.split(":");
             tempEndArr.splice(2, 1);
@@ -191,7 +192,7 @@ export default function Hospital_doctors(props) {
     const openDoctorPopUp=bindActionCreators(setOpenPopUp,dispatch)
   // NOTE:Pop up action data from redux is already imported look above just implement below by setting trihgger from redux store data
 
-  console.log("pop up data are",popUpActionsData,openDoctorPopUp)
+  console.log("pop up data are",appointmentBooking,popUpActionsData,openDoctorPopUp)
 
   // end of redux implementation
 
@@ -210,9 +211,12 @@ export default function Hospital_doctors(props) {
 
   return (
     <div>
+
       {props.match.url == "/dashboard/hospitals/view-doctors" ? null : (
         <Navbar></Navbar>
       )}
+{
+        !appointmentBooking.hospitalInfo?<Redirect to={"/dashboard/hospitals"}></Redirect>:
 
       <div className="hospital_doc_appoint">
         <div>
@@ -650,7 +654,6 @@ export default function Hospital_doctors(props) {
                   width: "160px",
                   borderRadius: "50%",
                 }}
-                alt=""
               />
               <p id="hosp_name_doc">{props.location.state.name}</p>
               <p>
@@ -681,6 +684,7 @@ export default function Hospital_doctors(props) {
         ) : null}
         {/* <Pagination></Pagination> */}
       </div>
+       }
       {props.match.url != "/dashboard/hospitals/view-doctors" ? (
         <Footer></Footer>
       ) : null}

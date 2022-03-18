@@ -16,7 +16,7 @@ import { useHistory } from "react-router-dom";
 import { notify } from "../../../../../../services/notify";
 import { Redirect } from "react-router-dom";
 
-export default function DigiDoctorPayment(props) {
+export default function ServicePayment(props) {
   let history = useHistory();
   // NOTE:
   // data from the internal appointment booking component are in props

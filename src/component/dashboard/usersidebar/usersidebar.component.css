@@ -26,6 +26,9 @@
   background-color: #52b2e5;
   color: #fff;
 }
+#newdash_bar_ico {
+  width: 30px;
+}
 .accordion-button:hover #newdash_bar_ico {
   color: #fff;
 }
