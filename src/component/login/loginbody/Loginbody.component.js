@@ -10,6 +10,7 @@ import { useState } from "react"
 import "./Loginbody.component.css";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import CircularProgress from '@mui/material/CircularProgress';
+import {useLocation} from "react-router-dom"
 const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const Loginbodycomponent = (props) => {
@@ -19,6 +20,8 @@ const Loginbodycomponent = (props) => {
     const [errMsg, seterrMsg] = useState('')
     const [ispassword, setispassword] = useState(true)
     const [isGoogleApiLoading,setIsGoogleApiLoading]=useState(false)
+    let location=useLocation()
+    console.log("location is",location)
     useEffect(() => {
         const timeoutMsg = props.timeoutMsg
         if (timeoutMsg) {
@@ -30,6 +33,7 @@ const Loginbodycomponent = (props) => {
             username: fromexternaluser ? externaluseremail : "",
             password: '',
         },
+
         onSubmit: values => {
             setisLoading(true)
             httpClient.UPLOAD('POST', 'oauth/token', values, "password", null)

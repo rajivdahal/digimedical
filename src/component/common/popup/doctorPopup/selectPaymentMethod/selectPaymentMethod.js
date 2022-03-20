@@ -9,7 +9,7 @@ export default function SelectPaymentMethod(props) {
     <div>
       {
         props.props.origin?
-        props.props.origin==="serviceBooking"?
+        props.props.origin==="serviceBooking"||props.props.origin==="externalAppointmentBook"?
         <ServicePayment props={props.props.props}></ServicePayment>
         : <DigiDoctorPayment props={props.props.props}></DigiDoctorPayment>
         :<HospitalDoctorPayment props={props.props.props}></HospitalDoctorPayment>

@@ -9,6 +9,11 @@ import { notify } from "../../../services/notify";
 import { useHistory } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import DigiDoctorPayment from "../../common/popup/doctorPopup/selectPaymentMethod/forDigiDoctor/digiDoctorPayment";
+import ServicePayment from "../../common/popup/doctorPopup/selectPaymentMethod/forServicePayment/servicepayment";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { digiDoctorAppointmentFixed, digiDoctorInfo } from "../../../actions/digiDoctorBooking.ac";
+import { setOpenPopUp } from "../../../actions/paymentPopUp.ac";
 
 const Root = styled.div`
   width: 45%;
@@ -69,6 +74,19 @@ const DoctorAtHomeForm = () => {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(null);
   // let [isLoading,setIsLoading]=useState(false)
+
+
+   // redux implementation
+   const dispatch=useDispatch()
+   const popupOpen = useSelector((state) => state.paymentPopUp);
+   const setAppointmentFixed = bindActionCreators(digiDoctorAppointmentFixed, dispatch);
+   const setDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
+   const openPaymentPopUp = bindActionCreators(setOpenPopUp, dispatch);
+   const appointmentBooking = useSelector((state) => state.digiDoctorAppointmentBooking);
+   console.log("appointmentBooking is",appointmentBooking)
+   // end of redux implementation
+
+
   console.log("location is", location);
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
@@ -248,10 +266,10 @@ const DoctorAtHomeForm = () => {
           </button>
         </Form>
       </Formik>
-      <DigiDoctorPayment
+      {/* <ServicePayment
           origin="serviceBooking"
           // directBookAppointmentProps={finalData}
-        ></DigiDoctorPayment>
+        ></ServicePayment> */}
     </Root>
   );
 };

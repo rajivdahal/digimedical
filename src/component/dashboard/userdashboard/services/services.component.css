@@ -7,7 +7,10 @@
   top: 3rem;
   left: 6rem;
 }
-
+.dash-service-body .material-table {
+  position: relative;
+  z-index: 1;
+}
 @media screen and (max-width: 400px) {
   .labrepo_text_form .prescription_input {
     width: 70%;

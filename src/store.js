@@ -44,9 +44,6 @@ const initialState = {
         selectedHospitalDoctorService:null,
         hospitalInfo:null,
         hospitalDoctorBookingIdAfterBooking:null,
-
-
-        // onlinePlatformForBooking:"",
     },
     digiDoctorAppointmentBooking:{
         isDigiDoctorAppointmentFixed:false,
@@ -57,6 +54,10 @@ const initialState = {
         digiDoctorPaymentType:"online",
         selectedService:null,
         digiDoctorBookingIdAfterBooking:null,
+        emailAlreadyExistsMessage:null
+    },
+    digiServiceBooking:{
+
     }
 }
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))

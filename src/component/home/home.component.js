@@ -18,7 +18,7 @@ const Root = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  @media screen and (max-width: 767px){
+  @media screen and (max-width: 767px) {
     height: calc(100vh - 100px);
     display: flex;
     justify-content: center;
@@ -31,6 +31,10 @@ const HeroSectionContent = styled.div`
   width: 40%;
   @media screen and (max-width: 767px) {
     padding: 3.125rem 1.875rem;
+    width: 90%;
+  }
+  @media screen and (max-width: 1270px) {
+    width: 75%;
   }
 `;
 const Heading = styled.div`
@@ -150,12 +154,10 @@ export const Home = (props) => {
               <ReadMore type="button">Read More</ReadMore>
             </Link>
           </ButtonContainor>
-
         </HeroSectionContent>
         <ConnectionContainor>
           <Conection />
         </ConnectionContainor>
-
       </Root>
       <About />
       <OurServices />

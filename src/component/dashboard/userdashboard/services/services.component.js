@@ -159,7 +159,7 @@ export default function UserServices(props) {
         <div className="row umi_row">
           <div className="col-md-12 grid-margin stretch-card">
             <div className="card">
-              <div className="card-body">
+              <div className="card-body dash-service-body">
                 {props.origin != "admin" ? (
                   <Formik
                     initialValues={initialValues}

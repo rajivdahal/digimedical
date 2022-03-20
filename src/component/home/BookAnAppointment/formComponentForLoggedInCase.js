@@ -6,6 +6,12 @@ import Select from "react-select"
 import { httpClient } from '../../../utils/httpClient';
 import { notify } from '../../../services/notify';
 import Cliploader from "../../../utils/clipLoader";
+import SelectPaymentMethod from '../../common/popup/doctorPopup/selectPaymentMethod/selectPaymentMethod';
+import ExternalBookingPayment from '../../common/popup/doctorPopup/selectPaymentMethod/forexternalbooking/externalBookingPayment';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { digiDoctorAppointmentFixed, digiDoctorInfo } from '../../../actions/digiDoctorBooking.ac';
+import { setOpenPopUp } from '../../../actions/paymentPopUp.ac';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -13,11 +19,13 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default function FormComponentForLoggedInCase(props) {
     console.log("props services are",props.services)
     const [doctors, setdoctors] = useState([]);
-//   const [services, setservices] = useState(props.services);
+    //const [services, setservices] = useState(props.services);
   const [isdoctorblurred, setisdoctorblurred] = useState(false);
   const [isloading, setisloading] = useState(false);
   const [value,setValue]=useState(null)
   const [doctor,setDoctor]=useState(null)
+  const [doctorFullInfo,setDoctorFullInfo]=useState([])
+
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
     year: dt.getFullYear(),
@@ -68,7 +76,7 @@ export default function FormComponentForLoggedInCase(props) {
           />
         )
       }
-        
+
       function SelectFieldDoctor({name}){
         console.log("name is",name)
         const formik=useFormikContext()
@@ -79,8 +87,10 @@ export default function FormComponentForLoggedInCase(props) {
           className="select-category"
           value={{label: doctor}}
           onChange={(value)=>{
-            formik.setFieldValue(name,value.value)
+            console.log("value is",value)
+            formik.setFieldValue(name,value.value.doctorid)
             setDoctor(value.label)
+            setDoctorFullInfo(value.value)
           }}
           />
         )
@@ -94,10 +104,11 @@ export default function FormComponentForLoggedInCase(props) {
             if(!resp.data.data.length){
               return notify.error("No any doctors are available to this service");
             }
+            console.log("response",resp.data.data)
             let doctors=resp.data.data.map((item,index)=>{
               return {
                 label: item.name,
-                value: item.doctorid,
+                value: item,
               };
             })
             setdoctors(doctors);
@@ -108,25 +119,22 @@ export default function FormComponentForLoggedInCase(props) {
           });
       };
       const handleSubmit=(values,{resetForm})=>{
-        console.log("values are",values)
+        console.log("values are",values,doctorFullInfo)
         let finalData={
             doctorId:values.doctorId,
             servicesId:values.servicesId,
             appointmentDate:values.appointmentDate?values.appointmentDate.year+"-"+values.appointmentDate.month+"-"+values.appointmentDate.day:
                             selectedDay.year+"-"+selectedDay.month+"-"+selectedDay.day,
             appointmentTime:values.appointmentTime,
+            origin:"externalAppointmentBookForLoggedInCase"
         }
-        httpClient
-        .POST("create-appointment", finalData, false, true)
-        .then((resp) => {
-          notify.success("Appointment booked successfully");
-          resetForm()
-          setDoctor(null)
-          setValue(null)
-        })
-        .catch((err) => notify.error("Error in appointment booking"));
-
+        setAppointmentFixed(finalData)
+        let doctorInfo=doctorFullInfo
+          doctorInfo={...doctorInfo,...finalData}
+          setDoctorInfo(doctorInfo)
+          openPaymentPopUp(true)
     }
+
       function DatePickerField({ name }) {
         const formik = useFormikContext();
         const field = formik.getFieldProps(name);
@@ -134,6 +142,7 @@ export default function FormComponentForLoggedInCase(props) {
           <DatePicker
             value={field.value?field.value:selectedDay}
             onChange={value => {
+
               formik.setFieldValue(name, value)
             }}
           />
@@ -162,6 +171,16 @@ export default function FormComponentForLoggedInCase(props) {
             notify.error("something went wrong");
           });
       };
+
+      // redux implementation
+      const dispatch=useDispatch()
+      const popupOpen = useSelector((state) => state.paymentPopUp);
+      const setAppointmentFixed = bindActionCreators(digiDoctorAppointmentFixed, dispatch);
+      const setDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
+      const openPaymentPopUp = bindActionCreators(setOpenPopUp, dispatch);
+      const appointmentBooking = useSelector((state) => state.digiDoctorAppointmentBooking);
+      console.log("appointmentBooking is",appointmentBooking)
+      // end of redux implementation
   return (
     <div>
         <Formik
@@ -197,16 +216,6 @@ export default function FormComponentForLoggedInCase(props) {
                   {" "}
                   <DatePickerField name="appointmentDate"></DatePickerField>
                 <ErrorMessage name="appointmentDate">{msg=><div style={{color:"red"}}>{msg}</div>}</ErrorMessage>
-
-                  {/* <DatePicker
-                    className="form-control"
-                    shouldHighlightWeekends
-                    value={selectedDay}
-                    // onChange={(value) => datechange(value, "fromLoggedInForm")}
-                    minimumDate={minDate}
-                    inputClassName="my-custom-input"
-                    style={{ width: "100%"}}
-                  ></DatePicker> */}
                 </div>
               </div>
               <div className="form-group col-md-6" style={{ marginTop: "" }}>
@@ -235,6 +244,10 @@ export default function FormComponentForLoggedInCase(props) {
             </div>
           </Form>
           </Formik>
+          {
+            popupOpen.trigger?<ExternalBookingPayment></ExternalBookingPayment>:null
+          }
+
     </div>
   )
 }
