@@ -26,7 +26,6 @@
   grid-gap: 2em;
   grid-auto-columns: 1fr;
   grid-template-columns: repeat(6, 1fr);
-  /* grid-template-areas: "one two three four five six" "seven eight nine ten eleven twelve"; */
 }
 .speciality_doc_card {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);

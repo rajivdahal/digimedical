@@ -10,12 +10,18 @@ export const digiDoctorAppointmentBookingReducer=(state,action)=>{
                 ...state,
                 digiDoctorInfo:action.payload
             }
+
         case digiDoctorAppointmentBookingActionTypes.SET_IS_DIGI_DOCTOR_APPOINTMENT_FIXED:
             return{
                 ...state,
                 isDigiDoctorAppointmentFixed:true,
                 digiDoctorBookingIdAfterBooking:action.payload,
                 isLoadingAppointmentBooking:false
+            }
+        case digiDoctorAppointmentBookingActionTypes.SET_DIGI_DOCTOR_APPOINT_FIXED_EMAIL_ALREADY_EXISTS:
+            return{
+                ...state,
+                emailAlreadyExistsMessage:action.payload
             }
         case digiDoctorAppointmentBookingActionTypes.SET_DIGI_DOCTOR_APPOINTMENT_BOOK_LOADING:
                 return{

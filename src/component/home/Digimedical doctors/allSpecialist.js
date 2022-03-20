@@ -50,42 +50,42 @@ function AllSpecialist(props) {
   }, []);
   return (
     <>
-    <div>
-      <Navbar></Navbar>
-      <div class="up">
-        <a href="url" id="healthpackages">
-          Home &nbsp;
-        </a>
-        <i class="fas fa-chevron-right"></i>
-        <span id="familyhealthpackages"> &nbsp;ll Speciality</span>
-      </div>
-      <div className="digi_doc_appointmain digi_doc_appointmain1 ">
-        <div className="our_doc_appoint">
-          <div className="doc_appoint_head">
-            <div className="digidoc_head_txt">
-              <h1>All Speciality</h1>
-              <p>Select the the doctor by their speciality</p>
-            </div>
-            <div className="doc_booksearch">
-              <form class="doc_example">
-                <input
-                  type="text"
-                  placeholder="Search Speciality .."
-                  name="searchName"
-                  onChange={handleChange}
-                />
-                <button
-                  type="button"
-                  onClick={() => searchDigiSpeciality(searchName)}
-                >
-                  <i class="fa fa-search"></i>
-                </button>
-              </form>
+      <div>
+        <Navbar></Navbar>
+        <div class="up">
+          <a href="url" id="healthpackages">
+            Home &nbsp;
+          </a>
+          <i class="fas fa-chevron-right"></i>
+          <span id="familyhealthpackages"> &nbsp;ll Speciality</span>
+        </div>
+        <div className="digi_doc_appointmain digi_doc_appointmain1 ">
+          <div className="our_doc_appoints">
+            <div className="doc_appoint_head">
+              <div className="digidoc_head_txt">
+                <h1>All Speciality</h1>
+                <p>Select the the doctor by their speciality</p>
+              </div>
+              <div className="doc_booksearch">
+                <form class="doc_example">
+                  <input
+                    type="text"
+                    placeholder="Search Speciality .."
+                    name="searchName"
+                    onChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => searchDigiSpeciality(searchName)}
+                  >
+                    <i class="fa fa-search"></i>
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
-        {/* <Container> */}
-          <div className="our_doc_speciality mb-5">
+          {/* <Container> */}
+          <div className="our_doc_speciality our_doc_appoints">
             {searchSpeciality.length > 0 ? (
               searchSpeciality.map((item, index) => {
                 return (
@@ -107,7 +107,7 @@ function AllSpecialist(props) {
                             REACT_APP_BASE_URL + "services/download/" + item.id
                           }
                           onError={(e) => {
-                              e.target.src = "/images/doctor.jpeg";
+                            e.target.src = "/images/doctor.jpeg";
                           }}
                           alt=""
                         />
@@ -126,14 +126,12 @@ function AllSpecialist(props) {
           </div>
         </div>
       </div>
-      <div>
-        {/* <Pagination></Pagination> */}
-      </div>
+      <div>{/* <Pagination></Pagination> */}</div>
       <div style={{ marginTop: "6rem" }}>
         <Footer></Footer>
       </div>
     </>
-  )
+  );
 }
 
 export default AllSpecialist;
