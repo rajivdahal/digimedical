@@ -224,10 +224,10 @@ function FamilyPackage(props) {
                 <li>Dentist</li>
                 <li>Dermatologist</li>
                 <li>Ophthalmologist</li>
-                <li>ENT (Otorhinolaryngologist)</li>
                 <li>Orthopedic</li>
                 <li>Radiologist</li>
                 <li>Gastroenterologist</li>
+                <li>ENT</li>
               </ul>
             </div>
             <p className="questionheads">
@@ -361,7 +361,7 @@ function FamilyPackage(props) {
               <div className="fam-package1">
                 <div className="fam-pack-pop-or-not">
                   <ul>
-                    <li>popular</li>
+                    <li>Recommended</li>
                   </ul>
                 </div>
                 <div className="fam-package-head">
@@ -396,7 +396,7 @@ function FamilyPackage(props) {
               <div className="fam-package2">
                 <div className="fam-pack-pop-or-not">
                   <ul>
-                    <li>popular</li>
+                    <li>Recommended</li>
                   </ul>
                 </div>
                 <div className="fam-package-head">
@@ -431,7 +431,7 @@ function FamilyPackage(props) {
               <div className="fam-package1">
                 <div className="fam-pack-pop-or-not">
                   <ul>
-                    <li>popular</li>
+                    <li>Recommended</li>
                   </ul>
                 </div>
                 <div className="fam-package-head">
