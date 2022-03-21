@@ -1,10 +1,10 @@
-import React,{useState,useEffect} from 'react'
-import { Formik,Form, Field,ErrorMessage, useFormikContext } from "formik";
+import React, { useState, useEffect } from "react";
+import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import * as Yup from "yup";
 import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
-import Select from "react-select"
-import { httpClient } from '../../../utils/httpClient';
-import { notify } from '../../../services/notify';
+import Select from "react-select";
+import { httpClient } from "../../../utils/httpClient";
+import { notify } from "../../../services/notify";
 import Cliploader from "../../../utils/clipLoader";
 import SelectPaymentMethod from '../../common/popup/doctorPopup/selectPaymentMethod/selectPaymentMethod';
 import ExternalBookingPayment from '../../common/popup/doctorPopup/selectPaymentMethod/forexternalbooking/externalBookingPayment';
@@ -14,7 +14,6 @@ import { digiDoctorAppointmentFixed, digiDoctorInfo } from '../../../actions/dig
 import { setOpenPopUp } from '../../../actions/paymentPopUp.ac';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 
 export default function FormComponentForLoggedInCase(props) {
     console.log("props services are",props.services)
@@ -45,19 +44,18 @@ export default function FormComponentForLoggedInCase(props) {
     description: null,
   });
 
-    const initialValues={
-      servicesId: "",
-      doctorId: "",
-      appointmentDate: "",
-      appointmentTime: "",
-    }
-    const schema =
-      Yup.object().shape({
-      servicesId: Yup.string().required("Service is required!"),
-      doctorId: Yup.string().required("Doctor is required!"),
-      appointmentDate: Yup.object(),
-      appointmentTime: Yup.string().required("Appointment time is required!"),
-    })
+  const initialValues = {
+    servicesId: "",
+    doctorId: "",
+    appointmentDate: "",
+    appointmentTime: "",
+  };
+  const schema = Yup.object().shape({
+    servicesId: Yup.string().required("Service is required!"),
+    doctorId: Yup.string().required("Doctor is required!"),
+    appointmentDate: Yup.object(),
+    appointmentTime: Yup.string().required("Appointment time is required!"),
+  });
 
     function SelectFieldService({name}){
         console.log("name is",name)
@@ -183,29 +181,21 @@ export default function FormComponentForLoggedInCase(props) {
       // end of redux implementation
   return (
     <div>
-        <Formik
-         initialValues={initialValues}
-         validationSchema={schema}
-         onSubmit={handleSubmit}
-        >
-          <Form>
-            <div className="form-row">
-              <div className="form-group col-md-6">
-                <label htmlFor="service">
-                  Select Service<span style={{ color: "red" }}>*</span>
-                </label>
-                <SelectFieldService name={"servicesId"}></SelectFieldService>
-                <ErrorMessage name="servicesId">{msg=><div style={{color:"red"}}>{msg}</div>}
-                </ErrorMessage>
-              </div>
-              <div className="form-group col-md-6">
-                <label htmlFor="doctor">
-                  Select Doctor<span style={{ color: "red" }}>*</span>
-                </label>
-                <SelectFieldDoctor name="doctorId"></SelectFieldDoctor>
-                <ErrorMessage name="doctorId">{msg=><div style={{color:"red"}}>{msg}</div>}</ErrorMessage>
-
-              </div>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={schema}
+        onSubmit={handleSubmit}
+      >
+        <Form>
+          <div className="form-row">
+            <div className="form-group col-md-6 home-form-sel-serv">
+              <label htmlFor="service">
+                Select Service<span style={{ color: "red" }}>*</span>
+              </label>
+              <SelectFieldService name={"servicesId"}></SelectFieldService>
+              <ErrorMessage name="servicesId">
+                {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+              </ErrorMessage>
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
@@ -233,21 +223,28 @@ export default function FormComponentForLoggedInCase(props) {
 
               </div>
             </div>
-            <div className="col-md-12 col-sm-12 col-xs-12 ">
-              {isloading ? (
-                <Cliploader></Cliploader>
-              ) : (
-                <button type="submit" className="btn btn-primary btn-block">
-                  Make Appointment
-                </button>
-              )}
+            <div className="form-group col-md-6" style={{ marginTop: "" }}>
+              <label htmlFor="time">
+                Time<span style={{ color: "red" }}>*</span>
+              </label>
+              <Field
+                type="time"
+                placeholder="select time"
+                id="appointmentTime"
+                name="appointmentTime"
+                className="form-control"
+              ></Field>
+              <ErrorMessage name="appointmentTime">
+                {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+              </ErrorMessage>
             </div>
-          </Form>
-          </Formik>
+            </div>
+        </Form>
+      </Formik>
           {
             popupOpen.trigger?<ExternalBookingPayment></ExternalBookingPayment>:null
           }
 
     </div>
-  )
+  );
 }

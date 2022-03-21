@@ -43,6 +43,9 @@ const Root = styled.div`
     padding-right: 1rem;
     padding-top: 1rem;
   }
+  @media screen and (max-width: 500px) {
+    margin-bottom: 28rem;
+  }
 `;
 
 const Navigate = styled.div`
@@ -104,14 +107,13 @@ const Heading = styled.div`
 
   color: #192638;
   @media screen and (max-width: 650px) {
-    font-size: 35px;
+    font-size: 20px;
     margin-top: 0px;
   }
 `;
 
 const FormContainor = styled.div`
   margin-top: 1.5rem;
-  margin-bottom: 1rem;
 `;
 
 const Ourservices = (props) => {

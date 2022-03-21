@@ -29,12 +29,12 @@ const Root = styled.div`
 const HeroSectionContent = styled.div`
   padding-left: 6.5rem;
   width: 40%;
-  @media screen and (max-width: 767px) {
-    padding: 3.125rem 1.875rem;
-    width: 90%;
-  }
   @media screen and (max-width: 1270px) {
     width: 75%;
+  }
+  @media screen and (max-width: 767px) {
+    padding: 2.125rem 0.875rem;
+    width: 90%;
   }
 `;
 const Heading = styled.div`

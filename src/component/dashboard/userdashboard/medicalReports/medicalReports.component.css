@@ -166,7 +166,7 @@
   left: 35%;
 }
 .select-category {
-  z-index: 2;
+  z-index: 3;
   width: 100%;
 }
 .err-message-bottom {

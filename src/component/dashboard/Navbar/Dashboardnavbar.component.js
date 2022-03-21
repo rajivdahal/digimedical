@@ -11,7 +11,6 @@ import { loginUser } from "../../../actions/User.ac";
 import { dashboardClose, dashboardOpen } from "../../../actions/dashboard.ac";
 
 export const Dashboardnavbar = (props) => {
-
   let [username, setusername] = useState("");
   const [logoutstate, setlogoutstate] = useState({
     logout: false,
@@ -30,7 +29,7 @@ export const Dashboardnavbar = (props) => {
       logout: true,
     });
   };
-  
+
   const logoutyes = () => {
     localStorage.removeItem("dm-access_token");
     localStorage.removeItem("timeout");
@@ -78,7 +77,7 @@ export const Dashboardnavbar = (props) => {
         <div className="newdash_hamburger" onClick={showDashboard}>
           <i class="fas fa-bars"></i>
         </div>
-        <Link to="/">
+        <Link to="/" className="dash_nav_img">
           <div className="newdash_nav_img">
             <img src={logo} alt="" />
           </div>
@@ -125,7 +124,7 @@ export const Dashboardnavbar = (props) => {
           <div className="logout-containerr">
             <div className="logout">
               <p>Are you sure you want to Logout?</p>
-              <div className="buttons">
+              <div className="buttons logout-buttons">
                 <button className="yes-logout" onClick={logoutyes}>
                   Yes
                 </button>

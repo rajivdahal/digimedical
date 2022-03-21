@@ -11,8 +11,8 @@
 }
 
 .popup_carts {
-  margin-left: 47%;
-  margin-top: 0%;
+  margin-left: 51%;
+  margin-top: 98px;
   border-radius: 10px;
   position: relative;
   width: 30%;
@@ -77,25 +77,41 @@
 
 @media screen and (max-width: 1000px) {
   #popup1_carts {
-    top: 25%;
+    top: 350px;
     left: 5%;
     width: 90%;
   }
   .popup_carts {
     margin: auto;
-    margin-left: 17%;
-    width: 60%;
+
+    margin-left: 25%;
+    width: 50%;
+  }
+}
+/* @media screen and (max-width: 660px) {
+  .popup_carts {
+    top: 50px;
+  }
+} */
+
+@media screen and (max-width: 600px) {
+  /* #popup1_carts {
+    top: 175px;
+    left: 5%;
+    width: 90%;
+  } */
+  .popup_carts {
+    margin-left: 10%;
+    width: 80%;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 334px) {
   #popup1_carts {
-    top: 15.5%;
-    left: 5%;
-    width: 90%;
+    top: 402px;
   }
   .popup_carts {
-    margin: auto;
-    width: 80%;
+    margin-left: 5%;
+    width: 90%;
   }
 }

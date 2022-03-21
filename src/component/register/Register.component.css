@@ -105,3 +105,17 @@
 .errmsg {
   position: absolute;
 }
+
+.login-button-on-reg .login-btn {
+  border: 1px solid #2745f0;
+  color: #fff;
+  width: 100%;
+  border-radius: 0px;
+  background: #2745f0;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-button-on-reg .login-btn:hover {
+  background: #fff;
+  color: #2745f0;
+}

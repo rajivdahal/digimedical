@@ -110,6 +110,7 @@ export default function DigiDoctorPayment(props) {
     httpClient.PUT("generate-payment-link",finalData,false,true)
     .then(resp=>{
       let paymentUrl=resp.data.data.paymentUrl
+      localStorage.setItem("paymentToken",resp.data.data.token)
       window.location.assign("http://"+paymentUrl,
       // '_blank'
       );
