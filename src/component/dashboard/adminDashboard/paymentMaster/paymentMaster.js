@@ -195,32 +195,29 @@ export function PaymentMaster(props) {
                     </Col>
                 </Row>
 
-                <div  className=" textAlign-right mb-5">
-                {isLoading ?
-                    <div >
+                <div className=" textAlign-right mb-5">
+                    {isLoading ?
                         <Cliploader isLoading={isLoading} />
-
-                    </div>
-                    :
-                    <div className="textAlign-right mb-5">
-                        {paymentID ?
-                            <div >
+                        :
+                        <div className="textAlign-right mb-5">
+                            {paymentID ?
+                                <div >
+                                    <Button variant="info" type="submit">
+                                        Edit
+                                    </Button>
+                                    <Button variant="danger" style={{ marginLeft: '10px' }} onClick={handleCancelEdit} >
+                                        Cancel
+                                    </Button>
+                                </div>
+                                :
                                 <Button variant="info" type="submit">
-                                    Edit
+                                    Create
                                 </Button>
-                                <Button variant="danger" style={{ marginLeft: '10px' }} onClick={handleCancelEdit} >
-                                    Cancel
-                                </Button>
-                            </div>
-                            :
-                            <Button variant="info" type="submit">
-                                Create
-                            </Button>
-                        }
-                    </div>
-                }
+                            }
+                        </div>
+                    }
                 </div>
-                
+
             </Form>
 
             <MaterialTable

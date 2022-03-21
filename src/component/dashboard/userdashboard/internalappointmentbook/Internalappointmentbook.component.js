@@ -31,7 +31,6 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default function Internalappointmentbook(prop) {
   console.log("edit data are", prop.location.data);
   const editdata = prop.location.data ? prop.location.data : null;
-  // console.log("to edit data is", editdata);
   const [appointmentsuccess, setappointmentsuccess] = useState(null);
   const [appointmentfailed, setappointmentfailed] = useState(null);
   const [services, setservices] = useState([]);
@@ -49,7 +48,6 @@ export default function Internalappointmentbook(prop) {
   var today = new Date();
   var date =
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  console.log("date is", date);
   const [doctorfetched, setdoctorfetched] = useState({
     image: null,
     prefix: null,
@@ -63,7 +61,6 @@ export default function Internalappointmentbook(prop) {
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
-  console.log("selected day is", selectedDay);
   const [minDate, setminDate] = useState({
     year: dt.getFullYear(),
     month: dt.getMonth() + 1,
@@ -96,14 +93,12 @@ export default function Internalappointmentbook(prop) {
       .GET("services/get/true", false, true)
       .then((resp) => {
         let allServices = resp.data.data;
-        console.log("all services are", allServices);
         let options = allServices.map((service, index) => {
           return {
             label: service.servicename,
             value: service.id,
           };
         });
-        console.log("services arreee", services);
         setservices(options);
       })
       .catch((err) => {
@@ -121,11 +116,9 @@ export default function Internalappointmentbook(prop) {
     }
     // convert the date format March 3, 2022 to
     if (toeditdata) {
-      console.log("to edit data are", toeditdata);
       let date = toeditdata.appointmentdate;
       let parsedDate = splitAlphabeticDate(date);
       parsedDate.month = convertAlphabeticMonthToNumeric(parsedDate.month);
-      console.log("parsed date is", parsedDate);
       setSelectedDay(parsedDate);
       // console.log("parsed Month is",parsedMonth)
       // let year=""
@@ -219,7 +212,6 @@ export default function Internalappointmentbook(prop) {
       if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
         return callapi("create-appointment/corporate", formik.values);
       }
-      console.log("values are", values);
       doctorAppointmentBookLoading(true);
       setDigiDoctorAppointment(values);
       // apiCallForInitialBooking(values)
@@ -259,7 +251,6 @@ export default function Internalappointmentbook(prop) {
 
   const handleChange = (item) => {
     delete formik.errors.servicesId;
-    console.log("formik errors are", formik.errors);
     formik.setFieldValue("servicesId", item.value);
     formik.setFieldValue("serviceName", item.label);
     httpClient
@@ -269,7 +260,6 @@ export default function Internalappointmentbook(prop) {
           return notify.error("No any doctors are available to this service");
         }
         let allDoctors = resp.data.data.map((doctor, index) => {
-          console.log("doctor", doctor);
           return {
             label: doctor.name,
             value: doctor,
@@ -283,7 +273,6 @@ export default function Internalappointmentbook(prop) {
       });
   };
   const handleTimeChange = (value) => {
-    console.log("time is", value);
     toeditdata.appointmenttime = value;
     onChange(value);
   };
@@ -316,14 +305,12 @@ export default function Internalappointmentbook(prop) {
     if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
       return callapi("create-appointment/corporate", formik.values);
     }
-    console.log(formik.values);
     return callapi("create-appointment", formik.values);
   };
   const getdoctorinfo = (doctorid) => {
     if (!doctorid) {
       return setisdoctorblurred(false);
     }
-    console.log(doctorid);
     let image = BASE_URL + "doctor/download/" + doctorid;
     httpClient
       .GET(`doctor/public-info/${doctorid}`)
@@ -337,7 +324,6 @@ export default function Internalappointmentbook(prop) {
           description: description,
         });
         setisdoctorblurred(true);
-        console.log(resp.data.data);
       })
       .catch((err) => {
         notify.error("something went wrong");
@@ -352,7 +338,6 @@ export default function Internalappointmentbook(prop) {
     setisdoctorblurred(false);
   };
   const handleDoctorChange = (doctor) => {
-    console.log("doctor is", doctor);
     formik.setFieldValue("doctorId", doctor.value.doctorid);
     formik.setFieldValue("doctorName", doctor.value.name);
     formik.setFieldValue("doctorService", doctor.value.digiService);

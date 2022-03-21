@@ -137,21 +137,32 @@ function FormComponent(props) {
     appointmentTime: "",
   };
   const schema = Yup.object().shape({
-    firstName: Yup.string().required("Firstname is required!"),
+    firstName: Yup.string()
+    .min(2,"Invalid First Name!")
+    .required("Firstname is required!"),
     middleName: Yup.string(),
-    lastName: Yup.string().required("Lastname is required!"),
-    mobileNumber: Yup.string().required("Mobilenumber is required!"),
-    servicesId: Yup.string().required("Service is required!"),
-    email: Yup.string().required("Email is required!"),
+    lastName: Yup.string()
+    .min(2,"Invalid Last Name!")
+    .required("Lastname is required!"),
+    mobileNumber: Yup.string()
+    .length(10, 'Mobile Number Must be of 10 digit.')
+    .required("Mobile Number is required!"),
+    servicesId: Yup.string()
+    .required("Service is required!"),
+    email: Yup.string()
+    .email("Must be a valid email!")
+    .required("Email is required!"),
     doctorId: Yup.string().required("Doctor is required!"),
     appointmentDate: Yup.object(),
     appointmentTime: Yup.string().required("Appointment time is required!"),
   });
+
   function DatePickerField({ name }) {
     const formik = useFormikContext();
     const field = formik.getFieldProps(name);
     return (
       <DatePicker
+        minimumDate={minDate}
         value={field.value ? field.value : selectedDay}
         onChange={(value) => {
           formik.setFieldValue(name, value);

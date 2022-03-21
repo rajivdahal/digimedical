@@ -80,6 +80,7 @@ const DigiMedicalDoctorCard = (props) => {
   }, [props.selected]);
 
   const bookAppointment = (data) => {
+
     let tempForm = showForm === true ? false : true;
     console.log("props are", data);
     if (!showForm) {
@@ -94,6 +95,7 @@ const DigiMedicalDoctorCard = (props) => {
     setSelectedDay(value);
     formik.values.appointmentDate = date;
   };
+
   const submitAppointment = async (values) => {
     if (userLogin === true) {
       let data = {
@@ -250,7 +252,6 @@ const DigiMedicalDoctorCard = (props) => {
             </Accordion>
           </div>
         </div>
-
         <div className="digidoctor_card_but">
           {" "}
           <div>

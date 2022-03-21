@@ -25,8 +25,13 @@ export const MedicalReports = (props) => {
   const medicalReportSchema = Yup.object().shape({
     hospitalName: Yup.string().required("Hospital name is required!"),
     doctorName: Yup.string().required("Doctor name is required!"),
-    visitedDate: Yup.string().required("Visited Date required!").matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
-    followUpDate: Yup.string().required("Follow up date is required!").matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
+    visitedDate: Yup.string()
+    .required("Visited Date required!")
+    .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
+    followUpDate: Yup.string()
+    .required("Follow up date is required!")
+    .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
+    // description : Yup.string().required("Description is required!")
   });
   let [image, setImage] = useState([]);
   const [medicalData, setMedicalData] = useState([]);
