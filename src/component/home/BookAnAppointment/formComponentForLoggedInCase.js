@@ -197,6 +197,15 @@ export default function FormComponentForLoggedInCase(props) {
                 {(msg) => <div style={{ color: "red" }}>{msg}</div>}
               </ErrorMessage>
             </div>
+            <div className="form-group col-md-6 home-form-sel-serv">
+              <label htmlFor="doctor">
+                Select Doctor<span style={{ color: "red" }}>*</span>
+              </label>
+              <SelectFieldDoctor name={"doctorId"}></SelectFieldDoctor>
+              <ErrorMessage name="doctorId">
+                {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+              </ErrorMessage>
+            </div>
             <div className="form-row">
               <div className="form-group col-md-6">
                 <label htmlFor="appointment">
@@ -223,21 +232,15 @@ export default function FormComponentForLoggedInCase(props) {
 
               </div>
             </div>
-            <div className="form-group col-md-6" style={{ marginTop: "" }}>
-              <label htmlFor="time">
-                Time<span style={{ color: "red" }}>*</span>
-              </label>
-              <Field
-                type="time"
-                placeholder="select time"
-                id="appointmentTime"
-                name="appointmentTime"
-                className="form-control"
-              ></Field>
-              <ErrorMessage name="appointmentTime">
-                {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-              </ErrorMessage>
-            </div>
+            <div className="col-md-12 col-sm-12 col-xs-12 ">
+                {isloading ? (
+                  <Cliploader></Cliploader>
+                ) : (
+                  <button type="submit" className="btn btn-primary btn-block">
+                    Make Appointment
+                  </button>
+                )}
+              </div>
             </div>
         </Form>
       </Formik>
