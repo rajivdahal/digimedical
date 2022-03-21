@@ -8,6 +8,7 @@ import { httpClient } from "../../../../../../utils/httpClient";
 import { useHistory } from "react-router-dom";
 import { notify } from "../../../../../../services/notify";
 import { Redirect } from "react-router-dom";
+import { formatDate } from "../../../../../../services/timeanddate";
 
 export default function ServicePayment(props) {
   let history = useHistory();
@@ -20,7 +21,7 @@ export default function ServicePayment(props) {
   const popUpActionsData = useSelector((state) => state.paymentPopUp);
 
   // const closeDoctorPopUp = bindActionCreators(setClosePopUp, dispatch);
-  const digiDoctorBooking = useSelector((state) => state.service);
+  const digiDoctorBooking = useSelector((state) => state.digiServiceBooking);
   console.log(digiDoctorBooking)
   //end of redux implementation
 
@@ -127,7 +128,7 @@ export default function ServicePayment(props) {
             <div className="doc-pay-appoint-det1">
               <p id="pay-appoint-det-p">Appointment Detail</p>
               <p id="pay-appoint-det-p">
-                {digiDoctorBooking.data.date}{" "}
+                {formatDate(digiDoctorBooking.data.date) }{" "}
                 {digiDoctorBooking.data.time}
 
               </p>
