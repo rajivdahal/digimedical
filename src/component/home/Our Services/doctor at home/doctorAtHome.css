@@ -85,11 +85,10 @@
 }
 
 /* datepicker of ourservice page form */
-.ourserv-form-date .DatePicker{
+.ourserv-form-date .DatePicker {
   z-index: 1;
 }
 .ourserv-form-date .DatePicker__input {
-
   height: 2.875rem;
   width: 100%;
   border-radius: 4px;
@@ -115,6 +114,11 @@ c
   .ul-serv {
     grid-template-columns: 1fr 1fr;
   }
+}
+@media screen and (max-width: 500px) {
+  /* .ourserv-cont-main1 {
+    margin-top: 15rem;
+  } */
 }
 @media screen and (max-width: 400px) {
   .ul-serv {

@@ -63,7 +63,7 @@ export default function ServicePayment(props) {
     }
   },[digiDoctorBooking])
 
-  
+
   const proceed = () => {
     let id = digiDoctorBooking.data.appointmentId;
     let finalData = {
@@ -88,7 +88,7 @@ export default function ServicePayment(props) {
       });
   };
   const payNow=()=>{
-    
+
     let finalData={
       serviceBookingId : digiDoctorBooking.data.appointmentId,
       paymentStatus : 2,
@@ -104,7 +104,6 @@ export default function ServicePayment(props) {
       // if(localStorage.getItem("dm-access_token")){
       //   history.push("/dashboard/viewappointment")
       // }
-
     })
     .catch(err=>{
       console.log("error is",err)

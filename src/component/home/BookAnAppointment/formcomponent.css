@@ -46,7 +46,7 @@
   width: 140px;
 }
 
-.description {
+.doc-pop-description {
   padding-left: 20px;
 }
 
@@ -92,9 +92,9 @@
 .clear-icon:hover {
   color: #596579;
 }
-.formcompo_datepicker {
+.formcompo_datepicker .DatePicker {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
 }
 
@@ -102,11 +102,17 @@
   width: 100%;
   height: 45px;
   border-radius: 8px;
-  position: relative;
-  top: 0;
-  z-index: 1;
 }
+.formcompo_datepicker .DatePicker__calendarContainer {
+  position: absolute;
+  top: 50px;
 
+  margin: 0;
+}
+.formcompo_home a:focus,
+input:focus {
+  border: 1px solid #ddd;
+}
 .formcompo_datepicker .DatePicker {
   width: 100%;
 }
@@ -126,9 +132,11 @@
   width: 100%;
   border-radius: 8px;
 }
+
 .home-form-sel-serv .select-category {
-  z-index: 3;
+  z-index: 4;
 }
+
 @media screen and (max-width: 700px) {
   .formcompo_home {
     flex-direction: column;
@@ -150,7 +158,7 @@
   .doc p {
     text-align: center;
   }
-  .description {
+  .doc-pop-description {
     padding: 0;
     display: flex;
     flex-direction: column;

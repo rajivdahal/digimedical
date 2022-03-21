@@ -18,11 +18,11 @@ export default function Hospitalbookingcomponent(props) {
   const history = useHistory();
   let location = useLocation();
   console.log("location is", location);
-  let dispatch=useDispatch()
+  let dispatch = useDispatch();
   // redux implementation
   const appointmentBooking = useSelector((state) => state.appointmentBooking);
-  const setHospital=bindActionCreators(setHospitalInfo,dispatch)
-  console.log("appointment booking is",appointmentBooking)
+  const setHospital = bindActionCreators(setHospitalInfo, dispatch);
+  console.log("appointment booking is", appointmentBooking);
   // end of redux implementation
   useEffect(() => {
     httpClient
@@ -45,8 +45,7 @@ export default function Hospitalbookingcomponent(props) {
     setSearchedoutput(searchedoutput);
   };
   const showDoctors = (item) => {
-
-    setHospital(item)
+    setHospital(item);
     history.push({
       pathname: localStorage.getItem("dm-access_token")
         ? "/dashboard/hospitals/view-doctors"
@@ -163,7 +162,6 @@ export default function Hospitalbookingcomponent(props) {
             ) : (
               <h1>Not found</h1>
             )}
-            dashboard/hospitals
           </div>
           <div className="pagination_hosp">
             {hospitals.length ? (

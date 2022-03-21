@@ -16,13 +16,14 @@ import { useHistory } from "react-router-dom";
 import { notify } from "../../../../../../services/notify";
 import { Redirect } from "react-router-dom";
 
-export default function DigiDoctorPayment(props) {
+export default function ExternalServicePayment(props) {
   let history = useHistory();
   // NOTE:
   // data from the internal appointment booking component are in props
   // data from the normal speciality doctor booking app are from the store
   // end of note
 
+  console.log("props in digi doctor payment is", props);
   const [isPaymentOnline, setIsPaymentMethodOnline] = useState(false);
   const [paymentUrl,setPaymentUrl]=useState(null)
   // redux implementation
@@ -45,6 +46,7 @@ export default function DigiDoctorPayment(props) {
   );
   // const closeDoctorPopUp = bindActionCreators(setClosePopUp, dispatch);
 
+  console.log("store data are", digiDoctorBooking);
   //end of redux implementation
 
   const closePaymentPopUp = () => {
@@ -61,6 +63,7 @@ export default function DigiDoctorPayment(props) {
   }, []);
   const handleChange = (e, data) => {
     const { value } = e.target;
+    console.log("value isss", e, value, data);
     if (value == "home") {
       setDigiDoctorPaymentType("home");
     } else {
@@ -71,7 +74,7 @@ export default function DigiDoctorPayment(props) {
   };
   const proceed = () => {
     if(!digiDoctorBooking.selectedService){
-      return notify.error("Please select at least one service.")
+      return notify.error("Please select at least one service")
     }
     let finalData = {
       digiServiceId: digiDoctorBooking.selectedService.digiServiceId,
@@ -95,10 +98,11 @@ export default function DigiDoctorPayment(props) {
       .catch((err) => notify.error("Error in Appointment Booking"));
   };
   const payNow=()=>{
+    console.log("pay now ")
     if(!digiDoctorBooking.selectedService){
       return notify.error("Please select at least one service")
     }
-    let finalData = {
+    let finalData={
       digiServiceId:digiDoctorBooking.selectedService.digiServiceId,
       paymentStatus: 2,
       appointmentId: digiDoctorBooking.digiDoctorBookingIdAfterBooking
@@ -106,7 +110,6 @@ export default function DigiDoctorPayment(props) {
     httpClient.PUT("generate-payment-link",finalData,false,true)
     .then(resp=>{
       let paymentUrl=resp.data.data.paymentUrl
-      localStorage.setItem("paymentToken",resp.data.data.token)
       window.location.assign("http://"+paymentUrl,
       // '_blank'
       );
@@ -121,6 +124,7 @@ export default function DigiDoctorPayment(props) {
     })
     // console.log("finaldata",finalData)
   }
+  console.log("payment url is",paymentUrl)
   return (
     <div className="doc-pop-main">
       <div className="pay-pop-inner">

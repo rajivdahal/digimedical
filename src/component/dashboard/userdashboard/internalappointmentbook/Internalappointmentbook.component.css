@@ -102,6 +102,7 @@ r
 popup css here */
 
 .dash_docs {
+  width: 120%;
   position: absolute;
   top: 0;
   left: 105%;
@@ -126,15 +127,14 @@ popup css here */
     display: none;
   }
 }
-
+@media screen and (max-width: 1214px) {
+  .dash_docs {
+    display: none;
+  }
+}
 @media screen and (max-width: 1000px) {
   .marginadj {
     flex-direction: column;
-  }
-  .dash_docs {
-    display: none;
-    top: 110%;
-    left: 0;
   }
 }
 @media screen and (max-width: 600px) {

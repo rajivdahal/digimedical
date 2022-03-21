@@ -541,10 +541,14 @@ export default function Internalappointmentbook(prop) {
                 <div class="imag1">
                   <img src={doctorfetched.image} />
                 </div>
-                <div class="description">
-                  <p id="doc_name">Dr. {doctorfetched.name}</p>
+                <div class="doc-pop-description">
+                  <div>
+                    {" "}
+                    <p id="doc_name">Dr. {doctorfetched.name}</p>
+                    <p id="doc_edu">{doctorfetched.prefix}</p>
+                  </div>
                   <p id="doc_skill">{doctorfetched.specialist}</p>
-                  <p id="doc_edu">{doctorfetched.prefix}</p>
+
                   <p id="doc_exp">{doctorfetched.description}</p>
                 </div>
               </div>

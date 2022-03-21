@@ -11,27 +11,34 @@ import { setClosePopUp, setOpenPopUp } from "../../../actions/paymentPopUp.ac";
 import { bindActionCreators } from "redux";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { digiDoctorAppointmentFixed, digiDoctorInfo } from "../../../actions/digiDoctorBooking.ac";
+import {
+  digiDoctorAppointmentFixed,
+  digiDoctorInfo,
+} from "../../../actions/digiDoctorBooking.ac";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 const DigiMedicalDoctorCard = (props) => {
-  let dispatch=useDispatch();
+  let dispatch = useDispatch();
   let history = useHistory();
   const [userLogin, setUserLogin] = useState(false);
   const [showForm, setForm] = useState(false);
   // const [paymentPopUp,setPaymentPopUp]=useState(false)
 
-
   // Redux implementation for pop up
   const closePaymentPopUp = bindActionCreators(setClosePopUp, dispatch);
-  const setAppointmentFixed = bindActionCreators(digiDoctorAppointmentFixed, dispatch);
+  const setAppointmentFixed = bindActionCreators(
+    digiDoctorAppointmentFixed,
+    dispatch
+  );
   const setDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
 
   const openPaymentPopUp = bindActionCreators(setOpenPopUp, dispatch);
 
   const popupOpen = useSelector((state) => state.paymentPopUp);
-  const appointmentBooking = useSelector((state) => state.digiDoctorAppointmentBooking);
-  console.log("appointment booking data are",appointmentBooking)
+  const appointmentBooking = useSelector(
+    (state) => state.digiDoctorAppointmentBooking
+  );
+  console.log("appointment booking data are", appointmentBooking);
 
   // end of redux implementation for pop up
   var dt = new Date();
@@ -73,10 +80,11 @@ const DigiMedicalDoctorCard = (props) => {
   }, [props.selected]);
 
   const bookAppointment = (data) => {
-  
+
     let tempForm = showForm === true ? false : true;
-    if(!showForm){
-      setDoctorInfo(data)
+    console.log("props are", data);
+    if (!showForm) {
+      setDoctorInfo(data);
     }
     setForm(tempForm);
   };
@@ -108,14 +116,19 @@ const DigiMedicalDoctorCard = (props) => {
           true
         );
         if (resp.data.status) {
-          console.log(resp.data.data)
-          setAppointmentFixed({data:resp.data.data,origin:"digidoctorBooking"})
-          openPaymentPopUp(true)
+          console.log("inside if", resp.data);
+          setAppointmentFixed({
+            data: resp.data.data,
+            origin: "digidoctorBooking",
+          });
+          openPaymentPopUp(true);
+
+          // setPaymentPopUp(true)
+          // notify.success(resp.data.message);
           formik.resetForm();
           setForm(false);
         }
-      }
-       catch (err) {
+      } catch (err) {
         if (
           err &&
           err.response &&
@@ -146,9 +159,12 @@ const DigiMedicalDoctorCard = (props) => {
         );
         if (resp.data.status) {
           // notify.success(resp.data.message);
-          setAppointmentFixed({data:resp.data.data,origin:"digidoctorBooking"})
-          openPaymentPopUp(true)
-          console.log("response data is",resp.data)
+          setAppointmentFixed({
+            data: resp.data.data,
+            origin: "digidoctorBooking",
+          });
+          openPaymentPopUp(true);
+          console.log("response data is", resp.data);
           setForm(false);
         }
       } catch (err) {
@@ -158,7 +174,7 @@ const DigiMedicalDoctorCard = (props) => {
           err.response.data &&
           err.response.data.message
         ) {
-          notify.error(err.response.data.message)
+          notify.error(err.response.data.message);
           if (localStorage.getItem("status") == 200) {
             notify.error(
               "Email already exists,please book appointment internally"
@@ -184,12 +200,11 @@ const DigiMedicalDoctorCard = (props) => {
     validate: (values) => {
       let isLogin = userLogin ? true : false;
       return validateAppointment(values, isLogin);
-    }
-  })
+    },
+  });
 
   return (
     <>
-
       <div className="digidoctor_apoint_card1">
         <div className="digidoc_card_img">
           <img
@@ -237,17 +252,19 @@ const DigiMedicalDoctorCard = (props) => {
             </Accordion>
           </div>
         </div>
-        
         <div className="digidoctor_card_but">
           {" "}
           <div>
-            <button id="digidoctor_card_but" onClick={()=>bookAppointment(props)}>
+            <button
+              id="digidoctor_card_but"
+              onClick={() => bookAppointment(props)}
+            >
               Book an appointment
             </button>
           </div>
         </div>
       </div>
-{/* if user is not logged in */}
+      {/* if user is not logged in */}
       {showForm === true ? (
         userLogin === false ? (
           <form onSubmit={formik.handleSubmit}>
@@ -371,11 +388,10 @@ const DigiMedicalDoctorCard = (props) => {
               </div>
             </div>
           </form>
-        )
-        // end if user is not logged in
+        ) : (
+          // end if user is not logged in
 
-        // start if user is logged in
-        : (
+          // start if user is logged in
           <form onSubmit={formik.handleSubmit}>
             <div className="form_digidoc">
               {" "}
@@ -422,14 +438,11 @@ const DigiMedicalDoctorCard = (props) => {
             </div>
           </form>
         )
-        // end user is logged in
       ) : (
+        // end user is logged in
         <></>
       )}
-      {
-        popupOpen.trigger?<DigiDoctorPayment></DigiDoctorPayment>:null
-      }
-
+      {popupOpen.trigger ? <DigiDoctorPayment></DigiDoctorPayment> : null}
     </>
   );
 };

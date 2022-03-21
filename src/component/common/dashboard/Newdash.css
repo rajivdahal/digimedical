@@ -25,6 +25,9 @@
   line-height: 50px;
   font-size: 25px;
 }
+.dash_nav_img {
+  margin-bottom: 0;
+}
 .newdash_nav_img {
   width: 30%;
   height: 100%;
@@ -245,7 +248,9 @@ d
   @media screen and (max-width: 900px) {
     .newdash_user {
     }
+
     .Welcome_client {
+      font-size: 13.33px;
       width: 38%;
     }
   }
@@ -259,16 +264,19 @@ d
     font-size: 14px;
   }
   .newdash_nav_img {
-    width: 20%;
+    display: flex;
+
+    align-items: center;
   }
-  .newdash_nav_img img {
+  /* .newdash_nav_img img {
     height: 100%;
     width: 100;
-    object-fit: cover;
-  }
-  .newdash_nav_img img {
-    width: 110px;
     object-fit: contain;
+  } */
+  .newdash_nav_img img {
+    width: 120px;
+    height: 40px;
+    object-fit: cover;
   }
   .Welcome_client {
     width: 40%;

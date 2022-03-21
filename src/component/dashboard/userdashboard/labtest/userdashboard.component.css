@@ -66,7 +66,7 @@
   border: 1px solid #d0d7e2;
   background: #f7f7ff;
   display: flex;
-  padding: 18px;
+  padding: 22px 18px;
   border-radius: 5px;
   font-size: 13.33px;
   color: blue;
@@ -291,10 +291,10 @@ popup to select labtest */
   justify-content: space-between;
 }
 .ctlt_total_price {
-  width: fit-content;
-
-  margin: auto;
-  margin-right: 0;
+}
+.total_price_lt {
+  float: right;
+  margin-bottom: 1rem;
 }
 .ctlt_total_price p {
   font-size: 16px;
@@ -307,13 +307,14 @@ popup to select labtest */
   color: black;
 }
 .ctlt_atc_but {
+  float: right;
   margin-top: 10px;
   background: #2745f0;
   border: 1px solid #2745f0;
   border-radius: 5px;
   padding: 10px;
   color: white;
-  width: 100%;
+  width: 60%;
 }
 .ctlt_atc_but:hover {
   background: #1229a7;
