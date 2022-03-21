@@ -4,7 +4,7 @@ import LoggedInCase from "./loggedInCase/loggedInCase";
 import LoggedOutCase from "./loggedOutCase/loggedOutCase";
 
 function DoctorPopup(props) {
-  console.log("props before",props)
+  // console.log("props before",props)
   const [docPopup, SetDocPopup] = useState(false);
   return <>
   {

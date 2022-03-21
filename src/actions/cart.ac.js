@@ -22,7 +22,6 @@ export const labtestActionTypes = {
 }
 
 export const addtocart = params => {
-    console.log("addtocart service in action file is",params)
     return (dispatch) => {
         dispatch({
             type: cartActionTypes.SET_IS_CART_ADDED,
@@ -44,7 +43,6 @@ export const fetchlabtest = (params) => {
                         item.checked = true
                     })
                 })
-                console.log("data is", data)
                 dispatch({
                     type: labtestActionTypes.SET_IS_LAB_TEST_FETCHED,
                     payload: data
@@ -108,7 +106,6 @@ export const removeproduct = (params) => {
     }
 }
 export const removeproductstatus = (params) => {
-    console.log("removeproductstatus action file triggered>>>>>>>>>>>>>>>>>",params)
     return (dispatch) => {
         dispatch({
             type: labtestActionTypes.REMOVE_PRODUCT_STATUS,
@@ -117,7 +114,6 @@ export const removeproductstatus = (params) => {
     }
 }
 export const cartpopupsignal = (params) => {
-    console.log("cartpopup signal",params)
     return (dispatch) => {
         dispatch({
             type: labtestActionTypes.CART_POP_UP,

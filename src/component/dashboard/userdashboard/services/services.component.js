@@ -10,8 +10,29 @@ import { notify } from "../../../../services/notify";
 import MaterialTable from "material-table";
 import Tableicons from "../../../../utils/materialicons";
 import { Check, Edit, Clear, Add } from "@material-ui/icons";
+import { setClosePopUp, setOpenPopUp } from "../../../../actions/paymentPopUp.ac";
+import { bindActionCreators } from "redux";
+import { useDispatch ,useSelector} from "react-redux";
+import { digiDoctorAppointmentFixed } from "../../../../actions/digiDoctorBooking.ac";
+import ServicePayment from "../../../common/popup/doctorPopup/selectPaymentMethod/forServicePayment/servicepayment";
+import { internalServiceBooking } from "../../../../actions/service.action";
 
 export default function UserServices(props) {
+
+  // Redux implementation for pop up
+  let dispatch=useDispatch();
+
+  const closePaymentPopUp = bindActionCreators(setClosePopUp, dispatch);
+  const setAppointmentFixed = bindActionCreators(digiDoctorAppointmentFixed, dispatch);
+  // const setDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
+
+  const openPaymentPopUp = bindActionCreators(setOpenPopUp, dispatch);
+
+  const popupOpen = useSelector((state) => state.paymentPopUp);
+
+  // end of redux implementation for pop up
+
+
   const initialValues = {
     serviceId: "",
     date: "",
@@ -38,6 +59,7 @@ export default function UserServices(props) {
   let [deleteIndeed, setDeleteIndeed] = useState(false);
 
   let [serviceId, setServiceId] = useState("");
+
   useEffect(() => {
     getAllServices();
     getSelectedServices();
@@ -58,6 +80,7 @@ export default function UserServices(props) {
     httpClient
       .GET("service-booking/get/0", false, true)
       .then((resp) => {
+        console.log(resp.data.data)
         let finalData = resp.data.data.map((item) => {
           item.userName =
             item.firstName + " " + item.middleName + " " + item.lastName;
@@ -82,6 +105,7 @@ export default function UserServices(props) {
       />
     );
   }
+
   function TimePickerField({ name }) {
     const formik = useFormikContext();
     const field = formik.getFieldProps(name);
@@ -119,9 +143,13 @@ export default function UserServices(props) {
     httpClient
       .POST("service-booking/create", finaldata, false, true)
       .then((resp) => {
-        notify.success("Updated Successfully");
-        resetForm();
-        getSelectedServices();
+        if(resp.data.status){
+          finaldata.appointmentId = resp.data.data;
+          dispatch(internalServiceBooking(finaldata))
+          openPaymentPopUp(true);
+          resetForm();
+          getSelectedServices();
+        }
       })
       .catch((err) => {
         notify.error("Error in updating");
@@ -163,7 +191,6 @@ export default function UserServices(props) {
                 {props.origin != "admin" ? (
                   <Formik
                     initialValues={initialValues}
-                    // initialValues={initialValues}
                     onSubmit={submit}
                     validationSchema={schema}
                   >
@@ -171,7 +198,7 @@ export default function UserServices(props) {
                       <Form className=" medical_repo_form">
                         <div className="margin-adjuster1">
                           <div className="labrepo_text_form">
-                            <label htmlFor="date">Date:</label>
+                            <label htmlFor="date">Date :</label>
                             <div className="serviceDate">
                               <DatePickerField name="date" />
                             </div>
@@ -180,7 +207,7 @@ export default function UserServices(props) {
                             <div style={{ color: "red" }}>{errors.date}</div>
                           ) : null}
                           <div className="labrepo_text_form">
-                            <label htmlFor="name">Time:</label>
+                            <label htmlFor="name">Time :</label>
                             <TimePickerField name="time"></TimePickerField>
                           </div>
                           {errors.time && touched.time ? (
@@ -189,7 +216,7 @@ export default function UserServices(props) {
                         </div>
                         <div className="margin-adjuster2">
                           <div className="labrepo_text_form">
-                            <label htmlFor="name">Service:</label>
+                            <label htmlFor="name">Service :</label>
                             <SelectField name="serviceId"></SelectField>
                           </div>
                           {errors.serviceId && touched.serviceId ? (
@@ -237,12 +264,12 @@ export default function UserServices(props) {
                 <div className="material-table">
                   <MaterialTable
                     data={selectedService}
-                    title="Selected Services"
+                    title="Booked Services"
                     icons={Tableicons}
                     columns={columnsData}
                     options={{
                       actionsColumnIndex: -1,
-                      pageSize: 5,
+                      pageSize:25 ,
                       filtering: false,
                       sorting: true,
                       headerStyle: {
@@ -266,6 +293,9 @@ export default function UserServices(props) {
           </div>
         </div>
       </div>
+      {
+        popupOpen.trigger?<ServicePayment></ServicePayment> : null
+      }
     </div>
   );
 }

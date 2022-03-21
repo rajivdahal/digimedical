@@ -68,7 +68,6 @@ export default function Bookappointment(prop) {
           }, 2000);
         })
         .catch((err) => {
-          console.log(err);
           setappointmentfailed("something went wrong");
         });
     },

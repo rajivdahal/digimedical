@@ -72,7 +72,7 @@ export default function LoggedInCase(props) {
       <input type={"time"}
         onChange={
           e => {
-            console.log("event is", e)
+            // console.log("event is", e)
             formik.setFieldValue(name, e.target.value)
           }
         }
@@ -82,7 +82,7 @@ export default function LoggedInCase(props) {
   }
 
   const getFinalData = (values) => {
-    console.log("undefined valus", values)
+    // console.log("undefined valus", values)
     let finaldata = {
       appointmentDate: values.date ?
         values.date.year + "-" + values.date.month + "-" + values.date.day :
@@ -93,27 +93,27 @@ export default function LoggedInCase(props) {
   }
 
   const submit=(values)=>{
-    console.log("values",values)
+    // console.log("values",values)
     let finalData={
       ...getFinalData(values),
       servicesId:appointmentBooking.doctorInfo.serviceid,
       hospitalId:appointmentBooking.hospitalInfo.id,
       doctorId:appointmentBooking.doctorInfo.doctorid
     }
-    console.log("finaldata",finalData)
+    // console.log("finaldata",finalData)
     httpClient.POST("create-appointment",finalData,false,true)
     .then(resp=>{
-      console.log("response is",resp.data)
+      // console.log("response is",resp.data)
       let final={
         ...finalData,
         data:resp.data.data
       }
-      console.log("final data is",final)
+      // console.log("final data is",final)
       setAppointmentFixed(final)
     })
     .catch(resp=>notify.error("Something went wrong"))
 
-    console.log("finaldata",finalData)
+    // console.log("finaldata",finalData)
     // finaldata.
     // finaldata.hospitalId=appointmentBooking.hospitalInfo.id,
     // finaldata.
@@ -123,7 +123,7 @@ export default function LoggedInCase(props) {
 
   const submitDigiDoctorBooking = (values) => {
     let finaldata = getFinalData(values)
-    console.log("final data after submitting from only doctor is", finaldata)
+    // console.log("final data after submitting from only doctor is", finaldata)
     doctorAppointmentBookLoading(true)
     setDigiDoctorAppointment({
       servicesId: digiDoctorBooking.digiDoctorInfo.serviceid,

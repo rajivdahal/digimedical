@@ -15,7 +15,7 @@ import { digiDoctorAppointmentFixed, digiDoctorInfo } from "../../../actions/dig
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 const DigiMedicalDoctorCard = (props) => {
-  let dispatch=useDispatch()
+  let dispatch=useDispatch();
   let history = useHistory();
   const [userLogin, setUserLogin] = useState(false);
   const [showForm, setForm] = useState(false);
@@ -73,8 +73,8 @@ const DigiMedicalDoctorCard = (props) => {
   }, [props.selected]);
 
   const bookAppointment = (data) => {
+  
     let tempForm = showForm === true ? false : true;
-    console.log("props are",data)
     if(!showForm){
       setDoctorInfo(data)
     }
@@ -87,6 +87,7 @@ const DigiMedicalDoctorCard = (props) => {
     setSelectedDay(value);
     formik.values.appointmentDate = date;
   };
+
   const submitAppointment = async (values) => {
     if (userLogin === true) {
       let data = {
@@ -107,13 +108,9 @@ const DigiMedicalDoctorCard = (props) => {
           true
         );
         if (resp.data.status) {
-
-          console.log("inside if",resp.data)
+          console.log(resp.data.data)
           setAppointmentFixed({data:resp.data.data,origin:"digidoctorBooking"})
           openPaymentPopUp(true)
-
-          // setPaymentPopUp(true)
-          // notify.success(resp.data.message);
           formik.resetForm();
           setForm(false);
         }
@@ -240,23 +237,7 @@ const DigiMedicalDoctorCard = (props) => {
             </Accordion>
           </div>
         </div>
-        <div className="doc_accordion">
-          <Accordion>
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>
-                Available consultation medium
-              </Accordion.Header>
-              <Accordion.Body className="acc-doc-body">
-                {props.digiServices.map((item) => {
-                  return <ul className="accordion-body">
-                    <li>{item.digiServiceName}</li>
-                  </ul>
-                })}
-
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        </div>
+        
         <div className="digidoctor_card_but">
           {" "}
           <div>
