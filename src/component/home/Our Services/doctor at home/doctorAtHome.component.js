@@ -66,10 +66,11 @@ function doctorAtHome() {
               <li>Dentist</li>
               <li>Dermatologist</li>
               <li>Ophthalmologist</li>
-              <li>ENT (Otorhinolaryngologist)</li>
+
               <li>Orthopedic</li>
               <li>Radiologist</li>
               <li>Gastroenterologist</li>
+              <li>ENT (Otorhinolaryngologist)</li>
             </ul>
           </div>
           <p className="questionheads">

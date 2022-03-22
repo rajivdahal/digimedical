@@ -55,7 +55,7 @@ export default function Internalappointmentbook(prop) {
     prefix: null,
     name: null,
     specialist: null,
-    description: null,
+    description: null
   });
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({

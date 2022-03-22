@@ -13,6 +13,12 @@ import "./formcomponent.css";
 import * as Yup from "yup";
 import Select from "react-select";
 import FormComponentForLoggedInCase from "./formComponentForLoggedInCase";
+import { setDoctorInfo } from "../../../actions/hospitalAppointmentBooking.ac";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { digiDoctorAppointmentFixed, digiDoctorInfo } from "../../../actions/digiDoctorBooking.ac";
+import { setOpenPopUp } from "../../../actions/paymentPopUp.ac";
+import ExternalBookingPayment from '../../common/popup/doctorPopup/selectPaymentMethod/forexternalbooking/externalBookingPayment';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -67,7 +73,20 @@ function FormComponent(props) {
   const [services, setservices] = useState([]);
   const [doctors, setdoctors] = useState([]);
   const [isloading, setisloading] = useState(false);
+  const [doctorFullInfo,setDoctorFullInfo]=useState([])
   console.log("services are", services);
+
+
+
+        // redux implementation
+        const dispatch=useDispatch()
+        const popupOpen = useSelector((state) => state.paymentPopUp);
+        const setAppointmentFixed = bindActionCreators(digiDoctorAppointmentFixed, dispatch);
+        const setDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
+        const openPaymentPopUp = bindActionCreators(setOpenPopUp, dispatch);
+        const appointmentBooking = useSelector((state) => state.digiDoctorAppointmentBooking);
+        console.log("appointmentBooking is",appointmentBooking)
+        // end of redux implementation
   const [doctorfetched, setdoctorfetched] = useState({
     image: null,
     prefix: null,
@@ -88,6 +107,8 @@ function FormComponent(props) {
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
+  const [value,setValue]=useState(null)
+  const [doctor,setDoctor]=useState(null)
   useEffect(() => {
     httpClient
       .GET("services/get/true")
@@ -160,8 +181,10 @@ function FormComponent(props) {
       <Select
         options={services}
         className="select-category"
+        value={{label: value}}
         onChange={(value) => {
           formik.setFieldValue(name, value.value);
+          setValue(value.label)
           handleChange(value);
         }}
       />
@@ -174,9 +197,12 @@ function FormComponent(props) {
     return (
       <Select
         options={doctors}
+        value={{label: doctor}}
         className="select-category"
         onChange={(value) => {
-          formik.setFieldValue(name, value.value);
+          formik.setFieldValue(name, value.value.doctorid);
+          setDoctor(value.label)
+          setDoctorFullInfo(value.value)
         }}
       />
     );
@@ -193,7 +219,7 @@ function FormComponent(props) {
         let doctors = resp.data.data.map((item, index) => {
           return {
             label: item.name,
-            value: item.doctorid,
+            value: item,
           };
         });
         setdoctors(doctors);
@@ -252,13 +278,19 @@ function FormComponent(props) {
         .POST("create-external-user", finaldata)
         .then((res) => {
           setappointmentsuccess(res.data.message);
-          setTimeout(() => {
-            prop.push({
-              pathname: "/login",
-              fromexternaluser: true,
-              email: values.email,
-            });
-          }, 3000);
+          setAppointmentFixed({data:res.data.data,origin:"digidoctorBooking"})
+          let doctorInfo=doctorFullInfo
+          doctorInfo={...doctorInfo,...finaldata}
+          setDoctorInfo(doctorInfo)
+          openPaymentPopUp(true)
+          console.log("doctor info is",doctorFullInfo)
+          // setTimeout(() => {
+          //   prop.push({
+          //     pathname: "/login",
+          //     fromexternaluser: true,
+          //     email: values.email,
+          //   });
+          // }, 3000);
         })
         .catch((err) => {
           if (!err) {
@@ -268,7 +300,6 @@ function FormComponent(props) {
             setappointmentfailed(
               err.response.data.message + " redirecting to dashboard...."
             );
-
             return setTimeout(() => {
               let token = localStorage.getItem("dm-access_token");
               token
@@ -284,15 +315,17 @@ function FormComponent(props) {
         .finally(() => {
           setisloading(false);
         });
-      httpClient
-        .POST("create-appointment", finaldata, false, true)
-        .then((resp) => {
-          notify.success("Appointment booked successfully");
-        })
-        .catch((err) => notify.error("Error in appointment booking"));
+        if(localStorage.getItem("dm-access_token")){
+          httpClient
+          .POST("create-appointment", finaldata, false,false)
+          .then((resp) => {
+            notify.success("Appointment booked successfully");
+          })
+          .catch((err) => notify.error("Error in appointment booking"));
+        }
     };
   const submitForLoggedInCase = (values) => {
-    console.log("values are", values);
+  console.log("values are", values);
   };
 
   return (
@@ -500,6 +533,9 @@ function FormComponent(props) {
           </div>
         </div>
       ) : null}
+      {
+            popupOpen.trigger?<ExternalBookingPayment></ExternalBookingPayment>:null
+          }
     </div>
   );
 }
