@@ -26,6 +26,7 @@ import Digimedical_doctors from "../home/Digimedical doctors/Digimedical_doctors
 import AllSpecialist from "../home/Digimedical doctors/allSpecialist";
 import Services from "../dashboard/adminDashboard/services/services.component";
 import SuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/successResponse";
+import ExternalSuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/externalSuccessResponse";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -38,6 +39,8 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/contact" component={ContactUs}></PublicRoute>
         <PublicRoute exact path="/digi-doctors" component={Digimedical_doctors}></PublicRoute>
         <PublicRoute exact path="/all-speciality" component={AllSpecialist}></PublicRoute>
+        <PublicRoute exact path="/success-response" component={SuccessResponse}></PublicRoute>
+
         <PublicRoute
           exact
           path="/our-services/:subservice"

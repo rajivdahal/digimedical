@@ -48,6 +48,7 @@ const CorporatePage = (props) => {
 
     const getCorporateType = async () => {
         let labtest = await httpClient.GET("corporate-types/get-all", false, true)
+            
             .then(resp => {
                 if (resp.data.status) {
                     let result = resp.data.data;
@@ -86,7 +87,7 @@ const CorporatePage = (props) => {
                 panNo: values.panNumber,
                 contactNumber: values.contactNumber,
                 establishDate: values.establishDate,
-                contactPersonName: values.personName,
+                contactPersonName: values.contactPersonName,
                 mobileNumber: values.mobileNum,
                 email: values.email,
                 corporateTypeId: corporateId,
@@ -148,7 +149,7 @@ const CorporatePage = (props) => {
                 panNo: values.panNumber,
                 contactNumber: values.contactNumber,
                 establishDate: values.establishDate,
-                contactPersonName: values.personName,
+                contactPersonName: values.contactPersonName,
                 mobileNumber: values.mobileNum,
                 corporateTypeId: corporateId,
 
