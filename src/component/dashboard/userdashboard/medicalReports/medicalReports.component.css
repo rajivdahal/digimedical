@@ -40,7 +40,6 @@
 .labrepo_text_form {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   margin-bottom: 20px;
 }
 .labrepo_text_form label {

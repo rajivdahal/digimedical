@@ -100,11 +100,11 @@ const items = [
 
 const TheyTrustedUs = () => {
   const settings = {
-    infinite: false,
-    speed: 500,
+    infinite: true,
+    speed: 3000,
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: true, 
     pauseOnHover: true,
     responsive: [
       {
