@@ -366,7 +366,11 @@ w
 
 @media screen and (max-width: 1000px) {
   .lab_add_to_cart1 {
-    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
   }
   .main_div_user_lab {
     left: 0px;
@@ -380,6 +384,9 @@ w
   }
   .ul_labtest_dash {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+  .lab_add_to_cart_samp {
+    width: 90%;
   }
   /*
   .lab_add_to_cart_ltwo {
@@ -439,7 +446,7 @@ w
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
   .lab_add_to_cart_samp_body1 {
     flex-direction: column;
     align-items: center;
@@ -449,15 +456,14 @@ w
   #labtest_desc_txt2 {
     text-align: center;
   }
+  .lab_popup_checkout {
+    padding: 5px;
+    margin-left: 5px;
+  }
   .ul_labtest_dash {
     justify-content: center;
     align-items: center;
   }
 }
-
-@media screen and (max-width: 500px) {
-  .lab_popup_checkout {
-    padding: 5px;
-    margin-left: 5px;
-  }
+@media screen and (max-width: 400px) {
 }
