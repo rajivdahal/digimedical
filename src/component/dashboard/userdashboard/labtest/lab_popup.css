@@ -159,3 +159,9 @@
     overflow: scroll;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .popup_lab_close {
+    padding: 5px;
+  }
+}

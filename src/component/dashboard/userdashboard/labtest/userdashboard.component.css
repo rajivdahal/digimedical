@@ -454,3 +454,10 @@ w
     align-items: center;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .lab_popup_checkout {
+    padding: 5px;
+    margin-left: 5px;
+  }
+}
