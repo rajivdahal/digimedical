@@ -89,10 +89,10 @@ import SpecialityDoctor from "./userdashboard/digimedicalDoctor/specialityDoctor
 import ViewServicesBookedOfUser from "./adminDashboard/services/services.component";
 import { PaymentMaster } from "./adminDashboard/paymentMaster/paymentMaster";
 import SuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/successResponse";
-import { PublicRoute } from "../routing/publicroute";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
+
   return (
     <>
       {statusCode == 200 && props.location.fromexternaluser ? (
@@ -100,7 +100,9 @@ const Dashboard = (props) => {
       ) : statusCode == 200 ? (
         <>
           <Dashboardnavbar props={props.history}></Dashboardnavbar>
-          <Usersidebar props={props.history}></Usersidebar>
+
+          <Usersidebar></Usersidebar>
+
           {props.location.pathname === "/dashboard" ||
           props.location.pathname === "/dashboard/" ? (
             <ProtectedRoute component={Userdashboard}></ProtectedRoute>

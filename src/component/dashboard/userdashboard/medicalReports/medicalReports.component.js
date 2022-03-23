@@ -88,6 +88,7 @@ export const MedicalReports = (props) => {
   const formikContent=null
 
   return (
+    <>
     <div className="med_repo_main">
       <div className="main-psetImage  report-container">
         <h2>Update your previous report here</h2>
@@ -207,5 +208,6 @@ export const MedicalReports = (props) => {
         </div>
       </div>
     </div>
+    </>
   );
 };

@@ -95,6 +95,7 @@ export default function DigiDoctorPayment(props) {
       .catch((err) => notify.error("Error in Appointment Booking"));
   };
   const payNow=()=>{
+    console.log("paynow")
     if(!digiDoctorBooking.selectedService){
       return notify.error("Please select at least one service")
     }
@@ -103,18 +104,12 @@ export default function DigiDoctorPayment(props) {
       paymentStatus: 2,
       appointmentId: digiDoctorBooking.digiDoctorBookingIdAfterBooking
     }
-    httpClient.PUT("generate-payment-link",finalData,false,true)
+    console.log("about to hit put")
+    httpClient.PUT("generate-payment-link",finalData,false)
     .then(resp=>{
       let paymentUrl=resp.data.data.paymentUrl
       localStorage.setItem("paymentToken",resp.data.data.token)
-      window.location.assign("http://"+paymentUrl,
-      // '_blank'
-      );
-      // closeDoctorPopUp(true)
-      // if(localStorage.getItem("dm-access_token")){
-      //   history.push("/dashboard/viewappointment")
-      // }
-
+      window.location.assign("http://"+paymentUrl);
     })
     .catch(err=>{
       console.log("error is",err)
@@ -257,7 +252,7 @@ export default function DigiDoctorPayment(props) {
                   <p>Proceed</p>
                 </a>
                 {
-                  isPaymentOnline && localStorage.getItem("dm-access_token")?<a className="lab_popup_checkout"  onClick={payNow}>
+                  isPaymentOnline?<a className="lab_popup_checkout"  onClick={payNow}>
                   <p>Pay now</p>
                 </a>:null
                 }

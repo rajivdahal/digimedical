@@ -85,6 +85,7 @@ export default function Viewlabtest() {
   }
   console.log("labtestreports are", labTestReport);
   return (
+    <>
     <div className="container-fluid page-body-wrapper">
       <div className="main-panel newdash_content">
         <div className="content-wrapper">
@@ -161,5 +162,6 @@ export default function Viewlabtest() {
         </div>
       </div>
     </div>
+    </>
   );
 }
