@@ -26,12 +26,13 @@ export default function Viewlabtest() {
     setisDynamicPendingClass(true);
   };
   const getImage = async (data, identifier) => {
+    console.log("data is",data)
     setLabTestReport([]);
     setDownloadLabLabReport([]);
     setFromDOwnload(true);
     console.log("identifier is", identifier);
     httpClient
-      .GET("lab-report/get-all/" + data.labtestbookingid, false, true)
+      .GET("lab-report/get-all/" + data.labtestbooking, false, true)
       .then((resp) => {
         let lab = [];
         resp.data.data.map((item) => {
