@@ -224,8 +224,9 @@ const Conection = () => {
       style={{
         backgroundImage: `url(${ConnectionWall})`,
         backgroundPosition: "center",
-        backgroundSize: "cover",
+        backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
+        backgroundColor: '#fff',
       }}
     >
       <HappyClient className="floating-item">
