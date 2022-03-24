@@ -123,6 +123,7 @@ input:focus {
   border-radius: 8px;
   height: 2.875rem;
   width: 100%;
+  text-align: left;
 }
 .DatePicker {
   width: 100%;
