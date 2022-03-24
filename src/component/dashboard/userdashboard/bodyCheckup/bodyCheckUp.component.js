@@ -20,7 +20,7 @@ export default function BodyCheckUpUser(props) {
 
   const schema = Yup.object().shape({
     serviceId: Yup.string().required("Service is required!"),
-    value: Yup.number("Must be a number")
+    value: Yup.string()
     .required("Value is required!"),
   });
 

@@ -161,7 +161,7 @@ export const Approuting = (props) => {
         ></ProtectedRoute>
         <ProtectedRoute
           exact
-          path="/dashboard/Services"
+          path="/dashboard/services"
           component={Dashboard}
         ></ProtectedRoute>
         <ProtectedRoute
@@ -221,11 +221,11 @@ export const Approuting = (props) => {
           path="/dashboard/add-member"
           component={Dashboard}
         ></ProtectedRoute>
-        <ProtectedRoute
+        <PublicRoute
           exact
           path="/dashboard/payment-response"
-          component={Dashboard}
-        ></ProtectedRoute>
+          component={SuccessResponse}
+        ></PublicRoute>
 
         <ProtectedRoute
           exact

@@ -26,12 +26,13 @@ export default function Viewlabtest() {
     setisDynamicPendingClass(true);
   };
   const getImage = async (data, identifier) => {
+    console.log("data is",data)
     setLabTestReport([]);
     setDownloadLabLabReport([]);
     setFromDOwnload(true);
     console.log("identifier is", identifier);
     httpClient
-      .GET("lab-report/get-all/" + data.labtestbookingid, false, true)
+      .GET("lab-report/get-all/" + data.labtestbooking, false, true)
       .then((resp) => {
         let lab = [];
         resp.data.data.map((item) => {
@@ -85,6 +86,7 @@ export default function Viewlabtest() {
   }
   console.log("labtestreports are", labTestReport);
   return (
+    <>
     <div className="container-fluid page-body-wrapper">
       <div className="main-panel newdash_content">
         <div className="content-wrapper">
@@ -161,5 +163,6 @@ export default function Viewlabtest() {
         </div>
       </div>
     </div>
+    </>
   );
 }

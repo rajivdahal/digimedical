@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import { notify } from "../../../../../../services/notify";
 import { Redirect } from "react-router-dom";
 import { formatDate } from "../../../../../../services/timeanddate";
+import { resetServicesInfo } from "../../../../../../actions/service.action";
 
 export default function ServicePayment(props) {
   let history = useHistory();
@@ -18,11 +19,14 @@ export default function ServicePayment(props) {
   const dispatch = useDispatch(props);
 
   const closeDoctorPopUp = bindActionCreators(setClosePopUp, dispatch);
+  const resetService=bindActionCreators(resetServicesInfo,dispatch)
   const popUpActionsData = useSelector((state) => state.paymentPopUp);
 
   // const closeDoctorPopUp = bindActionCreators(setClosePopUp, dispatch);
   const digiDoctorBooking = useSelector((state) => state.digiServiceBooking);
-  console.log(digiDoctorBooking)
+  const services = useSelector((state) => state.digiServiceBooking);
+
+  console.log("data from store are",services)
   //end of redux implementation
 
   const [bookedService,setBookedService]  = useState({
@@ -33,18 +37,21 @@ export default function ServicePayment(props) {
   })
 
   const closePaymentPopUp = () => {
+
     closeDoctorPopUp(true);
     if (props.props) {
       props.props.setTrigger(false);
     }
+    resetService(true)
   };
 
   const getAllServices = () => {
-    httpClient.GET("digi-service/get-all").then((resp) => {
+    httpClient.GET("digi-service/get-all")
+     .then((resp) => {
       if(resp.data && resp.data.data){
         let services = resp.data.data;
         let selected = services.find((service)=>{
-          return digiDoctorBooking.data.digiServiceId == service.id
+          return digiDoctorBooking.data.digiServiceId === service.id
         })
         let {name,amount,id} = selected;
         setBookedService({
@@ -57,6 +64,7 @@ export default function ServicePayment(props) {
   };
 
 
+
   useEffect(()=>{
     if(digiDoctorBooking && digiDoctorBooking.data && digiDoctorBooking.data.digiServiceId){
       getAllServices();
@@ -66,25 +74,26 @@ export default function ServicePayment(props) {
 
   const proceed = () => {
     let id = digiDoctorBooking.data.appointmentId;
+    console.log("id is",digiDoctorBooking)
     let finalData = {
       paymentStatus: 0,
     };
     httpClient
       .PUT(
-        "service-booking/update/after-payment/" +id,
-        finalData,false,true
+        "service-booking/update-payment/" +id,
+        finalData,false
       )
       .then((resp) => {
         closeDoctorPopUp(true)
         // if(localStorage.getItem("dm-access_token")){
         //   history.push("/dashboard/viewappointment")
         // }
-        notify.success("Appointment Successfully created");
+        notify.success("Appointment Successfully created,Please check your email");
       })
 
       .catch((err) => {
         notify.error("Error in Appointment Booking");
-        closePaymentPopUp();
+        // closePaymentPopUp();
       });
   };
   const payNow=()=>{
@@ -94,9 +103,10 @@ export default function ServicePayment(props) {
       paymentStatus : 2,
       paymentSource : "esewa"
     }
-    httpClient.PUT("generate-payment-link/service-booking",finalData,false,true)
+    httpClient.PUT("generate-payment-link/service-booking",finalData,false,localStorage.getItem("dm-access_token")?true:false)
     .then(resp=>{
       let paymentUrl=resp.data.data.paymentUrl
+      localStorage.setItem("paymentToken",resp.data.data.token)
       window.location.assign("http://"+paymentUrl,
       // '_blank'
       );
@@ -128,8 +138,8 @@ export default function ServicePayment(props) {
             <div className="doc-pay-appoint-det1">
               <p id="pay-appoint-det-p">Appointment Detail</p>
               <p id="pay-appoint-det-p">
-                {formatDate(digiDoctorBooking.data.date) }{" "}
-                {digiDoctorBooking.data.time}
+                {digiDoctorBooking.data?formatDate(digiDoctorBooking.data.date):"date"}{" "}
+                {digiDoctorBooking.data?digiDoctorBooking.data.time:"time"}
 
               </p>
             </div>

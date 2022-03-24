@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { http, httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
 import { useState } from "react";
+import Usersidebar from "../usersidebar/usersidebar.component";
 // import { LoadingIndicator } from "react-select/dist/declarations/src/components/indicators";
 const Userdashboard = (props) => {
   let [pendingappointment, setpendingappointments] = useState(0);
@@ -67,6 +68,7 @@ const Userdashboard = (props) => {
   }, []);
   return (
     <>
+    <Usersidebar></Usersidebar>
       <div className="container-fluid page-body-wrapper">
         <div className="main-panel newdash_content">
           <div className="dashboard-wrapper">

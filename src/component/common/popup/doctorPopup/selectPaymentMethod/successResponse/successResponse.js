@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./successResponse.css";
 import Ramimg from "../../../../../../assets/ram.svg";
 import { httpClient } from "../../../../../../utils/httpClient";
+import Navbar from "../../../../../Navbar/Navbar";
+import Footer from "../../../../../Footer/Footer";
+import { Link } from "react-router-dom";
 
 export default function SuccessResponse() {
   const location=useLocation()
   const querryResponse=location.search.split("=")[1]
   const codedQuerryResponse=querryResponse==="fu"?2:1
+  const [isLoggedIn,setIsLoggedIn]=useState(localStorage.getItem("dm-access_token")?true:false)
   useEffect(()=>{
     httpClient.PUT(`appointment/update-after-payment/${localStorage.getItem("paymentToken")}/${codedQuerryResponse}`,false,false,true)
     .then(resp=>{
@@ -18,6 +22,10 @@ export default function SuccessResponse() {
     })
   },[])
   return (
+   <>
+   {
+     <Navbar></Navbar>
+   }
     <div className="hospital_booking">
       <div className="hospital_bookcont_from_user">
         {
@@ -62,6 +70,9 @@ export default function SuccessResponse() {
                   <p>Need any help?</p>
                   <p>Call us on : 9814017327</p>
                 </div>
+                {
+                localStorage.getItem("dm-access_token")?<><Link to="/dashboard">Click here</Link> to go dashboard</> :null
+              }
               </div>
             </div>
           </div>
@@ -98,14 +109,20 @@ export default function SuccessResponse() {
                 <p>Need any help?</p>
                 <p>Call us on : 9814017327</p>
               </div>
+              {
+                localStorage.getItem("dm-access_token")?<><Link to="/dashboard">Click here</Link> to go dashboard</> :null
+              }
+
             </div>
           </div>
         </div>
       </div>
         }
-
-
       </div>
     </div>
+    {
+     <Footer></Footer>
+   }
+    </>
   );
 }

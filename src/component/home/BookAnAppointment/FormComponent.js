@@ -295,13 +295,6 @@ function FormComponent(props) {
           setDoctorInfo(doctorInfo)
           openPaymentPopUp(true)
           console.log("doctor info is",doctorFullInfo)
-          // setTimeout(() => {
-          //   prop.push({
-          //     pathname: "/login",
-          //     fromexternaluser: true,
-          //     email: values.email,
-          //   });
-          // }, 3000);
         })
         .catch((err) => {
           if (!err) {

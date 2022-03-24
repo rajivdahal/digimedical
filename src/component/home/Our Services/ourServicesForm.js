@@ -14,6 +14,7 @@ import { digiDoctorAppointmentFixed, digiDoctorInfo } from "../../../actions/dig
 import { setOpenPopUp } from "../../../actions/paymentPopUp.ac";
 import ExternalServicePayment from "../../common/popup/doctorPopup/selectPaymentMethod/forServicePayment/externalServicePayment";
 import ServicePayment from "../../common/popup/doctorPopup/selectPaymentMethod/forServicePayment/servicepayment";
+import { externalServiceBooking, internalServiceBooking } from "../../../actions/service.action";
 
 const Root = styled.div`
   width: 45%;
@@ -95,12 +96,14 @@ const DoctorAtHomeForm = () => {
   const setAppointmentFixed = bindActionCreators(digiDoctorAppointmentFixed, dispatch);
   const setDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
   const openPaymentPopUp = bindActionCreators(setOpenPopUp, dispatch);
+  const setExternalServiceBooking = bindActionCreators(externalServiceBooking, dispatch);
+
   const appointmentBooking = useSelector((state) => state.digiDoctorAppointmentBooking);
   console.log("appointmentBooking is", appointmentBooking)
   // end of redux implementation
 
 
-  console.log("location is", location);
+  console.log("location is", location.state.id);
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
     year: dt.getFullYear(),
@@ -129,6 +132,7 @@ const DoctorAtHomeForm = () => {
     lastName: "",
     middleName: "",
   };
+  console.log("initialvalues",initialValues)
   function DatePickerField({ name }) {
     const formik = useFormikContext();
     const field = formik.getFieldProps(name);
@@ -155,6 +159,8 @@ const DoctorAtHomeForm = () => {
         //   "Success, you will be notified via phone or E-mail please check your email soon"
         // );
         resetForm();
+        value.appointmentId=resp.data.data
+        setExternalServiceBooking(value)
         openPaymentPopUp(true)
       })
       .catch((err) => {

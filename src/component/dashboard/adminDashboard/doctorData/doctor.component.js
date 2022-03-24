@@ -242,7 +242,7 @@ const Createdoctor = (props) => {
           })
         }
 
-        
+
         if (data) {
           let url = REACT_APP_BASE_URL + "doctor/download/" + id;
           setImage(url);

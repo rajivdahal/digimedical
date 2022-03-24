@@ -11,6 +11,8 @@ import { httpClient } from "../../../../utils/httpClient";
 import { notify } from "../../../../services/notify";
 class Checkoutpopupcomponent extends Component {
   render() {
+    if(!this.props.show)
+    return null;
     let total = 0;
     let {
       removeproductstatus,
@@ -41,13 +43,13 @@ class Checkoutpopupcomponent extends Component {
     };
 
     const removepopup = () => {
-      console.log("remove pop up triggered");
       this.props.checkout(!checkoutsignal);
     };
 
     const handleCheckoutlabtest = () => {
       if (!localStorage.getItem("cart")) {
-        return notify.error("Please add some items to the cart");
+        this.props.checkout(!checkoutsignal);
+         return notify.error("Please add some items to the cart");
       }
       const cartitems = JSON.parse(localStorage.getItem("cart"));
       if (cartitems.labs.length) {

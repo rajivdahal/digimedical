@@ -13,6 +13,8 @@ import { Cartpopup } from "./cart_pupup";
 import { cartpopupsignal } from "../../../../actions/cart.ac";
 import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
+import OutsideClickHandler from 'react-outside-click-handler';
+import Infobox from "./infobox";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 class userlabtestcomponent extends Component {
   constructor(props) {
@@ -32,6 +34,8 @@ class userlabtestcomponent extends Component {
       checkBoxDisableFlag: false,
       isSelectAllChecked: false,
       mainCategory: null,
+      showCartPopUpOnOutsideClickEvent:false,
+      showCheckoutPopUp:false
     };
   }
 
@@ -401,13 +405,62 @@ class userlabtestcomponent extends Component {
         };
       });
     };
-    setTimeout(() => {
-      console.log(this.state);
-    }, 2000);
+    const setShowInfo1=(task,target)=>{
+
+      console.log("sakdj")
+      if(task && !target){
+        this.setState(()=>{
+          return {
+            showCartPopUpOnOutsideClickEvent:true
+          }
+        })
+      }
+      else if(!task && !target){
+        this.setState(()=>{
+          return {
+            showCartPopUpOnOutsideClickEvent:false
+          }
+        })
+      }
+      else if(task && target){
+
+        this.setState(()=>{
+          return {
+            showCheckoutPopUp:true
+          }
+        })
+      }
+      else{
+        console.log("inside else")
+        this.setState(()=>{
+          return {
+            showCheckoutPopUp:false
+          }
+        })
+      }
+
+    }
+    console.log("this.state is",this.state)
     return (
+      <>
       <div className=" main_div_user_lab">
-        {checkoutsignal ? <Checkoutpopup props={this.props.history} /> : null}
-        {this.state.active ? <Cartpopup></Cartpopup> : null}
+
+        { checkoutsignal ?
+        <OutsideClickHandler  onOutsideClick={() => {
+          setShowInfo1(false,"checkout")
+          handleCheckout()
+          }}>
+               <Checkoutpopup props={this.props.history} state={this.state} show={this.state.showCheckoutPopUp}/>
+          </OutsideClickHandler>
+          :null
+        }
+
+        {
+
+         <OutsideClickHandler  onOutsideClick={() => {setShowInfo1()}}>
+           <Cartpopup state={this.state} show={this.state.showCartPopUpOnOutsideClickEvent}></Cartpopup>
+        </OutsideClickHandler>
+         }
         <div className="lab_add_to_cart">
           <div className="lab_add_to_cart1">
             <div className="lab_add_to_cart_top">
@@ -420,7 +473,10 @@ class userlabtestcomponent extends Component {
                 </div>
                 <div
                   className="lab_add_to_cart_cart"
-                  onClick={showcartpopup}
+                  onClick={()=>{
+                    setShowInfo1(true)
+                    // showcartpopup()
+                  }}
                   style={{ cursor: "pointer" }}
                 >
                   <span>{cart ? cart.cartvalue : "0"}</span>
@@ -431,7 +487,11 @@ class userlabtestcomponent extends Component {
                   </span>
                 </div>
                 <div className="lab_add_to_cart_checkout">
-                  <div onClick={handleCheckout} style={{ cursor: "pointer" }}>
+                  <div onClick={()=>{
+                    setShowInfo1(true,"checkout")
+                    handleCheckout()
+                  }
+                } style={{ cursor: "pointer" }}>
                     Check Out
                   </div>
                 </div>
@@ -608,6 +668,7 @@ class userlabtestcomponent extends Component {
           </div>
         </div>
       </div>
+      </>
     );
   }
 }

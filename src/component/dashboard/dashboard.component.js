@@ -95,6 +95,7 @@ import PackageDetailsPage from "./userdashboard/bookPackage/packageDetailsPage";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
+
   return (
     <>
       {statusCode == 200 && props.location.fromexternaluser ? (
@@ -102,7 +103,9 @@ const Dashboard = (props) => {
       ) : statusCode == 200 ? (
         <>
           <Dashboardnavbar props={props.history}></Dashboardnavbar>
-          <Usersidebar props={props.history}></Usersidebar>
+
+          <Usersidebar></Usersidebar>
+
           {props.location.pathname === "/dashboard" ||
             props.location.pathname === "/dashboard/" ? (
             <ProtectedRoute component={Userdashboard}></ProtectedRoute>
@@ -151,10 +154,15 @@ const Dashboard = (props) => {
             "/dashboard/book-package" ? (
             <ProtectedRoute component={BookFamilyPackage}></ProtectedRoute>
           ) :
-            props.location.pathname ===
-              "/dashboard/payment-response" ?
-              <ProtectedRoute component={SuccessResponse}></ProtectedRoute> :
-              null}
+            props.location.pathname === "/dashboard/hospital-specialist" ? (
+              <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
+            )
+              :
+              props.location.pathname ===
+                "/dashboard/payment-response" ?
+                <ProtectedRoute component={SuccessResponse}></ProtectedRoute> :
+                null}
+
         </>
       ) : statusCode == 100 ? (
         <>

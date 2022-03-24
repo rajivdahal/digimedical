@@ -39,7 +39,7 @@ const UserProfile = (props) => {
     }, [isEdit])
     const gotoView = ( ) => activateProfile(false);
     return (
-
+<>
         <div className="container-fluid page-body-wrapper">
             <div className="main-panel newdash_content">
                 <div className="content-wrapper">
@@ -58,6 +58,7 @@ const UserProfile = (props) => {
                 </div>
             </div>
         </div>
+        </>
 
     )
 }

@@ -52,6 +52,7 @@ const DELETE = (url, grant_type,getheaders, params = {}) => {
     return http.delete(BASE_URL + url)
 }
 const PUT = (url, data,grant_type,getheaders,headerType = "json",params = {}) => {
+
     if (getheaders) {
         const token = localStorage.getItem('dm-access_token')
         let headers = {
