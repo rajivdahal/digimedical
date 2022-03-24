@@ -27,6 +27,8 @@ import AllSpecialist from "../home/Digimedical doctors/allSpecialist";
 import Services from "../dashboard/adminDashboard/services/services.component";
 import SuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/successResponse";
 import ExternalSuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/externalSuccessResponse";
+import BookFamilyPackage from "../dashboard/userdashboard/bookPackage/book.package";
+import MembershipPackageCard from "../dashboard/userdashboard/bookPackage/membershipPackage";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -46,7 +48,7 @@ export const Approuting = (props) => {
           path="/our-services/:subservice"
           component={OurServices}
         ></PublicRoute>
-         <ProtectedRoute
+        <ProtectedRoute
           exact
           path="/payment-response"
           component={SuccessResponse}
@@ -71,11 +73,13 @@ export const Approuting = (props) => {
           path="/family-package"
           component={FamilyPackage}
         ></PublicRoute>
+
         <PublicRoute
           exact
           path="/corporate-package"
           component={CorporatePackage}
         ></PublicRoute>
+
         <PublicRoute
           exact
           path="/forgot-password/verify-password"
@@ -101,6 +105,25 @@ export const Approuting = (props) => {
           path="/hospitals/view-doctors"
           component={Hospital_doctors}
         ></PublicRoute>
+
+        <ProtectedRoute
+          exact
+          path="/dashboard/book-package"
+          component={Dashboard}
+        ></ProtectedRoute>
+
+        <ProtectedRoute
+          exact
+          path="/dashboard/book-package-membership"
+          component={Dashboard}
+        ></ProtectedRoute>
+
+        <ProtectedRoute
+          exact
+          path="/dashboard/package-details"
+          component={Dashboard}
+        ></ProtectedRoute>
+
         <ProtectedRoute
           exact
           path="/dashboard"
@@ -131,12 +154,12 @@ export const Approuting = (props) => {
           path="/dashboard/medical-reports"
           component={Dashboard}
         ></ProtectedRoute>
-         <ProtectedRoute
+        <ProtectedRoute
           exact
           path="/dashboard/utils-info"
           component={Dashboard}
         ></ProtectedRoute>
-          <ProtectedRoute
+        <ProtectedRoute
           exact
           path="/dashboard/Services"
           component={Dashboard}
