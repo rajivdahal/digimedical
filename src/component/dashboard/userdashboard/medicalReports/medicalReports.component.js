@@ -10,8 +10,11 @@ import { bindActionCreators } from "redux";
 import {
   setMedicalReportOpen,
 } from "../../../../actions/medicalReports.ac";
+import { FileUploader } from "react-drag-drop-files";
 import { CommonMedicalreportTable } from "./commonMedicalreportTable";
 import { CommonUtilityreportTable } from "./commonMedicalreportTable";
+
+const fileTypes = ["JPG", "PNG", "GIF"];
 
 export const MedicalReports = (props) => {
   const dispatch = useDispatch();
@@ -171,14 +174,15 @@ export const MedicalReports = (props) => {
                           <div className="margin-adjuster2">
                             <div className="labrepo_text_form">
                               <label htmlFor="name">Image of Report:</label>
-                              <input
+                              {/* <input
                                 name="image"
                                 className="prescription_inputimage"
                                 type={"file"}
                                 onChange={(event) => {
                                   handleImageChange(event);
                                 }}
-                              ></input>
+                              ></input> */}
+                              <FileUploader handleChange={handleImageChange} name="file" types={fileTypes} />
                             </div>
 
                             <div className="labrepo_text_form">

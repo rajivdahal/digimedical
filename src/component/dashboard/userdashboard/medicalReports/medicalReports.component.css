@@ -40,7 +40,6 @@
 .labrepo_text_form {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   margin-bottom: 20px;
 }
 .labrepo_text_form label {
@@ -49,7 +48,7 @@
   font-weight: normal;
   align-items: center;
   color: #596579;
-  width: 32%;
+  width: 40%;
 }
 .prescription_input {
   width: 65%;

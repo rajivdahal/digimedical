@@ -139,9 +139,8 @@ const EditProfile = (props) => {
       gender: "0",
       image: "",
       bloodGroup: "A+",
-    })
+    });
     props.gotoView();
-
   };
 
   const handleAddImage = () => {
@@ -207,7 +206,6 @@ const EditProfile = (props) => {
                             className="form-control profile-field"
                             disabled
                           />
-                          
                         </div>
                       </Col>
                       <Col md={4}>
@@ -232,7 +230,7 @@ const EditProfile = (props) => {
                       </Col>
 
                       <Col md={6}>
-                        <div className=" form-group">
+                        <div className=" form-group  select-label">
                           <label>Address : </label>
                           <Field
                             name="address"
@@ -242,7 +240,7 @@ const EditProfile = (props) => {
                       </Col>
 
                       <Col md={6}>
-                        <div className=" form-group ">
+                        <div className=" form-group  select-label">
                           <label>Email : </label>
                           <Field
                             name="email"
@@ -256,38 +254,42 @@ const EditProfile = (props) => {
                         </div>
                       </Col>
                       <Col md={4}>
-                        <label>Gender : </label>
-                        <Field
-                          class="select-control profile-field"
-                          as="select"
-                          name="gender"
-                          value={values.gender}
-                        >
-                          <option value="0">Male</option>
-                          <option value="1">Female</option>
-                          <option value="2">Other</option>
-                        </Field>
+                        <div className=" form-group  select-label">
+                          <label>Gender : </label>
+                          <Field
+                            class="select-control profile-field"
+                            as="select"
+                            name="gender"
+                            value={values.gender}
+                          >
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                            <option value="2">Other</option>
+                          </Field>
+                        </div>
                       </Col>
                       <Col md={4}>
-                        <label>Blood Group : </label>
-                        <Field
-                          class="select-control profile-field"
-                          as="select"
-                          name="bloodGroup"
-                          value={values.bloodGroup}
-                        >
-                          <option value="A+">A-postivie</option>
-                          <option value="A-">A-negative</option>
-                          <option value="B+">B-postive</option>
-                          <option value="B-">B-negative</option>
-                          <option value="O+">O-positive</option>
-                          <option value="O-">O-negative</option>
-                          <option value="AB+">AB-postive</option>
-                          <option value="AB-">AB-negative</option>
-                        </Field>
+                        <div className=" form-group  select-label">
+                          <label>Blood Group : </label>
+                          <Field
+                            class="select-control profile-field"
+                            as="select"
+                            name="bloodGroup"
+                            value={values.bloodGroup}
+                          >
+                            <option value="A+">A-postivie</option>
+                            <option value="A-">A-negative</option>
+                            <option value="B+">B-postive</option>
+                            <option value="B-">B-negative</option>
+                            <option value="O+">O-positive</option>
+                            <option value="O-">O-negative</option>
+                            <option value="AB+">AB-postive</option>
+                            <option value="AB-">AB-negative</option>
+                          </Field>
+                        </div>
                       </Col>
                       <Col md={4}>
-                        <div className=" form-group">
+                        <div className=" form-group select-label">
                           <label>Date Of Birth : </label>
                           <Field
                             name="dob"
@@ -297,36 +299,35 @@ const EditProfile = (props) => {
                         </div>
                       </Col>
                       <Col md={4}>
-                        <div className=" form-group">
+                        <div className=" form-group select-label">
                           <label>Weight : </label>
                           <Field
                             name="weight"
                             className="form-control profile-field"
                           />
-                          
                         </div>
                       </Col>
                       <Col md={4}>
-                        <div className=" form-group">
+                        <div className=" form-group select-label">
                           <label>Height : </label>
                           <Field
                             name="height"
                             className="form-control profile-field"
                           />
-                          
                         </div>
                       </Col>
                       <Col md={4}>
-                        <div className=" form-group">
+                        <div className=" form-group select-label">
                           <label>Contact Number : </label>
                           <Field
-                            name="contactNo" validate={validateContactNo}
+                            name="contactNo"
+                            validate={validateContactNo}
                             className="form-control profile-field"
                           />
                         </div>
                       </Col>
                       <Col md={6}>
-                        <div className=" form-group">
+                        <div className=" form-group select-label">
                           <label>Father's Name : </label>
                           <Field
                             name="fatherName"
@@ -336,7 +337,7 @@ const EditProfile = (props) => {
                       </Col>
                       {userstatus === "300" ? null : (
                         <Col md={6}>
-                          <div className=" form-group">
+                          <div className=" form-group select-label">
                             <label>Previous Diseases : </label>
                             <Field
                               name="previousDisease"

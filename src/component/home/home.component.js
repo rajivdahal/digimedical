@@ -18,6 +18,7 @@ const Root = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+
   @media screen and (max-width: 767px) {
     height: calc(100vh - 100px);
     display: flex;
@@ -133,7 +134,7 @@ export const Home = (props) => {
       <Root
         style={{
           backgroundImage: `url(${wallpaper})`,
-          backgroundPosition: "center",
+          backgroundPositionX: "80%",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
