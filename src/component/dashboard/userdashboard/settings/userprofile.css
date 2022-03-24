@@ -156,10 +156,14 @@
   width: 40%;
 }
 .info-value {
-  margin-left: 45px;
+  width: 50%;
+  text-align: center;
 }
 
 @media screen and (max-width: 400px) {
+  .content-wrapper {
+    padding: 0;
+  }
   .profile-selection {
     width: 100%;
 

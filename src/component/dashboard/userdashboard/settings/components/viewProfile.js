@@ -110,7 +110,7 @@ const ViewProfile = (props) => {
               <div className="info-block">
                 <span className="info-label">Father's Name</span>
                 <span>:</span>
-                <span className="info-value">{props.fathername}</span>
+                <span className="info-value">Prem Gautam Ale</span>
               </div>
             </Col>
           </Row>

@@ -11,8 +11,8 @@
   width: 100%;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   .serviceDate {
-    width: 70%;
+    width: 50%;
   }
 }

@@ -228,10 +228,6 @@ d
 }
 .newdash_content {
 }
-*/ @media screen and (max-width: 1232px) {
-  .newdash_user {
-  }
-}
 
 @media screen and (max-width: 1000px) {
   .newdash_hamburger {
@@ -293,6 +289,6 @@ d
     right: 0;
   }
   .newdash_dash1 {
-    width: 210px;
+    width: 240px;
   }
 }
