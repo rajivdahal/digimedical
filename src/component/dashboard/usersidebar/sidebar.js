@@ -31,6 +31,9 @@ let history=useHistory()
   const loadServices = () => {
     history.push("/dashboard/services");
   };
+  const loadFamilyPackage=()=>{
+    history.push("/dashboard/family-package")
+  }
   return (
     <div>
       <div className="newdash_body">
@@ -157,6 +160,15 @@ let history=useHistory()
                       <i class="fas fa-file-alt"></i>
                     </span>{" "}
                     &nbsp;Services
+                  </p>
+                </li>
+                <li onClick={loadFamilyPackage} style={{ cursor: "pointer" }}>
+                  <p id="newdash_dash1_cont1p">
+                    {" "}
+                    <span id="newdash_bar_ico">
+                      <i class="fas fa-file-alt"></i>
+                    </span>{" "}
+                    &nbsp;Family package
                   </p>
                 </li>
               </ul>

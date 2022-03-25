@@ -89,6 +89,7 @@ import SpecialityDoctor from "./userdashboard/digimedicalDoctor/specialityDoctor
 import ViewServicesBookedOfUser from "./adminDashboard/services/services.component";
 import { PaymentMaster } from "./adminDashboard/paymentMaster/paymentMaster";
 import SuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/successResponse";
+import FamilyPackage from "./userdashboard/familyPackage/familyPackage.component";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -150,6 +151,10 @@ const Dashboard = (props) => {
           "/dashboard/hospital-specialist" ? (
           <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
         ) :
+        props.location.pathname ===
+        "/dashboard/family-package" ? (
+        <ProtectedRoute component={FamilyPackage}></ProtectedRoute>
+      ):
           null}
         </>
       ) : statusCode == 100 ? (
