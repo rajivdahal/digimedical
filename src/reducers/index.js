@@ -6,6 +6,8 @@ import { medicalReportsReducer } from "./medicalReports.red";
 import { hospitalAppointmentBookingReducer } from "./hospitalAppointmentBooking.red";
 import { digiDoctorAppointmentBookingReducer } from "./digiDoctorBooking.red";
 import { paymentPopUpReducer } from "./paymentPopUp.red";
+import { serviceReducer } from "./service.reducer";
+
 export const rootReducer=combineReducers({
     user:UserReducer,
     cart:Cartreducer,
@@ -13,5 +15,6 @@ export const rootReducer=combineReducers({
     medicalReports:medicalReportsReducer,
     appointmentBooking:hospitalAppointmentBookingReducer,
     digiDoctorAppointmentBooking:digiDoctorAppointmentBookingReducer,
-    paymentPopUp:paymentPopUpReducer
+    paymentPopUp:paymentPopUpReducer,
+    digiServiceBooking : serviceReducer,
 })

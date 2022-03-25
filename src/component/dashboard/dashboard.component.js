@@ -88,9 +88,11 @@ import SpecialityDoctor from "./userdashboard/digimedicalDoctor/specialityDoctor
 import ViewServicesBookedOfUser from "./adminDashboard/services/services.component";
 import { PaymentMaster } from "./adminDashboard/paymentMaster/paymentMaster";
 import SuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/successResponse";
+import FamilyPackage from "./userdashboard/familyPackage/familyPackage.component";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
+
   return (
     <>
       {statusCode == 200 && props.location.fromexternaluser ? (
@@ -98,7 +100,9 @@ const Dashboard = (props) => {
       ) : statusCode == 200 ? (
         <>
           <Dashboardnavbar props={props.history}></Dashboardnavbar>
-          <Usersidebar props={props.history}></Usersidebar>
+
+          <Usersidebar></Usersidebar>
+
           {props.location.pathname === "/dashboard" ||
           props.location.pathname === "/dashboard/" ? (
             <ProtectedRoute component={Userdashboard}></ProtectedRoute>
@@ -141,12 +145,25 @@ const Dashboard = (props) => {
           ) : props.location.pathname === "/dashboard/speciality-doctors" ? (
             <ProtectedRoute component={SpecialityDoctor}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/services" ? (
+<<<<<<< HEAD
             <ProtectedRoute component={UserServices}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/hospital-specialist" ? (
             <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/payment-response" ? (
             <ProtectedRoute component={SuccessResponse}></ProtectedRoute>
           ) : null}
+=======
+              <ProtectedRoute component={UserServices}></ProtectedRoute>
+          ) : props.location.pathname ===
+          "/dashboard/hospital-specialist" ? (
+          <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
+        ) :
+        props.location.pathname ===
+        "/dashboard/family-package" ? (
+        <ProtectedRoute component={FamilyPackage}></ProtectedRoute>
+      ):
+          null}
+>>>>>>> 5cb4b124b652e1e19f116a8ec93ad73e48e2a619
         </>
       ) : statusCode == 100 ? (
         <>

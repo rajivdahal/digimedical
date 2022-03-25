@@ -55,6 +55,7 @@ export default function Hospitalbookingcomponent(props) {
     console.log("data is", item);
   };
   return (
+    <>
     <div
       className={
         location.pathname === "/dashboard/hospitals"
@@ -185,5 +186,6 @@ export default function Hospitalbookingcomponent(props) {
         </div>
       </div>
     </div>
+    </>
   );
 }

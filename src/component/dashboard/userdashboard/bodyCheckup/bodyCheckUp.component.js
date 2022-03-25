@@ -20,9 +20,10 @@ export default function BodyCheckUpUser(props) {
 
   const schema = Yup.object().shape({
     serviceId: Yup.string().required("Service is required!"),
-    date: Yup.object(),
-    value: Yup.string().required("Value is required!"),
+    value: Yup.string()
+    .required("Value is required!"),
   });
+
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
     year: dt.getFullYear(),
@@ -179,7 +180,7 @@ export default function BodyCheckUpUser(props) {
                             <div style={{ color: "red" }}>{errors.date}</div>
                           ) : null}
                           <div className="labrepo_text_form">
-                            <label htmlFor="name">Service:</label>
+                            <label htmlFor="name">Service :</label>
                             <SelectField name="serviceId"></SelectField>
                           </div>
                           {errors.serviceId && touched.serviceId ? (
@@ -190,7 +191,7 @@ export default function BodyCheckUpUser(props) {
                         </div>
                         <div className="margin-adjuster2">
                           <div className="labrepo_text_form">
-                            <label htmlFor="value">value:</label>
+                            <label htmlFor="value">Value :</label>
                             <InputSelectField name="value"></InputSelectField>
                           </div>
                           {errors.value && touched.value ? (
@@ -252,7 +253,7 @@ export default function BodyCheckUpUser(props) {
                     }}
                   />
                 </div>
-                ;
+
               </div>
             </div>
           </div>

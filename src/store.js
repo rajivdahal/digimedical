@@ -57,7 +57,7 @@ const initialState = {
         emailAlreadyExistsMessage:null
     },
     digiServiceBooking:{
-
+        data : null,
     }
 }
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))

@@ -24,7 +24,7 @@ export const digiDoctorInfo=(params)=>{
 
 export const digiDoctorAppointmentFixed=(params)=>{
     // debugger
-    console.log("inside actions of digi doctor booking appointment fixing",params)
+    // console.log("inside actions of digi doctor booking appointment fixing",params)
     if(params.origin!="digidoctorBooking"){
         return (dispatch)=>{
             httpClient.POST("create-appointment",params,false,true)

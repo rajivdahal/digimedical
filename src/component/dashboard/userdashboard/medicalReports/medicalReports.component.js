@@ -27,17 +27,12 @@ export const MedicalReports = (props) => {
     hospitalName: Yup.string().required("Hospital name is required!"),
     doctorName: Yup.string().required("Doctor name is required!"),
     visitedDate: Yup.string()
-      .required("Visited Date required!")
-      .matches(
-        /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/,
-        "Please enter valid date"
-      ),
+    .required("Visited Date required!")
+    .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
     followUpDate: Yup.string()
-      .required("Follow up date is required!")
-      .matches(
-        /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/,
-        "Please enter valid date"
-      ),
+    .required("Follow up date is required!")
+    .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
+    // description : Yup.string().required("Description is required!")
   });
   let [image, setImage] = useState([]);
   const [medicalData, setMedicalData] = useState([]);
@@ -93,6 +88,7 @@ export const MedicalReports = (props) => {
   const formikContent = null;
 
   return (
+    <>
     <div className="med_repo_main">
       <div className="main-psetImage  report-container">
         <h2>Update your previous report here</h2>
@@ -215,5 +211,6 @@ export const MedicalReports = (props) => {
         </div>
       </div>
     </div>
+    </>
   );
 };

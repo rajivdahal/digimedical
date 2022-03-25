@@ -101,6 +101,9 @@ const DigimedicalDoctor = (props) => {
                                 "services/download/" +
                                 item.id
                               }
+                              onError={(e) => {
+                                e.target.src = "/images/doctor.jpeg";
+                              }}
                               alt=""
                             />
                           </div>

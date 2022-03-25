@@ -7,7 +7,11 @@ import { cartpopupsignal } from "../../../../actions/cart.ac";
 import { removeproductstatus } from "../../../../actions/cart.ac";
 
 class Cartpopupcomponent extends Component {
+
   render() {
+    if(!this.props.show)
+      return null;
+    console.log("props areeee",this.props.state)
     let { removeproductstatus, removeproductsign } = this.props;
     const cart = JSON.parse(localStorage.getItem("cart"));
     console.log("cart items arfter pop up is", cart);
@@ -45,6 +49,11 @@ class Cartpopupcomponent extends Component {
         });
       });
     }
+    const closeCart=()=>{
+      this.props.state.showCartPopUpOnOutsideClickEvent=false
+      console.log(this.props.state)
+      // this.props.state.active=false
+    }
     console.log("main category iss", maincategories);
     return (
       <>
@@ -60,7 +69,7 @@ class Cartpopupcomponent extends Component {
                       href="#"
                       style={{ cursor: "pointer" }}
                     >
-                      <i class="far fa-times-circle"></i>
+                      <i class="far fa-times-circle" onClick={closeCart}></i>
                     </a>
                   </div>
                   <ol className="popup_carts_cont1_desc">
