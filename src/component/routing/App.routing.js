@@ -26,9 +26,6 @@ import Digimedical_doctors from "../home/Digimedical doctors/Digimedical_doctors
 import AllSpecialist from "../home/Digimedical doctors/allSpecialist";
 import Services from "../dashboard/adminDashboard/services/services.component";
 import SuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/successResponse";
-import ExternalSuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/externalSuccessResponse";
-import BookFamilyPackage from "../dashboard/userdashboard/bookPackage/book.package";
-import MembershipPackageCard from "../dashboard/userdashboard/bookPackage/membershipPackage";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -114,7 +111,7 @@ export const Approuting = (props) => {
 
         <ProtectedRoute
           exact
-          path="/dashboard/book-package-membership"
+          path="/dashboard/booked-packages"
           component={Dashboard}
         ></ProtectedRoute>
 

@@ -159,6 +159,44 @@ let history=useHistory()
                     &nbsp;Services
                   </p>
                 </li>
+
+                {/* <li>
+                  <Accordion.Item eventKey="2">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        <i class="fas fa-user-clock"></i>
+                      </span>
+                      &nbsp;Package
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/book-package"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>
+                              {" "}
+                              Book Package
+                            </p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/booked-packages"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>
+                              {" "}
+                              Booked Package
+                            </p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li> */}
+
               </ul>
             </Accordion>
           </div>
@@ -296,6 +334,44 @@ let history=useHistory()
                       &nbsp;Load Body Checkup
                     </p>
                   </li>
+
+                {/* <li>
+                  <Accordion.Item eventKey="2">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        <i class="fas fa-user-clock"></i>
+                      </span>
+                      &nbsp;Package
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/book-package"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>
+                              {" "}
+                              Book Package
+                            </p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/booked-packages"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>
+                              {" "}
+                              Booked Package
+                            </p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li> */}
+
                 </ul>
               </Accordion>
             </div>

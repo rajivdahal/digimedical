@@ -38,14 +38,14 @@ import NewServicePage from "./adminDashboard/newServiceData/newServicePage";
 
 
 // hospital
-import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component";
-import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component";
-import HospitalDashboard from "./hospitaldashboard/hospitalDashboard";
-import HospitalDoctor from "./hospitaldashboard/doctorPage/hospital.doctor";
-import AddDoctor from "./hospitaldashboard/doctorPage/addHospitalDoctor";
+import Hospitalnavbar from "./hospitalDashboard/hospitalnavbar/hospitalnavbar.component";
+import Hospitalsidebar from "./hospitalDashboard/hospitalsidebar/hospitalsidebar.component";
+import HospitalDashboard from "./hospitalDashboard/hospitalDashboard";
+import HospitalDoctor from "./hospitalDashboard/doctorPage/hospital.doctor";
+import AddDoctor from "./hospitalDashboard/doctorPage/addHospitalDoctor";
 // import HospitalAppointment from "./hospitaldashboard/appointmentPage/"
-import HospitalAppointment from "./hospitaldashboard/appointmentPage/appointment.component";
-import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
+import HospitalAppointment from "./hospitalDashboard/appointmentPage/appointment.component";
+import HospitalService from "./hospitalDashboard/hospitalService/hospitalService";
 import HospitalSpecialist from "../home/Hospital Booking/hospitalSpecialist";
 // import HospitalService from "./hospitaldashboard/hospitalService/hospitalService";
 
@@ -90,8 +90,8 @@ import ViewServicesBookedOfUser from "./adminDashboard/services/services.compone
 import { PaymentMaster } from "./adminDashboard/paymentMaster/paymentMaster";
 import SuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/successResponse";
 import BookFamilyPackage from "./userdashboard/bookPackage/book.package";
-import MembershipPackageCard from "./userdashboard/bookPackage/membershipPackage";
 import PackageDetailsPage from "./userdashboard/bookPackage/packageDetailsPage";
+import BookedPackage from "./userdashboard/bookPackage/bookedPackages";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -113,8 +113,8 @@ const Dashboard = (props) => {
             <ProtectedRoute component={Viewappointment}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/bookappointment" ? (
             <ProtectedRoute component={Internalappointmentbook} ></ProtectedRoute>
-          ) : props.location.pathname === "/dashboard/book-package-membership" ? (
-            <ProtectedRoute component={MembershipPackageCard} ></ProtectedRoute>
+          ) : props.location.pathname === "/dashboard/booked-packages" ? (
+            <ProtectedRoute component={BookedPackage} ></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/package-details" ? (
             <ProtectedRoute component={PackageDetailsPage} ></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/settings/userprofile" ? (
