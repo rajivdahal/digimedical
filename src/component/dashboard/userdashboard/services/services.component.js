@@ -224,7 +224,8 @@ export default function UserServices(props) {
                               {errors.serviceId}
                             </div>
                           ) : null}
-                          <button type="submit" className="button-submit">
+
+                          <button type="submit" className="button-submit" style={{zIndex:"100"}}>
                             Update
                           </button>
                         </div>

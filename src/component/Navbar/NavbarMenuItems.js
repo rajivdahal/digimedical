@@ -346,7 +346,16 @@ const NavbarMenuItems = () => {
                   return (
                     <Link
                       to={{
-                        pathname: "/our-services/" + item.type,
+                        pathname:
+                        item.name==="Physiotherapy Service at Home"?
+                        "/our-services/" + "physiotherapy-service-at-home":
+                        item.name==="Doctor at home "?
+                        "/our-services/" + "doctor-at-home":
+                        item.name==="Online Medical Counsulation"?
+                        "/our-services/" + "online-medical-consultation":
+                        item.name==="Ambulance Services"?
+                        "/our-services/" + "ambulance-service":
+                        "/our-services/" + item.type,
                         state: {
                           id: item.id,
                         },

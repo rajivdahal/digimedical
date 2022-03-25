@@ -89,7 +89,6 @@ const DoctorAtHomeForm = () => {
   const [isLoading, setIsLoading] = useState(null);
   // let [isLoading,setIsLoading]=useState(false)
 
-
   // redux implementation
   const dispatch = useDispatch()
   const popupOpen = useSelector((state) => state.paymentPopUp);
@@ -101,8 +100,7 @@ const DoctorAtHomeForm = () => {
   const appointmentBooking = useSelector((state) => state.digiDoctorAppointmentBooking);
   console.log("appointmentBooking is", appointmentBooking)
   // end of redux implementation
-
-
+let id=location.state.id
   console.log("location is", location.state.id);
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
@@ -125,7 +123,7 @@ const DoctorAtHomeForm = () => {
   const initialValues = {
     time: "",
     date: "",
-    digiServiceId: location.state.id,
+    digiServiceId: id,
     email: "",
     mobileNumber: "",
     firstName: "",
@@ -145,16 +143,17 @@ const DoctorAtHomeForm = () => {
       />
     );
   }
+  // console.log("values are", value);
   const handleSubmit = (value, { resetForm }) => {
     value.date = !value.date
       ? selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day
       : value.date.year + "-" + value.date.month + "-" + value.date.day;
-    console.log("values are", value);
+    value.digiServiceId=initialValues.digiServiceId
+        resetForm()
     httpClient
       .POST("service-booking/create-external-booking", value)
       .then((resp) => {
           const serviceBookingId=resp.data.data
-
         // notify.success(
         //   "Success, you will be notified via phone or E-mail please check your email soon"
         // );
