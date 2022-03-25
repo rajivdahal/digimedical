@@ -145,25 +145,12 @@ const Dashboard = (props) => {
           ) : props.location.pathname === "/dashboard/speciality-doctors" ? (
             <ProtectedRoute component={SpecialityDoctor}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/services" ? (
-<<<<<<< HEAD
             <ProtectedRoute component={UserServices}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/hospital-specialist" ? (
             <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
-          ) : props.location.pathname === "/dashboard/payment-response" ? (
-            <ProtectedRoute component={SuccessResponse}></ProtectedRoute>
+          ) : props.location.pathname === "/dashboard/family-package" ? (
+            <ProtectedRoute component={FamilyPackage}></ProtectedRoute>
           ) : null}
-=======
-              <ProtectedRoute component={UserServices}></ProtectedRoute>
-          ) : props.location.pathname ===
-          "/dashboard/hospital-specialist" ? (
-          <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
-        ) :
-        props.location.pathname ===
-        "/dashboard/family-package" ? (
-        <ProtectedRoute component={FamilyPackage}></ProtectedRoute>
-      ):
-          null}
->>>>>>> 5cb4b124b652e1e19f116a8ec93ad73e48e2a619
         </>
       ) : statusCode == 100 ? (
         <>
