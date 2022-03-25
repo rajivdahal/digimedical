@@ -6,12 +6,15 @@ import Select from "react-select";
 import { httpClient } from "../../../utils/httpClient";
 import { notify } from "../../../services/notify";
 import Cliploader from "../../../utils/clipLoader";
-import SelectPaymentMethod from '../../common/popup/doctorPopup/selectPaymentMethod/selectPaymentMethod';
-import ExternalBookingPayment from '../../common/popup/doctorPopup/selectPaymentMethod/forexternalbooking/externalBookingPayment';
-import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { digiDoctorAppointmentFixed, digiDoctorInfo } from '../../../actions/digiDoctorBooking.ac';
-import { setOpenPopUp } from '../../../actions/paymentPopUp.ac';
+import SelectPaymentMethod from "../../common/popup/doctorPopup/selectPaymentMethod/selectPaymentMethod";
+import ExternalBookingPayment from "../../common/popup/doctorPopup/selectPaymentMethod/forexternalbooking/externalBookingPayment";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import {
+  digiDoctorAppointmentFixed,
+  digiDoctorInfo,
+} from "../../../actions/digiDoctorBooking.ac";
+import { setOpenPopUp } from "../../../actions/paymentPopUp.ac";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -21,9 +24,9 @@ export default function FormComponentForLoggedInCase(props) {
     //const [services, setservices] = useState(props.services);
   const [isdoctorblurred, setisdoctorblurred] = useState(false);
   const [isloading, setisloading] = useState(false);
-  const [value,setValue]=useState(null)
-  const [doctor,setDoctor]=useState(null)
-  const [doctorFullInfo,setDoctorFullInfo]=useState([])
+  const [value, setValue] = useState(null);
+  const [doctor, setDoctor] = useState(null);
+  const [doctorFullInfo, setDoctorFullInfo] = useState([]);
 
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({

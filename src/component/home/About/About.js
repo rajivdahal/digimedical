@@ -8,7 +8,7 @@ const AboutUsContainer = styled.div`
   padding-left: 140px;
   padding-right: 140px;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr 1fr;
   grid-column-gap: 6rem;
   @media screen and (max-width: 1077px) {
     grid-template-columns: auto;
@@ -20,9 +20,9 @@ const AboutUsContainer = styled.div`
 `;
 const ImageContainer = styled.img`
   margin-top: 1rem;
-  width: 620px;
+  width: 720px;
   height: 410px;
-  object-fit: cover;
+  object-fit: contain;
   @media screen and (max-width: 1260px) {
     width: 460px;
     height: 300px;
@@ -45,11 +45,9 @@ const ImageContainer = styled.img`
   }
 `;
 const RightContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  padding: 0.5rem;
 `;
 const DescriptionContainer = styled.div`
-  margin: 0.5rem;
   font-weight: bold;
   span {
     font-size: 15px;
@@ -64,6 +62,10 @@ const DescriptionContainer = styled.div`
     font-weight: bold;
     @media screen and (max-width: 767px) {
       font-size: 1.5rem;
+    }
+    span.ques-color{
+      color: #2745F0;
+    font-size: 33.33px;
     }
   }
   p {
@@ -97,7 +99,7 @@ const WhaiIsDegimediacal = () => {
         <RightContainer>
           <DescriptionContainer>
             <span>About Us</span>
-            <h2>What is Digi Medical ?</h2>
+            <h2>What is Digi Medical <span class="ques-color">?</span></h2>
             <p>
               Digi Medical Sewa is an emerging healthcare service established to
               provide world-class quality health care to the citizen of Nepal

@@ -41,6 +41,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   margin-bottom: 20px;
 }
 .labrepo_text_form label {
@@ -49,7 +50,7 @@
   font-weight: normal;
   align-items: center;
   color: #596579;
-  width: 32%;
+  width: 110px;
 }
 .prescription_input {
   width: 65%;
@@ -70,7 +71,7 @@
   border: 2px solid #2745f0;
 }
 .prescription_inputdesc {
-  width: 65%;
+  width: 100%;
   height: 100px;
   border: 0.75px solid #d0d7e2;
   border-radius: 6px;
@@ -143,14 +144,14 @@
     width: 20%;
   }
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   .prescription_input,
   .prescription_inputimage,
   .prescription_inputdesc {
-    width: 70%;
+    width: 50%;
   }
   .labrepo_text_form .select-category {
-    width: 70%;
+    width: 50%;
   }
 }
 
@@ -184,4 +185,32 @@
 
 .umi_row {
   width: 92.5%;
+}
+
+.dzUcDZ {
+  width: 100%;
+}
+
+/* f
+i
+l
+e
+uploader css here */
+
+.file-uploader-lt {
+  width: 100%;
+  overflow: hidden;
+  border: 4px dotted #52b2e5;
+}
+
+.file-uploader-lt label {
+  width: 100%;
+  border: none;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 450px) {
+  .file-uploader-lt {
+    width: 50%;
+  }
 }

@@ -386,7 +386,13 @@ const NavbarMenuItems = () => {
             </Link>
           </li>
           <li className="menu-item_nav common-menu">
-            Our Doctors
+            <Link
+              className="nav_link_font"
+              to={"/all-speciality"}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Our Doctors
+            </Link>
             {/* </Link> */}
             <div className="dropdown_hp_content">
               <div className="dropdown_hp_content1">
