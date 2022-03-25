@@ -36,7 +36,6 @@ import CorporateTypes from "./adminDashboard/corporateData/corporate.type";
 import PackageDescription from "./adminDashboard/packageData/package.desc";
 import NewServicePage from "./adminDashboard/newServiceData/newServicePage";
 
-
 // hospital
 import Hospitalnavbar from "./hospitaldashboard/hospitalnavbar/hospitalnavbar.component";
 import Hospitalsidebar from "./hospitaldashboard/hospitalsidebar/hospitalsidebar.component";
@@ -70,7 +69,7 @@ import { MedicalReports } from "./userdashboard/medicalReports/medicalReports.co
 import DigimedicalDoctor from "./userdashboard/digimedicalDoctor/digiMedicalDoctor";
 import UtilsInfo from "./userdashboard/utilsinformation/utilsInfo.component";
 // import BodyCheckUpUser  from "./userdashboard/bodyCheckup/bodyCheckUp.component";
-import BodyCheckUpUser from "./userdashboard/bodyCheckup/bodyCheckUp.component"
+import BodyCheckUpUser from "./userdashboard/bodyCheckup/bodyCheckUp.component";
 
 // doctor
 import Doctornavbar from "./doctordashboard/navbarandsidebar/doctornavbar.component";
@@ -127,7 +126,7 @@ const Dashboard = (props) => {
               component={Hospitalbookingcomponent}
             ></ProtectedRoute>
           ) : props.location.pathname ===
-            "/dashboard/hospitals/view-doctors"? (
+            "/dashboard/hospitals/view-doctors" ? (
             <ProtectedRoute component={Hospital_doctors}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/add-member" ? (
             <ProtectedRoute component={AddFamilyMember}></ProtectedRoute>
@@ -142,14 +141,12 @@ const Dashboard = (props) => {
           ) : props.location.pathname === "/dashboard/speciality-doctors" ? (
             <ProtectedRoute component={SpecialityDoctor}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/services" ? (
-              <ProtectedRoute component={UserServices}></ProtectedRoute>
-          ) : props.location.pathname ===
-          "/dashboard/hospital-specialist" ? (
-          <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
-        ) :   props.location.pathname ===
-        "/dashboard/payment-response"?
-        <ProtectedRoute component={SuccessResponse}></ProtectedRoute>:
-          null}
+            <ProtectedRoute component={UserServices}></ProtectedRoute>
+          ) : props.location.pathname === "/dashboard/hospital-specialist" ? (
+            <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
+          ) : props.location.pathname === "/dashboard/payment-response" ? (
+            <ProtectedRoute component={SuccessResponse}></ProtectedRoute>
+          ) : null}
         </>
       ) : statusCode == 100 ? (
         <>
@@ -162,17 +159,18 @@ const Dashboard = (props) => {
             {props.location.pathname === "/dashboard" ||
             props.location.pathname === "/dashboard/" ? (
               <ProtectedRoute component={AdminDashboard}></ProtectedRoute>
-            ) :
-            props.location.pathname==="/dashboard/services"?
-            <ProtectedRoute component={ViewServicesBookedOfUser}></ProtectedRoute>:
-            props.location.pathname === "/dashboard/doctor-table" ? (
+            ) : props.location.pathname === "/dashboard/services" ? (
+              <ProtectedRoute
+                component={ViewServicesBookedOfUser}
+              ></ProtectedRoute>
+            ) : props.location.pathname === "/dashboard/doctor-table" ? (
               <ProtectedRoute component={DoctorTable}></ProtectedRoute>
             ) : props.location.pathname === "/dashboard/create-doctor" ? (
               <ProtectedRoute component={Createdoctor}></ProtectedRoute>
             ) : props.location.pathname === "/dashboard/create-speciality" ? (
               <ProtectedRoute component={Createservices}></ProtectedRoute>
             ) : props.location.pathname === "/dashboard/create-services" ? (
-            <ProtectedRoute component={NewServicePage}></ProtectedRoute>
+              <ProtectedRoute component={NewServicePage}></ProtectedRoute>
             ) : props.location.pathname === "/dashboard/appointment" ? (
               <ProtectedRoute component={Appointment} />
             ) : props.location.pathname === "/dashboard/lab-test" ? (
@@ -217,7 +215,7 @@ const Dashboard = (props) => {
               ></ProtectedRoute>
             ) : props.location.pathname === "/dashboard/payment-master" ? (
               <ProtectedRoute component={PaymentMaster} />
-              ): (
+            ) : (
               <ProtectedRoute
                 component={Dashboardpagenotfound}
               ></ProtectedRoute>

@@ -36,14 +36,22 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/about" component={AboutPage}></PublicRoute>
         <PublicRoute exact path="/services" component={Service}></PublicRoute>
         <PublicRoute exact path="/contact" component={ContactUs}></PublicRoute>
-        <PublicRoute exact path="/digi-doctors" component={Digimedical_doctors}></PublicRoute>
-        <PublicRoute exact path="/all-speciality" component={AllSpecialist}></PublicRoute>
+        <PublicRoute
+          exact
+          path="/digi-doctors"
+          component={Digimedical_doctors}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/all-speciality"
+          component={AllSpecialist}
+        ></PublicRoute>
         <PublicRoute
           exact
           path="/our-services/:subservice"
           component={OurServices}
         ></PublicRoute>
-         <ProtectedRoute
+        <ProtectedRoute
           exact
           path="/payment-response"
           component={SuccessResponse}
@@ -128,12 +136,12 @@ export const Approuting = (props) => {
           path="/dashboard/medical-reports"
           component={Dashboard}
         ></ProtectedRoute>
-         <ProtectedRoute
+        <ProtectedRoute
           exact
           path="/dashboard/utils-info"
           component={Dashboard}
         ></ProtectedRoute>
-          <ProtectedRoute
+        <ProtectedRoute
           exact
           path="/dashboard/Services"
           component={Dashboard}
@@ -368,7 +376,6 @@ export const Approuting = (props) => {
           component={Dashboard}
         ></ProtectedRoute>
 
-
         {/* CorporateRoutes */}
         <ProtectedRoute
           exact
@@ -381,7 +388,6 @@ export const Approuting = (props) => {
           path="/dashboard/add/corporate-types"
           component={Dashboard}
         ></ProtectedRoute>
-
 
         <ProtectedRoute
           exact
