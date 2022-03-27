@@ -89,7 +89,7 @@ const PackageDescription = (props) => {
 
         validate: (values) => {
             let isEdit = detailID ? true : false;
-            return validateMasterPackage(values,isEdit);
+            return validateMasterPackage(values, isEdit);
         },
 
     })
@@ -230,7 +230,7 @@ const PackageDescription = (props) => {
                     <Col md={10}>
                         <Form onSubmit={formik.handleSubmit}>
                             <Row className="mb-3">
-                            <Col md={6}>
+                                <Col md={6}>
                                     <Form.Group >
                                         <Form.Label>Package Type : </Form.Label>
                                         <select
@@ -260,7 +260,7 @@ const PackageDescription = (props) => {
                             </Row>
 
                             <Row className='mb-3'>
-                            <Col md={12}>
+                                <Col md={12}>
                                     <Form.Group>
                                         <Form.Label>Description</Form.Label>
                                         <Form.Control className='formControl' as="textarea" rows={2} name="description" onChange={formik.handleChange}
@@ -294,16 +294,16 @@ const PackageDescription = (props) => {
                                 </Col>
 
                             </Row>
-                            
+
                             <Row className='mb-3'>
-                            <Col md={10}>
-                            {formik.values && formik.values.allPurpose ?
+                                <Col md={10}>
+                                    {formik.values && formik.values.allPurpose ?
                                         <ul>
                                             {formik.values && formik.values.allPurpose.map((item, index) => {
                                                 return <div className='clearfix'>
                                                     <li className='purposeList'>
                                                         <span className='flaotLeft'>{item}</span>
-                                                        <span  className="removeBtn floatRight "
+                                                        <span className="removeBtn floatRight "
                                                             onClick={() => removeDetail(index)}>Remove</span>
                                                         <span onClick={() => editPurpose(index)} className="editBtn floatRight">Edit</span>
                                                     </li>
@@ -313,8 +313,8 @@ const PackageDescription = (props) => {
                                         :
                                         <></>
                                     }
-                            </Col>
-                            
+                                </Col>
+
                             </Row>
 
                             <div className="mb-5" >
@@ -351,7 +351,7 @@ const PackageDescription = (props) => {
                         </Form>
                     </Col>
                 </Row>
-                
+
                 <MaterialTable
                     columns={[
                         { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },

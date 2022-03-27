@@ -160,7 +160,7 @@ let history=useHistory()
                   </p>
                 </li>
 
-                {/* <li>
+                <li>
                   <Accordion.Item eventKey="2">
                     <Accordion.Header>
                       <span id="newdash_bar_ico">
@@ -195,7 +195,7 @@ let history=useHistory()
                       </ul>
                     </Accordion.Body>
                   </Accordion.Item>
-                </li> */}
+                </li>
 
               </ul>
             </Accordion>
@@ -335,7 +335,7 @@ let history=useHistory()
                     </p>
                   </li>
 
-                {/* <li>
+                <li>
                   <Accordion.Item eventKey="2">
                     <Accordion.Header>
                       <span id="newdash_bar_ico">
@@ -370,7 +370,7 @@ let history=useHistory()
                       </ul>
                     </Accordion.Body>
                   </Accordion.Item>
-                </li> */}
+                </li>
 
                 </ul>
               </Accordion>
