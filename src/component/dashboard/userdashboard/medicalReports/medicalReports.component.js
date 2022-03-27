@@ -1,4 +1,4 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage ,useFormikContext} from "formik";
 import "./medicalReports.component.css";
 import { useEffect, useState } from "react";
 import { httpClient } from "../../../../utils/httpClient";
@@ -13,10 +13,14 @@ import {
 import { FileUploader } from "react-drag-drop-files";
 import { CommonMedicalreportTable } from "./commonMedicalreportTable";
 import { CommonUtilityreportTable } from "./commonMedicalreportTable";
+import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
+// const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
 export const MedicalReports = (props) => {
+  // const date = selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
+
   const dispatch = useDispatch();
   const medicalReport = {
     hospitalName: "",
@@ -25,15 +29,25 @@ export const MedicalReports = (props) => {
     followUpDate: "",
     description: "",
   };
+
+  var dt = new Date();
+
+  const [selectedDay, setSelectedDay] = useState({
+    year: dt.getFullYear(),
+    month: dt.getMonth() + 1,
+    day: dt.getDate(),
+  });
+
+
   const medicalReportSchema = Yup.object().shape({
     hospitalName: Yup.string().required("Hospital name is required!"),
     doctorName: Yup.string().required("Doctor name is required!"),
-    visitedDate: Yup.string()
-    .required("Visited Date required!")
-    .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
-    followUpDate: Yup.string()
-    .required("Follow up date is required!")
-    .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
+    // visitedDate: Yup.string()
+    //   .required("Visited Date required!")
+    //   .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
+    // followUpDate: Yup.string()
+    //   .required("Follow up date is required!")
+    //   .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
     // description : Yup.string().required("Description is required!")
   });
   let [image, setImage] = useState([]);
@@ -63,9 +77,57 @@ export const MedicalReports = (props) => {
     });
   };
 
+  function DatePickerField1({ name }) {
+    const formik = useFormikContext();
+    const field = formik.getFieldProps(name);
+    return (
+      <DatePicker
+        value={field.value ? field.value : selectedDay}
+        // minimumDate={selectedDay}
+        onChange={(value) => {
+          console.log(value)
+          formik.setFieldValue(name, value);
+        }}
+      />
+    );
+  }
+  function DatePickerField2({ name }) {
+    const formik = useFormikContext();
+    const field = formik.getFieldProps(name);
+    return (
+      <DatePicker
+        value={field.value ? field.value : selectedDay}
+        // minimumDate={selectedDay}
+        onChange={(value) => {
+          console.log(value)
+          formik.setFieldValue(name, value);
+        }}
+      />
+    );
+  }
+
   const upload = (values, { resetForm }) => {
+    console.log(values)
+    console.log(selectedDay)
+
+    let finalData = {
+      hospitalName: values.hospitalName,
+      doctorName: values.doctorName,
+      followUpdate : values.followUpDate
+      ? values.followUpDate.year + "-" + values.followUpDate.month + "-" + values.followUpDate.day
+      : "",
+
+      visitedDate: values.visitedDate
+      ? values.visitedDate.year + "-" + values.visitedDate.month + "-" + values.visitedDate.day
+      : selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day,
+
+    
+
+      description: values.description,
+    }
+    console.log(finalData)
     httpClient
-      .UPLOAD("post", "medical-records/create", values, false, image, true)
+      .UPLOAD("post", "medical-records/create", finalData, false, image, true)
       .then((resp) => {
         notify.success("Medical Record Is Successfully Created");
         fetchdata();
@@ -88,93 +150,86 @@ export const MedicalReports = (props) => {
   useEffect(() => {
     fetchdata();
   }, []);
-  const formikContent=null
+
+
+
+  const formikContent = null
 
   return (
     <>
-    <div className="med_repo_main">
-      <div className="main-psetImage  report-container">
-        <h2>Update your previous report here</h2>
-        <div className="row umi_row">
-          <div className="col-md-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-
-
-                    <Formik
-                      initialValues={medicalReport}
-                      onSubmit={upload}
-                      validationSchema={medicalReportSchema}
-                    >
-                      {() => (
-                        <Form className=" medical_repo_form ">
-                          <div className="margin-adjuster1">
-                            <div className="labrepo_text_form ">
-                              <label htmlFor="name">Hospital Name:</label>
-                              <Field
-                                name="hospitalName"
-                                id="hospitalName"
-                                className="prescription_input"
-                              ></Field>
-                            </div>
-                            <ErrorMessage
+      <div className="med_repo_main">
+        <div className="main-psetImage  report-container">
+          <h2>Update your previous report here</h2>
+          <div className="row umi_row">
+            <div className="col-md-12 grid-margin stretch-card">
+              <div className="card">
+                <div className="card-body">
+                  <Formik
+                    initialValues={medicalReport}
+                    onSubmit={upload}
+                    validationSchema={medicalReportSchema}
+                  >
+                    {() => (
+                      <Form className=" medical_repo_form ">
+                        <div className="margin-adjuster1">
+                          <div className="labrepo_text_form ">
+                            <label htmlFor="name">Hospital Name<span style={{ color: "red" }}>*</span></label>
+                            <Field
                               name="hospitalName"
-                              render={(msg) => (
-                                <div className="err-message-bottom">{msg}</div>
-                              )}
-                            />
-
-                            <div className="labrepo_text_form">
-                              <label htmlFor="name">Doctor Name:</label>
-                              <Field
-                                name="doctorName"
-                                id="doctorName"
-                                className="prescription_input"
-                              ></Field>
-                            </div>
-                            <ErrorMessage
-                              name="doctorName"
-                              render={(msg) => (
-                                <div className="err-message-bottom">{msg}</div>
-                              )}
-                            />
-
-                            <div className="labrepo_text_form">
-                              <label htmlFor="name">Visited Date:</label>
-                              <Field
-                                name="visitedDate"
-                                id="visitedDate"
-                                className="prescription_input"
-                                placeholder="2020-01-01"
-                              ></Field>
-                            </div>
-                            <ErrorMessage
-                              name="visitedDate"
-                              render={(msg) => (
-                                <div className="err-message-bottom">{msg}</div>
-                              )}
-                            />
-
-                            <div className="labrepo_text_form">
-                              <label htmlFor="name">Follow Up Date:</label>
-                              <Field
-                                name="followUpDate"
-                                id="followUpDate"
-                                className="prescription_input"
-                                placeholder="2020-01-01"
-                              ></Field>
-                            </div>
-                            <ErrorMessage
-                              name="followUpDate"
-                              render={(msg) => (
-                                <div className="err-message-bottom">{msg}</div>
-                              )}
-                            />
+                              id="hospitalName"
+                              className="prescription_input"
+                            ></Field>
                           </div>
-                          <div className="margin-adjuster2">
-                            <div className="labrepo_text_form">
-                              <label htmlFor="name">Image of Report:</label>
-                              {/* <input
+                          <ErrorMessage
+                            name="hospitalName"
+                            render={(msg) => (
+                              <div className="err-message-bottom">{msg}</div>
+                            )}
+                          />
+
+                          <div className="labrepo_text_form">
+                            <label htmlFor="name">Doctor Name<span style={{ color: "red" }}>*</span></label>
+                            <Field
+                              name="doctorName"
+                              id="doctorName"
+                              className="prescription_input"
+                            ></Field>
+                          </div>
+                          <ErrorMessage
+                            name="doctorName"
+                            render={(msg) => (
+                              <div className="err-message-bottom">{msg}</div>
+                            )}
+                          />
+
+                          <div className="labrepo_text_form">
+                            <label htmlFor="name">Visited Date<span style={{ color: "red" }}>*</span></label>
+                              <DatePickerField1 name="visitedDate" />
+
+                          </div>
+                          <ErrorMessage
+                            name="visitedDate"
+                            render={(msg) => (
+                              <div className="err-message-bottom">{msg}</div>
+                            )}
+                          />
+
+                          <div className="labrepo_text_form">
+                            <label htmlFor="name">Follow Up Date </label>
+                              <DatePickerField2 name="followUpDate" className="prescription_input"/>
+
+                          </div>
+                          <ErrorMessage
+                            name="followUpDate"
+                            render={(msg) => (
+                              <div className="err-message-bottom">{msg}</div>
+                            )}
+                          />
+                        </div>
+                        <div className="margin-adjuster2">
+                          <div className="labrepo_text_form">
+                            <label htmlFor="name">Image of Report:</label>
+                            {/* <input
                                 name="image"
                                 className="prescription_inputimage"
                                 type={"file"}
@@ -182,36 +237,36 @@ export const MedicalReports = (props) => {
                                   handleImageChange(event);
                                 }}
                               ></input> */}
-                              <FileUploader handleChange={handleImageChange} name="file" types={fileTypes} />
-                            </div>
-
-                            <div className="labrepo_text_form">
-                              <label htmlFor="name">Description:</label>
-                              <Field
-                                name="description"
-                                className="prescription_inputdesc"
-                                style={{ height: "100px" }}
-                              ></Field>
-                            </div>
-
-                            <button type="submit" className="button-submit">
-                              Update
-                            </button>
+                            <FileUploader handleChange={handleImageChange} name="file" types={fileTypes} />
                           </div>
-                        </Form>
-                      )}
-                    </Formik>
+
+                          <div className="labrepo_text_form">
+                            <label htmlFor="name">Description:</label>
+                            <Field
+                              name="description"
+                              className="prescription_inputdesc"
+                              style={{ height: "100px" }}
+                            ></Field>
+                          </div>
+
+                          <button type="submit" className="button-submit">
+                            Update
+                          </button>
+                        </div>
+                      </Form>
+                    )}
+                  </Formik>
                   <CommonMedicalreportTable
                     medicalData={medicalData}
                   ></CommonMedicalreportTable>
 
 
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
