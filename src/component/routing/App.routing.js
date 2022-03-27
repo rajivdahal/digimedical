@@ -48,6 +48,22 @@ export const Approuting = (props) => {
         ></PublicRoute>
         <PublicRoute
           exact
+          path="/digi-doctors"
+          component={Digimedical_doctors}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/all-speciality"
+          component={AllSpecialist}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/success-response"
+          component={SuccessResponse}
+        ></PublicRoute>
+
+        <PublicRoute
+          exact
           path="/our-services/:subservice"
           component={OurServices}
         ></PublicRoute>
@@ -76,11 +92,13 @@ export const Approuting = (props) => {
           path="/family-package"
           component={FamilyPackage}
         ></PublicRoute>
+
         <PublicRoute
           exact
           path="/corporate-package"
           component={CorporatePackage}
         ></PublicRoute>
+
         <PublicRoute
           exact
           path="/forgot-password/verify-password"
@@ -106,6 +124,25 @@ export const Approuting = (props) => {
           path="/hospitals/view-doctors"
           component={Hospital_doctors}
         ></PublicRoute>
+
+        <ProtectedRoute
+          exact
+          path="/dashboard/book-package"
+          component={Dashboard}
+        ></ProtectedRoute>
+
+        <ProtectedRoute
+          exact
+          path="/dashboard/booked-packages"
+          component={Dashboard}
+        ></ProtectedRoute>
+
+        <ProtectedRoute
+          exact
+          path="/dashboard/package-details"
+          component={Dashboard}
+        ></ProtectedRoute>
+
         <ProtectedRoute
           exact
           path="/dashboard"

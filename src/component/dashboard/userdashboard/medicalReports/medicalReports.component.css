@@ -50,7 +50,10 @@
   font-weight: normal;
   align-items: center;
   color: #596579;
-  width: 110px;
+  width: 200px;
+}
+.field-lab-repo {
+  width: 100%;
 }
 .prescription_input {
   width: 65%;
@@ -140,19 +143,11 @@
   .margin-adjuster2 {
     width: 100%;
   }
-  .labrepo_text_form label {
-    width: 20%;
-  }
 }
 @media screen and (max-width: 450px) {
-  .prescription_input,
-  .prescription_inputimage,
-  .prescription_inputdesc {
+  /* .labrepo_text_form .select-category {
     width: 50%;
-  }
-  .labrepo_text_form .select-category {
-    width: 50%;
-  }
+  } */
 }
 
 .medical-report-button {
@@ -172,9 +167,8 @@
 }
 .err-message-bottom {
   color: red;
-  position: relative;
-  top: -5%;
-  left: 35%;
+  margin-top: 5px;
+  font-size: 12px;
 }
 .err-message-bottom-doctor {
   color: red;
@@ -209,8 +203,6 @@ uploader css here */
   overflow: hidden;
 }
 
-@media screen and (max-width: 450px) {
-  .file-uploader-lt {
-    width: 50%;
-  }
+.labrepo_txt_form label {
+  width: 100px;
 }

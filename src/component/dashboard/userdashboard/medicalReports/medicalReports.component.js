@@ -27,11 +27,17 @@ export const MedicalReports = (props) => {
     hospitalName: Yup.string().required("Hospital name is required!"),
     doctorName: Yup.string().required("Doctor name is required!"),
     visitedDate: Yup.string()
-    .required("Visited Date required!")
-    .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
+      .required("Visited Date required!")
+      .matches(
+        /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/,
+        "Please enter valid date"
+      ),
     followUpDate: Yup.string()
-    .required("Follow up date is required!")
-    .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
+      .required("Follow up date is required!")
+      .matches(
+        /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/,
+        "Please enter valid date"
+      ),
     // description : Yup.string().required("Description is required!")
   });
   let [image, setImage] = useState([]);
@@ -89,87 +95,105 @@ export const MedicalReports = (props) => {
 
   return (
     <>
-    <div className="med_repo_main">
-      <div className="main-psetImage  report-container">
-        <h2>Update your previous report here</h2>
-        <div className="row umi_row">
-          <div className="col-md-12 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <Formik
-                  initialValues={medicalReport}
-                  onSubmit={upload}
-                  validationSchema={medicalReportSchema}
-                >
-                  {() => (
-                    <Form className=" medical_repo_form ">
-                      <div className="margin-adjuster1">
-                        <div className="labrepo_text_form ">
-                          <label htmlFor="name">Hospital Name:</label>
-                          <Field
-                            name="hospitalName"
-                            id="hospitalName"
-                            className="prescription_input"
-                          ></Field>
-                        </div>
-                        <ErrorMessage
-                          name="hospitalName"
-                          render={(msg) => (
-                            <div className="err-message-bottom">{msg}</div>
-                          )}
-                        />
+      <div className="med_repo_main">
+        <div className="main-psetImage  report-container">
+          <h2>Update your previous report here</h2>
+          <div className="row umi_row">
+            <div className="col-md-12 grid-margin stretch-card">
+              <div className="card">
+                <div className="card-body">
+                  <Formik
+                    initialValues={medicalReport}
+                    onSubmit={upload}
+                    validationSchema={medicalReportSchema}
+                  >
+                    {() => (
+                      <Form className=" medical_repo_form ">
+                        <div className="margin-adjuster1">
+                          <div className="labrepo_text_form ">
+                            <label htmlFor="name">Hospital Name:</label>
+                            <div className="field-lab-repo">
+                              {" "}
+                              <Field
+                                name="hospitalName"
+                                id="hospitalName"
+                                className="prescription_input"
+                              ></Field>
+                              <ErrorMessage
+                                name="hospitalName"
+                                render={(msg) => (
+                                  <div className="err-message-bottom">
+                                    {msg}
+                                  </div>
+                                )}
+                              />
+                            </div>
+                          </div>
 
-                        <div className="labrepo_text_form">
-                          <label htmlFor="name">Doctor Name:</label>
-                          <Field
-                            name="doctorName"
-                            id="doctorName"
-                            className="prescription_input"
-                          ></Field>
-                        </div>
-                        <ErrorMessage
-                          name="doctorName"
-                          render={(msg) => (
-                            <div className="err-message-bottom">{msg}</div>
-                          )}
-                        />
+                          <div className="labrepo_text_form">
+                            <label htmlFor="name">Doctor Name:</label>
+                            <div className="field-lab-repo">
+                              <Field
+                                name="doctorName"
+                                id="doctorName"
+                                className="prescription_input"
+                              ></Field>
 
-                        <div className="labrepo_text_form">
-                          <label htmlFor="name">Visited Date:</label>
-                          <Field
-                            name="visitedDate"
-                            id="visitedDate"
-                            className="prescription_input"
-                            placeholder="2020-01-01"
-                          ></Field>
-                        </div>
-                        <ErrorMessage
-                          name="visitedDate"
-                          render={(msg) => (
-                            <div className="err-message-bottom">{msg}</div>
-                          )}
-                        />
+                              <ErrorMessage
+                                name="doctorName"
+                                render={(msg) => (
+                                  <div className="err-message-bottom">
+                                    {msg}
+                                  </div>
+                                )}
+                              />
+                            </div>
+                          </div>
+                          <div className="labrepo_text_form">
+                            <label htmlFor="name">Visited Date:</label>
+                            <div className="field-lab-repo">
+                              <Field
+                                name="visitedDate"
+                                id="visitedDate"
+                                className="prescription_input"
+                                placeholder="2020-01-01"
+                              ></Field>
+                              <ErrorMessage
+                                name="visitedDate"
+                                render={(msg) => (
+                                  <div className="err-message-bottom">
+                                    {msg}
+                                  </div>
+                                )}
+                              />
+                            </div>
+                          </div>
 
-                        <div className="labrepo_text_form">
-                          <label htmlFor="name">Follow Up Date:</label>
-                          <Field
-                            name="followUpDate"
-                            id="followUpDate"
-                            className="prescription_input"
-                            placeholder="2020-01-01"
-                          ></Field>
+                          <div className="labrepo_text_form">
+                            <label htmlFor="name">Follow Up Date:</label>
+                            <div className="field-lab-repo">
+                              <Field
+                                name="followUpDate"
+                                id="followUpDate"
+                                className="prescription_input"
+                                placeholder="2020-01-01"
+                              ></Field>
+
+                              <ErrorMessage
+                                name="followUpDate"
+                                render={(msg) => (
+                                  <div className="err-message-bottom">
+                                    {msg}
+                                  </div>
+                                )}
+                              />
+                            </div>
+                          </div>
                         </div>
-                        <ErrorMessage
-                          name="followUpDate"
-                          render={(msg) => (
-                            <div className="err-message-bottom">{msg}</div>
-                          )}
-                        />
-                      </div>
-                      <div className="margin-adjuster2">
-                        <div className="labrepo_text_form">
-                          <label htmlFor="name">Image of Report:</label>
-                          {/* <input
+                        <div className="margin-adjuster2">
+                          <div className="labrepo_text_form">
+                            <label htmlFor="name">Image of Report:</label>
+                            {/* <input
                                 name="image"
                                 className="prescription_inputimage"
                                 type={"file"}
@@ -177,40 +201,40 @@ export const MedicalReports = (props) => {
                                   handleImageChange(event);
                                 }}
                               ></input> */}
-                          <div className="file-uploader-lt">
-                            <FileUploader
-                              handleChange={handleImageChange}
-                              name="file"
-                              types={fileTypes}
-                            />
+                            <div className="file-uploader-lt">
+                              <FileUploader
+                                handleChange={handleImageChange}
+                                name="file"
+                                types={fileTypes}
+                              />
+                            </div>
                           </div>
-                        </div>
 
-                        <div className="labrepo_text_form">
-                          <label htmlFor="name">Description:</label>
-                          <Field
-                            name="description"
-                            className="prescription_inputdesc"
-                            style={{ height: "100px" }}
-                          ></Field>
-                        </div>
+                          <div className="labrepo_text_form">
+                            <label htmlFor="name">Description:</label>
+                            <Field
+                              name="description"
+                              className="prescription_inputdesc"
+                              style={{ height: "100px" }}
+                            ></Field>
+                          </div>
 
-                        <button type="submit" className="button-submit">
-                          Update
-                        </button>
-                      </div>
-                    </Form>
-                  )}
-                </Formik>
-                <CommonMedicalreportTable
-                  medicalData={medicalData}
-                ></CommonMedicalreportTable>
+                          <button type="submit" className="button-submit">
+                            Update
+                          </button>
+                        </div>
+                      </Form>
+                    )}
+                  </Formik>
+                  <CommonMedicalreportTable
+                    medicalData={medicalData}
+                  ></CommonMedicalreportTable>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

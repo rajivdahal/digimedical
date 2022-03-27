@@ -49083,9 +49083,11 @@ div.tagsinput span.tag a {
 .DatePicker {
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 .DatePicker .DatePicker__input {
   text-align: left;
   position: relative;
   z-index: 1;
+  width: 100%;
 }

@@ -89,6 +89,9 @@ import ViewServicesBookedOfUser from "./adminDashboard/services/services.compone
 import { PaymentMaster } from "./adminDashboard/paymentMaster/paymentMaster";
 import SuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/successResponse";
 import FamilyPackage from "./userdashboard/familyPackage/familyPackage.component";
+import BookFamilyPackage from "./userdashboard/bookPackage/book.package";
+import PackageDetailsPage from "./userdashboard/bookPackage/packageDetailsPage";
+import BookedPackage from "./userdashboard/bookPackage/bookedPackages";
 
 const Dashboard = (props) => {
   const statusCode = localStorage.getItem("status");
@@ -112,12 +115,12 @@ const Dashboard = (props) => {
             <ProtectedRoute
               component={Internalappointmentbook}
             ></ProtectedRoute>
+          ) : props.location.pathname === "/dashboard/booked-packages" ? (
+            <ProtectedRoute component={BookedPackage}></ProtectedRoute>
+          ) : props.location.pathname === "/dashboard/package-details" ? (
+            <ProtectedRoute component={PackageDetailsPage}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/settings/userprofile" ? (
             <ProtectedRoute component={UserProfile} />
-          ) : props.location.pathname === "/dashboard/bookappointment" ? (
-            <ProtectedRoute
-              component={Internalappointmentbook}
-            ></ProtectedRoute>
           ) : props.location.pathname ===
             "/dashboard/settings/change-password" ? (
             <ProtectedRoute component={Changepassword}></ProtectedRoute>
@@ -150,6 +153,14 @@ const Dashboard = (props) => {
             <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
           ) : props.location.pathname === "/dashboard/family-package" ? (
             <ProtectedRoute component={FamilyPackage}></ProtectedRoute>
+          ) : props.location.pathname === "/dashboard/hospital-specialist" ? (
+            <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
+          ) : props.location.pathname === "/dashboard/book-package" ? (
+            <ProtectedRoute component={BookFamilyPackage}></ProtectedRoute>
+          ) : props.location.pathname === "/dashboard/hospital-specialist" ? (
+            <ProtectedRoute component={HospitalSpecialist}></ProtectedRoute>
+          ) : props.location.pathname === "/dashboard/payment-response" ? (
+            <ProtectedRoute component={SuccessResponse}></ProtectedRoute>
           ) : null}
         </>
       ) : statusCode == 100 ? (
