@@ -1,4 +1,4 @@
-import { Formik, Form, Field, ErrorMessage ,useFormikContext} from "formik";
+import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import "./medicalReports.component.css";
 import { useEffect, useState } from "react";
 import { httpClient } from "../../../../utils/httpClient";
@@ -7,9 +7,7 @@ import * as Yup from "yup";
 import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import {
-  setMedicalReportOpen,
-} from "../../../../actions/medicalReports.ac";
+import { setMedicalReportOpen } from "../../../../actions/medicalReports.ac";
 import { FileUploader } from "react-drag-drop-files";
 import { CommonMedicalreportTable } from "./commonMedicalreportTable";
 import { CommonUtilityreportTable } from "./commonMedicalreportTable";
@@ -37,7 +35,6 @@ export const MedicalReports = (props) => {
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
-
 
   const medicalReportSchema = Yup.object().shape({
     hospitalName: Yup.string().required("Hospital name is required!"),
@@ -85,7 +82,7 @@ export const MedicalReports = (props) => {
         value={field.value ? field.value : selectedDay}
         // minimumDate={selectedDay}
         onChange={(value) => {
-          console.log(value)
+          console.log(value);
           formik.setFieldValue(name, value);
         }}
       />
@@ -99,7 +96,7 @@ export const MedicalReports = (props) => {
         value={field.value ? field.value : selectedDay}
         // minimumDate={selectedDay}
         onChange={(value) => {
-          console.log(value)
+          console.log(value);
           formik.setFieldValue(name, value);
         }}
       />
@@ -107,25 +104,31 @@ export const MedicalReports = (props) => {
   }
 
   const upload = (values, { resetForm }) => {
-    console.log(values)
-    console.log(selectedDay)
+    console.log(values);
+    console.log(selectedDay);
 
     let finalData = {
       hospitalName: values.hospitalName,
       doctorName: values.doctorName,
-      followUpdate : values.followUpDate
-      ? values.followUpDate.year + "-" + values.followUpDate.month + "-" + values.followUpDate.day
-      : "",
+      followUpdate: values.followUpDate
+        ? values.followUpDate.year +
+          "-" +
+          values.followUpDate.month +
+          "-" +
+          values.followUpDate.day
+        : "",
 
       visitedDate: values.visitedDate
-      ? values.visitedDate.year + "-" + values.visitedDate.month + "-" + values.visitedDate.day
-      : selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day,
-
-    
+        ? values.visitedDate.year +
+          "-" +
+          values.visitedDate.month +
+          "-" +
+          values.visitedDate.day
+        : selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day,
 
       description: values.description,
-    }
-    console.log(finalData)
+    };
+    console.log(finalData);
     httpClient
       .UPLOAD("post", "medical-records/create", finalData, false, image, true)
       .then((resp) => {
@@ -139,7 +142,6 @@ export const MedicalReports = (props) => {
       });
   };
 
-
   const handleImageChange = (event) => {
     let file = [];
     file.push(event.target.files[0]);
@@ -151,9 +153,7 @@ export const MedicalReports = (props) => {
     fetchdata();
   }, []);
 
-
-
-  const formikContent = null
+  const formikContent = null;
 
   return (
     <>
@@ -173,58 +173,83 @@ export const MedicalReports = (props) => {
                       <Form className=" medical_repo_form ">
                         <div className="margin-adjuster1">
                           <div className="labrepo_text_form ">
-                            <label htmlFor="name">Hospital Name<span style={{ color: "red" }}>*</span></label>
-                            <Field
-                              name="hospitalName"
-                              id="hospitalName"
-                              className="prescription_input"
-                            ></Field>
+                            <label htmlFor="name">
+                              Hospital Name
+                              <span style={{ color: "red" }}>*</span>
+                            </label>
+                            <div className="field-lab-repo">
+                              <Field
+                                name="hospitalName"
+                                id="hospitalName"
+                                className="prescription_input"
+                              ></Field>
+                              <ErrorMessage
+                                name="hospitalName"
+                                render={(msg) => (
+                                  <div className="err-message-bottom">
+                                    {msg}
+                                  </div>
+                                )}
+                              />
+                            </div>
                           </div>
-                          <ErrorMessage
-                            name="hospitalName"
-                            render={(msg) => (
-                              <div className="err-message-bottom">{msg}</div>
-                            )}
-                          />
 
                           <div className="labrepo_text_form">
-                            <label htmlFor="name">Doctor Name<span style={{ color: "red" }}>*</span></label>
-                            <Field
-                              name="doctorName"
-                              id="doctorName"
-                              className="prescription_input"
-                            ></Field>
+                            <label htmlFor="name">
+                              Doctor Name<span style={{ color: "red" }}>*</span>
+                            </label>
+                            <div className="field-lab-repo">
+                              <Field
+                                name="doctorName"
+                                id="doctorName"
+                                className="prescription_input"
+                              ></Field>
+                              <ErrorMessage
+                                name="doctorName"
+                                render={(msg) => (
+                                  <div className="err-message-bottom">
+                                    {msg}
+                                  </div>
+                                )}
+                              />
+                            </div>
                           </div>
-                          <ErrorMessage
-                            name="doctorName"
-                            render={(msg) => (
-                              <div className="err-message-bottom">{msg}</div>
-                            )}
-                          />
 
                           <div className="labrepo_text_form">
-                            <label htmlFor="name">Visited Date<span style={{ color: "red" }}>*</span></label>
+                            <label htmlFor="name">
+                              Visited Date
+                              <span style={{ color: "red" }}>*</span>
+                            </label>
+                            <div className="field-lab-repo med-repo-timepicker1">
                               <DatePickerField1 name="visitedDate" />
-
+                              <ErrorMessage
+                                name="visitedDate"
+                                render={(msg) => (
+                                  <div className="err-message-bottom">
+                                    {msg}
+                                  </div>
+                                )}
+                              />
+                            </div>
                           </div>
-                          <ErrorMessage
-                            name="visitedDate"
-                            render={(msg) => (
-                              <div className="err-message-bottom">{msg}</div>
-                            )}
-                          />
 
                           <div className="labrepo_text_form">
                             <label htmlFor="name">Follow Up Date </label>
-                              <DatePickerField2 name="followUpDate" className="prescription_input"/>
-
+                            <div className="field-lab-repo med-repo-timepicker2">
+                              <DatePickerField2
+                                name="followUpDate"
+                                className="prescription_input"
+                              />
+                              <ErrorMessage
+                                name="followUpDate"
+                                render={(msg) => (
+                                  <div className="err-message-bottom">
+                                    {msg}
+                                  </div>
+                                )}
+                              />
+                            </div>
                           </div>
-                          <ErrorMessage
-                            name="followUpDate"
-                            render={(msg) => (
-                              <div className="err-message-bottom">{msg}</div>
-                            )}
-                          />
                         </div>
                         <div className="margin-adjuster2">
                           <div className="labrepo_text_form">
@@ -237,7 +262,13 @@ export const MedicalReports = (props) => {
                                   handleImageChange(event);
                                 }}
                               ></input> */}
-                            <FileUploader handleChange={handleImageChange} name="file" types={fileTypes} />
+                            <div className="file-uploader-lt">
+                              <FileUploader
+                                handleChange={handleImageChange}
+                                name="file"
+                                types={fileTypes}
+                              />
+                            </div>
                           </div>
 
                           <div className="labrepo_text_form">
@@ -259,8 +290,6 @@ export const MedicalReports = (props) => {
                   <CommonMedicalreportTable
                     medicalData={medicalData}
                   ></CommonMedicalreportTable>
-
-
                 </div>
               </div>
             </div>

@@ -40,6 +40,8 @@
 .labrepo_text_form {
   width: 100%;
   display: flex;
+  justify-content: space-between;
+  gap: 10px;
   margin-bottom: 20px;
 }
 .labrepo_text_form label {
@@ -48,7 +50,10 @@
   font-weight: normal;
   align-items: center;
   color: #596579;
-  width: 40%;
+  width: 200px;
+}
+.field-lab-repo {
+  width: 100%;
 }
 .prescription_input {
   width: 65%;
@@ -69,7 +74,7 @@
   border: 2px solid #2745f0;
 }
 .prescription_inputdesc {
-  width: 65%;
+  width: 100%;
   height: 100px;
   border: 0.75px solid #d0d7e2;
   border-radius: 6px;
@@ -138,19 +143,11 @@
   .margin-adjuster2 {
     width: 100%;
   }
-  .labrepo_text_form label {
-    width: 20%;
-  }
 }
-@media screen and (max-width: 400px) {
-  .prescription_input,
-  .prescription_inputimage,
-  .prescription_inputdesc {
-    width: 70%;
-  }
-  .labrepo_text_form .select-category {
-    width: 70%;
-  }
+@media screen and (max-width: 450px) {
+  /* .labrepo_text_form .select-category {
+    width: 50%;
+  } */
 }
 
 .medical-report-button {
@@ -170,9 +167,8 @@
 }
 .err-message-bottom {
   color: red;
-  position: relative;
-  top: -5%;
-  left: 35%;
+  margin-top: 5px;
+  font-size: 12px;
 }
 .err-message-bottom-doctor {
   color: red;
@@ -183,4 +179,50 @@
 
 .umi_row {
   width: 92.5%;
+}
+
+.dzUcDZ {
+  width: 100%;
+}
+
+/* f
+i
+l
+e
+uploader css here */
+
+.file-uploader-lt {
+  width: 100%;
+  overflow: hidden;
+  border: 4px dotted #52b2e5;
+}
+
+.file-uploader-lt label {
+  width: 100%;
+  border: none;
+  overflow: hidden;
+}
+
+/* a
+b
+c
+d
+for datepicker css here */
+.field-lab-repo .DatePicker .DatePicker__input {
+  height: 40px;
+  border-radius: 6px;
+}
+
+.med-repo-timepicker1 .DatePicker .DatePicker__calendarContainer {
+  position: absolute;
+  top: 50px;
+}
+
+.med-repo-timepicker2 .DatePicker {
+  z-index: 11;
+}
+
+.med-repo-timepicker2 .DatePicker .DatePicker__calendarContainer {
+  position: absolute;
+  top: 50px;
 }

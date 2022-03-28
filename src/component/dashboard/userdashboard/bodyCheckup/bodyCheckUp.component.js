@@ -20,8 +20,7 @@ export default function BodyCheckUpUser(props) {
 
   const schema = Yup.object().shape({
     serviceId: Yup.string().required("Service is required!"),
-    value: Yup.string()
-    .required("Value is required!"),
+    value: Yup.string().required("Value is required!"),
   });
 
   var dt = new Date();
@@ -170,33 +169,42 @@ export default function BodyCheckUpUser(props) {
                     {({ errors, touched }) => (
                       <Form className=" medical_repo_form">
                         <div className="margin-adjuster1">
-                          <div className="labrepo_text_form">
+                          <div className="labrepo_text_form labrepo_txt_form">
                             <label htmlFor="date">Date:</label>
                             <div className="serviceDate">
                               <DatePickerField name="date" />
+                              {errors.date && touched.date ? (
+                                <div className="err-message-bottom">
+                                  {errors.date}
+                                </div>
+                              ) : null}
                             </div>
                           </div>
-                          {errors.date && touched.date ? (
-                            <div style={{ color: "red" }}>{errors.date}</div>
-                          ) : null}
-                          <div className="labrepo_text_form">
+
+                          <div className="labrepo_text_form labrepo_txt_form">
                             <label htmlFor="name">Service :</label>
-                            <SelectField name="serviceId"></SelectField>
-                          </div>
-                          {errors.serviceId && touched.serviceId ? (
-                            <div style={{ color: "red" }}>
-                              {errors.serviceId}
+                            <div className="field-lab-repo">
+                              <SelectField name="serviceId"></SelectField>
+                              {errors.serviceId && touched.serviceId ? (
+                                <div className="err-message-bottom">
+                                  {errors.serviceId}
+                                </div>
+                              ) : null}
                             </div>
-                          ) : null}
+                          </div>
                         </div>
                         <div className="margin-adjuster2">
-                          <div className="labrepo_text_form">
+                          <div className="labrepo_text_form labrepo_txt_form">
                             <label htmlFor="value">Value :</label>
-                            <InputSelectField name="value"></InputSelectField>
+                            <div className="field-lab-repo">
+                              <InputSelectField name="value"></InputSelectField>
+                              {errors.value && touched.value ? (
+                                <div className="err-message-bottom">
+                                  {errors.value}
+                                </div>
+                              ) : null}
+                            </div>
                           </div>
-                          {errors.value && touched.value ? (
-                            <div style={{ color: "red" }}>{errors.value}</div>
-                          ) : null}
 
                           <button type="submit" className="button-submit">
                             Update
@@ -253,7 +261,6 @@ export default function BodyCheckUpUser(props) {
                     }}
                   />
                 </div>
-
               </div>
             </div>
           </div>

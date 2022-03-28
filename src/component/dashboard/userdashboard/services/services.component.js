@@ -10,20 +10,25 @@ import { notify } from "../../../../services/notify";
 import MaterialTable from "material-table";
 import Tableicons from "../../../../utils/materialicons";
 import { Check, Edit, Clear, Add } from "@material-ui/icons";
-import { setClosePopUp, setOpenPopUp } from "../../../../actions/paymentPopUp.ac";
+import {
+  setClosePopUp,
+  setOpenPopUp,
+} from "../../../../actions/paymentPopUp.ac";
 import { bindActionCreators } from "redux";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { digiDoctorAppointmentFixed } from "../../../../actions/digiDoctorBooking.ac";
 import ServicePayment from "../../../common/popup/doctorPopup/selectPaymentMethod/forServicePayment/servicepayment";
 import { internalServiceBooking } from "../../../../actions/service.action";
 
 export default function UserServices(props) {
-
   // Redux implementation for pop up
-  let dispatch=useDispatch();
+  let dispatch = useDispatch();
 
   const closePaymentPopUp = bindActionCreators(setClosePopUp, dispatch);
-  const setAppointmentFixed = bindActionCreators(digiDoctorAppointmentFixed, dispatch);
+  const setAppointmentFixed = bindActionCreators(
+    digiDoctorAppointmentFixed,
+    dispatch
+  );
   // const setDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
 
   const openPaymentPopUp = bindActionCreators(setOpenPopUp, dispatch);
@@ -31,7 +36,6 @@ export default function UserServices(props) {
   const popupOpen = useSelector((state) => state.paymentPopUp);
 
   // end of redux implementation for pop up
-
 
   const initialValues = {
     serviceId: "",
@@ -82,7 +86,7 @@ export default function UserServices(props) {
     httpClient
       .GET("service-booking/get/0", false, true)
       .then((resp) => {
-        console.log(resp.data.data)
+        console.log(resp.data.data);
         let finalData = resp.data.data.map((item) => {
           item.userName =
             item.firstName + " " + item.middleName + " " + item.lastName;
@@ -150,9 +154,9 @@ export default function UserServices(props) {
     httpClient
       .POST("service-booking/create", finaldata, false, true)
       .then((resp) => {
-        if(resp.data.status){
+        if (resp.data.status) {
           finaldata.appointmentId = resp.data.data;
-          dispatch(internalServiceBooking(finaldata))
+          dispatch(internalServiceBooking(finaldata));
           openPaymentPopUp(true);
           resetForm();
           getSelectedServices();
@@ -204,33 +208,45 @@ export default function UserServices(props) {
                     {({ errors, touched }) => (
                       <Form className=" medical_repo_form">
                         <div className="margin-adjuster1">
-                          <div className="labrepo_text_form">
+                          <div className="labrepo_text_form labrepo_txt_form label">
                             <label htmlFor="date">Date :</label>
-                            <div className="serviceDate">
-                              <DatePickerField name="date" />
+                            <div className="field-lab-repo">
+                              <div className="serviceDate">
+                                <DatePickerField name="date" />
+                              </div>
+                              {errors.date && touched.date ? (
+                                <div className="err-message-bottom">
+                                  {errors.date}
+                                </div>
+                              ) : null}
                             </div>
                           </div>
-                          {errors.date && touched.date ? (
-                            <div style={{ color: "red" }}>{errors.date}</div>
-                          ) : null}
-                          <div className="labrepo_text_form">
+
+                          <div className="labrepo_text_form labrepo_txt_form label">
                             <label htmlFor="name">Time :</label>
-                            <TimePickerField name="time"></TimePickerField>
+                            <div className="field-lab-repo">
+                              <TimePickerField name="time"></TimePickerField>
+                              {errors.time && touched.time ? (
+                                <div className="err-message-bottom">
+                                  {errors.time}
+                                </div>
+                              ) : null}
+                            </div>
                           </div>
-                          {errors.time && touched.time ? (
-                            <div style={{ color: "red" }}>{errors.time}</div>
-                          ) : null}
                         </div>
                         <div className="margin-adjuster2">
-                          <div className="labrepo_text_form">
+                          <div className="labrepo_text_form labrepo_txt_form label">
                             <label htmlFor="name">Service :</label>
-                            <SelectField name="serviceId"></SelectField>
-                          </div>
-                          {errors.serviceId && touched.serviceId ? (
-                            <div style={{ color: "red" }}>
-                              {errors.serviceId}
+                            <div className="field-lab-repo">
+                              <SelectField name="serviceId"></SelectField>
+                              {errors.serviceId && touched.serviceId ? (
+                                <div className="err-message-bottom">
+                                  {errors.serviceId}
+                                </div>
+                              ) : null}
                             </div>
-                          ) : null}
+                          </div>
+
                           <button type="submit" className="button-submit">
                             Update
                           </button>
@@ -276,7 +292,7 @@ export default function UserServices(props) {
                     columns={columnsData}
                     options={{
                       actionsColumnIndex: -1,
-                      pageSize:25 ,
+                      pageSize: 25,
                       filtering: false,
                       sorting: true,
                       headerStyle: {
@@ -300,9 +316,7 @@ export default function UserServices(props) {
           </div>
         </div>
       </div>
-      {
-        popupOpen.trigger?<ServicePayment></ServicePayment> : null
-      }
+      {popupOpen.trigger ? <ServicePayment></ServicePayment> : null}
     </div>
   );
 }

@@ -11,8 +11,8 @@
   position: relative;
   z-index: 1;
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   .labrepo_text_form .prescription_input {
-    width: 70%;
+    width: 100%;
   }
 }

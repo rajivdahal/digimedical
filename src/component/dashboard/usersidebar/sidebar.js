@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
 import {useHistory} from "react-router-dom";
 export default function Sidebar(props) {
-let history=useHistory()
+  let history = useHistory();
   const sidebar = useSelector((state) => state.sidebar);
   const isSidebaropen = sidebar.isopen;
   const navigateDashboard = () => {
@@ -31,6 +31,9 @@ let history=useHistory()
   const loadServices = () => {
     history.push("/dashboard/services");
   };
+  const loadFamilyPackage = () => {
+    history.push("/dashboard/family-package");
+  };
   return (
     <div>
       <div className="newdash_body">
@@ -45,7 +48,7 @@ let history=useHistory()
                       {" "}
                       <i class="fas fa-bars"></i>
                     </span>{" "}
-                    &nbsp;Dashboard
+                    Dashboard
                   </p>
                 </li>
                 <li>
@@ -54,7 +57,7 @@ let history=useHistory()
                       <span id="newdash_bar_ico">
                         <i class="fas fa-user-clock"></i>
                       </span>
-                      &nbsp;Appointments
+                      Appointments
                     </Accordion.Header>
                     <Accordion.Body>
                       <ul className="accordion-body">
@@ -90,7 +93,7 @@ let history=useHistory()
                         {" "}
                         <i class="fas fa-file-medical"></i>
                       </span>
-                      &nbsp;Labtest
+                      Labtest
                     </Accordion.Header>
                     <Accordion.Body>
                       <ul className="accordion-body">
@@ -120,7 +123,7 @@ let history=useHistory()
                     <span id="newdash_bar_ico">
                       <i class="fas fa-hospital"></i>
                     </span>{" "}
-                    &nbsp;Hospitals
+                    Hospitals
                   </p>
                 </li>
                 <li onClick={loadDigiDoctors} style={{ cursor: "pointer" }}>
@@ -129,7 +132,7 @@ let history=useHistory()
                     <span id="newdash_bar_ico">
                       <i class="fas fa-hospital"></i>
                     </span>{" "}
-                    &nbsp;Doctors
+                    Doctors
                   </p>
                 </li>
                 <li onClick={loadMedicalReport} style={{ cursor: "pointer" }}>
@@ -138,7 +141,7 @@ let history=useHistory()
                     <span id="newdash_bar_ico">
                       <i class="fas fa-file-alt"></i>
                     </span>{" "}
-                    &nbsp;Update Medical Info
+                    Update Medical Info
                   </p>
                 </li>
                 <li onClick={loadBodyCheckup} style={{ cursor: "pointer" }}>
@@ -147,7 +150,7 @@ let history=useHistory()
                     <span id="newdash_bar_ico">
                       <i class="fas fa-file-alt"></i>
                     </span>{" "}
-                    &nbsp;Load Body Checkup
+                    Load Body Checkup
                   </p>
                 </li>
                 <li onClick={loadServices} style={{ cursor: "pointer" }}>
@@ -156,9 +159,18 @@ let history=useHistory()
                     <span id="newdash_bar_ico">
                       <i class="fas fa-file-alt"></i>
                     </span>{" "}
-                    &nbsp;Services
+                    Services
                   </p>
                 </li>
+                {/* <li onClick={loadFamilyPackage} style={{ cursor: "pointer" }}>
+                  <p id="newdash_dash1_cont1p">
+                    {" "}
+                    <span id="newdash_bar_ico">
+                      <i class="fas fa-file-alt"></i>
+                    </span>{" "}
+                    Family package
+                  </p>
+                </li> */}
 
                 {/* <li>
                   <Accordion.Item eventKey="2">
@@ -166,7 +178,7 @@ let history=useHistory()
                       <span id="newdash_bar_ico">
                         <i class="fas fa-user-clock"></i>
                       </span>
-                      &nbsp;Package
+                      Package
                     </Accordion.Header>
                     <Accordion.Body>
                       <ul className="accordion-body">
@@ -175,10 +187,7 @@ let history=useHistory()
                             to="/dashboard/book-package"
                             style={{ textDecoration: "none", color: "inherit" }}
                           >
-                            <p style={{ cursor: "pointer" }}>
-                              {" "}
-                              Book Package
-                            </p>
+                            <p style={{ cursor: "pointer" }}> Book Package</p>
                           </Link>
                         </li>
                         <li>
@@ -186,10 +195,7 @@ let history=useHistory()
                             to="/dashboard/booked-packages"
                             style={{ textDecoration: "none", color: "inherit" }}
                           >
-                            <p style={{ cursor: "pointer" }}>
-                              {" "}
-                              Booked Package
-                            </p>
+                            <p style={{ cursor: "pointer" }}> Booked Package</p>
                           </Link>
                         </li>
                       </ul>
