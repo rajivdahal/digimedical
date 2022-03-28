@@ -1,5 +1,16 @@
+import { useEffect, useState } from "react";
+
 function EditPackageMemeber(props) {
-    console.log(props)
+
+    const [packageDetails,setPackageDetails]= useState({})
+
+    useEffect(()=>{
+        if(props && props.location && props.location.state && props.location.state.details){
+            let data=  props.location.state.details;
+            setPackageDetails(data)
+        }
+    },[])
+    console.log(packageDetails)
     return <div className="fam-package-user-dash">
         {/* family package member list */}
         <div className="hospital_bookcont_from_user">
@@ -7,14 +18,14 @@ function EditPackageMemeber(props) {
                 <p id="fam-card-text-head">My booked packages</p>
                 <div class="up fam-pack-breadcrump">
                     <a href="url" id="healthpackages">
-                        {props.masterPackage}
+                        {packageDetails.masterpackagename}
                     </a>
                     <span className="fcp_up_span_arrow">
                         {" "}
                         <i class="fas fa-chevron-right"></i>
                     </span>
 
-                    <span id="familyhealthpackages"> &nbsp;Hajurama Package </span>
+                    <span id="familyhealthpackages"> &nbsp;{packageDetails.packagename} </span>
                 </div>
             </div>
             <div className="fam-pack-list">
@@ -29,7 +40,7 @@ function EditPackageMemeber(props) {
                         <p id="fam-list-powner">
                             Paid price :{" "}
                             <span style={{ fontWeight: "500", color: "black" }}>
-                                Rs5000
+                                Rs.{packageDetails.amount}
                             </span>
                         </p>
                         <p id="fam-list-powner">

@@ -20,6 +20,7 @@ export const MedicalReports = (props) => {
   // const date = selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
 
   const dispatch = useDispatch();
+  const [img,setImg] = useState("")
   const medicalReport = {
     hospitalName: "",
     doctorName: "",
@@ -104,9 +105,6 @@ export const MedicalReports = (props) => {
   }
 
   const upload = (values, { resetForm }) => {
-    console.log(values);
-    console.log(selectedDay);
-
     let finalData = {
       hospitalName: values.hospitalName,
       doctorName: values.doctorName,
@@ -128,7 +126,6 @@ export const MedicalReports = (props) => {
 
       description: values.description,
     };
-    console.log(finalData);
     httpClient
       .UPLOAD("post", "medical-records/create", finalData, false, image, true)
       .then((resp) => {
@@ -142,11 +139,13 @@ export const MedicalReports = (props) => {
       });
   };
 
-  const handleImageChange = (event) => {
+  const handleImageChange = (files) => {
+    console.log(files)
     let file = [];
-    file.push(event.target.files[0]);
-    console.log(file);
+    file.push(files);
     setImage(file);
+    console.log(file);
+  
   };
 
   useEffect(() => {
@@ -266,10 +265,13 @@ export const MedicalReports = (props) => {
                               <FileUploader
                                 handleChange={handleImageChange}
                                 name="file"
+                                type="file"
                                 types={fileTypes}
                               />
                             </div>
                           </div>
+
+                         
 
                           <div className="labrepo_text_form">
                             <label htmlFor="name">Description:</label>
