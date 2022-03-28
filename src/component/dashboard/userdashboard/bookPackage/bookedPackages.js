@@ -33,13 +33,9 @@ function BookedPackage(props) {
 
   const handleViewBookedPackage=(data)=>{
     console.log(data)
-    console.log(allBookedPackage);
     history.push({
       pathname: '/dashboard/edit-package-member',
-      state: { masterPackage :allBookedPackage.masterpackagename,
-        packageName : allBookedPackage.packagename,
-        amount : allBookedPackage.amount,
-       }
+      state: { details : data }
     })
   }
 
