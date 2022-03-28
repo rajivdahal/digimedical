@@ -52,8 +52,9 @@ const DigiMedicalDoctorCard = (props) => {
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
-  const date =
-    selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
+
+  const date = selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
+
   const [appointmentData, setData] = useState({
     firstName: "",
     lastName: "",

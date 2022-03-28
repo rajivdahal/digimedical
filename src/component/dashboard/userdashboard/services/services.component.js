@@ -48,12 +48,14 @@ export default function UserServices(props) {
     date: Yup.object(),
     time: Yup.string().required("Time is required!"),
   });
+
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
     year: dt.getFullYear(),
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
+
   const [bodyCheckUpCategories, setBodyCHeckUpCategories] = useState([]);
   const [allServices, setAllServices] = useState([]);
   const [selectedService, setSelectedService] = useState([]);
@@ -104,6 +106,7 @@ export default function UserServices(props) {
       <DatePicker
         value={field.value ? field.value : selectedDay}
         onChange={(value) => {
+          console.log(value)
           formik.setFieldValue(name, value);
         }}
       />
@@ -137,6 +140,8 @@ export default function UserServices(props) {
     );
   }
   const submit = (values, { resetForm }) => {
+    console.log(values)
+    console.log(selectedDay)
     let finaldata = {
       date: values.date
         ? values.date.year + "-" + values.date.month + "-" + values.date.day
@@ -144,6 +149,8 @@ export default function UserServices(props) {
       digiServiceId: values.serviceId,
       time: values.time,
     };
+    console.log(finaldata)
+
     httpClient
       .POST("service-booking/create", finaldata, false, true)
       .then((resp) => {

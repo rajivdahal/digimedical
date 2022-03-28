@@ -1,4 +1,4 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, useFormikContext } from "formik";
 import "./medicalReports.component.css";
 import { useEffect, useState } from "react";
 import { httpClient } from "../../../../utils/httpClient";
@@ -11,10 +11,14 @@ import { setMedicalReportOpen } from "../../../../actions/medicalReports.ac";
 import { FileUploader } from "react-drag-drop-files";
 import { CommonMedicalreportTable } from "./commonMedicalreportTable";
 import { CommonUtilityreportTable } from "./commonMedicalreportTable";
+import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
+// const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
 export const MedicalReports = (props) => {
+  // const date = selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
+
   const dispatch = useDispatch();
   const medicalReport = {
     hospitalName: "",
@@ -23,21 +27,24 @@ export const MedicalReports = (props) => {
     followUpDate: "",
     description: "",
   };
+
+  var dt = new Date();
+
+  const [selectedDay, setSelectedDay] = useState({
+    year: dt.getFullYear(),
+    month: dt.getMonth() + 1,
+    day: dt.getDate(),
+  });
+
   const medicalReportSchema = Yup.object().shape({
     hospitalName: Yup.string().required("Hospital name is required!"),
     doctorName: Yup.string().required("Doctor name is required!"),
-    visitedDate: Yup.string()
-      .required("Visited Date required!")
-      .matches(
-        /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/,
-        "Please enter valid date"
-      ),
-    followUpDate: Yup.string()
-      .required("Follow up date is required!")
-      .matches(
-        /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/,
-        "Please enter valid date"
-      ),
+    // visitedDate: Yup.string()
+    //   .required("Visited Date required!")
+    //   .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
+    // followUpDate: Yup.string()
+    //   .required("Follow up date is required!")
+    //   .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
     // description : Yup.string().required("Description is required!")
   });
   let [image, setImage] = useState([]);
@@ -67,9 +74,63 @@ export const MedicalReports = (props) => {
     });
   };
 
+  function DatePickerField1({ name }) {
+    const formik = useFormikContext();
+    const field = formik.getFieldProps(name);
+    return (
+      <DatePicker
+        value={field.value ? field.value : selectedDay}
+        // minimumDate={selectedDay}
+        onChange={(value) => {
+          console.log(value);
+          formik.setFieldValue(name, value);
+        }}
+      />
+    );
+  }
+  function DatePickerField2({ name }) {
+    const formik = useFormikContext();
+    const field = formik.getFieldProps(name);
+    return (
+      <DatePicker
+        value={field.value ? field.value : selectedDay}
+        // minimumDate={selectedDay}
+        onChange={(value) => {
+          console.log(value);
+          formik.setFieldValue(name, value);
+        }}
+      />
+    );
+  }
+
   const upload = (values, { resetForm }) => {
+    console.log(values);
+    console.log(selectedDay);
+
+    let finalData = {
+      hospitalName: values.hospitalName,
+      doctorName: values.doctorName,
+      followUpdate: values.followUpDate
+        ? values.followUpDate.year +
+          "-" +
+          values.followUpDate.month +
+          "-" +
+          values.followUpDate.day
+        : "",
+
+      visitedDate: values.visitedDate
+        ? values.visitedDate.year +
+          "-" +
+          values.visitedDate.month +
+          "-" +
+          values.visitedDate.day
+        : selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day,
+
+      description: values.description,
+    };
+    console.log(finalData);
     httpClient
-      .UPLOAD("post", "medical-records/create", values, false, image, true)
+      .UPLOAD("post", "medical-records/create", finalData, false, image, true)
       .then((resp) => {
         notify.success("Medical Record Is Successfully Created");
         fetchdata();
@@ -91,6 +152,7 @@ export const MedicalReports = (props) => {
   useEffect(() => {
     fetchdata();
   }, []);
+
   const formikContent = null;
 
   return (
@@ -111,9 +173,11 @@ export const MedicalReports = (props) => {
                       <Form className=" medical_repo_form ">
                         <div className="margin-adjuster1">
                           <div className="labrepo_text_form ">
-                            <label htmlFor="name">Hospital Name:</label>
+                            <label htmlFor="name">
+                              Hospital Name
+                              <span style={{ color: "red" }}>*</span>
+                            </label>
                             <div className="field-lab-repo">
-                              {" "}
                               <Field
                                 name="hospitalName"
                                 id="hospitalName"
@@ -131,14 +195,15 @@ export const MedicalReports = (props) => {
                           </div>
 
                           <div className="labrepo_text_form">
-                            <label htmlFor="name">Doctor Name:</label>
+                            <label htmlFor="name">
+                              Doctor Name<span style={{ color: "red" }}>*</span>
+                            </label>
                             <div className="field-lab-repo">
                               <Field
                                 name="doctorName"
                                 id="doctorName"
                                 className="prescription_input"
                               ></Field>
-
                               <ErrorMessage
                                 name="doctorName"
                                 render={(msg) => (
@@ -149,15 +214,14 @@ export const MedicalReports = (props) => {
                               />
                             </div>
                           </div>
+
                           <div className="labrepo_text_form">
-                            <label htmlFor="name">Visited Date:</label>
-                            <div className="field-lab-repo">
-                              <Field
-                                name="visitedDate"
-                                id="visitedDate"
-                                className="prescription_input"
-                                placeholder="2020-01-01"
-                              ></Field>
+                            <label htmlFor="name">
+                              Visited Date
+                              <span style={{ color: "red" }}>*</span>
+                            </label>
+                            <div className="field-lab-repo med-repo-timepicker1">
+                              <DatePickerField1 name="visitedDate" />
                               <ErrorMessage
                                 name="visitedDate"
                                 render={(msg) => (
@@ -170,15 +234,12 @@ export const MedicalReports = (props) => {
                           </div>
 
                           <div className="labrepo_text_form">
-                            <label htmlFor="name">Follow Up Date:</label>
-                            <div className="field-lab-repo">
-                              <Field
+                            <label htmlFor="name">Follow Up Date </label>
+                            <div className="field-lab-repo med-repo-timepicker2">
+                              <DatePickerField2
                                 name="followUpDate"
-                                id="followUpDate"
                                 className="prescription_input"
-                                placeholder="2020-01-01"
-                              ></Field>
-
+                              />
                               <ErrorMessage
                                 name="followUpDate"
                                 render={(msg) => (

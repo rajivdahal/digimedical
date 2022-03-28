@@ -203,6 +203,26 @@ uploader css here */
   overflow: hidden;
 }
 
-.labrepo_txt_form label {
-  width: 100px;
+/* a
+b
+c
+d
+for datepicker css here */
+.field-lab-repo .DatePicker .DatePicker__input {
+  height: 40px;
+  border-radius: 6px;
+}
+
+.med-repo-timepicker1 .DatePicker .DatePicker__calendarContainer {
+  position: absolute;
+  top: 50px;
+}
+
+.med-repo-timepicker2 .DatePicker {
+  z-index: 11;
+}
+
+.med-repo-timepicker2 .DatePicker .DatePicker__calendarContainer {
+  position: absolute;
+  top: 50px;
 }
