@@ -194,7 +194,7 @@ uploader css here */
 .file-uploader-lt {
   width: 100%;
   overflow: hidden;
-  border: 4px dotted #52b2e5;
+  border: 4px dashed #52b2e5;
 }
 
 .file-uploader-lt label {
