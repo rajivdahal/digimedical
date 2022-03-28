@@ -7,7 +7,7 @@ import BookAnAppointment from "../home/BookAnAppointment/BookAnAppointment";
 import Navbar from "../Navbar/Navbar";
 import EmergencyNumber from "./EmergencyNumber/EmergencyNumber";
 const Root = styled.div`
-  height: 25rem;
+  height: 30rem;
 `;
 const Content = styled.div`
   padding-top: 9rem;
@@ -70,7 +70,7 @@ const Service = (props) => {
       <Root
         style={{
           backgroundImage: `url(${servicewall})`,
-          backgroundPosition: "center",
+          backgroundPosition: "0px",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}

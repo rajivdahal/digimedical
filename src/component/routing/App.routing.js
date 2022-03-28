@@ -26,9 +26,6 @@ import Digimedical_doctors from "../home/Digimedical doctors/Digimedical_doctors
 import AllSpecialist from "../home/Digimedical doctors/allSpecialist";
 import Services from "../dashboard/adminDashboard/services/services.component";
 import SuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/successResponse";
-import ExternalSuccessResponse from "../common/popup/doctorPopup/selectPaymentMethod/successResponse/externalSuccessResponse";
-import BookFamilyPackage from "../dashboard/userdashboard/bookPackage/book.package";
-import MembershipPackageCard from "../dashboard/userdashboard/bookPackage/membershipPackage";
 export const Approuting = (props) => {
   return (
     <BrowserRouter>
@@ -39,9 +36,31 @@ export const Approuting = (props) => {
         <PublicRoute exact path="/about" component={AboutPage}></PublicRoute>
         <PublicRoute exact path="/services" component={Service}></PublicRoute>
         <PublicRoute exact path="/contact" component={ContactUs}></PublicRoute>
-        <PublicRoute exact path="/digi-doctors" component={Digimedical_doctors}></PublicRoute>
-        <PublicRoute exact path="/all-speciality" component={AllSpecialist}></PublicRoute>
-        <PublicRoute exact path="/success-response" component={SuccessResponse}></PublicRoute>
+        <PublicRoute
+          exact
+          path="/digi-doctors"
+          component={Digimedical_doctors}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/all-speciality"
+          component={AllSpecialist}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/digi-doctors"
+          component={Digimedical_doctors}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/all-speciality"
+          component={AllSpecialist}
+        ></PublicRoute>
+        <PublicRoute
+          exact
+          path="/success-response"
+          component={SuccessResponse}
+        ></PublicRoute>
 
         <PublicRoute
           exact
@@ -114,7 +133,7 @@ export const Approuting = (props) => {
 
         <ProtectedRoute
           exact
-          path="/dashboard/book-package-membership"
+          path="/dashboard/booked-packages"
           component={Dashboard}
         ></ProtectedRoute>
 
@@ -172,6 +191,11 @@ export const Approuting = (props) => {
         <ProtectedRoute
           exact
           path="/dashboard/speciality-doctors"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
+          path="/dashboard/edit-package-member"
           component={Dashboard}
         ></ProtectedRoute>
         <ProtectedRoute
@@ -371,7 +395,11 @@ export const Approuting = (props) => {
           path="/dashboard/body-checkup"
           component={Dashboard}
         ></ProtectedRoute>
-
+        <ProtectedRoute
+          exact
+          path="/dashboard/family-package"
+          component={Dashboard}
+        ></ProtectedRoute>
         {/* hospitalRoute */}
         <ProtectedRoute
           exact
@@ -394,7 +422,6 @@ export const Approuting = (props) => {
           component={Dashboard}
         ></ProtectedRoute>
 
-
         {/* CorporateRoutes */}
         <ProtectedRoute
           exact
@@ -407,7 +434,6 @@ export const Approuting = (props) => {
           path="/dashboard/add/corporate-types"
           component={Dashboard}
         ></ProtectedRoute>
-
 
         <ProtectedRoute
           exact

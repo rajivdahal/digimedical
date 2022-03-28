@@ -277,7 +277,7 @@ d
   float: right;
 }
 
-@media screen and (max-height: 700px) {
+@media screen and (max-height: 820px) {
   .pay-pop-inner {
     height: 80vh;
     width: 30%;

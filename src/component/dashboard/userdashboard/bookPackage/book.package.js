@@ -4,10 +4,6 @@ import { Link } from "react-router-dom";
 import { httpClient } from "../../../../utils/httpClient";
 import { notify } from "../../../../services/notify";
 import Footer from "../../../Footer/Footer";
-import Navbar from "../../../Navbar/Navbar";
-import Pagination from "../../../common/pagination/pagination.component";
-import Usersidebar from "../../usersidebar/usersidebar.component";
-import { Dashboardnavbar } from "../../Navbar/Dashboardnavbar.component";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -47,25 +43,25 @@ const BookFamilyPackage = (props) => {
                         <div className="dash_our_doc_appoint">
                             <div className="doc_appoint_head">
                                 <div className="digidoc_head_txt">
-                                    <h1>All Speciality</h1>
-                                    <p>Select the the doctor by their speciality</p>
+                                    <h1>All Available Packages</h1>
+                                    <p>Select the package you want to book.</p>
                                 </div>
-                                <div className="doc_booksearch">
+                                {/* <div className="doc_booksearch">
                                     <form class="doc_example">
                                         <input
                                             type="text"
                                             placeholder="Search Speciality .."
                                             name="searchName"
-                                        // onChange={handleChange}
+                                        onChange={handleChange}
                                         />
                                         <button
                                             type="button"
-                                        // onClick={() => searchDigiSpeciality(searchName)}
+                                        onClick={() => searchDigiSpeciality(searchName)}
                                         >
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </form>
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className="dash_our_doc_speciality">
@@ -77,7 +73,7 @@ const BookFamilyPackage = (props) => {
                                                     style={{ textDecoration: "none" }}
                                                     key={index}
                                                     to={{
-                                                        pathname: "book-package-membership",
+                                                        pathname: "package-details",
                                                         state: {
                                                             packageId: item.id,
                                                             packageName: item.name,

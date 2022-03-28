@@ -48,9 +48,7 @@ const BodyCheckup = (props) => {
                 name: values.name,
                 description: values.description
             }
-
             let resp = await httpClient.POST("body-checkup/create", checkupData, false, true)
-
             if (resp.data.status) {
                 resetForm();
                 getAllCheckup();
@@ -63,7 +61,6 @@ const BodyCheckup = (props) => {
             }
         }
         setLoading(false)
-
     }
 
     const editBodyCheckup = (e, data) => {
@@ -72,7 +69,6 @@ const BodyCheckup = (props) => {
             setCheckup({
                 name: data.name,
                 description: data.description,
-
             })
             window.scrollTo(0, 0)
         }

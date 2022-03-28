@@ -61,6 +61,67 @@ export default function labtestAtHome() {
               headaches, stomach ache and so on.
             </p>
           </div>
+          <p className="questionheads">Reiki </p>
+          <div className="serv-boxes">
+            <p className="serv-text">
+              Those who practice this alternative treatment believe it taps into
+              the body's natural energy to speed healing. The practitioner
+              hovers their hands over your body or places them lightly on your
+              skin. The goal is to channel energy through their hands to your
+              body to promote healing.
+            </p>
+          </div>
+          <p className="questionheads">Massage Therapy </p>
+          <div className="serv-boxes">
+            <p className="serv-text">
+              Massage therapy is a practice that consists of Pressing, rubbing,
+              and moving muscles and other soft tissues of the body, primarily
+              by using the hands and fingers. The aim is to increase the flow of
+              blood and oxygen to the massaged area. In massage therapy, a
+              trained therapist applies pressure to the muscles and other soft
+              tissues to help heal underlying conditions. Massage therapy can be
+              used to address a number of different health problems, including
+              sports injuries and chronic pain, musculoskeletal problems, pre-
+              or post-surgical treatment, excessive fluid build-up that often
+              occurs in the arms or legs, ease pain in cancer patients, relieve
+              lower back pain, ease migraine headaches, reduce shoulder pain,
+              reduce muscle stiffness and pain, improved pain and muscle
+              weakness.
+            </p>
+          </div>
+          <p className="questionheads">Yoga </p>
+          <div className="serv-boxes">
+            <p className="serv-text">
+              Yoga is practice or discipline of physical, mental, and spiritual
+              meditation. Yoga is considered a mind-body intervention that is
+              used to reduce the health effects of generalized stress. Yoga is
+              believed to calm the nervous system and balance the body, mind,
+              and spirit. The benefits of yoga are as follows:
+              <ul className="serv-text">
+                <li>Acupuncture</li>
+                <li>Acupressure</li>
+                <li>Reiki </li>
+                <li>Massage therapy</li>
+                <li>Yoga </li>
+                <li>Kundalini yoga </li>
+                <li>Meditation</li>
+                <li>Music therapy </li>
+              </ul>
+            </p>
+          </div>
+          <p className="questionheads">Kundalini yoga </p>
+          <div className="serv-boxes">
+            <p className="serv-text">
+              Kundalini yoga is a form of yoga that involves chanting, singing,
+              breathing exercises, and repetitive poses. Its purpose is to
+              activate your Kundalini energy, or shakti. This is a spiritual
+              energy that’s said to be located at the base of your spine. A
+              typical Kundalini yoga class comprises three parts: an opening
+              chant (known as “tuning in”) followed by a brief warm-up for your
+              spine, a kriya (which is a sequence of postures paired with
+              breathing techniques), and a closing meditation or song.
+            </p>
+          </div>
         </div>
         <Ooscomponent></Ooscomponent>
       </div>

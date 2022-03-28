@@ -5,25 +5,30 @@ import Pagination from "../../../common/pagination/pagination.component";
 import { Link } from "react-router-dom";
 import Usersidebar from "../../usersidebar/usersidebar.component";
 import { Dashboardnavbar } from "../../Navbar/Dashboardnavbar.component";
+import { Modal, Button } from "react-bootstrap";
+import Cliploader from "../../../../utils/clipLoader";
+import "./packageDetail.css";
 // import "./dashDigiDoc.css";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const PackageDetailsPage = (props) => {
+  const [showModal, setShowModal] = useState(false);
+  const [subPackageData, setSubPackageData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [packageID, setPackageID] = useState("");
 
-  const [membershipPackage, setMembershipPackage] = useState([]);
-
-
-  const getDoctorSpeciality = async () => {
+  const getSubPackages = async () => {
+    let id = "";
+    if (props && props.location && props.location.state) {
+      id = props.location.state.packageId;
+    }
     try {
-      let resp = await httpClient.GET("membership-packages/all",false,true);
+      let resp = await httpClient.GET(
+        "membership-packages/get-package-details/" + id
+      );
       console.log(resp);
       if (resp.data.status) {
-        let allPackage = resp.data.data;
-        let familyPackage = allPackage.filter((item,index)=>{
-            return (item.packagetypes === 1)
-        })
-        console.log(familyPackage)
-        setMembershipPackage(allPackage)
+        setSubPackageData(resp.data.data);
       }
     } catch (err) {
       if (
@@ -37,88 +42,113 @@ const PackageDetailsPage = (props) => {
     }
   };
 
-  // const handleChange = (e) => {
-  //   setSearchName(e.target.value);
-  //   searchDigiSpeciality(e.target.value);
-  // };
-  // const searchDigiSpeciality = (name) => {
-  //   setIssearched(true);
-  //   let searched = doctorSpeciality.filter((item, index) => {
-  //     return item.servicename.toLowerCase().includes(name.toLowerCase());
-  //   });
-  //   setSearchSpeciality(searched);
-  // };
-
   useEffect(() => {
-    getDoctorSpeciality();
+    getSubPackages();
   }, []);
+
+  const handleClose = () => setShowModal(false);
+
+  const handleBookPackage = (id) => {
+    console.log(id);
+    setPackageID(id);
+    setShowModal(true);
+  };
+
+  const bookPackage = async () => {
+    let data = {
+      membershipPackageId: packageID,
+      membersLimitSize: 5,
+      validityDate: "2022-06-25",
+    };
+
+    try {
+      let resp = await httpClient.POST(
+        "packaging-booking/create",
+        data,
+        false,
+        true
+      );
+      console.log(resp);
+      if (resp.data.status) {
+        notify.success(resp.data.message);
+        handleClose();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
-    <div className="hospital_main_cont_user">
-      <div className="hospital_booking">
-        <div className="hospital_bookcont_from_user">
-          <div className="hospital_bookconthead">
-            <div className="dash_our_doc_appoint">
-              <div className="doc_appoint_head">
-                <div className="digidoc_head_txt">
-                  <h1>All Membership Package</h1>
-                  <p>Select  Membership Package</p>
-                </div>
-                <div className="doc_booksearch">
-                  <form class="doc_example">
-                    <input
-                      type="text"
-                      placeholder="Search Speciality .."
-                      name="searchName"
-                      // onChange={handleChange}
-                    />
-                    <button
-                      type="button"
-                      // onClick={() => searchDigiSpeciality(searchName)}
-                    >
-                      <i class="fa fa-search"></i>
-                    </button>
-                  </form>
-                </div>
-              </div>
-
-              <div className="dash_our_doc_speciality">
-                {membershipPackage.length > 0 ? (
-                  membershipPackage.map((item, index) => {
-                    return (
-                      <div className="speciality_doc_card">
-                        <Link
-                          style={{ textDecoration: "none" }}
-                          key={index}
-                          to={{
-                            pathname: "speciality-doctors",
-                            state: {
-                              specialityId: item.id,
-                              specialityName: item.servicename,
-                            },
-                          }}
-                        >
-                          <div className="speciality_cont1">
-                            <img src="/images/doctor.jpeg" alt="" />
-                          </div>
-                          <div className="speciality_cont2">
-                            <p>{item.name}</p>
-                          </div>
-                        </Link>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <h4>No any package available</h4>
-                )}
-              </div>
+      <div className="fam-package-user-dash">
+        <div className="hospital_bookcont_from_user fam-pack-dash-bod2">
+          <p id="lab_content_headtxt">Package Details</p>
+          <div className="fam-package-detail1">
+            <div className="fam-packages-cat">
+              {subPackageData.map((item, index) => {
+                return (
+                  <div className="fam-package1" key={index}>
+                    <div className="fam-pack-pop-or-not">
+                      {/* <ul>
+                                <li>Recommended</li>
+                            </ul> */}
+                    </div>
+                    <div className="fam-package-head">
+                      <p id="text-fam-pack-head1">{item.name}</p>
+                      <p id="text-fam-pack-head2">
+                        Our standard health care package for your family.
+                      </p>
+                      <p id="text-fam-pack-price1">Rs. {item.amount}</p>
+                      {/* <p id="text-fam-pack-head3">per year</p> */}
+                    </div>
+                    <div className="fam-packages-ul">
+                      <ul className="fam-package-ul1">
+                        {item.membershipDetail.map((member, index) => {
+                          return <li key={index}>{member}</li>;
+                        })}
+                      </ul>
+                      <button
+                        className="fam-pack-button"
+                        onClick={() => handleBookPackage(item.id)}
+                      >
+                        Book Package
+                      </button>
+                    </div>
+                    <div></div>
+                  </div>
+                );
+              })}
             </div>
           </div>
-          {membershipPackage.length > 0 ? <Pagination></Pagination> : <></>}
         </div>
       </div>
-    </div>
+
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title>
+            <b>Body Checkup Status</b>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Do you really want to book this package ?</Modal.Body>
+        <Modal.Footer>
+          {loading == true ? (
+            <Cliploader isLoading={loading} />
+          ) : (
+            <div>
+              <Button variant="danger" onClick={handleClose}>
+                Close
+              </Button>
+              <Button
+                variant="info"
+                onClick={bookPackage}
+                style={{ marginLeft: "8px" }}
+              >
+                Book
+              </Button>
+            </div>
+          )}
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

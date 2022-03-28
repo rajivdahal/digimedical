@@ -13,7 +13,7 @@ import { Cartpopup } from "./cart_pupup";
 import { cartpopupsignal } from "../../../../actions/cart.ac";
 import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
-import OutsideClickHandler from 'react-outside-click-handler';
+import OutsideClickHandler from "react-outside-click-handler";
 import Infobox from "./infobox";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 class userlabtestcomponent extends Component {
@@ -34,8 +34,8 @@ class userlabtestcomponent extends Component {
       checkBoxDisableFlag: false,
       isSelectAllChecked: false,
       mainCategory: null,
-      showCartPopUpOnOutsideClickEvent:false,
-      showCheckoutPopUp:false
+      showCartPopUpOnOutsideClickEvent: false,
+      showCheckoutPopUp: false,
     };
   }
 
@@ -405,269 +405,279 @@ class userlabtestcomponent extends Component {
         };
       });
     };
-    const setShowInfo1=(task,target)=>{
-
-      console.log("sakdj")
-      if(task && !target){
-        this.setState(()=>{
+    const setShowInfo1 = (task, target) => {
+      console.log("sakdj");
+      if (task && !target) {
+        this.setState(() => {
           return {
-            showCartPopUpOnOutsideClickEvent:true
-          }
-        })
-      }
-      else if(!task && !target){
-        this.setState(()=>{
+            showCartPopUpOnOutsideClickEvent: true,
+          };
+        });
+      } else if (!task && !target) {
+        this.setState(() => {
           return {
-            showCartPopUpOnOutsideClickEvent:false
-          }
-        })
-      }
-      else if(task && target){
-
-        this.setState(()=>{
+            showCartPopUpOnOutsideClickEvent: false,
+          };
+        });
+      } else if (task && target) {
+        this.setState(() => {
           return {
-            showCheckoutPopUp:true
-          }
-        })
-      }
-      else{
-        console.log("inside else")
-        this.setState(()=>{
+            showCheckoutPopUp: true,
+          };
+        });
+      } else {
+        console.log("inside else");
+        this.setState(() => {
           return {
-            showCheckoutPopUp:false
-          }
-        })
+            showCheckoutPopUp: false,
+          };
+        });
       }
-
-    }
-    console.log("this.state is",this.state)
+    };
+    console.log("this.state is", this.state);
     return (
       <>
-      <div className=" main_div_user_lab">
+        <div className=" main_div_user_lab">
+          {checkoutsignal ? (
+            <OutsideClickHandler
+              onOutsideClick={() => {
+                setShowInfo1(false, "checkout");
+                handleCheckout();
+              }}
+            >
+              <Checkoutpopup
+                props={this.props.history}
+                state={this.state}
+                show={this.state.showCheckoutPopUp}
+              />
+            </OutsideClickHandler>
+          ) : null}
 
-        { checkoutsignal ?
-        <OutsideClickHandler  onOutsideClick={() => {
-          setShowInfo1(false,"checkout")
-          handleCheckout()
-          }}>
-               <Checkoutpopup props={this.props.history} state={this.state} show={this.state.showCheckoutPopUp}/>
-          </OutsideClickHandler>
-          :null
-        }
-
-        {
-
-         <OutsideClickHandler  onOutsideClick={() => {setShowInfo1()}}>
-           <Cartpopup state={this.state} show={this.state.showCartPopUpOnOutsideClickEvent}></Cartpopup>
-        </OutsideClickHandler>
-         }
-        <div className="lab_add_to_cart">
-          <div className="lab_add_to_cart1">
-            <div className="lab_add_to_cart_top">
-              <div className="lab_add_to_cart_ltwo">
-                <p>Lab Test We Offer</p>
-              </div>
-              <div className="lab_add_to_cart_ycarts">
-                <div className="ycarts_txt">
-                  <p id="lab_your_cart">Your Cart</p>
+          {
+            <OutsideClickHandler
+              onOutsideClick={() => {
+                setShowInfo1();
+              }}
+            >
+              <Cartpopup
+                state={this.state}
+                show={this.state.showCartPopUpOnOutsideClickEvent}
+              ></Cartpopup>
+            </OutsideClickHandler>
+          }
+          <div className="lab_add_to_cart">
+            <div className="lab_add_to_cart1">
+              <div className="lab_add_to_cart_top">
+                <div className="lab_add_to_cart_ltwo">
+                  <p>Lab Test We Offer</p>
                 </div>
-                <div
-                  className="lab_add_to_cart_cart"
-                  onClick={()=>{
-                    setShowInfo1(true)
-                    // showcartpopup()
-                  }}
-                  style={{ cursor: "pointer" }}
-                >
-                  <span>{cart ? cart.cartvalue : "0"}</span>
+                <div className="lab_add_to_cart_ycarts">
+                  <div className="ycarts_txt">
+                    <p id="lab_your_cart">Your Cart</p>
+                  </div>
+                  <div
+                    className="lab_add_to_cart_cart"
+                    onClick={() => {
+                      setShowInfo1(true);
+                      // showcartpopup()
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <span>{cart ? cart.cartvalue : "0"}</span>
 
-                  <span id="shopping-cart-lt">
-                    &nbsp;
-                    <i class="fas fa-shopping-cart"></i>
-                  </span>
-                </div>
-                <div className="lab_add_to_cart_checkout">
-                  <div onClick={()=>{
-                    setShowInfo1(true,"checkout")
-                    handleCheckout()
-                  }
-                } style={{ cursor: "pointer" }}>
-                    Check Out
+                    <span id="shopping-cart-lt">
+                      &nbsp;
+                      <i class="fas fa-shopping-cart"></i>
+                    </span>
+                  </div>
+                  <div className="lab_add_to_cart_checkout">
+                    <div
+                      onClick={() => {
+                        setShowInfo1(true, "checkout");
+                        handleCheckout();
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      Check Out
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="lab_add_to_cart_samp">
-              {allabtest.map((category, index) => {
-                return (
-                  <div
-                    className={
-                      category.isactiveclass
-                        ? "active_lab_add_to_cart_samp1"
-                        : "lab_add_to_cart_samp1"
-                    }
-                    key={index}
-                    // onClick={(e) => assignisactive(e, category, index)}
-                    ondblclick
-                  >
-                    <div className="lab_add_to_cart_samp_body1 ">
-                      <img
-                        src={
-                          REACT_APP_BASE_URL +
-                          "lab-test/download/" +
-                          category.id
-                        }
-                        alt={category.name}
-                      />
+              <div className="lab_add_to_cart_samp">
+                {allabtest.map((category, index) => {
+                  return (
+                    <div
+                      className={
+                        category.isactiveclass
+                          ? "active_lab_add_to_cart_samp1"
+                          : "lab_add_to_cart_samp1"
+                      }
+                      key={index}
+                      // onClick={(e) => assignisactive(e, category, index)}
+                      ondblclick
+                    >
+                      <div className="lab_add_to_cart_samp_body1 ">
+                        <img
+                          src={
+                            REACT_APP_BASE_URL +
+                            "lab-test/download/" +
+                            category.id
+                          }
+                          alt={category.name}
+                        />
 
-                      <div className="lab_add_to_cart_test_desc">
-                        <p>{category.isactive}</p>
-                        <p id="labtest_desc_txt1">{category.name}</p>
-                        <p id="labtest_desc_txt2">What it include :</p>
-                        <div className="labtest_desc1">
-                          <div className="labtest_desc_detail">
-                            <ul className="ul_labtest_dash">
-                              {category.subcategory.map(
-                                (subCategory, subcategoryIndex) => {
+                        <div className="lab_add_to_cart_test_desc">
+                          <p>{category.isactive}</p>
+                          <p id="labtest_desc_txt1">{category.name}</p>
+                          <p id="labtest_desc_txt2">What it include :</p>
+                          <div className="labtest_desc1">
+                            <div className="labtest_desc_detail">
+                              <ul className="ul_labtest_dash">
+                                {category.subcategory.map(
+                                  (subCategory, subcategoryIndex) => {
+                                    return (
+                                      <li>&nbsp; {subCategory.categoryname}</li>
+                                    );
+                                  }
+                                )}
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="lab_samp_sel"
+                        onClick={() => fetchAllDetails(category)}
+                      >
+                        <a href="#choose_the_ltest" className="lab_samp_sel1">
+                          Select
+                        </a>
+                      </div>
+                      <div id="choose_the_ltest" className="ctlt_popup">
+                        <div className="ctlt_popup_cont">
+                          <div className="ctlt_head">
+                            <div className="ctlt_head1">
+                              <h3>Blood Test</h3>
+                            </div>
+                            <a class="close_ctlt" href="#" onClick={closePopUp}>
+                              <i class="far fa-times-circle"></i>
+                            </a>
+                          </div>
+                          <div className="ctlt_institute">
+                            <p>Please select the lab.</p>
+                            <div className="ctlt_institute1">
+                              {this.state.totalInstitute.map((item, index) => {
+                                return (
+                                  <div className="ctlt_institute_radio">
+                                    <input
+                                      type="radio"
+                                      value={item.medicalinstituteid}
+                                      checked={
+                                        item.checked === item.medicalinstituteid
+                                      }
+                                      onChange={(e) =>
+                                        handleRadioChange(e, index)
+                                      }
+                                    />
+                                    {console.log("item is", item)}
+                                    <label for="html">&nbsp; {item.name}</label>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                          <div className="ctlt_labtest">
+                            <p>What it include:</p>
+                            <div>
+                              <div className="ctlt_institute_radio">
+                                <input
+                                  type="checkbox"
+                                  id="selectall"
+                                  name="fav_language"
+                                  value="allsel"
+                                  checked={this.state.isSelectAllChecked}
+                                  onChange={selectAll}
+                                />
+                                <label for="html">&nbsp; Select all</label>
+                              </div>
+                              {this.state.allSubCategories.map(
+                                (item, index) => {
                                   return (
-                                    <li>&nbsp; {subCategory.categoryname}</li>
+                                    <div className="ctlt_checklt">
+                                      <div>
+                                        <input
+                                          type="checkbox"
+                                          id="labtest"
+                                          value={JSON.stringify(item)}
+                                          onChange={handleSubCategoryChange}
+                                          checked={item.checked}
+                                          disabled={
+                                            this.state.checkBoxDisableFlag
+                                          }
+                                        />
+                                        <label for="html">
+                                          &nbsp; {item.labcategoryname}
+                                        </label>
+                                      </div>
+                                      <div className="lt_price">
+                                        Rs.{item.price}
+                                      </div>
+                                    </div>
                                   );
                                 }
                               )}
-                            </ul>
+                            </div>
+                            <div className="ctlt_total_price">
+                              <div className="total_price_lt">
+                                <p>
+                                  {" "}
+                                  Your total :{" "}
+                                  <span id="rupees_ctlt">
+                                    Rs {this.state.totalprice}
+                                  </span>
+                                </p>
+                              </div>
+                              <button
+                                className="ctlt_atc_but"
+                                onClick={addToCart}
+                              >
+                                Add to cart
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div
-                      className="lab_samp_sel"
-                      onClick={() => fetchAllDetails(category)}
-                    >
-                      <a href="#choose_the_ltest" className="lab_samp_sel1">
-                        Select
-                      </a>
-                    </div>
-                    <div id="choose_the_ltest" className="ctlt_popup">
-                      <div className="ctlt_popup_cont">
-                        <div className="ctlt_head">
-                          <div className="ctlt_head1">
-                            <h3>Blood Test</h3>
-                          </div>
-                          <a class="close_ctlt" href="#" onClick={closePopUp}>
-                            <i class="far fa-times-circle"></i>
-                          </a>
-                        </div>
-                        <div className="ctlt_institute">
-                          <p>Please select the lab.</p>
-                          <div className="ctlt_institute1">
-                            {this.state.totalInstitute.map((item, index) => {
-                              return (
-                                <div className="ctlt_institute_radio">
-                                  <input
-                                    type="radio"
-                                    value={item.medicalinstituteid}
-                                    checked={
-                                      item.checked === item.medicalinstituteid
-                                    }
-                                    onChange={(e) =>
-                                      handleRadioChange(e, index)
-                                    }
-                                  />
-                                  {console.log("item is", item)}
-                                  <label for="html">&nbsp; {item.name}</label>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                        <div className="ctlt_labtest">
-                          <p>What it include:</p>
-                          <div>
-                            <div className="ctlt_institute_radio">
-                              <input
-                                type="checkbox"
-                                id="selectall"
-                                name="fav_language"
-                                value="allsel"
-                                checked={this.state.isSelectAllChecked}
-                                onChange={selectAll}
-                              />
-                              <label for="html">&nbsp; Select all</label>
-                            </div>
-                            {this.state.allSubCategories.map((item, index) => {
-                              return (
-                                <div className="ctlt_checklt">
-                                  <div>
-                                    <input
-                                      type="checkbox"
-                                      id="labtest"
-                                      value={JSON.stringify(item)}
-                                      onChange={handleSubCategoryChange}
-                                      checked={item.checked}
-                                      disabled={this.state.checkBoxDisableFlag}
-                                    />
-                                    <label for="html">
-                                      &nbsp; {item.labcategoryname}
-                                    </label>
-                                  </div>
-                                  <div className="lt_price">
-                                    Rs.{item.price}
-                                  </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                          <div className="ctlt_total_price">
-                            <div className="total_price_lt">
-                              <p>
-                                {" "}
-                                Your total :{" "}
-                                <span id="rupees_ctlt">
-                                  Rs {this.state.totalprice}
-                                </span>
-                              </p>
-                            </div>
-                            <button
-                              className="ctlt_atc_but"
-                              onClick={addToCart}
-                            >
-                              Add to cart
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
 
-            <div className="lab_add_to_cart_buttons_select">
-              <div className="lab_add_to_cart_buttons_select1">
-                <div className="lab_arrow_left">
-                  <div>
-                    <button className="lab_arrow left"></button>
+              <div className="lab_add_to_cart_buttons_select">
+                <div className="lab_add_to_cart_buttons_select1">
+                  <div className="lab_arrow_left">
+                    <div>
+                      <button className="lab_arrow left"></button>
+                    </div>
                   </div>
-                </div>
-                <div className="lab_arrow_num1">
-                  <button id="lab_button_num1">1</button>
-                </div>
-                <div className="lab_arrow_num">
-                  <button id="lab_button_num">2</button>
-                </div>
-                <div className="lab_arrow_num">
-                  <button id="lab_button_num">3</button>
-                </div>
-                <div className="lab_arrow_right">
-                  <div id="lab_arrow_right">
-                    <button className="lab_arrow_r"></button>
+                  <div className="lab_arrow_num1">
+                    <button id="lab_button_num1">1</button>
+                  </div>
+                  <div className="lab_arrow_num">
+                    <button id="lab_button_num">2</button>
+                  </div>
+                  <div className="lab_arrow_num">
+                    <button id="lab_button_num">3</button>
+                  </div>
+                  <div className="lab_arrow_right">
+                    <div id="lab_arrow_right">
+                      <button className="lab_arrow_r"></button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       </>
     );
   }
