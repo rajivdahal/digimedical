@@ -28,7 +28,7 @@ const Corporatenavbar = (props) => {
     localStorage.removeItem("dm-refresh_token")
     localStorage.removeItem("status")
     localStorage.removeItem("userid")
-    props.props.push('/login')
+    history.push('/login')
     notify.success("Logout success! Please Login again")
   }
   const logoutno = () => {

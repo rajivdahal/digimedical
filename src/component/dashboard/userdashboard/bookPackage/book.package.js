@@ -4,10 +4,6 @@ import { Link } from "react-router-dom";
 import { httpClient } from "../../../../utils/httpClient";
 import { notify } from "../../../../services/notify";
 import Footer from "../../../Footer/Footer";
-import Navbar from "../../../Navbar/Navbar";
-import Pagination from "../../../common/pagination/pagination.component";
-import Usersidebar from "../../usersidebar/usersidebar.component";
-import { Dashboardnavbar } from "../../Navbar/Dashboardnavbar.component";
 
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
