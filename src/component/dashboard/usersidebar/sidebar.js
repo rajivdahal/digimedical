@@ -172,7 +172,7 @@ export default function Sidebar(props) {
                   </p>
                 </li> */}
 
-                <li>
+                {/* <li>
                   <Accordion.Item eventKey="2">
                     <Accordion.Header>
                       <span id="newdash_bar_ico">
@@ -201,7 +201,7 @@ export default function Sidebar(props) {
                       </ul>
                     </Accordion.Body>
                   </Accordion.Item>
-                </li>
+                </li> */}
 
               </ul>
             </Accordion>
@@ -341,7 +341,7 @@ export default function Sidebar(props) {
                     </p>
                   </li>
 
-                  <li>
+                  {/* <li>
                     <Accordion.Item eventKey="2">
                       <Accordion.Header>
                         <span id="newdash_bar_ico">
@@ -376,7 +376,7 @@ export default function Sidebar(props) {
                         </ul>
                       </Accordion.Body>
                     </Accordion.Item>
-                  </li>
+                  </li> */}
 
                 </ul>
               </Accordion>
