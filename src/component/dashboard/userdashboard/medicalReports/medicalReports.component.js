@@ -20,7 +20,8 @@ export const MedicalReports = (props) => {
   // const date = selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
 
   const dispatch = useDispatch();
-  const [img,setImg] = useState("")
+  let [image, setImage] = useState([]);
+  const [medicalData, setMedicalData] = useState([]);
   const medicalReport = {
     hospitalName: "",
     doctorName: "",
@@ -48,8 +49,6 @@ export const MedicalReports = (props) => {
     //   .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
     // description : Yup.string().required("Description is required!")
   });
-  let [image, setImage] = useState([]);
-  const [medicalData, setMedicalData] = useState([]);
 
   const tableVisibilityInfo = useSelector((state) => state.medicalReports);
 
@@ -133,6 +132,7 @@ export const MedicalReports = (props) => {
         fetchdata();
         resetForm();
         setIsMedicalReportOpen();
+        setImage(null)
       })
       .catch((err) => {
         notify.error("Something went wrong", err);
@@ -140,12 +140,9 @@ export const MedicalReports = (props) => {
   };
 
   const handleImageChange = (files) => {
-    console.log(files)
     let file = [];
     file.push(files);
     setImage(file);
-    console.log(file);
-  
   };
 
   useEffect(() => {
@@ -270,7 +267,6 @@ export const MedicalReports = (props) => {
                               />
                             </div>
                           </div>
-
                          
 
                           <div className="labrepo_text_form">
