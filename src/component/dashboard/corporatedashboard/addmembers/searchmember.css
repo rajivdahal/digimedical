@@ -1,0 +1,23 @@
+.cadmem-search-bar {
+  display: flex;
+}
+.cadmem-search-bar input {
+  border-radius: 6px;
+  width: 25%;
+  height: 35px;
+}
+.cadmem-search-bar span {
+  font-size: 20px;
+  color: white;
+}
+
+.cadmem-search-icon {
+  margin-left: 10px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #2745f0;
+  border-radius: 6px;
+}
