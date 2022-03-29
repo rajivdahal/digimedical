@@ -12,7 +12,6 @@
 .report-container {
   margin-top: 90px;
   margin-left: 3%;
-  width: 100%;
 }
 .report-container h2 {
   font-size: 19.16px;
@@ -194,7 +193,7 @@ uploader css here */
 .file-uploader-lt {
   width: 100%;
   overflow: hidden;
-  border: 4px dotted #52b2e5;
+  border: 4px dashed #52b2e5;
 }
 
 .file-uploader-lt label {
