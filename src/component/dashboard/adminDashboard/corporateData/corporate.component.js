@@ -82,7 +82,6 @@ const CorporatePage = (props) => {
             let corporateId = formik.values.selectedType.value;
             let data = {
                 name: values.name,
-                // status : values.status,
                 address: values.address,
                 panNo: values.panNumber,
                 contactNumber: values.contactNumber,
@@ -436,7 +435,7 @@ const CorporatePage = (props) => {
                     title="Corporate Details"
                     icons={Tableicons}
                     columns={[
-                        { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
+                        { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 ,width : "10%"},
                         { title: 'Name', field: 'name' },
                         { title: 'PAN', field: 'panno' },
                         { title: 'Address', field: 'address', },

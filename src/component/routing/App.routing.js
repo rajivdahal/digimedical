@@ -133,6 +133,11 @@ export const Approuting = (props) => {
 
         <ProtectedRoute
           exact
+          path="/dashboard/package/add-new-member"
+          component={Dashboard}
+        ></ProtectedRoute>
+        <ProtectedRoute
+          exact
           path="/dashboard/booked-packages"
           component={Dashboard}
         ></ProtectedRoute>
@@ -298,6 +303,11 @@ export const Approuting = (props) => {
         <ProtectedRoute
           exact
           path="/dashboard/create-doctor"
+          component={Dashboard}
+        ></ProtectedRoute>
+         <ProtectedRoute
+          exact
+          path="/dashboard/add/corporate-package"
           component={Dashboard}
         ></ProtectedRoute>
         <ProtectedRoute

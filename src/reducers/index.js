@@ -7,6 +7,7 @@ import { hospitalAppointmentBookingReducer } from "./hospitalAppointmentBooking.
 import { digiDoctorAppointmentBookingReducer } from "./digiDoctorBooking.red";
 import { paymentPopUpReducer } from "./paymentPopUp.red";
 import { serviceReducer } from "./service.reducer";
+import { packageReducer } from "./package.reducers";
 
 export const rootReducer=combineReducers({
     user:UserReducer,
@@ -17,4 +18,5 @@ export const rootReducer=combineReducers({
     digiDoctorAppointmentBooking:digiDoctorAppointmentBookingReducer,
     paymentPopUp:paymentPopUpReducer,
     digiServiceBooking : serviceReducer,
+    packageBooking : packageReducer,
 })

@@ -229,6 +229,16 @@ const Adminsidebar = (props) => {
                             </p>
                           </Link>
                         </li>
+                        <li>
+                          <Link
+                            to="/dashboard/add/corporate-package"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>
+                              Corporate Package
+                            </p>
+                          </Link>
+                        </li>
                       </ul>
                     </Accordion.Body>
                   </Accordion.Item>
@@ -865,6 +875,17 @@ const Adminsidebar = (props) => {
                                 >
                                   <p style={{ cursor: "pointer" }}>
                                     Add Corporate Types
+                                  </p>
+                                </Link>
+                              </li>
+
+                              <li>
+                                <Link
+                                  to="/dashboard/add/corporate-package"
+                                  style={{ textDecoration: "none", color: "inherit" }}
+                                >
+                                  <p style={{ cursor: "pointer" }}>
+                                    Corporate Package
                                   </p>
                                 </Link>
                               </li>

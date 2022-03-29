@@ -5,6 +5,7 @@ import { httpClient } from "../../../../utils/httpClient";
 import { Col, Row, Card } from "react-bootstrap";
 import "./appointment.component.css";
 import { notify } from "../../../../services/notify";
+import { Edit } from "@material-ui/icons";
 
 const Appointment = (props) => {
 
@@ -89,6 +90,10 @@ const Appointment = (props) => {
             icons={Tableicons}
             columns={[
               { title: '#', field: 'tableData.id', render:rowData => rowData.tableData.id+1},
+              {
+                title: "Avatar",
+                render: () => <Edit></Edit>,
+            },
               { title: "NMC", field: "nmcNo" },
               { title: "Doctor Name", field: "doctorsName" },
               { title: "Patient Name", field: "patientsName" },

@@ -58,6 +58,9 @@ const initialState = {
     },
     digiServiceBooking:{
         data : null,
+    },
+    packageBooking : {
+        data : null
     }
 }
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))

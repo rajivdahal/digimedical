@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
-import Pagination from "../../../common/pagination/pagination.component";
-import { Link } from "react-router-dom";
-import Usersidebar from "../../usersidebar/usersidebar.component";
-import { Dashboardnavbar } from "../../Navbar/Dashboardnavbar.component";
-import { Modal, Button } from "react-bootstrap";
-import Cliploader from "../../../../utils/clipLoader";
 import "./packageDetail.css";
+import { bindActionCreators } from "redux";
+import { setClosePopUp, setOpenPopUp,} from "../../../../actions/paymentPopUp.ac";
 // import "./dashDigiDoc.css";
+import { useDispatch, useSelector } from "react-redux";
+import PackagePayment from "../../../common/popup/doctorPopup/selectPaymentMethod/forPackagePayment/packagePayment";
+import { internalPackageBooking } from "../../../../actions/package.action";
+
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const PackageDetailsPage = (props) => {
+  let dispatch = useDispatch();
+
   const [showModal, setShowModal] = useState(false);
   const [subPackageData, setSubPackageData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [packageID, setPackageID] = useState("");
+
+  const openPaymentPopUp = bindActionCreators(setOpenPopUp, dispatch);
+
+  const popupOpen = useSelector((state) => state.paymentPopUp);
 
   const getSubPackages = async () => {
     let id = "";
@@ -46,21 +52,13 @@ const PackageDetailsPage = (props) => {
     getSubPackages();
   }, []);
 
-  const handleClose = () => setShowModal(false);
-
-  const handleBookPackage = (id) => {
-    console.log(id);
-    setPackageID(id);
-    setShowModal(true);
-  };
-
-  const bookPackage = async () => {
+  const handleBookPackage = async (item) => {
     let data = {
-      membershipPackageId: packageID,
+      membershipPackageId: item.id,
       membersLimitSize: 5,
       validityDate: "2022-06-25",
     };
-
+    console.log(item)
     try {
       let resp = await httpClient.POST(
         "packaging-booking/create",
@@ -70,8 +68,14 @@ const PackageDetailsPage = (props) => {
       );
       console.log(resp);
       if (resp.data.status) {
-        notify.success(resp.data.message);
-        handleClose();
+        // notify.success(resp.data.message);
+        console.log(item)
+        let bookedId = resp.data.data;
+        item.packageBookedId = bookedId;
+        console.log(item)
+         dispatch(internalPackageBooking(item))
+        openPaymentPopUp(true);
+
       }
     } catch (err) {
       console.log(err);
@@ -109,7 +113,7 @@ const PackageDetailsPage = (props) => {
                       </ul>
                       <button
                         className="fam-pack-button"
-                        onClick={() => handleBookPackage(item.id)}
+                        onClick={() => handleBookPackage(item)}
                       >
                         Book Package
                       </button>
@@ -123,7 +127,9 @@ const PackageDetailsPage = (props) => {
         </div>
       </div>
 
-      <Modal show={showModal} onHide={handleClose}>
+      {popupOpen.trigger ? <PackagePayment></PackagePayment> : null}
+
+      {/* <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>
             <b>Body Checkup Status</b>
@@ -148,7 +154,7 @@ const PackageDetailsPage = (props) => {
             </div>
           )}
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </>
   );
 };

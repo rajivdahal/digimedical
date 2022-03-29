@@ -1,16 +1,45 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { httpClient } from "../../../../utils/httpClient";
 
 function EditPackageMemeber(props) {
+    let history = useHistory();
+    const [packageDetails, setPackageDetails] = useState({});
+    const [packageMember, setPackageMember] = useState([])
 
-    const [packageDetails,setPackageDetails]= useState({})
-
-    useEffect(()=>{
-        if(props && props.location && props.location.state && props.location.state.details){
-            let data=  props.location.state.details;
+    useEffect(() => {
+        let id;
+        if (props && props.location && props.location.state && props.location.state.details) {
+            let data = props.location.state.details;
+            id = data.id;
             setPackageDetails(data)
         }
-    },[])
-    console.log(packageDetails)
+        getPackageMember(id);
+    }, [])
+
+    const getPackageMember = async (id) => {
+        try {
+            let resp = await httpClient.GET("packaging-members/get-all/" + id, false, true);
+            console.log(resp)
+            if (resp.data.status) {
+                setPackageMember(resp.data.data)
+            }
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const handleBackBtn = () => {
+        history.goBack();
+    }
+
+    const handleEditMember = () => {
+        history.push({
+            pathname: "/dashboard/package/add-new-member",
+            state: { details: packageDetails }
+        })
+    }
     return <div className="fam-package-user-dash">
         {/* family package member list */}
         <div className="hospital_bookcont_from_user">
@@ -34,7 +63,7 @@ function EditPackageMemeber(props) {
                         <p id="fam-list-powner">
                             Package owner :{" "}
                             <span style={{ fontWeight: "500", color: "black" }}>
-                                Hello shrestha
+                                {packageDetails.ownername}
                             </span>
                         </p>
                         <p id="fam-list-powner">
@@ -67,17 +96,20 @@ function EditPackageMemeber(props) {
 
                         <div className="fam-pac-mem-list">
                             <ul>
-                                <li>Hello shrestha</li>
-                                <li>Hello shrestha</li>
-                                <li>Hello shrestha</li>
-                                <li>Hello shrestha</li>
+                                {packageMember.length > 0 ?
+                                    packageMember.map((item, index) => {
+                                        return <li key={index}>{item.membersname}</li>
+                                    })
+                                    :
+                                    <li>No Member</li>
+                                }
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div className="fam-pack-list-but">
-                    <button id="fam-card-but">Back</button>
-                    <button id="fam-card-but2">Edit member</button>
+                    <button id="fam-card-but" onClick={handleBackBtn}>Back</button>
+                    <button id="fam-card-but2" onClick={handleEditMember}>Edit member</button>
                 </div>
             </div>
         </div>

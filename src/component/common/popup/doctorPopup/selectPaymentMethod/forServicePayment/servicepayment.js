@@ -3,11 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setClosePopUp } from "../../../../../../actions/paymentPopUp.ac";
 import esewaLogo from "../../../../../../assets/esewa.svg";
-import CircularProgress from "@mui/material/CircularProgress";
 import { httpClient } from "../../../../../../utils/httpClient";
 import { useHistory } from "react-router-dom";
 import { notify } from "../../../../../../services/notify";
-import { Redirect } from "react-router-dom";
 import { formatDate } from "../../../../../../services/timeanddate";
 import { resetServicesInfo } from "../../../../../../actions/service.action";
 
