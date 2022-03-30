@@ -47,3 +47,20 @@
   cursor: pointer;
   filter: brightness(90%);
 }
+
+.corp-srch-last-but {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.corp-srch-last-but button {
+  background: #2745f0;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  padding: 15px 30px;
+}
+
+.corp-srch-last-but button:hover {
+  filter: brightness(90%);
+}
