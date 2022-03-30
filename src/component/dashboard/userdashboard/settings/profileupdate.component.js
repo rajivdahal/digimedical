@@ -32,11 +32,13 @@ const UserProfile = (props) => {
     useEffect(() => {
         getUserDetails();
     }, [])
+
     useEffect(() => {
         if(!isEdit){
             getUserDetails();
         }
     }, [isEdit])
+
     const gotoView = ( ) => activateProfile(false);
     return (
 <>
@@ -45,8 +47,10 @@ const UserProfile = (props) => {
                 <div className="content-wrapper">
                     <div className="profile-block">
                     <div className="profile-selection">
-                        <div className={isEdit ==false? " profile-tab selected-tab" : "profile-tab"} onClick={()=>activateProfile(false)}><span>Profile</span> </div>
-                        <div className={isEdit ==true? "profile-tab selected-tab" : "profile-tab"} onClick={()=>activateProfile(true)}><span>Edit Profile</span></div>
+                        <div className={isEdit ==false? " profile-tab selected-tab" : "profile-tab"}
+                         onClick={()=>activateProfile(false)}><span>Profile</span> </div>
+                        <div className={isEdit ==true? "profile-tab selected-tab" : "profile-tab"} 
+                        onClick={()=>activateProfile(true)}><span>Edit Profile</span></div>
                     </div>
 
                     {isEdit == true ?

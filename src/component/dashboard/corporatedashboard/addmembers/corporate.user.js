@@ -33,45 +33,6 @@ const CorporateUser = (props) => {
   useEffect(() => {
     getUserDetails();
   }, []);
-  useEffect(() => {
-    if (!isEdit) {
-      getUserDetails();
-    }
-  }, [isEdit]);
-  const gotoView = () => activateProfile(false);
-
-  //   const formik = useFormik({
-  //     enableReinitialize: true,
-  //     initialValues: userData,
-  //     onSubmit: (values) => {
-  //       console.log(values);
-  //       createCorporateUSer(values);
-  //     },
-  //     validate: (values) => {
-  //       return validateCorporateUser(values);
-  //     },
-  //   });
-
-  //   const createCorporateUSer = async (values) => {
-  //     try {
-  //       setLoading(true);
-  //       let resp = await httpClient.POST(
-  //         "corporate/members/create",
-  //         values,
-  //         false,
-  //         true
-  //       );
-  //       if (resp.data.status) {
-  //         console.log(resp.data.data);
-  //         notify.success(resp.data.message);
-  //         props.history.push("/dashboard/corporate/add-members");
-  //       }
-  //     } catch (err) {
-  //       if (err && err.response && err.response.data) {
-  //         notify.error(err.response.data.message || "Something went wrong");
-  //       }
-  //     }
-  //     setLoading(false);
 
   return (
     <div className="container-fluid page-body-wrapper">
@@ -83,6 +44,7 @@ const CorporateUser = (props) => {
                 className={
                   isEdit == false ? " profile-tab selected-tab" : "profile-tab"
                 }
+                onClick={() => activateProfile(false)}
               >
                 <span>Search</span>{" "}
               </div>

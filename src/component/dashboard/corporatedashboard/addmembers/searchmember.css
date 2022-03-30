@@ -14,12 +14,14 @@
 .corp-admem-search-bar {
   width: 315px;
 }
+
 .cadmem-search-bar {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.cadmem-search-bar input {
+
+.cadmem-search-bar select {
   border-radius: 6px;
   border: 1px solid #ddd;
   width: 80%;
