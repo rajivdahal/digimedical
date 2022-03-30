@@ -53,7 +53,7 @@ export default function Internalappointmentbook(prop) {
     prefix: null,
     name: null,
     specialist: null,
-    description: null
+    description: null,
   });
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
@@ -362,7 +362,7 @@ export default function Internalappointmentbook(prop) {
   let formcontent = toeditdata ? (
     <div>
       {prop.location.pathname == "/dashboard/corporate/bookappointment" ? (
-        <div className="form-row">
+        <div className="form-row bkapn-corp-selmem">
           <label htmlFor="service">Select Member</label>
           <select
             id="email"
@@ -443,7 +443,7 @@ export default function Internalappointmentbook(prop) {
     // start of making appointment case
     <div>
       {prop.location.pathname == "/dashboard/corporate/bookappointment" ? (
-        <div className="form-row">
+        <div className="form-row bkapn-corp-selmem">
           <label htmlFor="service">Select Member</label>
           <select
             id="email"

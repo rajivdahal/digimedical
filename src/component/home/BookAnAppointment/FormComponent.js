@@ -511,7 +511,10 @@ function FormComponent(props) {
                 {isloading ? (
                   <Cliploader></Cliploader>
                 ) : (
-                  <button type="submit" className="btn btn-primary btn-block">
+                  <button
+                    type="submit"
+                    className="btn-filter-ma btn btn-primary btn-block"
+                  >
                     Make Appointment
                   </button>
                 )}

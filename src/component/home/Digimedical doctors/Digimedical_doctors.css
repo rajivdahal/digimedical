@@ -354,3 +354,9 @@ p {
     /* grid-template-areas: "one two three four five six" "seven eight nine ten eleven twelve"; */
   }
 }
+
+/* for make appointment button */
+
+.btn-filter-ma:hover {
+  filter: brightness(90%);
+}

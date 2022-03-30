@@ -183,6 +183,9 @@ export default function SearchMember() {
                   <span className="info-value">Prem Gautam Ale</span>
                 </div>
               </Col>
+              <div className="corp-srch-last-but">
+                <button>Add</button>
+              </div>
             </Row>
           </Col>
         </Row>

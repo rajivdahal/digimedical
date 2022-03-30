@@ -389,7 +389,9 @@ function FamilyPackage(props) {
                     <li>Off on lab charges(7%)</li>
                     <li>Off on medicines(7%)</li>
                   </ul>
-                  <button className="fam-pack-button">Get Started</button>
+                  <button className="fam-pack-button btn-filter-ma">
+                    Get Started
+                  </button>
                 </div>
                 <div></div>
               </div>
@@ -424,7 +426,9 @@ function FamilyPackage(props) {
                     <li>Off on lab charges(7%)</li>
                     <li>Off on medicines(7%)</li>
                   </ul>
-                  <button className="fam-pack-button">Get Started</button>
+                  <button className="fam-pack-button btn-filter-ma">
+                    Get Started
+                  </button>
                 </div>
                 <div></div>
               </div>
@@ -459,7 +463,9 @@ function FamilyPackage(props) {
                     <li>Off on lab charges(7%)</li>
                     <li>Off on medicines(7%)</li>
                   </ul>
-                  <button className="fam-pack-button">Get Started</button>
+                  <button className="fam-pack-button btn-filter-ma">
+                    Get Started
+                  </button>
                 </div>
                 <div></div>
               </div>

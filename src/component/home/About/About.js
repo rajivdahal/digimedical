@@ -63,9 +63,9 @@ const DescriptionContainer = styled.div`
     @media screen and (max-width: 767px) {
       font-size: 1.5rem;
     }
-    span.ques-color{
-      color: #2745F0;
-    font-size: 33.33px;
+    span.ques-color {
+      color: #2745f0;
+      font-size: 33.33px;
     }
   }
   p {
@@ -87,6 +87,10 @@ const Button = styled.div`
   background: #2745f0;
   border-radius: 5px;
   font-size: 14px;
+
+  &:hover {
+    filter: brightness(90%);
+  }
 `;
 const WhaiIsDegimediacal = () => {
   useEffect(() => {
@@ -99,7 +103,9 @@ const WhaiIsDegimediacal = () => {
         <RightContainer>
           <DescriptionContainer>
             <span>About Us</span>
-            <h2>What is Digi Medical <span class="ques-color">?</span></h2>
+            <h2>
+              What is Digi Medical <span class="ques-color">?</span>
+            </h2>
             <p>
               Digi Medical Sewa is an emerging healthcare service established to
               provide world-class quality health care to the citizen of Nepal
