@@ -209,7 +209,7 @@ export default function UserServices(props) {
                       <Form className=" medical_repo_form">
                         <div className="margin-adjuster1">
                           <div className="labrepo_text_form labrepo_txt_form label">
-                            <label htmlFor="date">Date :</label>
+                            <label htmlFor="date">Date </label>
                             <div className="field-lab-repo">
                               <div className="serviceDate">
                                 <DatePickerField name="date" />
@@ -223,7 +223,7 @@ export default function UserServices(props) {
                           </div>
 
                           <div className="labrepo_text_form labrepo_txt_form label">
-                            <label htmlFor="name">Time :</label>
+                            <label htmlFor="name">Time <span style={{ color: "red" }}>*</span></label>
                             <div className="field-lab-repo">
                               <TimePickerField name="time"></TimePickerField>
                               {errors.time && touched.time ? (
@@ -236,7 +236,8 @@ export default function UserServices(props) {
                         </div>
                         <div className="margin-adjuster2">
                           <div className="labrepo_text_form labrepo_txt_form label">
-                            <label htmlFor="name">Service :</label>
+                            <label htmlFor="name">Service<span style={{ color: "red" }}>*</span></label>
+                           
                             <div className="field-lab-repo">
                               <SelectField name="serviceId"></SelectField>
                               {errors.serviceId && touched.serviceId ? (
@@ -292,7 +293,7 @@ export default function UserServices(props) {
                     columns={columnsData}
                     options={{
                       actionsColumnIndex: -1,
-                      pageSize: 25,
+                      pageSize: 5,
                       filtering: false,
                       sorting: true,
                       headerStyle: {

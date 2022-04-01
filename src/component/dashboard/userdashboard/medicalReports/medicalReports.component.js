@@ -4,13 +4,12 @@ import { useEffect, useState } from "react";
 import { httpClient } from "../../../../utils/httpClient";
 import { notify } from "../../../../services/notify";
 import * as Yup from "yup";
-import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setMedicalReportOpen } from "../../../../actions/medicalReports.ac";
 import { FileUploader } from "react-drag-drop-files";
 import { CommonMedicalreportTable } from "./commonMedicalreportTable";
-import { CommonUtilityreportTable } from "./commonMedicalreportTable";
+import CircularProgress from "@mui/material/CircularProgress";
 import DatePicker from "@amir04lm26/react-modern-calendar-date-picker";
 // const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -38,9 +37,13 @@ export const MedicalReports = (props) => {
     day: dt.getDate(),
   });
 
+  const [isLoading, setLoading] = useState(false);
+
+
   const medicalReportSchema = Yup.object().shape({
     hospitalName: Yup.string().required("Hospital name is required!"),
     doctorName: Yup.string().required("Doctor name is required!"),
+  
     // visitedDate: Yup.string()
     //   .required("Visited Date required!")
     //   .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
@@ -104,6 +107,7 @@ export const MedicalReports = (props) => {
   }
 
   const upload = (values, { resetForm }) => {
+    setLoading(true);
     let finalData = {
       hospitalName: values.hospitalName,
       doctorName: values.doctorName,
@@ -128,18 +132,30 @@ export const MedicalReports = (props) => {
     httpClient
       .UPLOAD("post", "medical-records/create", finalData, false, image, true)
       .then((resp) => {
+
+        console.log(resp.data.message);
+
         notify.success("Medical Record Is Successfully Created");
         fetchdata();
         resetForm();
         setIsMedicalReportOpen();
         setImage(null)
+        setLoading(false);
       })
       .catch((err) => {
+        setLoading(false);
         notify.error("Something went wrong", err);
       });
   };
 
   const handleImageChange = (files) => {
+    // let file_size = files.size;
+
+  if(files.size>1000000){
+   console.log("file size",files.size);
+
+  }
+
     let file = [];
     file.push(files);
     setImage(file);
@@ -249,7 +265,7 @@ export const MedicalReports = (props) => {
                         </div>
                         <div className="margin-adjuster2">
                           <div className="labrepo_text_form">
-                            <label htmlFor="name">Image of Report:</label>
+                            <label htmlFor="name">Image of Report</label>
                             {/* <input
                                 name="image"
                                 className="prescription_inputimage"
@@ -264,23 +280,29 @@ export const MedicalReports = (props) => {
                                 name="file"
                                 type="file"
                                 types={fileTypes}
+                            
                               />
+                                   
                             </div>
                           </div>
                          
 
                           <div className="labrepo_text_form">
-                            <label htmlFor="name">Description:</label>
+                            <label htmlFor="name">Description</label>
                             <Field
                               name="description"
                               className="prescription_inputdesc"
                               style={{ height: "100px" }}
                             ></Field>
                           </div>
-
-                          <button type="submit" className="button-submit">
+                          
+                          {isLoading?( <button type="submit" disabled className="button-submit">
                             Update
-                          </button>
+                          </button>):( <button type="submit" className="button-submit">
+                            Update
+                          </button>)};
+                           
+                      
                         </div>
                       </Form>
                     )}

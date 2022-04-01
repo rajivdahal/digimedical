@@ -170,7 +170,7 @@ export default function BodyCheckUpUser(props) {
                       <Form className=" medical_repo_form">
                         <div className="margin-adjuster1">
                           <div className="labrepo_text_form labrepo_txt_form">
-                            <label htmlFor="date">Date:</label>
+                            <label htmlFor="date">Date<span style={{ color: "red" }}>*</span></label>
                             <div className="serviceDate">
                               <DatePickerField name="date" />
                               {errors.date && touched.date ? (
@@ -182,7 +182,7 @@ export default function BodyCheckUpUser(props) {
                           </div>
 
                           <div className="labrepo_text_form labrepo_txt_form">
-                            <label htmlFor="name">Service :</label>
+                            <label htmlFor="name">Service<span style={{ color: "red" }}>*</span></label>
                             <div className="field-lab-repo">
                               <SelectField name="serviceId"></SelectField>
                               {errors.serviceId && touched.serviceId ? (
@@ -195,7 +195,7 @@ export default function BodyCheckUpUser(props) {
                         </div>
                         <div className="margin-adjuster2">
                           <div className="labrepo_text_form labrepo_txt_form">
-                            <label htmlFor="value">Value :</label>
+                            <label htmlFor="value">Value<span style={{ color: "red" }}>*</span></label>
                             <div className="field-lab-repo">
                               <InputSelectField name="value"></InputSelectField>
                               {errors.value && touched.value ? (
