@@ -5,8 +5,10 @@ import Cliploader from "../../../../utils/clipLoader";
 import { useFormik } from "formik";
 import { httpClient } from "../../../../utils/httpClient";
 import { validateCorporateUser } from "./validateUser";
+import { useHistory } from "react-router-dom";
 
 const CorporateUser = (props) => {
+  let history = useHistory();
   const [loading, setLoading] = useState(false)
   const [userData, setUserData] = useState({
     firstName: "",
@@ -23,7 +25,6 @@ const CorporateUser = (props) => {
     enableReinitialize: true,
     initialValues: userData,
     onSubmit: (values) => {
-      console.log(values);
       createCorporateUSer(values);
     },
     validate: (values) => {
@@ -38,7 +39,7 @@ const CorporateUser = (props) => {
       if (resp.data.status) {
         notify.success(resp.data.message);
         formik.resetForm();
-        props.history.push("/dashboard/corporate/add-members");
+        history.push("/dashboard/corporate/add-members");
       }
     } catch (err) {
       if (err && err.response && err.response.data) {
@@ -46,6 +47,21 @@ const CorporateUser = (props) => {
       }
     }
     setLoading(false);
+  }
+
+  const handleCancelUser=()=>{
+    setUserData({
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      gender: "0",
+      mobileNumber: "",
+      address: "",
+      dob: "",
+      email: "",
+    })
+    history.push("/dashboard/corporate/add-members");
+
   }
 
   return (
@@ -212,7 +228,7 @@ const CorporateUser = (props) => {
               ) : (
 
                 <div className="textAlign-right">
-                   <button type="button" className="cancel-btn">
+                   <button type="button" className="cancel-btn" onClick={handleCancelUser}>
                   Cancel
                 </button>
                 <button className="change-btn" type="submit">

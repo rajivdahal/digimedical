@@ -83,7 +83,6 @@ const DigiMedicalDoctorCard = (props) => {
   const bookAppointment = (data) => {
 
     let tempForm = showForm === true ? false : true;
-    console.log("props are", data);
     if (!showForm) {
       setDoctorInfo(data);
     }
@@ -117,7 +116,6 @@ const DigiMedicalDoctorCard = (props) => {
           true
         );
         if (resp.data.status) {
-          console.log("inside if", resp.data);
           setAppointmentFixed({
             data: resp.data.data,
             origin: "digidoctorBooking",

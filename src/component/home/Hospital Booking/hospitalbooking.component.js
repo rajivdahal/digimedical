@@ -17,12 +17,10 @@ export default function Hospitalbookingcomponent(props) {
   let [issearched, setIssearched] = useState(false);
   const history = useHistory();
   let location = useLocation();
-  console.log("location is", location);
   let dispatch = useDispatch();
   // redux implementation
   const appointmentBooking = useSelector((state) => state.appointmentBooking);
   const setHospital = bindActionCreators(setHospitalInfo, dispatch);
-  console.log("appointment booking is", appointmentBooking);
   // end of redux implementation
   useEffect(() => {
     httpClient
@@ -52,7 +50,6 @@ export default function Hospitalbookingcomponent(props) {
         : "/hospitals/view-doctors",
       state: item,
     });
-    console.log("data is", item);
   };
   return (
     <>

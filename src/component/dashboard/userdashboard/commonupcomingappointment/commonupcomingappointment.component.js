@@ -76,7 +76,7 @@ export const Commonupcomingappointment = (props) => {
         }
     ] : props.fromcorporatecomponent ? [
         {
-            title: "Member Name", field: "patientsname"
+            title: "Member Name", field: "personname"
         },
         {
             title: "Assigned Doctor", field: "doctorsname"

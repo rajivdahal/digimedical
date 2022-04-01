@@ -39,14 +39,15 @@ const Corporatenavbar = (props) => {
   useEffect(() => {
     httpClient.GET("user-profile", false, true)
       .then(resp => {
-        console.log(resp)
-        const name = resp.data.data.profileInfo.name
-        setusername(name)
+        if(resp && resp.data && resp.data.data){
+          const result =  resp.data.data;
+          setusername(result)
+        }
       })
       .catch(err => {
-        notify.error("something went wrong")
+        console.log("Something went wrong")
       })
-  })
+  },[])
   const gotoProfile = () => {
     props.props.push('/dashboard/settings/userprofile')
   }
@@ -63,7 +64,7 @@ const Corporatenavbar = (props) => {
         </div>
       </Link>
       <div className="Welcome_client">
-        <p>Welcome {username}</p>
+        <p>Welcome {username.corporateName}</p>
       </div>
       <div className="newdash_user">
         <div className="newdash_user_img">

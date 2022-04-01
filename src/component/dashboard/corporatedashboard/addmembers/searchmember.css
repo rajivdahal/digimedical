@@ -21,7 +21,7 @@
   justify-content: space-between;
 }
 
-.cadmem-search-bar select {
+.cadmem-search-bar input {
   border-radius: 6px;
   border: 1px solid #ddd;
   width: 80%;

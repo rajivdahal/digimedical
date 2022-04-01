@@ -222,13 +222,6 @@ const MedicalIndustries = styled.div`
 `;
 const Conection = () => {
 
-  const [count, setCount] = useState({
-    userCount: "0",
-    hospitalCount: "0",
-    corporateCount: "0",
-    doctorCount: "0"
-  });
-
   const [allCount, setAllCount] = useState([])
 
   const getTotalCounts = async () => {
@@ -275,7 +268,7 @@ const Conection = () => {
             </span>
             <span className="subtitle">Happy clients</span>
           </HappyClient>
-          
+
           : item.type == "hospital" ?
             <Hospital className="floating-item">
               <img src={hospital} className="icon"></img>
@@ -294,19 +287,22 @@ const Conection = () => {
                 </span>
                 <span className="subtitle">Doctors</span>
               </Doctor>
-              :
 
-              <MedicalIndustries className="floating-item">
-                <img src={medical} className="icon"></img>
-                <span className="counter">
-                  {" "}
-                  <CountUp end={item.numbers} duration={3} />+
-                </span>
-                <span className="subtitle">Medical Industries</span>
-              </MedicalIndustries>
+              : item.type == "corporate" ?
+
+                <MedicalIndustries className="floating-item">
+                  <img src={medical} className="icon"></img>
+                  <span className="counter">
+                    {" "}
+                    <CountUp end={item.numbers} duration={3} />+
+                  </span>
+                  <span className="subtitle">Medical Industries</span>
+                </MedicalIndustries>
+                :
+                <></>
 
       })}
-   
+
     </Root>
   );
 };

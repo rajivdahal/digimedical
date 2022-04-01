@@ -1,31 +1,34 @@
 import { useState } from "react";
 import { Image, Row, Col, Container } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import Avatar from "../../../../assets/avatars.png";
+import { notify } from "../../../../services/notify";
 import { httpClient } from "../../../../utils/httpClient";
 import "./searchmember.css";
 
 export default function SearchMember() {
 
-  const [userEmails,setUserEmails] = useState([]);
-  const [email,setEmail]= useState("");
-  const [userDetails,setUserDetails] = useState({});
-  const [dropdownVisible,setDropdownVisible] = useState(false);
+  const history = useHistory()
+  const [userEmails, setUserEmails] = useState([]);
+  const [email, setEmail] = useState("");
+  const [userDetails, setUserDetails] = useState({});
+  const [dropdownVisible, setDropdownVisible] = useState(false);
 
-  const formatOptions=(data)=>{
-    const options = data.map((item)=>{
+  const formatOptions = (data) => {
+    const options = data.map((item) => {
       return {
-        label  : item.username,
-        value : item.username
+        label: item.username,
+        value: item.username
       }
     })
     return options;
   }
 
-  const handleChange=async(e)=>{
+  const handleChange = async (e) => {
     console.log(e.target.value)
     setEmail(e.target.value);
-    try{
-      const resp = await httpClient.GET("search-user/"+e.target.value,false,true);
+    try {
+      const resp = await httpClient.GET("search-user/" + e.target.value, false, true);
       console.log(resp);
       setDropdownVisible(true);
       if (resp && resp.data) {
@@ -34,22 +37,42 @@ export default function SearchMember() {
         console.log(options)
         setUserEmails(options)
       }
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
   }
 
-  const handleGetDetails=async(data)=>{
+  const handleGetDetails = async (data) => {
     setEmail(data);
     setDropdownVisible(false)
     console.log(data)
-    try{
-      let resp = await httpClient.GET("get-search-user/"+data,false,true);
+    try {
+      let resp = await httpClient.GET("get-search-user/" + data, false, true);
       console.log(resp)
-      if(resp.data.status) {
+      if (resp.data.status) {
         setUserDetails(resp.data.data)
       }
-    }catch(err){
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleAddUser = async(email) => {
+    console.log(email);
+    let data= {
+      email
+    }
+    try{
+      let resp = await httpClient.POST("corporate/add/existing-member",data,false,true);
+      console.log(resp);
+      if(resp.data.status) {
+        notify.success(resp.data.message);
+        history.push("/dashboard/corporate/add-members");
+
+        setEmail("");
+      }
+    }
+    catch(err) {
       console.log(err)
     }
   }
@@ -57,9 +80,9 @@ export default function SearchMember() {
   return (
     <div className="corp-ad-search-mem">
       <Container>
-        <div className="corp-admem-search-bar" style={{position:"relative"}}>
+        <div className="corp-admem-search-bar" style={{ position: "relative" }}>
           <div className="cadmem-search-bar">
-            <input type="text"  name="email" value={email} onChange={handleChange}/>
+            <input type="text" name="email" value={email} onChange={handleChange} autoComplete="off" />
             <div className="cadmem-search-icon">
               {" "}
               <span>
@@ -70,22 +93,22 @@ export default function SearchMember() {
 
           <ul>
             {console.log(userDetails)}
-              {userEmails.length > 0 ?
-                <div style={{position:'absolute', display: dropdownVisible ? 'block': 'none', top: '40px', zIndex:100, height:'150px', overflowY : 'auto',
-                 overflowX : "none",backgroundColor : "white"}}>
-                  { userEmails.map((item,index)=>{
-                  return <li key={index} onClick={()=>handleGetDetails(item.value)}>{item.label}</li>
+            {userEmails.length > 0 ?
+              <div style={{
+                position: 'absolute', display: dropdownVisible ? 'block' : 'none', top: '40px', zIndex: 100, height: '150px', overflowY: 'auto',
+                overflowX: "none", backgroundColor: "white"
+              }}>
+                {userEmails.map((item, index) => {
+                  return <li key={index} onClick={() => handleGetDetails(item.value)}>{item.label}</li>
                 })}
-                </div>
-                :
-                <></>
-              }
-            </ul>
+              </div>
+              :
+              <></>
+            }
+          </ul>
         </div>
-        
-        {userDetails.length > 0 ?
-        userDetails.map((item)=>{
-          return <Row>
+
+        <Row>
           <Col md={3}>
             <div className="about_user_viewp">
               <div className="image-profile textAlign-center">
@@ -97,11 +120,11 @@ export default function SearchMember() {
                 ></Image>
               </div>
               <div className="textAlign-center">
-              <div className="credentials-name">
-                {item.firstname} {item.middlename} {item.lastname}
+                <div className="credentials-name">
+                  {userDetails.firstname} {userDetails.middlename} {userDetails.lastname}
+                </div>
+                <div className="credentials-email">{userDetails.email}</div>
               </div>
-              <div className="credentials-email">{item.email}</div>
-            </div>
               <div className="textAlign-center">
                 <div className="credentials-name"></div>
                 <div className="credentials-email"></div>
@@ -184,16 +207,13 @@ export default function SearchMember() {
                 </div>
               </Col>
               <div className="corp-srch-last-but">
-                <button>Add</button>
+                <button type="button" onClick={()=>handleAddUser(userDetails.email)}>Add</button>
               </div>
             </Row>
           </Col>
         </Row>
-        })
-      :
-      <></>
-      }
-        
+
+
       </Container>
     </div>
   );

@@ -39,7 +39,6 @@ export default function Hospital_doctors(props) {
       .GET("hospital/get-all/doctors/" + props.location.state.id)
       .then((resp) => {
         let data = resp.data.data;
-        console.log(resp);
         data.forEach((item) => {
           if (item.availabledays) {
             item.formattedDays = item.availabledays.split(",");

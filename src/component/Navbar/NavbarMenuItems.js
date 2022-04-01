@@ -84,7 +84,6 @@ const NavbarMenuItems = () => {
   const getBusinessPackage = async () => {
     try {
       let resp = await httpClient.GET("master-package/get-types/0");
-      console.log(resp);
       if (resp.data.status) {
         setCorporateType(resp.data.data);
       }
@@ -103,11 +102,9 @@ const NavbarMenuItems = () => {
   const getDoctorSpeciality = async () => {
     try {
       let resp = await httpClient.GET("services/get/true");
-      console.log(resp);
       if (resp.data.status) {
         let data = resp.data.data;
         let splicedArr = data.splice(0, 6);
-        console.log(splicedArr);
         setDoctorSpeciality(splicedArr);
       }
     } catch (err) {
@@ -149,7 +146,6 @@ const NavbarMenuItems = () => {
     httpClient
       .GET("digi-service/get-all")
       .then((resp) => {
-        console.log("response output is", resp.data.data);
         setDigiServices(resp.data.data);
       })
       .catch((err) => {
