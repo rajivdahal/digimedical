@@ -27,6 +27,7 @@ export const MedicalReports = (props) => {
     visitedDate: "",
     followUpDate: "",
     description: "",
+    medicalReportImage: "",
   };
 
   var dt = new Date();
@@ -43,14 +44,7 @@ export const MedicalReports = (props) => {
   const medicalReportSchema = Yup.object().shape({
     hospitalName: Yup.string().required("Hospital name is required!"),
     doctorName: Yup.string().required("Doctor name is required!"),
-  
-    // visitedDate: Yup.string()
-    //   .required("Visited Date required!")
-    //   .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
-    // followUpDate: Yup.string()
-    //   .required("Follow up date is required!")
-    //   .matches(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/, "Please enter valid date"),
-    // description : Yup.string().required("Description is required!")
+    medicalReportImage: Yup.mixed().required("Image is required!"),
   });
 
   const tableVisibilityInfo = useSelector((state) => state.medicalReports);
@@ -113,18 +107,18 @@ export const MedicalReports = (props) => {
       doctorName: values.doctorName,
       followUpdate: values.followUpDate
         ? values.followUpDate.year +
-          "-" +
-          values.followUpDate.month +
-          "-" +
-          values.followUpDate.day
+        "-" +
+        values.followUpDate.month +
+        "-" +
+        values.followUpDate.day
         : "",
 
       visitedDate: values.visitedDate
         ? values.visitedDate.year +
-          "-" +
-          values.visitedDate.month +
-          "-" +
-          values.visitedDate.day
+        "-" +
+        values.visitedDate.month +
+        "-" +
+        values.visitedDate.day
         : selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day,
 
       description: values.description,
@@ -132,9 +126,6 @@ export const MedicalReports = (props) => {
     httpClient
       .UPLOAD("post", "medical-records/create", finalData, false, image, true)
       .then((resp) => {
-
-        console.log(resp.data.message);
-
         notify.success("Medical Record Is Successfully Created");
         fetchdata();
         resetForm();
@@ -148,17 +139,12 @@ export const MedicalReports = (props) => {
       });
   };
 
-  const handleImageChange = (files) => {
-    // let file_size = files.size;
-
-  if(files.size>1000000){
-   console.log("file size",files.size);
-
-  }
-
+  const handleImageChange = (files,setFieldValue) => {
+    console.log(files)
     let file = [];
     file.push(files);
     setImage(file);
+    setFieldValue("medicalReportImage",file)
   };
 
   useEffect(() => {
@@ -181,7 +167,7 @@ export const MedicalReports = (props) => {
                     onSubmit={upload}
                     validationSchema={medicalReportSchema}
                   >
-                    {() => (
+                    {({setFieldValue}) => (
                       <Form className=" medical_repo_form ">
                         <div className="margin-adjuster1">
                           <div className="labrepo_text_form ">
@@ -252,7 +238,9 @@ export const MedicalReports = (props) => {
                                 name="followUpDate"
                                 className="prescription_input"
                               />
-                              <ErrorMessage
+                              
+                            </div>
+                            <ErrorMessage
                                 name="followUpDate"
                                 render={(msg) => (
                                   <div className="err-message-bottom">
@@ -260,32 +248,32 @@ export const MedicalReports = (props) => {
                                   </div>
                                 )}
                               />
-                            </div>
                           </div>
                         </div>
                         <div className="margin-adjuster2">
                           <div className="labrepo_text_form">
-                            <label htmlFor="name">Image of Report</label>
-                            {/* <input
-                                name="image"
-                                className="prescription_inputimage"
-                                type={"file"}
-                                onChange={(event) => {
-                                  handleImageChange(event);
-                                }}
-                              ></input> */}
+                            <label htmlFor="name">Image of Report<span style={{ color: "red" }}>*</span></label>
+
                             <div className="file-uploader-lt">
                               <FileUploader
-                                handleChange={handleImageChange}
-                                name="file"
-                                type="file"
+                                handleChange={(e)=>handleImageChange(e,setFieldValue)}
+                                name="medicalReportImage"
+                                maxSize={1}
                                 types={fileTypes}
-                            
                               />
-                                   
+                              <ErrorMessage
+                                name="medicalReportImage"
+                                render={(msg) => (
+                                  
+                                  <div className="err-message-bottom">
+                                    {msg}
+                                  </div>
+                                )}
+                              />
+
                             </div>
                           </div>
-                         
+
 
                           <div className="labrepo_text_form">
                             <label htmlFor="name">Description</label>
@@ -295,14 +283,14 @@ export const MedicalReports = (props) => {
                               style={{ height: "100px" }}
                             ></Field>
                           </div>
-                          
-                          {isLoading?( <button type="submit" disabled className="button-submit">
+
+                          {isLoading ? (<button type="submit" disabled className="button-submit">
                             Update
-                          </button>):( <button type="submit" className="button-submit">
+                          </button>) : (<button type="submit" className="button-submit">
                             Update
-                          </button>)};
-                           
-                      
+                          </button>)}
+
+
                         </div>
                       </Form>
                     )}

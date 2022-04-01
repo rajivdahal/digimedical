@@ -162,17 +162,7 @@ export default function Sidebar(props) {
                     Services
                   </p>
                 </li>
-                {/* <li onClick={loadFamilyPackage} style={{ cursor: "pointer" }}>
-                  <p id="newdash_dash1_cont1p">
-                    {" "}
-                    <span id="newdash_bar_ico">
-                      <i class="fas fa-file-alt"></i>
-                    </span>{" "}
-                    Family package
-                  </p>
-                </li> */}
-
-                <li>
+                {/* <li>
                   <Accordion.Item eventKey="2">
                     <Accordion.Header>
                       <span id="newdash_bar_ico">
@@ -201,7 +191,7 @@ export default function Sidebar(props) {
                       </ul>
                     </Accordion.Body>
                   </Accordion.Item>
-                </li>
+                </li> */}
 
               </ul>
             </Accordion>
@@ -341,7 +331,7 @@ export default function Sidebar(props) {
                     </p>
                   </li>
 
-                  <li>
+                  {/* <li>
                     <Accordion.Item eventKey="2">
                       <Accordion.Header>
                         <span id="newdash_bar_ico">
@@ -376,7 +366,7 @@ export default function Sidebar(props) {
                         </ul>
                       </Accordion.Body>
                     </Accordion.Item>
-                  </li>
+                  </li> */}
 
                 </ul>
               </Accordion>
