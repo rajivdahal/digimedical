@@ -10943,6 +10943,7 @@ textarea.tt-hint {
 }
 
 .form-row {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   margin-right: -5px;
@@ -49088,4 +49089,5 @@ div.tagsinput span.tag a {
   text-align: left;
   position: relative;
   z-index: 1;
+  width: 100%;
 }

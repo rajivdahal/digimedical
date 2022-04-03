@@ -116,7 +116,6 @@ const MembershipPackageDetails = (props) => {
     })
 
     const handleAddDetails = (values) => {
-
         if (!values.details) return;
         let tempArr = values.allDetails;
         tempArr.push(values.details);

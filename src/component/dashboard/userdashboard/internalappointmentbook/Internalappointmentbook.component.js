@@ -26,10 +26,12 @@ import {
   splitAlphabeticDate,
   convertAlphabeticMonthToNumeric,
 } from "../../../../utils/dateHelper";
+import { useHistory } from "react-router-dom";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default function Internalappointmentbook(prop) {
-  console.log("edit data are", prop.location.data);
+
+  const history = useHistory();
   const editdata = prop.location.data ? prop.location.data : null;
   const [appointmentsuccess, setappointmentsuccess] = useState(null);
   const [appointmentfailed, setappointmentfailed] = useState(null);
@@ -53,7 +55,7 @@ export default function Internalappointmentbook(prop) {
     prefix: null,
     name: null,
     specialist: null,
-    description: null
+    description: null,
   });
   var dt = new Date();
   const [selectedDay, setSelectedDay] = useState({
@@ -75,7 +77,7 @@ export default function Internalappointmentbook(prop) {
       .POST(url, values, false, true)
       .then((resp) => {
         if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
-          // prop.history.push("/dashboard/corporate/viewappointment");
+          history.push("/dashboard/corporate/viewappointment");
           notify.success("Appointment booked successfully");
         } else {
           // prop.history.push("/dashboard/viewappointment");
@@ -106,9 +108,16 @@ export default function Internalappointmentbook(prop) {
       });
     if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
       httpClient
-        .GET("corporate/get/members/name", false, true)
+        .GET("corporate/get/members", false, true)
         .then((resp) => {
-          setcorporatememberemail(resp.data.data);
+          if (resp.data.status) {
+            let memberData = resp.data.data;
+            let activeMember = memberData.filter((item) => {
+              return item.status == true
+            })
+            console.log(activeMember)
+            setcorporatememberemail(activeMember);
+          }
         })
         .catch((err) => {
           notify.error("Something went wrong");
@@ -362,7 +371,7 @@ export default function Internalappointmentbook(prop) {
   let formcontent = toeditdata ? (
     <div>
       {prop.location.pathname == "/dashboard/corporate/bookappointment" ? (
-        <div className="form-row">
+        <div className="form-row bkapn-corp-selmem">
           <label htmlFor="service">Select Member</label>
           <select
             id="email"
@@ -443,7 +452,7 @@ export default function Internalappointmentbook(prop) {
     // start of making appointment case
     <div>
       {prop.location.pathname == "/dashboard/corporate/bookappointment" ? (
-        <div className="form-row">
+        <div className="form-row bkapn-corp-selmem">
           <label htmlFor="service">Select Member</label>
           <select
             id="email"
@@ -458,7 +467,7 @@ export default function Internalappointmentbook(prop) {
             {corporatememberemail.map((item, index) => {
               return (
                 <option key={index} value={item.email}>
-                  {item.email}
+                  {item.membername}
                 </option>
               );
             })}

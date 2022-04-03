@@ -59,7 +59,7 @@
 }
 .down {
   padding-left: 10%;
-  margin-top: 8rem;
+  margin-top: 4.5rem;
   display: flex;
   /* width: 70%; */
 }
@@ -299,6 +299,7 @@ package adas */
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
+  width: 100%;
   align-items: center;
   background: #f0f2ff;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
@@ -312,7 +313,7 @@ package adas */
 }
 .fam-package2 {
   position: relative;
-
+  width: 100%;
   top: -50px;
   display: flex;
   flex-direction: column;

@@ -12,7 +12,11 @@
 }
 
 @media screen and (max-width: 450px) {
-  .serviceDate {
+  /* .serviceDate {
     width: 50%;
-  }
+  } */
+}
+
+.labrepo_txt_form label {
+  width: 100px;
 }

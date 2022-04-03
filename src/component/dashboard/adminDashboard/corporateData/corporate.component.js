@@ -48,6 +48,7 @@ const CorporatePage = (props) => {
 
     const getCorporateType = async () => {
         let labtest = await httpClient.GET("corporate-types/get-all", false, true)
+            
             .then(resp => {
                 if (resp.data.status) {
                     let result = resp.data.data;
@@ -81,12 +82,11 @@ const CorporatePage = (props) => {
             let corporateId = formik.values.selectedType.value;
             let data = {
                 name: values.name,
-                // status : values.status,
                 address: values.address,
                 panNo: values.panNumber,
                 contactNumber: values.contactNumber,
                 establishDate: values.establishDate,
-                contactPersonName: values.personName,
+                contactPersonName: values.contactPersonName,
                 mobileNumber: values.mobileNum,
                 email: values.email,
                 corporateTypeId: corporateId,
@@ -148,7 +148,7 @@ const CorporatePage = (props) => {
                 panNo: values.panNumber,
                 contactNumber: values.contactNumber,
                 establishDate: values.establishDate,
-                contactPersonName: values.personName,
+                contactPersonName: values.contactPersonName,
                 mobileNumber: values.mobileNum,
                 corporateTypeId: corporateId,
 
@@ -435,7 +435,7 @@ const CorporatePage = (props) => {
                     title="Corporate Details"
                     icons={Tableicons}
                     columns={[
-                        { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 },
+                        { title: '#', field: 'tableData.id', render: rowData => rowData.tableData.id + 1 ,width : "10%"},
                         { title: 'Name', field: 'name' },
                         { title: 'PAN', field: 'panno' },
                         { title: 'Address', field: 'address', },

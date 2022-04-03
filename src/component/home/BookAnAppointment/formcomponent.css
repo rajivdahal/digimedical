@@ -105,9 +105,11 @@
 }
 .formcompo_datepicker .DatePicker__calendarContainer {
   position: absolute;
-  top: 550px;
-
+  top: 50px;
   margin: 0;
+}
+.formcompo_datepicker .DatePicker__calendarArrow {
+  display: none;
 }
 .formcompo_home a:focus,
 input:focus {
@@ -128,6 +130,9 @@ input:focus {
 .home_not_logged_in_datepick .DatePicker .DatePicker__calendarContainer {
   position: absolute;
   top: 50px;
+}
+.home_not_logged_in_datepick .DatePicker .DatePicker__calendarArrow {
+  display: none;
 }
 .DatePicker {
   width: 100%;
@@ -186,4 +191,8 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     align-items: center;
     justify-content: center;
   }
+}
+.error-mssg {
+  margin-top: 5px;
+  font-size: 12px;
 }

@@ -16,9 +16,12 @@ import FormComponentForLoggedInCase from "./formComponentForLoggedInCase";
 import { setDoctorInfo } from "../../../actions/hospitalAppointmentBooking.ac";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { digiDoctorAppointmentFixed, digiDoctorInfo } from "../../../actions/digiDoctorBooking.ac";
+import {
+  digiDoctorAppointmentFixed,
+  digiDoctorInfo,
+} from "../../../actions/digiDoctorBooking.ac";
 import { setOpenPopUp } from "../../../actions/paymentPopUp.ac";
-import ExternalBookingPayment from '../../common/popup/doctorPopup/selectPaymentMethod/forexternalbooking/externalBookingPayment';
+import ExternalBookingPayment from "../../common/popup/doctorPopup/selectPaymentMethod/forexternalbooking/externalBookingPayment";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -73,20 +76,23 @@ function FormComponent(props) {
   const [services, setservices] = useState([]);
   const [doctors, setdoctors] = useState([]);
   const [isloading, setisloading] = useState(false);
-  const [doctorFullInfo,setDoctorFullInfo]=useState([])
+  const [doctorFullInfo, setDoctorFullInfo] = useState([]);
   console.log("services are", services);
 
-
-
-        // redux implementation
-        const dispatch=useDispatch()
-        const popupOpen = useSelector((state) => state.paymentPopUp);
-        const setAppointmentFixed = bindActionCreators(digiDoctorAppointmentFixed, dispatch);
-        const setDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
-        const openPaymentPopUp = bindActionCreators(setOpenPopUp, dispatch);
-        const appointmentBooking = useSelector((state) => state.digiDoctorAppointmentBooking);
-        console.log("appointmentBooking is",appointmentBooking)
-        // end of redux implementation
+  // redux implementation
+  const dispatch = useDispatch();
+  const popupOpen = useSelector((state) => state.paymentPopUp);
+  const setAppointmentFixed = bindActionCreators(
+    digiDoctorAppointmentFixed,
+    dispatch
+  );
+  const setDoctorInfo = bindActionCreators(digiDoctorInfo, dispatch);
+  const openPaymentPopUp = bindActionCreators(setOpenPopUp, dispatch);
+  const appointmentBooking = useSelector(
+    (state) => state.digiDoctorAppointmentBooking
+  );
+  console.log("appointmentBooking is", appointmentBooking);
+  // end of redux implementation
   const [doctorfetched, setdoctorfetched] = useState({
     image: null,
     prefix: null,
@@ -107,8 +113,8 @@ function FormComponent(props) {
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
-  const [value,setValue]=useState(null)
-  const [doctor,setDoctor]=useState(null)
+  const [value, setValue] = useState(null);
+  const [doctor, setDoctor] = useState(null);
   useEffect(() => {
     httpClient
       .GET("services/get/true")
@@ -138,20 +144,19 @@ function FormComponent(props) {
   };
   const schema = Yup.object().shape({
     firstName: Yup.string()
-    .min(2,"Invalid First Name!")
-    .required("Firstname is required!"),
+      .min(2, "Invalid First Name!")
+      .required("Firstname is required!"),
     middleName: Yup.string(),
     lastName: Yup.string()
-    .min(2,"Invalid Last Name!")
-    .required("Lastname is required!"),
+      .min(2, "Invalid Last Name!")
+      .required("Lastname is required!"),
     mobileNumber: Yup.string()
-    .length(10, 'Mobile Number Must be of 10 digit.')
-    .required("Mobile Number is required!"),
-    servicesId: Yup.string()
-    .required("Service is required!"),
+      .length(10, "Mobile Number Must be of 10 digit.")
+      .required("Mobile Number is required!"),
+    servicesId: Yup.string().required("Service is required!"),
     email: Yup.string()
-    .email("Must be a valid email!")
-    .required("Email is required!"),
+      .email("Must be a valid email!")
+      .required("Email is required!"),
     doctorId: Yup.string().required("Doctor is required!"),
     appointmentDate: Yup.object(),
     appointmentTime: Yup.string().required("Appointment time is required!"),
@@ -192,10 +197,10 @@ function FormComponent(props) {
       <Select
         options={services}
         className="select-category"
-        value={{label: value}}
+        value={{ label: value }}
         onChange={(value) => {
           formik.setFieldValue(name, value.value);
-          setValue(value.label)
+          setValue(value.label);
           handleChange(value);
         }}
       />
@@ -208,12 +213,12 @@ function FormComponent(props) {
     return (
       <Select
         options={doctors}
-        value={{label: doctor}}
+        value={{ label: doctor }}
         className="select-category"
         onChange={(value) => {
           formik.setFieldValue(name, value.value.doctorid);
-          setDoctor(value.label)
-          setDoctorFullInfo(value.value)
+          setDoctor(value.label);
+          setDoctorFullInfo(value.value);
         }}
       />
     );
@@ -289,12 +294,15 @@ function FormComponent(props) {
         .POST("create-external-user", finaldata)
         .then((res) => {
           setappointmentsuccess(res.data.message);
-          setAppointmentFixed({data:res.data.data,origin:"digidoctorBooking"})
-          let doctorInfo=doctorFullInfo
-          doctorInfo={...doctorInfo,...finaldata}
-          setDoctorInfo(doctorInfo)
-          openPaymentPopUp(true)
-          console.log("doctor info is",doctorFullInfo)
+          setAppointmentFixed({
+            data: res.data.data,
+            origin: "digidoctorBooking",
+          });
+          let doctorInfo = doctorFullInfo;
+          doctorInfo = { ...doctorInfo, ...finaldata };
+          setDoctorInfo(doctorInfo);
+          openPaymentPopUp(true);
+          console.log("doctor info is", doctorFullInfo);
         })
         .catch((err) => {
           if (!err) {
@@ -319,17 +327,17 @@ function FormComponent(props) {
         .finally(() => {
           setisloading(false);
         });
-        if(localStorage.getItem("dm-access_token")){
-          httpClient
-          .POST("create-appointment", finaldata, false,false)
+      if (localStorage.getItem("dm-access_token")) {
+        httpClient
+          .POST("create-appointment", finaldata, false, false)
           .then((resp) => {
             notify.success("Appointment booked successfully");
           })
           .catch((err) => notify.error("Error in appointment booking"));
-        }
+      }
     };
   const submitForLoggedInCase = (values) => {
-  console.log("values are", values);
+    console.log("values are", values);
   };
 
   return (
@@ -355,7 +363,11 @@ function FormComponent(props) {
                     name="firstName"
                   />
                   <ErrorMessage name="firstName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => (
+                      <div className="error-mssg" style={{ color: "red" }}>
+                        {msg}
+                      </div>
+                    )}
                   </ErrorMessage>
                 </div>
                 <div className="form-group col-md-4">
@@ -380,7 +392,11 @@ function FormComponent(props) {
                     name="lastName"
                   />
                   <ErrorMessage name="lastName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => (
+                      <div className="error-mssg" style={{ color: "red" }}>
+                        {msg}
+                      </div>
+                    )}
                   </ErrorMessage>
                 </div>
               </div>
@@ -397,7 +413,11 @@ function FormComponent(props) {
                     name="email"
                   />
                   <ErrorMessage name="email">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => (
+                      <div className="error-mssg" style={{ color: "red" }}>
+                        {msg}
+                      </div>
+                    )}
                   </ErrorMessage>
                 </div>
                 <div className="form-group col-md-6">
@@ -412,7 +432,11 @@ function FormComponent(props) {
                     name="mobileNumber"
                   />
                   <ErrorMessage name="mobileNumber">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => (
+                      <div className="error-mssg" style={{ color: "red" }}>
+                        {msg}
+                      </div>
+                    )}
                   </ErrorMessage>
                 </div>
               </div>
@@ -423,7 +447,11 @@ function FormComponent(props) {
                   </label>
                   <SelectField name={"servicesId"}></SelectField>
                   <ErrorMessage name="servicesId">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => (
+                      <div className="error-mssg" style={{ color: "red" }}>
+                        {msg}
+                      </div>
+                    )}
                   </ErrorMessage>
                 </div>
                 <div className="form-group col-md-6">
@@ -432,7 +460,11 @@ function FormComponent(props) {
                   </label>
                   <SelectFieldDoctor name={"doctorId"}></SelectFieldDoctor>
                   <ErrorMessage name="doctorId">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => (
+                      <div className="error-mssg" style={{ color: "red" }}>
+                        {msg}
+                      </div>
+                    )}
                   </ErrorMessage>
                 </div>
               </div>
@@ -446,7 +478,11 @@ function FormComponent(props) {
 
                     <DatePickerField name={"appointmentDate"}></DatePickerField>
                     <ErrorMessage name="appointmentDate">
-                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                      {(msg) => (
+                        <div className="error-mssg" style={{ color: "red" }}>
+                          {msg}
+                        </div>
+                      )}
                     </ErrorMessage>
                   </div>
                 </div>
@@ -463,7 +499,11 @@ function FormComponent(props) {
                     name="appointmentTime"
                   ></Field>
                   <ErrorMessage name="appointmentTime">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => (
+                      <div className="error-mssg" style={{ color: "red" }}>
+                        {msg}
+                      </div>
+                    )}
                   </ErrorMessage>
                 </div>
               </div>
@@ -471,7 +511,10 @@ function FormComponent(props) {
                 {isloading ? (
                   <Cliploader></Cliploader>
                 ) : (
-                  <button type="submit" className="btn btn-primary btn-block">
+                  <button
+                    type="submit"
+                    className="btn-filter-ma btn btn-primary btn-block"
+                  >
                     Make Appointment
                   </button>
                 )}
@@ -537,9 +580,9 @@ function FormComponent(props) {
           </div>
         </div>
       ) : null}
-      {
-            popupOpen.trigger?<ExternalBookingPayment></ExternalBookingPayment>:null
-          }
+      {popupOpen.trigger ? (
+        <ExternalBookingPayment></ExternalBookingPayment>
+      ) : null}
     </div>
   );
 }

@@ -1,0 +1,119 @@
+.corporate-dashboard-main {
+  width: 80%;
+  margin-bottom: 50px;
+}
+.corporate-dashboard-main1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+#corp-dash-head-txt {
+  font-size: 16px;
+  font-weight: 500;
+}
+.corp-dash-date-time {
+  height: 40px;
+  border: 0.5px solid #dfe0eb;
+  padding: 0 15px;
+  border-radius: 6px;
+}
+#corp-date-time-txt {
+  color: #596579;
+  font-size: 13.33px;
+}
+.corporate-dashboard-main2 {
+  margin-top: 3rem;
+  display: flex;
+  gap: 1.2rem;
+}
+.corp-dash-calendar {
+  background: white;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  width: 25%;
+  padding: 12px 12px 0px 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.corp-dash-calendar1 {
+  border-bottom: 7px solid #1071e5;
+}
+.corp-dash-calendar2 {
+  border-bottom: 7px solid #c056ed;
+}
+.corp-dash-calendar3 {
+  border-bottom: 7px solid #f06648;
+}
+.corp-dash-calendar4 {
+  border-bottom: 7px solid #2db539;
+}
+.corp-calendar-body1 {
+  display: flex;
+  justify-content: space-between;
+}
+.corp-calendar-body1 h1 {
+  padding-top: 8px;
+  font-size: 30px;
+  font-weight: 700;
+}
+.corp-calendar-1 {
+  padding-top: 2px;
+  border: 1px solid #1071e5;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1071e5;
+  color: white;
+}
+.corp-calendar-2 {
+  padding-top: 2px;
+  border: 1px solid #c056ed;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c056ed;
+  color: white;
+}
+.corp-calendar-3 {
+  padding-top: 2px;
+  border: 1px solid #f06648;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f06648;
+  color: white;
+}
+.corp-calendar-4 {
+  padding-top: 2px;
+  border: 1px solid #2db539;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2db539;
+  color: white;
+}
+
+.corp-calendar-1 span {
+  font-size: 18px;
+}
+.corp-calendar-bottom {
+}
+.corp-calendar-bottom p {
+  font-size: 12px;
+  font-weight: 500;
+  color: #596579;
+}

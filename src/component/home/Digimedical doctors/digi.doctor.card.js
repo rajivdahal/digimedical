@@ -52,8 +52,9 @@ const DigiMedicalDoctorCard = (props) => {
     month: dt.getMonth() + 1,
     day: dt.getDate(),
   });
-  const date =
-    selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
+
+  const date = selectedDay.year + "-" + selectedDay.month + "-" + selectedDay.day;
+
   const [appointmentData, setData] = useState({
     firstName: "",
     lastName: "",
@@ -82,7 +83,6 @@ const DigiMedicalDoctorCard = (props) => {
   const bookAppointment = (data) => {
 
     let tempForm = showForm === true ? false : true;
-    console.log("props are", data);
     if (!showForm) {
       setDoctorInfo(data);
     }
@@ -116,7 +116,6 @@ const DigiMedicalDoctorCard = (props) => {
           true
         );
         if (resp.data.status) {
-          console.log("inside if", resp.data);
           setAppointmentFixed({
             data: resp.data.data,
             origin: "digidoctorBooking",

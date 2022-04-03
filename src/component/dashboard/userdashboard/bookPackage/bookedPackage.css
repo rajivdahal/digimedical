@@ -1,0 +1,227 @@
+.fam-package-user-dash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(
+      177.28deg,
+      rgba(82, 178, 229, 0.14) 2.16%,
+      rgba(255, 255, 255, 0) 109.75%
+    );
+  }
+  
+  .fam-card-img {
+    background: #f0f2ff;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 20px 30px;
+  }
+  .fam-card-img img {
+    width: 120px;
+    height: 100px;
+  }
+  #fam-card-text-head {
+    font-size: 19.16px;
+    font-weight: 500;
+  }
+  #fam-pack-type {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0.02em;
+    color: #596579;
+  }
+  #fam-card-but {
+    padding: 10px 24px;
+    border: 1px solid #2745f0;
+    color: #2745f0;
+    background: white;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 11.67px;
+    line-height: 15px;
+    transition: 0.5s;
+  }
+  #fam-card-but:hover {
+    background: #2745f0;
+    color: white;
+  }
+  
+  /* booked packages list here */
+  
+  .fam-pack-breadcrump {
+    position: relative;
+    left: -10%;
+  }
+  .fam-pack-list {
+    margin-top: 3rem;
+    background: #ffffff;
+    border: 1px solid #d0d7e2;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 20px;
+    width: 50%;
+  }
+  .fam-pack-list1 {
+    display: flex;
+    justify-content: space-between;
+  }
+  #fam-list-powner {
+    font-size: 13.33px;
+    line-height: 20px;
+    color: #596579;
+  }
+  .fam-pack-list-pmember {
+    width: 50%;
+    display: flex;
+    gap: 5px;
+  }
+  .fam-pac-mem-list {
+    width: 50%;
+  }
+  .fam-pac-mem-list ul li {
+    width: 100%;
+    margin-top: 5px;
+    background: #f0f2ff;
+    border-radius: 4px;
+    font-size: 13.33px;
+    line-height: 20px;
+    color: #374253;
+    padding: 5px 10px;
+  }
+  
+  .fam-pack-list-but {
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    justify-content: flex-end;
+  }
+  
+  #fam-card-but2 {
+    margin-left: 20px;
+    padding: 10px 24px;
+    border: 1px solid #2745f0;
+    color: white;
+    background: #2745f0;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 11.67px;
+    line-height: 15px;
+    transition: 0.5s;
+  }
+  
+  #fam-card-but2:hover {
+    filter: brightness(90%);
+  }
+  
+  #healthpackages:hover {
+    text-decoration: none;
+    filter: contrast(200%);
+  }
+  
+  @media screen and (max-width: 990px) {
+    .fam-pack-list {
+      width: 70%;
+    }
+    .fam-pack-list1 {
+      flex-direction: column;
+    }
+    .fam-pack-list-pmember {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    .fam-pack-list-pmember {
+      flex-direction: column;
+    }
+    .fam-pac-mem-list {
+      width: 100%;
+    }
+    .fam-pac-mem-txt {
+      width: 80%;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .fam-pack-list {
+      width: 100%;
+    }
+    .fam-pack-list-but {
+      flex-direction: column;
+    }
+    #fam-card-but {
+      width: 100%;
+    }
+    #fam-card-but2 {
+      margin-top: 20px;
+      margin-left: 0;
+    }
+  }
+  
+  /* 
+  h
+  e
+  r
+  e is family package edit page */
+  .fam-pack-edit {
+    margin-top: 3rem;
+    background: #ffffff;
+    border: 1px solid #d0d7e2;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 20px;
+    width: 25%;
+  }
+  .fam-pack-edit-mem {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .fam-pack-edit-mem1 {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  .fam-pack-edit-mem1 input {
+    margin-top: 5px;
+    float: right;
+    background: #f0f2ff;
+    border-radius: 4px;
+    border: none;
+    height: 30px;
+    width: 65%;
+    padding: 10px;
+  }
+  .fam-pack-edit-mem1 input::placeholder {
+    color: #a7b2c3;
+    font-size: 12px;
+  }
+  
+  #pack-edit-mem-txt {
+    font-size: 13.33px;
+    color: #374253;
+    font-weight: 400;
+    width: 75px;
+  }
+  
+  @media screen and (max-width: 1300px) {
+    .fam-pack-edit {
+      width: 50%;
+    }
+  }
+  
+  /* @media screen and (max-width: 600px) {
+    .fam-pack-edit {
+      width: 80%;
+    }
+  } */
+  
+  @media screen and (max-width: 600px) {
+    .fam-pack-edit {
+      width: 100%;
+    }
+  }
+  

@@ -1,26 +1,25 @@
-
-.modal .modal-dialog .modal-content .modal-header{
-padding: 15px 28px;
+.modal .modal-dialog .modal-content .modal-header {
+  padding: 15px 28px;
 }
 
-.modal .modal-dialog .modal-content .modal-body{
-    padding: 20px 28px;
+.modal .modal-dialog .modal-content .modal-body {
+  padding: 20px 28px;
 }
-.modal .modal-dialog .modal-content .modal-footer { 
-    padding: 8px 31px;
-}
-
-.error-message{
-    margin-top: 3px;
-    color: red;
-    font-size: 14px;
+.modal .modal-dialog .modal-content .modal-footer {
+  padding: 8px 31px;
 }
 
-.textAlign-right{
-    text-align: right;
+.error-message {
+  margin-top: 3px;
+  color: red;
+  font-size: 14px;
 }
 
-.submit-button{
-    background-color: '#2745F0';
-     color: "#fff";
+.textAlign-right {
+  text-align: right;
+}
+
+.submit-button {
+  background-color: "#2745F0";
+  color: "#fff";
 }

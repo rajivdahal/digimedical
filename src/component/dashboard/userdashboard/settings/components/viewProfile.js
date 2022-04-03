@@ -6,6 +6,7 @@ import "./editProfile.css";
 const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 const ViewProfile = (props) => {
   const [selectedImage, setImage] = useState("");
+
   const getUser = () => {
     let id = localStorage.getItem("userid");
     let url = REACT_APP_BASE_URL + "download/" + id;
@@ -71,14 +72,14 @@ const ViewProfile = (props) => {
               <div className="info-block">
                 <span className="info-label">Height</span>
                 <span>:</span>
-                <span className="info-value">{props.height}</span>
+                <span className="info-value">{props.height} ft</span>
               </div>
             </Col>
             <Col md={6}>
               <div className="info-block">
                 <span className="info-label">Weight</span>
                 <span>:</span>
-                <span className="info-value">{props.weight}</span>
+                <span className="info-value">{props.weight} kg</span>
               </div>
             </Col>
             <Col md={6}>
@@ -110,9 +111,10 @@ const ViewProfile = (props) => {
               <div className="info-block">
                 <span className="info-label">Father's Name</span>
                 <span>:</span>
-                <span className="info-value">Prem Gautam Ale</span>
+                <span className="info-value">{props.fathername}</span>
               </div>
             </Col>
+            
           </Row>
         </Col>
       </Row>

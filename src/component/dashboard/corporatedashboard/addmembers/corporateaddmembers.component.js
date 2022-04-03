@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import "./corporateaddmembers.component.css"
-import MaterialTable from 'material-table'
+import MaterialTable from 'material-table';
 import { Clear, Add } from "@material-ui/icons";
 import { Formik, Field, Form } from 'formik';
 import { httpClient } from '../../../../utils/httpClient';
@@ -28,7 +28,7 @@ export default function Corporateaddmember(props) {
                 setLoading(false)
             })
             .catch(err => {
-                notify.error("Something went wrong")
+                // notify.error("Something went wrong")
                 setLoading(false)
             })
     }

@@ -1,85 +1,308 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import WysiwygRoundedIcon from '@mui/icons-material/WysiwygRounded';
+import Accordion from "react-bootstrap/Accordion";
+import { useSelector } from "react-redux";
 
 const Corporatesidebar = (props) => {
   const history = useHistory();
+
+  const sidebar = useSelector((state) => state.sidebar);
+  const isSidebaropen = sidebar.isopen;
+
   const navigateDashboard = () => {
-    history.push("/dashboard/")
-  }
-  const navigateAddMembers=()=>{
-    history.push("/dashboard/corporate/add-members")
+    history.push("/dashboard/");
+  };
+  const navigateAddMembers = () => {
+    history.push("/dashboard/corporate/add-members");
+  };
 
-  }
-
-  const handlePackage=()=>{
-    history.push("/dashboard/corporate/book-packages")
-
-  }
+  const handlePackage = () => {
+    history.push("/dashboard/corporate/book-packages");
+  };
   return (
     <>
-      <nav className="sidebar sidebar-offcanvas" id="sidebar">
-        <p className="centered mt-3"><div href="profile.html">
-          {/* <img className="img-circle user-img-circle img-fluid" width="80" /> */}
-        </div></p>
-        <ul className="nav">
-          <li className="nav-item" onClick={navigateDashboard} style={{ cursor: "pointer" }}>
-            <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="doctors">
-              <i className="fas fa-bars menu-icon"></i>
-              <span className="menu-title">dashboard</span>
-            </a>
-          </li>
-          <li className="nav-item">
-            <div className="nav-link" data-toggle="collapse" href="#appointment" aria-expanded="false" aria-controls="appointment" style={{ cursor: "pointer" }}>
-              <i className="icon-layout menu-icon"></i>
-              <span className="menu-title">Appointments</span>
-              <i className="menu-arrow"></i>
-            </div>
-            <Link to="/dashboard/corporate/viewappointment">
-              <div className="collapse" id="appointment">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"> <div className="nav-link" href="">View Appointment</div></li>
+      <div>
+        <div className="newdash_body">
+          <div className="newdash_dash_main">
+            <div className="newdash_dash1">
+              <Accordion>
+                <ul>
+                  <li onClick={navigateDashboard} style={{ cursor: "pointer" }}>
+                    <p id="newdash_dash1_cont1p">
+                      {" "}
+                      <span id="newdash_bar_ico">
+                        {" "}
+                        <i class="fas fa-bars"></i>
+                      </span>{" "}
+                      &nbsp;Dashboard
+                    </p>
+                  </li>
+                  <li>
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>
+                        <span id="newdash_bar_ico">
+                          <i class="fas fa-user-clock"></i>
+                        </span>
+                        &nbsp;Appointments
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <ul className="accordion-body">
+                          <li>
+                            <Link
+                              to="/dashboard/corporate/viewappointment"
+                              style={{
+                                textDecoration: "none",
+                                color: "inherit",
+                              }}
+                            >
+                              <p style={{ cursor: "pointer" }}>
+                                View Appointment
+                              </p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/corporate/bookappointment"
+                              style={{
+                                textDecoration: "none",
+                                color: "inherit",
+                              }}
+                            >
+                              <p style={{ cursor: "pointer" }}>
+                                {" "}
+                                Book Appointment
+                              </p>
+                            </Link>
+                          </li>
+                        </ul>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </li>
+                  <li>
+                    <Accordion.Item eventKey="1">
+                      <Accordion.Header>
+                        <span id="newdash_bar_ico">
+                          {" "}
+                          <i class="fas fa-file-medical"></i>
+                        </span>
+                        &nbsp;Members
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <ul className="accordion-body">
+                          <li>
+                            <Link
+                              to="/dashboard/corporate/add-users"
+                              style={{
+                                textDecoration: "none",
+                                color: "inherit",
+                              }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Add Users</p>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/dashboard/corporate/add-members"
+                              style={{
+                                textDecoration: "none",
+                                color: "inherit",
+                              }}
+                            >
+                              <p style={{ cursor: "pointer" }}>Members Table</p>
+                            </Link>
+                          </li>
+                        </ul>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </li>
+
+                  {/* <li>
+                  <Accordion.Item eventKey="2">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        <i class="fas fa-user-clock"></i>
+                      </span>
+                      &nbsp;Package
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/book-package"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>
+                              {" "}
+                              Book Package
+                            </p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/booked-packages"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>
+                              {" "}
+                              Booked Package
+                            </p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li> */}
                 </ul>
-              </div>
-            </Link>
-            <Link to="/dashboard/corporate/bookappointment">
-              <div className="collapse" id="appointment">
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"> <div className="nav-link" href="">Book Appointment</div></li>
-                </ul>
-              </div>
-            </Link>
-          </li>
-
-
-          <li className="nav-item">
-            <a className="nav-link" data-toggle="collapse" href="#members" aria-expanded="false" aria-controls="members">
-            <i class="fas fa-users menu-icon"></i>
-              <span className="menu-title">Members</span>
-              <i className="menu-arrow"></i>
-            </a>
-            <div className="collapse" id="members">
-              <ul className="nav flex-column sub-menu">
-              <Link to="/dashboard/corporate/add-members">
-                  <li className="nav-item"><a className="nav-link" href="">Members Table</a></li>
-                </Link>
-                <Link to="/dashboard/corporate/add-users">
-                <li className="nav-item"><a className="nav-link" href="">Add Users</a></li>
-                </Link>
-              </ul>
+              </Accordion>
             </div>
-          </li>
+          </div>
 
-          <li className="nav-item" onClick={handlePackage} style={{ cursor: "pointer" }}>
-            <a className="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="package">
-              <i className="fas fa-bars menu-icon"></i>
-              <span className="menu-title">Packages</span>
-            </a>
-          </li>
+          {/* mobile view sidebar */}
+          {isSidebaropen ? (
+            <div class="mobile-dashboard">
+              <div className="newdash_dash1">
+                <Accordion>
+                  <ul>
+                    <li
+                      onClick={navigateDashboard}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <p id="newdash_dash1_cont1p">
+                        {" "}
+                        <span id="newdash_bar_ico">
+                          {" "}
+                          <i class="fas fa-bars"></i>
+                        </span>{" "}
+                        &nbsp;Dashboard
+                      </p>
+                    </li>
+                    <li>
+                      <Accordion.Item eventKey="0">
+                        <Accordion.Header>
+                          <span id="newdash_bar_ico">
+                            <i class="fas fa-user-clock"></i>
+                          </span>
+                          &nbsp;Appointments
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          <ul className="accordion-body">
+                            <li>
+                              <Link
+                                to="/dashboard/corporate/viewappointment"
+                                style={{
+                                  textDecoration: "none",
+                                  color: "inherit",
+                                }}
+                              >
+                                <p style={{ cursor: "pointer" }}>
+                                  View Appointment
+                                </p>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/dashboard/corporate/bookappointment"
+                                style={{
+                                  textDecoration: "none",
+                                  color: "inherit",
+                                }}
+                              >
+                                <p style={{ cursor: "pointer" }}>
+                                  {" "}
+                                  Book Appointment
+                                </p>
+                              </Link>
+                            </li>
+                          </ul>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    </li>
+                    <li>
+                      <Accordion.Item eventKey="1">
+                        <Accordion.Header>
+                          <span id="newdash_bar_ico">
+                            {" "}
+                            <i class="fas fa-file-medical"></i>
+                          </span>
+                          &nbsp;Members
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          <ul className="accordion-body">
+                            <li>
+                              <Link
+                                to="/dashboard/corporate/add-users"
+                                style={{
+                                  textDecoration: "none",
+                                  color: "inherit",
+                                }}
+                              >
+                                <p style={{ cursor: "pointer" }}>Add Users</p>
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/dashboard/corporate/add-members"
+                                style={{
+                                  textDecoration: "none",
+                                  color: "inherit",
+                                }}
+                              >
+                                <p style={{ cursor: "pointer" }}>
+                                  Members Table
+                                </p>
+                              </Link>
+                            </li>
+                          </ul>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    </li>
 
-        </ul>
-      </nav>
+                    {/* <li>
+                  <Accordion.Item eventKey="2">
+                    <Accordion.Header>
+                      <span id="newdash_bar_ico">
+                        <i class="fas fa-user-clock"></i>
+                      </span>
+                      &nbsp;Package
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <ul className="accordion-body">
+                        <li>
+                          <Link
+                            to="/dashboard/book-package"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>
+                              {" "}
+                              Book Package
+                            </p>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/dashboard/booked-packages"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <p style={{ cursor: "pointer" }}>
+                              {" "}
+                              Booked Package
+                            </p>
+                          </Link>
+                        </li>
+                      </ul>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </li> */}
+                  </ul>
+                </Accordion>
+              </div>
+            </div>
+          ) : null}
+
+          {/* mobile view sidebar */}
+        </div>
+      </div>
     </>
-  )
-}
-export default Corporatesidebar
+  );
+};
+export default Corporatesidebar;

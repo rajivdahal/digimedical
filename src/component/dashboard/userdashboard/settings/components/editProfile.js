@@ -1,12 +1,11 @@
-import { Form, Formik, Field } from "formik";
+import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useState, useRef, useEffect } from "react";
 import { Col, Container, Row, Button, Image } from "react-bootstrap";
 import { httpClient } from "../../../../../utils/httpClient";
-import Avatar from "../../../../../assets/avatars.png";
 import { notify } from "../../../../../services/notify";
 import { useHistory } from "react-router-dom";
 import Select from "react-select";
-
+import * as Yup from 'yup';
 import "./editProfile.css";
 import "../userprofile.css";
 import { BLOODGROUP } from "../../../../../constants/constants";
@@ -36,25 +35,18 @@ const EditProfile = (props) => {
     bloodGroup: "A+",
   });
 
-  function validateEmail(value) {
-    let error;
-    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
-      error = "Invalid email format!";
-    }
-    return error;
-  }
+  const EditProfileSchema = Yup.object().shape({
+    address: Yup.string().required("Address is required!"),
+    dob: Yup.string().required('DOB is required!'),
+    weight: Yup.number().typeError('You must specify a number!')
+      .required('Weight is required!'),
+    height: Yup.number().typeError('You must specify a number')
+      .required('Height is required!'),
+    contactNo: Yup.number().typeError('You must specify a number')
+      .required('Contact Number is required!'),
+    fatherName: Yup.string().required('Father Name is required!'),
 
-  function validateContactNo(value) {
-    let error;
-    if (!value) {
-      error = "Required!";
-    } else if (("" + value).length != 10) {
-      error = "Mobile Number must be of 10 digits!";
-    } else if (("" + value).includes("-")) {
-      error.contactNo = "Mobile Number can't be Negative!";
-    }
-    return error;
-  }
+  });
 
   const getUser = () => {
     let id = localStorage.getItem("userid");
@@ -82,9 +74,9 @@ const EditProfile = (props) => {
     getUser();
   }, []);
 
-  const updateProfile = (values) => {
-    let formData = new FormData();
+  const updateProfile = async (values) => {
 
+    let formData = new FormData();
     if (values.image) {
       formData.append("image", values.image);
     }
@@ -107,19 +99,19 @@ const EditProfile = (props) => {
     formData.append("mobileNumber", values.contactNo);
     formData.append("fatherName", values.fatherName);
 
-    httpClient
-      .PUT("update-user", formData, false, true, "formdata")
-      .then((resp) => {
-        if (resp.data.status) {
-          notify.success(resp.data.message);
-          props.gotoView();
-        }
-      })
-      .catch((err) => {
-        if (err && err.response && err.response.data) {
-          notify.error(err.response.data.message || "Something went wrong");
-        }
-      });
+    try {
+      let resp = await httpClient.PUT("update-user", formData, false, true, "formdata");
+      console.log(resp);
+      if (resp.data.status) {
+        notify.success(resp.data.message);
+        props.gotoView();
+      }
+    } catch (err) {
+      console.log(err)
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
   };
 
   const cancelProfileEdit = () => {
@@ -163,7 +155,9 @@ const EditProfile = (props) => {
         <Formik
           enableReinitialize={true}
           initialValues={userProfile}
+          validationSchema={EditProfileSchema}
           onSubmit={(values) => {
+            console.log(`onSubmit`, values);
             updateProfile(values);
           }}
         >
@@ -236,6 +230,9 @@ const EditProfile = (props) => {
                             name="address"
                             className="form-control profile-field"
                           />
+                          <div className="error-message">
+                            <ErrorMessage name="address"></ErrorMessage>
+                          </div>
                         </div>
                       </Col>
 
@@ -244,13 +241,9 @@ const EditProfile = (props) => {
                           <label>Email : </label>
                           <Field
                             name="email"
-                            validate={validateEmail}
                             className="form-control profile-field"
                             disabled
                           />
-                          {errors.email && touched.email && (
-                            <div className="error-message">{errors.email}</div>
-                          )}
                         </div>
                       </Col>
                       <Col md={4}>
@@ -296,24 +289,36 @@ const EditProfile = (props) => {
                             className="form-control profile-field"
                             type="date"
                           />
+                          <div className="error-message">
+                            <ErrorMessage name="address"></ErrorMessage>
+                          </div>
+
                         </div>
                       </Col>
                       <Col md={4}>
                         <div className=" form-group select-label">
-                          <label>Weight : </label>
+                          <label>Weight(in kg) : </label>
                           <Field
                             name="weight"
                             className="form-control profile-field"
                           />
+                          <div className="error-message">
+                            <ErrorMessage name="weight"></ErrorMessage>
+                          </div>
+
                         </div>
                       </Col>
                       <Col md={4}>
                         <div className=" form-group select-label">
-                          <label>Height : </label>
+                          <label>Height(in ft) : </label>
                           <Field
                             name="height"
                             className="form-control profile-field"
                           />
+                          <div className="error-message">
+                            <ErrorMessage name="height"></ErrorMessage>
+                          </div>
+
                         </div>
                       </Col>
                       <Col md={4}>
@@ -321,9 +326,12 @@ const EditProfile = (props) => {
                           <label>Contact Number : </label>
                           <Field
                             name="contactNo"
-                            validate={validateContactNo}
                             className="form-control profile-field"
                           />
+                          <div className="error-message">
+                            <ErrorMessage name="contactNo"></ErrorMessage>
+                          </div>
+
                         </div>
                       </Col>
                       <Col md={6}>
@@ -333,6 +341,10 @@ const EditProfile = (props) => {
                             name="fatherName"
                             className="form-control profile-field"
                           />
+                          <div className="error-message">
+                            <ErrorMessage name="fatherName"></ErrorMessage>
+                          </div>
+
                         </div>
                       </Col>
                       {userstatus === "300" ? null : (

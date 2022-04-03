@@ -5,7 +5,7 @@
   justify-content: center;
 }
 .digi_doc_appointmain1 {
-  margin-top: 10%;
+  margin-top: 4.5rem;
 }
 .digi_doc_appoint_bod {
   width: 80%;
@@ -353,4 +353,10 @@ p {
     grid-template-columns: repeat(1, 1fr);
     /* grid-template-areas: "one two three four five six" "seven eight nine ten eleven twelve"; */
   }
+}
+
+/* for make appointment button */
+
+.btn-filter-ma:hover {
+  filter: brightness(90%);
 }

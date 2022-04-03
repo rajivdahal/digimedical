@@ -160,7 +160,7 @@ y here */
 .doc_accordion .accordion {
   position: relative;
   padding: 0;
-  width: 70%;
+
   margin: 0;
   z-index: 1;
 }
@@ -209,6 +209,10 @@ y here */
 
 .doc_accordion .accordion-body {
   background: #f5faff;
+}
+
+.doc_accordion .accordion-button::after {
+  margin-left: 10px;
 }
 
 /* border: 1px solid red; */

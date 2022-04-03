@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ConnectionWall from "../../../assets/ConnectionWall.png";
 import smile from "../../../assets/smile.png";
@@ -7,6 +7,8 @@ import hospital from "../../../assets/hospital.png";
 import medical from "../../../assets/medical.png";
 import CountUp from "react-countup";
 import "./connection.css";
+import { httpClient } from "../../../utils/httpClient";
+import { notify } from "../../../services/notify";
 const Root = styled.div`
   position: absolute;
   // align-items: center;
@@ -219,6 +221,33 @@ const MedicalIndustries = styled.div`
   }
 `;
 const Conection = () => {
+
+  const [allCount, setAllCount] = useState([])
+
+  const getTotalCounts = async () => {
+
+    try {
+      let resp = await httpClient.GET("total-users");
+      console.log(resp);
+      if (resp.data.status) {
+        let count = resp.data.data;
+
+        setAllCount(count)
+      }
+    } catch (err) {
+      if (
+        err &&
+        err.response &&
+        err.response.data &&
+        err.response.data.message
+      ) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
+    }
+  }
+  useEffect(() => {
+    getTotalCounts();
+  }, [])
   return (
     <Root
       style={{
@@ -229,35 +258,51 @@ const Conection = () => {
         backgroundColor: '#fff',
       }}
     >
-      <HappyClient className="floating-item">
-        <img src={smile} className="icon"></img>
-        <span className="counter">
-          <CountUp end={1000} duration={3} />+
-        </span>
-        <span className="subtitle">Happy clients</span>
-      </HappyClient>
-      <Doctor className="floating-item">
-        <img src={doctor} className="icon"></img>
-        <span className="counter">
-          <CountUp end={100} duration={2} />+
-        </span>
-        <span className="subtitle">Doctors</span>
-      </Doctor>
-      <Hospital className="floating-item">
-        <img src={hospital} className="icon"></img>
-        <span className="counter">
-          <CountUp end={50} duration={1} />+
-        </span>
-        <span className="subtitle">Hospitals</span>
-      </Hospital>
-      <MedicalIndustries className="floating-item">
-        <img src={medical} className="icon"></img>
-        <span className="counter">
-          {" "}
-          <CountUp end={300} duration={2} />+
-        </span>
-        <span className="subtitle">Medical Industries</span>
-      </MedicalIndustries>
+
+      {allCount.map((item) => {
+        return item.type == "user" ?
+          <HappyClient className="floating-item">
+            <img src={smile} className="icon"></img>
+            <span className="counter">
+              <CountUp end={item.numbers} duration={3} delay={0} />+
+            </span>
+            <span className="subtitle">Happy clients</span>
+          </HappyClient>
+
+          : item.type == "hospital" ?
+            <Hospital className="floating-item">
+              <img src={hospital} className="icon"></img>
+              <span className="counter">
+                <CountUp end={item.numbers} duration={3} />+
+              </span>
+              <span className="subtitle">Hospitals</span>
+            </Hospital>
+
+            : item.type == "doctors" ?
+
+              <Doctor className="floating-item">
+                <img src={doctor} className="icon"></img>
+                <span className="counter">
+                  <CountUp end={item.numbers} duration={3} />+
+                </span>
+                <span className="subtitle">Doctors</span>
+              </Doctor>
+
+              : item.type == "corporate" ?
+
+                <MedicalIndustries className="floating-item">
+                  <img src={medical} className="icon"></img>
+                  <span className="counter">
+                    {" "}
+                    <CountUp end={item.numbers} duration={3} />+
+                  </span>
+                  <span className="subtitle">Medical Industries</span>
+                </MedicalIndustries>
+                :
+                <></>
+
+      })}
+
     </Root>
   );
 };

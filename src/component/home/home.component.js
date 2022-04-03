@@ -118,6 +118,10 @@ const GetAppointment = styled.a`
   align-items: center;
   justify-content: center;
   color: #fff;
+
+  &:hover {
+    filter: brightness(90%);
+  }
 `;
 
 const ConnectionContainor = styled.div`
