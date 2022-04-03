@@ -25,7 +25,7 @@ export default function SearchMember() {
   }
 
   const handleChange = async (e) => {
-    console.log(e.target.value)
+    
     setEmail(e.target.value);
     try {
       const resp = await httpClient.GET("search-user/" + e.target.value, false, true);
@@ -34,46 +34,49 @@ export default function SearchMember() {
       if (resp && resp.data) {
         const { data } = resp.data;
         const options = formatOptions(data)
-        console.log(options)
+      
         setUserEmails(options)
       }
     } catch (err) {
-      console.log(err)
-    }
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }    }
   }
 
   const handleGetDetails = async (data) => {
     setEmail(data);
     setDropdownVisible(false)
-    console.log(data)
+    
     try {
       let resp = await httpClient.GET("get-search-user/" + data, false, true);
-      console.log(resp)
+     
       if (resp.data.status) {
         setUserDetails(resp.data.data)
       }
     } catch (err) {
-      console.log(err)
-    }
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }    }
+    setEmail("")
   }
 
   const handleAddUser = async(email) => {
-    console.log(email);
     let data= {
       email
     }
     try{
       let resp = await httpClient.POST("corporate/add/existing-member",data,false,true);
-      console.log(resp);
+  
       if(resp.data.status) {
         notify.success(resp.data.message);
         history.push("/dashboard/corporate/add-members");
-
         setEmail("");
       }
     }
     catch(err) {
-      console.log(err)
+      if (err && err.response && err.response.data) {
+        notify.error(err.response.data.message || "Something went wrong");
+      }
     }
   }
 
@@ -99,7 +102,7 @@ export default function SearchMember() {
                 overflowX: "none", backgroundColor: "white"
               }}>
                 {userEmails.map((item, index) => {
-                  return <li key={index} onClick={() => handleGetDetails(item.value)}>{item.label}</li>
+                  return <li key={index} style={{cursor : "pointer"}} onClick={() => handleGetDetails(item.value)}>{item.label}</li>
                 })}
               </div>
               :
@@ -145,49 +148,49 @@ export default function SearchMember() {
                 <div className="info-block">
                   <span className="info-label">Address </span>
                   <span>:</span>
-                  <span className="info-value">{ }</span>
+                  <span className="info-value">{userDetails.address }</span>
                 </div>
               </Col>
               <Col md={6}>
                 <div className="info-block">
                   <span className="info-label">DOB</span>
                   <span>:</span>
-                  <span className="info-value">{ }</span>
+                  <span className="info-value">{ userDetails.dateofbirth}</span>
                 </div>
               </Col>
               <Col md={6}>
                 <div className="info-block">
                   <span className="info-label">Age</span>
                   <span>:</span>
-                  <span className="info-value">{ }</span>
+                  <span className="info-value">{ userDetails.age}</span>
                 </div>
               </Col>
               <Col md={6}>
                 <div className="info-block">
                   <span className="info-label">Height</span>
                   <span>:</span>
-                  <span className="info-value">{ }</span>
+                  <span className="info-value">{userDetails.height} ft</span>
                 </div>
               </Col>
               <Col md={6}>
                 <div className="info-block">
                   <span className="info-label">Weight</span>
                   <span>:</span>
-                  <span className="info-value">{ }</span>
+                  <span className="info-value">{ userDetails.weight} kg</span>
                 </div>
               </Col>
               <Col md={6}>
                 <div className="info-block">
                   <span className="info-label">Blood Group</span>
                   <span>:</span>
-                  <span className="info-value">{ }</span>
+                  <span className="info-value">{userDetails.bloodgroup }</span>
                 </div>
               </Col>
               <Col md={6}>
                 <div className="info-block">
                   <span className="info-label">Gender</span>
                   <span>:</span>
-                  <span className="info-value"></span>
+                  <span className="info-value">{userDetails.gender == 1 ? "Female" : "Male"}</span>
                 </div>
               </Col>
 
@@ -195,7 +198,7 @@ export default function SearchMember() {
                 <div className="info-block">
                   <span className="info-label">Contact</span>
                   <span>:</span>
-                  <span className="info-value"></span>
+                  <span className="info-value">{userDetails.mobilenumber}</span>
                 </div>
               </Col>
 
@@ -203,7 +206,7 @@ export default function SearchMember() {
                 <div className="info-block">
                   <span className="info-label">Father's Name</span>
                   <span>:</span>
-                  <span className="info-value">Prem Gautam Ale</span>
+                  <span className="info-value">{userDetails.fathername}</span>
                 </div>
               </Col>
               <div className="corp-srch-last-but">

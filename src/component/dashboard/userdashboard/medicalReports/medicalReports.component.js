@@ -21,6 +21,7 @@ export const MedicalReports = (props) => {
   const dispatch = useDispatch();
   let [image, setImage] = useState([]);
   const [medicalData, setMedicalData] = useState([]);
+  const [imageUploadError, setImgUploadError] = useState(null);
   const medicalReport = {
     hospitalName: "",
     doctorName: "",
@@ -139,12 +140,13 @@ export const MedicalReports = (props) => {
       });
   };
 
-  const handleImageChange = (files,setFieldValue) => {
+  const handleImageChange = (files, setFieldValue) => {
     console.log(files)
     let file = [];
     file.push(files);
     setImage(file);
-    setFieldValue("medicalReportImage",file)
+    setFieldValue("medicalReportImage", file)
+    setImgUploadError(null)
   };
 
   useEffect(() => {
@@ -167,7 +169,7 @@ export const MedicalReports = (props) => {
                     onSubmit={upload}
                     validationSchema={medicalReportSchema}
                   >
-                    {({setFieldValue}) => (
+                    {({ setFieldValue }) => (
                       <Form className=" medical_repo_form ">
                         <div className="margin-adjuster1">
                           <div className="labrepo_text_form ">
@@ -238,16 +240,16 @@ export const MedicalReports = (props) => {
                                 name="followUpDate"
                                 className="prescription_input"
                               />
-                              
+
                             </div>
                             <ErrorMessage
-                                name="followUpDate"
-                                render={(msg) => (
-                                  <div className="err-message-bottom">
-                                    {msg}
-                                  </div>
-                                )}
-                              />
+                              name="followUpDate"
+                              render={(msg) => (
+                                <div className="err-message-bottom">
+                                  {msg}
+                                </div>
+                              )}
+                            />
                           </div>
                         </div>
                         <div className="margin-adjuster2">
@@ -256,15 +258,20 @@ export const MedicalReports = (props) => {
 
                             <div className="file-uploader-lt">
                               <FileUploader
-                                handleChange={(e)=>handleImageChange(e,setFieldValue)}
+                                handleChange={(e) => handleImageChange(e, setFieldValue)}
                                 name="medicalReportImage"
                                 maxSize={1}
                                 types={fileTypes}
+                                onSizeError={(file) => setImgUploadError('Image must be less than or equal to 1 MB!')}
+                                // onTypeError={(err)=> setImgUploadError("not supported")}
                               />
+                              {imageUploadError && <div className="err-message-bottom">
+                                {imageUploadError}
+                              </div>}
                               <ErrorMessage
                                 name="medicalReportImage"
                                 render={(msg) => (
-                                  
+
                                   <div className="err-message-bottom">
                                     {msg}
                                   </div>
