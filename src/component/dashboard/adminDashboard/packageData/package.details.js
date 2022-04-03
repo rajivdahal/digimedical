@@ -139,7 +139,6 @@ const MembershipPackageDetails = (props) => {
             setPackageData({
                 selectedPackage: packageData,
                 details: data.points
-
             })
             window.scrollTo(0, 0)
         }
@@ -236,7 +235,7 @@ const MembershipPackageDetails = (props) => {
                                         return <div className='clearfix'>
                                             <li className='purposeList'>
                                                 <span className='flaotLeft'>{item}</span>
-                                                <span className="removeBtn floatRight" 
+                                                <span className="removeBtn floatRight"
                                                 onClick={()=>removeDetail(index)}>Remove</span>
                                             </li>
                                         </div>

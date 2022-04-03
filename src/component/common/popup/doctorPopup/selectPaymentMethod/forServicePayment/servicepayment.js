@@ -13,7 +13,7 @@ import { resetServicesInfo } from "../../../../../../actions/service.action";
 
 export default function ServicePayment(props) {
   let history = useHistory();
-
+  console.log("props are",props)
   const [paymentUrl,setPaymentUrl]=useState(null)
   // redux implementation
   const dispatch = useDispatch(props);
@@ -85,6 +85,7 @@ export default function ServicePayment(props) {
       )
       .then((resp) => {
         closeDoctorPopUp(true)
+        props.getSelectedServices()
         // if(localStorage.getItem("dm-access_token")){
         //   history.push("/dashboard/viewappointment")
         // }

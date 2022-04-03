@@ -54,7 +54,7 @@ export default function SuccessResponse() {
                 <div>
                   <p>
                     Appointment name : <span> ENT</span>
-                  </p>{" "}
+                  </p>
                   <p>
                     Your Doctor : <span>Dr.Hari Bahadur</span>{" "}
                   </p>{" "}

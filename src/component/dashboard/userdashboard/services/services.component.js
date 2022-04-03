@@ -66,13 +66,16 @@ export default function UserServices(props) {
   }, []);
 
   const getAllServices = () => {
+    console.log("inside get all services")
     httpClient.GET("digi-service/get-all").then((resp) => {
+      console.log("all services are",resp.data.data)
       let allServices = resp.data.data.map((item) => {
         return {
           label: item.name,
           value: item.id,
         };
       });
+
       setAllServices(allServices);
     });
   };
@@ -295,7 +298,7 @@ export default function UserServices(props) {
         </div>
       </div>
       {
-        popupOpen.trigger?<ServicePayment></ServicePayment> : null
+        popupOpen.trigger?<ServicePayment getSelectedServices={()=>getSelectedServices()}></ServicePayment> : null
       }
     </div>
   );
