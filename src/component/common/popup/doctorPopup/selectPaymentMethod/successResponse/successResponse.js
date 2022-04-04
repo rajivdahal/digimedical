@@ -112,7 +112,6 @@ export default function SuccessResponse() {
               {
                 localStorage.getItem("dm-access_token")?<><Link to="/dashboard">Click here</Link> to go dashboard</> :null
               }
-
             </div>
           </div>
         </div>

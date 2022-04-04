@@ -88,7 +88,9 @@ export default function DigiDoctorPayment(props) {
         resetDoctorInfo(true)
         closeDoctorPopUp(true)
         if(localStorage.getItem("dm-access_token")){
-          history.push("/dashboard/viewappointment")
+          props.viewAppointmentUrlSignal==="corporate"?
+          history.push("/dashboard/corporate/viewappointment")
+          :history.push("/dashboard/viewappointment")
         }
         notify.success("Appointment Successfully created");
       })

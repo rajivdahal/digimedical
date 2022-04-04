@@ -27,11 +27,14 @@ import {
   convertAlphabeticMonthToNumeric,
 } from "../../../../utils/dateHelper";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default function Internalappointmentbook(prop) {
 
   const history = useHistory();
+  const location=useLocation()
+  console.log("location is",location)
   const editdata = prop.location.data ? prop.location.data : null;
   const [appointmentsuccess, setappointmentsuccess] = useState(null);
   const [appointmentfailed, setappointmentfailed] = useState(null);
@@ -45,7 +48,7 @@ export default function Internalappointmentbook(prop) {
   const [value, onChange] = useState(
     toeditdata ? toeditdata.appointmenttime : "11:00"
   );
-
+  const [infoUpdated,setInfoUpdated]=useState(false)
   const [finalData, setFinalData] = useState(null);
   var today = new Date();
   var date =
@@ -72,22 +75,29 @@ export default function Internalappointmentbook(prop) {
   //   toeditdata["serviceId"] = toeditdata["serviceId"];
   // }
   const callapi = (url, values) => {
-    // console.log("values are",values)
-    httpClient
-      .POST(url, values, false, true)
-      .then((resp) => {
-        if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
-          history.push("/dashboard/corporate/viewappointment");
-          notify.success("Appointment booked successfully");
-        } else {
-          // prop.history.push("/dashboard/viewappointment");
-          notify.success("Appointment booked successfully");
-        }
-      })
-      .catch((err) => {
-        setappointmentfailed("Something went wrong");
-        notify.error("Appointment unable to book");
-      });
+    console.log("values are",values)
+    values.origin="corporate"
+    doctorAppointmentBookLoading(true);
+    setDigiDoctorAppointment(values);
+    // apiCallForInitialBooking(values)
+    setFinalData(values);
+    openDoctorPopUp(true);
+    // httpClient
+    //   .POST(url, values, false, true)
+    //   .then((resp) => {
+    //     if (prop.location.pathname == "/dashboard/corporate/bookappointment") {
+
+    //       // history.push("/dashboard/corporate/viewappointment");
+    //       notify.success("Appointment booked successfully");
+    //     } else {
+    //       // prop.history.push("/dashboard/viewappointment");
+    //       notify.success("Appointment booked successfully");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setappointmentfailed("Something went wrong");
+    //     notify.error("Appointment unable to book");
+    //   });
   };
   useEffect(() => {
     // debugger
@@ -211,7 +221,9 @@ export default function Internalappointmentbook(prop) {
           .then((resp) => {
             notify.success("Appointment updated successfully");
             prop.location.pathname == "/dashboard/corporate/bookappointment"
-              ? prop.history.push("/dashboard/corporate/viewappointment")
+              ?
+              // console.log("done")
+              prop.history.push("/dashboard/corporate/viewappointment")
               : prop.history.push("/dashboard/viewappointment");
           })
           .catch((err) => {
@@ -262,6 +274,7 @@ export default function Internalappointmentbook(prop) {
     delete formik.errors.servicesId;
     formik.setFieldValue("servicesId", item.value);
     formik.setFieldValue("serviceName", item.label);
+    setInfoUpdated(!infoUpdated)
     httpClient
       .GET(`doctor/get-related-doctor/${item.value}`, false, true)
       .then((resp) => {
@@ -350,13 +363,17 @@ export default function Internalappointmentbook(prop) {
     formik.setFieldValue("doctorId", doctor.value.doctorid);
     formik.setFieldValue("doctorName", doctor.value.name);
     formik.setFieldValue("doctorService", doctor.value.digiService);
+    // formik.errors.doctorService=""
+    // formik.errors.doctorId=""
+    // formik.setErr
+    console.log("doctor value and errors are",formik.values,formik.errors)
     getdoctorinfo(doctor.value.doctorid);
   };
   const handleDateChange = (value) => {
     // console.log("date is",value)
 
     let date = value.year + "-" + value.month + "-" + value.day;
-    if (toeditdata) {
+    if (toeditdata){
       toeditdata.appointmentdate = date;
     } else {
       formik.values.appointmentDate = date;
@@ -482,7 +499,6 @@ export default function Internalappointmentbook(prop) {
       <div className="form-row">
         <div className="form-group col-md-12">
           <label htmlFor="appointment">Appointment Date</label>
-
           <br />
           <div className="internal-appointment-datepicker">
             <DatePicker
@@ -557,7 +573,6 @@ export default function Internalappointmentbook(prop) {
                     <p id="doc_edu">{doctorfetched.prefix}</p>
                   </div>
                   <p id="doc_skill">{doctorfetched.specialist}</p>
-
                   <p id="doc_exp">{doctorfetched.description}</p>
                 </div>
               </div>
@@ -578,6 +593,7 @@ export default function Internalappointmentbook(prop) {
               type="submit"
               className="btn btn-primary btn-block"
               onClick={formik.handleSubmit}
+              disabled={!(formik.dirty)}
             >
               {editdata ? (
                 "Save Changes"
@@ -633,10 +649,11 @@ export default function Internalappointmentbook(prop) {
           className="bookappimage"
         ></img>
       </div>
-      {popUpActionsData.trigger ? (
+      {popUpActionsData.trigger ?(
         <DigiDoctorPayment
           origin="appointmentBooking"
           directBookAppointmentProps={finalData}
+          viewAppointmentUrlSignal={location.pathname==="/dashboard/corporate/bookappointment"?"corporate":"user"}
         ></DigiDoctorPayment>
       ) : null}
     </div>
