@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./usersidebar.component.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
 import { useHistory } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { dashboardClose } from "../../../actions/dashboard.ac";
 export default function Sidebar(props) {
   let history = useHistory();
   const sidebar = useSelector((state) => state.sidebar);
@@ -34,10 +36,20 @@ export default function Sidebar(props) {
   const loadFamilyPackage = () => {
     history.push("/dashboard/family-package");
   };
+  const clickedOutside=()=>{
+    setDashboardFalse()
+    // console.log("clicked outside")
+  }
+   // redux implementation for the closing of sidebar on mobile view when clicked outside
+   let dispatch=useDispatch()
+   let sidebarStatus=useSelector((state)=>state.sidebar)
+   let setDashboardFalse=bindActionCreators(dashboardClose,dispatch)
+   // end of redux implementation for the closing of sidebar on mobile view when clicked outside
   return (
     <div>
       <div className="newdash_body">
-        <div className="newdash_dash_main">
+        {
+          !isSidebaropen? <div className="newdash_dash_main">
           <div className="newdash_dash1">
             <Accordion>
               <ul>
@@ -162,44 +174,16 @@ export default function Sidebar(props) {
                     Services
                   </p>
                 </li>
-                {/* <li>
-                  <Accordion.Item eventKey="2">
-                    <Accordion.Header>
-                      <span id="newdash_bar_ico">
-                        <i class="fas fa-user-clock"></i>
-                      </span>
-                      Package
-                    </Accordion.Header>
-                    <Accordion.Body>
-                      <ul className="accordion-body">
-                        <li>
-                          <Link
-                            to="/dashboard/book-package"
-                            style={{ textDecoration: "none", color: "inherit" }}
-                          >
-                            <p style={{ cursor: "pointer" }}> Book Package</p>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to="/dashboard/booked-packages"
-                            style={{ textDecoration: "none", color: "inherit" }}
-                          >
-                            <p style={{ cursor: "pointer" }}> Booked Package</p>
-                          </Link>
-                        </li>
-                      </ul>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                </li> */}
-
               </ul>
             </Accordion>
           </div>
-        </div>
+        </div>:
 
-        {/* mobile view sidebar */}
-        {isSidebaropen ? (
+
+
+        // {/* mobile view sidebar */}
+
+          <>
           <div class="mobile-dashboard">
             <div className="newdash_dash1">
               <Accordion>
@@ -372,9 +356,12 @@ export default function Sidebar(props) {
               </Accordion>
             </div>
           </div>
-        ) : null}
+             <div style={{position:"absolute",marginLeft:"100px",height:"100vh",width:"40rem"}} onClick={clickedOutside}>
+           </div>
+           </>
+      }
 
-        {/* mobile view sidebar */}
+        // {/* mobile view sidebar */}
       </div>
     </div>
   );
